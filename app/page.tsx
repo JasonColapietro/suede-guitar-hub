@@ -73,16 +73,38 @@ const MENTOR_ROLES = [
 
 const INSIGHTS = [
   {
-    title: "Why players plateau — and the practice structure that breaks it",
+    title: "How to design a guitar practice routine",
     img: "/insight-1.jpg",
+    href: "https://strumly.suedeai.ai/guides/designing-a-practice-routine",
   },
   {
-    title: "Thirty focused minutes a day: how practice actually compounds",
+    title: "How to learn guitar for beginners: a step-by-step path",
     img: "/insight-2.jpg",
+    href: "https://strumly.suedeai.ai/guides/beginner-guitar-learning-path",
   },
   {
-    title: "Gear matters less than feedback: what to buy, what to skip",
+    title: "Signal chain topology: what actually goes where, and why",
     img: "/amp-glow.jpg",
+    href: "https://strumly.suedeai.ai/guides/signal-chain-topology",
+  },
+] as const;
+
+const SONG_LESSONS = [
+  {
+    song: "Purple Haze",
+    href: "https://strumly.suedeai.ai/book/lessons/lesson-purple-haze",
+  },
+  {
+    song: "Comfortably Numb",
+    href: "https://strumly.suedeai.ai/book/lessons/lesson-comfortably-numb",
+  },
+  {
+    song: "Pride and Joy",
+    href: "https://strumly.suedeai.ai/book/lessons/lesson-pride-and-joy",
+  },
+  {
+    song: "Smells Like Teen Spirit",
+    href: "https://strumly.suedeai.ai/book/lessons/lesson-smells-like-teen-spirit",
   },
 ] as const;
 
@@ -316,6 +338,26 @@ export default function Home() {
               made.
             </p>
           </Reveal>
+          <Reveal delay={2}>
+            <p className="mt-14 text-sm font-semibold uppercase tracking-widest text-violet">
+              Start with a real song
+            </p>
+          </Reveal>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {SONG_LESSONS.map((lesson, i) => (
+              <Reveal key={lesson.song} delay={(i % 3) as 0 | 1 | 2}>
+                <a
+                  href={lesson.href}
+                  className="block h-full rounded-2xl bg-indigo-deep p-6 text-left transition hover:-translate-y-1 hover:bg-indigo-mid"
+                >
+                  <h3 className="font-display text-xl text-cream">{lesson.song}</h3>
+                  <p className="mt-2 text-sm text-violet-soft">
+                    The tone, the rig, and the lesson →
+                  </p>
+                </a>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         {/* Insights */}
@@ -334,7 +376,10 @@ export default function Home() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {INSIGHTS.map((post, i) => (
               <Reveal key={post.title} delay={(i % 3) as 0 | 1 | 2}>
-                <article className="h-full overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5">
+                <a
+                  href={post.href}
+                  className="block h-full overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5 transition hover:-translate-y-1 hover:shadow-md"
+                >
                   <div className="relative aspect-[16/10]">
                     <Image
                       src={post.img}
@@ -346,16 +391,26 @@ export default function Home() {
                   </div>
                   <div className="p-6">
                     <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
-                      Coming soon
+                      Guide · Strumly
                     </span>
                     <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">
                       {post.title}
                     </h3>
                   </div>
-                </article>
+                </a>
               </Reveal>
             ))}
           </div>
+          <Reveal delay={2}>
+            <div className="mt-10 text-center">
+              <a
+                href="https://strumly.suedeai.ai/guides"
+                className="inline-flex items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
+              >
+                Browse all guides <span aria-hidden>→</span>
+              </a>
+            </div>
+          </Reveal>
         </section>
 
         {/* Tuition */}
