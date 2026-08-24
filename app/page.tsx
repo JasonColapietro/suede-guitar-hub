@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
 
@@ -122,7 +123,17 @@ export default function Home() {
       <main id="top">
         {/* Hero */}
         <section className="px-3 pt-3">
-          <div className="hero-backdrop relative overflow-hidden rounded-[2rem] px-6 py-24 text-center text-cream md:py-32">
+          <div className="relative overflow-hidden rounded-[2rem] px-6 py-24 text-center text-cream md:py-32">
+            <Image
+              src="/hero-studio.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="hero-backdrop absolute inset-0 opacity-[0.86]" aria-hidden />
+            <div className="relative">
             <Reveal>
               <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-soft">
                 Guitar Accelerator
@@ -149,6 +160,7 @@ export default function Home() {
                 </span>
               </div>
             </Reveal>
+            </div>
           </div>
         </section>
 
@@ -313,8 +325,16 @@ export default function Home() {
 
         {/* Application — dark closer */}
         <section id="apply" className="px-3 pb-3">
-          <div className="hero-backdrop rounded-[2rem] px-6 py-24">
-            <div className="mx-auto max-w-xl">
+          <div className="relative overflow-hidden rounded-[2rem] px-6 py-24">
+            <Image
+              src="/amp-glow.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="hero-backdrop absolute inset-0 opacity-[0.92]" aria-hidden />
+            <div className="relative mx-auto max-w-xl">
               <Reveal>
                 <h2 className="text-center text-4xl text-cream md:text-5xl">
                   Apply to <em className="font-display italic text-peach">GuitarHub.</em>
