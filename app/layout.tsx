@@ -34,7 +34,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* Runs synchronously before any content paints: marks that JS is
+            live so globals.css may apply the hidden scroll-reveal state.
+            Without this class (no-JS readers, crawlers, reader modes) the
+            page renders fully visible with no animation. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

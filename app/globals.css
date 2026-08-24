@@ -28,8 +28,14 @@ body {
   font-family: var(--font-display);
 }
 
-/* Scroll-reveal primitives (driven by components/Reveal.tsx) */
-.reveal {
+/* Scroll-reveal primitives (driven by components/Reveal.tsx).
+
+   The hidden state is gated on html.js (set by the inline script in
+   app/layout.tsx) so content is visible by default: crawlers and readers
+   without JavaScript get the full page, and only script-running browsers
+   ever see the reveal animation. Reveal.tsx also force-reveals everything
+   on a short failsafe timer, so no renderer can capture a blank page. */
+.js .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition:
@@ -38,7 +44,7 @@ body {
   will-change: opacity, transform;
 }
 
-.reveal.is-visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -49,7 +55,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal {
+  .js .reveal {
     opacity: 1;
     transform: none;
     transition: none;
