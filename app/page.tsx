@@ -52,18 +52,37 @@ const MENTOR_ROLES = [
   {
     role: "Lead curriculum mentor",
     focus: "Sequencing, technique rebuilds, and week-by-week practice design.",
+    img: "/mentor-1.jpg",
   },
   {
     role: "Session-player mentor",
     focus: "Groove, feel, and the habits that make playing sit right in a band.",
+    img: "/mentor-2.jpg",
   },
   {
     role: "Theory & fretboard mentor",
     focus: "Making the neck legible — chord logic and scale fluency without the jargon.",
+    img: "/mentor-3.jpg",
   },
   {
     role: "Performance mentor",
     focus: "Recording, stage-readiness, and playing clean under pressure.",
+    img: "/mentor-4.jpg",
+  },
+] as const;
+
+const INSIGHTS = [
+  {
+    title: "Why players plateau — and the practice structure that breaks it",
+    img: "/insight-1.jpg",
+  },
+  {
+    title: "Thirty focused minutes a day: how practice actually compounds",
+    img: "/insight-2.jpg",
+  },
+  {
+    title: "Gear matters less than feedback: what to buy, what to skip",
+    img: "/amp-glow.jpg",
   },
 ] as const;
 
@@ -160,6 +179,25 @@ export default function Home() {
                 </span>
               </div>
             </Reveal>
+            <Reveal delay={3}>
+              <div className="relative mx-auto mt-16 aspect-video max-w-3xl overflow-hidden rounded-3xl ring-1 ring-white/20">
+                <Image
+                  src="/hero-studio.jpg"
+                  alt="Program overview video placeholder"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="scale-125 object-cover object-left"
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-indigo-deep/40">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-cream/90 text-2xl text-indigo-deep">
+                    ▶
+                  </span>
+                  <span className="rounded-full bg-indigo-deep/70 px-4 py-1.5 text-xs uppercase tracking-widest text-white/80">
+                    Program overview — filming with the founding cohort
+                  </span>
+                </div>
+              </div>
+            </Reveal>
             </div>
           </div>
         </section>
@@ -238,10 +276,23 @@ export default function Home() {
             <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {MENTOR_ROLES.map((mentor, i) => (
                 <Reveal key={mentor.role} delay={(i % 3) as 0 | 1 | 2}>
-                  <div className="mentor-card-glow h-full rounded-3xl border border-white/10 p-7">
-                    <div className="h-12 w-12 rounded-full bg-violet-soft/30" aria-hidden />
-                    <h3 className="mt-5 font-display text-xl text-cream">{mentor.role}</h3>
-                    <p className="mt-3 text-sm text-white/70">{mentor.focus}</p>
+                  <div className="mentor-card-glow h-full overflow-hidden rounded-3xl border border-white/10">
+                    <div className="relative aspect-[4/3]">
+                      <Image
+                        src={mentor.img}
+                        alt=""
+                        fill
+                        sizes="(max-width: 640px) 100vw, 300px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <span className="text-[11px] uppercase tracking-widest text-violet-soft">
+                        Announcing soon
+                      </span>
+                      <h3 className="mt-2 font-display text-xl text-cream">{mentor.role}</h3>
+                      <p className="mt-3 text-sm text-white/70">{mentor.focus}</p>
+                    </div>
                   </div>
                 </Reveal>
               ))}
@@ -270,16 +321,41 @@ export default function Home() {
         {/* Insights */}
         <section id="insights" className="mx-auto max-w-6xl px-6 pb-24">
           <Reveal>
-            <div className="rounded-[2rem] bg-cream-soft px-8 py-16 text-center ring-1 ring-ink/5">
-              <h2 className="text-3xl text-indigo-deep md:text-4xl">
-                Insights from <em className="font-display italic">the practice room.</em>
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-ink/70">
-                Essays and breakdowns on how skilled players actually get built —
-                publishing alongside the founding cohort.
-              </p>
-            </div>
+            <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
+              Insights from <em className="font-display italic">the practice room.</em>
+            </h2>
           </Reveal>
+          <Reveal delay={1}>
+            <p className="mx-auto mt-4 max-w-xl text-center text-ink/70">
+              Essays and breakdowns on how skilled players actually get built —
+              publishing alongside the founding cohort.
+            </p>
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {INSIGHTS.map((post, i) => (
+              <Reveal key={post.title} delay={(i % 3) as 0 | 1 | 2}>
+                <article className="h-full overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5">
+                  <div className="relative aspect-[16/10]">
+                    <Image
+                      src={post.img}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                      Coming soon
+                    </span>
+                    <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">
+                      {post.title}
+                    </h3>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         {/* Tuition */}
