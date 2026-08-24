@@ -20,6 +20,10 @@ export default function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (!("IntersectionObserver" in window)) {
+      node.classList.add("is-visible");
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -32,7 +36,19 @@ export default function Reveal({
       { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
     );
     observer.observe(node);
-    return () => observer.disconnect();
+    // Failsafe: reveal below-fold content shortly after mount even if it never
+    // intersects. Renderers that run JS but never scroll (search and AI
+    // crawlers, screenshot tools) must not capture a half-blank page, and a
+    // reveal that fires while the element is still off-screen costs the
+    // scroll-in effect nothing a viewer can see.
+    const failsafe = window.setTimeout(() => {
+      node.classList.add("is-visible");
+      observer.disconnect();
+    }, 1200);
+    return () => {
+      window.clearTimeout(failsafe);
+      observer.disconnect();
+    };
   }, []);
 
   const delayClass = delay ? ` reveal-delay-${delay}` : "";
