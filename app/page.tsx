@@ -339,7 +339,14 @@ export default function Home() {
       <footer className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm text-ink/50 md:flex-row">
         <span className="font-display text-lg text-indigo-deep">GUITARHUB</span>
         <span>
-          A Suede Labs program ·{" "}
+          A Suede Labs program by{" "}
+          <a
+            href="https://suedeai.ai/founder"
+            className="underline hover:text-indigo-deep"
+          >
+            Jason Colapietro
+          </a>{" "}
+          ·{" "}
           <a href="mailto:info@suedeai.ai" className="underline hover:text-indigo-deep">
             info@suedeai.ai
           </a>
