@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f7f3ee;
+  --color-cream-soft: #efe9df;
+  --color-ink: #1c1233;
+  --color-indigo-deep: #251152;
+  --color-indigo-mid: #3b1f7e;
+  --color-violet: #6d28d9;
+  --color-violet-soft: #a78bfa;
+  --color-peach: #f5e2cf;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Scroll-reveal primitives (driven by components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero gradient backdrop — crafted CSS in place of photography for now */
+.hero-backdrop {
+  background:
+    radial-gradient(1100px 520px at 78% -10%, rgba(167, 139, 250, 0.5), transparent 60%),
+    radial-gradient(900px 600px at 12% 110%, rgba(109, 40, 217, 0.55), transparent 65%),
+    linear-gradient(160deg, #2a1458 0%, #3b1f7e 55%, #251152 100%);
+}
+
+.mentor-card-glow {
+  background:
+    radial-gradient(420px 200px at 50% 0%, rgba(167, 139, 250, 0.18), transparent 70%),
+    rgba(255, 255, 255, 0.04);
+}
+
+/* Fine noise-free string texture for section dividers */
+.strings-divider {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 7px,
+    rgba(109, 40, 217, 0.16) 7px,
+    rgba(109, 40, 217, 0.16) 8px
+  );
+}
