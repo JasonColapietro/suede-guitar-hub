@@ -148,7 +148,7 @@ Add a “Build your 30-day plan” hero action, replace the generic phase copy w
 
 Describe GuitarHub as a 30-day guitar practice and feedback system. Avoid tuition, mentor availability, daily-feedback, and outcome claims that are not yet verified.
 
-- [ ] **Step 3: Write the repo handoff**
+- [x] **Step 3: Write the repo handoff**
 
 Record branch, files, test/build commands, exact status, explicit deferrals, advisory caveat, and next deployment step. Do not claim push, deploy, or live verification unless each occurs.
 
