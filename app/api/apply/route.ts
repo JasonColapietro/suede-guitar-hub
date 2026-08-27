@@ -1,31 +1,14 @@
 import { NextResponse } from "next/server";
-
-type ApplyPayload = {
-  name: string;
-  email: string;
-  experience: string;
-  goal: string;
-};
+import { normalizeApplication } from "@/lib/application";
 
 type ApplyResponse =
   | { ok: true }
   | { ok: false; error: string };
 
-const MAX_FIELD = 2000;
-
-function sanitize(value: unknown): string {
-  if (typeof value !== "string") return "";
-  return value.slice(0, MAX_FIELD).replace(/[<>]/g, "").trim();
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 320;
-}
-
 export async function POST(request: Request): Promise<NextResponse<ApplyResponse>> {
-  let body: Partial<Record<keyof ApplyPayload, unknown>>;
+  let body: unknown;
   try {
-    body = (await request.json()) as Partial<Record<keyof ApplyPayload, unknown>>;
+    body = await request.json();
   } catch {
     return NextResponse.json(
       { ok: false, error: "Invalid request body." },
@@ -33,28 +16,20 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
     );
   }
 
-  const payload: ApplyPayload = {
-    name: sanitize(body.name),
-    email: sanitize(body.email),
-    experience: sanitize(body.experience),
-    goal: sanitize(body.goal),
-  };
-
-  if (!payload.name || !isValidEmail(payload.email)) {
+  const normalized = normalizeApplication(body);
+  if (!normalized.ok) {
     return NextResponse.json(
-      { ok: false, error: "Please provide your name and a valid email." },
+      { ok: false, error: normalized.error },
       { status: 400 },
     );
   }
+  const payload = normalized.value;
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     // Degrade gracefully: never throw on missing configuration, and tell the
     // applicant plainly that the form path is down rather than spinning.
-    console.error("apply: RESEND_API_KEY is unset; application not delivered", {
-      name: payload.name,
-      email: payload.email,
-    });
+    console.error("apply: RESEND_API_KEY is unset; application not delivered");
     return NextResponse.json(
       {
         ok: false,
@@ -71,7 +46,7 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Experience: ${payload.experience || "(not given)"}`,
-    `Goal: ${payload.goal || "(not given)"}`,
+    `Goal: ${payload.goal}`,
   ].join("\n");
 
   const response = await fetch("https://api.resend.com/emails", {

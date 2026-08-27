@@ -3,71 +3,66 @@ import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
 
 const NAV_LINKS = [
-  { href: "#program", label: "Program" },
-  { href: "#mentors", label: "Mentors" },
-  { href: "#results", label: "Results" },
-  { href: "#insights", label: "Insights" },
-  { href: "#tuition", label: "Tuition" },
+  { href: "#program", label: "Method" },
+  { href: "/breakthrough", label: "Build a plan" },
+  { href: "#evidence", label: "Evidence" },
+  { href: "#apply", label: "Founding room" },
 ] as const;
 
 const PILLARS = [
   {
-    title: "A curriculum with a spine",
-    body: "Technique, fretboard fluency, rhythm, and repertoire are sequenced so each week builds on the last — no more grab-bag lessons that never add up.",
+    title: "One finish line",
+    body: "Choose one change you can prove in 30 days. GuitarHub removes everything that does not move that specific performance.",
   },
   {
-    title: "Feedback on your actual playing",
-    body: "You submit real practice clips and get specific, actionable notes on them. Progress comes from correction, not consumption.",
+    title: "Evidence every week",
+    body: "A short recording, self-diagnosis, and visible practice action replace watch time, vague streaks, and hoping it sounds better.",
   },
   {
-    title: "Practice software that compounds",
-    body: "Suede Labs tooling tracks what you drill and resurfaces the right material at the right time, so practice minutes stop leaking.",
+    title: "One next correction",
+    body: "The founding room is designed to return the highest-leverage correction and the exact Strumly routine to run next.",
   },
 ] as const;
 
 const PHASES = [
   {
-    phase: "Phase 1",
-    title: "Foundations that hold",
-    body: "Audit and rebuild your technique, timing, and fretboard map so everything after sits on solid ground.",
+    phase: "Week 1",
+    title: "Diagnose honestly",
+    body: "Choose the finish line and record a baseline before polishing, hiding, or restarting.",
   },
   {
-    phase: "Phase 2",
-    title: "Vocabulary and control",
-    body: "Chord logic, scale fluency, and phrasing drills tied to the songs you actually want to play.",
+    phase: "Week 2",
+    title: "Repair the blocker",
+    body: "Isolate the one transition, timing drift, map gap, or phrase that breaks the result.",
   },
   {
-    phase: "Phase 3",
-    title: "Real repertoire, real time",
-    body: "Full pieces performed end to end, recorded, reviewed, and refined until they hold up under pressure.",
+    phase: "Week 3",
+    title: "Add real pressure",
+    body: "Reconnect the repaired skill to a full song, steady click, backing track, or cold prompt.",
   },
   {
-    phase: "Phase 4",
-    title: "Your sound",
-    body: "Improvisation, writing, and tone work that turn the skills into a voice that's recognizably yours.",
+    phase: "Week 4",
+    title: "Perform and compare",
+    body: "Record the final attempt beside the baseline and name the change the evidence supports.",
   },
 ] as const;
 
-const MENTOR_ROLES = [
+const ROOM_RULES = [
   {
-    role: "Lead curriculum mentor",
-    focus: "Sequencing, technique rebuilds, and week-by-week practice design.",
-    img: "/mentor-1.jpg",
+    title: "8–12 players",
+    body: "Small enough for work to be noticed and matched by goal and workable schedule.",
   },
   {
-    role: "Session-player mentor",
-    focus: "Groove, feel, and the habits that make playing sit right in a band.",
-    img: "/mentor-2.jpg",
+    title: "Private by default",
+    body: "Corrections stay private. Progress proof is shared only when the player chooses.",
   },
   {
-    role: "Theory & fretboard mentor",
-    focus: "Making the neck legible — chord logic and scale fluency without the jargon.",
-    img: "/mentor-3.jpg",
+    title: "One weekly studio",
+    body: "Members arrive with evidence and leave with a next practice prescription.",
   },
   {
-    role: "Performance mentor",
-    focus: "Recording, stage-readiness, and playing clean under pressure.",
-    img: "/mentor-4.jpg",
+    title: "No infinite feed",
+    body: "The crew conversation exists to change the next attempt, not compete for attention.",
   },
 ] as const;
 
@@ -111,19 +106,19 @@ const SONG_LESSONS = [
 const FAQS = [
   {
     q: "Who is GuitarHub for?",
-    a: "Committed players — from advanced beginners to intermediates stuck on a plateau — who want structure and accountability rather than another pile of video courses.",
+    a: "Advanced beginners, intermediates, and returning players who already have lessons but need one measurable goal, a sequence, and accountability.",
   },
   {
-    q: "How much time does it take?",
-    a: "Plan on 30–60 minutes of focused practice most days. The program is built around consistent, well-aimed practice rather than marathon sessions.",
+    q: "Can I use the planner without joining?",
+    a: "Yes. The four-week planner is free, needs no account, and stores progress only in your browser.",
   },
   {
-    q: "Is it live or self-paced?",
-    a: "Both: a structured curriculum you move through on your schedule, with regular feedback on your submitted playing and live check-ins along the way.",
+    q: "Is the community already live inside GuitarHub?",
+    a: "No native GuitarHub forum is being claimed. Suede Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
   },
   {
-    q: "What if it's not for me?",
-    a: "Apply and tell us where you are. If we don't think the program fits your goals, we'll say so straight and point you somewhere better.",
+    q: "Does GuitarHub upload my recordings?",
+    a: "Not in this release. The public planner stores only your profile and checked actions in your browser. Any founding-room evidence workflow will be disclosed before you commit.",
   },
 ] as const;
 
@@ -137,7 +132,7 @@ function ApplyButton({ variant = "dark" }: { variant?: "dark" | "light" }) {
       href="#apply"
       className={`inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold transition ${classes}`}
     >
-      Apply Now <span aria-hidden>→</span>
+      Apply to the room <span aria-hidden>→</span>
     </a>
   );
 }
@@ -147,12 +142,12 @@ export default function Home() {
     <>
       <header className="sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" className="font-display text-2xl font-semibold tracking-wide text-indigo-deep">
+          <a href="#top" className="inline-flex min-h-11 items-center font-display text-2xl font-semibold tracking-wide text-indigo-deep">
             GUITARHUB
           </a>
           <nav className="hidden gap-8 text-sm font-medium text-ink/70 md:flex">
             {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="transition hover:text-indigo-deep">
+              <a key={link.href} href={link.href} className="inline-flex min-h-11 items-center transition hover:text-indigo-deep">
                 {link.label}
               </a>
             ))}
@@ -177,24 +172,29 @@ export default function Home() {
             <div className="relative">
             <Reveal>
               <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-soft">
-                Guitar Accelerator
+                30-Day Breakthrough Room
               </span>
             </Reveal>
             <Reveal delay={1}>
               <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight text-cream md:text-6xl">
-                A structured path to{" "}
-                <em className="font-display italic text-peach">real guitar mastery.</em>
+                Stop collecting lessons.{" "}
+                <em className="font-display italic text-peach">Prove one change.</em>
               </h1>
             </Reveal>
             <Reveal delay={2}>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-                Stop collecting lessons and start compounding. GuitarHub pairs a
-                sequenced curriculum with mentor feedback on your actual playing and
-                practice software that keeps every minute pointed at progress.
+                Choose one finish line. Practice the right thing. End every week with
+                evidence and one next move instead of another saved video.
               </p>
             </Reveal>
             <Reveal delay={3}>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <a
+                  href="/breakthrough"
+                  className="inline-flex items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
+                >
+                  Build my 30-day plan <span aria-hidden>→</span>
+                </a>
                 <ApplyButton variant="light" />
                 <span className="rounded-full bg-white/10 px-6 py-3.5 text-sm text-white/80">
                   Built by Suede Labs · the team behind Strumly
@@ -202,23 +202,22 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={3}>
-              <div className="relative mx-auto mt-16 aspect-video max-w-3xl overflow-hidden rounded-3xl ring-1 ring-white/20">
-                <Image
-                  src="/hero-studio.jpg"
-                  alt="Program overview video placeholder"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 768px"
-                  className="scale-125 object-cover object-left"
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-indigo-deep/40">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-cream/90 text-2xl text-indigo-deep">
-                    ▶
+              <a
+                href="/breakthrough"
+                className="mx-auto mt-16 grid max-w-3xl gap-px overflow-hidden rounded-3xl bg-white/15 text-left ring-1 ring-white/20 sm:grid-cols-4"
+              >
+                {[
+                  ["01", "Baseline"],
+                  ["02", "Repair"],
+                  ["03", "Pressure"],
+                  ["04", "Proof"],
+                ].map(([number, label]) => (
+                  <span key={number} className="bg-indigo-deep/70 p-6">
+                    <span className="text-xs font-semibold tracking-widest text-violet-soft">{number}</span>
+                    <span className="mt-2 block font-display text-xl text-cream">{label}</span>
                   </span>
-                  <span className="rounded-full bg-indigo-deep/70 px-4 py-1.5 text-xs uppercase tracking-widest text-white/80">
-                    Program overview — filming with the founding cohort
-                  </span>
-                </div>
-              </div>
+                ))}
+              </a>
             </Reveal>
             </div>
           </div>
@@ -235,9 +234,8 @@ export default function Home() {
           <Reveal delay={1}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
               Years of tabs, videos, and scattered lessons produce players who can
-              almost play a hundred things and fully play none. The missing piece was
-              never talent or gear — it&apos;s structure, feedback, and a practice
-              system that remembers what you&apos;re building.
+              almost play a hundred things and fully play none. The missing piece is
+              a closed loop: diagnose, prescribe, practice, prove, correct, repeat.
             </p>
           </Reveal>
           <div className="strings-divider mx-auto mt-16 h-10 max-w-xs" aria-hidden />
@@ -259,8 +257,8 @@ export default function Home() {
           <div className="mt-24">
             <Reveal>
               <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
-                The program,{" "}
-                <em className="font-display italic">phase by phase.</em>
+                One room. Four weeks.{" "}
+                <em className="font-display italic">Evidence at every turn.</em>
               </h2>
             </Reveal>
             <ol className="mt-12 grid gap-6 md:grid-cols-2">
@@ -279,42 +277,31 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Mentors — dark section */}
-        <section id="mentors" className="px-3">
+        {/* Founding-room operating rules */}
+        <section id="room" className="px-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-24">
             <Reveal>
               <h2 className="text-center text-4xl text-cream md:text-5xl">
-                Learn with mentors,{" "}
-                <em className="font-display italic text-peach">not algorithms.</em>
+                A practice crew,{" "}
+                <em className="font-display italic text-peach">not another feed.</em>
               </h2>
             </Reveal>
             <Reveal delay={1}>
               <p className="mx-auto mt-5 max-w-2xl text-center text-white/75">
-                Every application is reviewed by a working player. Mentor bios and
-                introductions land here as the founding cohort assembles.
-                {/* TODO-JASON: replace role cards with real mentor names, photos, and bios */}
+                The founding room is being assembled around one rule: every check-in
+                must change the next practice. Applications are reviewed before the
+                schedule, review capacity, or commitment is promised.
               </p>
             </Reveal>
             <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {MENTOR_ROLES.map((mentor, i) => (
-                <Reveal key={mentor.role} delay={(i % 3) as 0 | 1 | 2}>
-                  <div className="mentor-card-glow h-full overflow-hidden rounded-3xl border border-white/10">
-                    <div className="relative aspect-[4/3]">
-                      <Image
-                        src={mentor.img}
-                        alt=""
-                        fill
-                        sizes="(max-width: 640px) 100vw, 300px"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <span className="text-[11px] uppercase tracking-widest text-violet-soft">
-                        Announcing soon
-                      </span>
-                      <h3 className="mt-2 font-display text-xl text-cream">{mentor.role}</h3>
-                      <p className="mt-3 text-sm text-white/70">{mentor.focus}</p>
-                    </div>
+              {ROOM_RULES.map((rule, i) => (
+                <Reveal key={rule.title} delay={(i % 3) as 0 | 1 | 2}>
+                  <div className="mentor-card-glow h-full rounded-3xl border border-white/10 p-6">
+                    <span className="text-[11px] uppercase tracking-widest text-violet-soft">
+                      Room rule {i + 1}
+                    </span>
+                    <h3 className="mt-3 font-display text-xl text-cream">{rule.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-white/70">{rule.body}</p>
                   </div>
                 </Reveal>
               ))}
@@ -323,7 +310,7 @@ export default function Home() {
         </section>
 
         {/* Results */}
-        <section id="results" className="mx-auto max-w-4xl px-6 py-24 text-center">
+        <section id="evidence" className="mx-auto max-w-4xl px-6 py-24 text-center">
           <Reveal>
             <h2 className="text-4xl text-indigo-deep md:text-5xl">
               Progress you can <em className="font-display italic">hear.</em>
@@ -331,11 +318,10 @@ export default function Home() {
           </Reveal>
           <Reveal delay={1}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              The output of this program isn&apos;t a certificate — it&apos;s
-              recordings of you playing full pieces cleanly, a fretboard you can
-              actually navigate, and a practice habit that no longer depends on
-              motivation. Founding-cohort recordings will live here as they&apos;re
-              made.
+              The public planner does not call a checked box mastery. The proof is a
+              baseline and final recording, a visible rubric, and the correction that
+              changed the attempt. Cohort evidence will appear here only with player
+              consent and honest completion denominators.
             </p>
           </Reveal>
           <Reveal delay={2}>
@@ -413,17 +399,16 @@ export default function Home() {
           </Reveal>
         </section>
 
-        {/* Tuition */}
-        <section id="tuition" className="mx-auto max-w-4xl px-6 pb-24 text-center">
+        {/* Founding-room status */}
+        <section id="founding-room" className="mx-auto max-w-4xl px-6 pb-24 text-center">
           <Reveal>
-            <h2 className="text-4xl text-indigo-deep md:text-5xl">Tuition</h2>
+            <h2 className="text-4xl text-indigo-deep md:text-5xl">The founding room</h2>
           </Reveal>
           <Reveal delay={1}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              Founding-cohort tuition is set when your application is reviewed —
-              we&apos;d rather talk to you than post a number that doesn&apos;t fit
-              your situation.
-              {/* TODO-JASON: replace with real tuition/pricing once set */}
+              We are qualifying the first 8–12 player room before setting schedule,
+              review capacity, or price. Applying starts a fit conversation. It does
+              not charge you or create a commitment.
             </p>
           </Reveal>
           <Reveal delay={2}>
@@ -468,13 +453,13 @@ export default function Home() {
             <div className="relative mx-auto max-w-xl">
               <Reveal>
                 <h2 className="text-center text-4xl text-cream md:text-5xl">
-                  Apply to <em className="font-display italic text-peach">GuitarHub.</em>
+                  Apply to the <em className="font-display italic text-peach">founding room.</em>
                 </h2>
               </Reveal>
               <Reveal delay={1}>
                 <p className="mt-5 text-center text-white/75">
-                  Tell us where your playing is and where you want it to go. Every
-                  application gets a straight, personal answer.
+                  Tell us where your playing is and name one change you can prove in
+                  30 days. No payment is taken here.
                 </p>
               </Reveal>
               <Reveal delay={2}>
@@ -493,12 +478,12 @@ export default function Home() {
           A Suede Labs program by{" "}
           <a
             href="https://suedeai.ai/founder"
-            className="underline hover:text-indigo-deep"
+            className="inline-flex min-h-11 items-center underline hover:text-indigo-deep"
           >
             Jason Colapietro
           </a>{" "}
           ·{" "}
-          <a href="mailto:info@suedeai.ai" className="underline hover:text-indigo-deep">
+          <a href="mailto:info@suedeai.ai" className="inline-flex min-h-11 items-center underline hover:text-indigo-deep">
             info@suedeai.ai
           </a>
         </span>

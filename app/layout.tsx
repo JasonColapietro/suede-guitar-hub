@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import JsClassMarker from "@/components/JsClassMarker";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -15,13 +16,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://guitarhub.org"),
-  title: "GuitarHub — A structured path to real guitar mastery",
+  title: "GuitarHub — Prove One Guitar Breakthrough in 30 Days",
   description:
-    "GuitarHub is a mentorship-driven guitar accelerator by Suede Labs: a structured curriculum, daily feedback, and practice software that compounds — apply to join the next cohort.",
+    "Build a four-week guitar practice plan, launch the right Strumly tools, track weekly evidence in your browser, and apply to the GuitarHub founding room.",
   openGraph: {
-    title: "GuitarHub — A structured path to real guitar mastery",
+    title: "GuitarHub — Prove One Guitar Breakthrough in 30 Days",
     description:
-      "Mentorship-driven guitar accelerator: structured curriculum, daily feedback, practice software that compounds.",
+      "One finish line, four weeks of focused practice, and evidence instead of lesson collecting.",
     url: "https://guitarhub.org",
     siteName: "GuitarHub",
     type: "website",
@@ -35,15 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
-        {/* Runs synchronously before any content paints: marks that JS is
-            live so globals.css may apply the hidden scroll-reveal state.
-            Without this class (no-JS readers, crawlers, reader modes) the
-            page renders fully visible with no animation. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
-          }}
-        />
+        {/* Apply the enhancement class after hydration so React and the
+            initial HTML agree. No-JS readers still receive visible content. */}
+        <JsClassMarker />
         {children}
       </body>
     </html>
