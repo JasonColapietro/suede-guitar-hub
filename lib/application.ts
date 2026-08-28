@@ -9,6 +9,8 @@ export type ApplicationResult =
   | { ok: true; value: CohortApplication }
   | { ok: false; error: string };
 
+export const APPLICATION_EMAIL_ADDRESS = "info@suedeai.ai";
+
 const MAX_FIELD = 2000;
 
 function clean(value: unknown, maxLength = MAX_FIELD): string {
@@ -45,4 +47,22 @@ export function normalizeApplication(input: unknown): ApplicationResult {
       goal,
     },
   };
+}
+
+export function buildApplicationEmailFallback(input: unknown): string | null {
+  const normalized = normalizeApplication(input);
+  if (!normalized.ok) return null;
+
+  const application = normalized.value;
+  const subject = `GuitarHub application — ${application.name}`;
+  const body = [
+    "New GuitarHub application",
+    "",
+    `Name: ${application.name}`,
+    `Email: ${application.email}`,
+    `Experience: ${application.experience || "(not given)"}`,
+    `Goal: ${application.goal}`,
+  ].join("\n");
+
+  return `mailto:${APPLICATION_EMAIL_ADDRESS}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

@@ -1,9 +1,21 @@
 import { NextResponse } from "next/server";
-import { normalizeApplication } from "@/lib/application";
+import {
+  APPLICATION_EMAIL_ADDRESS,
+  normalizeApplication,
+} from "@/lib/application";
 
 type ApplyResponse =
   | { ok: true }
-  | { ok: false; error: string };
+  | {
+      ok: false;
+      error: string;
+      fallback?: { kind: "email"; address: string };
+    };
+
+const emailFallback = {
+  kind: "email" as const,
+  address: APPLICATION_EMAIL_ADDRESS,
+};
 
 export async function POST(request: Request): Promise<NextResponse<ApplyResponse>> {
   let body: unknown;
@@ -34,7 +46,8 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
       {
         ok: false,
         error:
-          "Applications are temporarily offline. Email info@suedeai.ai and we'll take it from there.",
+          "Automatic delivery is temporarily offline. Use the email fallback below and we'll take it from there.",
+        fallback: emailFallback,
       },
       { status: 503 },
     );
@@ -71,7 +84,8 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
       {
         ok: false,
         error:
-          "We couldn't submit your application just now. Email info@suedeai.ai and we'll take it from there.",
+          "We couldn't submit your application just now. Use the email fallback below and we'll take it from there.",
+        fallback: emailFallback,
       },
       { status: 502 },
     );

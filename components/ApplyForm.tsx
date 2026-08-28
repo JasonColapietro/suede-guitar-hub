@@ -1,12 +1,13 @@
 "use client";
 
+import { buildApplicationEmailFallback } from "@/lib/application";
 import { useState, type FormEvent } from "react";
 
 type Status =
   | { state: "idle" }
   | { state: "submitting" }
   | { state: "done" }
-  | { state: "error"; message: string };
+  | { state: "error"; message: string; fallbackHref?: string };
 
 export default function ApplyForm() {
   const [status, setStatus] = useState<Status>({ state: "idle" });
@@ -15,33 +16,44 @@ export default function ApplyForm() {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
+    const submission = {
+      name: data.get("name"),
+      email: data.get("email"),
+      experience: data.get("experience"),
+      goal: data.get("goal"),
+    };
     setStatus({ state: "submitting" });
 
     try {
       const response = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          experience: data.get("experience"),
-          goal: data.get("goal"),
-        }),
+        body: JSON.stringify(submission),
       });
       const result = (await response.json()) as
         | { ok: true }
-        | { ok: false; error: string };
+        | {
+            ok: false;
+            error: string;
+            fallback?: { kind: "email"; address: string };
+          };
       if (result.ok) {
         setStatus({ state: "done" });
         form.reset();
       } else {
-        setStatus({ state: "error", message: result.error });
+        const fallbackHref =
+          result.fallback?.kind === "email"
+            ? buildApplicationEmailFallback(submission) ?? undefined
+            : undefined;
+        setStatus({ state: "error", message: result.error, fallbackHref });
       }
     } catch {
       setStatus({
         state: "error",
         message:
-          "Something went wrong. Email info@suedeai.ai and we'll take it from there.",
+          "Something went wrong. Use the email fallback below and we'll take it from there.",
+        fallbackHref:
+          buildApplicationEmailFallback(submission) ?? undefined,
       });
     }
   }
@@ -110,9 +122,17 @@ export default function ApplyForm() {
         {status.state === "submitting" ? "Sending application…" : "Apply to the founding room"}
       </button>
       {status.state === "error" ? (
-        <p role="alert" className="text-sm text-peach">
-          {status.message}
-        </p>
+        <div role="alert" className="grid gap-3 text-sm text-peach">
+          <p>{status.message}</p>
+          {status.fallbackHref ? (
+            <a
+              href={status.fallbackHref}
+              className="inline-flex min-h-11 w-fit items-center rounded-full border border-peach/40 px-5 py-2 font-semibold underline underline-offset-4 hover:bg-white/5"
+            >
+              Email this application instead
+            </a>
+          ) : null}
+        </div>
       ) : null}
     </form>
   );
