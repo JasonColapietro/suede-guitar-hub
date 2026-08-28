@@ -2,11 +2,13 @@
   "name": "suede-guitar-hub",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev -p 3400",
     "build": "next build",
     "start": "next start -p 3400",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning tests/*.test.ts"
   },
   "dependencies": {
     "next": "^15.4.6",

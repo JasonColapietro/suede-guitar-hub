@@ -51,7 +51,8 @@ export default function ApplyForm() {
       <div className="rounded-3xl bg-white/10 p-8 text-center">
         <p className="font-display text-2xl text-peach">Application received.</p>
         <p className="mt-3 text-violet-soft">
-          We read every application personally. Expect a reply within a few days.
+          We read every application personally. If the founding room fits your
+          goal, we&apos;ll reply with the next step.
         </p>
       </div>
     );
@@ -62,40 +63,43 @@ export default function ApplyForm() {
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-4">
-      <label className="sr-only" htmlFor="apply-name">Name</label>
+      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-name">Name</label>
       <input
         id="apply-name"
         name="name"
         required
         maxLength={200}
+        autoComplete="name"
         placeholder="Your name"
         className={inputClasses}
       />
-      <label className="sr-only" htmlFor="apply-email">Email</label>
+      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-email">Email</label>
       <input
         id="apply-email"
         name="email"
         type="email"
         required
         maxLength={320}
-        placeholder="Email address"
+        autoComplete="email"
+        placeholder="you@example.com"
         className={inputClasses}
       />
-      <label className="sr-only" htmlFor="apply-experience">Experience</label>
+      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-experience">Playing experience</label>
       <input
         id="apply-experience"
         name="experience"
         maxLength={500}
-        placeholder="How long have you been playing?"
+        placeholder="Two years, mostly self-taught"
         className={inputClasses}
       />
-      <label className="sr-only" htmlFor="apply-goal">Goal</label>
+      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-goal">Your 30-day breakthrough</label>
       <textarea
         id="apply-goal"
         name="goal"
+        required
         rows={4}
         maxLength={2000}
-        placeholder="What would real progress look like for you this year?"
+        placeholder="Play one complete song from count-in to final chord without stopping"
         className={inputClasses}
       />
       <button
@@ -103,7 +107,7 @@ export default function ApplyForm() {
         disabled={status.state === "submitting"}
         className="mt-2 rounded-full bg-peach px-8 py-4 font-semibold text-indigo-deep transition hover:brightness-105 disabled:opacity-60"
       >
-        {status.state === "submitting" ? "Submitting…" : "Submit application"}
+        {status.state === "submitting" ? "Sending application…" : "Apply to the founding room"}
       </button>
       {status.state === "error" ? (
         <p role="alert" className="text-sm text-peach">
