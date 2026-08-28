@@ -487,7 +487,7 @@ export default function Home() {
             info@suedeai.ai
           </a>
         </span>
-        <span>© {new Date().getFullYear()} Suede Labs AI</span>
+        <span>© {new Date().getFullYear()} Suede Labs</span>
       </footer>
     </>
   );

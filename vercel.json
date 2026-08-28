@@ -1,3 +1,60 @@
 {
+  "redirects": [
+    {
+      "source": "/how-to-register-a-guitar-riff",
+      "destination": "https://strumly.suedeai.ai/guides/how-to-register-a-guitar-riff",
+      "permanent": true
+    },
+    {
+      "source": "/rights-metadata-dark-matter",
+      "destination": "https://strumly.suedeai.ai/guides/rights-metadata-dark-matter",
+      "permanent": true
+    },
+    {
+      "source": "/guitar-samples-ai-training",
+      "destination": "https://strumly.suedeai.ai/guides/guitar-samples-ai-training",
+      "permanent": true
+    },
+    {
+      "source": "/session-musicians-publishing-royalties",
+      "destination": "https://strumly.suedeai.ai/guides/session-musicians-publishing-royalties",
+      "permanent": true
+    },
+    {
+      "source": "/ai-training-and-your-music",
+      "destination": "https://strumly.suedeai.ai/guides/ai-training-and-your-music",
+      "permanent": true
+    },
+    {
+      "source": "/who-owns-the-output-stage",
+      "destination": "https://strumly.suedeai.ai/guides/who-owns-the-output-stage",
+      "permanent": true
+    },
+    {
+      "source": "/fender-stratocaster-lawsuit",
+      "destination": "https://strumly.suedeai.ai/guides/fender-stratocaster-lawsuit",
+      "permanent": true
+    },
+    {
+      "source": "/reads",
+      "destination": "https://strumly.suedeai.ai/guides",
+      "permanent": true
+    },
+    {
+      "source": "/reads/:path*",
+      "destination": "https://strumly.suedeai.ai/guides",
+      "permanent": true
+    },
+    {
+      "source": "/rigs",
+      "destination": "https://dna.suedeai.ai",
+      "permanent": true
+    },
+    {
+      "source": "/rigs/:path*",
+      "destination": "https://dna.suedeai.ai",
+      "permanent": true
+    }
+  ],
   "ignoreCommand": "[ \"$VERCEL_ENV\" != \"production\" ] && exit 0 || exit 1"
 }

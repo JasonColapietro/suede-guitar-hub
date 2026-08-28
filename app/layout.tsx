@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 // GuitarHub was the only Suede property emitting no structured data, so engines
-// had nothing tying it to Suede Labs AI. These reference the canonical
+// had nothing tying it to Suede Labs. These reference the canonical
 // Organization and Person @ids used across the estate rather than minting
 // duplicate nodes for the same entities. Google resolves @id within a single
 // page, so the referenced nodes are defined here too.
@@ -55,8 +55,11 @@ const JSON_LD = {
     {
       "@type": "Organization",
       "@id": SUEDE_ORG_ID,
-      name: "Suede Labs AI",
-      alternateName: ["Suede Labs", "Suede AI", "Suede"],
+      // Music-facing surface: no trailing "AI" on the display name. The AI
+      // forms stay in alternateName so the entity still reconciles with
+      // suedeai.ai and the rest of the estate.
+      name: "Suede Labs",
+      alternateName: ["Suede Labs AI", "Suede AI", "Suede"],
       url: "https://suedeai.ai",
       logo: "https://suedeai.ai/suede-ai-logo-transparent.png",
       founder: { "@id": JASON_PERSON_ID },
@@ -79,7 +82,7 @@ const JSON_LD = {
       "@id": JASON_PERSON_ID,
       name: "Jason Colapietro",
       alternateName: ["Johnny Suede"],
-      jobTitle: "Founder and CEO of Suede Labs AI",
+      jobTitle: "Founder and CEO of Suede Labs",
       url: "https://suedeai.ai/founder",
       worksFor: { "@id": SUEDE_ORG_ID },
       sameAs: [
