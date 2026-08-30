@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description:
-      "Planner, diagnostic, tempo ladder, readiness score. Free, no account, and nothing you type leaves your browser.",
+      "Plan a session, diagnose a plateau, build a tempo ladder, test song readiness, and log the evidence. Free, private, and browser-local.",
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
@@ -72,6 +72,12 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
     audience:
       "Players who are putting in the hours, know something has stopped working, and cannot name which part of the routine it is.",
   },
+  "/session": {
+    purpose:
+      "You give it the minutes you actually have and the one thing the session is for. It returns ordered, whole-minute blocks that add up exactly, drops anything too short to be useful, and keeps completed blocks in this browser.",
+    audience:
+      "Players who already know what needs work but lose the session deciding what to do next, or whose available time rarely matches a canned routine.",
+  },
   "/tempo": {
     purpose:
       "You give it the tempo you already play a passage cleanly and the tempo you want. It returns an ordered set of sessions between them, with the step size capped, sessions that hold a tempo instead of adding to it, and a pass condition on every rung.",
@@ -83,6 +89,12 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
       "Ten yes-or-no checks about things that have either happened with a song or have not, weighted into a score and a band. It hands back the heaviest check still open, with one instruction you can run in a session.",
     audience:
       "Players deciding whether a song is finished, and anyone about to play one standing up, in front of a person, or into a camera.",
+  },
+  "/log": {
+    purpose:
+      "You record the date, one focus, a tempo or clean-pass rate, and one honest note. It compares like with like over 7 and 30 days, and refuses to claim a direction until one focus has at least three sessions.",
+    audience:
+      "Players who can say how often they practised but cannot show whether the passage, transition, or song they chose is actually moving.",
   },
 };
 
@@ -107,6 +119,11 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
     stage: "The whole loop, laid out one stage per week.",
   },
   {
+    href: "/session",
+    sentence: "I know what to work on and need it to fit the time I have today.",
+    stage: "Prescribe and practise. It turns the target into blocks you can run now.",
+  },
+  {
     href: "/tempo",
     sentence: "One passage holds together up to a speed and then does not.",
     stage: "Isolate. The stage where the fragment gets repaired.",
@@ -115,6 +132,11 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
     href: "/readiness",
     sentence: "I think this song is finished and I am not sure I believe it.",
     stage: "Reconnect and prove. What survives outside practice.",
+  },
+  {
+    href: "/log",
+    sentence: "I finished the session and need to know whether the work is moving.",
+    stage: "Prove and correct. It carries the evidence into the next diagnosis.",
   },
 ];
 
@@ -134,7 +156,7 @@ const COMMON = [
   },
   {
     title: "Runs in your browser",
-    body: "The plan, the ladder, and the score are computed by code already running on the page. Your answers are not sent somewhere to be processed and handed back.",
+    body: "Every plan, diagnosis, ladder, score, and summary is computed by code already running on the page. Your answers are not sent somewhere to be processed and handed back.",
   },
   {
     title: "Stores nothing on a server",
@@ -173,11 +195,11 @@ const FAQS = [
   },
   {
     q: "Which tool should I open first?",
-    a: "If you cannot name what stopped working, start with the practice plateau diagnostic, because every other tool needs a target and that one produces it. If you already know the goal, start with the 30-day breakthrough planner.",
+    a: "If you cannot name what stopped working, start with the practice plateau diagnostic. If you know the goal but need a month, use the 30-day planner; if you know today's target and time, build the session. Log what happened afterwards so the next diagnosis starts from evidence.",
   },
   {
     q: "Can I use them without JavaScript?",
-    a: "No. The plans, ladders, and scores are computed by code running in your browser rather than fetched from a server. That is the same design decision that keeps your answers off a server, and the cost of it is that nothing computes with JavaScript switched off.",
+    a: "No. The plans, diagnoses, ladders, scores, and summaries are computed by code running in your browser rather than fetched from a server. That is the same design decision that keeps your answers off a server, and the cost of it is that nothing computes with JavaScript switched off.",
   },
 ] as const;
 

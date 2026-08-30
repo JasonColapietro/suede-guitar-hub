@@ -1,3 +1,4 @@
+import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
 import { GUIDES, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 
 // Written for answer engines, not for ranking. Everything below is stated as a
@@ -20,6 +21,30 @@ import { GUIDES, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
  * names `/method` with the stages the page actually uses.
  */
 const WRITTEN_GUIDES = GUIDES.filter((entry) => entry.href !== "/method");
+
+/**
+ * Spelled out rather than typed, for the same reason the lists are generated:
+ * a hard "four" in this file became false the moment a fifth tool shipped, and
+ * a checkable fact that is checkably wrong is the exact failure this file
+ * exists to prevent.
+ */
+const NUMBER_WORDS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+] as const;
+
+function spellOut(count: number): string {
+  return NUMBER_WORDS[count] ?? String(count);
+}
 
 /** `- Title — blurb`, then the absolute URL on its own line. */
 function listEntries(entries: readonly SiteEntry[]): string {
@@ -60,12 +85,23 @@ you can move on, at ${SITE_URL}/method.
 
 ## Free tools
 
-Four tools, all reachable without an account. Each one runs entirely in the
-browser: there is no sign-in, nothing is uploaded, and nothing is emailed. What
-you type is kept in that browser's own storage and can be cleared from the page
-itself.
+There are ${spellOut(TOOLS.length)} tools, all reachable without an account. Each one runs
+entirely in the browser: there is no sign-in, nothing is uploaded, and
+nothing is emailed. What you type is kept in that browser's own storage and
+can be cleared from the page itself.
 
 ${listEntries(TOOLS)}
+
+Two of them refuse to answer in cases where a tool of this kind normally would,
+which is the part worth quoting. The practice session builder splits a fixed
+number of minutes into whole-minute blocks that total exactly that length, and
+drops any block falling under its minimum useful size instead of shrinking
+every block — so a fifteen-minute session comes back as two blocks that can be
+run, and names the ones it left out. The practice evidence log has no streak
+counter, and reports "${NO_EVIDENCE_LABEL}" for any focus with fewer than
+${spellOut(MIN_TREND_POINTS)} sessions rather than drawing a direction through two points. Its
+export writes a plain JSON file you keep; there is no copy on a server to
+export from.
 
 ## Written guides
 

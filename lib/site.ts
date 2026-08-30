@@ -74,6 +74,13 @@ export const TOOLS: readonly SiteEntry[] = [
     lastModified: "2026-08-29",
   },
   {
+    href: "/session",
+    title: "Practice session builder",
+    blurb:
+      "Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.",
+    lastModified: "2026-08-30",
+  },
+  {
     href: "/tempo",
     title: "Tempo ladder builder",
     blurb:
@@ -86,6 +93,13 @@ export const TOOLS: readonly SiteEntry[] = [
     blurb:
       "Check a song against the parts that break under pressure before you call it finished.",
     lastModified: "2026-08-29",
+  },
+  {
+    href: "/log",
+    title: "Practice evidence log",
+    blurb:
+      "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
+    lastModified: "2026-08-30",
   },
 ];
 

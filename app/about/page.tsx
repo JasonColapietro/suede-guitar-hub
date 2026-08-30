@@ -8,9 +8,12 @@ const PUBLISHED = "2026-08-29";
 
 const TITLE = "About GuitarHub: Who Built It and What It Actually Does";
 // Kept near 155 characters. The longer version ran to 189 and Google truncated
-// the differentiating tail, which is the half worth reading.
+// the differentiating tail, which is the half worth reading. No count of the
+// tools appears here: this string is also the openGraph description and the
+// AboutPage JSON-LD description, so a hard-typed number becomes three
+// contradictions of `TOOLS.length` at once.
 const DESCRIPTION =
-  "GuitarHub is a guitar practice method and four free browser tools, built by Suede Labs. What it is, what it is not, and how it relates to Strumly.";
+  "GuitarHub is a guitar practice method and a set of free browser tools, built by Suede Labs. What it is, what it is not, and how it relates to Strumly.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -114,7 +117,7 @@ export default function AboutPage() {
         relatedTitle="Start with one of these"
       >
         <p>
-          GuitarHub is a guitar practice method and four free tools that run it.
+          GuitarHub is a guitar practice method and the free tools that run it.
           It exists because of one gap: guitar education is very good at
           supplying lessons and close to silent on how you would ever know
           whether a lesson worked. You can spend a year on tabs, videos, and
@@ -155,8 +158,9 @@ export default function AboutPage() {
         </p>
 
         <p>
-          That is also why this site is small. It has four tools instead of a
-          library, because a library is the thing that caused the problem.
+          That is also why this site is small. It has a short list of tools
+          instead of a library, because a library is the thing that caused the
+          problem.
         </p>
 
         <h2>What GuitarHub is</h2>
@@ -169,7 +173,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          <strong>Four free tools</strong>, all of which run in your browser:
+          <strong>Free tools</strong>, all of which run in your browser:
         </p>
 
         <ul>
@@ -183,6 +187,11 @@ export default function AboutPage() {
             rather than by giving you a score.
           </li>
           <li>
+            <Link href="/session">The practice session builder</Link> turns the
+            minutes you actually have into timed blocks, weighted toward the one
+            thing you are fixing.
+          </li>
+          <li>
             <Link href="/tempo">The tempo ladder builder</Link> turns one
             difficult passage into a starting speed, a target, and the steps
             between them.
@@ -192,14 +201,21 @@ export default function AboutPage() {
             song against the parts that break under pressure, before you decide
             it is finished.
           </li>
+          <li>
+            <Link href="/log">The practice evidence log</Link> takes one line
+            per session and reports what actually moved, with no streak counter
+            and no direction drawn through fewer than three sessions.
+          </li>
         </ul>
 
         <p>
-          <strong>Six written guides</strong>, covering the method itself, how
-          to practice effectively, why progress plateaus once the beginner gains
+          <strong>Written guides</strong>, covering the method itself, how to
+          practice effectively, why progress plateaus once the beginner gains
           run out, what deliberate practice means at the instrument, how to run
-          a 30-day challenge that ends in evidence, and a weekly routine for
-          intermediate players. They are linked from the footer of every page.
+          a 30-day challenge that ends in evidence, an intermediate weekly
+          routine, how long to practice each day, a schedule that survives a
+          real week, why speed has a ceiling, how to memorize a song, and how to
+          work with a metronome. They are linked from the footer of every page.
         </p>
 
         <p>
@@ -317,7 +333,7 @@ export default function AboutPage() {
         <h2>What happens to what you type</h2>
 
         <p>
-          The four tools keep their state in your own browser, in local storage,
+          The tools keep their state in your own browser, in local storage,
           and nowhere else. Nothing you enter is sent to a server. Close the tab
           and the work is still there next time; clear your browser data and it
           is gone, and we cannot recover it, because we never had it.
