@@ -1,11 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
+import SiteFooter from "@/components/SiteFooter";
+import { STRUMLY, TOOLS } from "@/lib/site";
 
+// Four links, matching components/SiteNav.tsx label for label so the header
+// reads the same on every route. Deliberately capped at four: at the `md`
+// breakpoint this row is brand + links + apply pill inside 720px, and a fifth
+// label pushes the three groups into each other at exactly 768px.
 const NAV_LINKS = [
-  { href: "#program", label: "Method" },
-  { href: "/breakthrough", label: "Build a plan" },
-  { href: "#evidence", label: "Evidence" },
+  { href: "/method", label: "Method" },
+  { href: "#tools", label: "Tools" },
+  { href: "/how-to-practice-guitar-effectively", label: "Guides" },
   { href: "#apply", label: "Founding room" },
 ] as const;
 
@@ -66,41 +73,38 @@ const ROOM_RULES = [
   },
 ] as const;
 
+// Two GuitarHub guides and one Strumly guide. The kicker travels with the
+// entry instead of being hardcoded in the card, because two of these three no
+// longer leave the site and labelling them "Strumly" would be false.
 const INSIGHTS = [
   {
-    title: "How to design a guitar practice routine",
+    title: "How to practice guitar effectively",
+    kicker: "Guide · GuitarHub",
     img: "/insight-1.jpg",
-    href: "https://strumly.suedeai.ai/guides/designing-a-practice-routine",
+    href: "/how-to-practice-guitar-effectively",
   },
   {
-    title: "How to learn guitar for beginners: a step-by-step path",
+    title: "Why guitar practice plateaus, and what fixes it",
+    kicker: "Guide · GuitarHub",
     img: "/insight-2.jpg",
-    href: "https://strumly.suedeai.ai/guides/beginner-guitar-learning-path",
+    href: "/guitar-practice-plateau",
   },
   {
     title: "Signal chain topology: what actually goes where, and why",
+    kicker: "Guide · Strumly",
     img: "/amp-glow.jpg",
-    href: "https://strumly.suedeai.ai/guides/signal-chain-topology",
+    href: STRUMLY.signalChain,
   },
 ] as const;
 
+// Pulled from the registry rather than retyped. `lib/site.ts` holds the only
+// external URLs this site links to, and a hand-written copy of one of them is
+// a second place for it to rot.
 const SONG_LESSONS = [
-  {
-    song: "Purple Haze",
-    href: "https://strumly.suedeai.ai/book/lessons/lesson-purple-haze",
-  },
-  {
-    song: "Comfortably Numb",
-    href: "https://strumly.suedeai.ai/book/lessons/lesson-comfortably-numb",
-  },
-  {
-    song: "Pride and Joy",
-    href: "https://strumly.suedeai.ai/book/lessons/lesson-pride-and-joy",
-  },
-  {
-    song: "Smells Like Teen Spirit",
-    href: "https://strumly.suedeai.ai/book/lessons/lesson-smells-like-teen-spirit",
-  },
+  { song: "Purple Haze", href: STRUMLY.lessons.purpleHaze },
+  { song: "Comfortably Numb", href: STRUMLY.lessons.comfortablyNumb },
+  { song: "Pride and Joy", href: STRUMLY.lessons.prideAndJoy },
+  { song: "Smells Like Teen Spirit", href: STRUMLY.lessons.teenSpirit },
 ] as const;
 
 const FAQS = [
@@ -122,15 +126,26 @@ const FAQS = [
   },
 ] as const;
 
-function ApplyButton({ variant = "dark" }: { variant?: "dark" | "light" }) {
+function ApplyButton({
+  variant = "dark",
+  compact = false,
+}: {
+  variant?: "dark" | "light";
+  /** Header sizing: matches the pill in components/SiteNav.tsx so the brand and
+   *  the pill still share one row at 390px once the nav wraps beneath them. */
+  compact?: boolean;
+}) {
   const classes =
     variant === "dark"
       ? "bg-indigo-deep text-cream hover:bg-indigo-mid"
       : "bg-peach text-indigo-deep hover:brightness-105";
+  const size = compact
+    ? "min-h-11 shrink-0 whitespace-nowrap px-4 py-2.5 text-sm md:px-5"
+    : "px-7 py-3.5";
   return (
     <a
       href="#apply"
-      className={`inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold transition ${classes}`}
+      className={`inline-flex items-center gap-2 rounded-full font-semibold transition ${size} ${classes}`}
     >
       Apply to the room <span aria-hidden>→</span>
     </a>
@@ -141,18 +156,31 @@ export default function Home() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" className="inline-flex min-h-11 items-center font-display text-2xl font-semibold tracking-wide text-indigo-deep">
+        {/* Wraps below md instead of hiding the nav, matching
+            components/SiteNav.tsx: the nav is `w-full order-last`, so it drops
+            to a second row while the brand and the apply pill stay on the
+            first. This page previously hid the nav outright below 768px, which
+            left the site's highest-traffic page with no navigation at all on a
+            phone. Wrapping also makes horizontal overflow structurally
+            impossible; there is no hamburger, no toggle, and no state. */}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-6 py-4 md:gap-x-6">
+          <a href="#top" className="inline-flex min-h-11 items-center whitespace-nowrap font-display text-2xl font-semibold tracking-wide text-indigo-deep">
             GUITARHUB
           </a>
-          <nav className="hidden gap-8 text-sm font-medium text-ink/70 md:flex">
+          {/* gap-x-8 wrapped, gap-6 until lg on one row: at exactly 768px the
+              brand, these links and the apply pill total 709px inside a 720px
+              container, and gap-8 leaves only 6px between the three groups. */}
+          <nav
+            aria-label="Primary"
+            className="order-last flex w-full flex-wrap items-center gap-x-6 text-sm font-medium text-ink/70 md:order-none md:w-auto lg:gap-x-8"
+          >
             {NAV_LINKS.map((link) => (
               <a key={link.href} href={link.href} className="inline-flex min-h-11 items-center transition hover:text-indigo-deep">
                 {link.label}
               </a>
             ))}
           </nav>
-          <ApplyButton />
+          <ApplyButton compact />
         </div>
       </header>
 
@@ -277,6 +305,41 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Free tools */}
+        <section id="tools" className="mx-auto max-w-6xl px-6 pb-24">
+          <Reveal>
+            <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
+              Four tools. <em className="font-display italic">No account.</em>
+            </h2>
+          </Reveal>
+          <Reveal delay={1}>
+            <p className="mx-auto mt-4 max-w-xl text-center text-ink/70">
+              Each one runs in your browser. Nothing is uploaded and nothing is
+              emailed. What you type stays on the device you typed it on.
+            </p>
+          </Reveal>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {TOOLS.map((tool, i) => (
+              <Reveal key={tool.href} delay={(i % 3) as 0 | 1 | 2}>
+                <Link
+                  href={tool.href}
+                  className="flex h-full flex-col rounded-3xl bg-white p-7 ring-1 ring-ink/5 transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <h3 className="font-display text-xl leading-snug text-indigo-deep">
+                    {tool.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink/70">
+                    {tool.blurb}
+                  </p>
+                  <span className="mt-5 text-sm font-semibold text-violet">
+                    Open it <span aria-hidden>→</span>
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
         {/* Founding-room operating rules */}
         <section id="room" className="px-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-24">
@@ -377,7 +440,7 @@ export default function Home() {
                   </div>
                   <div className="p-6">
                     <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
-                      Guide · Strumly
+                      {post.kicker}
                     </span>
                     <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">
                       {post.title}
@@ -390,10 +453,10 @@ export default function Home() {
           <Reveal delay={2}>
             <div className="mt-10 text-center">
               <a
-                href="https://strumly.suedeai.ai/guides"
+                href={STRUMLY.guides}
                 className="inline-flex items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
               >
-                Browse all guides <span aria-hidden>→</span>
+                Browse the Strumly guides <span aria-hidden>→</span>
               </a>
             </div>
           </Reveal>
@@ -429,7 +492,10 @@ export default function Home() {
             {FAQS.map((faq, i) => (
               <Reveal key={faq.q} delay={(i % 2) as 0 | 1}>
                 <details className="group rounded-2xl bg-white p-6 ring-1 ring-ink/5">
-                  <summary className="cursor-pointer list-none font-semibold text-indigo-deep">
+                  {/* py-2.5 puts the toggle at 44px (10 + a 24px line box +
+                      10); the matching -my-2.5 keeps the visual spacing the
+                      design had before the tap target grew. */}
+                  <summary className="-my-2.5 cursor-pointer list-none py-2.5 font-semibold text-indigo-deep">
                     {faq.q}
                   </summary>
                   <p className="mt-3 text-ink/70">{faq.a}</p>
@@ -472,23 +538,9 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm text-ink/50 md:flex-row">
-        <span className="font-display text-lg text-indigo-deep">GUITARHUB</span>
-        <span>
-          A Suede Labs program by{" "}
-          <a
-            href="https://suedeai.ai/founder"
-            className="inline-flex min-h-11 items-center underline hover:text-indigo-deep"
-          >
-            Jason Colapietro
-          </a>{" "}
-          ·{" "}
-          <a href="mailto:info@suedeai.ai" className="inline-flex min-h-11 items-center underline hover:text-indigo-deep">
-            info@suedeai.ai
-          </a>
-        </span>
-        <span>© {new Date().getFullYear()} Suede Labs</span>
-      </footer>
+      {/* The site-wide footer, built from lib/site.ts: it links every tool and
+          every guide, so the homepage reaches every page on the site. */}
+      <SiteFooter />
     </>
   );
 }

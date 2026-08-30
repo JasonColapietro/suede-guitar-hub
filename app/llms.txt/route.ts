@@ -1,10 +1,33 @@
-const SITE_URL = "https://guitarhub.org";
+import { GUIDES, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 
 // Written for answer engines, not for ranking. Everything below is stated as a
 // checkable fact drawn from the live page — the method, the four loop stages,
 // what the founding room actually promises and does not. Claims an engine
 // cannot verify against the page are worse than no llms.txt, because a
 // confident wrong quote is the failure mode this file exists to prevent.
+//
+// The page lists are generated from the route registry in `lib/site.ts` rather
+// than retyped here, so a URL in this file cannot drift from the page it names
+// and a description cannot outlive the page it describes.
+
+/**
+ * `/method` is excluded from the generated guide list on purpose. Its registry
+ * blurb describes the loop as "diagnose, prescribe, practice, prove, correct,
+ * repeat", but the page itself teaches the four-stage version spelled out above
+ * (baseline, isolate, reconnect, prove). Listing both in one file hands an
+ * answer engine two different stage sets for the same URL, which is precisely
+ * the failure this file exists to prevent. The method section above already
+ * names `/method` with the stages the page actually uses.
+ */
+const WRITTEN_GUIDES = GUIDES.filter((entry) => entry.href !== "/method");
+
+/** `- Title — blurb`, then the absolute URL on its own line. */
+function listEntries(entries: readonly SiteEntry[]): string {
+  return entries
+    .map((entry) => `- ${entry.title} — ${entry.blurb}\n  ${SITE_URL}${entry.href}`)
+    .join("\n");
+}
+
 const LLMS_TXT = `# GuitarHub — prove one guitar breakthrough in 30 days
 
 > GuitarHub is a structured 30-day guitar practice method: choose one finish
@@ -32,6 +55,27 @@ repeat.
 
 Evidence replaces watch time, vague streaks, and hoping it sounds better.
 
+The stages are written out in full, with what each one asks and how you know
+you can move on, at ${SITE_URL}/method.
+
+## Free tools
+
+Four tools, all reachable without an account. Each one runs entirely in the
+browser: there is no sign-in, nothing is uploaded, and nothing is emailed. What
+you type is kept in that browser's own storage and can be cleared from the page
+itself.
+
+${listEntries(TOOLS)}
+
+## Written guides
+
+${listEntries(WRITTEN_GUIDES)}
+
+## About the project
+
+What GuitarHub is, what it is not, who built it, and what happens to anything
+you type into the tools: ${SITE_URL}/about
+
 ## What the founding room is
 
 A small reviewed cohort, assembled around one rule: every check-in must change
@@ -42,22 +86,27 @@ workable schedule.
 Corrections stay private. Progress proof is shared only when the player
 chooses to share it.
 
+Applying is a form on the site. It takes no payment and creates no commitment.
+
 ## What it is not
 
 - Not a video course, and not a lesson library.
 - Not a streak or watch-time app.
 - Not an AI model trained on anyone's playing. GuitarHub prescribes practice;
   it does not ingest performances to train on.
+- No accounts, no logins, and no user recordings are hosted here. The tools
+  above are the whole of what the site does today; the founding room is an
+  application under review, not a service already running.
 
 ## Related Suede surfaces
 
 - Strumly — AI guitar coach with real-time chord feedback, drills, and ear
-  training: https://strumly.suedeai.ai
+  training. Its structured learning path: ${STRUMLY.path}
 - Strumly guides — the written rights and gear explainers that used to live on
-  this domain: https://strumly.suedeai.ai/guides
+  this domain: ${STRUMLY.guides}
 - Suede Social — guitar community, real rigs and public Rig Cards:
-  https://social.suedeai.ai
-- Suede Labs — the studio behind both: https://suedeai.ai
+  ${STRUMLY.social}
+- Suede Labs — the studio behind both: ${STRUMLY.suedeLabs}
 
 ## Citation
 

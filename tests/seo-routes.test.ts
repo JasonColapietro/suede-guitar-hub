@@ -2,6 +2,13 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import test from "node:test";
 
+import {
+  GUIDES,
+  HOME,
+  TOOLS,
+  SITE_URL as REGISTRY_SITE_URL,
+} from "../lib/site.ts";
+
 const SITE_URL = "https://guitarhub.org";
 
 test("publishes indexable robots metadata with the canonical sitemap", async () => {
@@ -59,9 +66,68 @@ test("publishes every canonical indexable page in the sitemap", async () => {
     "app/sitemap.ts must exist",
   );
 
+  // The canonical origin is pinned as a literal above rather than imported, so
+  // that an accidental edit to the registry is caught here instead of being
+  // silently agreed with by every assertion below.
+  assert.equal(REGISTRY_SITE_URL, SITE_URL, "lib/site.ts must hold the canonical origin");
+
   const { default: sitemap } = await import("../app/sitemap.ts");
-  assert.deepEqual(
-    sitemap().map((entry) => entry.url),
-    [SITE_URL, `${SITE_URL}/breakthrough`],
+  const entries = sitemap();
+  const urls = entries.map((entry) => String(entry.url));
+
+  // Checked against the route registry rather than a hand-typed list. The
+  // previous version pinned exactly two URLs, which was true when the site was
+  // two pages; every page added after that failed a test named for publishing
+  // them. Deriving the expectation from `lib/site.ts` means a page added to the
+  // registry keeps this green, while a sitemap entry with no page behind it
+  // still fails — see the disk check below.
+  for (const entry of [HOME, ...TOOLS, ...GUIDES]) {
+    assert.ok(
+      urls.includes(entry.href === "/" ? SITE_URL : `${SITE_URL}${entry.href}`),
+      `${entry.href} is in the route registry but missing from the sitemap`,
+    );
+  }
+
+  // The failure this file exists to prevent, named in app/sitemap.ts's own
+  // header comment: a sitemap that advertises a 404. Every URL emitted has to
+  // have a page.tsx behind it.
+  for (const url of urls) {
+    const path = url.slice(SITE_URL.length);
+    const page = path === "" ? "../app/page.tsx" : `../app${path}/page.tsx`;
+    assert.equal(
+      existsSync(new URL(page, import.meta.url)),
+      true,
+      `${url} is in the sitemap but app${path}/page.tsx does not exist`,
+    );
+  }
+
+  assert.equal(
+    new Set(urls).size,
+    urls.length,
+    "no page may be listed in the sitemap twice",
   );
+
+  for (const url of urls) {
+    assert.ok(url.startsWith(SITE_URL), `${url} must be absolute on ${SITE_URL}`);
+    assert.ok(
+      url === SITE_URL || !url.endsWith("/"),
+      `${url} must not carry a trailing slash`,
+    );
+  }
+
+  // The home page is the site's most important URL, so it leads the file.
+  assert.equal(urls[0], SITE_URL, "the home page must be the first entry");
+
+  for (const entry of entries) {
+    assert.ok(
+      entry.lastModified instanceof Date &&
+        !Number.isNaN(entry.lastModified.getTime()),
+      `${entry.url} must carry a real lastModified date`,
+    );
+    assert.ok(
+      typeof entry.priority === "number" && entry.priority > 0 && entry.priority <= 1,
+      `${entry.url} must carry a priority inside (0, 1]`,
+    );
+    assert.ok(entry.changeFrequency, `${entry.url} must carry a changeFrequency`);
+  }
 });

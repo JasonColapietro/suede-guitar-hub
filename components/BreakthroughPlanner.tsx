@@ -13,6 +13,7 @@ import {
   type ExperienceLevel,
   type GoalId,
 } from "@/lib/breakthrough";
+import { STRUMLY } from "@/lib/site";
 
 const DEFAULT_PROFILE: BreakthroughProfile = {
   goal: "complete-song",
@@ -33,6 +34,7 @@ export default function BreakthroughPlanner() {
   const [completedActionIds, setCompletedActionIds] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [hydrated, setHydrated] = useState(false);
+  const [focusPlan, setFocusPlan] = useState(false);
 
   useEffect(() => {
     try {
@@ -49,7 +51,15 @@ export default function BreakthroughPlanner() {
         }
       }
     } catch {
-      window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
+      // Two different failures land here: corrupt JSON, and storage being
+      // unavailable at all. The cleanup throws for the second of those, so it
+      // needs its own guard — without it, a private window took the throw
+      // straight out of this effect and the planner never rendered.
+      try {
+        window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
+      } catch {
+        // Storage is unavailable entirely. There is nothing to clean up.
+      }
     } finally {
       setHydrated(true);
     }
@@ -57,16 +67,33 @@ export default function BreakthroughPlanner() {
 
   useEffect(() => {
     if (!hydrated || !plan) return;
-    window.localStorage.setItem(
-      BREAKTHROUGH_STORAGE_KEY,
-      JSON.stringify({ profile, completedActionIds }),
-    );
+    try {
+      window.localStorage.setItem(
+        BREAKTHROUGH_STORAGE_KEY,
+        JSON.stringify({ profile, completedActionIds }),
+      );
+    } catch {
+      // Private mode throws on access and a full quota throws on write. The
+      // planner keeps working in memory; only surviving a refresh is lost, and
+      // nothing here is worth crashing the page for.
+    }
   }, [completedActionIds, hydrated, plan, profile]);
 
   const percent = useMemo(
     () => (plan ? progressPercent(plan, completedActionIds) : 0),
     [completedActionIds, plan],
   );
+
+  // Building a plan replaces the form with the plan, so focus has to be moved by
+  // hand or it falls back to the document. Driven from an effect rather than
+  // requestAnimationFrame: rAF never fires while the document is hidden, so the
+  // move was silently dropped in a backgrounded tab. Diagnostic.tsx,
+  // TempoLadder.tsx and Readiness.tsx were all moved off rAF for this reason.
+  useEffect(() => {
+    if (!focusPlan || !plan) return;
+    document.getElementById("your-plan")?.focus();
+    setFocusPlan(false);
+  }, [focusPlan, plan]);
 
   function buildPlan(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -75,9 +102,7 @@ export default function BreakthroughPlanner() {
       setPlan(nextPlan);
       setCompletedActionIds([]);
       setError("");
-      window.requestAnimationFrame(() => {
-        document.getElementById("your-plan")?.focus();
-      });
+      setFocusPlan(true);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Check your practice choices.");
     }
@@ -96,7 +121,11 @@ export default function BreakthroughPlanner() {
   }
 
   function clearPlan() {
-    window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
+    try {
+      window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
+    } catch {
+      // Storage unavailable. The in-memory reset below still happens.
+    }
     setProfile(DEFAULT_PROFILE);
     setPlan(null);
     setCompletedActionIds([]);
@@ -222,12 +251,21 @@ export default function BreakthroughPlanner() {
         </button>
       </div>
 
-      <div className="mt-10" aria-label={`${percent}% of plan actions complete`}>
+      <div className="mt-10">
         <div className="flex items-center justify-between text-sm font-semibold text-indigo-deep">
           <span>Actions completed</span>
           <span>{percent}%</span>
         </div>
-        <div className="breakthrough-progress mt-3" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>
+        {/* The label belongs on the element that carries the role. On a plain
+            div it is dropped, and the progress bar is announced unnamed. */}
+        <div
+          className="breakthrough-progress mt-3"
+          role="progressbar"
+          aria-label={`${percent}% of plan actions complete`}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={percent}
+        >
           <span style={{ transform: `scaleX(${percent / 100})` }} />
         </div>
         <p className="mt-3 text-sm text-ink/60">
@@ -294,7 +332,11 @@ export default function BreakthroughPlanner() {
         </div>
         <div className="mt-6 flex flex-wrap gap-3 md:mt-0 md:pl-8">
           <a href="/#apply" className="breakthrough-primary">Apply to the room</a>
-          <a href="https://suede.social" target="_blank" rel="noopener" className="breakthrough-community">
+          {/* STRUMLY.social, not a hand-written suede.social: the registry in
+              lib/site.ts holds the one URL this site uses for Suede Social, and
+              a second spelling of the same destination is a second thing to
+              keep true. */}
+          <a href={STRUMLY.social} target="_blank" rel="noopener" className="breakthrough-community">
             Visit Suede Social ↗
           </a>
         </div>
