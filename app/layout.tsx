@@ -16,6 +16,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://guitarhub.org"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
+  },
   title: "GuitarHub — Prove One Guitar Breakthrough in 30 Days",
   description:
     "Build a four-week guitar practice plan, launch the right Strumly tools, track weekly evidence in your browser, and apply to the GuitarHub founding room.",
