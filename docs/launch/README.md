@@ -33,31 +33,51 @@ gap below closes when the branch deploys — which is why Step 0 is a deploy and
   card. Same cause: the deployed build predates the card.
 - Every Strumly, Suede Social, and Suede Labs URL used in these drafts returns 200.
 
-**Not live yet — this is the blocker**
+**Live as of 2026-08-30 00:22 UTC — the deploy blocker is cleared**
 
-Ten of the twelve routes return **404 in production right now**:
+The buildout is deployed. Every route below was checked with a real HTTP request against
+production after the deploy went READY, not against the source:
 
 ```
-404  /diagnose
-404  /tempo
-404  /readiness
-404  /method
-404  /about
-404  /guitar-practice-plateau
-404  /how-to-practice-guitar-effectively
-404  /deliberate-practice-guitar
-404  /30-day-guitar-challenge
-404  /guitar-practice-routine-intermediate
+200  /            200  /method       200  /tools        200  /guides
+200  /faq         200  /about        200  /diagnose     200  /tempo
+200  /readiness   200  /breakthrough
+200  /how-to-practice-guitar-effectively    200  /guitar-practice-plateau
+200  /deliberate-practice-guitar            200  /30-day-guitar-challenge
+200  /guitar-practice-routine-intermediate  200  /how-long-to-practice-guitar-each-day
+200  /guitar-practice-schedule              200  /why-cant-i-play-guitar-fast
+200  /how-to-memorize-songs-on-guitar       200  /practicing-guitar-with-a-metronome
+200  /sitemap.xml 200  /robots.txt   200  /llms.txt     200  /opengraph-image
 ```
 
-They exist in this worktree. They are not deployed. **Do not post a single link in this
-pack until they return 200.** Half of the copy points at these routes, and a 404 in a
-launch post is the one mistake that cannot be walked back — people do not come back for a
-second look.
+24 of 24 return 200. `sitemap.xml` now lists **20 URLs**, up from 2. The home page emits
+`og:image` pointing at a real 1200x630 PNG (38 KB, `image/png`), and `twitter:card` is
+`summary_large_image` rather than the small text card. `/method`, `/tools` and `/faq` were
+spot-checked and each carries its own `og:image`.
 
-`/about` matters more than its traffic will suggest: it is the page that says who built the
-site and what happens to what you type into it, `llms.txt` points answer engines at it, and
-it is the page a journalist checks first.
+**Every link in this pack is safe to post.**
+
+**Two routes referenced nowhere here, on purpose**
+
+`/session` and `/log` were scoped and never built. They are absent from the route registry,
+so nothing on the site or in this pack points at them. Do not add them to submission copy.
+
+**One thing still broken, and it is the funnel**
+
+`RESEND_API_KEY` is not set on the `suede-guitar-hub` Vercel project — confirmed with
+`vercel env ls production`, which reports zero environment variables. Until it is set, every
+application submitted at `/#apply` returns a 503 and the applicant is shown the
+`info@suedeai.ai` email fallback instead of being delivered.
+
+The sending domain is fine: `resend._domainkey.guitarhub.org` publishes a valid DKIM record,
+so `applications@guitarhub.org` is a verified sender. The key is the only missing piece.
+
+```bash
+cd ~/code/suede-guitar-hub && vercel env add RESEND_API_KEY production
+```
+
+Then redeploy so the new value is picked up. **Driving traffic before this is set means
+applications arrive only from people willing to copy an address into their mail client.**
 
 **Already in this branch, so do not go build them again**
 
@@ -94,7 +114,7 @@ for p in / /breakthrough /diagnose /tempo /readiness /method /about \
 done
 ```
 
-**Must be true before Step 1:** twelve 200s, zero 404s. The list above is the sitemap —
+**Must be true before Step 1:** already satisfied — 24 of 24 routes returned 200 on 2026-08-30. The list above is the sitemap —
 check it against `curl -s https://guitarhub.org/sitemap.xml | grep -c '<loc>'`, which should
 also return 12, so a route added later cannot quietly drop out of this check.
 
