@@ -186,7 +186,7 @@ const FAQS: readonly Faq[] = [
     id: "who-is-it-for",
     group: "who-its-for",
     q: "Who is GuitarHub for?",
-    a: "Players who are past the first few months and no longer getting obvious returns from practice: advanced beginners, intermediates, and people coming back to the instrument after a long gap. The planner asks you to place yourself in one of those three, because the four weeks it builds differ for each. The common shape is a player with plenty of saved material and no finished piece to show for it.",
+    a: "Players who are past the first few months and no longer getting obvious returns from practice: advanced beginners, intermediates, and people coming back to the instrument after a long gap. The planner asks you to place yourself in one of those three and labels the plan with where you are starting from; the four weeks themselves are built from the goal you pick. The common shape is a player with plenty of saved material and no finished piece to show for it.",
   },
   {
     id: "who-is-it-not-for",
@@ -198,7 +198,7 @@ const FAQS: readonly Faq[] = [
     id: "how-much-time",
     group: "who-its-for",
     q: "How much time does this take?",
-    a: "The planner asks how many days a week you practice and how many minutes you get per session, then builds the four weeks around your answer instead of a number we picked. There is no daily minimum anywhere in the method. The one thing it insists on is that each week end with something recorded, which costs about as long as one take.",
+    a: "The planner asks how many days a week you practice and how many minutes you get per session, and labels your plan with that cadence. It accepts three to six days and sessions of 15 to 60 minutes, and it builds the same four-week sequence at any of those settings. The one thing the method insists on is that each week end with something recorded, which costs about as long as one take.",
   },
 
   // The founding room

@@ -301,8 +301,11 @@ export default function GuitarPracticeSchedulePage() {
 
         <p>
           Turning a fixed number of minutes into blocks with distinct jobs is
-          its own problem, and the{" "}
-          <Link href="/session">practice session builder</Link> covers it. The{" "}
+          its own problem, and{" "}
+          <Link href="/how-long-to-practice-guitar-each-day">
+            how long to practice each day
+          </Link>{" "}
+          covers it. The{" "}
           <Link href="/guitar-practice-routine-intermediate">
             intermediate practice routine
           </Link>{" "}

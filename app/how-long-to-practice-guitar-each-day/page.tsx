@@ -46,7 +46,6 @@ const ENTRY_BY_HREF = new Map<string, SiteEntry>(
 );
 
 const RELATED: readonly SiteEntry[] = [
-  "/session",
   "/guitar-practice-routine-intermediate",
   "/how-to-practice-guitar-effectively",
   "/tempo",
@@ -437,10 +436,7 @@ export default function HowLongToPracticePage() {
           <Link href="/how-to-practice-guitar-effectively">
             how to practice guitar effectively
           </Link>{" "}
-          is the companion piece to this one. And when the question is how to
-          split the session you are about to start, the{" "}
-          <Link href="/session">session builder</Link> is there for that
-          decision.
+          is the companion piece to this one.
         </p>
 
         <p>
