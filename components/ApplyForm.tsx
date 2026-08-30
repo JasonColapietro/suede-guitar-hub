@@ -1,7 +1,10 @@
 "use client";
 
 import { buildApplicationEmailFallback } from "@/lib/application";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+
+const FOCUS_RING =
+  "focus-visible:outline-3 focus-visible:outline-offset-[3px] focus-visible:outline-violet-soft";
 
 type Status =
   | { state: "idle" }
@@ -11,6 +14,17 @@ type Status =
 
 export default function ApplyForm() {
   const [status, setStatus] = useState<Status>({ state: "idle" });
+  const confirmationRef = useRef<HTMLDivElement | null>(null);
+
+  // A successful submit unmounts the whole form, including the submit button
+  // that had focus, so focus would otherwise fall to the body. Moving it from
+  // an effect runs after React has committed the confirmation, which is when
+  // the element exists — the same pattern Diagnostic.tsx and TempoLadder.tsx
+  // use, and for the same reason requestAnimationFrame is avoided there.
+  useEffect(() => {
+    if (status.state !== "done") return;
+    confirmationRef.current?.focus();
+  }, [status.state]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -60,7 +74,12 @@ export default function ApplyForm() {
 
   if (status.state === "done") {
     return (
-      <div className="rounded-3xl bg-white/10 p-8 text-center">
+      <div
+        ref={confirmationRef}
+        role="status"
+        tabIndex={-1}
+        className={`rounded-3xl bg-white/10 p-8 text-center ${FOCUS_RING}`}
+      >
         <p className="font-display text-2xl text-peach">Application received.</p>
         <p className="mt-3 text-violet-soft">
           We read every application personally. If the founding room fits your
@@ -70,8 +89,14 @@ export default function ApplyForm() {
     );
   }
 
+  // focus-visible, and a real 3px ring rather than a 1px border colour change:
+  // WCAG 2.2 SC 2.4.11 asks for an indicator at least 2px thick, and
+  // `focus:outline-none` had removed the browser's own. Same constant the three
+  // newer tool components use. The placeholder is white/60 rather than white/40
+  // for the same reason the readiness input's was raised: over this panel, 40%
+  // measures 3.39:1 and misses the 4.5:1 minimum, where 60% clears it.
   const inputClasses =
-    "w-full rounded-2xl border border-white/15 bg-white/5 px-5 py-4 text-cream placeholder:text-white/40 focus:border-violet-soft focus:outline-none";
+    `w-full rounded-2xl border border-white/15 bg-white/5 px-5 py-4 text-cream placeholder:text-white/60 focus:border-violet-soft ${FOCUS_RING}`;
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-4">

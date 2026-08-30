@@ -14,7 +14,15 @@
     "jsx": "preserve",
     "incremental": true,
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./*"] }
+    "paths": { "@/*": ["./*"] },
+    // `node --test --experimental-strip-types` runs the files in `tests/` as real
+    // ESM, and Node's ESM resolver does no extension guessing: a test has to
+    // import `../lib/tempo.ts` with the extension written out or the import
+    // fails at runtime. TypeScript rejects that spelling unless this is on, so
+    // without it `tsc --noEmit` and `node --test` cannot both pass. Legal here
+    // because `noEmit` is set, so nothing is ever emitted with a `.ts` specifier
+    // left in it.
+    "allowImportingTsExtensions": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
