@@ -172,7 +172,7 @@ export default function SessionBuilder() {
     setMinutesField(raw);
   }
 
-  function usePreset(minutes: number) {
+  function applyPreset(minutes: number) {
     setMinutesField(String(minutes));
     attempt(minutes, focus);
   }
@@ -247,7 +247,7 @@ export default function SessionBuilder() {
               <li key={preset}>
                 <button
                   type="button"
-                  onClick={() => usePreset(preset)}
+                  onClick={() => applyPreset(preset)}
                   className={`inline-flex min-h-11 items-center rounded-full border border-indigo-deep/15 bg-cream-soft px-4 py-2 text-sm font-semibold text-indigo-deep motion-safe:transition hover:bg-white ${PILL_FOCUS}`}
                 >
                   {preset} min

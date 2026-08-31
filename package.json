@@ -7,19 +7,21 @@
     "dev": "next dev -p 3400",
     "build": "next build",
     "start": "next start -p 3400",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "node --test --experimental-strip-types --disable-warning=ExperimentalWarning --import ./tests/register-aliases.mjs tests/*.test.ts"
   },
   "dependencies": {
-    "next": "^15.4.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "next": "^16.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^24.0.0",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.3",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   }
