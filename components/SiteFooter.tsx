@@ -1,12 +1,19 @@
 import Link from "next/link";
-import { GUIDES, STRUMLY, TOOLS, isInternalHref, type SiteEntry } from "@/lib/site";
+import {
+  GUIDES,
+  RESOURCES,
+  STRUMLY,
+  TOOLS,
+  isInternalHref,
+  type SiteEntry,
+} from "@/lib/site";
 
 /**
  * The site-wide footer. Server Component, zero JavaScript.
  *
  * This is the internal-linking backbone: every page renders it, so every page
- * links to every tool and every guide. The Tools and Guides columns are built
- * from `lib/site.ts` — add a page there and it appears here on every route.
+ * links to every tool, guide and editorial resource. The internal columns are
+ * built from `lib/site.ts` — add a page there and it appears here site-wide.
  */
 
 /**
@@ -62,9 +69,10 @@ export default function SiteFooter() {
   return (
     <footer className="border-t border-ink/5 bg-cream">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <InternalColumn heading="Tools" entries={TOOLS} />
           <InternalColumn heading="Guides" entries={GUIDES} />
+          <InternalColumn heading="Resources" entries={RESOURCES} />
           <div>
             <h2 className={COLUMN_HEADING}>Suede</h2>
             <ul className="mt-3">

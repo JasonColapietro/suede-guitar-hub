@@ -2,9 +2,10 @@
  * The single route registry for guitarhub.org.
  *
  * Every page on the site is listed here exactly once. `app/sitemap.ts` builds
- * from `SITEMAP_ENTRIES`, and `components/SiteFooter.tsx` builds its Tools and
- * Guides columns from `TOOLS` and `GUIDES`. Adding a page means adding an entry
- * here — the sitemap and the site-wide internal linking follow automatically.
+ * from `SITEMAP_ENTRIES`, and `components/SiteFooter.tsx` builds its Tools,
+ * Guides and Resources columns from this registry. Adding a page means adding
+ * an entry here — the sitemap and the site-wide internal linking follow
+ * automatically.
  *
  * `STRUMLY` holds the only external URLs this site is allowed to link to. Every
  * one of them has been verified to return 200. Do not add a URL here without
@@ -197,6 +198,21 @@ export const GUIDES: readonly SiteEntry[] = [
   },
 ];
 
+/**
+ * Reported and argued editorial work, distinct from the instructional guides.
+ * Resources can cover guitar technology, rights and the wider creator economy
+ * without implying that they are part of the GuitarHub practice method.
+ */
+export const RESOURCES: readonly SiteEntry[] = [
+  {
+    href: "/resources/nam-a2-open-tone-format",
+    title: "NAM A2 turns guitar tone into an open format",
+    blurb:
+      "What Architecture 2 changes for portable neural amp captures, constrained hardware, compatibility, licensing and provenance.",
+    lastModified: "2026-08-31",
+  },
+];
+
 /** Home plus every tool and guide, in sitemap order. */
 /**
  * Index pages. They are neither a tool nor a guide, but they are the crawl
@@ -232,6 +248,7 @@ export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
   ...HUBS,
   ...TOOLS,
   ...GUIDES,
+  ...RESOURCES,
   ABOUT,
 ];
 
