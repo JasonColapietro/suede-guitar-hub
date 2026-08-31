@@ -15,9 +15,10 @@ const CANONICAL = `${SITE_URL}/tools`;
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "Free Guitar Practice Tools | GuitarHub";
-// 146 characters. No count of the tools appears here or anywhere in the body
-// copy: this page is generated from the registry, and a hard-typed "four"
-// becomes a lie the moment a fifth entry is added to `TOOLS`.
+// 146 characters. No count of the tools, and no list of them, appears here, in
+// the openGraph description, or anywhere in the body copy: this page is
+// generated from the registry, and a hard-typed "four" — or a hand-kept list of
+// five — becomes a lie the moment another entry is added to `TOOLS`.
 const DESCRIPTION =
   "Every free guitar practice tool on GuitarHub in one place: what each one is for, who it helps, and why they all run in your browser with no account.";
 
@@ -26,8 +27,11 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   openGraph: {
     title: TITLE,
+    // Under the same rule as DESCRIPTION above, and for the same reason: the
+    // line this replaced named the tools one by one, which meant it was a
+    // list to maintain by hand. It had already fallen a tool behind.
     description:
-      "Plan a session, diagnose a plateau, build a tempo ladder, test song readiness, and log the evidence. Free, private, and browser-local.",
+      "What each free GuitarHub practice tool is for, who it helps, and which one to open first. No account, and nothing you type leaves your browser.",
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",

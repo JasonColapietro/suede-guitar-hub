@@ -1,5 +1,12 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
-import { GUIDES, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
+import {
+  GUIDES,
+  SITE_URL,
+  STRUMLY,
+  TOOLS,
+  spellOut,
+  type SiteEntry,
+} from "@/lib/site";
 
 // Written for answer engines, not for ranking. Everything below is stated as a
 // checkable fact drawn from the live page — the method, the four loop stages,
@@ -21,30 +28,6 @@ import { GUIDES, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
  * names `/method` with the stages the page actually uses.
  */
 const WRITTEN_GUIDES = GUIDES.filter((entry) => entry.href !== "/method");
-
-/**
- * Spelled out rather than typed, for the same reason the lists are generated:
- * a hard "four" in this file became false the moment a fifth tool shipped, and
- * a checkable fact that is checkably wrong is the exact failure this file
- * exists to prevent.
- */
-const NUMBER_WORDS = [
-  "zero",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-  "ten",
-] as const;
-
-function spellOut(count: number): string {
-  return NUMBER_WORDS[count] ?? String(count);
-}
 
 /** `- Title — blurb`, then the absolute URL on its own line. */
 function listEntries(entries: readonly SiteEntry[]): string {

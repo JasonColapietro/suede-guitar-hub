@@ -314,8 +314,8 @@ export default function GuitarPracticeSchedulePage() {
           odd thirty-five a real week actually hands you — the{" "}
           <Link href="/session">practice session builder</Link> takes the
           minutes you have and the one thing you are fixing and returns blocks
-          that add up to exactly that number, dropping the blocks there is no
-          room for rather than shrinking all of them.
+          that add up to exactly that number, dropping the ones whose share came
+          out too small to be worth starting rather than shrinking all of them.
         </p>
 
         <h2>Missed days are part of the plan</h2>

@@ -271,8 +271,9 @@ export default function HowLongToPracticePage() {
           <Link href="/session">practice session builder</Link> splits whatever
           minutes you have into blocks that total exactly that length, weighted
           toward the one thing you named as broken. On a short evening it drops
-          the blocks it cannot fit rather than shrinking all of them into setup
-          time, and it tells you which ones it dropped.
+          the blocks whose share came out too small to be worth starting, rather
+          than shrinking all of them into setup time, and it tells you which
+          ones went and why.
         </p>
 
         <h3>Ten minutes: one repair, recorded</h3>

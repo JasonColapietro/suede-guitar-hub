@@ -69,9 +69,26 @@ export type SessionBlock = {
   doThis: string;
 };
 
+/**
+ * Why a block is not in the session.
+ *
+ * `under-minimum` is the ordinary case: the block's share of this length came
+ * out below the size that makes it worth starting. `funded-lead` is the last
+ * resort — the block was at a workable size and was given up anyway, because
+ * the only way left to get the lead block to its own minimum was to stop
+ * splitting the time with it.
+ *
+ * The distinction is not decorative. The two cases need different sentences,
+ * and collapsing them into one produced a reason that was false: a block
+ * dropped to fund the lead was told it could not be afforded, by a session
+ * that had just proved it could.
+ */
+export type DropCause = "under-minimum" | "funded-lead";
+
 export type DroppedBlock = {
   kind: SessionBlockKind;
   name: string;
+  cause: DropCause;
   /** Written as copy. The UI renders it verbatim. */
   reason: string;
 };
@@ -462,12 +479,12 @@ function allocate(
 ): {
   minutes: Map<SessionBlockKind, number>;
   active: SessionBlockKind[];
-  dropped: SessionBlockKind[];
+  dropped: { kind: SessionBlockKind; cause: DropCause }[];
 } {
   const weights = WEIGHTS[focus];
   let active = [...BLOCK_ORDER];
   let minutes = apportion(total, active, weights);
-  const dropped: SessionBlockKind[] = [];
+  const dropped: { kind: SessionBlockKind; cause: DropCause }[] = [];
 
   // At most one removal per block, so the loop cannot outlive the block list.
   for (let pass = 0; pass < BLOCK_ORDER.length; pass += 1) {
@@ -495,7 +512,10 @@ function allocate(
     })[0];
 
     active = active.filter((kind) => kind !== casualty);
-    dropped.push(casualty);
+    dropped.push({
+      kind: casualty,
+      cause: tooSmall.length > 0 ? "under-minimum" : "funded-lead",
+    });
     minutes = apportion(total, active, weights);
   }
 
@@ -585,20 +605,40 @@ function buildBlocks(
   );
 }
 
+/**
+ * The sentence printed beside each block that is not in the session.
+ *
+ * Neither wording claims the session could not afford the block, and that is
+ * the point. It usually could: the blocks have minimums totalling 23 minutes,
+ * so a 30-minute session can seat all five at their floors. What it cannot do
+ * is seat all five *and* give the block you chose the share that makes it the
+ * repair rather than one item on a list. Dropping is how the weighting is
+ * honoured, not how the arithmetic is balanced, and the copy now says so.
+ */
 function describeDropped(
   focus: SessionFocus,
   total: number,
-  dropped: readonly SessionBlockKind[],
+  lead: SessionBlockKind,
+  dropped: readonly { kind: SessionBlockKind; cause: DropCause }[],
 ): DroppedBlock[] {
-  return BLOCK_ORDER.filter((kind) => dropped.includes(kind)).map((kind) => {
+  const causes = new Map(dropped.map((record) => [record.kind, record.cause]));
+
+  return BLOCK_ORDER.filter((kind) => causes.has(kind)).map((kind) => {
     const { name } = blockCopy(kind, focus);
+    const cause = causes.get(kind) ?? "under-minimum";
+    const floor = plural(MINIMUM_MINUTES[kind], "minute", "minutes");
+
     return {
       kind,
       name,
+      cause,
       // Deliberately does not repeat the block's name. `name` sits beside this
       // in the same type and the UI renders both, so a reason that opens with
       // the name reads as a stutter on screen.
-      reason: `It needs at least ${plural(MINIMUM_MINUTES[kind], "minute", "minutes")} to be worth starting, and a ${total}-minute session cannot spare that once the blocks above it are paid for.`,
+      reason:
+        cause === "under-minimum"
+          ? `It needs at least ${floor} to be worth starting, and its share of a ${total}-minute session came out under that. Shortening it would have cost the setup time and returned nothing.`
+          : `It came out at a workable size and was given up anyway: at ${total} minutes, freeing it was the only way left to get the ${blockCopy(lead, focus).shortName.toLowerCase()} block up to the ${plural(MINIMUM_MINUTES[lead], "minute", "minutes")} it needs, and that is the block you came here for.`,
     };
   });
 }
@@ -684,6 +724,7 @@ export function buildSessionPlan(input: unknown): SessionPlanResult {
   const { minutes: allocated, active, dropped } = allocate(minutes, focus);
   elevateLead(allocated, active, weights);
 
+  const lead = leadOf(active, weights);
   const blocks = buildBlocks(focus, active, allocated);
   const list = blocks
     .map((block) => `${block.shortName} ${block.minutes}`)
@@ -692,9 +733,13 @@ export function buildSessionPlan(input: unknown): SessionPlanResult {
     blocks.length === 1
       ? `The whole ${minutes} minutes goes to it.`
       : `They add up to exactly ${minutes} minutes, with nothing left unassigned.`;
+  // Not "there is not enough time for them", which was the previous wording and
+  // was false at most lengths that drop anything: 30 minutes can seat all five
+  // blocks at their floors. What it cannot do is seat all five and still weight
+  // the session toward the block that was chosen.
   const tail =
     dropped.length > 0
-      ? ` ${plural(dropped.length, "block was", "blocks were")} left out: there is not enough time for ${dropped.length === 1 ? "it" : "them"} at ${minutes} minutes.`
+      ? ` ${plural(dropped.length, "block was", "blocks were")} left out rather than shrunk below the size that makes ${dropped.length === 1 ? "it" : "them"} worth starting.`
       : "";
 
   return {
@@ -703,9 +748,9 @@ export function buildSessionPlan(input: unknown): SessionPlanResult {
       minutes,
       focus,
       focusLabel: sessionFocusLabel(focus),
-      leadKind: leadOf(active, weights),
+      leadKind: lead,
       blocks,
-      dropped: describeDropped(focus, minutes, dropped),
+      dropped: describeDropped(focus, minutes, lead, dropped),
       summary: `${minutes} minutes, ${plural(blocks.length, "block", "blocks")}: ${list}. ${accounting}${tail}`,
     },
   };

@@ -350,6 +350,76 @@ test("drops a block below its minimum and gives the minutes to the survivors", (
   }
 });
 
+test("gives the true reason a block went, never an affordability claim", () => {
+  // 10 minutes is one of the presets on the page, and it drops all four
+  // non-lead blocks. Three go because their share came out under their floor.
+  // The fourth — tempo — was standing at exactly its own 5-minute floor when it
+  // went, and went so that repair could reach 6. The old copy told the player
+  // a 10-minute session "cannot spare" 5 minutes for a block it had just
+  // seated at 5, which was the one thing this tool must not do.
+  const plan = planFor({ minutes: 10, focus: "tempo-ceiling" });
+
+  assert.deepEqual(split(plan), [["repair", 10]]);
+  assert.deepEqual(
+    plan.dropped.map((block) => [block.kind, block.cause]),
+    [
+      ["warmup", "under-minimum"],
+      ["tempo", "funded-lead"],
+      ["repertoire", "under-minimum"],
+      ["coldstart", "under-minimum"],
+    ],
+  );
+
+  const tempo = plan.dropped.find((block) => block.kind === "tempo");
+  assert.ok(tempo, "tempo must be reported as dropped");
+  assert.match(tempo.reason, /came out at a workable size/);
+  assert.match(tempo.reason, /the 6 minutes it needs/);
+
+  // No dropped block, under either cause and at any length, may tell the player
+  // the session could not spare the minutes. The blocks have floors totalling
+  // 23 minutes, so every session from 23 up could seat all five — dropping is
+  // how the chosen block keeps its weighting, not an arithmetic shortfall, and
+  // a sentence that says otherwise is false wherever it appears.
+  for (const focus of FOCUSES) {
+    for (
+      let minutes = MIN_SESSION_MINUTES;
+      minutes <= MAX_SESSION_MINUTES;
+      minutes += 1
+    ) {
+      const swept = planFor({ minutes, focus });
+      const where = `${focus} at ${minutes} minutes`;
+
+      assert.doesNotMatch(
+        swept.summary,
+        /not enough time/,
+        `${where} summary claimed a shortfall`,
+      );
+
+      for (const block of swept.dropped) {
+        assert.doesNotMatch(
+          block.reason,
+          /cannot spare|no room|not enough time/,
+          `${where} told the player ${block.kind} could not be afforded`,
+        );
+        assert.ok(
+          block.cause === "under-minimum" || block.cause === "funded-lead",
+          `${where} left ${block.kind} without a cause`,
+        );
+      }
+
+      // Exactly one block may ever be given up for the lead, and only as the
+      // last removal: once it happens, nothing else is standing to drop.
+      const funded = swept.dropped.filter(
+        (block) => block.cause === "funded-lead",
+      );
+      assert.ok(
+        funded.length <= 1,
+        `${where} gave up ${funded.length} blocks for the lead`,
+      );
+    }
+  }
+});
+
 test("always leaves one block standing, however little time there is", () => {
   for (const focus of FOCUSES) {
     for (let minutes = MIN_SESSION_MINUTES; minutes <= 12; minutes += 1) {

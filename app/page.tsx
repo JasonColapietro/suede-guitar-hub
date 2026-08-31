@@ -3,7 +3,17 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
 import SiteFooter from "@/components/SiteFooter";
-import { STRUMLY, TOOLS } from "@/lib/site";
+import { STRUMLY, TOOLS, spellOut } from "@/lib/site";
+
+/**
+ * Written out from the registry, never typed. The heading below sat on a
+ * hard-coded "Four tools." while `TOOLS` grew to six, which is the one kind of
+ * claim this site cannot afford to get wrong on its own front page.
+ */
+const TOOL_COUNT = (() => {
+  const word = spellOut(TOOLS.length);
+  return word.charAt(0).toUpperCase() + word.slice(1);
+})();
 
 // Four links, matching components/SiteNav.tsx label for label so the header
 // reads the same on every route. Deliberately capped at four: at the `md`
@@ -309,7 +319,8 @@ export default function Home() {
         <section id="tools" className="mx-auto max-w-6xl px-6 pb-24">
           <Reveal>
             <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
-              Four tools. <em className="font-display italic">No account.</em>
+              {TOOL_COUNT} tools.{" "}
+              <em className="font-display italic">No account.</em>
             </h2>
           </Reveal>
           <Reveal delay={1}>

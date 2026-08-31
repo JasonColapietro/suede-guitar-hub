@@ -248,3 +248,30 @@ export const STRUMLY = {
 export function isInternalHref(href: string): boolean {
   return href.startsWith("/");
 }
+
+/**
+ * Number words, so a count can be written out in prose without being typed.
+ *
+ * Lives here rather than in the pages that need it: a hard-typed "four" became
+ * false the moment a fifth tool shipped, and three separate copies of the fix
+ * would drift the same way the number did. `app/page.tsx`, `app/guides/page.tsx`
+ * and `app/llms.txt/route.ts` all read `TOOLS.length` through this.
+ */
+const NUMBER_WORDS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+] as const;
+
+/** `spellOut(6)` is `"six"`. Past ten, the digits are the clearer spelling. */
+export function spellOut(count: number): string {
+  return NUMBER_WORDS[count] ?? String(count);
+}
