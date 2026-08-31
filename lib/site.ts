@@ -74,6 +74,13 @@ export const TOOLS: readonly SiteEntry[] = [
     lastModified: "2026-08-29",
   },
   {
+    href: "/session",
+    title: "Practice session builder",
+    blurb:
+      "Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.",
+    lastModified: "2026-08-30",
+  },
+  {
     href: "/tempo",
     title: "Tempo ladder builder",
     blurb:
@@ -86,6 +93,13 @@ export const TOOLS: readonly SiteEntry[] = [
     blurb:
       "Check a song against the parts that break under pressure before you call it finished.",
     lastModified: "2026-08-29",
+  },
+  {
+    href: "/log",
+    title: "Practice evidence log",
+    blurb:
+      "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
+    lastModified: "2026-08-30",
   },
 ];
 
@@ -233,4 +247,31 @@ export const STRUMLY = {
 /** True for a route on guitarhub.org itself, which should use `next/link`. */
 export function isInternalHref(href: string): boolean {
   return href.startsWith("/");
+}
+
+/**
+ * Number words, so a count can be written out in prose without being typed.
+ *
+ * Lives here rather than in the pages that need it: a hard-typed "four" became
+ * false the moment a fifth tool shipped, and three separate copies of the fix
+ * would drift the same way the number did. `app/page.tsx`, `app/guides/page.tsx`
+ * and `app/llms.txt/route.ts` all read `TOOLS.length` through this.
+ */
+const NUMBER_WORDS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+] as const;
+
+/** `spellOut(6)` is `"six"`. Past ten, the digits are the clearer spelling. */
+export function spellOut(count: number): string {
+  return NUMBER_WORDS[count] ?? String(count);
 }

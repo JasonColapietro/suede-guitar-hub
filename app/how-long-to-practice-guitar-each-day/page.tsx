@@ -46,6 +46,7 @@ const ENTRY_BY_HREF = new Map<string, SiteEntry>(
 );
 
 const RELATED: readonly SiteEntry[] = [
+  "/session",
   "/guitar-practice-routine-intermediate",
   "/how-to-practice-guitar-effectively",
   "/tempo",
@@ -262,6 +263,17 @@ export default function HowLongToPracticePage() {
           target. If you do not, the{" "}
           <Link href="/method">GuitarHub method</Link> covers how the target gets
           chosen and how you know when it is finished.
+        </p>
+
+        <p>
+          Ten, twenty-five and sixty are the common sizes, not the only ones.
+          For a number that is none of those, the{" "}
+          <Link href="/session">practice session builder</Link> splits whatever
+          minutes you have into blocks that total exactly that length, weighted
+          toward the one thing you named as broken. On a short evening it drops
+          the blocks whose share came out too small to be worth starting, rather
+          than shrinking all of them into setup time, and it tells you which
+          ones went and why.
         </p>
 
         <h3>Ten minutes: one repair, recorded</h3>

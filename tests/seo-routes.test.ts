@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
@@ -129,5 +129,36 @@ test("publishes every canonical indexable page in the sitemap", async () => {
       `${entry.url} must carry a priority inside (0, 1]`,
     );
     assert.ok(entry.changeFrequency, `${entry.url} must carry a changeFrequency`);
+  }
+});
+
+test("gives every registered tool a full tools-hub card and routing row", () => {
+  const source = readFileSync(
+    new URL("../app/tools/page.tsx", import.meta.url),
+    "utf8",
+  );
+  const details = source.match(
+    /const TOOL_DETAILS:[\s\S]*?\n};/,
+  )?.[0];
+  const routing = source.match(
+    /const ROUTING:[\s\S]*?\n];/,
+  )?.[0];
+
+  assert.ok(details, "app/tools/page.tsx must define TOOL_DETAILS");
+  assert.ok(routing, "app/tools/page.tsx must define ROUTING");
+
+  for (const tool of TOOLS) {
+    const escapedHref = tool.href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    assert.match(
+      details,
+      new RegExp(`"${escapedHref}"\\s*:`),
+      `${tool.href} needs the full what-it-does and who-it-helps card copy`,
+    );
+    assert.match(
+      routing,
+      new RegExp(`href:\\s*"${escapedHref}"`),
+      `${tool.href} needs a place in the method-stage routing table`,
+    );
   }
 });

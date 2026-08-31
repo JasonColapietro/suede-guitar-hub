@@ -289,7 +289,10 @@ export default function MethodPage() {
           Where those layers sit in a week is a scheduling problem too.
           Strumly&apos;s guide to{" "}
           <a href={STRUMLY.practiceRoutine}>designing a practice routine</a>{" "}
-          covers building the week around them.
+          covers building the week around them. For the session in front of
+          you, the <Link href="/session">practice session builder</Link> turns
+          the minutes you have and the failure you named into blocks that add
+          up exactly, then points its largest block at the repair.
         </p>
 
         <h2>Stage four: Prove</h2>
@@ -335,6 +338,14 @@ export default function MethodPage() {
           recordings settle. <em>It feels smoother</em> is not. Then write down
           what is now the worst thing: that sentence is the finish line for the
           next loop.
+        </p>
+
+        <p>
+          The <Link href="/readiness">song readiness score</Link> pressure-tests
+          whether the finished version survives outside the practice chair.
+          The <Link href="/log">practice evidence log</Link> keeps the tempo or
+          clean-pass result beside the session that produced it, and withholds
+          a direction until the same focus has enough sessions to support one.
         </p>
 
         <h2>Why the loop is closed</h2>

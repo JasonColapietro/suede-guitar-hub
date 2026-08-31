@@ -9,6 +9,7 @@ import {
   SITE_URL,
   STRUMLY,
   TOOLS,
+  spellOut,
   type SiteEntry,
 } from "@/lib/site";
 
@@ -313,24 +314,6 @@ const JSON_LD = {
 };
 
 /** Small counts read as words in prose and as numerals in the meta line. */
-const NUMBER_WORDS = [
-  "zero",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-  "ten",
-] as const;
-
-function spellOut(count: number): string {
-  return NUMBER_WORDS[count] ?? String(count);
-}
-
 function plural(count: number, noun: string): string {
   return `${count} ${noun}${count === 1 ? "" : "s"}`;
 }
