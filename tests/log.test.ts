@@ -743,6 +743,84 @@ test("a stored payload over the cap is also cut down to the newest sessions", ()
   assert.equal(restored?.[0].note, "session 3");
 });
 
+test("mints unique ids when every row shares a date and a focus", () => {
+  // One passage, logged over and over — the usage this tool exists to
+  // encourage, and the shape where every row collides on its derived id. It is
+  // also the shape that made reading a file quadratic once the whole file
+  // started being read: 20,000 such rows froze the main thread for 5.3
+  // seconds. Uniqueness is the part that must not regress in the fix for it,
+  // because two sessions sharing an id make edit and delete hit the wrong one.
+  const rows = MAX_ENTRIES * 4;
+  const imported = importLog(
+    JSON.stringify({
+      format: LOG_FILE_FORMAT,
+      version: LOG_VERSION,
+      // No id on any row, so all of them have to be minted.
+      entries: Array.from({ length: rows }, (_, index) => ({
+        date: "2026-08-30",
+        focus: "the same bar 12",
+        metric: "tempo" as const,
+        value: 80 + (index % 40),
+        note: `attempt ${index}`,
+      })),
+    }),
+  );
+
+  assert.equal(imported.ok, true);
+  if (!imported.ok) return;
+
+  const { entries, truncated } = imported.value;
+  assert.equal(entries.length, MAX_ENTRIES);
+  assert.equal(truncated, rows - MAX_ENTRIES);
+  assert.equal(
+    new Set(entries.map((entry) => entry.id)).size,
+    entries.length,
+    "every session needs an id of its own",
+  );
+
+  // The hint has to stay a hint. Ids supplied by a file are added to the taken
+  // set without ever passing through the minting path, so a file can claim the
+  // very suffix the counter is about to hand out. Interleaving minted rows with
+  // rows that claim the next suffix walks the counter straight onto taken ids —
+  // trusting it instead of checking produces five duplicates here, and a
+  // duplicate id makes edit and delete act on the wrong session.
+  const base = "2026-08-30-the-same-bar-12";
+  const interleaved = importLog(
+    JSON.stringify({
+      format: LOG_FILE_FORMAT,
+      version: LOG_VERSION,
+      entries: Array.from({ length: 24 }, (_, index) => ({
+        date: "2026-08-30",
+        focus: "the same bar 12",
+        metric: "tempo" as const,
+        value: 100,
+        note: `row ${index}`,
+        // Odd rows claim the id an even row would otherwise be given.
+        ...(index % 2 === 1 ? { id: `${base}-${index + 1}` } : {}),
+      })),
+    }),
+  );
+  assert.equal(interleaved.ok, true);
+  if (!interleaved.ok) return;
+  assert.equal(
+    new Set(interleaved.value.entries.map((entry) => entry.id)).size,
+    interleaved.value.entries.length,
+    "a file that claims the minted ids must not produce a duplicate",
+  );
+
+  // And through the merge path, where ids are re-minted against what the
+  // browser already holds rather than against the file alone.
+  const merged = mergeLog(
+    entries,
+    entries.map((entry) => ({ ...entry, value: entry.value + 1 })),
+  );
+  assert.equal(
+    new Set(merged.entries.map((entry) => entry.id)).size,
+    merged.entries.length,
+    "a merge must not hand two sessions the same id either",
+  );
+});
+
 test("refuses a file that is not this tool's export", () => {
   assert.equal(importLog("{ not json").ok, false);
   assert.equal(
