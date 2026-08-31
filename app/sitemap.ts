@@ -4,6 +4,7 @@ import {
   GUIDES,
   HOME,
   HUBS,
+  RESOURCES,
   SITE_URL,
   TOOLS,
   type SiteEntry,
@@ -39,6 +40,7 @@ const GROUPS: readonly Group[] = [
   { entries: METHOD, priority: 0.9, changeFrequency: "monthly" },
   { entries: HUBS, priority: 0.85, changeFrequency: "weekly" },
   { entries: TOOLS, priority: 0.8, changeFrequency: "monthly" },
+  { entries: RESOURCES, priority: 0.75, changeFrequency: "monthly" },
   { entries: OTHER_GUIDES, priority: 0.7, changeFrequency: "monthly" },
   { entries: [ABOUT], priority: 0.5, changeFrequency: "yearly" },
 ];

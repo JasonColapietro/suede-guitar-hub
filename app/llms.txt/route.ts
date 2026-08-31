@@ -1,6 +1,7 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
 import {
   GUIDES,
+  RESOURCES,
   SITE_URL,
   STRUMLY,
   TOOLS,
@@ -89,6 +90,10 @@ export from.
 ## Written guides
 
 ${listEntries(WRITTEN_GUIDES)}
+
+## Editorial resources
+
+${listEntries(RESOURCES)}
 
 ## About the project
 
