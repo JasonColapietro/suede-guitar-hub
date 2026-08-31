@@ -1,5 +1,13 @@
 import type { MetadataRoute } from "next";
-import { GUIDES, HOME, HUBS, SITE_URL, TOOLS, type SiteEntry } from "@/lib/site";
+import {
+  ABOUT,
+  GUIDES,
+  HOME,
+  HUBS,
+  SITE_URL,
+  TOOLS,
+  type SiteEntry,
+} from "@/lib/site";
 
 /**
  * Built from the route registry in `lib/site.ts` instead of a hand-kept list,
@@ -9,19 +17,6 @@ import { GUIDES, HOME, HUBS, SITE_URL, TOOLS, type SiteEntry } from "@/lib/site"
  * `app/` before being listed. A sitemap that advertises a 404 is worse than one
  * that omits a page, so nothing enters this file ahead of the route itself.
  */
-
-/**
- * `/about` is deliberately absent from `lib/site.ts`: it is neither a tool nor
- * a guide, and adding it there would push it into the footer's Tools or Guides
- * column. It is still a canonical indexable page, so it is listed here.
- */
-const ABOUT: SiteEntry = {
-  href: "/about",
-  title: "About GuitarHub",
-  blurb:
-    "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
-  lastModified: "2026-08-29",
-};
 
 /**
  * `/method` is the page the rest of the site argues from, so it outranks the

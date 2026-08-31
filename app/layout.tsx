@@ -36,6 +36,17 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: { canonical: "https://guitarhub.org" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 // GuitarHub was the only Suede property emitting no structured data, so engines

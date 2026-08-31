@@ -3,9 +3,8 @@ import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
-  GUIDES,
-  HOME,
   TOOLS,
+  SITEMAP_ENTRIES,
   SITE_URL as REGISTRY_SITE_URL,
 } from "../lib/site.ts";
 
@@ -81,7 +80,7 @@ test("publishes every canonical indexable page in the sitemap", async () => {
   // them. Deriving the expectation from `lib/site.ts` means a page added to the
   // registry keeps this green, while a sitemap entry with no page behind it
   // still fails — see the disk check below.
-  for (const entry of [HOME, ...TOOLS, ...GUIDES]) {
+  for (const entry of SITEMAP_ENTRIES) {
     assert.ok(
       urls.includes(entry.href === "/" ? SITE_URL : `${SITE_URL}${entry.href}`),
       `${entry.href} is in the route registry but missing from the sitemap`,
@@ -130,6 +129,41 @@ test("publishes every canonical indexable page in the sitemap", async () => {
     );
     assert.ok(entry.changeFrequency, `${entry.url} must carry a changeFrequency`);
   }
+});
+
+test("routes the homepage primary navigation through the crawlable hubs", () => {
+  const source = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const navLinks = source.match(/const NAV_LINKS = \[[\s\S]*?\n\] as const;/)?.[0];
+
+  assert.ok(navLinks, "app/page.tsx must define its primary navigation links");
+  assert.match(navLinks, /href: "\/method", label: "Method"/);
+  assert.match(navLinks, /href: "\/tools"|href: "#tools"/);
+  assert.match(
+    navLinks,
+    /href: "\/guides", label: "Guides"/,
+    "the homepage Guides link must reach the guides hub, not bypass it for one article",
+  );
+});
+
+test("adds browser-facing security headers without blocking indexable pages", async () => {
+  const { default: nextConfig } = await import("../next.config.ts");
+
+  assert.equal(nextConfig.poweredByHeader, false);
+  assert.equal(typeof nextConfig.headers, "function");
+
+  const rules = await nextConfig.headers!();
+  const sitewide = rules.find((rule) => rule.source === "/:path*");
+  assert.ok(sitewide, "security headers must cover every route");
+
+  const headers = new Map(sitewide.headers.map(({ key, value }) => [key, value]));
+  assert.equal(headers.get("X-Content-Type-Options"), "nosniff");
+  assert.equal(headers.get("X-Frame-Options"), "DENY");
+  assert.match(headers.get("Content-Security-Policy") ?? "", /frame-ancestors 'none'/);
+  assert.doesNotMatch(
+    headers.get("Content-Security-Policy") ?? "",
+    /noindex|nofollow/,
+    "security policy must not add crawl directives",
+  );
 });
 
 test("gives every registered tool a full tools-hub card and routing row", () => {

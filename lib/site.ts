@@ -55,6 +55,19 @@ export const HOME: SiteEntry = {
   title: "GuitarHub",
   blurb:
     "Choose one guitar breakthrough, practice the thing that moves it, and end every week with evidence.",
+  lastModified: "2026-08-30",
+};
+
+/**
+ * Canonical pages that are neither tools, guides, nor collection hubs.
+ * Keeping them in the registry prevents a real route from being maintained
+ * separately in the sitemap, where it can quietly disappear during a refactor.
+ */
+export const ABOUT: SiteEntry = {
+  href: "/about",
+  title: "About GuitarHub",
+  blurb:
+    "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
   lastModified: "2026-08-29",
 };
 
@@ -214,7 +227,13 @@ export const HUBS: readonly SiteEntry[] = [
   },
 ];
 
-export const SITEMAP_ENTRIES: readonly SiteEntry[] = [HOME, ...HUBS, ...TOOLS, ...GUIDES];
+export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
+  HOME,
+  ...HUBS,
+  ...TOOLS,
+  ...GUIDES,
+  ABOUT,
+];
 
 /**
  * Verified external links. Every URL below returned 200 when checked on

@@ -22,7 +22,7 @@ const TOOL_COUNT = (() => {
 const NAV_LINKS = [
   { href: "/method", label: "Method" },
   { href: "#tools", label: "Tools" },
-  { href: "/how-to-practice-guitar-effectively", label: "Guides" },
+  { href: "/guides", label: "Guides" },
   { href: "#apply", label: "Founding room" },
 ] as const;
 

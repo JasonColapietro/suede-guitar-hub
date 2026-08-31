@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   BREAKTHROUGH_GOALS,
@@ -331,7 +332,7 @@ export default function BreakthroughPlanner() {
           </p>
         </div>
         <div className="mt-6 flex flex-wrap gap-3 md:mt-0 md:pl-8">
-          <a href="/#apply" className="breakthrough-primary">Apply to the room</a>
+          <Link href="/#apply" className="breakthrough-primary">Apply to the room</Link>
           {/* STRUMLY.social, not a hand-written suede.social: the registry in
               lib/site.ts holds the one URL this site uses for Suede Social, and
               a second spelling of the same destination is a second thing to
