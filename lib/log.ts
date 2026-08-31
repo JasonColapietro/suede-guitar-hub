@@ -270,6 +270,16 @@ export type LogFile = {
   entries: LogEntry[];
 };
 
+/** What a file yielded, and what it held that would not fit. */
+export type LogImport = {
+  entries: LogEntry[];
+  /**
+   * Readable sessions the file held beyond `MAX_ENTRIES`, all older than the
+   * ones kept. Never silently zero: the caller has to say this out loud.
+   */
+  truncated: number;
+};
+
 export type LogMerge = {
   entries: LogEntry[];
   added: number;
@@ -786,7 +796,9 @@ function summarizeFocus(entries: readonly LogEntry[]): FocusSummary {
     best: values.length > 0 ? Math.max(...values) : null,
     latest: values.length > 0 ? values[values.length - 1] : null,
     otherMetricSessions: ordered.length - comparable.length,
-    trend: trendForValues(values, metric),
+    // The same rule, from the one function that owns it: compare the metric the
+    // most recent session used, and leave the rest out.
+    trend: trendForEntries(ordered),
   };
 }
 
@@ -918,12 +930,30 @@ function readEntry(candidate: unknown, taken: Set<string>): LogEntry | null {
   return { id, date: raw.date, focus, metric, value: raw.value, note };
 }
 
-function readEntryList(candidate: unknown, version: number): LogEntry[] {
-  if (!Array.isArray(candidate)) return [];
+/**
+ * Read every row, then keep at most `MAX_ENTRIES` of them — the newest.
+ *
+ * Two things this deliberately does not do. It does not cut the raw array
+ * before validating, because the first 500 rows of a file are not the first
+ * 500 sessions in it: unreadable rows would take slots from real ones. And it
+ * does not keep the head of the sorted result, because `exportLog` writes
+ * oldest-first, so the head is the oldest work and the tail is the part the
+ * 7- and 30-day windows actually read. Dropping the tail would throw away
+ * exactly the sessions the player came to see.
+ *
+ * `truncated` is returned rather than swallowed, for the same reason `mergeLog`
+ * counts `dropped` apart from `skipped`: the tool does not get to imply it kept
+ * something it did not.
+ */
+function readEntryList(
+  candidate: unknown,
+  version: number,
+): { entries: LogEntry[]; truncated: number } {
+  if (!Array.isArray(candidate)) return { entries: [], truncated: 0 };
   const taken = new Set<string>();
   const entries: LogEntry[] = [];
 
-  for (const item of candidate.slice(0, MAX_ENTRIES)) {
+  for (const item of candidate) {
     const upgraded =
       item && typeof item === "object"
         ? upgradeEntry(item as Record<string, unknown>, version)
@@ -934,7 +964,13 @@ function readEntryList(candidate: unknown, version: number): LogEntry[] {
     if (entry) entries.push(entry);
   }
 
-  return sortEntries(entries);
+  const ordered = sortEntries(entries);
+  if (ordered.length <= MAX_ENTRIES) return { entries: ordered, truncated: 0 };
+
+  return {
+    entries: ordered.slice(ordered.length - MAX_ENTRIES),
+    truncated: ordered.length - MAX_ENTRIES,
+  };
 }
 
 /** Exactly what goes into localStorage. The version travels with the data. */
@@ -967,7 +1003,10 @@ export function restoreLogState(candidate: unknown): LogEntry[] | null {
   if (version === null || !READABLE_LOG_VERSIONS.includes(version)) return null;
   if (!Array.isArray(raw.entries)) return null;
 
-  return readEntryList(raw.entries, version);
+  // A stored log written by this build can never be over the cap, so the
+  // truncation count has no one to report to here. It matters on import, where
+  // the file came from somewhere else.
+  return readEntryList(raw.entries, version).entries;
 }
 
 /* ------------------------------------------------------------------ *
@@ -1000,7 +1039,7 @@ export function exportFileName(today: string): string {
 }
 
 /** Read a file the player chose. Accepts the raw text or an already-parsed value. */
-export function importLog(candidate: unknown): LogResult<LogEntry[]> {
+export function importLog(candidate: unknown): LogResult<LogImport> {
   let parsed: unknown = candidate;
 
   if (typeof candidate === "string") {
@@ -1040,26 +1079,34 @@ export function importLog(candidate: unknown): LogResult<LogEntry[]> {
     );
   }
 
-  const entries = readEntryList(raw.entries, version);
-  if (entries.length === 0) {
+  const read = readEntryList(raw.entries, version);
+  if (read.entries.length === 0) {
     return fail(
       "file-empty",
       "There were no readable sessions in that file, so nothing was imported.",
     );
   }
 
-  return { ok: true, value: entries };
+  return { ok: true, value: read };
 }
 
-/** Two sessions are the same session when every field except the id matches. */
-function sameSession(left: LogEntry, right: LogEntry): boolean {
-  return (
-    left.date === right.date &&
-    focusKey(left.focus) === focusKey(right.focus) &&
-    left.metric === right.metric &&
-    left.value === right.value &&
-    collapse(left.note) === collapse(right.note)
-  );
+/**
+ * Two sessions are the same session when every field except the id matches.
+ *
+ * Rendered as one string so sameness is a `Set` lookup rather than a scan of
+ * everything held: a 500-into-500 import is otherwise 250,000 comparisons, each
+ * one re-normalizing text that `readEntry` already normalized. `JSON.stringify`
+ * over the tuple rather than a joined separator, so a focus containing the
+ * separator cannot collide with a different session and be called a duplicate.
+ */
+function sessionKey(entry: LogEntry): string {
+  return JSON.stringify([
+    entry.date,
+    focusKey(entry.focus),
+    entry.metric,
+    entry.value,
+    collapse(entry.note),
+  ]);
 }
 
 /**
@@ -1076,12 +1123,16 @@ export function mergeLog(
 ): LogMerge {
   const kept = sortEntries(existing);
   const taken = new Set(kept.map((entry) => entry.id));
+  // Grown as entries are kept, so a file holding the same session twice sees
+  // the second copy skipped against the first, exactly as before.
+  const held = new Set(kept.map(sessionKey));
   let added = 0;
   let skipped = 0;
   let dropped = 0;
 
   for (const entry of sortEntries(incoming)) {
-    if (kept.some((held) => sameSession(held, entry))) {
+    const key = sessionKey(entry);
+    if (held.has(key)) {
       skipped += 1;
       continue;
     }
@@ -1096,6 +1147,7 @@ export function mergeLog(
       ? makeId(entry.date, entry.focus, taken)
       : entry.id;
     taken.add(id);
+    held.add(key);
     kept.push({ ...entry, id });
     added += 1;
   }

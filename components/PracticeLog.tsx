@@ -139,6 +139,7 @@ export default function PracticeLog() {
   const [draft, setDraft] = useState<Draft>(() => emptyDraft(""));
   const [editingId, setEditingId] = useState<string | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [pendingClear, setPendingClear] = useState(false);
   const [error, setError] = useState<LogError | null>(null);
   const [notice, setNotice] = useState("");
   const [focusTarget, setFocusTarget] = useState<string | null>(null);
@@ -160,8 +161,19 @@ export default function PracticeLog() {
   // The `hydrated` gate is load-bearing: without it this fires before the read
   // above has restored, and the empty default overwrites the saved log on
   // every page load.
+  //
+  // The empty case has to remove the key rather than write an empty payload.
+  // This effect runs *after* whatever emptied the log, so a `writeStored([])`
+  // here would put `{"version":2,"entries":[]}` straight back under the key
+  // that "Clear this browser's log" had just removed, and the removal would
+  // never survive a render. `SessionBuilder` gets this for free by returning
+  // early on a null plan; the log has to say it.
   useEffect(() => {
     if (!hydrated) return;
+    if (entries.length === 0) {
+      forgetStored();
+      return;
+    }
     writeStored(entries);
   }, [entries, hydrated]);
 
@@ -229,6 +241,7 @@ export default function PracticeLog() {
   function startEdit(entry: LogEntry) {
     setEditingId(entry.id);
     setPendingDeleteId(null);
+    setPendingClear(false);
     setError(null);
     setNotice("");
     setDraft({
@@ -310,7 +323,8 @@ export default function PracticeLog() {
       return;
     }
 
-    const merged = mergeLog(entries, parsed.value);
+    const { entries: incoming, truncated } = parsed.value;
+    const merged = mergeLog(entries, incoming);
     setEntries(merged.entries);
     setError(null);
     setNotice(
@@ -320,19 +334,33 @@ export default function PracticeLog() {
           : "") +
         (merged.dropped > 0
           ? `. This log is full at ${MAX_ENTRIES} sessions, so ${merged.dropped} could not be added — export it and clear it to keep going.`
-          : "."),
+          : ".") +
+        // Said out loud rather than folded into the added count: the file held
+        // more sessions than were read, and a player who is not told that will
+        // believe the whole file came across.
+        (truncated > 0
+          ? ` That file held more than ${MAX_ENTRIES} readable sessions, so its ${truncated} oldest ${
+              truncated === 1 ? "was" : "were"
+            } not read — the most recent ${MAX_ENTRIES} are the ones that were.`
+          : ""),
     );
     setFocusTarget(SUMMARY_ID);
   }
 
+  // Deliberately does not call `forgetStored` itself. The write effect above
+  // owns the key for an empty log, and clearing it here as well would only
+  // hide the ordering bug that made the removal necessary in the first place.
   function clearEverything() {
-    forgetStored();
+    const removed = entries.length;
     setEntries([]);
     setEditingId(null);
     setPendingDeleteId(null);
+    setPendingClear(false);
     setError(null);
     setDraft(emptyDraft(today));
-    setNotice("This browser's log is empty.");
+    setNotice(
+      `Deleted ${removed} ${removed === 1 ? "session" : "sessions"}. This browser's log is empty.`,
+    );
   }
 
   const windows = summary ? [summary.last7, summary.last30] : [];
@@ -750,7 +778,10 @@ export default function PracticeLog() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => setPendingDeleteId(entry.id)}
+                          onClick={() => {
+                            setPendingClear(false);
+                            setPendingDeleteId(entry.id);
+                          }}
                           className={SMALL_PILL}
                         >
                           Delete
@@ -806,12 +837,58 @@ export default function PracticeLog() {
             Import a log file <span aria-hidden>↑</span>
           </label>
 
+          {/* Two steps, the same two a single session already takes. Deleting
+              one session asks first; deleting all of them asked nothing, which
+              had the whole log one mis-click from gone with no undo, no server
+              copy, and nothing to restore from unless the player had exported
+              it. The count is in the button so the second click knows its
+              size. */}
           {entries.length > 0 ? (
-            <button type="button" onClick={clearEverything} className={SMALL_PILL}>
-              Clear this browser&apos;s log
-            </button>
+            pendingClear ? (
+              <>
+                <button
+                  type="button"
+                  onClick={clearEverything}
+                  className={`${SMALL_PILL} border-violet/40 bg-violet-soft/15`}
+                >
+                  Delete all {entries.length}{" "}
+                  {entries.length === 1 ? "session" : "sessions"} for good
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingClear(false)}
+                  className={SMALL_PILL}
+                >
+                  Keep them
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setPendingDeleteId(null);
+                  setPendingClear(true);
+                }}
+                className={SMALL_PILL}
+              >
+                Clear this browser&apos;s log
+              </button>
+            )
           ) : null}
         </div>
+
+        {pendingClear && entries.length > 0 ? (
+          <p
+            role="status"
+            aria-live="polite"
+            className="mt-4 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80"
+          >
+            This deletes every session in this browser, including the{" "}
+            {entries.length === 1 ? "one" : entries.length} above. There is
+            no copy anywhere else and no undo. If you have not exported the log
+            yet, export it first.
+          </p>
+        ) : null}
       </section>
     </div>
   );

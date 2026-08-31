@@ -638,19 +638,109 @@ test("round-trips a log through export and import without changing a field", () 
   const imported = importLog(text);
   assert.equal(imported.ok, true);
   assert.deepEqual(
-    imported.ok && imported.value,
+    imported.ok && imported.value.entries,
     entries,
     "what comes back must be exactly what went out",
   );
+  assert.equal(imported.ok && imported.value.truncated, 0);
 
   // The parsed object is accepted as readily as the text.
   const reparsed = importLog(file);
-  assert.deepEqual(reparsed.ok && reparsed.value, entries);
+  assert.deepEqual(reparsed.ok && reparsed.value.entries, entries);
 
   // And the round trip survives a second lap, which is what moving between two
   // browsers actually does.
-  const twice = importLog(serializeLog(imported.ok ? imported.value : [], TODAY));
-  assert.deepEqual(twice.ok && twice.value, entries);
+  const twice = importLog(
+    serializeLog(imported.ok ? imported.value.entries : [], TODAY),
+  );
+  assert.deepEqual(twice.ok && twice.value.entries, entries);
+});
+
+test("an import over the cap keeps the newest sessions and says how many it did not read", () => {
+  const overflow = 100;
+  // Built the way `exportLog` writes one: oldest first, so the sessions the 7-
+  // and 30-day windows read sit at the *end* of the file.
+  const oversized = Array.from({ length: MAX_ENTRIES + overflow }, (_, index) => ({
+    id: `session-${index}`,
+    date: shiftIsoDate("2024-01-01", index),
+    focus: `focus ${index}`,
+    metric: "tempo" as const,
+    value: 80,
+    note: `session ${index}`,
+  }));
+
+  const imported = importLog(
+    JSON.stringify({
+      format: LOG_FILE_FORMAT,
+      version: LOG_VERSION,
+      exportedOn: TODAY,
+      entries: oversized,
+    }),
+  );
+
+  assert.equal(imported.ok, true);
+  if (!imported.ok) return;
+
+  assert.equal(imported.value.entries.length, MAX_ENTRIES);
+  assert.equal(
+    imported.value.truncated,
+    overflow,
+    "the count is reported, never swallowed",
+  );
+
+  // The half that matters: what was kept is the recent work, not the first
+  // sessions ever logged.
+  assert.equal(imported.value.entries[0].note, `session ${overflow}`);
+  assert.equal(
+    imported.value.entries[MAX_ENTRIES - 1].note,
+    `session ${MAX_ENTRIES + overflow - 1}`,
+    "the most recent session in the file has to survive the import",
+  );
+  assert.equal(
+    imported.value.entries.some((entry) => entry.note === "session 0"),
+    false,
+    "the oldest sessions are the ones dropped",
+  );
+
+  // Unreadable rows must not take slots from real ones: the cut happens after
+  // validation, so a file padded with junk still yields a full log.
+  const padded = importLog(
+    JSON.stringify({
+      format: LOG_FILE_FORMAT,
+      version: LOG_VERSION,
+      entries: [...Array.from({ length: 50 }, () => null), ...oversized],
+    }),
+  );
+  assert.equal(padded.ok && padded.value.entries.length, MAX_ENTRIES);
+  assert.equal(padded.ok && padded.value.truncated, overflow);
+
+  // At the cap exactly, nothing is truncated and nothing is claimed to be.
+  const exact = importLog(
+    JSON.stringify({
+      format: LOG_FILE_FORMAT,
+      version: LOG_VERSION,
+      entries: oversized.slice(0, MAX_ENTRIES),
+    }),
+  );
+  assert.equal(exact.ok && exact.value.entries.length, MAX_ENTRIES);
+  assert.equal(exact.ok && exact.value.truncated, 0);
+});
+
+test("a stored payload over the cap is also cut down to the newest sessions", () => {
+  const restored = restoreLogState({
+    version: LOG_VERSION,
+    entries: Array.from({ length: MAX_ENTRIES + 3 }, (_, index) => ({
+      id: `stored-${index}`,
+      date: shiftIsoDate("2024-01-01", index),
+      focus: `focus ${index}`,
+      metric: "tempo",
+      value: 80,
+      note: `session ${index}`,
+    })),
+  });
+
+  assert.equal(restored?.length, MAX_ENTRIES);
+  assert.equal(restored?.[0].note, "session 3");
 });
 
 test("refuses a file that is not this tool's export", () => {
