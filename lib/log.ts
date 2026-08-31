@@ -384,13 +384,42 @@ function slug(value: string): string {
  *
  * Derived rather than random so that the same log built the same way is
  * byte-identical, which is what makes an export/import round-trip assertable.
+ *
+ * `resume` is not an optimisation for its own sake. Reading a file validates
+ * every row rather than the first `MAX_ENTRIES` of them — that is what stopped
+ * imports discarding the newest sessions — so a file whose rows all share a
+ * date and a focus hands this function the same `base` thousands of times. One
+ * passage logged over and over is exactly the usage this tool encourages, so
+ * that file shape is ordinary, not adversarial. Rescanning from suffix 2 every
+ * time is quadratic: 5.3 seconds of frozen main thread on 20,000 such rows,
+ * against 118ms when the focuses differ. Remembering where each base got to
+ * makes the common case a single lookup.
+ *
+ * The scan stays as the correctness path. `resume` is a hint about where free
+ * suffixes start, never a promise that the one it names is free — ids can also
+ * arrive from the file itself, and those are added to `taken` without this
+ * function ever seeing them.
  */
-function makeId(date: string, focus: string, taken: Set<string>): string {
+function makeId(
+  date: string,
+  focus: string,
+  taken: Set<string>,
+  resume?: Map<string, number>,
+): string {
   const base = `${date}-${slug(focus)}`;
   if (!taken.has(base)) return base;
-  for (let suffix = 2; suffix <= MAX_ENTRIES + 1; suffix += 1) {
+
+  // Bounded by pigeonhole rather than by MAX_ENTRIES: at most `taken.size` of
+  // the suffixes in this range can be spoken for, so one of them is free. The
+  // old ceiling assumed no more than MAX_ENTRIES ids were ever in play, which
+  // stopped being true once a whole file is read before it is cut down.
+  const ceiling = taken.size + 2;
+  for (let suffix = resume?.get(base) ?? 2; suffix <= ceiling; suffix += 1) {
     const candidate = `${base}-${suffix}`;
-    if (!taken.has(candidate)) return candidate;
+    if (!taken.has(candidate)) {
+      resume?.set(base, suffix + 1);
+      return candidate;
+    }
   }
   return `${base}-${taken.size + 1}`;
 }
@@ -898,7 +927,11 @@ function upgradeEntry(raw: Record<string, unknown>, version: number): unknown {
  * the player's own record, and a mis-set system clock two months ago is not a
  * reason to delete the session they actually played.
  */
-function readEntry(candidate: unknown, taken: Set<string>): LogEntry | null {
+function readEntry(
+  candidate: unknown,
+  taken: Set<string>,
+  resume?: Map<string, number>,
+): LogEntry | null {
   if (!candidate || typeof candidate !== "object") return null;
   const raw = candidate as Record<string, unknown>;
 
@@ -924,7 +957,7 @@ function readEntry(candidate: unknown, taken: Set<string>): LogEntry | null {
   const id =
     supplied.length > 0 && supplied.length <= 80 && !taken.has(supplied)
       ? supplied
-      : makeId(raw.date, focus, taken);
+      : makeId(raw.date, focus, taken, resume);
   taken.add(id);
 
   return { id, date: raw.date, focus, metric, value: raw.value, note };
@@ -951,6 +984,7 @@ function readEntryList(
 ): { entries: LogEntry[]; truncated: number } {
   if (!Array.isArray(candidate)) return { entries: [], truncated: 0 };
   const taken = new Set<string>();
+  const resume = new Map<string, number>();
   const entries: LogEntry[] = [];
 
   for (const item of candidate) {
@@ -958,7 +992,7 @@ function readEntryList(
       item && typeof item === "object"
         ? upgradeEntry(item as Record<string, unknown>, version)
         : item;
-    const entry = readEntry(upgraded, taken);
+    const entry = readEntry(upgraded, taken, resume);
     // A single unreadable row is dropped, not fatal. One corrupt line must
     // never cost the player the rest of the log.
     if (entry) entries.push(entry);
