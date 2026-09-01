@@ -205,6 +205,34 @@ export const GUIDES: readonly SiteEntry[] = [
  */
 export const RESOURCES: readonly SiteEntry[] = [
   {
+    href: "/resources/print-the-quiet",
+    title: "Print the Quiet guitar tone field guides",
+    blurb:
+      "Three practical listening and recording guides adapted from Jason Colapietro's Print the Quiet essay series.",
+    lastModified: "2026-08-31",
+  },
+  {
+    href: "/resources/how-to-practice-clean-guitar-tone",
+    title: "How to practice clean guitar tone",
+    blurb:
+      "A seven-day clean-tone test for attack, muting, dynamics and the edge of breakup, built around recordings instead of preset collecting.",
+    lastModified: "2026-08-31",
+  },
+  {
+    href: "/resources/jeff-buckley-hallelujah-guitar-tone",
+    title: "What Hallelujah teaches about guitar tone",
+    blurb:
+      "A close-listening guide to Jeff Buckley's clean guitar dynamics, space and right-hand control, followed by a repeatable practice test.",
+    lastModified: "2026-08-31",
+  },
+  {
+    href: "/resources/recording-guitar-room-sound",
+    title: "How to hear the room in a guitar recording",
+    blurb:
+      "A practical room-sound experiment for comparing close, distant and simulated ambience without pretending one method always wins.",
+    lastModified: "2026-08-31",
+  },
+  {
     href: "/resources/nam-a2-open-tone-format",
     title: "NAM A2 turns guitar tone into an open format",
     blurb:
@@ -266,6 +294,15 @@ export const STRUMLY = {
   chordTransitions: "https://strumly.suedeai.ai/guides/smoother-chord-transitions",
   aiVsTeacher: "https://strumly.suedeai.ai/guides/ai-feedback-vs-human-teacher",
   signalChain: "https://strumly.suedeai.ai/guides/signal-chain-topology",
+  printTheQuiet: "https://strumly.suedeai.ai/book/print-the-quiet",
+  printTheQuietEssays: {
+    hallelujah:
+      "https://strumly.suedeai.ai/book/print-the-quiet/ptq-01-jeff-buckley-tone-hallelujah",
+    clean:
+      "https://strumly.suedeai.ai/book/print-the-quiet/ptq-04-lost-art-of-clean",
+    room:
+      "https://strumly.suedeai.ai/book/print-the-quiet/ptq-05-room-as-instrument",
+  },
   path: "https://strumly.suedeai.ai/path",
   rig: "https://strumly.suedeai.ai/rig",
   lessons: {
