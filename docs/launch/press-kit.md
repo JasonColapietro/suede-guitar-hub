@@ -274,7 +274,7 @@ rather than search for it.
 - https://suedeai.ai (checked 2026-08-29, 200)
 - https://x.com/AISUEDE (checked 2026-08-29, 200)
 - https://www.youtube.com/@aisuede (checked 2026-08-29, 200)
-- https://www.linkedin.com/company/suede-labs-ai (checked 2026-08-29, 200)
+- https://www.linkedin.com/company/suede-labs (checked 2026-08-29, 200)
 - https://www.wikidata.org/wiki/Q141169484 (checked 2026-08-29, 200)
 - https://www.crunchbase.com/organization/suede-labs-ai (declared; Crunchbase
   returned an anti-bot response to an automated check, so confirm in a browser)
