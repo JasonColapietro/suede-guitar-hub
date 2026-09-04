@@ -26,7 +26,13 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
   poweredByHeader: false,
   async headers() {
-    return [{ source: "/:path*", headers: [...SECURITY_HEADERS] }];
+    return [
+      { source: "/:path*", headers: [...SECURITY_HEADERS] },
+      // Only the learning app can request microphone access, with user consent.
+      { source: "/learn/:path*", headers: [
+        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
+      ] },
+    ];
   },
 };
 

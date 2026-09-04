@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "status": "authored_for_integration",
+  "scope": "Nine existing lessons in the first three guitar modules; original instruction, not a complete curriculum or a certification of app behavior.",
+  "authoredDate": "2026-09-04",
+  "sourceCatalog": "ios/GuitarHubCore/Sources/GuitarHubCore/Resources/guitar.json",
+  "instructionConventions": {
+    "handNames": "Use picking hand and fretting hand; mirror physical diagrams for the selected handedness while retaining string numbers and note identities.",
+    "stringNumbers": "String 6 is the thick low E; string 1 is the thin high E.",
+    "fretNumbers": "Open is 0. Fret 1 is the space between the nut and first metal fret; place a fretting fingertip close to the metal fret on the body side of that space, not on top of it.",
+    "practiceTiming": "Segment durations are suggested attention blocks that sum to the existing lesson duration. They are not countdown deadlines for competence. Pause or repeat as needed.",
+    "evidence": "Reading responses, listening judgments, comfort checks, and technique checks are self-assessed unless a specific implemented measurement is identified. A monophonic pitch estimate does not prove chord correctness, buzzing, posture, or timing.",
+    "referenceAudio": "Reference sounds demonstrate target pitch, not realistic guitar timbre. Stop reference playback before listening for the learner's input; synthesized audio must not score its own exercise."
+  },
+  "integrationNote": {
+    "summary": "Attach content by existing lesson ID. Introduce posture first, complete tuning preparation before any measured open-string pitch exercise, then teach and test notation. Preserve lesson IDs and existing progress records. Never infer assessment success from reading these steps or from elapsed time.",
+    "recommendedLessonOrder": [
+      "g-l1-m1-01", "g-l1-m2-01", "g-l1-m2-02", "g-l1-m2-04",
+      "g-l1-m1-02", "g-l1-m1-04", "g-l1-m3-01", "g-l1-m3-02", "g-l1-m3-04"
+    ],
+    "orderChanges": [
+      "Offer the first posture lesson before tuning, then a Tune your guitar link or prerequisite before g-l1-m1-02. Keep both navigation and Continue consistent with that route.",
+      "Remove fully-detuned and ninety-second requirements from the initial tuning checkpoint; first establish correct string, correct octave, controlled adjustment, and a final recheck. An optional later timing challenge must not block basic readiness.",
+      "Teach A and D diagram names and symbols before asking Name the Shape. This module introduces reading; it does not replace dedicated chord-playing and chord-change instruction.",
+      "Each of these modules currently contains three actual lesson objects while lessonsTotal says four. Derive displayed counts from published lessons or supply the missing lessons; do not advertise nonexistent lessons."
+    ],
+    "recommendedModuleMetadata": [
+      {"id": "g-l1-m1", "promise": "Find and play all six open strings, one at a time", "skill": "Guitar support, string identification, and controlled picking", "proofMetric": "open_string_pitch_and_self_check"},
+      {"id": "g-l1-m2", "promise": "Check and tune all six strings with a final recheck", "skill": "String names, tuning direction, and octave awareness", "proofMetric": "six_string_tuning_check"},
+      {"id": "g-l1-m3", "promise": "Read beginner tab, chord diagrams, and a simple beat pattern", "skill": "Notation recognition and translating a symbol into an action", "proofMetric": "reading_quiz_first_attempt"}
+    ],
+    "stageReadiness": {
+      "requires": [
+        "Identify all six strings and use a tuner or a trusted external tuner to check them.",
+        "Pick requested open strings individually; use available pitch evidence only for the note actually measured.",
+        "Understand open, avoid-string, string-number, and fret-number symbols.",
+        "Read at least eight of ten first-attempt notation prompts, then review missed categories.",
+        "Confirm a manageable playing position and name one useful correction when a note does not sound as intended."
+      ],
+      "doesNotProve": "Complete beginner-grade proficiency, fluent A/D changes, steady song performance, healthy technique, or clean chord tone.",
+      "reviewBehavior": "Allow continued learning with targeted review available. Do not label one completed session as mastery; do not require perfect stars on every attempt."
+    },
+    "unimplementedRequirements": "Tone/diagram suggestions and quiz items below are specifications for integration, not claims those controls already exist. Use only available working controls in published copy."
+  },
+  "demoAssets": {
+    "support-and-pick": {
+      "kind": "diagram",
+      "description": "Original seated silhouette showing guitar body on thigh, body lightly against torso, picking forearm resting over the body edge, and a relaxed fretting hand that does not carry the instrument. Include an inset of thumb pad meeting the side of a gently curled index finger around a pick, with only its tip exposed.",
+      "textAlternative": "Support the guitar with your body and forearm so the fretting hand is free to move. Hold the pick between thumb and index finger with a small tip showing."
+    },
+    "six-open-strings": {
+      "kind": "string_diagram_and_reference_tones",
+      "referenceAHz": 440,
+      "strings": [
+        {"string": 6, "name": "Low E", "note": "E2", "midi": 40, "fret": 0},
+        {"string": 5, "name": "A", "note": "A2", "midi": 45, "fret": 0},
+        {"string": 4, "name": "D", "note": "D3", "midi": 50, "fret": 0},
+        {"string": 3, "name": "G", "note": "G3", "midi": 55, "fret": 0},
+        {"string": 2, "name": "B", "note": "B3", "midi": 59, "fret": 0},
+        {"string": 1, "name": "High E", "note": "E4", "midi": 64, "fret": 0}
+      ],
+      "playback": "User-triggered single-string reference, 1.5 seconds long with a soft attack and release; label the string, note, and octave. Wait for it to stop before the learner plucks. Also offer an unscored low-to-high sequence."
+    },
+    "flat-target-sharp": {
+      "kind": "reference_tones",
+      "baseMidi": 45,
+      "examples": [{"label": "Lower than the target", "centsOffset": -50}, {"label": "Target A2", "centsOffset": 0}, {"label": "Higher than the target", "centsOffset": 50}],
+      "description": "Play the target then one comparison tone with a short silent gap. These deliberately separated examples teach direction; 50 cents is not a tuning pass threshold."
+    },
+    "tuner-directions": {
+      "kind": "diagram",
+      "description": "A selected A2 target with textual states Below target, In tune, and Above target. Show the selected string number and octave next to the reading. Do not hard-code a clockwise peg direction because headstock layouts differ."
+    },
+    "notation-legend": {
+      "kind": "diagram",
+      "description": "Three separate original panels: horizontal tab with high E at top and low E at bottom; an upright chord diagram labeled with string numbers, nut, frets, X and O; a 4/4 bar with four quarter-note rhythm slashes aligned to beat numbers 1–4. Explicitly label tab fret numbers separately from chord-diagram finger numbers."
+    },
+    "a-chord-reading": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [null, 0, 2, 2, 2, 0],
+      "fingersString6To1": [null, null, 2, 1, 3, null],
+      "soundingMidiLowToHigh": [45, 52, 57, 61, 64],
+      "description": "Mark string 6 X; strings 5 and 1 O. D-string fret 2 uses finger 2, G-string fret 2 uses finger 1, B-string fret 2 uses finger 3. Play the five tones separately before an optional short chord reference. Name can be hidden for a reading prompt."
+    },
+    "d-chord-reading": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [null, null, 0, 2, 3, 2],
+      "fingersString6To1": [null, null, null, 1, 3, 2],
+      "soundingMidiLowToHigh": [50, 57, 62, 66],
+      "description": "Mark strings 6 and 5 X, string 4 O. Put finger 1 at G-string fret 2, finger 3 at B-string fret 3, and finger 2 at high-E fret 2. Name can be hidden for a reading prompt."
+    },
+    "four-beat-reading": {
+      "kind": "rhythm_demo",
+      "bpm": 60,
+      "meter": {"numerator": 4, "denominator": 4},
+      "countInBeats": 4,
+      "eventBeats": [0, 1, 2, 3],
+      "description": "A spoken/text count-in or four clicks, then one soft click per displayed quarter-note slash. Highlight each beat and use a distinct first-beat sound. This is an unscored demonstration."
+    }
+  },
+  "lessons": [
+    {
+      "id": "g-l1-m1-01",
+      "moduleId": "g-l1-m1",
+      "title": "Three Points of Contact",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Support the guitar without gripping the neck and make a small, controlled picking motion.",
+      "prerequisiteLessonIds": [],
+      "steps": [
+        {"title": "Let the guitar rest", "action": "Sit on a steady armless chair with feet supported. Rest the body on a thigh, keep it lightly against your torso, and rest your picking forearm over the body. Raise the neck a little if that makes reaching easier.", "lookCheck": "The guitar stays in place when you briefly relax your fretting hand. Your shoulders stay low.", "listenCheck": "No sound is required for this step."},
+        {"title": "Free the fretting hand", "action": "Bring your fretting hand around the neck with the thumb resting lightly behind it. Bend the fingertips toward the strings without squeezing. Relax and repeat.", "lookCheck": "You can move your fingers while the guitar remains supported; avoid forcing your wrist into a deep bend.", "listenCheck": "This checks positioning, not pitch."},
+        {"title": "Make a small pick stroke", "action": "Hold a pick between your thumb and the side of a gently curled index finger. Leave a small tip showing. Touch the thin first string and move the pick just far enough through it to release the string, then stop.", "lookCheck": "The stroke crosses one string instead of sweeping across its neighbors.", "listenCheck": "Hear one attack. Tuning happens next, so do not judge its pitch yet."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "The neck drops when the fretting hand relaxes.", "recovery": "Adjust the body support or use a strap so that hand is not holding up the guitar."},
+        {"observation": "The pick catches or several strings sound.", "recovery": "Use a smaller motion and less exposed pick; start with the pick already touching the intended string."}
+      ],
+      "practiceSegments": [
+        {"seconds": 45, "instruction": "Set the guitar down, pick it up, and find a supported position twice."},
+        {"seconds": 45, "instruction": "Relax the fretting hand, then return it to the neck five times without shifting the guitar."},
+        {"seconds": 60, "instruction": "Make six gentle strokes on the thin first string, leaving silence between them."},
+        {"seconds": 30, "instruction": "Release both hands, settle your shoulders, and choose one setup adjustment to keep."}
+      ],
+      "selfAssessment": {"criteria": ["I can let go with my fretting hand while keeping the guitar supported.", "I can touch and pick one intended string.", "I can relax my grip between strokes."], "readyWhen": "You can repeat the setup and controlled stroke without forcing the position.", "ifNotReady": "Repeat only the support or pick step that needs attention; stop and adjust if the position hurts.", "proves": "A learner-confirmed starting setup.", "doesNotProve": "Tuning, tone quality, or a medically assessed playing posture."},
+      "demoAssetIds": ["support-and-pick"],
+      "referenceIds": ["justin-basics"]
+    },
+    {
+      "id": "g-l1-m1-02",
+      "moduleId": "g-l1-m1",
+      "title": "Six Open Strings",
+      "type": "exercise",
+      "suggestedSeconds": 240,
+      "objective": "Connect each string number and name with one deliberately picked open-string note.",
+      "prerequisiteLessonIds": ["g-l1-m1-01"],
+      "steps": [
+        {"title": "Find before playing", "action": "Confirm tuning first. Point to strings 6 through 1 and say Low E, A, D, G, B, High E. Leave your fretting fingers clear of the strings.", "lookCheck": "The selected label points to the actual string, including which E it means.", "listenCheck": "Listen to an optional reference only before your own note."},
+        {"title": "Sound one target", "action": "Pluck the requested string once with a small stroke. Let it settle and ring; do not keep striking while waiting for pitch feedback.", "lookCheck": "The pick touches the requested string and the next string stays still.", "listenCheck": "Hear one sustained note rather than two strings together."},
+        {"title": "Reset between notes", "action": "Touch the ringing string lightly to stop it, then move to the next requested string. If the result is uncertain, let the room go quiet and make one fresh attempt.", "lookCheck": "Check the next string name before moving.", "listenCheck": "There is a short quiet gap between target notes."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "A neighboring string rings too.", "recovery": "Mute the strings, place the pick against the target, and make a smaller stroke."},
+        {"observation": "The pitch display jumps or does not settle.", "recovery": "Stop other sounds and reference playback, check tuning and input readiness, then pluck once. Do not assume the result diagnoses bad technique."}
+      ],
+      "practiceSegments": [
+        {"seconds": 30, "instruction": "Check tuning and identify all six strings without playing."},
+        {"seconds": 90, "instruction": "Play 6–5–4–3–2–1 slowly, muting between notes; repeat if time allows."},
+        {"seconds": 60, "instruction": "Choose the two strings you confused most and alternate between them with a quiet reset."},
+        {"seconds": 60, "instruction": "Make a fresh low-to-high pass and note which string still needs review."}
+      ],
+      "selfAssessment": {"criteria": ["I can distinguish low E from high E.", "I choose the named string before picking.", "I can stop one note before starting the next."], "readyWhen": "You can complete the sequence at your own pace with deliberate string choices; replay any uncertain target.", "ifNotReady": "Return to tuning if the target pitch remains wrong; repeat just the confused string pair otherwise.", "proves": "Pitch results, when available, apply only to the isolated notes measured in this attempt.", "doesNotProve": "Steady tempo, fret accuracy, buzz detection, or chord quality."},
+      "demoAssetIds": ["six-open-strings"],
+      "referenceIds": ["yousician-recognition", "yousician-practice"]
+    },
+    {
+      "id": "g-l1-m1-04",
+      "moduleId": "g-l1-m1",
+      "title": "Checkpoint: Six Open Strings",
+      "type": "checkpoint",
+      "suggestedSeconds": 240,
+      "objective": "Check whether you can find the strings independently and hear when more than one sounds.",
+      "prerequisiteLessonIds": ["g-l1-m1-02"],
+      "steps": [
+        {"title": "Prepare a quiet check", "action": "Check tuning and stop any reference tones. Keep the string-name diagram available for preparation, then hide it for your first pass.", "lookCheck": "The microphone or manual-check mode is clearly identified.", "listenCheck": "Only the guitar should supply the attempted note."},
+        {"title": "Make one complete pass", "action": "Say each string name, then pluck strings 6 through 1 once each. Mute between notes. Use as much time as needed; this is not a rhythm race.", "lookCheck": "Compare the selected string with your intended string.", "listenCheck": "Notice any extra ringing string or unclear attack yourself."},
+        {"title": "Use the result", "action": "Repeat the least certain string after checking its label. Finish with one more complete pass and record one improvement or one item to revisit.", "lookCheck": "Keep this attempt separate from earlier practice results.", "listenCheck": "Judge extra ringing by ear; do not treat a pitch match as proof of clean tone."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "You reach for a string by habit without checking its name.", "recovery": "Pause, point to the requested string, say its name, and then play."},
+        {"observation": "No reliable microphone result is available.", "recovery": "Use the clearly labeled manual listening check and record an unmeasured attempt; do not award an acoustic pass."}
+      ],
+      "practiceSegments": [
+        {"seconds": 30, "instruction": "Prepare and tune."},
+        {"seconds": 90, "instruction": "Complete the first independent six-string pass."},
+        {"seconds": 60, "instruction": "Review the least certain string with the diagram."},
+        {"seconds": 60, "instruction": "Repeat the complete pass and record your self-check."}
+      ],
+      "selfAssessment": {"criteria": ["I named each string before playing it.", "I controlled the start and stop of each note.", "I know which string, if any, needs another check."], "readyWhen": "You can find all six strings without guessing and can repeat an uncertain note deliberately.", "ifNotReady": "Revisit the open-string exercise for the specific confusion; keep later reading lessons available.", "proves": "A string-identification and isolated-note check, with measured pitch only where supported.", "doesNotProve": "Clean fretted notes, chord competence, or rhythmic accuracy."},
+      "demoAssetIds": ["six-open-strings"],
+      "referenceIds": ["yousician-recognition", "yousician-revisit"]
+    },
+    {
+      "id": "g-l1-m2-01",
+      "moduleId": "g-l1-m2",
+      "title": "What In Tune Actually Means",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Understand a tuning target and identify whether a note is below or above it.",
+      "prerequisiteLessonIds": ["g-l1-m1-01"],
+      "steps": [
+        {"title": "Name the target", "action": "Select string 5, A2, and point to it on the guitar. Listen once to the reference. A note name alone is not enough: the two E strings share a letter but have different pitches.", "lookCheck": "The target shows both the string and octave.", "listenCheck": "Compare the low and high E references; the high E is clearly higher."},
+        {"title": "Hear the direction", "action": "Listen to the A2 target, then the lower example, then target again. Repeat with the higher example and name which direction changed.", "lookCheck": "Read Below target and Above target rather than relying on color.", "listenCheck": "Compare height of pitch, not loudness or guitar-like tone."},
+        {"title": "Read a small difference", "action": "View the tuner diagram. Flat means below the selected target; sharp means above it. Cents describe small pitch differences, with 100 cents between adjacent semitones. Your first task is direction and a settled reading, not speed.", "lookCheck": "A stable in-tune indication belongs to the correct selected string and octave.", "listenCheck": "One cleanly picked string is easier to compare than several ringing together."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "You match the letter E but not which E.", "recovery": "Check string 6/E2 versus string 1/E4 before touching a tuning peg."},
+        {"observation": "A louder note seems higher.", "recovery": "Replay references at the same volume and focus only on pitch height."}
+      ],
+      "practiceSegments": [
+        {"seconds": 45, "instruction": "Identify the six named targets and compare the two E references."},
+        {"seconds": 60, "instruction": "Compare the target with lower and higher examples; say the direction before revealing its label."},
+        {"seconds": 45, "instruction": "Read the three textual tuner states and point to the next action each implies."},
+        {"seconds": 30, "instruction": "Explain the difference between a correct note letter and a correct string/octave."}
+      ],
+      "selfAssessment": {"criteria": ["I know flat means lower and sharp means higher than the selected target.", "I check which string and octave I am tuning.", "I know to play one string at a time."], "readyWhen": "You can choose the target and explain the tuning direction; fine ear matching can develop with practice.", "ifNotReady": "Replay the lower/target/higher examples and use the visual tuner alongside your ears.", "proves": "Understanding of tuner labels and targets.", "doesNotProve": "An in-tune instrument or trained pitch discrimination."},
+      "demoAssetIds": ["six-open-strings", "flat-target-sharp", "tuner-directions"],
+      "referenceIds": ["justin-ear-tuner", "yousician-recognition"]
+    },
+    {
+      "id": "g-l1-m2-02",
+      "moduleId": "g-l1-m2",
+      "title": "Tuner Target Practice",
+      "type": "exercise",
+      "suggestedSeconds": 240,
+      "objective": "Make small tuning corrections while keeping the selected string and octave correct.",
+      "prerequisiteLessonIds": ["g-l1-m2-01"],
+      "steps": [
+        {"title": "Connect string to peg", "action": "Start with string 6, low E2. Follow that string visually from the nut to its tuning machine before adjusting anything. Select the same target in the tuner and pluck it gently.", "lookCheck": "The target, played string, and touched peg all agree.", "listenCheck": "Mute other strings and wait for one note to settle."},
+        {"title": "Correct a little", "action": "If below target, increase tension a small amount; if above, lower it a little, then approach the target with a small upward adjustment. Repluck after each change. Do not deliberately detune the whole guitar for this exercise.", "lookCheck": "Confirm that the reading moves toward the intended target; peg rotation differs by guitar.", "listenCheck": "The pitch changes smoothly in the intended direction. If unsure which octave or peg is correct, stop and recheck before tightening further."},
+        {"title": "Work across and recheck", "action": "Repeat for A2, D3, G3, B3, and E4. Return to low E and check all six again; changing one string can slightly alter others.", "lookCheck": "Each reading is settled on its named target, not a brief flash while the note attacks.", "listenCheck": "Let each note stop before checking the next."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "The display follows the wrong string or jumps between notes.", "recovery": "Mute everything, verify the string/peg path, and pick only the selected string after reference audio stops."},
+        {"observation": "The target is passed repeatedly.", "recovery": "Use much smaller adjustments and pause to repluck. Treat an already tuned string as a successful check; it does not need to be detuned."}
+      ],
+      "practiceSegments": [
+        {"seconds": 30, "instruction": "Prepare the tuner and verify the low-E peg."},
+        {"seconds": 120, "instruction": "Check and gently adjust the six strings. Pause the lesson timer if more time is needed."},
+        {"seconds": 60, "instruction": "Recheck the complete guitar, correcting only strings that need it."},
+        {"seconds": 30, "instruction": "Name one adjustment you made and how you knew its direction."}
+      ],
+      "selfAssessment": {"criteria": ["I verified each string's tuning peg before adjusting.", "I made small changes toward the correct target.", "I rechecked all six strings."], "readyWhen": "All six strings have been checked against their correct targets using a working tuner.", "ifNotReady": "Continue slowly, or use a trusted external tuner if the app cannot provide a reliable reading; record that route honestly.", "proves": "A tuning check using the available tuner and learner observation.", "doesNotProve": "A ninety-second skill, perfect intonation across the neck, or automatically verified tuning if no tuner reading exists."},
+      "demoAssetIds": ["six-open-strings", "tuner-directions"],
+      "referenceIds": ["justin-ear-tuner", "yousician-recognition"]
+    },
+    {
+      "id": "g-l1-m2-04",
+      "moduleId": "g-l1-m2",
+      "sourceTitle": "Checkpoint: Six Strings, Ninety Seconds",
+      "title": "Checkpoint: Check All Six Strings",
+      "type": "checkpoint",
+      "suggestedSeconds": 240,
+      "objective": "Check and correct tuning independently, then verify the whole guitar again.",
+      "prerequisiteLessonIds": ["g-l1-m2-02"],
+      "steps": [
+        {"title": "Start where the guitar is", "action": "Use the guitar's current tuning. Do not loosen all strings or create a large detuning. Prepare the tuner and name the six targets before the attempt.", "lookCheck": "The checklist has one row per actual string, including separate low and high E.", "listenCheck": "Stop all reference and backing sounds before your note."},
+        {"title": "Check every string", "action": "For each string, identify its peg, pluck, read the target, adjust only if necessary, and repluck to confirm. A string already in tune still earns a checked row.", "lookCheck": "A stable correct target matters more than the elapsed time.", "listenCheck": "Listen for one isolated note; a pitch match does not diagnose a rattle or buzz."},
+        {"title": "Confirm after adjustments", "action": "Make a final six-string pass without skipping the strings you checked first. Save whether the check used app readings or your own external tuner.", "lookCheck": "Every row reflects an actual check, not a timer finishing.", "listenCheck": "Compare any doubtful string again before moving to pitch practice."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "You rush to meet the old ninety-second title.", "recovery": "Ignore speed here. The checkpoint is complete only after the six targets and final recheck are addressed."},
+        {"observation": "A string drifts after another adjustment.", "recovery": "Correct it slightly and repeat the final pass. This is why the recheck is part of tuning."}
+      ],
+      "practiceSegments": [
+        {"seconds": 30, "instruction": "Prepare and say the six target names."},
+        {"seconds": 120, "instruction": "Complete the six-string tuning check at a comfortable pace."},
+        {"seconds": 60, "instruction": "Make the final verification pass; extend the time if needed."},
+        {"seconds": 30, "instruction": "Record the check method and any unresolved string."}
+      ],
+      "selfAssessment": {"criteria": ["I checked all six named targets.", "I verified the peg before each adjustment.", "I completed a final pass after the last adjustment."], "readyWhen": "The guitar is checked and any unresolved tuning problem is identified before pitch exercises.", "ifNotReady": "Return to the target-practice steps or use an external tuner. Leave the tuning status incomplete if any string is unresolved.", "proves": "A completed six-string check with its actual evidence source.", "doesNotProve": "Independent ear tuning, a speed milestone, or measured completion from a manual confirmation alone."},
+      "demoAssetIds": ["six-open-strings", "tuner-directions"],
+      "referenceIds": ["justin-ear-tuner", "yousician-recognition"]
+    },
+    {
+      "id": "g-l1-m3-01",
+      "moduleId": "g-l1-m3",
+      "title": "Tab, Boxes, and Slashes",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Translate a simple tab number, chord-box symbol, and beat slash into the right action.",
+      "prerequisiteLessonIds": ["g-l1-m1-02"],
+      "steps": [
+        {"title": "Read a tab position", "action": "Find the top tab line: it is thin string 1. The bottom is thick string 6. A number tells you the fret, not the finger. Point to 0 on the top line, then pluck open string 1.", "lookCheck": "Match the labeled line to the guitar string before looking at the number.", "listenCheck": "The 0 sounds the already learned open note."},
+        {"title": "Read a chord box", "action": "Use the upright diagram: vertical lines are strings and horizontal divisions are frets. O means play open; X means leave that string silent. Finger numbers use 1 index, 2 middle, 3 ring, 4 little. Compare the labeled A and D examples before hiding either name.", "lookCheck": "A starts on string 5; D starts on string 4. Trace each marked dot to its string and fret.", "listenCheck": "An optional reference demonstrates the written pitches, not whether your own chord is clean."},
+        {"title": "Read time separately", "action": "Look at four quarter-note slashes in the displayed 4/4 bar. Count 1, 2, 3, 4 while tapping your knee once per slash. The chord name tells what to hold; the rhythmic symbol tells when to play.", "lookCheck": "Each slash sits on a numbered beat; keep reading left to right.", "listenCheck": "Your taps follow the four reference clicks when the demo is used."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "You read the bottom tab line as the thinnest string.", "recovery": "Keep the string-number labels visible and point from the diagram to the instrument before playing."},
+        {"observation": "You treat a tab 2 as finger 2 or strum an X string.", "recovery": "Name which notation you are reading, then consult its legend: tab numbers are frets; chord-box finger labels and X/O have separate jobs."}
+      ],
+      "practiceSegments": [
+        {"seconds": 60, "instruction": "Trace three tab prompts to the correct string and fret; play open-string prompts only."},
+        {"seconds": 90, "instruction": "Study the labeled A and D diagrams, identifying X, O, starting string, and each finger location."},
+        {"seconds": 60, "instruction": "Count and tap four displayed quarter-note slashes for four bars at a comfortable pace."},
+        {"seconds": 30, "instruction": "Explain in your own words what tab, a chord box, and rhythm slashes each tell you."}
+      ],
+      "selfAssessment": {"criteria": ["I know tab numbers show frets.", "I can explain X and O.", "I can identify a written beat separately from a chord shape."], "readyWhen": "You can translate the demonstrated symbols into an action with the legend nearby.", "ifNotReady": "Repeat one notation panel at a time before mixing them.", "proves": "Introductory reading comprehension.", "doesNotProve": "Fluent sight-reading, chord execution, or measured rhythmic accuracy."},
+      "demoAssetIds": ["notation-legend", "a-chord-reading", "d-chord-reading", "four-beat-reading"],
+      "referenceIds": ["yousician-tab", "justin-a", "justin-d"]
+    },
+    {
+      "id": "g-l1-m3-02",
+      "moduleId": "g-l1-m3",
+      "title": "Name the Shape",
+      "type": "exercise",
+      "suggestedSeconds": 240,
+      "objective": "Recognize the introduced A and D diagrams and map their dots to your own fingers without a speed requirement.",
+      "prerequisiteLessonIds": ["g-l1-m3-01"],
+      "steps": [
+        {"title": "Study, then name", "action": "Review the labeled A and D diagrams once. Hide the title, choose A or D, then reveal the answer. Read the lowest sounding string and X/O marks aloud too.", "lookCheck": "Use the dot locations and starting string, not only color.", "listenCheck": "No microphone is needed to score a diagram answer."},
+        {"title": "Place A deliberately", "action": "With the A diagram visible, put middle finger at string 4 fret 2, index at string 3 fret 2, and ring at string 2 fret 2. Leave strings 5 and 1 open; avoid string 6. Place one finger at a time, then release.", "lookCheck": "Dots, finger numbers, and real string positions agree.", "listenCheck": "If you choose to pick strings 5–1 individually, check their sound yourself; chord correctness is not automatically measured here."},
+        {"title": "Place D deliberately", "action": "Place index at string 3 fret 2, ring at string 2 fret 3, and middle at string 1 fret 2. Leave string 4 open and avoid 5 and 6. Release, then compare the two diagrams again.", "lookCheck": "Each fingertip approaches its own string; keep the ring finger from lying across the thin first string.", "listenCheck": "If a picked string sounds dull, lift and reposition the finger touching it; take the result as your own listening check."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "You guess the chord name without reading the positions.", "recovery": "Reveal the label and name two visible differences between A and D before trying again."},
+        {"observation": "The shape is difficult to hold or a neighbor is muted.", "recovery": "Release pressure, place one fingertip at a time closer to its fret, and shorten the hold. Reading can progress while physical chord practice continues later."}
+      ],
+      "practiceSegments": [
+        {"seconds": 60, "instruction": "Name six shuffled A/D diagram cards, checking each answer after choosing."},
+        {"seconds": 60, "instruction": "Place and release A slowly three times; no timed chord changes."},
+        {"seconds": 60, "instruction": "Place and release D slowly three times, resting between attempts."},
+        {"seconds": 60, "instruction": "Name two fresh cards and explain their open and avoided strings."}
+      ],
+      "selfAssessment": {"criteria": ["I can tell A and D diagrams apart without color.", "I can trace each dot to a string and fret.", "I know the lowest string to sound in each shape."], "readyWhen": "You identify both diagrams and can map the positions deliberately; fast changes and clean full chords are later practice goals.", "ifNotReady": "Return to the labeled diagrams and practice only the confused symbol or finger location.", "proves": "Diagram recognition plus self-checked finger mapping.", "doesNotProve": "Detected chord accuracy, fluent changes, or complete chord tone quality."},
+      "demoAssetIds": ["a-chord-reading", "d-chord-reading"],
+      "referenceIds": ["justin-a", "justin-d", "yousician-tab"]
+    },
+    {
+      "id": "g-l1-m3-04",
+      "moduleId": "g-l1-m3",
+      "title": "Checkpoint: Eight of Ten Reads",
+      "type": "checkpoint",
+      "suggestedSeconds": 240,
+      "objective": "Check ten reading decisions and identify the notation category that needs review.",
+      "prerequisiteLessonIds": ["g-l1-m3-01", "g-l1-m3-02"],
+      "steps": [
+        {"title": "Answer before revealing", "action": "Read each prompt and choose your answer once before showing the explanation. Work without the legend for the first attempt, but take as much thinking time as you need.", "lookCheck": "The prompt clearly distinguishes tab, a chord diagram, or a rhythm bar.", "listenCheck": "Audio is optional reference material; this assessment is visual reading."},
+        {"title": "Map one answer physically", "action": "For a string/fret prompt, point to that position on the guitar. For a beat prompt, count and tap. For a chord prompt, name the shape and its lowest sounding string without racing to fret it.", "lookCheck": "Your intended physical action matches the selected answer.", "listenCheck": "Physical examples are self-checked; they do not change the visual quiz score."},
+        {"title": "Review the misses", "action": "After all ten answers, revisit each missed category using the matching diagram. Try again as a new attempt; keep the first result visible separately.", "lookCheck": "Show correct answers out of ten and the categories to revisit.", "listenCheck": "No microphone-based musical judgment is implied by eight correct reading answers."}
+      ],
+      "mistakeRecovery": [
+        {"observation": "You keep choosing answers until one is accepted.", "recovery": "Count only the first answer in the checkpoint score; use later choices as guided review."},
+        {"observation": "A score below eight feels like a reason to repeat everything.", "recovery": "Review only the missed categories, then take a fresh attempt. Leave the material available for reference."}
+      ],
+      "practiceSegments": [
+        {"seconds": 20, "instruction": "Prepare the first attempt with the legend hidden."},
+        {"seconds": 120, "instruction": "Answer ten prompts, pausing the timer whenever needed."},
+        {"seconds": 70, "instruction": "Review missed categories using their diagrams and one physical example."},
+        {"seconds": 30, "instruction": "Record the score and choose the next review item."}
+      ],
+      "quiz": {
+        "scoring": "One point for each first-attempt correct answer; ten prompts, no time bonus. Eight correct is this catalog's reading checkpoint criterion, not a competitor-derived mastery threshold.",
+        "passingCorrectCount": 8,
+        "items": [
+          {"id": "read-01", "kind": "tab", "prompt": "Which guitar string does the top line of this labeled tab represent?", "options": ["String 1, thin high E", "String 6, thick low E", "String 3, G"], "correctOptionIndex": 0, "explanation": "Standard horizontal guitar tab places the highest-pitched string at the top."},
+          {"id": "read-02", "kind": "tab", "prompt": "A 0 is written on string 1. What do you do?", "options": ["Fret the first fret", "Play string 1 open", "Leave string 1 silent"], "correctOptionIndex": 1, "explanation": "Zero means play without fretting that string."},
+          {"id": "read-03", "kind": "tab", "prompt": "A 2 is written on the B-string line. Which position does it name?", "options": ["String 2, fret 2", "String 2, any fret with finger 2", "String 5, fret 2"], "correctOptionIndex": 0, "explanation": "The line identifies the string; the number identifies the fret."},
+          {"id": "read-04", "kind": "tab", "prompt": "A 3 is written on the high-E line. Where do you point?", "options": ["String 3, open", "String 6, fret 3", "String 1, fret 3"], "correctOptionIndex": 2, "explanation": "High E is string 1, and the tab number requests fret 3."},
+          {"id": "read-05", "kind": "chord_symbol", "prompt": "What does X above a string in a chord box mean?", "options": ["Play it extra loudly", "Keep that string silent", "Play it open"], "correctOptionIndex": 1, "explanation": "X marks a string that should not sound in this shape."},
+          {"id": "read-06", "kind": "chord_symbol", "prompt": "What does O above a string mean?", "options": ["Play the open string", "Mute the string", "Use your thumb to fret it"], "correctOptionIndex": 0, "explanation": "O identifies a sounding string without a fretted position."},
+          {"id": "read-07", "kind": "chord_name", "demoAssetId": "a-chord-reading", "hideAssetName": true, "prompt": "Which introduced chord does this diagram show?", "options": ["D", "A", "The diagram names a single fret"], "correctOptionIndex": 1, "explanation": "This A shape has fretted positions on strings 4, 3, and 2 at fret 2, with string 5 open."},
+          {"id": "read-08", "kind": "chord_name", "demoAssetId": "d-chord-reading", "hideAssetName": true, "prompt": "Which introduced chord does this diagram show?", "options": ["A", "The diagram names a single string", "D"], "correctOptionIndex": 2, "explanation": "This D shape has an open fourth string, two fret-2 positions, and the B-string position at fret 3."},
+          {"id": "read-09", "kind": "rhythm", "demoAssetId": "four-beat-reading", "prompt": "This 4/4 bar contains one quarter-note slash on each numbered beat. How many strokes are written?", "options": ["One", "Four", "Eight"], "correctOptionIndex": 1, "explanation": "The displayed bar has four beats and one written stroke per beat."},
+          {"id": "read-10", "kind": "chord_start", "demoAssetId": "d-chord-reading", "prompt": "What is the lowest sounding string in this D diagram?", "options": ["String 6", "String 5", "String 4"], "correctOptionIndex": 2, "explanation": "Strings 6 and 5 are marked X; string 4 is the first sounding string."}
+        ]
+      },
+      "selfAssessment": {"criteria": ["I answered before revealing the explanation.", "I can describe the action behind the symbols I answered correctly.", "I know which category to revisit."], "readyWhen": "At least eight first-attempt answers are correct; review the remaining categories while continuing to use notation in practice.", "ifNotReady": "Review the specific missed notation panels, then begin a separate new attempt.", "proves": "Performance on these ten reading prompts.", "doesNotProve": "General sight-reading, clean chords, timing, or the completion of a guitar grade."},
+      "demoAssetIds": ["notation-legend", "a-chord-reading", "d-chord-reading", "four-beat-reading"],
+      "referenceIds": ["yousician-tab", "justin-a", "justin-d"]
+    }
+  ],
+  "references": [
+    {"id": "justin-basics", "title": "JustinGuitar: Before You Begin", "url": "https://www.justinguitar.com/modules/before-you-begin-guitar-basics", "supports": "Foundations include tuning, holding the instrument/pick, finger placement, and reading chord boxes before beginner chord work."},
+    {"id": "justin-ear-tuner", "title": "JustinGuitar: Ear tuner", "url": "https://www.justinguitar.com/guitar-tuner", "supports": "Compare reference string pitches, adjust up or down, work one string at a time, and recheck after tuning."},
+    {"id": "justin-a", "title": "JustinGuitar: A chord reference", "url": "https://www.justinguitar.com/chords/a", "supports": "Established open-A fingering and separate clean-chord versus chord-change practice."},
+    {"id": "justin-d", "title": "JustinGuitar: D chord reference", "url": "https://www.justinguitar.com/chords/d", "supports": "Established open-D fingering and common adjacent-string muting difficulty."},
+    {"id": "yousician-tab", "title": "Yousician: Reading guitar tablature", "url": "https://support.yousician.com/hc/en-us/articles/206932099-How-to-read-guitar-tablature", "supports": "Tab maps strings and frets; zero means open; chord diagrams identify fingering and strings to omit."},
+    {"id": "yousician-recognition", "title": "Yousician: Guitar sound recognition", "url": "https://support.yousician.com/hc/en-us/articles/46277332028817-Guitar-sound-recognition-issues", "supports": "Tune before recognition, use standard six-string tuning, isolate useful input, and troubleshoot noise/input setup."},
+    {"id": "yousician-practice", "title": "Yousician: Practice and Play", "url": "https://support.yousician.com/hc/en-us/articles/201558362-Practice-and-Play-modes-in-guitar", "supports": "Guided practice may wait for a target note and permits reference listening; it is distinct from performance scoring."},
+    {"id": "yousician-revisit", "title": "Yousician: Effective practice", "url": "https://support.yousician.com/hc/en-us/articles/206912609-The-best-way-to-practice-guitar", "supports": "Work on small parts and revisit earlier material rather than requiring perfection before every advance."}
+  ]
+}

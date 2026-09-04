@@ -1,0 +1,1243 @@
+{
+  "track": "guitar",
+  "version": 2,
+  "levels": [
+    {
+      "id": "g-l1",
+      "name": "Sound Check",
+      "subtitle": "Guitar in tune, hands in place, one clean note you can repeat",
+      "access": "free",
+      "moduleCount": 3,
+      "lessonCount": 12,
+      "stage": 1,
+      "modules": [
+        {
+          "id": "g-l1-m1",
+          "name": "Hold, Fret, Pick",
+          "promise": "Find and repeat the six open-string pitches",
+          "skill": "Contact points and clean fretting",
+          "proofMetric": "count_in_window",
+          "lessonsTotal": 4,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l1-m1-01",
+              "title": "Three Points of Contact",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Where the guitar rests, where the thumb sits, how the pick is held. Everything downstream depends on this."
+            },
+            {
+              "id": "g-l1-m1-02",
+              "title": "Six Open Strings",
+              "type": "exercise",
+              "minutes": 4,
+              "summary": "Play the six open strings from low E to high E. The coach waits for a stable note before moving on, and abstains when the room is too noisy to judge fairly.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 60,
+                "countInBeats": 0,
+                "toleranceCents": 35,
+                "passScore": 75,
+                "targets": [
+                  { "id": "low-e", "beat": 0, "midi": 40, "guitarString": 6, "fret": 0 },
+                  { "id": "a", "beat": 1, "midi": 45, "guitarString": 5, "fret": 0 },
+                  { "id": "d", "beat": 2, "midi": 50, "guitarString": 4, "fret": 0 },
+                  { "id": "g", "beat": 3, "midi": 55, "guitarString": 3, "fret": 0 },
+                  { "id": "b", "beat": 4, "midi": 59, "guitarString": 2, "fret": 0 },
+                  { "id": "high-e", "beat": 5, "midi": 64, "guitarString": 1, "fret": 0 }
+                ]
+              }
+            },
+            {
+              "id": "g-l1-m1-04",
+              "title": "Checkpoint: Six Open Strings",
+              "type": "checkpoint",
+              "minutes": 4,
+              "summary": "Play each open string and listen for an even sound. Check buzzing by ear; pitch feedback does not assess fretting technique or tone quality."
+            }
+          ]
+        },
+        {
+          "id": "g-l1-m2",
+          "name": "Tune It Yourself",
+          "promise": "Tune and recheck all six strings at a comfortable pace",
+          "skill": "Tuning and string names",
+          "proofMetric": "duration_sec",
+          "lessonsTotal": 4,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l1-m2-01",
+              "title": "What In Tune Actually Means",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Pitch, cents, and why an out-of-tune guitar makes correct practice sound wrong."
+            },
+            {
+              "id": "g-l1-m2-02",
+              "title": "Tuner Target Practice",
+              "type": "exercise",
+              "minutes": 4,
+              "summary": "Check the string name and octave, pluck gently, and adjust the matching tuning peg in small steps. Recheck all six strings; accuracy comes before speed."
+            },
+            {
+              "id": "g-l1-m2-04",
+              "title": "Checkpoint: Six Strings in Tune",
+              "type": "checkpoint",
+              "minutes": 4,
+              "summary": "Check all six strings against their correct notes and octaves, then recheck after the final adjustment. Take the time you need; this is a self-assessed tuning check."
+            }
+          ]
+        },
+        {
+          "id": "g-l1-m3",
+          "name": "Read the Page",
+          "promise": "Identify eight of ten notated shapes and positions correctly",
+          "skill": "Tab, chord boxes, rhythm slashes",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 4,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l1-m3-01",
+              "title": "Tab, Boxes, and Slashes",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "The three notations you will read for the next year, explained once."
+            },
+            {
+              "id": "g-l1-m3-02",
+              "title": "Name the Shape",
+              "type": "exercise",
+              "minutes": 4,
+              "summary": "Flash a chord box, name it and place it. Recognition before recall."
+            },
+            {
+              "id": "g-l1-m3-04",
+              "title": "Checkpoint: Eight of Ten Reads",
+              "type": "checkpoint",
+              "minutes": 4,
+              "summary": "Ten notated prompts, eight correct, unassisted."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g-l2",
+      "name": "Two Chords, One Song",
+      "subtitle": "A real song, start to finish, on two chords",
+      "access": "free",
+      "moduleCount": 4,
+      "lessonCount": 24,
+      "stage": 2,
+      "modules": [
+        {
+          "id": "g-l2-m1",
+          "name": "A and D",
+          "promise": "Change between A and D cleanly, twenty times in sixty seconds",
+          "skill": "Two open chords",
+          "proofMetric": "duration_sec",
+          "lessonsTotal": 6,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l2-m1-01",
+              "title": "Two Shapes, One Hand",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "A and D share fingers. Learning them as a pair halves the work."
+            },
+            {
+              "id": "g-l2-m1-03",
+              "title": "Press, Check, Release",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Build the shape, check every string rings, release. Repetition without tension."
+            },
+            {
+              "id": "g-l2-m1-06",
+              "title": "Checkpoint: Forty-Five Seconds, No Stops",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Your first song, played end to end. This is the activation milestone."
+            }
+          ]
+        },
+        {
+          "id": "g-l2-m2",
+          "name": "Down on the Beat",
+          "promise": "Hold sixteen bars of down-strums at eighty BPM, ninety percent on the beat",
+          "skill": "Down-strums and counting aloud",
+          "proofMetric": "accuracy_pct",
+          "lessonsTotal": 6,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l2-m2-01",
+              "title": "Counting Out Loud",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Say the numbers. Silent counting is where beginners lose the beat."
+            },
+            {
+              "id": "g-l2-m2-04",
+              "title": "Down-Strum Song",
+              "type": "song",
+              "minutes": 5,
+              "summary": "A full song on down-strums only, with the metronome set where you need it."
+            },
+            {
+              "id": "g-l2-m2-06",
+              "title": "Checkpoint: Sixteen Bars at Eighty",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "After a four-beat visual count-in, land sixteen down-strums at eighty BPM. GuitarHub scores attack timing, not chord identity.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 80,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 75,
+                "targets": [
+                  { "id": "beat-01", "beat": 0 },
+                  { "id": "beat-02", "beat": 1 },
+                  { "id": "beat-03", "beat": 2 },
+                  { "id": "beat-04", "beat": 3 },
+                  { "id": "beat-05", "beat": 4 },
+                  { "id": "beat-06", "beat": 5 },
+                  { "id": "beat-07", "beat": 6 },
+                  { "id": "beat-08", "beat": 7 },
+                  { "id": "beat-09", "beat": 8 },
+                  { "id": "beat-10", "beat": 9 },
+                  { "id": "beat-11", "beat": 10 },
+                  { "id": "beat-12", "beat": 11 },
+                  { "id": "beat-13", "beat": 12 },
+                  { "id": "beat-14", "beat": 13 },
+                  { "id": "beat-15", "beat": 14 },
+                  { "id": "beat-16", "beat": 15 }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "g-l2-m3",
+          "name": "The Change",
+          "promise": "Twenty clean A-to-D changes inside sixty seconds",
+          "skill": "Chord-change speed",
+          "proofMetric": "duration_sec",
+          "lessonsTotal": 6,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l2-m3-01",
+              "title": "Why Changes Are the Bottleneck",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Nobody is stuck on chords. Everybody is stuck on the gap between them."
+            },
+            {
+              "id": "g-l2-m3-02",
+              "title": "The Sixty-Second Change",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "One minute, one chord pair, count every clean change. Log the number and beat it."
+            },
+            {
+              "id": "g-l2-m3-06",
+              "title": "Checkpoint: Twenty Clean Changes",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Counted by the app, not by you."
+            }
+          ]
+        },
+        {
+          "id": "g-l2-m4",
+          "name": "First Riff",
+          "promise": "Play a single-string riff at ninety BPM, three clean passes of three",
+          "skill": "Single-note riffs",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 6,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l2-m4-01",
+              "title": "A Riff Is a Melody You Can Hold",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Why single-note lines are easier than chords and why they sound harder."
+            },
+            {
+              "id": "g-l2-m4-03",
+              "title": "One String, Four Notes",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Fretting-hand accuracy on one string before you cross to another."
+            },
+            {
+              "id": "g-l2-m4-06",
+              "title": "Checkpoint: Three Clean Passes at Ninety",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Three of three, in time, from memory."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g-l3",
+      "name": "The Open Eight",
+      "subtitle": "Eight open chords, a capo, and any three-chord song you like",
+      "access": "paid",
+      "moduleCount": 5,
+      "lessonCount": 35,
+      "stage": 3,
+      "modules": [
+        {
+          "id": "g-l3-m1",
+          "name": "Minor Colors",
+          "promise": "Produce any of eight chord shapes on demand within three seconds",
+          "skill": "Em, Am and Dm",
+          "proofMetric": "duration_sec",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l3-m1-01",
+              "title": "Why Minor Sounds Like That",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "One note moves. The whole mood changes. The first piece of usable theory."
+            },
+            {
+              "id": "g-l3-m1-03",
+              "title": "Three Minors on Cue",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Random prompt, build the shape, ring it out. Recall under mild time pressure."
+            },
+            {
+              "id": "g-l3-m1-07",
+              "title": "Checkpoint: Eight Shapes, Three Seconds Each",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "The full open set, called at random."
+            }
+          ]
+        },
+        {
+          "id": "g-l3-m2",
+          "name": "E, C and G",
+          "promise": "Play the full open eight cleanly, every string ringing",
+          "skill": "The stretch chords",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l3-m2-01",
+              "title": "The Stretch Chords",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "C and G ask more of the hand. Here is how to get there without straining."
+            },
+            {
+              "id": "g-l3-m2-04",
+              "title": "Four-Chord Song",
+              "type": "song",
+              "minutes": 6,
+              "summary": "The progression behind more hit songs than any other, played to the metronome."
+            },
+            {
+              "id": "g-l3-m2-07",
+              "title": "Checkpoint: The Open Eight, Clean",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "All eight, all strings ringing, called at random."
+            }
+          ]
+        },
+        {
+          "id": "g-l3-m3",
+          "name": "Up and Down",
+          "promise": "Hold the universal strumming pattern for twenty-four bars at ninety BPM",
+          "skill": "Up-strums and constant motion",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l3-m3-01",
+              "title": "The Hand Never Stops",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "The strumming hand keeps moving whether or not it hits the strings."
+            },
+            {
+              "id": "g-l3-m3-02",
+              "title": "Ghost Strums",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Miss the strings on purpose to keep the arm in motion. The core of every pattern."
+            },
+            {
+              "id": "g-l3-m3-07",
+              "title": "Checkpoint: Twenty-Four Bars at Ninety",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Pattern held, no drift, no stops."
+            }
+          ]
+        },
+        {
+          "id": "g-l3-m4",
+          "name": "Capo and Keys",
+          "promise": "Play the same song in three different keys using a capo",
+          "skill": "Capo and key changes",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l3-m4-01",
+              "title": "Same Shapes, New Key",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "The capo is how a guitarist sings in their own range — it moves the key without new shapes."
+            },
+            {
+              "id": "g-l3-m4-03",
+              "title": "Three Keys, One Song",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Move the capo, keep the shapes, hear the key change."
+            },
+            {
+              "id": "g-l3-m4-07",
+              "title": "Checkpoint: One Song, Three Keys",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Played, not explained."
+            }
+          ]
+        },
+        {
+          "id": "g-l3-m5",
+          "name": "Three-Four and Six-Eight",
+          "promise": "Switch between meters mid-song without a stumble",
+          "skill": "Compound and triple meter",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l3-m5-01",
+              "title": "Counting in Threes",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Waltz time and six-eight feel, counted out loud before you play them."
+            },
+            {
+              "id": "g-l3-m5-04",
+              "title": "Six-Eight Ballad",
+              "type": "song",
+              "minutes": 6,
+              "summary": "A full song in compound time, played to the metronome."
+            },
+            {
+              "id": "g-l3-m5-07",
+              "title": "Checkpoint: Meter Switch, No Stumble",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Four bars of four, four of three, back again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g-l4",
+      "name": "The First Scale",
+      "subtitle": "Single notes, alternate picking, and the shape every solo starts from",
+      "access": "paid",
+      "moduleCount": 5,
+      "lessonCount": 35,
+      "stage": 4,
+      "modules": [
+        {
+          "id": "g-l4-m1",
+          "name": "Box One",
+          "promise": "Play minor pentatonic box one up and down at eighty BPM, two clean passes",
+          "skill": "Minor pentatonic, position one",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l4-m1-01",
+              "title": "Five Notes That Always Work",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Why this shape sounds right over almost anything in the key."
+            },
+            {
+              "id": "g-l4-m1-02",
+              "title": "Box One, Up and Down",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Two notes per string, strict alternate picking, metronome on."
+            },
+            {
+              "id": "g-l4-m1-07",
+              "title": "Checkpoint: Two Clean Passes at Eighty",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Ascending and descending, no missed notes."
+            }
+          ]
+        },
+        {
+          "id": "g-l4-m2",
+          "name": "Alternate Picking",
+          "promise": "Play eighth notes at one hundred BPM at ninety-five percent accuracy",
+          "skill": "Strict alternate picking",
+          "proofMetric": "accuracy_pct",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l4-m2-01",
+              "title": "Down-Up Is Not Optional",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Why all-downstrokes caps your speed permanently."
+            },
+            {
+              "id": "g-l4-m2-03",
+              "title": "Metronome Ladder, Sixty to One Hundred",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "Five BPM at a time. Drop back the moment accuracy breaks."
+            },
+            {
+              "id": "g-l4-m2-07",
+              "title": "Checkpoint: Eighths at One Hundred",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Ninety-five percent correct notes, on the click."
+            }
+          ]
+        },
+        {
+          "id": "g-l4-m3",
+          "name": "Hammer-Ons and Pull-Offs",
+          "promise": "Play clean legato pairs across three strings at eighty BPM",
+          "skill": "Legato technique",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l4-m3-01",
+              "title": "Notes Without Picking",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "How a note sounds when the fretting hand makes it alone."
+            },
+            {
+              "id": "g-l4-m3-02",
+              "title": "Legato Pairs, Three Strings",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Volume matching is the whole exercise. A weak pull-off is an inaudible one."
+            },
+            {
+              "id": "g-l4-m3-07",
+              "title": "Checkpoint: Clean Legato at Eighty",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Even volume across all pairs."
+            }
+          ]
+        },
+        {
+          "id": "g-l4-m4",
+          "name": "Eighths and Palm Mute",
+          "promise": "Hold twenty-four bars of palm-muted eighths at one hundred BPM",
+          "skill": "Palm muting",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l4-m4-01",
+              "title": "Where the Edge of the Hand Goes",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "A centimetre decides between muted and dead. Find yours."
+            },
+            {
+              "id": "g-l4-m4-04",
+              "title": "Palm-Muted Rock Song",
+              "type": "song",
+              "minutes": 6,
+              "summary": "A driving eighth-note song, played to the metronome."
+            },
+            {
+              "id": "g-l4-m4-07",
+              "title": "Checkpoint: Twenty-Four Bars at One Hundred",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Mute consistent, tempo held."
+            }
+          ]
+        },
+        {
+          "id": "g-l4-m5",
+          "name": "Fingers, Not Pick",
+          "promise": "Play sixteen bars of alternating-bass fingerstyle without stopping",
+          "skill": "Fingerstyle basics",
+          "proofMetric": "continuity",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l4-m5-01",
+              "title": "Thumb Keeps Time",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "The thumb is the drummer. Everything else is decoration."
+            },
+            {
+              "id": "g-l4-m5-03",
+              "title": "Alternating Bass",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "Thumb alone first, then add one finger at a time."
+            },
+            {
+              "id": "g-l4-m5-07",
+              "title": "Checkpoint: Sixteen Bars, No Stop",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Pattern intact, bass steady."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g-l5",
+      "name": "Barre Line",
+      "subtitle": "The chord that stops most players, the blues form, and your first solo",
+      "access": "paid",
+      "moduleCount": 6,
+      "lessonCount": 42,
+      "stage": 5,
+      "modules": [
+        {
+          "id": "g-l5-m1",
+          "name": "The F Problem",
+          "promise": "Enter and exit a clean partial F barre four times in a row",
+          "skill": "Partial barre",
+          "proofMetric": "count_in_window",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l5-m1-01",
+              "title": "Barre Is Leverage, Not Strength",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Thumb position, elbow angle, and why squeezing harder makes it worse."
+            },
+            {
+              "id": "g-l5-m1-02",
+              "title": "Partial F, In and Out",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "Build it, check it, release it. Tension is the enemy and the clock is not running."
+            },
+            {
+              "id": "g-l5-m1-07",
+              "title": "Checkpoint: Four Clean Entries",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Four in a row, every fretted string ringing."
+            }
+          ]
+        },
+        {
+          "id": "g-l5-m2",
+          "name": "Power Chords",
+          "promise": "Play a power-chord riff at one hundred and ten BPM",
+          "skill": "Two- and three-note power chords",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l5-m2-01",
+              "title": "Two Notes, No Quality",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Why a power chord is neither major nor minor, and why that makes it universal."
+            },
+            {
+              "id": "g-l5-m2-04",
+              "title": "Power-Chord Riff Song",
+              "type": "song",
+              "minutes": 6,
+              "summary": "A full riff-driven song, played to the metronome."
+            },
+            {
+              "id": "g-l5-m2-07",
+              "title": "Checkpoint: Riff at One Hundred and Ten",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Clean, muted between, no ringing strings."
+            }
+          ]
+        },
+        {
+          "id": "g-l5-m3",
+          "name": "Twelve Bars",
+          "promise": "Play three choruses of the twelve-bar form from memory, no chart",
+          "skill": "The blues form",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l5-m3-01",
+              "title": "The Form You Already Know",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Twelve bars, three chords, a century of songs."
+            },
+            {
+              "id": "g-l5-m3-03",
+              "title": "Call the Changes",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "The app calls the next chord one bar early until you stop needing it."
+            },
+            {
+              "id": "g-l5-m3-07",
+              "title": "Checkpoint: Three Choruses From Memory",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Chart hidden. Form held."
+            }
+          ]
+        },
+        {
+          "id": "g-l5-m4",
+          "name": "First Solo",
+          "promise": "Improvise four bars in key over the blues form without stopping",
+          "skill": "Four-bar improvisation",
+          "proofMetric": "continuity",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l5-m4-01",
+              "title": "Four Bars Is a Sentence",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Improvising is answering a question, not filling a silence."
+            },
+            {
+              "id": "g-l5-m4-03",
+              "title": "One Phrase, Three Answers",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "The app plays a phrase. You answer it three different ways."
+            },
+            {
+              "id": "g-l5-m4-07",
+              "title": "Checkpoint: Four Bars, In Key, No Stop",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Rung one of the improvisation ladder."
+            }
+          ]
+        },
+        {
+          "id": "g-l5-m5",
+          "name": "Bend and Vibrato",
+          "promise": "Bend a semitone to within twenty cents of target, three attempts of four",
+          "skill": "Pitch control after the pick",
+          "proofMetric": "cents_deviation",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l5-m5-01",
+              "title": "Pitch You Control After the Pick",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "The two techniques that make a guitar sound like a voice."
+            },
+            {
+              "id": "g-l5-m5-02",
+              "title": "Bend to Target",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "The app shows your pitch against the target. Ears second, eyes first, then eyes off."
+            },
+            {
+              "id": "g-l5-m5-07",
+              "title": "Checkpoint: Semitone Within Twenty Cents",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Three of four, target hidden."
+            }
+          ]
+        },
+        {
+          "id": "g-l5-m6",
+          "name": "Triads and Chords in Keys",
+          "promise": "Name and play the one, four, five and six chords in three keys",
+          "skill": "Harmonised scale",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 7,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l5-m6-01",
+              "title": "Every Chord Is Three Notes",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Triads, and why the big open shapes are just triads with doublings."
+            },
+            {
+              "id": "g-l5-m6-03",
+              "title": "One, Four, Five, Six",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "Build the four workhorse chords in any key you are handed."
+            },
+            {
+              "id": "g-l5-m6-07",
+              "title": "Checkpoint: Three Keys, Named and Played",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Named first, then played, no chart."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g-l6",
+      "name": "Whole Neck",
+      "subtitle": "Barre shapes everywhere, the major scale in five positions, eight bars of your own",
+      "access": "paid",
+      "moduleCount": 6,
+      "lessonCount": 48,
+      "stage": 6,
+      "modules": [
+        {
+          "id": "g-l6-m1",
+          "name": "Full Barre, E Shape",
+          "promise": "Play E-shape barre major and minor cleanly at five positions",
+          "skill": "E-shape barre",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l6-m1-01",
+              "title": "One Shape, Twelve Chords",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "The moment the neck stops being a list of shapes."
+            },
+            {
+              "id": "g-l6-m1-02",
+              "title": "Five Positions, Clean",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "Same shape, five frets, every string checked at each."
+            },
+            {
+              "id": "g-l6-m1-08",
+              "title": "Checkpoint: Major and Minor at Five Positions",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Called at random by fret number."
+            }
+          ]
+        },
+        {
+          "id": "g-l6-m2",
+          "name": "Full Barre, A Shape",
+          "promise": "Play a one-four-five progression using both barre shapes",
+          "skill": "A-shape barre",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l6-m2-01",
+              "title": "The Second Movable Shape",
+              "type": "concept",
+              "minutes": 4,
+              "summary": "Why two shapes cover every chord on the neck."
+            },
+            {
+              "id": "g-l6-m2-05",
+              "title": "Barre-Chord Song, Both Shapes",
+              "type": "song",
+              "minutes": 7,
+              "summary": "A song that forces the switch between shapes, played to the metronome."
+            },
+            {
+              "id": "g-l6-m2-08",
+              "title": "Checkpoint: One-Four-Five, Both Shapes",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Three keys, minimum hand movement."
+            }
+          ]
+        },
+        {
+          "id": "g-l6-m3",
+          "name": "The Major Scale, Five Positions",
+          "promise": "Connect three adjacent scale positions at one hundred BPM",
+          "skill": "Position playing",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l6-m3-01",
+              "title": "The Neck Is One Scale",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Five positions are five views of the same thing."
+            },
+            {
+              "id": "g-l6-m3-03",
+              "title": "Connect Three Positions",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Shift on the string, not on the beat."
+            },
+            {
+              "id": "g-l6-m3-08",
+              "title": "Checkpoint: Three Positions at One Hundred",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Continuous, no gap at the shifts."
+            }
+          ]
+        },
+        {
+          "id": "g-l6-m4",
+          "name": "Eight Bars",
+          "promise": "Improvise eight bars landing chord tones on the changes",
+          "skill": "Eight-bar improvisation",
+          "proofMetric": "continuity",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l6-m4-01",
+              "title": "Phrasing Over the Changes",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Rung two of the ladder: long enough that shape-running stops working."
+            },
+            {
+              "id": "g-l6-m4-04",
+              "title": "Target the Third",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Land on the third of each chord as it arrives. The single fastest upgrade to a solo."
+            },
+            {
+              "id": "g-l6-m4-08",
+              "title": "Checkpoint: Eight Bars, Chord Tones Landed",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Measured on chord-tone arrival, not note count."
+            }
+          ]
+        },
+        {
+          "id": "g-l6-m5",
+          "name": "Steal It By Ear",
+          "promise": "Transcribe a four-bar phrase from audio at ninety percent accuracy",
+          "skill": "Transcribing",
+          "proofMetric": "accuracy_pct",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l6-m5-01",
+              "title": "Hear It, Hum It, Find It",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Sing it before you look for it. The step everyone skips."
+            },
+            {
+              "id": "g-l6-m5-03",
+              "title": "Four Notes From Audio",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Short phrases, loop enabled, no notation shown."
+            },
+            {
+              "id": "g-l6-m5-08",
+              "title": "Checkpoint: Four Bars Transcribed",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Ninety percent of notes and rhythms correct."
+            }
+          ]
+        },
+        {
+          "id": "g-l6-m6",
+          "name": "Rhythm Vocabulary",
+          "promise": "Hold a syncopated sixteenth pattern for twenty-four bars at one hundred BPM",
+          "skill": "Sixteenths and syncopation",
+          "proofMetric": "tempo_bpm",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l6-m6-01",
+              "title": "Sixteenths and the Space Between",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Syncopation is defined by the notes you do not play."
+            },
+            {
+              "id": "g-l6-m6-05",
+              "title": "Syncopated Groove Song",
+              "type": "song",
+              "minutes": 7,
+              "summary": "A full song built on a displaced sixteenth pattern."
+            },
+            {
+              "id": "g-l6-m6-08",
+              "title": "Checkpoint: Twenty-Four Bars at One Hundred",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Pattern intact, no drift."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g-l7",
+      "name": "Signature",
+      "subtitle": "Style, tone, and three songs you can play for anyone",
+      "access": "paid",
+      "moduleCount": 6,
+      "lessonCount": 48,
+      "stage": 7,
+      "modules": [
+        {
+          "id": "g-l7-m1",
+          "name": "Funk",
+          "promise": "Hold a one-chord funk groove for thirty-two bars",
+          "skill": "Sixteenth-note muting",
+          "proofMetric": "continuity",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l7-m1-01",
+              "title": "The Groove Is the Mute",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "In funk the muted strokes carry the rhythm, not the chords."
+            },
+            {
+              "id": "g-l7-m1-03",
+              "title": "Sixteenth Scratch",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Constant sixteenths, fretting hand deciding what sounds."
+            },
+            {
+              "id": "g-l7-m1-08",
+              "title": "Checkpoint: Thirty-Two Bars, One Chord",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Groove held, no tempo drift, dynamics intact."
+            }
+          ]
+        },
+        {
+          "id": "g-l7-m2",
+          "name": "Blues Beyond Box One",
+          "promise": "Improvise twelve bars moving through three scale positions",
+          "skill": "All five pentatonic positions",
+          "proofMetric": "continuity",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l7-m2-01",
+              "title": "Five Boxes, One Scale",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "The positions connect. Here is where they overlap."
+            },
+            {
+              "id": "g-l7-m2-04",
+              "title": "Cross the Boxes",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Start a phrase in one position, finish it in the next."
+            },
+            {
+              "id": "g-l7-m2-08",
+              "title": "Checkpoint: Twelve Bars, Three Positions",
+              "type": "checkpoint",
+              "minutes": 7,
+              "summary": "Rung three of the ladder."
+            }
+          ]
+        },
+        {
+          "id": "g-l7-m3",
+          "name": "Jazz Doorway",
+          "promise": "Comp a thirty-two bar standard form from memory",
+          "skill": "Seventh chords and two-five-one",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l7-m3-01",
+              "title": "Sevenths Change Everything",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "One added note and the whole harmonic language opens."
+            },
+            {
+              "id": "g-l7-m3-04",
+              "title": "Two-Five-One Comping",
+              "type": "song",
+              "minutes": 7,
+              "summary": "The progression that runs most of the jazz repertoire."
+            },
+            {
+              "id": "g-l7-m3-08",
+              "title": "Checkpoint: A Standard Form From Memory",
+              "type": "checkpoint",
+              "minutes": 7,
+              "summary": "Chart hidden, changes held."
+            }
+          ]
+        },
+        {
+          "id": "g-l7-m4",
+          "name": "Extensions and Alterations",
+          "promise": "Reharmonise a progression and play it in time",
+          "skill": "Ninths, thirteenths, alterations",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l7-m4-01",
+              "title": "Colour Beyond the Seventh",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Which extensions belong on which chords, and why."
+            },
+            {
+              "id": "g-l7-m4-03",
+              "title": "Ninths and Thirteenths",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Voicings that fit under one hand without a barre."
+            },
+            {
+              "id": "g-l7-m4-08",
+              "title": "Checkpoint: Reharmonised and Played",
+              "type": "checkpoint",
+              "minutes": 7,
+              "summary": "Your substitutions, in time, over the original melody."
+            }
+          ]
+        },
+        {
+          "id": "g-l7-m5",
+          "name": "Tone and Effects",
+          "promise": "Switch between two tones inside one song, in time",
+          "skill": "Gain staging and effects",
+          "proofMetric": "recall_pct",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l7-m5-01",
+              "title": "Gain Staging in One Minute",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Where the volume actually comes from, and where the noise does."
+            },
+            {
+              "id": "g-l7-m5-04",
+              "title": "Clean to Dirty Inside a Song",
+              "type": "exercise",
+              "minutes": 7,
+              "summary": "Switching without a gap and without a volume jump."
+            },
+            {
+              "id": "g-l7-m5-08",
+              "title": "Checkpoint: Two Tones, One Song",
+              "type": "checkpoint",
+              "minutes": 6,
+              "summary": "Switched on the bar line, level matched."
+            }
+          ]
+        },
+        {
+          "id": "g-l7-m6",
+          "name": "Your Set",
+          "promise": "Play an unbroken three-song set, start to finish",
+          "skill": "Performance and sequencing",
+          "proofMetric": "composite",
+          "lessonsTotal": 8,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l7-m6-01",
+              "title": "Sequencing Three Songs",
+              "type": "concept",
+              "minutes": 5,
+              "summary": "Key, tempo, and energy order. Why the second song is the hardest."
+            },
+            {
+              "id": "g-l7-m6-05",
+              "title": "Set Rehearsal, Full Takes",
+              "type": "song",
+              "minutes": 9,
+              "summary": "Full takes only. No restarts, no section practice."
+            },
+            {
+              "id": "g-l7-m6-08",
+              "title": "Checkpoint: Three-Song Set, Unbroken",
+              "type": "checkpoint",
+              "minutes": 10,
+              "summary": "Played end to end. Compare it to where you were at Stage 2."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
