@@ -37,7 +37,7 @@ export const OG_IMAGE = {
   url: `${SITE_URL}/opengraph-image`,
   width: 1200,
   height: 630,
-  alt: "GuitarHub — prove one guitar breakthrough in 30 days.",
+  alt: "GuitarHub: prove one guitar breakthrough in 30 days.",
 } as const;
 
 export type SiteEntry = {

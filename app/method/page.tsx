@@ -61,11 +61,11 @@ const FAQS = [
   },
   {
     q: "Does this replace a teacher?",
-    a: "No. A good teacher can do the isolate stage for you in about a minute, which is most of what you are paying for. The loop is a structure for the other six days, and it makes lessons more useful, because you arrive with a recording and a specific question.",
+    a: "No. A good teacher can do the isolate stage for you in about a minute, which is most of what you are paying for. The loop is a structure for the other six days, and it makes lessons more useful. You arrive with a recording and a specific question.",
   },
   {
     q: "What if week four shows no change?",
-    a: "Then you have learned something specific and cheap. Either the finish line was wrong for a month of work, or the isolate stage never had a real target, or the fix was never reconnected under pressure. Each points at a different next month, and a clear negative result beats a feeling.",
+    a: "Then you have learned something specific and cheap. Either the finish line was wrong for a month of work, or the isolate stage had no real target, or the fix was not reconnected under pressure. Each points at a different next month, and a clear negative result beats a feeling.",
   },
 ] as const;
 
@@ -122,7 +122,7 @@ export default function MethodPage() {
             <em className="font-display italic text-peach">prove.</em>
           </>
         }
-        dek="One goal at a time, four stages, and an exit test for each one. This is the method every tool and guide on this site is built around."
+        dek="One goal at a time, four stages, and an exit test for each one. This is the method the tools and guides on this site are built around."
         updated={PUBLISHED}
         related={RELATED}
       >
@@ -138,11 +138,11 @@ export default function MethodPage() {
         </p>
 
         <p>
-          It is a loop rather than a curriculum because the useful information
-          arrives late. You cannot know which transition is costing you the song
-          until you have played the song badly onto a recording. Run the stages
-          out of order and you get the most common failure in adult practice:
-          four weeks of honest work on the part that was never the problem.
+          It is a loop rather than a curriculum. The useful information arrives
+          late. You cannot know which transition is costing you the song until
+          you have played the song badly onto a recording. Run the stages out of
+          order and you get the most common failure in adult practice: four
+          weeks of honest work on the part that was not the problem.
         </p>
 
         <h2>Stage one: Baseline</h2>
@@ -229,8 +229,8 @@ export default function MethodPage() {
         <p>
           <strong>Move on when</strong> you can play the fragment correctly
           several times in a row, cold: first thing in a session, no run-up. Cold
-          is the test, because in performance the passage arrives unannounced,
-          with your hands wherever the previous bar left them.
+          is the test. In performance the passage arrives unannounced, with your
+          hands wherever the previous bar left them.
         </p>
 
         <p>
@@ -312,8 +312,8 @@ export default function MethodPage() {
         <ul>
           <li>
             <strong>Done badly: deciding from memory.</strong> Your memory of
-            week one is generous, because you have heard the improved version
-            many more times since.
+            week one is generous. You have heard the improved version many more
+            times since.
           </li>
           <li>
             <strong>Done badly: recording and never listening back.</strong> The
@@ -413,8 +413,8 @@ export default function MethodPage() {
 
         <p>
           Hours watched measures attendance at somebody else&apos;s playing. The
-          unit of progress here is a recording of yours, and nothing on this site
-          counts how long you spent. Watching is an input, and inputs are not
+          unit of progress here is a recording of yours, and no counter here
+          tracks how long you spent. Watching is an input, and inputs are not
           evidence.
         </p>
 

@@ -37,6 +37,12 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: STRUMLY.suedeLabs, label: "Suede Labs" },
 ];
 
+/**
+ * Column labels are `<p>`, not `<h2>`. "Tools", "Guides" and "Resources" are
+ * navigational chrome rather than content sections, and as headings they added
+ * four bare stock phrases to the heading outline of every page on the site.
+ * The label still names its list programmatically through `aria-labelledby`.
+ */
 const COLUMN_HEADING =
   "text-[11px] font-semibold uppercase tracking-widest text-violet";
 // `gap-1` matters: these are inline-flex, which discards the whitespace text
@@ -51,10 +57,13 @@ function InternalColumn({
   heading: string;
   entries: readonly SiteEntry[];
 }) {
+  const labelId = `footer-${heading.toLowerCase()}`;
   return (
     <div>
-      <h2 className={COLUMN_HEADING}>{heading}</h2>
-      <ul className="mt-3">
+      <p id={labelId} className={COLUMN_HEADING}>
+        {heading}
+      </p>
+      <ul className="mt-3" aria-labelledby={labelId}>
         {entries.map((entry) => (
           <li key={entry.href}>
             <Link href={entry.href} className={LINK_CLASSES}>
@@ -76,8 +85,10 @@ export default function SiteFooter() {
           <InternalColumn heading="Guides" entries={GUIDES} />
           <InternalColumn heading="Resources" entries={RESOURCES} />
           <div>
-            <h2 className={COLUMN_HEADING}>Suede</h2>
-            <ul className="mt-3">
+            <p id="footer-suede" className={COLUMN_HEADING}>
+              Suede
+            </p>
+            <ul className="mt-3" aria-labelledby="footer-suede">
               {SUEDE_LINKS.map((link) => (
                 <li key={link.href}>
                   {isInternalHref(link.href) ? (

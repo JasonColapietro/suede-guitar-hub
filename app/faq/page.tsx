@@ -81,7 +81,7 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
     id: "cost-and-data",
     title: "Cost, accounts, and your data",
     intro:
-      "Nothing here charges you and almost nothing leaves your browser. These answers say exactly what that means, and name the one exception.",
+      "No part of this site charges you, and almost nothing leaves your browser. These answers say exactly what that means, and name the one exception.",
   },
   {
     id: "who-its-for",
@@ -127,13 +127,13 @@ const FAQS: readonly Faq[] = [
     id: "what-is-guitarhub",
     group: "what-it-is",
     q: "What is GuitarHub?",
-    a: "GuitarHub is a guitar practice method and a set of free browser tools that run it. The method is one loop against one goal at a time: record where you actually are, isolate the single thing that breaks the result, put that repair back under the pressure of a full performance, then record the same thing again and compare the two takes. The site exists because guitar education supplies plenty of lessons and almost nothing that tells you whether a lesson worked.",
+    a: "GuitarHub is a guitar practice method and a set of free browser tools that run it. The method is one loop against one goal at a time: record where you actually are, isolate the single thing that breaks the result, put that repair back under the pressure of a full performance, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. The site exists for that gap.",
   },
   {
     id: "what-guitarhub-is-not",
     group: "what-it-is",
     q: "What is GuitarHub not?",
-    a: "It is not a video course, a lesson library, a streak tracker, a teacher marketplace, or an app you download. There are no lesson videos here, nothing to install, no mentors on call, and no live chat. The tools and the written guides are the whole of what this site does today, and the founding room is an application under review rather than a service already running.",
+    a: "It is not a video course, a lesson library, a streak tracker, a teacher marketplace, or an app you download. There are no lesson videos here, no installer, no mentors on call, and no live chat. The tools and the written guides are the whole of what this site does today, and the founding room is an application under review rather than a service already running.",
   },
   {
     id: "what-are-the-tools",
@@ -153,19 +153,19 @@ const FAQS: readonly Faq[] = [
     id: "is-it-free",
     group: "cost-and-data",
     q: "Is GuitarHub free?",
-    a: "Yes. Every tool and every guide here is free to use, no payment is taken anywhere on the site, and no card is collected. The tools are not a limited sample of a paid product, because there is no paid product behind them. Applying to the founding room is free as well.",
+    a: "Yes. The tools and guides here are free to use, no payment is taken anywhere on the site, and no card is collected. The tools are not a limited sample of a paid product. There is no paid product behind them. Applying to the founding room is free as well.",
   },
   {
     id: "do-i-need-an-account",
     group: "cost-and-data",
     q: "Do I need an account?",
-    a: "No. There is no sign-up, no login, and no password, because there are no accounts at all. Open a tool and start using it. The only place on the site that asks for your name and email address is the founding-room application, and that is a form you choose to send once, not an account you keep.",
+    a: "No. There is no sign-up, no login, and no password. The site has no accounts. Open a tool and start using it. The only place on the site that asks for your name and email address is the founding-room application, and that is a form you choose to send once, not an account you keep.",
   },
   {
     id: "where-is-my-data-stored",
     group: "cost-and-data",
     q: "Where is my data stored?",
-    a: "In your own browser, in local storage, and nowhere else. What you type into a tool stays on the device you typed it on, so closing the tab does not lose it and reopening the page brings it back. It also does not travel: a plan built on a laptop is not on your phone, because there is no account syncing it. Clear your browser data and it is gone, and we cannot recover it, because we never had it.",
+    a: "In your own browser, in local storage, and nowhere else. What you type into a tool stays on the device you typed it on, so closing the tab does not lose it and reopening the page brings it back. It also does not travel: a plan built on a laptop is not on your phone, and no account syncs it. Clear your browser data and it is gone. We cannot recover it, and we did not have it to begin with.",
   },
   {
     id: "are-recordings-uploaded",
@@ -197,7 +197,7 @@ const FAQS: readonly Faq[] = [
     id: "who-is-it-not-for",
     group: "who-its-for",
     q: "Who is GuitarHub not for?",
-    a: "Complete beginners, mostly. The method assumes you can already play something badly enough to record it, and someone still learning to fret a first chord needs material rather than a way to audit material. It is also the wrong site for anyone who wants new songs and new lessons, because it deliberately has none, and for anyone who wants a graded course with a certificate at the end, because nothing here is graded and nothing is issued.",
+    a: "Complete beginners, mostly. The method assumes you can already play something badly enough to record it, and someone still learning to fret a first chord needs material rather than a way to audit material. It is also the wrong site for anyone who wants new songs and new lessons, which it deliberately does not have. It is the wrong site for anyone who wants a graded course with a certificate at the end. No work here is graded and no certificate is issued.",
   },
   {
     id: "how-much-time",
@@ -211,7 +211,7 @@ const FAQS: readonly Faq[] = [
     id: "what-is-the-founding-room",
     group: "the-founding-room",
     q: "What is the founding room?",
-    a: "An application, and it is being reviewed. That is the honest description, because the alternative reading, a cohort you can join today, is not true. The intent is a small room of 8 to 12 players assembled around one rule: every check-in has to change the next practice. Members would be matched by goal and by a schedule that actually works, corrections would stay private, and progress proof would be shared only when a player chooses to share it. Those are design commitments, not a description of something already running.",
+    a: "An application, and it is being reviewed. That is the honest description. The alternative reading, a cohort you can join today, is not true. The intent is a small room of 8 to 12 players assembled around one rule: every check-in has to change the next practice. Members would be matched by goal and by a schedule that actually works, corrections would stay private, and progress proof would be shared only when a player chooses to share it. Those are design commitments, not a description of something already running.",
   },
   {
     id: "can-i-join-today",
@@ -237,7 +237,7 @@ const FAQS: readonly Faq[] = [
     id: "does-it-replace-a-teacher",
     group: "strumly-and-teachers",
     q: "Does this replace a teacher?",
-    a: "No, and it is not trying to. A good teacher can do the isolate stage for you in about a minute, which is most of what you are paying them for. This is a structure for the other six days, and it tends to make a lesson worth more, because you arrive with a recording and a specific question instead of a general report that you have been practising.",
+    a: "No, and it is not trying to. A good teacher can do the isolate stage for you in about a minute, which is most of what you are paying them for. This is a structure for the other six days, and it tends to make a lesson worth more. You arrive with a recording and a specific question instead of a general report that you have been practising.",
   },
 ];
 
@@ -353,7 +353,7 @@ export default function FaqPage() {
 
         <section className="mx-auto max-w-3xl px-6 pt-16 md:pt-20">
           <p className="text-lg leading-relaxed text-ink/70">
-            Every answer below is checkable against the site itself. Where
+            The answers below are checkable against the site itself. Where
             something does not exist yet, it says so instead of describing the
             plan in the present tense. Where a claim is an argument about how
             practice works rather than a fact about the software, it is written

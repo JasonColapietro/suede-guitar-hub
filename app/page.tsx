@@ -198,6 +198,11 @@ export default function Home() {
         {/* Hero */}
         <section className="px-3 pt-3">
           <div className="relative overflow-hidden rounded-[2rem] px-6 py-24 text-center text-cream md:py-32">
+            {/* alt="" is deliberate. Reviewed against the artwork: this is a
+                room photograph carrying mood, and it sits under
+                `hero-backdrop` at 0.86 opacity with the headline on top of it.
+                It states nothing the heading does not, so naming it would only
+                add noise ahead of the copy a screen reader is here for. */}
             <Image
               src="/hero-studio.jpg"
               alt=""
@@ -427,7 +432,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={1}>
             <p className="mx-auto mt-4 max-w-xl text-center text-ink/70">
-              Essays and breakdowns on how skilled players actually get built —
+              Essays and breakdowns on how skilled players actually get built,
               publishing alongside the founding cohort.
             </p>
           </Reveal>
@@ -439,6 +444,11 @@ export default function Home() {
                   className="block h-full overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5 transition hover:-translate-y-1 hover:shadow-md"
                 >
                   <div className="relative aspect-[16/10]">
+                    {/* alt="" is deliberate. The card thumbnail is a mood
+                        photograph inside a link that already carries the
+                        kicker, title and blurb below, so alt text here would
+                        double the link name rather than describe anything the
+                        reader cannot already hear. */}
                     <Image
                       src={post.img}
                       alt=""
@@ -517,6 +527,9 @@ export default function Home() {
         {/* Application — dark closer */}
         <section id="apply" className="px-3 pb-3">
           <div className="relative overflow-hidden rounded-[2rem] px-6 py-24">
+            {/* alt="" is deliberate, same reading as the hero: an amp in low
+                light, run under `hero-backdrop` at 0.92 opacity behind the
+                closing copy. */}
             <Image
               src="/amp-glow.jpg"
               alt=""

@@ -24,11 +24,11 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
-  title: "GuitarHub — Learn Guitar, One Step at a Time",
+  title: "GuitarHub: Learn Guitar, One Step at a Time",
   description:
     "Start with free guitar lessons, tuning preparation, and guided practice. Save progress in your browser and explore guitar and voice learning paths.",
   openGraph: {
-    title: "GuitarHub — Learn Guitar, One Step at a Time",
+    title: "GuitarHub: Learn Guitar, One Step at a Time",
     description:
       "Get comfortable, tune up, and practice your first sounds. Three opening lessons free, with progress saved in your browser.",
     url: "https://guitarhub.org",
