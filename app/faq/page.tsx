@@ -2,9 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/faq`;
+
+/** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
+const CRUMBS = crumbTrail("FAQ", CANONICAL);
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "GuitarHub FAQ: The Method, the Tools, and the Founding Room";
@@ -281,14 +286,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: faq.a },
       })),
     },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${CANONICAL}#breadcrumb`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "GuitarHub", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "FAQ", item: CANONICAL },
-      ],
-    },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -327,6 +325,8 @@ export default function FaqPage() {
       />
 
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main>
         <section className="px-3 pt-3">

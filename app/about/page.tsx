@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
+
+/** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
+const CRUMBS = crumbTrail("About", CANONICAL);
 
 const TITLE = "About GuitarHub: Who Built It and What It Actually Does";
 // Kept near 155 characters. The longer version ran to 189 and Google truncated
@@ -75,24 +79,7 @@ const JSON_LD = {
       dateModified: PUBLISHED,
       breadcrumb: { "@id": `${CANONICAL}#breadcrumb` },
     },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${CANONICAL}#breadcrumb`,
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "GuitarHub",
-          item: SITE_URL,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "About",
-          item: CANONICAL,
-        },
-      ],
-    },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -105,6 +92,7 @@ export default function AboutPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         eyebrow="About"
         title={
           <>

@@ -276,8 +276,43 @@ export const HUBS: readonly SiteEntry[] = [
   },
 ];
 
+/**
+ * The learning paths. `/learn/guitar` is the destination of the "Start
+ * learning" link in the site-wide nav, so it is the most-linked route on the
+ * site after the home page, yet it sat outside the registry and therefore
+ * outside the sitemap while `/privacy` and `/terms` were listed.
+ *
+ * The two track pages are served by the dynamic `app/learn/[track]/page.tsx`
+ * segment, whose `generateStaticParams` returns exactly `guitar` and `voice`.
+ * Adding a third track means adding it in both places.
+ */
+export const LEARN: readonly SiteEntry[] = [
+  {
+    href: "/learn",
+    title: "Learning paths",
+    blurb:
+      "Pick guitar or voice and follow the lessons in order, with your place kept in this browser.",
+    lastModified: "2026-09-04",
+  },
+  {
+    href: "/learn/guitar",
+    title: "Learn guitar step by step",
+    blurb:
+      "The guitar curriculum from the first foundations: a free opening module, guided practice, and browser-local progress.",
+    lastModified: "2026-09-04",
+  },
+  {
+    href: "/learn/voice",
+    title: "Learn voice step by step",
+    blurb:
+      "The voice curriculum from an easy breath to a steady tone, with a free opening module and browser-local progress.",
+    lastModified: "2026-09-04",
+  },
+];
+
 export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
   HOME,
+  ...LEARN,
   ...HUBS,
   ...TOOLS,
   ...GUIDES,

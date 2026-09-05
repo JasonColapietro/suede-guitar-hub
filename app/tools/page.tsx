@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import {
   GUIDES,
   OG_IMAGE,
@@ -12,6 +14,9 @@ import {
 } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/tools`;
+
+/** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
+const CRUMBS = crumbTrail("Tools", CANONICAL);
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "Free Guitar Practice Tools | GuitarHub";
@@ -295,14 +300,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: item.a },
       })),
     },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${CANONICAL}#breadcrumb`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "GuitarHub", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "Tools", item: CANONICAL },
-      ],
-    },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -364,6 +362,8 @@ export default function ToolsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main>
         <section className="px-3 pt-3">
@@ -588,21 +588,26 @@ export default function ToolsPage() {
             <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
               Common questions.
             </h2>
-            <dl className="mt-10 space-y-8">
+            {/* Headings, not a description list. The FAQPage JSON-LD below
+                declares each of these as a Question, and a <dt> is not a
+                heading, so a retrievability pass counted zero visible
+                questions against five in the markup. `/faq` and `/method`
+                already render their questions as <h3>; this matches them. */}
+            <div className="mt-10 grid gap-8">
               {FAQS.map((item) => (
-                <div
+                <article
                   key={item.q}
                   className="rounded-3xl bg-cream p-7 ring-1 ring-ink/5"
                 >
-                  <dt className="font-display text-2xl leading-snug text-indigo-deep">
+                  <h3 className="font-display text-2xl leading-snug text-indigo-deep">
                     {item.q}
-                  </dt>
-                  <dd className="mt-3 text-base leading-relaxed text-ink/70">
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-ink/70">
                     {item.a}
-                  </dd>
-                </div>
+                  </p>
+                </article>
               ))}
-            </dl>
+            </div>
           </div>
         </section>
 
