@@ -1,0 +1,46 @@
+.references { border-top: 1px solid rgba(37,17,82,.15); border-bottom: 1px solid rgba(37,17,82,.15); margin: 1.5rem 0; padding: .4rem 0; color: #251152; }
+.references summary, .history summary, .asset summary { cursor: pointer; min-height: 48px; padding: .75rem .2rem; font-weight: 650; line-height: 1.5; }
+.assetList { display: grid; gap: 1rem; padding: .7rem 0 1.1rem; }
+.asset { background: #f7f3ee; border: 1px solid rgba(37,17,82,.13); border-radius: 1rem; padding: clamp(1rem,2vw,1.5rem); }
+.asset h3 { margin-top: 0; }
+.caption { font-size: .82rem; line-height: 1.6; color: #62576f; margin: .75rem 0; }
+.selectLabel { display: block; margin: .8rem 0 .4rem; font-size: .85rem; font-weight: 650; }
+.asset select { appearance: auto; width: 100%; max-width: 100%; min-height: 48px; padding: .6rem; border: 1px solid #aa99c4; border-radius: .5rem; background: white; color: #251152; font: inherit; }
+.button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; border: 1px solid #aa99c4; border-radius: 999px; background: white; color: #251152; padding: .65rem 1.1rem; font-size: .9rem; line-height: 1.4; font-weight: 650; cursor: pointer; }
+.button:hover { background: #eee7f7; }
+.button:disabled { opacity: .55; cursor: not-allowed; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.strings { display: grid; gap: .35rem; margin: 1.2rem 0; }
+.stringRow { display: grid; grid-template-columns: 24px 1fr 35px; align-items: center; gap: 12px; padding: .45rem .6rem; font-size: .85rem; color: #62576f; }
+.stringRow[data-selected=true] { background: #e8ddf8; color: #251152; border-radius: .5rem; font-weight: 700; }
+.stringLine { background: currentColor; }
+.chord, .tab, .beats { margin: .5rem 0 1rem; }
+.chord figcaption, .tab figcaption, .beats figcaption { font-weight: 650; line-height: 1.5; margin-bottom: .7rem; }
+.chord svg { display: block; width: min(100%,300px); height: auto; margin: auto; color: #251152; }
+.tab svg { width: 100%; height: auto; display: block; color: #251152; }
+.beatBar { display: flex; border-left: 2px solid #251152; border-right: 2px solid #251152; padding: .4rem; }
+.beatBar span { flex: 1; text-align: center; display: grid; gap: .4rem; }
+.beatBar strong { font-size: 2rem; font-weight: 500; line-height: 1.2; }
+.setup { display: grid; gap: .6rem; margin: 1rem 0; }
+.setup > div { border: 1px solid rgba(37,17,82,.13); border-radius: .6rem; background: #eee7f7; padding: .75rem 1rem; }
+.setup p { font-size: .9rem; }
+.quiz { border-top: 1px solid rgba(37,17,82,.15); margin: 1.5rem 0; padding-top: .5rem; }
+.progress { font-size: .9rem; padding: .8rem 1rem; background: #eee7f7; border-radius: .6rem; margin: 1rem 0; }
+.question { border: 1px solid rgba(37,17,82,.15); border-radius: 1rem; padding: 1.1rem; margin: 1rem 0; background: #fff; }
+.question fieldset { border: 0; padding: 0; margin: 0 0 .8rem; min-width: 0; }
+.question legend { font-weight: 650; line-height: 1.65; margin-bottom: .75rem; }
+.option { display: flex; align-items: center; gap: .65rem; border: 1px solid #c5b8d8; border-radius: .6rem; padding: .85rem; margin: .5rem 0; min-height: 48px; cursor: pointer; line-height: 1.5; }
+.option:has(input:checked) { background: #eee7f7; border-color: #6d28d9; }
+.option input { accent-color: #6d28d9; flex-shrink: 0; width: 18px; height: 18px; }
+.question fieldset:disabled .option { cursor: default; }
+.correct, .review, .warning { padding: 1rem; border-radius: .65rem; margin-top: .9rem; line-height: 1.6; }
+.correct { background: #e4ebdf; color: #304c2c; }
+.review { background: #f5e7d6; color: #67451f; }
+.warning { background: #f5e7d6; color: #67451f; font-size: .85rem; }
+.correct h4, .review h4 { font-weight: 700; }
+.correct p, .review p { margin: .4rem 0; }
+.history { margin-top: 1rem; }
+.history ol { padding-left: 1.4rem; }
+.history li { padding: .4rem 0; line-height: 1.5; }
+.references :is(button, select, summary):focus-visible, .quiz :is(button, input, summary):focus-visible { outline: 3px solid #6d28d9; outline-offset: 4px; }
+@media(max-width: 430px) { .question { padding: .85rem; } .button { width: 100%; } }

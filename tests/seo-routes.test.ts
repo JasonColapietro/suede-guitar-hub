@@ -164,6 +164,12 @@ test("adds browser-facing security headers without blocking indexable pages", as
     /noindex|nofollow/,
     "security policy must not add crawl directives",
   );
+  assert.match(headers.get("Permissions-Policy") ?? "", /microphone=\(\)/);
+  const learning = rules.find((rule) => rule.source === "/learn/:path*");
+  assert.ok(learning, "learning routes must permit consented microphone practice");
+  assert.ok(rules.indexOf(learning) > rules.indexOf(sitewide), "learning policy must override the sitewide default");
+  const learningHeaders = new Map(learning.headers.map(({ key, value }) => [key, value]));
+  assert.equal(learningHeaders.get("Permissions-Policy"), "camera=(), geolocation=(), microphone=(self)");
 });
 
 test("gives every registered tool a full tools-hub card and routing row", () => {

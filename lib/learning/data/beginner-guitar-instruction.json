@@ -1,0 +1,4482 @@
+{
+  "schemaVersion": 1,
+  "status": "authored_for_integration",
+  "scope": "GuitarHub guitar preparation and D/A chord, change, study, and timing instruction: eighteen authored lessons.",
+  "authoredDate": "2026-09-04",
+  "sourceCatalog": "ios/GuitarHubCore/Sources/GuitarHubCore/Resources/guitar.json",
+  "instructionConventions": {
+    "handNames": "Use picking hand and fretting hand; mirror physical diagrams for the selected handedness while retaining string numbers and note identities.",
+    "stringNumbers": "String 6 is the thick low E; string 1 is the thin high E.",
+    "fretNumbers": "Open is 0. Fret 1 is the space between the nut and first metal fret; place a fretting fingertip close to the metal fret on the body side of that space, not on top of it.",
+    "practiceTiming": "Segment durations are suggested attention blocks that sum to the existing lesson duration. They are not countdown deadlines for competence. Pause or repeat as needed.",
+    "evidence": "Reading responses, listening judgments, comfort checks, and technique checks are self-assessed unless a specific implemented measurement is identified. A monophonic pitch estimate does not prove chord correctness, buzzing, posture, or timing.",
+    "referenceAudio": "Reference sounds demonstrate target pitch, not realistic guitar timbre. Stop reference playback before listening for the learner's input; synthesized audio must not score its own exercise."
+  },
+  "integrationNote": {
+    "summary": "Attach content by existing lesson ID. Introduce posture first, complete tuning preparation before any measured open-string pitch exercise, then teach and test notation. Preserve lesson IDs and existing progress records. Never infer assessment success from reading these steps or from elapsed time.",
+    "recommendedLessonOrder": [
+      "g-l1-m1-01",
+      "g-l1-m2-01",
+      "g-l1-m2-02",
+      "g-l1-m2-04",
+      "g-l1-m1-02",
+      "g-l1-m1-04",
+      "g-l1-m3-01",
+      "g-l1-m3-02",
+      "g-l1-m3-04"
+    ],
+    "orderChanges": [
+      "Offer the first posture lesson before tuning, then a Tune your guitar link or prerequisite before g-l1-m1-02. Keep both navigation and Continue consistent with that route.",
+      "Remove fully-detuned and ninety-second requirements from the initial tuning checkpoint; first establish correct string, correct octave, controlled adjustment, and a final recheck. An optional later timing challenge must not block basic readiness.",
+      "Teach A and D diagram names and symbols before asking Name the Shape. This module introduces reading; it does not replace dedicated chord-playing and chord-change instruction.",
+      "Each of these modules currently contains three actual lesson objects while lessonsTotal says four. Derive displayed counts from published lessons or supply the missing lessons; do not advertise nonexistent lessons."
+    ],
+    "recommendedModuleMetadata": [
+      {
+        "id": "g-l1-m1",
+        "promise": "Find and play all six open strings, one at a time",
+        "skill": "Guitar support, string identification, and controlled picking",
+        "proofMetric": "open_string_pitch_and_self_check"
+      },
+      {
+        "id": "g-l1-m2",
+        "promise": "Check and tune all six strings with a final recheck",
+        "skill": "String names, tuning direction, and octave awareness",
+        "proofMetric": "six_string_tuning_check"
+      },
+      {
+        "id": "g-l1-m3",
+        "promise": "Read beginner tab, chord diagrams, and a simple beat pattern",
+        "skill": "Notation recognition and translating a symbol into an action",
+        "proofMetric": "reading_quiz_first_attempt"
+      }
+    ],
+    "stageReadiness": {
+      "requires": [
+        "Identify all six strings and use a tuner or a trusted external tuner to check them.",
+        "Pick requested open strings individually; use available pitch evidence only for the note actually measured.",
+        "Understand open, avoid-string, string-number, and fret-number symbols.",
+        "Read at least eight of ten first-attempt notation prompts, then review missed categories.",
+        "Confirm a manageable playing position and name one useful correction when a note does not sound as intended."
+      ],
+      "doesNotProve": "Complete beginner-grade proficiency, fluent A/D changes, steady song performance, healthy technique, or clean chord tone.",
+      "reviewBehavior": "Allow continued learning with targeted review available. Do not label one completed session as mastery; do not require perfect stars on every attempt."
+    },
+    "unimplementedRequirements": "Tone/diagram suggestions and quiz items below are specifications for integration, not claims those controls already exist. Use only available working controls in published copy.",
+    "stageTwo": {
+      "summary": "Merge these nine lessons by stable ID into the existing instruction library, along with uniquely named stage2 assets/references. This is data for implementation and review, not proof that renderer controls already exist.",
+      "schemaCompatibility": {
+        "baseModel": "LessonInstructionLibrary / LessonInstruction in ios/GuitarHubCore/Sources/GuitarHubCore/Content/LessonInstruction.swift",
+        "existingFieldsOnlyAtTypedLessonLevel": true,
+        "extensionsLocation": "integrationNote and demoAssets use the existing heterogeneous InstructionJSONValue model.",
+        "bundleMerge": "Add by lesson/reference/asset ID; do not replace the existing nine Stage 1 instruction lessons.",
+        "currentRendererWork": "Generalize instructional rendering to these referenced assets, connect manual trial controls, and implement the original study transport. Merely decoding this file does not render the interactions.",
+        "progressAdapter": "Manual attempt records are a separate model. If the existing LessonRecord summary is updated, map it to source selfReported with score null; do not add an unsupported source manual enum to LessonRecord or fabricate a PracticeResult.",
+        "practiceSpecExtension": "The checkpoint uses optional completionMinimumBPM:80 in the PracticeSpec being implemented by the native/web work. This is the existing catalog tempo goal and is separate from passScore."
+      },
+      "recommendedModuleOrder": [
+        "g-l2-m1",
+        "g-l2-m3",
+        "g-l2-m2",
+        "g-l2-m4"
+      ],
+      "recommendedLessonOrder": [
+        "g-l2-m1-01",
+        "g-l2-m1-03",
+        "g-l2-m1-06",
+        "g-l2-m3-01",
+        "g-l2-m3-02",
+        "g-l2-m3-06",
+        "g-l2-m2-01",
+        "g-l2-m2-04",
+        "g-l2-m2-06"
+      ],
+      "orderingReason": "D and A shapes/accuracy precede silent anchor and counted changes; bar/beat strumming then leads to musical application. Keep original IDs and route both Next and Continue through the teaching order. The g-l2-m4 riff lessons are unchanged, not authored here.",
+      "catalogCorrections": {
+        "level": {
+          "id": "g-l2",
+          "set": {
+            "name": "Two Chords, First Study",
+            "subtitle": "Learn A and D, count your changes, and play an original two-chord study"
+          },
+          "counts": "Derive moduleCount and lessonCount from published arrays. Current catalog has 4 module objects and 12 lesson objects, not 24."
+        },
+        "modules": [
+          {
+            "id": "g-l2-m1",
+            "set": {
+              "name": "D and A",
+              "promise": "Build D and A and check their sounding strings deliberately",
+              "skill": "Open-chord placement and listening checks",
+              "proofMetric": "manual_chord_reflection"
+            },
+            "counts": "Current published lessonsTotal and sampleLessonsShown should both derive as 3."
+          },
+          {
+            "id": "g-l2-m3",
+            "set": {
+              "name": "The Change",
+              "promise": "Practice silent anchor movement and record your own sixty-second A/D change count",
+              "skill": "Anchor movement and manually counted chord transitions",
+              "proofMetric": "manual_change_count"
+            },
+            "counts": "Current published lessonsTotal and sampleLessonsShown should both derive as 3."
+          },
+          {
+            "id": "g-l2-m2",
+            "set": {
+              "name": "Down on the Beat",
+              "promise": "Play an original sixteen-bar study and check sixty-four quarter-note attacks across sixteen bars at eighty BPM",
+              "skill": "Counting, first-beat strumming, and separate attack-timing practice",
+              "proofMetric": "attack_timing_score_and_manual_study"
+            },
+            "counts": "Current published lessonsTotal and sampleLessonsShown should both derive as 3."
+          }
+        ],
+        "lessons": [
+          {
+            "id": "g-l2-m1-01",
+            "expectedPreviousTitle": "Two Shapes, One Hand",
+            "set": {
+              "title": "D, Then A",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Build D, then A, in the taught finger order and identify each chord's sounding strings."
+            },
+            "requiredRuntime": "Authored instruction, diagrams, manual criteria"
+          },
+          {
+            "id": "g-l2-m1-03",
+            "expectedPreviousTitle": "Press, Check, Release",
+            "set": {
+              "title": "Check D, Then A",
+              "type": "exercise",
+              "minutes": 6,
+              "summary": "Three minutes each on D and A: place, strum, check individual strings, adjust, and strum again."
+            },
+            "requiredRuntime": "Authored instruction, diagrams, manual criteria"
+          },
+          {
+            "id": "g-l2-m1-06",
+            "expectedPreviousTitle": "Checkpoint: Forty-Five Seconds, No Stops",
+            "set": {
+              "title": "Checkpoint: Check Both Chords",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Recall both shapes and record your own individual-string listening check."
+            },
+            "requiredRuntime": "Authored instruction, diagrams, manual criteria"
+          },
+          {
+            "id": "g-l2-m3-01",
+            "expectedPreviousTitle": "Why Changes Are the Bottleneck",
+            "set": {
+              "title": "Keep One Finger in Place",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Move silently between D and A while the index stays in contact with string 3, fret 2."
+            },
+            "requiredRuntime": "Authored instruction, diagrams, manual criteria"
+          },
+          {
+            "id": "g-l2-m3-02",
+            "expectedPreviousTitle": "The Sixty-Second Change",
+            "set": {
+              "title": "Count Your One-Minute Changes",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Choose the starting chord, alternate for sixty seconds, and enter your own count afterwards."
+            },
+            "requiredRuntime": "Manual 60-second trial control and history"
+          },
+          {
+            "id": "g-l2-m3-06",
+            "expectedPreviousTitle": "Checkpoint: Twenty Clean Changes",
+            "set": {
+              "title": "Checkpoint: Your One-Minute Count",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Record a fresh one-minute manual change count. Thirty transitions is the early guide; tone quality remains a separate check."
+            },
+            "requiredRuntime": "Manual 60-second trial control and history"
+          },
+          {
+            "id": "g-l2-m2-01",
+            "expectedPreviousTitle": "Counting Out Loud",
+            "set": {
+              "title": "Four Beats, One Downstroke",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Count four beats per bar, then place one downstroke on beat 1 before adding more strokes."
+            },
+            "requiredRuntime": "Authored instruction, diagrams, manual criteria"
+          },
+          {
+            "id": "g-l2-m2-04",
+            "expectedPreviousTitle": "Down-Strum Song",
+            "set": {
+              "title": "First Light: An Original A/D Study",
+              "type": "exercise",
+              "minutes": 10,
+              "summary": "Play a complete sixteen-bar original A/D study. Start with one downstroke per bar at a comfortable tempo."
+            },
+            "requiredRuntime": "Original study score, playback/manual practice, and completion reflection"
+          },
+          {
+            "id": "g-l2-m2-06",
+            "expectedPreviousTitle": "Checkpoint: Sixteen Bars at Eighty",
+            "set": {
+              "title": "Checkpoint: Sixteen Bars at Eighty",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "After four visual count-in beats, play sixty-four quarter-note down-strums across sixteen bars. Check the goal at 80 BPM; the microphone result measures attack timing only.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 80,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 75,
+                "targets": [
+                  {
+                    "id": "beat-01",
+                    "beat": 0
+                  },
+                  {
+                    "id": "beat-02",
+                    "beat": 1
+                  },
+                  {
+                    "id": "beat-03",
+                    "beat": 2
+                  },
+                  {
+                    "id": "beat-04",
+                    "beat": 3
+                  },
+                  {
+                    "id": "beat-05",
+                    "beat": 4
+                  },
+                  {
+                    "id": "beat-06",
+                    "beat": 5
+                  },
+                  {
+                    "id": "beat-07",
+                    "beat": 6
+                  },
+                  {
+                    "id": "beat-08",
+                    "beat": 7
+                  },
+                  {
+                    "id": "beat-09",
+                    "beat": 8
+                  },
+                  {
+                    "id": "beat-10",
+                    "beat": 9
+                  },
+                  {
+                    "id": "beat-11",
+                    "beat": 10
+                  },
+                  {
+                    "id": "beat-12",
+                    "beat": 11
+                  },
+                  {
+                    "id": "beat-13",
+                    "beat": 12
+                  },
+                  {
+                    "id": "beat-14",
+                    "beat": 13
+                  },
+                  {
+                    "id": "beat-15",
+                    "beat": 14
+                  },
+                  {
+                    "id": "beat-16",
+                    "beat": 15
+                  },
+                  {
+                    "id": "beat-17",
+                    "beat": 16
+                  },
+                  {
+                    "id": "beat-18",
+                    "beat": 17
+                  },
+                  {
+                    "id": "beat-19",
+                    "beat": 18
+                  },
+                  {
+                    "id": "beat-20",
+                    "beat": 19
+                  },
+                  {
+                    "id": "beat-21",
+                    "beat": 20
+                  },
+                  {
+                    "id": "beat-22",
+                    "beat": 21
+                  },
+                  {
+                    "id": "beat-23",
+                    "beat": 22
+                  },
+                  {
+                    "id": "beat-24",
+                    "beat": 23
+                  },
+                  {
+                    "id": "beat-25",
+                    "beat": 24
+                  },
+                  {
+                    "id": "beat-26",
+                    "beat": 25
+                  },
+                  {
+                    "id": "beat-27",
+                    "beat": 26
+                  },
+                  {
+                    "id": "beat-28",
+                    "beat": 27
+                  },
+                  {
+                    "id": "beat-29",
+                    "beat": 28
+                  },
+                  {
+                    "id": "beat-30",
+                    "beat": 29
+                  },
+                  {
+                    "id": "beat-31",
+                    "beat": 30
+                  },
+                  {
+                    "id": "beat-32",
+                    "beat": 31
+                  },
+                  {
+                    "id": "beat-33",
+                    "beat": 32
+                  },
+                  {
+                    "id": "beat-34",
+                    "beat": 33
+                  },
+                  {
+                    "id": "beat-35",
+                    "beat": 34
+                  },
+                  {
+                    "id": "beat-36",
+                    "beat": 35
+                  },
+                  {
+                    "id": "beat-37",
+                    "beat": 36
+                  },
+                  {
+                    "id": "beat-38",
+                    "beat": 37
+                  },
+                  {
+                    "id": "beat-39",
+                    "beat": 38
+                  },
+                  {
+                    "id": "beat-40",
+                    "beat": 39
+                  },
+                  {
+                    "id": "beat-41",
+                    "beat": 40
+                  },
+                  {
+                    "id": "beat-42",
+                    "beat": 41
+                  },
+                  {
+                    "id": "beat-43",
+                    "beat": 42
+                  },
+                  {
+                    "id": "beat-44",
+                    "beat": 43
+                  },
+                  {
+                    "id": "beat-45",
+                    "beat": 44
+                  },
+                  {
+                    "id": "beat-46",
+                    "beat": 45
+                  },
+                  {
+                    "id": "beat-47",
+                    "beat": 46
+                  },
+                  {
+                    "id": "beat-48",
+                    "beat": 47
+                  },
+                  {
+                    "id": "beat-49",
+                    "beat": 48
+                  },
+                  {
+                    "id": "beat-50",
+                    "beat": 49
+                  },
+                  {
+                    "id": "beat-51",
+                    "beat": 50
+                  },
+                  {
+                    "id": "beat-52",
+                    "beat": 51
+                  },
+                  {
+                    "id": "beat-53",
+                    "beat": 52
+                  },
+                  {
+                    "id": "beat-54",
+                    "beat": 53
+                  },
+                  {
+                    "id": "beat-55",
+                    "beat": 54
+                  },
+                  {
+                    "id": "beat-56",
+                    "beat": 55
+                  },
+                  {
+                    "id": "beat-57",
+                    "beat": 56
+                  },
+                  {
+                    "id": "beat-58",
+                    "beat": 57
+                  },
+                  {
+                    "id": "beat-59",
+                    "beat": 58
+                  },
+                  {
+                    "id": "beat-60",
+                    "beat": 59
+                  },
+                  {
+                    "id": "beat-61",
+                    "beat": 60
+                  },
+                  {
+                    "id": "beat-62",
+                    "beat": 61
+                  },
+                  {
+                    "id": "beat-63",
+                    "beat": 62
+                  },
+                  {
+                    "id": "beat-64",
+                    "beat": 63
+                  }
+                ],
+                "completionMinimumBPM": 80,
+                "revision": 2
+              }
+            },
+            "requiredRuntime": "Full 64-target timing capture, actual-tempo readiness gate, and content-version separation from legacy 16-target attempts."
+          }
+        ],
+        "doNotAttachPitchOrRhythmSpecToManualCountLessons": [
+          "g-l2-m3-02",
+          "g-l2-m3-06"
+        ],
+        "falseClaimsRemoved": [
+          {
+            "location": "g-l2-m1 summary/promise",
+            "oldClaim": "Learning A and D as a pair halves the work; twenty clean changes; forty-five-second full song.",
+            "replacement": "Observable shape/individual-string work. Song/study application belongs after change and beat-one instruction."
+          },
+          {
+            "location": "g-l2-m3-06 summary",
+            "oldClaim": "Counted by the app, not by you.",
+            "replacement": "Learner enters a manual count after a contiguous sixty-second attempt."
+          },
+          {
+            "location": "g-l2-m3-06 title and readiness",
+            "oldClaim": "Twenty clean changes as a checkpoint.",
+            "replacement": "Thirty basic-shape transitions per full minute is the sourced early guide; clean tone is checked separately."
+          },
+          {
+            "location": "g-l2-m2 module and checkpoint",
+            "oldClaim": "Sixteen bars at eighty and ninety percent on the beat.",
+            "replacement": "Expand from 16 to 64 quarter-note targets to deliver sixteen bars. Preserve local passScore 75, state actual tempo, and remove the unsupported ninety-percent claim."
+          },
+          {
+            "location": "g-l2-m2-04 and stage subtitle",
+            "oldClaim": "A full familiar song is supplied.",
+            "replacement": "A fully specified original study is supplied; external familiar-song lessons are optional links."
+          }
+        ],
+        "earlierLessonConsistencyNotes": [
+          {
+            "id": "g-l1-m3-02",
+            "description": "Its basic A/D diagrams agree, but its wording currently lists A middle/index/ring and D index/ring/middle. Align those placement sentences with index/middle/ring if adopted as preparation for these Stage 2 lessons; this file does not edit Stage 1."
+          }
+        ]
+      },
+      "recurringRoutine": {
+        "id": "stage2-ad-first-routine",
+        "title": "D and A practice routine",
+        "timingSourceReferenceId": "stage2-justin-routine-1",
+        "sourceDocumentLabelMinutes": 20,
+        "actualSuggestedTotalSeconds": 1260,
+        "calculatedMusicAndTechniqueSecondsExcludingTuning": 1200,
+        "sourceDiscrepancy": "The current public page calls this 20 minutes but lists a one-minute tuning entry plus 20 minutes of other work. Keep all entries; show 21 suggested minutes or 20 practice minutes plus preparation, not an unexplained 20-minute sum.",
+        "frequency": {
+          "suggestion": "Short regular practice; allow the learner to choose days.",
+          "publishedEvidence": "The first routine encourages daily practice; the next two public routines specify four weekly sessions. No mandatory daily streak or automatic spacing algorithm is established.",
+          "referenceIds": [
+            "stage2-justin-routine-1",
+            "stage2-justin-routine-2",
+            "stage2-justin-routine-3",
+            "stage2-yousician-goals"
+          ]
+        },
+        "blocks": [
+          {
+            "id": "tune",
+            "lessonId": "g-l1-m2-02",
+            "kind": "preparation",
+            "suggestedSeconds": 60,
+            "extendable": true,
+            "title": "Check tuning",
+            "source": "published_timing",
+            "evidence": "manual six-string check",
+            "notes": "A working tuner may be opened directly; do not require inaccessible module navigation."
+          },
+          {
+            "id": "d-accuracy",
+            "lessonId": "g-l2-m1-03",
+            "kind": "manual_chord_accuracy",
+            "suggestedSeconds": 180,
+            "chord": "D",
+            "title": "Check D",
+            "source": "published_sequence_and_timing",
+            "assetId": "stage2-d-chord",
+            "evidence": "manual"
+          },
+          {
+            "id": "a-accuracy",
+            "lessonId": "g-l2-m1-03",
+            "kind": "manual_chord_accuracy",
+            "suggestedSeconds": 180,
+            "chord": "A",
+            "title": "Check A",
+            "source": "published_sequence_and_timing",
+            "assetId": "stage2-a-chord",
+            "evidence": "manual"
+          },
+          {
+            "id": "anchor",
+            "lessonId": "g-l2-m3-01",
+            "kind": "silent_movement",
+            "suggestedSeconds": 120,
+            "title": "Keep index contact",
+            "source": "published_sequence_and_timing",
+            "assetId": "stage2-silent-anchor",
+            "evidence": "manual"
+          },
+          {
+            "id": "changes-a-first",
+            "lessonId": "g-l2-m3-02",
+            "kind": "manual_counted_trial",
+            "suggestedSeconds": 60,
+            "startingChord": "A",
+            "title": "One minute, starting at A",
+            "source": "published_sequence_and_timing",
+            "assetId": "stage2-manual-change-counter",
+            "evidence": "manual"
+          },
+          {
+            "id": "changes-d-first",
+            "lessonId": "g-l2-m3-02",
+            "kind": "manual_counted_trial",
+            "suggestedSeconds": 60,
+            "startingChord": "D",
+            "title": "One minute, starting at D",
+            "source": "published_sequence_and_timing",
+            "assetId": "stage2-manual-change-counter",
+            "evidence": "manual"
+          },
+          {
+            "id": "application",
+            "lessonId": "g-l2-m2-04",
+            "kind": "musical_application",
+            "suggestedSeconds": 600,
+            "title": "Play the study or choose external song practice",
+            "source": "published_time_with_explicit_GuitarHub_asset_substitution",
+            "assetId": "stage2-first-light-study",
+            "alternativeAssetId": "stage2-external-song-options",
+            "evidence": "selfReported"
+          }
+        ],
+        "betweenBlocks": "Allow rest/setup without consuming a fixed counted trial. Start each one-minute trial explicitly after its initial shape is formed.",
+        "skipPolicy": "Allow skip/repeat/extend for practice. Record skipped work as skipped, not passed.",
+        "substitutionDisclosure": "The ten-minute repertoire allocation is preserved. GuitarHub's in-app asset is an original study, not the familiar-song catalog or media of either reference."
+      },
+      "manualChangeAttemptContract": {
+        "producer": "Dedicated manual one-minute timer, consistent with the native controls being implemented.",
+        "userFlow": [
+          "Choose starting A or D.",
+          "Form the starting shape before timing; count remains zero.",
+          "Start a fresh contiguous 60-second trial.",
+          "Alternate and count each completed destination change yourself.",
+          "On completion or interruption enter your observed count.",
+          "Save the attempt and show earlier attempts separately from acoustic results."
+        ],
+        "requiredFields": {
+          "attemptId": "unique string",
+          "lessonId": "g-l2-m3-02 or g-l2-m3-06",
+          "startedAt": "ISO 8601 timestamp",
+          "startingChord": "A or D",
+          "targetDurationSeconds": 60,
+          "actualDurationSeconds": "nonnegative measured elapsed active seconds, at most 60 for this trial",
+          "observedTransitionCount": "user-entered nonnegative integer; null until entered",
+          "source": "manual",
+          "status": "completed or interrupted",
+          "countConvention": "destination_transitions_excluding_setup_v1",
+          "basicShapesRecognizable": "learner boolean or unknown",
+          "usesMicrophone": false
+        },
+        "validCompleteTrial": "status completed AND actualDurationSeconds is the complete 60-second timer AND observedTransitionCount is entered. Do not infer count from mic peaks.",
+        "checkpointRule": {
+          "countThreshold": 30,
+          "comparison": ">=",
+          "requiresCompleteTrial": true,
+          "additionalManualCriterion": "Basic A and D positions are recognizable and can be recalled; the number does not certify clean tone.",
+          "sourceReferenceIds": [
+            "stage2-justin-changes",
+            "stage2-justin-routine-1"
+          ],
+          "attemptSelection": "Evaluate one actual completed attempt at a time. Do not sum separate attempts, average partial counts, or require both starting directions to pass unless clearly labeled a separate local rule."
+        },
+        "partialPolicy": "On pause, hide, or interruption, retain elapsed seconds and entered count as partial practice; restart rather than resume into a continuous scored minute. Never multiply the partial count into changes per minute.",
+        "historyPolicy": "Append attempts. Keep source manual and status visible. Preserve a best complete count separately from latest attempt; exclude partial attempts from complete-trial comparisons.",
+        "fieldDefaults": "No entered count is different from an observed zero. Never prefill a successful count.",
+        "legacyPolicy": "Prior generic lesson-completion or duration records cannot become manual change counts. Preserve them as historical records without backfilling a number."
+      },
+      "studyAttemptContract": {
+        "requiredFields": {
+          "attemptId": "unique string",
+          "lessonId": "g-l2-m2-04",
+          "studyId": "stage2-first-light-study",
+          "variant": "one-per-bar or four-per-bar",
+          "actualBPM": "chosen tempo",
+          "source": "selfReported",
+          "attemptedAllBars": "learner boolean",
+          "interrupted": "boolean",
+          "furthestBar": "1 through 16 or null if not started",
+          "usedDiagram": "learner boolean",
+          "reviewBar": "1 through 16 or null",
+          "practiceSeconds": "active time measured separately from permission, rest, and background",
+          "note": "optional learner note; keep separate from the sixteen-bar 64-attack timing checkpoint"
+        },
+        "completionRule": "An explicit learner statement records an attempt. Transport completion can establish that the guide reached bar 16, not that every chord was played correctly.",
+        "fullTakeRule": "Do not describe a stopped or interrupted guide as an uninterrupted take. Keep earlier attempts.",
+        "externalPracticeRule": "Opening an external link is not completion. Ask for the learner's reflection on return; do not infer active practice time while the page is hidden."
+      },
+      "readiness": {
+        "earlyReferenceCriteria": [
+          "Recall the A and D shapes.",
+          "Achieve at least 30 changes in one uninterrupted minute as a manual switching guide.",
+          "Have a go at a song."
+        ],
+        "sourceReferenceIds": [
+          "stage2-justin-routine-1",
+          "stage2-justin-changes"
+        ],
+        "GuitarHubMapping": [
+          "Use chord recall from g-l2-m1-06 and a full manual trial from g-l2-m3-06.",
+          "Use the original study attempt as explicitly labeled musical application. External familiar-song practice can add the song experience.",
+          "Keep sixteen-bar/64-attack timing evidence separate. 75 is a local timing threshold, and the named checkpoint requires actualBPM at least 80; neither is a sourced chord-readiness criterion."
+        ],
+        "doesNotEstablish": "This nine-lesson proposal does not author the g-l2-m4 riff module or certify complete Stage 2/Grade 1 musicianship.",
+        "review": "Keep earlier accuracy, anchor, and musical phrases available. Allow exploration with a review recommendation instead of requiring perfect performance."
+      },
+      "validationRequirements": [
+        "Decode all typed lesson fields using the existing public instruction model.",
+        "Ensure every demoAssetId, referenceId, and lesson reference resolves after merge.",
+        "Derive displayed counts from actual published lessons.",
+        "Preserve 16 study bars, 64 music beats, a separate four-beat count-in, and the selected 16- or 64-stroke variant.",
+        "Expand the checkpoint to 64 quarter-note targets / 16 bars, preserve original title/lesson ID/first 16 target IDs, and gate the named 80-BPM result by actual tempo and local score.",
+        "Verify no reference/synthesized playback can earn microphone evidence.",
+        "Verify manual trial interruptions, empty-versus-zero counts, full-minute checks, and independent history.",
+        "Do not publish instructions for an asset or control until that asset/control actually renders.",
+        "Legacy 16-target/four-bar attempts cannot satisfy the new 64-target checkpoint; preserve them with the old specification identity."
+      ],
+      "sourceVersusLocalChoices": {
+        "sourced": "D before A; index/middle/ring placement; place/strum/individual-string/strum accuracy cycle; silent contact anchor; one-minute pair changes; early30 and later60 goals; routine block order/durations; musical practice and review.",
+        "local": "Stable-ID routing, storage fields, explicit transition convention, study composition and authored 60 BPM, 3/5-minute first-exposure segment plans, and preservation of the existing 75 timing threshold. The existing 25–125% in 5% steps is reused rather than introducing another tempo control. The full 16-bar/64-target checkpoint fulfills the existing GuitarHub 80 BPM goal; actual-BPM gating and spec-version storage are explicit local requirements.",
+        "notKnown": "Competitor private chord-recognition, timing-tolerance, scheduling, latency, or progress algorithms."
+      }
+    }
+  },
+  "demoAssets": {
+    "support-and-pick": {
+      "kind": "diagram",
+      "description": "Original seated silhouette showing guitar body on thigh, body lightly against torso, picking forearm resting over the body edge, and a relaxed fretting hand that does not carry the instrument. Include an inset of thumb pad meeting the side of a gently curled index finger around a pick, with only its tip exposed.",
+      "textAlternative": "Support the guitar with your body and forearm so the fretting hand is free to move. Hold the pick between thumb and index finger with a small tip showing."
+    },
+    "six-open-strings": {
+      "kind": "string_diagram_and_reference_tones",
+      "referenceAHz": 440,
+      "strings": [
+        {
+          "string": 6,
+          "name": "Low E",
+          "note": "E2",
+          "midi": 40,
+          "fret": 0
+        },
+        {
+          "string": 5,
+          "name": "A",
+          "note": "A2",
+          "midi": 45,
+          "fret": 0
+        },
+        {
+          "string": 4,
+          "name": "D",
+          "note": "D3",
+          "midi": 50,
+          "fret": 0
+        },
+        {
+          "string": 3,
+          "name": "G",
+          "note": "G3",
+          "midi": 55,
+          "fret": 0
+        },
+        {
+          "string": 2,
+          "name": "B",
+          "note": "B3",
+          "midi": 59,
+          "fret": 0
+        },
+        {
+          "string": 1,
+          "name": "High E",
+          "note": "E4",
+          "midi": 64,
+          "fret": 0
+        }
+      ],
+      "playback": "User-triggered single-string reference, 1.5 seconds long with a soft attack and release; label the string, note, and octave. Wait for it to stop before the learner plucks. Also offer an unscored low-to-high sequence."
+    },
+    "flat-target-sharp": {
+      "kind": "reference_tones",
+      "baseMidi": 45,
+      "examples": [
+        {
+          "label": "Lower than the target",
+          "centsOffset": -50
+        },
+        {
+          "label": "Target A2",
+          "centsOffset": 0
+        },
+        {
+          "label": "Higher than the target",
+          "centsOffset": 50
+        }
+      ],
+      "description": "Play the target then one comparison tone with a short silent gap. These deliberately separated examples teach direction; 50 cents is not a tuning pass threshold."
+    },
+    "tuner-directions": {
+      "kind": "diagram",
+      "description": "A selected A2 target with textual states Below target, In tune, and Above target. Show the selected string number and octave next to the reading. Do not hard-code a clockwise peg direction because headstock layouts differ."
+    },
+    "notation-legend": {
+      "kind": "diagram",
+      "description": "Three separate original panels: horizontal tab with high E at top and low E at bottom; an upright chord diagram labeled with string numbers, nut, frets, X and O; a 4/4 bar with four quarter-note rhythm slashes aligned to beat numbers 1–4. Explicitly label tab fret numbers separately from chord-diagram finger numbers."
+    },
+    "a-chord-reading": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "description": "Mark string 6 X; strings 5 and 1 O. D-string fret 2 uses finger 2, G-string fret 2 uses finger 1, B-string fret 2 uses finger 3. Play the five tones separately before an optional short chord reference. Name can be hidden for a reading prompt."
+    },
+    "d-chord-reading": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "Mark strings 6 and 5 X, string 4 O. Place finger 1 at G-string fret 2, finger 2 at high-E fret 2, then finger 3 at B-string fret 3. Name can be hidden for a reading prompt."
+    },
+    "four-beat-reading": {
+      "kind": "rhythm_demo",
+      "bpm": 60,
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "countInBeats": 4,
+      "eventBeats": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "description": "A spoken/text count-in or four clicks, then one soft click per displayed quarter-note slash. Highlight each beat and use a distinct first-beat sound. This is an unscored demonstration."
+    },
+    "stage2-d-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "placementOrder": [
+        {
+          "finger": 1,
+          "string": 3,
+          "fret": 2
+        },
+        {
+          "finger": 2,
+          "string": 1,
+          "fret": 2
+        },
+        {
+          "finger": 3,
+          "string": 2,
+          "fret": 3
+        }
+      ],
+      "referenceAudio": {
+        "enabledByUser": true,
+        "purpose": "Unscored synthesized pitch reference; not a guitar recording",
+        "midi": [
+          50,
+          57,
+          62,
+          66
+        ],
+        "perStringStartOffsetSeconds": 0.045,
+        "noteDurationSeconds": 1.3,
+        "totalDurationSeconds": 1.7,
+        "oscillator": "triangle",
+        "peakGainPerVoice": 0.045,
+        "attackSeconds": 0.015,
+        "releaseSeconds": 0.2,
+        "referenceAHz": 440,
+        "capturePolicy": "Stop capture before starting the reference; do not resume automatically."
+      },
+      "textAlternative": "D: keep strings 6 and 5 silent; string 4 open; index 3/2, middle 1/2, ring 2/3."
+    },
+    "stage2-a-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "placementOrder": [
+        {
+          "finger": 1,
+          "string": 3,
+          "fret": 2
+        },
+        {
+          "finger": 2,
+          "string": 4,
+          "fret": 2
+        },
+        {
+          "finger": 3,
+          "string": 2,
+          "fret": 2
+        }
+      ],
+      "referenceAudio": {
+        "enabledByUser": true,
+        "purpose": "Unscored synthesized pitch reference; not a guitar recording",
+        "midi": [
+          45,
+          52,
+          57,
+          61,
+          64
+        ],
+        "perStringStartOffsetSeconds": 0.045,
+        "noteDurationSeconds": 1.3,
+        "totalDurationSeconds": 1.7,
+        "oscillator": "triangle",
+        "peakGainPerVoice": 0.045,
+        "attackSeconds": 0.015,
+        "releaseSeconds": 0.2,
+        "referenceAHz": 440,
+        "capturePolicy": "Stop capture before starting the reference; do not resume automatically."
+      },
+      "textAlternative": "A: keep string 6 silent; strings 5 and 1 open; index 3/2, middle 4/2, ring 2/2."
+    },
+    "stage2-accuracy-cycle": {
+      "kind": "instruction_diagram",
+      "panels": [
+        {
+          "number": 1,
+          "label": "Place",
+          "action": "Build the selected chord in its taught finger order."
+        },
+        {
+          "number": 2,
+          "label": "Strum",
+          "action": "Sound only the intended strings once."
+        },
+        {
+          "number": 3,
+          "label": "Check",
+          "action": "Pick intended strings individually, locate an unclear note by ear, and adjust one finger if needed."
+        },
+        {
+          "number": 4,
+          "label": "Strum again",
+          "action": "Compare the whole chord after the adjustment."
+        }
+      ],
+      "requiresMicrophone": false,
+      "referenceIds": [
+        "stage2-justin-d"
+      ]
+    },
+    "stage2-silent-anchor": {
+      "kind": "step_diagram",
+      "sequence": [
+        {
+          "number": 1,
+          "chord": "D",
+          "action": "Rest D lightly without strumming."
+        },
+        {
+          "number": 2,
+          "chord": null,
+          "action": "Lift middle and ring; index stays on string 3/fret 2."
+        },
+        {
+          "number": 3,
+          "chord": "A",
+          "action": "Move index a little within fret 2, then put middle on 4/2 and ring on 2/2."
+        },
+        {
+          "number": 4,
+          "chord": "D",
+          "action": "Lift middle/ring, move index within fret 2, then put middle on 1/2 and ring on 2/3."
+        }
+      ],
+      "heldContact": {
+        "finger": 1,
+        "string": 3,
+        "fret": 2,
+        "maySlideWithinFret": true
+      },
+      "suggestedSeconds": 120,
+      "requiresMicrophone": false,
+      "assessment": "manual visual reflection",
+      "textAlternative": "Move silently D to A and back, keeping light index contact on string 3 in fret 2."
+    },
+    "stage2-manual-change-counter": {
+      "kind": "manual_timed_exercise",
+      "durationSeconds": 60,
+      "startingChordOptions": [
+        "A",
+        "D"
+      ],
+      "defaultStartingChord": "A",
+      "chordPair": [
+        "A",
+        "D"
+      ],
+      "captureEnabled": false,
+      "initialShapeCounts": false,
+      "countRule": "Count each completed transition once: setup A is 0, A to D is 1, D to A is 2. A repeated same-shape strum or abandoned move adds nothing.",
+      "inputTiming": "Enter the integer count after the attempt ends, not by tapping during playing.",
+      "earlyReadinessCount": 30,
+      "longerTermGoalCount": 60,
+      "interruptionRule": "Stop the contiguous attempt, retain actual seconds as partial practice, and require a fresh full timer for a comparable checkpoint count.",
+      "evidenceSource": "manual",
+      "toneQualityRule": "The basic destination shape must be formed. Do not demand clean sound for every speed-exercise change; assess chord clarity in its own block.",
+      "referenceIds": [
+        "stage2-justin-changes",
+        "stage2-justin-routine-1"
+      ]
+    },
+    "stage2-four-beat-bar": {
+      "kind": "rhythm_diagram_and_demo",
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "suggestedBPM": 60,
+      "tempoOrigin": "GuitarHub comfortable starting suggestion, not a competitor-prescribed tempo",
+      "countInBeats": 4,
+      "countInIsMusic": false,
+      "beatCells": [
+        {
+          "beatInBar": 1,
+          "beatOffset": 0,
+          "action": "Downstroke"
+        },
+        {
+          "beatInBar": 2,
+          "beatOffset": 1,
+          "action": "Let ring"
+        },
+        {
+          "beatInBar": 3,
+          "beatOffset": 2,
+          "action": "Let ring"
+        },
+        {
+          "beatInBar": 4,
+          "beatOffset": 3,
+          "action": "Let ring and prepare"
+        }
+      ],
+      "optionalClicks": true,
+      "clicksAreUnscored": true,
+      "textAlternative": "Four beats make one bar. Sound the chord once on 1 and let it continue through 2, 3, and 4."
+    },
+    "stage2-first-light-study": {
+      "kind": "original_chord_study",
+      "id": "stage2-first-light-study",
+      "title": "First Light",
+      "displayTitle": "First Light — an original A/D study",
+      "provenance": "Newly authored elementary chord study for GuitarHub. No song melody, lyrics, arrangement, recording, or teacher media has been copied. The educational progression is described in linked public sources.",
+      "isCommercialSong": false,
+      "hasLyrics": false,
+      "defaultBPM": 60,
+      "allowedBPM": {
+        "minimum": 15,
+        "maximum": 75,
+        "step": 3
+      },
+      "tempoOrigin": "Authored 60 BPM is a GuitarHub study choice. Use existing 25–125% Practice/Play controls in 5% steps, giving 15–75 BPM in 3 BPM increments; no separate local tempo range.",
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "barCount": 16,
+      "beatsPerBar": 4,
+      "musicBeats": 64,
+      "countInBeats": 4,
+      "firstMusicBeat": 0,
+      "endMusicBeatExclusive": 64,
+      "musicDurationSecondsAt60BPM": 64,
+      "totalDurationWithCountInSecondsAt60BPM": 68,
+      "firstChord": "D",
+      "finalChord": "D",
+      "chordAssetIds": {
+        "D": "stage2-d-chord",
+        "A": "stage2-a-chord"
+      },
+      "chordSequence": [
+        "D",
+        "D",
+        "A",
+        "A",
+        "D",
+        "A",
+        "D",
+        "D",
+        "A",
+        "A",
+        "D",
+        "D",
+        "A",
+        "A",
+        "D",
+        "D"
+      ],
+      "notationConvention": "Visible bar/beat numbers are one-based; stored music beat offsets are zero-based. Time from music start is beatOffset * 60 / chosenBPM. Count-in offsets are -4 through -1 and are outside bar 1.",
+      "bars": [
+        {
+          "number": 1,
+          "phrase": 1,
+          "chord": "D",
+          "startBeat": 0,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 0,
+          "endBeatExclusive": 4,
+          "firstBeatStrum": {
+            "beat": 0,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 2,
+          "phrase": 1,
+          "chord": "D",
+          "startBeat": 4,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 4,
+          "endBeatExclusive": 8,
+          "firstBeatStrum": {
+            "beat": 4,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 3,
+          "phrase": 1,
+          "chord": "A",
+          "startBeat": 8,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 8,
+          "endBeatExclusive": 12,
+          "firstBeatStrum": {
+            "beat": 8,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 4,
+          "phrase": 1,
+          "chord": "A",
+          "startBeat": 12,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 12,
+          "endBeatExclusive": 16,
+          "firstBeatStrum": {
+            "beat": 12,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 5,
+          "phrase": 2,
+          "chord": "D",
+          "startBeat": 16,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 16,
+          "endBeatExclusive": 20,
+          "firstBeatStrum": {
+            "beat": 16,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 6,
+          "phrase": 2,
+          "chord": "A",
+          "startBeat": 20,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 20,
+          "endBeatExclusive": 24,
+          "firstBeatStrum": {
+            "beat": 20,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 7,
+          "phrase": 2,
+          "chord": "D",
+          "startBeat": 24,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 24,
+          "endBeatExclusive": 28,
+          "firstBeatStrum": {
+            "beat": 24,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 8,
+          "phrase": 2,
+          "chord": "D",
+          "startBeat": 28,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 28,
+          "endBeatExclusive": 32,
+          "firstBeatStrum": {
+            "beat": 28,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 9,
+          "phrase": 3,
+          "chord": "A",
+          "startBeat": 32,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 32,
+          "endBeatExclusive": 36,
+          "firstBeatStrum": {
+            "beat": 32,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 10,
+          "phrase": 3,
+          "chord": "A",
+          "startBeat": 36,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 36,
+          "endBeatExclusive": 40,
+          "firstBeatStrum": {
+            "beat": 36,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 11,
+          "phrase": 3,
+          "chord": "D",
+          "startBeat": 40,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 40,
+          "endBeatExclusive": 44,
+          "firstBeatStrum": {
+            "beat": 40,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 12,
+          "phrase": 3,
+          "chord": "D",
+          "startBeat": 44,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 44,
+          "endBeatExclusive": 48,
+          "firstBeatStrum": {
+            "beat": 44,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 13,
+          "phrase": 4,
+          "chord": "A",
+          "startBeat": 48,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 48,
+          "endBeatExclusive": 52,
+          "firstBeatStrum": {
+            "beat": 48,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 14,
+          "phrase": 4,
+          "chord": "A",
+          "startBeat": 52,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 52,
+          "endBeatExclusive": 56,
+          "firstBeatStrum": {
+            "beat": 52,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 15,
+          "phrase": 4,
+          "chord": "D",
+          "startBeat": 56,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 56,
+          "endBeatExclusive": 60,
+          "firstBeatStrum": {
+            "beat": 56,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 16,
+          "phrase": 4,
+          "chord": "D",
+          "startBeat": 60,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 60,
+          "endBeatExclusive": 64,
+          "firstBeatStrum": {
+            "beat": 60,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      ],
+      "phrases": [
+        {
+          "id": "phrase-1",
+          "label": "Bars 1–4",
+          "startBar": 1,
+          "endBar": 4,
+          "startBeat": 0,
+          "endBeatExclusive": 16
+        },
+        {
+          "id": "phrase-2",
+          "label": "Bars 5–8",
+          "startBar": 5,
+          "endBar": 8,
+          "startBeat": 16,
+          "endBeatExclusive": 32
+        },
+        {
+          "id": "phrase-3",
+          "label": "Bars 9–12",
+          "startBar": 9,
+          "endBar": 12,
+          "startBeat": 32,
+          "endBeatExclusive": 48
+        },
+        {
+          "id": "phrase-4",
+          "label": "Bars 13–16",
+          "startBar": 13,
+          "endBar": 16,
+          "startBeat": 48,
+          "endBeatExclusive": 64
+        }
+      ],
+      "variants": [
+        {
+          "id": "one-per-bar",
+          "label": "Start here: one downstroke per bar",
+          "isDefault": true,
+          "strokeCount": 16,
+          "strokeBeatOffsets": [
+            0,
+            4,
+            8,
+            12,
+            16,
+            20,
+            24,
+            28,
+            32,
+            36,
+            40,
+            44,
+            48,
+            52,
+            56,
+            60
+          ],
+          "noteDurationBeats": 4,
+          "action": "Strum the displayed chord on each bar's 1; hold through beats 2–4."
+        },
+        {
+          "id": "four-per-bar",
+          "label": "Optional: a downstroke on each beat",
+          "isDefault": false,
+          "strokeCount": 64,
+          "strokeBeatOffsets": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "noteDurationBeats": 1,
+          "action": "Use the same 16-bar chord plan; strum on each quarter-note beat only after the starting version is comfortable."
+        }
+      ],
+      "countInEvents": [
+        {
+          "beat": -4,
+          "label": "1",
+          "frequencyHz": 880,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        },
+        {
+          "beat": -3,
+          "label": "2",
+          "frequencyHz": 660,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        },
+        {
+          "beat": -2,
+          "label": "3",
+          "frequencyHz": 660,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        },
+        {
+          "beat": -1,
+          "label": "4",
+          "frequencyHz": 660,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        }
+      ],
+      "demoEvents": [
+        {
+          "id": "demo-bar-01",
+          "beat": 0,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-02",
+          "beat": 4,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-03",
+          "beat": 8,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-04",
+          "beat": 12,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-05",
+          "beat": 16,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-06",
+          "beat": 20,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-07",
+          "beat": 24,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-08",
+          "beat": 28,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-09",
+          "beat": 32,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-10",
+          "beat": 36,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-11",
+          "beat": 40,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-12",
+          "beat": 44,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-13",
+          "beat": 48,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-14",
+          "beat": 52,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-15",
+          "beat": 56,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-16",
+          "beat": 60,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        }
+      ],
+      "synthesis": {
+        "purpose": "Optional unscored demonstration of the complete written study",
+        "referenceAHz": 440,
+        "frequencyFormula": "440 * pow(2, (midi - 69) / 12)",
+        "oscillator": "triangle",
+        "peakGainPerVoice": 0.035,
+        "attackSeconds": 0.012,
+        "releaseSeconds": 0.12,
+        "masterPeakLimit": 0.25,
+        "note": "Render chord voices only for the written sounding strings. Scale beat-based times with chosen BPM. At each new attack end older voices before the next chord; complete after the last bar's beat 4."
+      },
+      "playbackContract": {
+        "modes": [
+          "Listen",
+          "Practice"
+        ],
+        "defaultMode": "Practice",
+        "defaultMicrophoneState": "off",
+        "countInAtStart": true,
+        "loopLeadInBeats": 4,
+        "loopBoundaries": "Whole chosen phrase(s); display inclusive bar numbers and exclusive beat end.",
+        "referenceDuringMeasuredCapture": false,
+        "optionalClicksDuringManualPractice": true,
+        "pause": "Stop generated sound and preserve musical position; resume with a visible fresh lead-in. A full-take reflection must disclose interruption.",
+        "finish": "Reach exclusive music beat 64; do not finish at the final stroke's start or after 16 quarter-note beats.",
+        "reducedMotion": "Show bar/beat/chord as text; animation is optional."
+      },
+      "evidence": {
+        "source": "selfReported",
+        "automaticPitchScore": false,
+        "automaticChordScore": false,
+        "automaticTimingScore": false,
+        "completion": "Learner records all bars attempted, guide use, interruptions, selected variant, actualBPM, and review bar. This remains separate from the sixteen-bar 64-attack microphone timing checkpoint."
+      },
+      "tempoControl": {
+        "unit": "percent",
+        "minimum": 25,
+        "maximum": 125,
+        "step": 5,
+        "default": 100,
+        "authoredBPM": 60,
+        "bpmFormula": "authoredBPM * percent / 100",
+        "source": "Existing GuitarHub Practice/Play percentage controls; the same 25–125% in 5% increment range is publicly documented for Yousician adaptive practice.",
+        "referenceId": "stage2-yousician-modes"
+      }
+    },
+    "stage2-external-song-options": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "justin-two-chord-selection",
+          "title": "Choose a familiar A/D song",
+          "url": "https://www.justinguitar.com/guitar-lessons/super-easy-2-chord-songs-b1-114",
+          "description": "Official song-selection lesson. Check each song's tuning/capo requirements before playing with its recording."
+        },
+        {
+          "id": "justin-dance-night-away",
+          "title": "Dance the Night Away — external guided play-along",
+          "url": "https://www.justinguitar.com/songs/the-mavericks-dance-the-night-away-play-along-chords-tabs-guitar-lesson-sg-038",
+          "description": "A/D application linked by Justin's first-song lesson. Use the external beginner play-along and its available tempo controls."
+        },
+        {
+          "id": "justin-blowin-smoke",
+          "title": "Blowin' Smoke — external song lesson",
+          "url": "https://www.justinguitar.com/songs/kacey-musgraves-blowin-smoke-chords-tabs-guitar-lesson-bs-124",
+          "description": "Listed by Justin as an A/D choice with no capo needed. Review the external lesson; do not import its arrangement or media."
+        }
+      ],
+      "persistence": "Record only the learner's manual statement of practice, URL choice, and their observations. Opening a link or elapsed outside-tab time does not complete a song."
+    },
+    "stage2-sixteen-bar-timing-check": {
+      "kind": "expanded_rhythm_checkpoint",
+      "practiceSpec": {
+        "mode": "rhythm",
+        "bpm": 80,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 75,
+        "targets": [
+          {
+            "id": "beat-01",
+            "beat": 0
+          },
+          {
+            "id": "beat-02",
+            "beat": 1
+          },
+          {
+            "id": "beat-03",
+            "beat": 2
+          },
+          {
+            "id": "beat-04",
+            "beat": 3
+          },
+          {
+            "id": "beat-05",
+            "beat": 4
+          },
+          {
+            "id": "beat-06",
+            "beat": 5
+          },
+          {
+            "id": "beat-07",
+            "beat": 6
+          },
+          {
+            "id": "beat-08",
+            "beat": 7
+          },
+          {
+            "id": "beat-09",
+            "beat": 8
+          },
+          {
+            "id": "beat-10",
+            "beat": 9
+          },
+          {
+            "id": "beat-11",
+            "beat": 10
+          },
+          {
+            "id": "beat-12",
+            "beat": 11
+          },
+          {
+            "id": "beat-13",
+            "beat": 12
+          },
+          {
+            "id": "beat-14",
+            "beat": 13
+          },
+          {
+            "id": "beat-15",
+            "beat": 14
+          },
+          {
+            "id": "beat-16",
+            "beat": 15
+          },
+          {
+            "id": "beat-17",
+            "beat": 16
+          },
+          {
+            "id": "beat-18",
+            "beat": 17
+          },
+          {
+            "id": "beat-19",
+            "beat": 18
+          },
+          {
+            "id": "beat-20",
+            "beat": 19
+          },
+          {
+            "id": "beat-21",
+            "beat": 20
+          },
+          {
+            "id": "beat-22",
+            "beat": 21
+          },
+          {
+            "id": "beat-23",
+            "beat": 22
+          },
+          {
+            "id": "beat-24",
+            "beat": 23
+          },
+          {
+            "id": "beat-25",
+            "beat": 24
+          },
+          {
+            "id": "beat-26",
+            "beat": 25
+          },
+          {
+            "id": "beat-27",
+            "beat": 26
+          },
+          {
+            "id": "beat-28",
+            "beat": 27
+          },
+          {
+            "id": "beat-29",
+            "beat": 28
+          },
+          {
+            "id": "beat-30",
+            "beat": 29
+          },
+          {
+            "id": "beat-31",
+            "beat": 30
+          },
+          {
+            "id": "beat-32",
+            "beat": 31
+          },
+          {
+            "id": "beat-33",
+            "beat": 32
+          },
+          {
+            "id": "beat-34",
+            "beat": 33
+          },
+          {
+            "id": "beat-35",
+            "beat": 34
+          },
+          {
+            "id": "beat-36",
+            "beat": 35
+          },
+          {
+            "id": "beat-37",
+            "beat": 36
+          },
+          {
+            "id": "beat-38",
+            "beat": 37
+          },
+          {
+            "id": "beat-39",
+            "beat": 38
+          },
+          {
+            "id": "beat-40",
+            "beat": 39
+          },
+          {
+            "id": "beat-41",
+            "beat": 40
+          },
+          {
+            "id": "beat-42",
+            "beat": 41
+          },
+          {
+            "id": "beat-43",
+            "beat": 42
+          },
+          {
+            "id": "beat-44",
+            "beat": 43
+          },
+          {
+            "id": "beat-45",
+            "beat": 44
+          },
+          {
+            "id": "beat-46",
+            "beat": 45
+          },
+          {
+            "id": "beat-47",
+            "beat": 46
+          },
+          {
+            "id": "beat-48",
+            "beat": 47
+          },
+          {
+            "id": "beat-49",
+            "beat": 48
+          },
+          {
+            "id": "beat-50",
+            "beat": 49
+          },
+          {
+            "id": "beat-51",
+            "beat": 50
+          },
+          {
+            "id": "beat-52",
+            "beat": 51
+          },
+          {
+            "id": "beat-53",
+            "beat": 52
+          },
+          {
+            "id": "beat-54",
+            "beat": 53
+          },
+          {
+            "id": "beat-55",
+            "beat": 54
+          },
+          {
+            "id": "beat-56",
+            "beat": 55
+          },
+          {
+            "id": "beat-57",
+            "beat": 56
+          },
+          {
+            "id": "beat-58",
+            "beat": 57
+          },
+          {
+            "id": "beat-59",
+            "beat": 58
+          },
+          {
+            "id": "beat-60",
+            "beat": 59
+          },
+          {
+            "id": "beat-61",
+            "beat": 60
+          },
+          {
+            "id": "beat-62",
+            "beat": 61
+          },
+          {
+            "id": "beat-63",
+            "beat": 62
+          },
+          {
+            "id": "beat-64",
+            "beat": 63
+          }
+        ],
+        "completionMinimumBPM": 80,
+        "revision": 2
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "barCount": 16,
+      "beatsPerBar": 4,
+      "musicBeats": 64,
+      "strokeCount": 64,
+      "countInSecondsAt80BPM": 3,
+      "musicDurationSecondsAt80BPM": 48,
+      "totalDurationWithCountInSecondsAt80BPM": 51,
+      "lastTargetSecondsFromMusicStart": 47.25,
+      "endMusicBeatExclusive": 64,
+      "scoreMeaning": "Existing weighted attack timing score; matched-target count and actualBPM must be displayed separately. It does not measure chord identity or clean sound.",
+      "thresholdOrigin": "Preserve current local passScore 75; this is not a JustinGuitar or Yousician threshold.",
+      "namedCheckpointReadiness": {
+        "minimumActualBPM": 80,
+        "minimumTimingScore": 75,
+        "requiredTargetCount": 64,
+        "requiresScoredResult": true,
+        "slowerAttemptPolicy": "Keep as slower rehearsal at actualBPM. Do not claim the named 80-BPM check passed merely because the generic engine's passed flag is true.",
+        "localRuleDisclosure": "80 BPM is the existing GuitarHub checkpoint goal. The sources do not publish this timing target or numerical tolerance."
+      },
+      "inputLimits": "Attack detection may respond to other percussive or spoken sounds. Use visual count-in/beats during scored capture; speaker clicks must not score the attempt.",
+      "barBeatMapping": [
+        {
+          "id": "beat-01",
+          "beat": 0,
+          "bar": 1,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-02",
+          "beat": 1,
+          "bar": 1,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-03",
+          "beat": 2,
+          "bar": 1,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-04",
+          "beat": 3,
+          "bar": 1,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-05",
+          "beat": 4,
+          "bar": 2,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-06",
+          "beat": 5,
+          "bar": 2,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-07",
+          "beat": 6,
+          "bar": 2,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-08",
+          "beat": 7,
+          "bar": 2,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-09",
+          "beat": 8,
+          "bar": 3,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-10",
+          "beat": 9,
+          "bar": 3,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-11",
+          "beat": 10,
+          "bar": 3,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-12",
+          "beat": 11,
+          "bar": 3,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-13",
+          "beat": 12,
+          "bar": 4,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-14",
+          "beat": 13,
+          "bar": 4,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-15",
+          "beat": 14,
+          "bar": 4,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-16",
+          "beat": 15,
+          "bar": 4,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-17",
+          "beat": 16,
+          "bar": 5,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-18",
+          "beat": 17,
+          "bar": 5,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-19",
+          "beat": 18,
+          "bar": 5,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-20",
+          "beat": 19,
+          "bar": 5,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-21",
+          "beat": 20,
+          "bar": 6,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-22",
+          "beat": 21,
+          "bar": 6,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-23",
+          "beat": 22,
+          "bar": 6,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-24",
+          "beat": 23,
+          "bar": 6,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-25",
+          "beat": 24,
+          "bar": 7,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-26",
+          "beat": 25,
+          "bar": 7,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-27",
+          "beat": 26,
+          "bar": 7,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-28",
+          "beat": 27,
+          "bar": 7,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-29",
+          "beat": 28,
+          "bar": 8,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-30",
+          "beat": 29,
+          "bar": 8,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-31",
+          "beat": 30,
+          "bar": 8,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-32",
+          "beat": 31,
+          "bar": 8,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-33",
+          "beat": 32,
+          "bar": 9,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-34",
+          "beat": 33,
+          "bar": 9,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-35",
+          "beat": 34,
+          "bar": 9,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-36",
+          "beat": 35,
+          "bar": 9,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-37",
+          "beat": 36,
+          "bar": 10,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-38",
+          "beat": 37,
+          "bar": 10,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-39",
+          "beat": 38,
+          "bar": 10,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-40",
+          "beat": 39,
+          "bar": 10,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-41",
+          "beat": 40,
+          "bar": 11,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-42",
+          "beat": 41,
+          "bar": 11,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-43",
+          "beat": 42,
+          "bar": 11,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-44",
+          "beat": 43,
+          "bar": 11,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-45",
+          "beat": 44,
+          "bar": 12,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-46",
+          "beat": 45,
+          "bar": 12,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-47",
+          "beat": 46,
+          "bar": 12,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-48",
+          "beat": 47,
+          "bar": 12,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-49",
+          "beat": 48,
+          "bar": 13,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-50",
+          "beat": 49,
+          "bar": 13,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-51",
+          "beat": 50,
+          "bar": 13,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-52",
+          "beat": 51,
+          "bar": 13,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-53",
+          "beat": 52,
+          "bar": 14,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-54",
+          "beat": 53,
+          "bar": 14,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-55",
+          "beat": 54,
+          "bar": 14,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-56",
+          "beat": 55,
+          "bar": 14,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-57",
+          "beat": 56,
+          "bar": 15,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-58",
+          "beat": 57,
+          "bar": 15,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-59",
+          "beat": 58,
+          "bar": 15,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-60",
+          "beat": 59,
+          "bar": 15,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-61",
+          "beat": 60,
+          "bar": 16,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-62",
+          "beat": 61,
+          "bar": 16,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-63",
+          "beat": 62,
+          "bar": 16,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-64",
+          "beat": 63,
+          "bar": 16,
+          "beatInBar": 4
+        }
+      ],
+      "intent": "Fulfill the existing sixteen-bar checkpoint by expanding 16 targets to 64 quarter-note targets. Preserve existing beat-01 through beat-16 and add beat-17 through beat-64.",
+      "historyPolicy": "Existing records from the old 16-target specification remain historical four-bar evidence. Give the new 64-target content a version/spec fingerprint; do not reinterpret earlier scores as sixteen-bar results.",
+      "tempoControl": {
+        "unit": "percent",
+        "minimum": 25,
+        "maximum": 125,
+        "step": 5,
+        "default": 100,
+        "authoredBPM": 80,
+        "bpmFormula": "authoredBPM * percent / 100",
+        "minimumBPM": 20,
+        "maximumBPM": 100,
+        "stepBPM": 4,
+        "source": "Existing GuitarHub Practice/Play percentage control."
+      }
+    }
+  },
+  "lessons": [
+    {
+      "id": "g-l1-m1-01",
+      "moduleId": "g-l1-m1",
+      "title": "Three Points of Contact",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Support the guitar without gripping the neck and make a small, controlled picking motion.",
+      "prerequisiteLessonIds": [],
+      "steps": [
+        {
+          "title": "Let the guitar rest",
+          "action": "Sit on a steady armless chair with feet supported. Rest the body on a thigh, keep it lightly against your torso, and rest your picking forearm over the body. Raise the neck a little if that makes reaching easier.",
+          "lookCheck": "The guitar stays in place when you briefly relax your fretting hand. Your shoulders stay low.",
+          "listenCheck": "No sound is required for this step."
+        },
+        {
+          "title": "Free the fretting hand",
+          "action": "Bring your fretting hand around the neck with the thumb resting lightly behind it. Bend the fingertips toward the strings without squeezing. Relax and repeat.",
+          "lookCheck": "You can move your fingers while the guitar remains supported; avoid forcing your wrist into a deep bend.",
+          "listenCheck": "This checks positioning, not pitch."
+        },
+        {
+          "title": "Make a small pick stroke",
+          "action": "Hold a pick between your thumb and the side of a gently curled index finger. Leave a small tip showing. Touch the thin first string and move the pick just far enough through it to release the string, then stop.",
+          "lookCheck": "The stroke crosses one string instead of sweeping across its neighbors.",
+          "listenCheck": "Hear one attack. Tuning happens next, so do not judge its pitch yet."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The neck drops when the fretting hand relaxes.",
+          "recovery": "Adjust the body support or use a strap so that hand is not holding up the guitar."
+        },
+        {
+          "observation": "The pick catches or several strings sound.",
+          "recovery": "Use a smaller motion and less exposed pick; start with the pick already touching the intended string."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Set the guitar down, pick it up, and find a supported position twice."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Relax the fretting hand, then return it to the neck five times without shifting the guitar."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make six gentle strokes on the thin first string, leaving silence between them."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Release both hands, settle your shoulders, and choose one setup adjustment to keep."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can let go with my fretting hand while keeping the guitar supported.",
+          "I can touch and pick one intended string.",
+          "I can relax my grip between strokes."
+        ],
+        "readyWhen": "You can repeat the setup and controlled stroke without forcing the position.",
+        "ifNotReady": "Repeat only the support or pick step that needs attention; stop and adjust if the position hurts.",
+        "proves": "A learner-confirmed starting setup.",
+        "doesNotProve": "Tuning, tone quality, or a medically assessed playing posture."
+      },
+      "demoAssetIds": [
+        "support-and-pick"
+      ],
+      "referenceIds": [
+        "justin-basics"
+      ]
+    },
+    {
+      "id": "g-l1-m1-02",
+      "moduleId": "g-l1-m1",
+      "title": "Six Open Strings",
+      "type": "exercise",
+      "suggestedSeconds": 240,
+      "objective": "Connect each string number and name with one deliberately picked open-string note.",
+      "prerequisiteLessonIds": [
+        "g-l1-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Find before playing",
+          "action": "Confirm tuning first. Point to strings 6 through 1 and say Low E, A, D, G, B, High E. Leave your fretting fingers clear of the strings.",
+          "lookCheck": "The selected label points to the actual string, including which E it means.",
+          "listenCheck": "Listen to an optional reference only before your own note."
+        },
+        {
+          "title": "Sound one target",
+          "action": "Pluck the requested string once with a small stroke. Let it settle and ring; do not keep striking while waiting for pitch feedback.",
+          "lookCheck": "The pick touches the requested string and the next string stays still.",
+          "listenCheck": "Hear one sustained note rather than two strings together."
+        },
+        {
+          "title": "Reset between notes",
+          "action": "Touch the ringing string lightly to stop it, then move to the next requested string. If the result is uncertain, let the room go quiet and make one fresh attempt.",
+          "lookCheck": "Check the next string name before moving.",
+          "listenCheck": "There is a short quiet gap between target notes."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "A neighboring string rings too.",
+          "recovery": "Mute the strings, place the pick against the target, and make a smaller stroke."
+        },
+        {
+          "observation": "The pitch display jumps or does not settle.",
+          "recovery": "Stop other sounds and reference playback, check tuning and input readiness, then pluck once. Do not assume the result diagnoses bad technique."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Check tuning and identify all six strings without playing."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Play 6–5–4–3–2–1 slowly, muting between notes; repeat if time allows."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Choose the two strings you confused most and alternate between them with a quiet reset."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make a fresh low-to-high pass and note which string still needs review."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can distinguish low E from high E.",
+          "I choose the named string before picking.",
+          "I can stop one note before starting the next."
+        ],
+        "readyWhen": "You can complete the sequence at your own pace with deliberate string choices; replay any uncertain target.",
+        "ifNotReady": "Return to tuning if the target pitch remains wrong; repeat just the confused string pair otherwise.",
+        "proves": "Pitch results, when available, apply only to the isolated notes measured in this attempt.",
+        "doesNotProve": "Steady tempo, fret accuracy, buzz detection, or chord quality."
+      },
+      "demoAssetIds": [
+        "six-open-strings"
+      ],
+      "referenceIds": [
+        "yousician-recognition",
+        "yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l1-m1-04",
+      "moduleId": "g-l1-m1",
+      "title": "Checkpoint: Six Open Strings",
+      "type": "checkpoint",
+      "suggestedSeconds": 240,
+      "objective": "Check whether you can find the strings independently and hear when more than one sounds.",
+      "prerequisiteLessonIds": [
+        "g-l1-m1-02"
+      ],
+      "steps": [
+        {
+          "title": "Prepare a quiet check",
+          "action": "Check tuning and stop any reference tones. Keep the string-name diagram available for preparation, then hide it for your first pass.",
+          "lookCheck": "The microphone or manual-check mode is clearly identified.",
+          "listenCheck": "Only the guitar should supply the attempted note."
+        },
+        {
+          "title": "Make one complete pass",
+          "action": "Say each string name, then pluck strings 6 through 1 once each. Mute between notes. Use as much time as needed; this is not a rhythm race.",
+          "lookCheck": "Compare the selected string with your intended string.",
+          "listenCheck": "Notice any extra ringing string or unclear attack yourself."
+        },
+        {
+          "title": "Use the result",
+          "action": "Repeat the least certain string after checking its label. Finish with one more complete pass and record one improvement or one item to revisit.",
+          "lookCheck": "Keep this attempt separate from earlier practice results.",
+          "listenCheck": "Judge extra ringing by ear; do not treat a pitch match as proof of clean tone."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You reach for a string by habit without checking its name.",
+          "recovery": "Pause, point to the requested string, say its name, and then play."
+        },
+        {
+          "observation": "No reliable microphone result is available.",
+          "recovery": "Use the clearly labeled manual listening check and record an unmeasured attempt; do not award an acoustic pass."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Prepare and tune."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Complete the first independent six-string pass."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review the least certain string with the diagram."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repeat the complete pass and record your self-check."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I named each string before playing it.",
+          "I controlled the start and stop of each note.",
+          "I know which string, if any, needs another check."
+        ],
+        "readyWhen": "You can find all six strings without guessing and can repeat an uncertain note deliberately.",
+        "ifNotReady": "Revisit the open-string exercise for the specific confusion; keep later reading lessons available.",
+        "proves": "A string-identification and isolated-note check, with measured pitch only where supported.",
+        "doesNotProve": "Clean fretted notes, chord competence, or rhythmic accuracy."
+      },
+      "demoAssetIds": [
+        "six-open-strings"
+      ],
+      "referenceIds": [
+        "yousician-recognition",
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l1-m2-01",
+      "moduleId": "g-l1-m2",
+      "title": "What In Tune Actually Means",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Understand a tuning target and identify whether a note is below or above it.",
+      "prerequisiteLessonIds": [
+        "g-l1-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Name the target",
+          "action": "Select string 5, A2, and point to it on the guitar. Listen once to the reference. A note name alone is not enough: the two E strings share a letter but have different pitches.",
+          "lookCheck": "The target shows both the string and octave.",
+          "listenCheck": "Compare the low and high E references; the high E is clearly higher."
+        },
+        {
+          "title": "Hear the direction",
+          "action": "Listen to the A2 target, then the lower example, then target again. Repeat with the higher example and name which direction changed.",
+          "lookCheck": "Read Below target and Above target rather than relying on color.",
+          "listenCheck": "Compare height of pitch, not loudness or guitar-like tone."
+        },
+        {
+          "title": "Read a small difference",
+          "action": "View the tuner diagram. Flat means below the selected target; sharp means above it. Cents describe small pitch differences, with 100 cents between adjacent semitones. Your first task is direction and a settled reading, not speed.",
+          "lookCheck": "A stable in-tune indication belongs to the correct selected string and octave.",
+          "listenCheck": "One cleanly picked string is easier to compare than several ringing together."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You match the letter E but not which E.",
+          "recovery": "Check string 6/E2 versus string 1/E4 before touching a tuning peg."
+        },
+        {
+          "observation": "A louder note seems higher.",
+          "recovery": "Replay references at the same volume and focus only on pitch height."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Identify the six named targets and compare the two E references."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Compare the target with lower and higher examples; say the direction before revealing its label."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Read the three textual tuner states and point to the next action each implies."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Explain the difference between a correct note letter and a correct string/octave."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I know flat means lower and sharp means higher than the selected target.",
+          "I check which string and octave I am tuning.",
+          "I know to play one string at a time."
+        ],
+        "readyWhen": "You can choose the target and explain the tuning direction; fine ear matching can develop with practice.",
+        "ifNotReady": "Replay the lower/target/higher examples and use the visual tuner alongside your ears.",
+        "proves": "Understanding of tuner labels and targets.",
+        "doesNotProve": "An in-tune instrument or trained pitch discrimination."
+      },
+      "demoAssetIds": [
+        "six-open-strings",
+        "flat-target-sharp",
+        "tuner-directions"
+      ],
+      "referenceIds": [
+        "justin-ear-tuner",
+        "yousician-recognition"
+      ]
+    },
+    {
+      "id": "g-l1-m2-02",
+      "moduleId": "g-l1-m2",
+      "title": "Tuner Target Practice",
+      "type": "exercise",
+      "suggestedSeconds": 240,
+      "objective": "Make small tuning corrections while keeping the selected string and octave correct.",
+      "prerequisiteLessonIds": [
+        "g-l1-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Connect string to peg",
+          "action": "Start with string 6, low E2. Follow that string visually from the nut to its tuning machine before adjusting anything. Select the same target in the tuner and pluck it gently.",
+          "lookCheck": "The target, played string, and touched peg all agree.",
+          "listenCheck": "Mute other strings and wait for one note to settle."
+        },
+        {
+          "title": "Correct a little",
+          "action": "If below target, increase tension a small amount; if above, lower it a little, then approach the target with a small upward adjustment. Repluck after each change. Do not deliberately detune the whole guitar for this exercise.",
+          "lookCheck": "Confirm that the reading moves toward the intended target; peg rotation differs by guitar.",
+          "listenCheck": "The pitch changes smoothly in the intended direction. If unsure which octave or peg is correct, stop and recheck before tightening further."
+        },
+        {
+          "title": "Work across and recheck",
+          "action": "Repeat for A2, D3, G3, B3, and E4. Return to low E and check all six again; changing one string can slightly alter others.",
+          "lookCheck": "Each reading is settled on its named target, not a brief flash while the note attacks.",
+          "listenCheck": "Let each note stop before checking the next."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The display follows the wrong string or jumps between notes.",
+          "recovery": "Mute everything, verify the string/peg path, and pick only the selected string after reference audio stops."
+        },
+        {
+          "observation": "The target is passed repeatedly.",
+          "recovery": "Use much smaller adjustments and pause to repluck. Treat an already tuned string as a successful check; it does not need to be detuned."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Prepare the tuner and verify the low-E peg."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Check and gently adjust the six strings. Pause the lesson timer if more time is needed."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Recheck the complete guitar, correcting only strings that need it."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Name one adjustment you made and how you knew its direction."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I verified each string's tuning peg before adjusting.",
+          "I made small changes toward the correct target.",
+          "I rechecked all six strings."
+        ],
+        "readyWhen": "All six strings have been checked against their correct targets using a working tuner.",
+        "ifNotReady": "Continue slowly, or use a trusted external tuner if the app cannot provide a reliable reading; record that route honestly.",
+        "proves": "A tuning check using the available tuner and learner observation.",
+        "doesNotProve": "A ninety-second skill, perfect intonation across the neck, or automatically verified tuning if no tuner reading exists."
+      },
+      "demoAssetIds": [
+        "six-open-strings",
+        "tuner-directions"
+      ],
+      "referenceIds": [
+        "justin-ear-tuner",
+        "yousician-recognition"
+      ]
+    },
+    {
+      "id": "g-l1-m2-04",
+      "moduleId": "g-l1-m2",
+      "sourceTitle": "Checkpoint: Six Strings, Ninety Seconds",
+      "title": "Checkpoint: Check All Six Strings",
+      "type": "checkpoint",
+      "suggestedSeconds": 240,
+      "objective": "Check and correct tuning independently, then verify the whole guitar again.",
+      "prerequisiteLessonIds": [
+        "g-l1-m2-02"
+      ],
+      "steps": [
+        {
+          "title": "Start where the guitar is",
+          "action": "Use the guitar's current tuning. Do not loosen all strings or create a large detuning. Prepare the tuner and name the six targets before the attempt.",
+          "lookCheck": "The checklist has one row per actual string, including separate low and high E.",
+          "listenCheck": "Stop all reference and backing sounds before your note."
+        },
+        {
+          "title": "Check every string",
+          "action": "For each string, identify its peg, pluck, read the target, adjust only if necessary, and repluck to confirm. A string already in tune still earns a checked row.",
+          "lookCheck": "A stable correct target matters more than the elapsed time.",
+          "listenCheck": "Listen for one isolated note; a pitch match does not diagnose a rattle or buzz."
+        },
+        {
+          "title": "Confirm after adjustments",
+          "action": "Make a final six-string pass without skipping the strings you checked first. Save whether the check used app readings or your own external tuner.",
+          "lookCheck": "Every row reflects an actual check, not a timer finishing.",
+          "listenCheck": "Compare any doubtful string again before moving to pitch practice."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You rush to meet the old ninety-second title.",
+          "recovery": "Ignore speed here. The checkpoint is complete only after the six targets and final recheck are addressed."
+        },
+        {
+          "observation": "A string drifts after another adjustment.",
+          "recovery": "Correct it slightly and repeat the final pass. This is why the recheck is part of tuning."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Prepare and say the six target names."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Complete the six-string tuning check at a comfortable pace."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make the final verification pass; extend the time if needed."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Record the check method and any unresolved string."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I checked all six named targets.",
+          "I verified the peg before each adjustment.",
+          "I completed a final pass after the last adjustment."
+        ],
+        "readyWhen": "The guitar is checked and any unresolved tuning problem is identified before pitch exercises.",
+        "ifNotReady": "Return to the target-practice steps or use an external tuner. Leave the tuning status incomplete if any string is unresolved.",
+        "proves": "A completed six-string check with its actual evidence source.",
+        "doesNotProve": "Independent ear tuning, a speed milestone, or measured completion from a manual confirmation alone."
+      },
+      "demoAssetIds": [
+        "six-open-strings",
+        "tuner-directions"
+      ],
+      "referenceIds": [
+        "justin-ear-tuner",
+        "yousician-recognition"
+      ]
+    },
+    {
+      "id": "g-l1-m3-01",
+      "moduleId": "g-l1-m3",
+      "title": "Tab, Boxes, and Slashes",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Translate a simple tab number, chord-box symbol, and beat slash into the right action.",
+      "prerequisiteLessonIds": [
+        "g-l1-m1-02"
+      ],
+      "steps": [
+        {
+          "title": "Read a tab position",
+          "action": "Find the top tab line: it is thin string 1. The bottom is thick string 6. A number tells you the fret, not the finger. Point to 0 on the top line, then pluck open string 1.",
+          "lookCheck": "Match the labeled line to the guitar string before looking at the number.",
+          "listenCheck": "The 0 sounds the already learned open note."
+        },
+        {
+          "title": "Read a chord box",
+          "action": "Use the upright diagram: vertical lines are strings and horizontal divisions are frets. O means play open; X means leave that string silent. Finger numbers use 1 index, 2 middle, 3 ring, 4 little. Compare the labeled A and D examples before hiding either name.",
+          "lookCheck": "A starts on string 5; D starts on string 4. Trace each marked dot to its string and fret.",
+          "listenCheck": "An optional reference demonstrates the written pitches, not whether your own chord is clean."
+        },
+        {
+          "title": "Read time separately",
+          "action": "Look at four quarter-note slashes in the displayed 4/4 bar. Count 1, 2, 3, 4 while tapping your knee once per slash. The chord name tells what to hold; the rhythmic symbol tells when to play.",
+          "lookCheck": "Each slash sits on a numbered beat; keep reading left to right.",
+          "listenCheck": "Your taps follow the four reference clicks when the demo is used."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You read the bottom tab line as the thinnest string.",
+          "recovery": "Keep the string-number labels visible and point from the diagram to the instrument before playing."
+        },
+        {
+          "observation": "You treat a tab 2 as finger 2 or strum an X string.",
+          "recovery": "Name which notation you are reading, then consult its legend: tab numbers are frets; chord-box finger labels and X/O have separate jobs."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Trace three tab prompts to the correct string and fret; play open-string prompts only."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Study the labeled A and D diagrams, identifying X, O, starting string, and each finger location."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Count and tap four displayed quarter-note slashes for four bars at a comfortable pace."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Explain in your own words what tab, a chord box, and rhythm slashes each tell you."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I know tab numbers show frets.",
+          "I can explain X and O.",
+          "I can identify a written beat separately from a chord shape."
+        ],
+        "readyWhen": "You can translate the demonstrated symbols into an action with the legend nearby.",
+        "ifNotReady": "Repeat one notation panel at a time before mixing them.",
+        "proves": "Introductory reading comprehension.",
+        "doesNotProve": "Fluent sight-reading, chord execution, or measured rhythmic accuracy."
+      },
+      "demoAssetIds": [
+        "notation-legend",
+        "a-chord-reading",
+        "d-chord-reading",
+        "four-beat-reading"
+      ],
+      "referenceIds": [
+        "yousician-tab",
+        "justin-a",
+        "justin-d"
+      ]
+    },
+    {
+      "id": "g-l1-m3-02",
+      "moduleId": "g-l1-m3",
+      "title": "Name the Shape",
+      "type": "exercise",
+      "suggestedSeconds": 240,
+      "objective": "Recognize the introduced A and D diagrams and map their dots to your own fingers without a speed requirement.",
+      "prerequisiteLessonIds": [
+        "g-l1-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Study, then name",
+          "action": "Review the labeled A and D diagrams once. Hide the title, choose A or D, then reveal the answer. Read the lowest sounding string and X/O marks aloud too.",
+          "lookCheck": "Use the dot locations and starting string, not only color.",
+          "listenCheck": "No microphone is needed to score a diagram answer."
+        },
+        {
+          "title": "Place D deliberately",
+          "action": "Place index at string 3 fret 2, middle at string 1 fret 2, then ring at string 2 fret 3. Leave string 4 open and avoid 5 and 6. Release, then compare the two diagrams again.",
+          "lookCheck": "Each fingertip approaches its own string; keep the ring finger from lying across the thin first string.",
+          "listenCheck": "If a picked string sounds dull, lift and reposition the finger touching it; take the result as your own listening check."
+        },
+        {
+          "title": "Place A deliberately",
+          "action": "With the A diagram visible, put index finger at string 3 fret 2, middle at string 4 fret 2, then ring at string 2 fret 2. Leave strings 5 and 1 open; avoid string 6. Place one finger at a time, then release.",
+          "lookCheck": "Dots, finger numbers, and real string positions agree.",
+          "listenCheck": "If you choose to pick strings 5–1 individually, check their sound yourself; chord correctness is not automatically measured here."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You guess the chord name without reading the positions.",
+          "recovery": "Reveal the label and name two visible differences between A and D before trying again."
+        },
+        {
+          "observation": "The shape is difficult to hold or a neighbor is muted.",
+          "recovery": "Release pressure, place one fingertip at a time closer to its fret, and shorten the hold. Reading can progress while physical chord practice continues later."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Name six shuffled A/D diagram cards, checking each answer after choosing."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Place and release D slowly three times, resting between attempts."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Place and release A slowly three times; no timed chord changes."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Name two fresh cards and explain their open and avoided strings."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can tell A and D diagrams apart without color.",
+          "I can trace each dot to a string and fret.",
+          "I know the lowest string to sound in each shape."
+        ],
+        "readyWhen": "You identify both diagrams and can map the positions deliberately; fast changes and clean full chords are later practice goals.",
+        "ifNotReady": "Return to the labeled diagrams and practice only the confused symbol or finger location.",
+        "proves": "Diagram recognition plus self-checked finger mapping.",
+        "doesNotProve": "Detected chord accuracy, fluent changes, or complete chord tone quality."
+      },
+      "demoAssetIds": [
+        "d-chord-reading",
+        "a-chord-reading"
+      ],
+      "referenceIds": [
+        "justin-a",
+        "justin-d",
+        "yousician-tab"
+      ]
+    },
+    {
+      "id": "g-l1-m3-04",
+      "moduleId": "g-l1-m3",
+      "title": "Checkpoint: Eight of Ten Reads",
+      "type": "checkpoint",
+      "suggestedSeconds": 240,
+      "objective": "Check ten reading decisions and identify the notation category that needs review.",
+      "prerequisiteLessonIds": [
+        "g-l1-m3-01",
+        "g-l1-m3-02"
+      ],
+      "steps": [
+        {
+          "title": "Answer before revealing",
+          "action": "Read each prompt and choose your answer once before showing the explanation. Work without the legend for the first attempt, but take as much thinking time as you need.",
+          "lookCheck": "The prompt clearly distinguishes tab, a chord diagram, or a rhythm bar.",
+          "listenCheck": "Audio is optional reference material; this assessment is visual reading."
+        },
+        {
+          "title": "Map one answer physically",
+          "action": "For a string/fret prompt, point to that position on the guitar. For a beat prompt, count and tap. For a chord prompt, name the shape and its lowest sounding string without racing to fret it.",
+          "lookCheck": "Your intended physical action matches the selected answer.",
+          "listenCheck": "Physical examples are self-checked; they do not change the visual quiz score."
+        },
+        {
+          "title": "Review the misses",
+          "action": "After all ten answers, revisit each missed category using the matching diagram. Try again as a new attempt; keep the first result visible separately.",
+          "lookCheck": "Show correct answers out of ten and the categories to revisit.",
+          "listenCheck": "No microphone-based musical judgment is implied by eight correct reading answers."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You keep choosing answers until one is accepted.",
+          "recovery": "Count only the first answer in the checkpoint score; use later choices as guided review."
+        },
+        {
+          "observation": "A score below eight feels like a reason to repeat everything.",
+          "recovery": "Review only the missed categories, then take a fresh attempt. Leave the material available for reference."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 20,
+          "instruction": "Prepare the first attempt with the legend hidden."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Answer ten prompts, pausing the timer whenever needed."
+        },
+        {
+          "seconds": 70,
+          "instruction": "Review missed categories using their diagrams and one physical example."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Record the score and choose the next review item."
+        }
+      ],
+      "quiz": {
+        "scoring": "One point for each first-attempt correct answer; ten prompts, no time bonus. Eight correct is this catalog's reading checkpoint criterion, not a competitor-derived mastery threshold.",
+        "passingCorrectCount": 8,
+        "items": [
+          {
+            "id": "read-01",
+            "kind": "tab",
+            "prompt": "Which guitar string does the top line of this labeled tab represent?",
+            "options": [
+              "String 1, thin high E",
+              "String 6, thick low E",
+              "String 3, G"
+            ],
+            "correctOptionIndex": 0,
+            "explanation": "Standard horizontal guitar tab places the highest-pitched string at the top."
+          },
+          {
+            "id": "read-02",
+            "kind": "tab",
+            "prompt": "A 0 is written on string 1. What do you do?",
+            "options": [
+              "Fret the first fret",
+              "Play string 1 open",
+              "Leave string 1 silent"
+            ],
+            "correctOptionIndex": 1,
+            "explanation": "Zero means play without fretting that string."
+          },
+          {
+            "id": "read-03",
+            "kind": "tab",
+            "prompt": "A 2 is written on the B-string line. Which position does it name?",
+            "options": [
+              "String 2, fret 2",
+              "String 2, any fret with finger 2",
+              "String 5, fret 2"
+            ],
+            "correctOptionIndex": 0,
+            "explanation": "The line identifies the string; the number identifies the fret."
+          },
+          {
+            "id": "read-04",
+            "kind": "tab",
+            "prompt": "A 3 is written on the high-E line. Where do you point?",
+            "options": [
+              "String 3, open",
+              "String 6, fret 3",
+              "String 1, fret 3"
+            ],
+            "correctOptionIndex": 2,
+            "explanation": "High E is string 1, and the tab number requests fret 3."
+          },
+          {
+            "id": "read-05",
+            "kind": "chord_symbol",
+            "prompt": "What does X above a string in a chord box mean?",
+            "options": [
+              "Play it extra loudly",
+              "Keep that string silent",
+              "Play it open"
+            ],
+            "correctOptionIndex": 1,
+            "explanation": "X marks a string that should not sound in this shape."
+          },
+          {
+            "id": "read-06",
+            "kind": "chord_symbol",
+            "prompt": "What does O above a string mean?",
+            "options": [
+              "Play the open string",
+              "Mute the string",
+              "Use your thumb to fret it"
+            ],
+            "correctOptionIndex": 0,
+            "explanation": "O identifies a sounding string without a fretted position."
+          },
+          {
+            "id": "read-07",
+            "kind": "chord_name",
+            "demoAssetId": "a-chord-reading",
+            "hideAssetName": true,
+            "prompt": "Which introduced chord does this diagram show?",
+            "options": [
+              "D",
+              "A",
+              "The diagram names a single fret"
+            ],
+            "correctOptionIndex": 1,
+            "explanation": "This A shape has fretted positions on strings 4, 3, and 2 at fret 2, with string 5 open."
+          },
+          {
+            "id": "read-08",
+            "kind": "chord_name",
+            "demoAssetId": "d-chord-reading",
+            "hideAssetName": true,
+            "prompt": "Which introduced chord does this diagram show?",
+            "options": [
+              "A",
+              "The diagram names a single string",
+              "D"
+            ],
+            "correctOptionIndex": 2,
+            "explanation": "This D shape has an open fourth string, two fret-2 positions, and the B-string position at fret 3."
+          },
+          {
+            "id": "read-09",
+            "kind": "rhythm",
+            "demoAssetId": "four-beat-reading",
+            "prompt": "This 4/4 bar contains one quarter-note slash on each numbered beat. How many strokes are written?",
+            "options": [
+              "One",
+              "Four",
+              "Eight"
+            ],
+            "correctOptionIndex": 1,
+            "explanation": "The displayed bar has four beats and one written stroke per beat."
+          },
+          {
+            "id": "read-10",
+            "kind": "chord_start",
+            "demoAssetId": "d-chord-reading",
+            "prompt": "What is the lowest sounding string in this D diagram?",
+            "options": [
+              "String 6",
+              "String 5",
+              "String 4"
+            ],
+            "correctOptionIndex": 2,
+            "explanation": "Strings 6 and 5 are marked X; string 4 is the first sounding string."
+          }
+        ]
+      },
+      "selfAssessment": {
+        "criteria": [
+          "I answered before revealing the explanation.",
+          "I can describe the action behind the symbols I answered correctly.",
+          "I know which category to revisit."
+        ],
+        "readyWhen": "At least eight first-attempt answers are correct; review the remaining categories while continuing to use notation in practice.",
+        "ifNotReady": "Review the specific missed notation panels, then begin a separate new attempt.",
+        "proves": "Performance on these ten reading prompts.",
+        "doesNotProve": "General sight-reading, clean chords, timing, or the completion of a guitar grade."
+      },
+      "demoAssetIds": [
+        "notation-legend",
+        "a-chord-reading",
+        "d-chord-reading",
+        "four-beat-reading"
+      ],
+      "referenceIds": [
+        "yousician-tab",
+        "justin-a",
+        "justin-d"
+      ]
+    },
+    {
+      "id": "g-l2-m1-01",
+      "moduleId": "g-l2-m1",
+      "title": "D, Then A",
+      "sourceTitle": "Two Shapes, One Hand",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Place D and A in the taught finger order and identify the strings each chord should sound.",
+      "prerequisiteLessonIds": [
+        "g-l1-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Place D one finger at a time",
+          "action": "After checking tuning, put your index finger on string 3, fret 2; your middle finger on string 1, fret 2; then your ring finger on string 2, fret 3. Leave string 4 open. Start a light downstroke at string 4 and stop after string 1.",
+          "lookCheck": "The three fingertips match the D diagram. Strings 6 and 5 are marked X and stay outside the stroke.",
+          "listenCheck": "Listen to the four intended strings. This first sound is a starting point, not a test."
+        },
+        {
+          "title": "Build A with the index first",
+          "action": "Release D. Put your index finger on string 3, fret 2; your middle finger on string 4, fret 2; then your ring finger on string 2, fret 2. Leave strings 5 and 1 open. Start the downstroke at string 5.",
+          "lookCheck": "Across fretted strings 4, 3, 2 the finger numbers are 2, 1, 3. String 6 stays silent.",
+          "listenCheck": "A sounds from five strings. If a string is unclear, keep the position visible and check it separately in the next exercise."
+        },
+        {
+          "title": "Compare the shared position",
+          "action": "Place D again and point to your index. Its string and fret also belong to this A shape. For now, read the two diagrams and say the starting string before each gentle strum.",
+          "lookCheck": "Index is on string 3, fret 2 in both shapes; the other fingers occupy different places.",
+          "listenCheck": "Compare optional chord references with the microphone off. Their synthesized sound demonstrates pitches, not your own tone quality."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You form A with the index on string 4.",
+          "recovery": "Follow this lesson's 2–1–3 fingering across strings 4–2 so the index can remain on string 3 during the later anchor exercise."
+        },
+        {
+          "observation": "D contains a low booming note.",
+          "recovery": "Start at string 4. Rehearse a small downstroke over only strings 4–1 before trying the whole chord again."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Place D in index, middle, ring order; say which strings sound."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Place A in index, middle, ring order; compare its starting string with D."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Read both diagrams, identify the shared index position, and make one unhurried attempt at each."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can point to every D finger position and its open fourth string.",
+          "I can point to every A finger position and identify strings 5 and 1 as open.",
+          "I know which low strings to avoid."
+        ],
+        "readyWhen": "You can use the diagrams to build both shapes deliberately; fluent switching comes later.",
+        "ifNotReady": "Return to one diagram and place only one finger at a time.",
+        "proves": "Your own confirmation that the diagrams and intended hand positions agree.",
+        "doesNotProve": "This does not prove automatic chord recognition, clean chord tone, healthy technique, or an independently measured song performance."
+      },
+      "demoAssetIds": [
+        "stage2-d-chord",
+        "stage2-a-chord"
+      ],
+      "referenceIds": [
+        "stage2-justin-d",
+        "stage2-justin-a"
+      ]
+    },
+    {
+      "id": "g-l2-m1-03",
+      "moduleId": "g-l2-m1",
+      "title": "Check D, Then A",
+      "sourceTitle": "Press, Check, Release",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Spend three minutes on each chord, using an individual-string check to make useful corrections.",
+      "prerequisiteLessonIds": [
+        "g-l2-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Give D its three minutes",
+          "action": "Start the D block after tuning. Place index, middle, then ring as shown. Strum strings 4–1 softly. Pick 4, 3, 2, 1 separately; if one is unclear, adjust the fingertip touching that string or its neighbor. Strum again.",
+          "lookCheck": "Keep each finger near the fret within its own space. Check that the ring finger does not lie against string 1.",
+          "listenCheck": "Compare the unclear note before and after your adjustment yourself. A pitch match cannot diagnose a buzz."
+        },
+        {
+          "title": "Use the same check on A",
+          "action": "When ready, begin the three-minute A block. Place index on 3/2, middle on 4/2, ring on 2/2. Strum 5–1, pick each of those strings separately, adjust one cause, then strum again.",
+          "lookCheck": "String 6 is outside the stroke. Make space beneath the ring finger for the open first string.",
+          "listenCheck": "Listen for each intended string rather than repeatedly striking the whole shape and hoping it improves."
+        },
+        {
+          "title": "Repeat without racing",
+          "action": "Release your fingers briefly between repetitions and rebuild in the same order. Pause the block whenever you need to reset. Stop at a useful observation even if the sound is still developing.",
+          "lookCheck": "Your hand can release its pressure and return without a forced wrist position.",
+          "listenCheck": "Record one string that improved or still needs attention. The countdown does not decide whether the chord is clean."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "A strum sounds unclear but you cannot locate the cause.",
+          "recovery": "Pick the intended strings individually from the lowest sounding string upward. Work on the first unclear string before another complete strum."
+        },
+        {
+          "observation": "You squeeze harder on every repetition.",
+          "recovery": "Release, settle the guitar, and rebuild slowly. Use only enough pressure to sound the note; stop and reset if playing hurts."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 180,
+          "instruction": "D accuracy: place, strum, check strings 4–1 individually, adjust, and strum again; repeat slowly."
+        },
+        {
+          "seconds": 180,
+          "instruction": "A accuracy: place, strum, check strings 5–1 individually, adjust, and strum again; repeat slowly."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used the complete check on D and A.",
+          "I identified a particular unclear string or confirmed each intended string by ear.",
+          "I can name the adjustment I tried, without calling it an app diagnosis."
+        ],
+        "readyWhen": "You understand the checking method and can use it on either shape; keep developing the sound as you continue.",
+        "ifNotReady": "Repeat the affected chord's block with its diagram and one string at a time.",
+        "proves": "A manual account of careful chord practice and a specific listening check.",
+        "doesNotProve": "This does not prove automatic chord recognition, clean chord tone, healthy technique, or an independently measured song performance."
+      },
+      "demoAssetIds": [
+        "stage2-d-chord",
+        "stage2-a-chord",
+        "stage2-accuracy-cycle"
+      ],
+      "referenceIds": [
+        "stage2-justin-d",
+        "stage2-justin-a",
+        "stage2-justin-routine-1"
+      ]
+    },
+    {
+      "id": "g-l2-m1-06",
+      "moduleId": "g-l2-m1",
+      "title": "Checkpoint: Check Both Chords",
+      "sourceTitle": "Checkpoint: Forty-Five Seconds, No Stops",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Recall D and A, then check their sounding strings and identify anything to revisit.",
+      "prerequisiteLessonIds": [
+        "g-l2-m1-03"
+      ],
+      "steps": [
+        {
+          "title": "Try the shapes from memory",
+          "action": "Tune first. Look away from the diagram and place D, then A, one at a time. Reveal the diagram after each attempt and compare the intended positions.",
+          "lookCheck": "Mark remembered shape separately from used diagram. Both are useful observations.",
+          "listenCheck": "There is no microphone score in this check."
+        },
+        {
+          "title": "Check the actual strings",
+          "action": "For D, strum then pick strings 4–1 individually. For A, use 5–1. Make a small correction if a note is unclear and strum again.",
+          "lookCheck": "Check the low starting string before you sound each chord.",
+          "listenCheck": "Judge ringing and unwanted strings yourself. Record an uncertainty instead of claiming a clean result you did not hear."
+        },
+        {
+          "title": "Choose the next useful action",
+          "action": "Record which shapes you recalled and one string to revisit. Continue to the silent anchor lesson when both shapes make sense; keep the accuracy exercise available.",
+          "lookCheck": "The record distinguishes recall from sound quality.",
+          "listenCheck": "This checks chord preparation. It does not claim a forty-five-second song or a full-stage performance."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You forget a position.",
+          "recovery": "Look at the diagram, rebuild, then try again as a new recall attempt."
+        },
+        {
+          "observation": "You can place the shapes but one string stays unclear.",
+          "recovery": "Log that string and revisit its accuracy block. Do not turn the timer into a speed or tone-quality pass."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Tune and prepare a memory attempt."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Recall and check D, then compare with the diagram."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Recall and check A, then compare with the diagram."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Revisit one uncertain string or shape."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Record your recall and listening observations."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I tried recalling both shapes before checking the diagram.",
+          "I checked the intended strings of each shape.",
+          "I recorded any unresolved note or position honestly."
+        ],
+        "readyWhen": "Both shapes are familiar enough to begin slow anchor movement; continue the accuracy work where needed.",
+        "ifNotReady": "Use the D or A accuracy block again, with the specific issue you recorded.",
+        "proves": "Your own shape-recall and individual-string check.",
+        "doesNotProve": "This does not prove automatic chord recognition, clean chord tone, healthy technique, or an independently measured song performance."
+      },
+      "demoAssetIds": [
+        "stage2-d-chord",
+        "stage2-a-chord",
+        "stage2-accuracy-cycle"
+      ],
+      "referenceIds": [
+        "stage2-justin-d",
+        "stage2-justin-a"
+      ]
+    },
+    {
+      "id": "g-l2-m3-01",
+      "moduleId": "g-l2-m3",
+      "title": "Keep One Finger in Place",
+      "sourceTitle": "Why Changes Are the Bottleneck",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Move silently between D and A while the index keeps contact with string 3.",
+      "prerequisiteLessonIds": [
+        "g-l2-m1-06"
+      ],
+      "steps": [
+        {
+          "title": "Start with a light D shape",
+          "action": "Place D without strumming. Rest the fingertips on the strings; you do not need full playing pressure for this silent exercise.",
+          "lookCheck": "Index touches string 3 in fret 2, middle touches string 1 in fret 2, and ring touches string 2 in fret 3.",
+          "listenCheck": "Silence is intentional. Microphone permission and pitch feedback are unnecessary."
+        },
+        {
+          "title": "Keep the index in contact",
+          "action": "Lift middle and ring while leaving the index on string 3. Slide the index slightly back within fret 2 to make room. Put middle on string 4, fret 2 and ring on string 2, fret 2 to form A.",
+          "lookCheck": "The index never changes string or fret; it may move a little within the same fret space.",
+          "listenCheck": "Do not strum to count a success. Look at the contact and placement."
+        },
+        {
+          "title": "Return to D slowly",
+          "action": "Lift middle and ring again. Let the index move back toward its D position within fret 2, then place middle on 1/2 and ring on 2/3. Continue D–A–D for the two-minute practice block, pausing as needed.",
+          "lookCheck": "The guitar stays supported while the other two fingers move independently of the index.",
+          "listenCheck": "This is silent coordination practice, not a chord-sound assessment."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "All three fingers leave the strings.",
+          "recovery": "Stop at D. Lift only middle and ring once, return them, then attempt the move toward A."
+        },
+        {
+          "observation": "The index presses rigidly or the hand tenses.",
+          "recovery": "Reduce to light contact and slow the move. The index can slide a little within fret 2; it is a guide, not a clamp."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Read the three positions and form a light D shape."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Silently alternate D and A with index contact; keep the movement deliberate."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Release and identify whether the index stayed on string 3."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I kept the index touching string 3 within fret 2.",
+          "I moved middle and ring into the correct A and D positions.",
+          "I completed this as silent, light-contact practice."
+        ],
+        "readyWhen": "You can repeat the slow movement and understand the shared contact point; speed develops in a separate exercise.",
+        "ifNotReady": "Repeat only the lift-and-return part before attempting the full change.",
+        "proves": "A manual visual check of the anchor movement.",
+        "doesNotProve": "This does not measure chord sound, count changes automatically, or establish performance speed."
+      },
+      "demoAssetIds": [
+        "stage2-d-chord",
+        "stage2-a-chord",
+        "stage2-silent-anchor"
+      ],
+      "referenceIds": [
+        "stage2-justin-anchor",
+        "stage2-justin-routine-1"
+      ]
+    },
+    {
+      "id": "g-l2-m3-02",
+      "moduleId": "g-l2-m3",
+      "title": "Count Your One-Minute Changes",
+      "sourceTitle": "The Sixty-Second Change",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Make and record two separate sixty-second A/D switching attempts, using a clear manual count.",
+      "prerequisiteLessonIds": [
+        "g-l2-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Set up one chord pair",
+          "action": "Tune first. Read the A and D diagrams and choose A as the starting shape. Form it before the timer begins; this setup shape is not a change. Keep the microphone off for this manual exercise.",
+          "lookCheck": "The display names starting chord A, duration 60 seconds, and Manual count.",
+          "listenCheck": "One light strum after arriving at the next basic shape is enough; this block works on switching, while the accuracy block works on clean sound."
+        },
+        {
+          "title": "Alternate for sixty seconds",
+          "action": "Start. Move A to D and count 1, then D to A and count 2. Continue alternating one completed move at a time. Do not add a count for a strum that repeats the same shape or an abandoned move. Stop counting when the full minute ends.",
+          "lookCheck": "Keep the basic finger positions recognizable. An imperfect sound is not automatically a failed switch, but merely lifting the hand is not a completed one.",
+          "listenCheck": "Say your count or keep your own tally. GuitarHub does not listen and count these chord changes."
+        },
+        {
+          "title": "Reset, then start at D",
+          "action": "Rest and record the first count before resetting. Form D, start a new full minute, and alternate D–A–D with the same convention. Keep the two results separate.",
+          "lookCheck": "The previous attempt stays visible and its count is not carried into the new timer.",
+          "listenCheck": "If either attempt is interrupted, save it as interrupted practice and restart a full minute when ready."
+        },
+        {
+          "title": "Choose the difficult move",
+          "action": "Review the two counts and return to a slow anchor movement if needed. Work toward 30 changes in a complete minute as an early guide; 60 is a longer-term goal. Do not rush the next attempt just to beat a number.",
+          "lookCheck": "Compare counts only for complete one-minute attempts using the same counting rule.",
+          "listenCheck": "Return to the accuracy blocks for tone quality. A manual count does not claim that every chord rang cleanly."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You counted the initial chord or both chords as one pair.",
+          "recovery": "Use the transition convention: starting A is zero, arriving at D is one, returning to A is two. Apply it consistently to every new attempt."
+        },
+        {
+          "observation": "The timer was paused, hidden, or interrupted.",
+          "recovery": "Keep actual practiced seconds and label the count partial. Do not normalize or extrapolate it to changes per minute; restart for a comparable full trial."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Prepare A, review the manual-count convention, and reset to zero."
+        },
+        {
+          "seconds": 60,
+          "instruction": "One full A-first alternating A/D attempt."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Rest and record the first count."
+        },
+        {
+          "seconds": 60,
+          "instruction": "One full D-first alternating D/A attempt."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review a difficult movement slowly."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Record both attempts and choose what to revisit."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used one count per completed transition and excluded the setup shape.",
+          "I kept the two sixty-second attempts separate.",
+          "I labeled interruptions or partial counts instead of treating them as a full-minute result."
+        ],
+        "readyWhen": "You can run the exercise honestly. Around 30 changes in one complete minute supports early progress; continue toward 60 over time.",
+        "ifNotReady": "Use the silent anchor block and try a fresh minute later. Do not trade all shape accuracy or comfort for speed.",
+        "proves": "Your manually entered number of completed transitions during a known interval.",
+        "doesNotProve": "This is not an automatically detected chord count, a clean-chord score, or proof that the learner played a song."
+      },
+      "demoAssetIds": [
+        "stage2-d-chord",
+        "stage2-a-chord",
+        "stage2-silent-anchor",
+        "stage2-manual-change-counter"
+      ],
+      "referenceIds": [
+        "stage2-justin-changes",
+        "stage2-justin-routine-1"
+      ]
+    },
+    {
+      "id": "g-l2-m3-06",
+      "moduleId": "g-l2-m3",
+      "title": "Checkpoint: Your One-Minute Count",
+      "sourceTitle": "Checkpoint: Twenty Clean Changes",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Record a fresh, complete one-minute switching attempt and assess readiness without inventing a microphone count.",
+      "prerequisiteLessonIds": [
+        "g-l2-m3-02"
+      ],
+      "steps": [
+        {
+          "title": "Recall and prepare",
+          "action": "Recall A and D before using the diagram. Choose the starting chord and form it before starting the timer. Reset the count to zero.",
+          "lookCheck": "The result form clearly says Manual count and shows the chosen starting chord.",
+          "listenCheck": "No microphone is needed."
+        },
+        {
+          "title": "Make a fresh one-minute attempt",
+          "action": "Alternate between A and D for 60 active uninterrupted seconds. Count each completed move once. At the end enter the count you observed and whether the basic shapes stayed recognizable.",
+          "lookCheck": "A pause, background event, or interruption makes this a partial attempt, which can be retained separately.",
+          "listenCheck": "Sound-quality judgments remain your own. This test does not require an automated clean-chord verdict."
+        },
+        {
+          "title": "Review, then optionally repeat",
+          "action": "Record the first attempt before another. If you choose a second trial, start from the other chord after resting and keep its result separate. Use 30 changes in a full minute as the early guide, not the old twenty-clean-changes claim.",
+          "lookCheck": "A visible date, duration, starting chord, count, and completion state identify each attempt.",
+          "listenCheck": "Try the original study after the counting and beat-one lessons. The count alone does not complete the whole stage."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You entered a count from several fragments.",
+          "recovery": "Retain those as practice. For this checkpoint record one continuous 60-second attempt."
+        },
+        {
+          "observation": "The number is below 30.",
+          "recovery": "Mark it for review, slow the anchor movement, and practice again. The checkpoint can record useful work without labeling it a pass or mastery."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Recall the two shapes and prepare the first trial."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Record one fresh full-minute trial."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Rest and save the count."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Optional second trial from the other starting chord; otherwise review slowly."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Revisit the less certain move."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Record readiness and the next practice focus."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I recorded at least one actual, uninterrupted sixty-second trial.",
+          "My entered count uses the stated transition rule.",
+          "I recorded remembered shapes and basic position accuracy separately from the number."
+        ],
+        "readyWhen": "Remembered A/D shapes plus at least 30 manually counted transitions in a complete minute meet the early change-speed guide. Attempt the study as the separate musical-application step.",
+        "ifNotReady": "Record the attempt for review and repeat the relevant accuracy or anchor block. A lower count need not lock all learning.",
+        "proves": "A self-reported full-minute transition count with explicit readiness criteria.",
+        "doesNotProve": "This does not prove automated chord counting, a full clean-tone score, or song competence; 60 changes per minute is a later goal."
+      },
+      "demoAssetIds": [
+        "stage2-d-chord",
+        "stage2-a-chord",
+        "stage2-manual-change-counter"
+      ],
+      "referenceIds": [
+        "stage2-justin-changes",
+        "stage2-justin-routine-1"
+      ]
+    },
+    {
+      "id": "g-l2-m2-01",
+      "moduleId": "g-l2-m2",
+      "title": "Four Beats, One Downstroke",
+      "sourceTitle": "Counting Out Loud",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Read a four-beat bar and place one downstroke on beat 1 before adding more strokes.",
+      "prerequisiteLessonIds": [
+        "g-l2-m3-02"
+      ],
+      "steps": [
+        {
+          "title": "Find one complete bar",
+          "action": "Use the four-beat display at 60 BPM. Count 1, 2, 3, 4 aloud while tapping your knee. The next 1 begins a new bar; each number is one quarter-note beat.",
+          "lookCheck": "Four beat cells make one bar. The count-in has its own row and is not bar 1.",
+          "listenCheck": "Use an optional quiet click while learning, or follow the visual pulse."
+        },
+        {
+          "title": "Sound only the first beat",
+          "action": "Hold D. On 1, make one downstroke across strings 4–1. Let it ring through 2, 3, 4 while continuing to count. Repeat without adding a second strike on the same 1.",
+          "lookCheck": "A single slash appears on beat 1; ties or hold marks show the note continuing through the remaining beats.",
+          "listenCheck": "Listen for one attack per bar, with time to prepare the next downstroke."
+        },
+        {
+          "title": "Prepare the next chord",
+          "action": "Look at a D bar followed by an A bar. During the end of the D bar, prepare the change so the A downstroke belongs to the next 1. Slow down or rehearse the change separately if needed.",
+          "lookCheck": "The chord name tells what to hold; its bar and beat tell when to sound it.",
+          "listenCheck": "Keep counting evenly. This lesson introduces the pulse; it is not a scored timing attempt."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You treat each beat as a new bar.",
+          "recovery": "Trace all four beat cells before moving to the next bar number."
+        },
+        {
+          "observation": "The chord change stops your count.",
+          "recovery": "Practice the count with knee taps, then the silent change, then combine them at a slower selected tempo."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Read the bar and count-in labels."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Count four beats with knee taps at a comfortable pulse."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Sound one D downstroke on beat 1 of each bar, then try a D bar followed by A."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Explain the difference between one beat, one bar, and one downstroke."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can count four beats per bar.",
+          "I can make one intended attack on beat 1 and let it ring.",
+          "I can identify where the next chord begins."
+        ],
+        "readyWhen": "You can follow the displayed bars at a manageable tempo and try the study's first phrase.",
+        "ifNotReady": "Return to count-and-tap practice, then add only one chord before changes.",
+        "proves": "A manual understanding of bar/beat structure and first-beat strumming.",
+        "doesNotProve": "This does not certify attack timing, chord identity, or the whole study."
+      },
+      "demoAssetIds": [
+        "stage2-four-beat-bar",
+        "stage2-first-light-study",
+        "stage2-d-chord",
+        "stage2-a-chord"
+      ],
+      "referenceIds": [
+        "stage2-justin-bars",
+        "stage2-justin-routine-1",
+        "stage2-yousician-parts"
+      ]
+    },
+    {
+      "id": "g-l2-m2-04",
+      "moduleId": "g-l2-m2",
+      "title": "First Light: An Original A/D Study",
+      "sourceTitle": "Down-Strum Song",
+      "type": "exercise",
+      "suggestedSeconds": 600,
+      "objective": "Rehearse and play a complete sixteen-bar original two-chord study with one downstroke per bar.",
+      "prerequisiteLessonIds": [
+        "g-l2-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the complete study",
+          "action": "Tune first. The study has 16 bars in 4/4 at a suggested 60 BPM. Its four-bar phrases are D D A A | D A D D | A A D D | A A D D. A separate four-beat count-in comes first. Begin with one downstroke on beat 1 of every bar.",
+          "lookCheck": "All 16 numbered bars and their four beats are available. The label says Original study; this is not a commercial song recording.",
+          "listenCheck": "Hear the optional synthesized demo first with capture off, then stop it before your own attempt."
+        },
+        {
+          "title": "Rehearse one phrase",
+          "action": "Begin with bars 1–4. Count the lead-in, strum the displayed chord on each 1, and let it ring through 2–4. Repeat the phrase with a new one-bar count-in. Then rehearse bars 5–8, 9–12, and 13–16.",
+          "lookCheck": "A loop's start and end are visible; its count-in is outside the numbered study bars.",
+          "listenCheck": "Listen for the intended chord and any missed first beat yourself. Slow the chosen tempo if changes disturb the pulse."
+        },
+        {
+          "title": "Play from bar 1 to bar 16",
+          "action": "Turn looping off. After the count-in, follow the full score and play through bar 16. Let the final D ring through that bar's fourth beat. At 60 BPM the music lasts 64 seconds; including the count-in it lasts 68 seconds.",
+          "lookCheck": "Bar 16 must finish before the end screen. The suggested practice block may contain several takes; it is not the study's playback length.",
+          "listenCheck": "If you lose your place, keep the attempt as a learning observation, identify the bar, and practice that phrase before a fresh full take."
+        },
+        {
+          "title": "Record the musical attempt",
+          "action": "Mark whether you attempted all 16 bars, where you hesitated, and whether you used the guide or an external familiar-song lesson. When one stroke per bar feels comfortable, the optional four-downstrokes version uses one attack on each beat with the same chord sequence.",
+          "lookCheck": "The optional version contains 64 downstrokes; the starting version contains 16. Both still contain 16 bars.",
+          "listenCheck": "Your completion is self-reported. Neither version proves automatic chord recognition or clean tone."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You finish after 16 quarter-note strikes.",
+          "recovery": "Check the selected pattern. Sixteen strikes, one per beat, are four bars; this study needs all 16 bar numbers. In the starting pattern each strike begins a new four-beat bar."
+        },
+        {
+          "observation": "A phrase is difficult during the full run.",
+          "recovery": "Select that four-bar phrase, lower the tempo, and repeat with a visible lead-in. Start a new full take when ready."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Tune, read the four phrases, and choose the starting strum pattern."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Rehearse bars 1–8 in short loops."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Rehearse bars 9–16 and the ending."
+        },
+        {
+          "seconds": 240,
+          "instruction": "Try complete runs, with rests or phrase review between them."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Record one full-attempt observation and a bar to revisit; optional familiar-song practice can continue separately."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I know that the piece is an original study and selected its strum pattern.",
+          "I attempted all 16 bars at my chosen tempo or recorded exactly where I stopped.",
+          "I distinguished my own chord and continuity observations from an automatic score."
+        ],
+        "readyWhen": "You have tried the complete musical application, can follow its chord plan, and can name a useful review point; perfection is not required before further learning.",
+        "ifNotReady": "Loop the uncertain phrase and keep the previous attempt visible. Use a slower tempo or one downstroke per bar.",
+        "proves": "A manual record of practicing or attempting a complete original study.",
+        "doesNotProve": "This does not establish familiar-song repertoire, app-verified chord correctness, or a scored sixteen-bar timing performance."
+      },
+      "demoAssetIds": [
+        "stage2-first-light-study",
+        "stage2-d-chord",
+        "stage2-a-chord",
+        "stage2-four-beat-bar",
+        "stage2-external-song-options"
+      ],
+      "referenceIds": [
+        "stage2-justin-songs",
+        "stage2-justin-routine-1",
+        "stage2-yousician-parts",
+        "stage2-yousician-modes"
+      ]
+    },
+    {
+      "id": "g-l2-m2-06",
+      "moduleId": "g-l2-m2",
+      "title": "Checkpoint: Sixteen Bars at Eighty",
+      "sourceTitle": "Checkpoint: Sixteen Bars at Eighty",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play sixty-four quarter-note down-strums across sixteen bars and interpret the timing-only result accurately.",
+      "prerequisiteLessonIds": [
+        "g-l2-m2-01",
+        "g-l2-m2-04"
+      ],
+      "steps": [
+        {
+          "title": "Prepare the complete timing check",
+          "action": "Use the guitar as prepared and select a comfortable single chord or lightly muted strings. The full checkpoint is 16 bars of 4/4 at 80 BPM, with one downstroke on every beat. Rehearse more slowly first if needed. Stop speaker references and backing sounds before scored capture.",
+          "lookCheck": "The screen shows 16 bars, four beats each, 64 targets, and Attack timing only.",
+          "listenCheck": "The detector hears audio attacks; it cannot tell whether you chose A, D, or a correct chord."
+        },
+        {
+          "title": "Follow all sixteen bars",
+          "action": "After a separate four-beat visual count-in, play beats 1–4 of each numbered bar from 1 through 16. Keep following the visual pulse until bar 16, beat 4 has sounded and the final bar ends.",
+          "lookCheck": "Target beat offsets are 0 through 63. At 80 BPM, each bar lasts 3 seconds; the music lasts 48 seconds plus a 3-second count-in.",
+          "listenCheck": "If counting aloud helps, do that in unscored practice. During microphone timing capture, spoken attacks may interfere, so follow the visual beat labels."
+        },
+        {
+          "title": "Interpret score and tempo separately",
+          "action": "The existing GuitarHub scoring model uses a local threshold of 75 for timing credit. To mark this named checkpoint checked at 80 BPM, the actual attempt must be at 80 BPM or faster and meet that threshold. A slower successful rehearsal remains a result at its real tempo.",
+          "lookCheck": "Show the actual BPM, observed matched attacks out of 64, and weighted timing score separately. A score of 75 does not mean 75 percent of chords are correct.",
+          "listenCheck": "If the signal is insufficient, record no measured pass and offer another attempt. The engine does not verify chord identity or tone."
+        },
+        {
+          "title": "Keep the evidence distinct",
+          "action": "This checkpoint contains 64 attacks over 16 bars. The study's starting version contains 16 attacks over the same number of bars because it strikes only on each 1. Keep the study reflection, manual change count, and this timing result as separate records.",
+          "lookCheck": "The final checkpoint target is bar 16, beat 4. Do not finish after the first 16 attacks; that reaches only bar 4.",
+          "listenCheck": "Review uncertain timing separately from chord sound, then make a fresh complete sixteen-bar attempt."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You stop after sixteen downstrokes.",
+          "recovery": "That completes four bars at one stroke per beat. Follow bar numbers 1–16 and reach the full 64 targets."
+        },
+        {
+          "observation": "The result includes sounds you did not intend as strums.",
+          "recovery": "Stop speaker backing/reference sounds, use the quiet input setup, and make a fresh attempt. This attack detector can also respond to other percussive sounds."
+        },
+        {
+          "observation": "A slower take passed its timing threshold.",
+          "recovery": "Keep the result labeled at its actual BPM. Increase speed in practice when ready; do not label it an80-BPM checkpoint result before reaching that tempo."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Prepare the quiet timing setup and inspect all sixteen bars."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Rehearse the quarter-note pulse without saving a score."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make fresh complete timing attempts, leaving time to reset."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Review uncertain beats more slowly."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Read the result source, actual tempo, and limits; choose what to revisit."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I distinguish sixteen bars from sixteen beats and completed the intended 64-target form.",
+          "I read actual tempo, matched attacks, and timing score as different quantities.",
+          "I kept this result separate from chord identity, the original-study reflection, and manual change counts."
+        ],
+        "readyWhen": "A scored complete 64-target attempt at 80 BPM or faster that meets the current GuitarHub timing-score threshold of 75 can check this rhythm goal. This is a local product criterion, not a competitor's published tolerance.",
+        "ifNotReady": "Rehearse a shorter section or use a slower selected tempo, then start a fresh full sixteen-bar attempt. If capture is unreliable, retain manual practice without inventing a measured pass.",
+        "proves": "When supported by actual input, this supplies attack-timing evidence over sixteen bars at the recorded tempo.",
+        "doesNotProve": "This does not prove automatic chord identity, clean tone, perfect continuity, or 90-percent chord accuracy. The scoring formula supplies weighted timing credit."
+      },
+      "demoAssetIds": [
+        "stage2-sixteen-bar-timing-check",
+        "stage2-four-beat-bar"
+      ],
+      "referenceIds": [
+        "stage2-yousician-modes"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "id": "justin-basics",
+      "title": "JustinGuitar: Before You Begin",
+      "url": "https://www.justinguitar.com/modules/before-you-begin-guitar-basics",
+      "supports": "Foundations include tuning, holding the instrument/pick, finger placement, and reading chord boxes before beginner chord work."
+    },
+    {
+      "id": "justin-ear-tuner",
+      "title": "JustinGuitar: Ear tuner",
+      "url": "https://www.justinguitar.com/guitar-tuner",
+      "supports": "Compare reference string pitches, adjust up or down, work one string at a time, and recheck after tuning."
+    },
+    {
+      "id": "justin-a",
+      "title": "JustinGuitar: A chord reference",
+      "url": "https://www.justinguitar.com/chords/a",
+      "supports": "Established open-A fingering and separate clean-chord versus chord-change practice."
+    },
+    {
+      "id": "justin-d",
+      "title": "JustinGuitar: D chord reference",
+      "url": "https://www.justinguitar.com/chords/d",
+      "supports": "Established open-D fingering and common adjacent-string muting difficulty."
+    },
+    {
+      "id": "yousician-tab",
+      "title": "Yousician: Reading guitar tablature",
+      "url": "https://support.yousician.com/hc/en-us/articles/206932099-How-to-read-guitar-tablature",
+      "supports": "Tab maps strings and frets; zero means open; chord diagrams identify fingering and strings to omit."
+    },
+    {
+      "id": "yousician-recognition",
+      "title": "Yousician: Guitar sound recognition",
+      "url": "https://support.yousician.com/hc/en-us/articles/46277332028817-Guitar-sound-recognition-issues",
+      "supports": "Tune before recognition, use standard six-string tuning, isolate useful input, and troubleshoot noise/input setup."
+    },
+    {
+      "id": "yousician-practice",
+      "title": "Yousician: Practice and Play",
+      "url": "https://support.yousician.com/hc/en-us/articles/201558362-Practice-and-Play-modes-in-guitar",
+      "supports": "Guided practice may wait for a target note and permits reference listening; it is distinct from performance scoring."
+    },
+    {
+      "id": "yousician-revisit",
+      "title": "Yousician: Effective practice",
+      "url": "https://support.yousician.com/hc/en-us/articles/206912609-The-best-way-to-practice-guitar",
+      "supports": "Work on small parts and revisit earlier material rather than requiring perfection before every advance."
+    },
+    {
+      "id": "stage2-justin-d",
+      "title": "D chord: placement and accuracy practice",
+      "url": "https://www.justinguitar.com/guitar-lessons/how-to-play-the-d-chord-b1-105",
+      "supports": "D first; index then middle then ring; place, strum, check individual strings, strum again."
+    },
+    {
+      "id": "stage2-justin-a",
+      "title": "A chord: placement and sounding strings",
+      "url": "https://www.justinguitar.com/guitar-lessons/how-to-play-the-a-chord-b1-108",
+      "supports": "Index3/2, middle4/2, ring2/2; strings5–1 sound."
+    },
+    {
+      "id": "stage2-justin-anchor",
+      "title": "Silent anchor-finger exercise",
+      "url": "https://www.justinguitar.com/guitar-lessons/how-to-use-anchor-fingers-b1-109",
+      "supports": "D to A and back while index maintains light contact within fret2; no strum is required."
+    },
+    {
+      "id": "stage2-justin-changes",
+      "title": "One-minute changes",
+      "url": "https://www.justinguitar.com/guitar-lessons/one-minute-changes-exercise-b1-110",
+      "supports": "One chord pair per60-second trial; manual counts are valid;30 early guide and60 longer-term target; tone accuracy is a separate exercise."
+    },
+    {
+      "id": "stage2-justin-routine-1",
+      "title": "Published first practice routine",
+      "url": "https://www.justinguitar.com/guitar-lessons/module-1-practice-routine-b1-116",
+      "supports": "Tune1m, D3m, A3m, anchor2m, two1m change blocks, repertoire10m. Public entries total21m despite20m heading."
+    },
+    {
+      "id": "stage2-justin-routine-2",
+      "title": "Second routine and retained review",
+      "url": "https://www.justinguitar.com/guitar-lessons/module-2-practice-routine-b1-209",
+      "supports": "Four weekly sessions;20 timed minutes plus untimed tuning; retain earlier A/D practice while adding E."
+    },
+    {
+      "id": "stage2-justin-routine-3",
+      "title": "Third routine",
+      "url": "https://www.justinguitar.com/guitar-lessons/module-3-practice-routine-b1-311",
+      "supports": "Four weekly sessions, retained anchor review, specific new skill blocks, and10m repertoire."
+    },
+    {
+      "id": "stage2-justin-bars",
+      "title": "Bars and first-beat strumming",
+      "url": "https://www.justinguitar.com/guitar-lessons/bars-strumming-on-1-b1-111",
+      "supports": "Published first-module lesson on bars and strumming on beat1 precedes first-song work;60 BPM in this proposal is a local suggestion."
+    },
+    {
+      "id": "stage2-justin-songs",
+      "title": "First A/D songs",
+      "url": "https://www.justinguitar.com/guitar-lessons/super-easy-2-chord-songs-b1-114",
+      "supports": "Familiar-song choices using A/D; optional advanced versions and varying capo/tuning requirements."
+    },
+    {
+      "id": "stage2-yousician-parts",
+      "title": "Practice parts and revisit earlier work",
+      "url": "https://support.yousician.com/hc/en-us/articles/206912609-The-best-way-to-practice-guitar",
+      "supports": "Rehearse manageable parts, slow/repeat difficult sections, attempt whole material, advance with reasonable confidence and revisit."
+    },
+    {
+      "id": "stage2-yousician-modes",
+      "title": "Practice and Play controls",
+      "url": "https://support.yousician.com/hc/en-us/articles/201558362-Practice-and-Play-modes-in-guitar",
+      "supports": "Separate guided practice and performance, optional synthesized references, tempo/loop controls, one-bar loop lead-in."
+    },
+    {
+      "id": "stage2-yousician-goals",
+      "title": "Session goals and review access",
+      "url": "https://support.yousician.com/hc/en-us/articles/201558312-How-to-navigate-in-Yousician",
+      "supports": "Adjustable per-session goals and daily/weekly activity; no private scheduling formula established."
+    }
+  ]
+}
