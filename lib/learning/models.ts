@@ -6,6 +6,8 @@ export interface PracticeSpec {
   countInBeats: number;
   toleranceCents: number;
   passScore: number;
+  completionMinimumBPM?: number;
+  revision?: number;
   targets: { id: string; beat: number; midi?: number; guitarString?: number; fret?: number }[];
 }
 export interface Lesson {
@@ -59,6 +61,8 @@ export function validatePracticeSpec(value: unknown): asserts value is PracticeS
   if (!Number.isInteger(spec.countInBeats)) throw new Error("Count-in must use whole beats");
   number(spec.toleranceCents, 1, 100, "pitch tolerance");
   number(spec.passScore, 0, 100, "pass score");
+  if (spec.completionMinimumBPM !== undefined) number(spec.completionMinimumBPM, 20, 300, "completion minimum BPM");
+  if (spec.revision !== undefined) { number(spec.revision, 1, 1_000_000, "practice revision"); if (!Number.isInteger(spec.revision)) throw new Error("Practice revision must be an integer"); }
   array(spec.targets, "practice targets");
   const ids = new Set<string>();
   let previousBeat = -1;

@@ -1,7 +1,7 @@
 // Capture in fixed blocks on the audio rendering thread. Samples stay in this
 // browser, never enter a request, and are released when the session stops.
 let interruptCurrentAudio: (() => void) | null = null;
-function claimAudioSession(interrupt: () => void) {
+export function claimAudioSession(interrupt: () => void) {
     const previous = interruptCurrentAudio;
     interruptCurrentAudio = null;
     previous?.();

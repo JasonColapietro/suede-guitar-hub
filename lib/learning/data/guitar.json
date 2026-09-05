@@ -40,12 +40,48 @@
                 "toleranceCents": 35,
                 "passScore": 75,
                 "targets": [
-                  { "id": "low-e", "beat": 0, "midi": 40, "guitarString": 6, "fret": 0 },
-                  { "id": "a", "beat": 1, "midi": 45, "guitarString": 5, "fret": 0 },
-                  { "id": "d", "beat": 2, "midi": 50, "guitarString": 4, "fret": 0 },
-                  { "id": "g", "beat": 3, "midi": 55, "guitarString": 3, "fret": 0 },
-                  { "id": "b", "beat": 4, "midi": 59, "guitarString": 2, "fret": 0 },
-                  { "id": "high-e", "beat": 5, "midi": 64, "guitarString": 1, "fret": 0 }
+                  {
+                    "id": "low-e",
+                    "beat": 0,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "a",
+                    "beat": 1,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0
+                  },
+                  {
+                    "id": "d",
+                    "beat": 2,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0
+                  },
+                  {
+                    "id": "g",
+                    "beat": 3,
+                    "midi": 55,
+                    "guitarString": 3,
+                    "fret": 0
+                  },
+                  {
+                    "id": "b",
+                    "beat": 4,
+                    "midi": 59,
+                    "guitarString": 2,
+                    "fret": 0
+                  },
+                  {
+                    "id": "high-e",
+                    "beat": 5,
+                    "midi": 64,
+                    "guitarString": 1,
+                    "fret": 0
+                  }
                 ]
               }
             },
@@ -126,74 +162,106 @@
     },
     {
       "id": "g-l2",
-      "name": "Two Chords, One Song",
-      "subtitle": "A real song, start to finish, on two chords",
+      "name": "Two Chords, First Study",
+      "subtitle": "Learn A and D, count your changes, and play an original two-chord study",
       "access": "free",
       "moduleCount": 4,
-      "lessonCount": 24,
+      "lessonCount": 12,
       "stage": 2,
       "modules": [
         {
           "id": "g-l2-m1",
-          "name": "A and D",
-          "promise": "Change between A and D cleanly, twenty times in sixty seconds",
-          "skill": "Two open chords",
-          "proofMetric": "duration_sec",
-          "lessonsTotal": 6,
+          "name": "D and A",
+          "promise": "Build D and A and check their sounding strings deliberately",
+          "skill": "Open-chord placement and listening checks",
+          "proofMetric": "manual_chord_reflection",
+          "lessonsTotal": 3,
           "sampleLessonsShown": 3,
           "lessons": [
             {
               "id": "g-l2-m1-01",
-              "title": "Two Shapes, One Hand",
+              "title": "D, Then A",
               "type": "concept",
               "minutes": 3,
-              "summary": "A and D share fingers. Learning them as a pair halves the work."
+              "summary": "Build D, then A, in the taught finger order and identify each chord's sounding strings."
             },
             {
               "id": "g-l2-m1-03",
-              "title": "Press, Check, Release",
+              "title": "Check D, Then A",
               "type": "exercise",
-              "minutes": 5,
-              "summary": "Build the shape, check every string rings, release. Repetition without tension."
+              "minutes": 6,
+              "summary": "Three minutes each on D and A: place, strum, check individual strings, adjust, and strum again."
             },
             {
               "id": "g-l2-m1-06",
-              "title": "Checkpoint: Forty-Five Seconds, No Stops",
+              "title": "Checkpoint: Check Both Chords",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Your first song, played end to end. This is the activation milestone."
+              "summary": "Recall both shapes and record your own individual-string listening check."
+            }
+          ]
+        },
+        {
+          "id": "g-l2-m3",
+          "name": "The Change",
+          "promise": "Practice silent anchor movement and record your own sixty-second A/D change count",
+          "skill": "Anchor movement and manually counted chord transitions",
+          "proofMetric": "manual_change_count",
+          "lessonsTotal": 3,
+          "sampleLessonsShown": 3,
+          "lessons": [
+            {
+              "id": "g-l2-m3-01",
+              "title": "Keep One Finger in Place",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Move silently between D and A while the index stays in contact with string 3, fret 2."
+            },
+            {
+              "id": "g-l2-m3-02",
+              "title": "Count Your One-Minute Changes",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Choose the starting chord, alternate for sixty seconds, and enter your own count afterwards."
+            },
+            {
+              "id": "g-l2-m3-06",
+              "title": "Checkpoint: Your One-Minute Count",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Record a fresh one-minute manual change count. Thirty transitions is the early guide; tone quality remains a separate check."
             }
           ]
         },
         {
           "id": "g-l2-m2",
           "name": "Down on the Beat",
-          "promise": "Hold sixteen bars of down-strums at eighty BPM, ninety percent on the beat",
-          "skill": "Down-strums and counting aloud",
-          "proofMetric": "accuracy_pct",
-          "lessonsTotal": 6,
+          "promise": "Play an original sixteen-bar study and check sixty-four quarter-note attacks across sixteen bars at eighty BPM",
+          "skill": "Counting, first-beat strumming, and separate attack-timing practice",
+          "proofMetric": "attack_timing_score_and_manual_study",
+          "lessonsTotal": 3,
           "sampleLessonsShown": 3,
           "lessons": [
             {
               "id": "g-l2-m2-01",
-              "title": "Counting Out Loud",
+              "title": "Four Beats, One Downstroke",
               "type": "concept",
               "minutes": 3,
-              "summary": "Say the numbers. Silent counting is where beginners lose the beat."
+              "summary": "Count four beats per bar, then place one downstroke on beat 1 before adding more strokes."
             },
             {
               "id": "g-l2-m2-04",
-              "title": "Down-Strum Song",
-              "type": "song",
-              "minutes": 5,
-              "summary": "A full song on down-strums only, with the metronome set where you need it."
+              "title": "First Light: An Original A/D Study",
+              "type": "exercise",
+              "minutes": 10,
+              "summary": "Play a complete sixteen-bar original A/D study. Start with one downstroke per bar at a comfortable tempo."
             },
             {
               "id": "g-l2-m2-06",
               "title": "Checkpoint: Sixteen Bars at Eighty",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "After a four-beat visual count-in, land sixteen down-strums at eighty BPM. GuitarHub scores attack timing, not chord identity.",
+              "summary": "After four visual count-in beats, play sixty-four quarter-note down-strums across sixteen bars. Check the goal at 80 BPM; the microphone result measures attack timing only.",
               "practiceSpec": {
                 "mode": "rhythm",
                 "bpm": 80,
@@ -201,56 +269,266 @@
                 "toleranceCents": 35,
                 "passScore": 75,
                 "targets": [
-                  { "id": "beat-01", "beat": 0 },
-                  { "id": "beat-02", "beat": 1 },
-                  { "id": "beat-03", "beat": 2 },
-                  { "id": "beat-04", "beat": 3 },
-                  { "id": "beat-05", "beat": 4 },
-                  { "id": "beat-06", "beat": 5 },
-                  { "id": "beat-07", "beat": 6 },
-                  { "id": "beat-08", "beat": 7 },
-                  { "id": "beat-09", "beat": 8 },
-                  { "id": "beat-10", "beat": 9 },
-                  { "id": "beat-11", "beat": 10 },
-                  { "id": "beat-12", "beat": 11 },
-                  { "id": "beat-13", "beat": 12 },
-                  { "id": "beat-14", "beat": 13 },
-                  { "id": "beat-15", "beat": 14 },
-                  { "id": "beat-16", "beat": 15 }
-                ]
+                  {
+                    "id": "beat-01",
+                    "beat": 0
+                  },
+                  {
+                    "id": "beat-02",
+                    "beat": 1
+                  },
+                  {
+                    "id": "beat-03",
+                    "beat": 2
+                  },
+                  {
+                    "id": "beat-04",
+                    "beat": 3
+                  },
+                  {
+                    "id": "beat-05",
+                    "beat": 4
+                  },
+                  {
+                    "id": "beat-06",
+                    "beat": 5
+                  },
+                  {
+                    "id": "beat-07",
+                    "beat": 6
+                  },
+                  {
+                    "id": "beat-08",
+                    "beat": 7
+                  },
+                  {
+                    "id": "beat-09",
+                    "beat": 8
+                  },
+                  {
+                    "id": "beat-10",
+                    "beat": 9
+                  },
+                  {
+                    "id": "beat-11",
+                    "beat": 10
+                  },
+                  {
+                    "id": "beat-12",
+                    "beat": 11
+                  },
+                  {
+                    "id": "beat-13",
+                    "beat": 12
+                  },
+                  {
+                    "id": "beat-14",
+                    "beat": 13
+                  },
+                  {
+                    "id": "beat-15",
+                    "beat": 14
+                  },
+                  {
+                    "id": "beat-16",
+                    "beat": 15
+                  },
+                  {
+                    "id": "beat-17",
+                    "beat": 16
+                  },
+                  {
+                    "id": "beat-18",
+                    "beat": 17
+                  },
+                  {
+                    "id": "beat-19",
+                    "beat": 18
+                  },
+                  {
+                    "id": "beat-20",
+                    "beat": 19
+                  },
+                  {
+                    "id": "beat-21",
+                    "beat": 20
+                  },
+                  {
+                    "id": "beat-22",
+                    "beat": 21
+                  },
+                  {
+                    "id": "beat-23",
+                    "beat": 22
+                  },
+                  {
+                    "id": "beat-24",
+                    "beat": 23
+                  },
+                  {
+                    "id": "beat-25",
+                    "beat": 24
+                  },
+                  {
+                    "id": "beat-26",
+                    "beat": 25
+                  },
+                  {
+                    "id": "beat-27",
+                    "beat": 26
+                  },
+                  {
+                    "id": "beat-28",
+                    "beat": 27
+                  },
+                  {
+                    "id": "beat-29",
+                    "beat": 28
+                  },
+                  {
+                    "id": "beat-30",
+                    "beat": 29
+                  },
+                  {
+                    "id": "beat-31",
+                    "beat": 30
+                  },
+                  {
+                    "id": "beat-32",
+                    "beat": 31
+                  },
+                  {
+                    "id": "beat-33",
+                    "beat": 32
+                  },
+                  {
+                    "id": "beat-34",
+                    "beat": 33
+                  },
+                  {
+                    "id": "beat-35",
+                    "beat": 34
+                  },
+                  {
+                    "id": "beat-36",
+                    "beat": 35
+                  },
+                  {
+                    "id": "beat-37",
+                    "beat": 36
+                  },
+                  {
+                    "id": "beat-38",
+                    "beat": 37
+                  },
+                  {
+                    "id": "beat-39",
+                    "beat": 38
+                  },
+                  {
+                    "id": "beat-40",
+                    "beat": 39
+                  },
+                  {
+                    "id": "beat-41",
+                    "beat": 40
+                  },
+                  {
+                    "id": "beat-42",
+                    "beat": 41
+                  },
+                  {
+                    "id": "beat-43",
+                    "beat": 42
+                  },
+                  {
+                    "id": "beat-44",
+                    "beat": 43
+                  },
+                  {
+                    "id": "beat-45",
+                    "beat": 44
+                  },
+                  {
+                    "id": "beat-46",
+                    "beat": 45
+                  },
+                  {
+                    "id": "beat-47",
+                    "beat": 46
+                  },
+                  {
+                    "id": "beat-48",
+                    "beat": 47
+                  },
+                  {
+                    "id": "beat-49",
+                    "beat": 48
+                  },
+                  {
+                    "id": "beat-50",
+                    "beat": 49
+                  },
+                  {
+                    "id": "beat-51",
+                    "beat": 50
+                  },
+                  {
+                    "id": "beat-52",
+                    "beat": 51
+                  },
+                  {
+                    "id": "beat-53",
+                    "beat": 52
+                  },
+                  {
+                    "id": "beat-54",
+                    "beat": 53
+                  },
+                  {
+                    "id": "beat-55",
+                    "beat": 54
+                  },
+                  {
+                    "id": "beat-56",
+                    "beat": 55
+                  },
+                  {
+                    "id": "beat-57",
+                    "beat": 56
+                  },
+                  {
+                    "id": "beat-58",
+                    "beat": 57
+                  },
+                  {
+                    "id": "beat-59",
+                    "beat": 58
+                  },
+                  {
+                    "id": "beat-60",
+                    "beat": 59
+                  },
+                  {
+                    "id": "beat-61",
+                    "beat": 60
+                  },
+                  {
+                    "id": "beat-62",
+                    "beat": 61
+                  },
+                  {
+                    "id": "beat-63",
+                    "beat": 62
+                  },
+                  {
+                    "id": "beat-64",
+                    "beat": 63
+                  }
+                ],
+                "completionMinimumBPM": 80,
+                "revision": 2
               }
-            }
-          ]
-        },
-        {
-          "id": "g-l2-m3",
-          "name": "The Change",
-          "promise": "Twenty clean A-to-D changes inside sixty seconds",
-          "skill": "Chord-change speed",
-          "proofMetric": "duration_sec",
-          "lessonsTotal": 6,
-          "sampleLessonsShown": 3,
-          "lessons": [
-            {
-              "id": "g-l2-m3-01",
-              "title": "Why Changes Are the Bottleneck",
-              "type": "concept",
-              "minutes": 3,
-              "summary": "Nobody is stuck on chords. Everybody is stuck on the gap between them."
-            },
-            {
-              "id": "g-l2-m3-02",
-              "title": "The Sixty-Second Change",
-              "type": "exercise",
-              "minutes": 5,
-              "summary": "One minute, one chord pair, count every clean change. Log the number and beat it."
-            },
-            {
-              "id": "g-l2-m3-06",
-              "title": "Checkpoint: Twenty Clean Changes",
-              "type": "checkpoint",
-              "minutes": 5,
-              "summary": "Counted by the app, not by you."
             }
           ]
         },
@@ -260,7 +538,7 @@
           "promise": "Play a single-string riff at ninety BPM, three clean passes of three",
           "skill": "Single-note riffs",
           "proofMetric": "tempo_bpm",
-          "lessonsTotal": 6,
+          "lessonsTotal": 3,
           "sampleLessonsShown": 3,
           "lessons": [
             {

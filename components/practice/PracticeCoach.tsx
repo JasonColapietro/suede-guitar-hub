@@ -8,7 +8,7 @@ type Phase = 'ready' | 'requesting' | 'counting' | 'running' | 'paused' | 'help'
 export function PracticeCoach({ spec, track, onComplete }: {
     spec: PracticeSpec;
     track: 'guitar' | 'voice';
-    onComplete?: (result: PracticeResult) => void;
+    onComplete?: (result: PracticeResult, attemptId: string) => void;
 }) {
     const [phase, setPhase] = useState<Phase>('ready'), [mode, setMode] = useState<'practice' | 'play'>('practice');
     const [speed, setSpeed] = useState(100), [index, setIndex] = useState(0), [loop, setLoop] = useState(false), [leftHanded, setLeftHanded] = useState(false);
@@ -23,10 +23,12 @@ export function PracticeCoach({ spec, track, onComplete }: {
         last: number;
     } | null>(null), releaseNeeded = useRef(false), lastProgress = useRef(0);
     const playbackAbort = useRef<AbortController | null>(null);
+    const resultId = useRef<string | null>(null), savedResultId = useRef<string | null>(null);
+    const [resultSaved, setResultSaved] = useState(false);
     const acceptedPitch = useRef<number | null>(null), acceptedAudioTime = useRef(-Infinity);
     const live = useRef({ mode, loop, speed, onComplete });
     useEffect(() => { live.current = { mode, loop, speed, onComplete }; }, [mode, loop, speed, onComplete]);
-    function stopCapture() { activeClock.current.pause(performance.now() / 1000); active.current = false; generation.current++; abort.current?.abort(); capture.current?.stop(); capture.current = null; cancelAnimationFrame(animation.current); fresh.current = null; }
+    function stopCapture() { activeClock.current.pause(capture.current?.context.currentTime ?? 0); active.current = false; generation.current++; abort.current?.abort(); capture.current?.stop(); capture.current = null; cancelAnimationFrame(animation.current); fresh.current = null; }
     function pause(reason = 'Paused. Resume when you are ready.') { stopCapture(); setMessage(reason); setPhase('paused'); }
     useEffect(() => {
         const background = () => { if (document.hidden && (active.current || (abort.current && !abort.current.signal.aborted) || (playbackAbort.current && !playbackAbort.current.signal.aborted))) {
@@ -47,7 +49,9 @@ export function PracticeCoach({ spec, track, onComplete }: {
             setPhase('ready');
             return;
         }
-        const scored = scorePractice({ ...spec, bpm: spec.bpm * live.current.speed / 100 }, observations.current, activeClock.current.elapsed(performance.now() / 1000));
+        const scored = scorePractice({ ...spec, bpm: spec.bpm * live.current.speed / 100 }, observations.current, activeClock.current.elapsed(0));
+        resultId.current = crypto.randomUUID();
+        setResultSaved(false);
         setResult(scored);
         setPhase('result');
         // Saving/awarding completion remains an explicit action in the result view.
@@ -74,6 +78,7 @@ export function PracticeCoach({ spec, track, onComplete }: {
         }
         fresh.current = null;
         releaseNeeded.current = false;
+        const activeAtStart = activeClock.current.elapsed(0);
         const id = ++generation.current;
         abort.current = new AbortController();
         setPhase('requesting');
@@ -180,13 +185,13 @@ export function PracticeCoach({ spec, track, onComplete }: {
             // A quiet calibration interval precedes the visible bar count-in.
             epoch = audio.context.currentTime + (spec.mode === 'rhythm' ? .8 : .2);
             runStart = epoch + countIn * 60 / bpm;
-            activeClock.current.start(performance.now() / 1000 + runStart - audio.context.currentTime);
+            activeClock.current.start(runStart);
             lastProgress.current = runStart;
             setPhase(countIn > 0 ? 'counting' : 'running');
             const tick = () => {
                 if (id !== generation.current || !active.current)
                     return;
-                if (live.current.mode === 'practice' && activeClock.current.runElapsed(performance.now() / 1000) >= 120) {
+                if (spec.mode !== 'rhythm' && live.current.mode === 'practice' && activeClock.current.elapsed(audio.context.currentTime) - activeAtStart >= 120) {
                     pause('Two minutes of focused practice. Rest your hands, then resume or try the full check.');
                     return;
                 }
@@ -208,10 +213,16 @@ export function PracticeCoach({ spec, track, onComplete }: {
                         const next = spec.targets.findIndex(t => t.beat > transport.beat);
                         setIndex(next < 0 ? spec.targets.length - 1 : Math.max(0, next - 1));
                         if (transport.beat > spec.targets[spec.targets.length - 1].beat + 1) {
+                            if (live.current.mode === 'practice' && activeClock.current.elapsed(now) - activeAtStart >= 120) {
+                                pause('Exercise finished. Rest your hands, then repeat or try the full check.');
+                                return;
+                            }
                             if (live.current.mode === 'practice' && live.current.loop) {
                                 observations.current = [];
                                 epoch = now;
                                 runStart = now + countIn * 60 / bpm;
+                                activeClock.current.pause(now);
+                                activeClock.current.start(runStart);
                                 setPhase('counting');
                             }
                             else {
@@ -279,6 +290,7 @@ export function PracticeCoach({ spec, track, onComplete }: {
       <button disabled={busy} aria-pressed={mode === 'play'} onClick={() => { setMode('play'); setLoop(false); setResult(null); setPhase('ready'); }}>Play · full check</button>
     </div>
     <label className={styles.tempo}>Tempo · {Math.round(spec.bpm * speed / 100)} BPM ({speed}%)<input aria-label="Practice speed" type="range" min="25" max="125" step="5" value={speed} disabled={busy} onChange={e => setSpeed(Number(e.target.value))}/></label>
+    {spec.completionMinimumBPM !== undefined && <p>This checkpoint needs {spec.completionMinimumBPM} BPM or faster and the required accuracy. Slower Play attempts still produce practice scores.</p>}
     {mode === 'practice' && <label className={styles.check}><input type="checkbox" checked={loop} disabled={busy} onChange={e => setLoop(e.target.checked)}/>Repeat {spec.mode === 'pitchSequence' ? 'this note (mute before repeating)' : 'the exercise with a count-in'}</label>}
     {spec.mode === 'pitchSequence' && target && <>
       <div className={styles.target}><span>Target {Math.min(index + 1, spec.targets.length)} of {spec.targets.length}</span><strong>{target.midi != null ? noteName(target.midi) : '—'}</strong><span>{track === 'guitar' && target.guitarString ? `String ${target.guitarString} · ${target.fret === 0 ? 'open' : `fret ${target.fret}`}` : 'Match the note at a comfortable volume'}</span></div>
@@ -289,8 +301,14 @@ export function PracticeCoach({ spec, track, onComplete }: {
     <p role="status" className={styles.status}>{phase === 'counting' ? `Count in: ${count}. ${message}` : message || (phase === 'running' ? 'Listening — keep playing.' : phase === 'requesting' ? 'Waiting for microphone permission…' : 'Tune first. Audio stays on this device.')}</p>
     {phase === 'result' && result && <div className={styles.result}>
       <h3>{result.score === null ? 'No reliable result' : `${result.noteScore !== null ? 'Pitch' : 'Timing'}: ${result.score}%`}</h3>
-      <p>{result.score === null ? 'The signal was too limited to grade. Check your setup and try again.' : `${result.matchedTargets} of ${result.targetCount} targets matched. ${result.passed ? 'You can continue or repeat for consistency.' : 'Slow down and repeat a smaller section in Practice.'}`}</p>
-      {result.passed && <button onClick={() => onComplete?.(result)}>Save checked result and continue</button>}
+      <p>{result.score === null ? 'The signal was too limited to grade. Check your setup and try again.' : `${result.matchedTargets} of ${result.targetCount} targets matched at ${Math.round(result.bpm)} BPM. ${result.passed ? 'You can continue or repeat for consistency.' : result.completionMinimumBPM !== undefined && result.bpm < result.completionMinimumBPM ? `This score is practice evidence. To pass this checkpoint, play at least ${result.completionMinimumBPM} BPM with the required accuracy.` : 'Repeat a smaller section in Practice, then try the full check again.'}`}</p>
+      {result.disposition === 'scored' && onComplete && <button disabled={resultSaved} onClick={() => {
+        const id = resultId.current;
+        if (!id || savedResultId.current === id) return;
+        onComplete(result, id);
+        savedResultId.current = id;
+        setResultSaved(true);
+      }}>{resultSaved ? 'Result recorded' : result.passed ? 'Save checked result and continue' : 'Save practice result'}</button>}
     </div>}
     <div className={styles.controls}>
       {!busy && <button onClick={() => void start(phase === 'paused' || phase === 'help')}>{phase === 'paused' || phase === 'help' ? (mode === 'play' ? 'Restart full check' : 'Resume') : phase === 'result' ? 'Try again' : 'Start'}</button>}

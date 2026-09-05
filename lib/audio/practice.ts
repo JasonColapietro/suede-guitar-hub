@@ -11,9 +11,14 @@ export interface PracticeSpec {
     countInBeats: number;
     toleranceCents: number;
     passScore: number;
+    completionMinimumBPM?: number;
+    revision?: number;
     targets: PracticeTarget[];
 }
 export interface PracticeResult {
+    bpm: number;
+    completionMinimumBPM?: number;
+    practiceSpecRevision?: number;
     practiceSeconds: number;
     score: number | null;
     disposition: 'scored' | 'insufficientSignal';
@@ -31,11 +36,11 @@ export interface Observation {
     targetID?: string;
 }
 export function validSpec(spec: PracticeSpec) {
-    return Number.isFinite(spec.bpm) && spec.bpm > 0 && spec.bpm <= 400 && Number.isInteger(spec.countInBeats) && spec.countInBeats >= 0 && spec.countInBeats <= 16 && Number.isFinite(spec.toleranceCents) && spec.toleranceCents > 0 && Number.isFinite(spec.passScore) && spec.passScore >= 0 && spec.passScore <= 100 && spec.targets.length > 0 && spec.targets.every((t, i) => Number.isFinite(t.beat) && t.beat >= 0 && (i === 0 || t.beat > spec.targets[i - 1].beat) && (spec.mode !== 'pitchSequence' || (Number.isInteger(t.midi) && t.midi! >= 0 && t.midi! <= 127)));
+    return (spec.revision === undefined || (Number.isInteger(spec.revision) && spec.revision >= 1 && spec.revision <= 1_000_000)) && Number.isFinite(spec.bpm) && spec.bpm > 0 && spec.bpm <= 400 && (spec.completionMinimumBPM === undefined || (Number.isFinite(spec.completionMinimumBPM) && spec.completionMinimumBPM >= 20 && spec.completionMinimumBPM <= 300)) && Number.isInteger(spec.countInBeats) && spec.countInBeats >= 0 && spec.countInBeats <= 16 && Number.isFinite(spec.toleranceCents) && spec.toleranceCents > 0 && Number.isFinite(spec.passScore) && spec.passScore >= 0 && spec.passScore <= 100 && spec.targets.length > 0 && spec.targets.every((t, i) => Number.isFinite(t.beat) && t.beat >= 0 && (i === 0 || t.beat > spec.targets[i - 1].beat) && (spec.mode !== 'pitchSequence' || (Number.isInteger(t.midi) && t.midi! >= 0 && t.midi! <= 127)));
 }
 export function scorePractice(spec: PracticeSpec, observations: Observation[], activeSeconds = 0): PracticeResult {
     const practiceSeconds = Number.isFinite(activeSeconds) ? Math.max(0, Math.min(86400, Math.floor(activeSeconds))) : 0;
-    const abstain: PracticeResult = { practiceSeconds, score: null, disposition: 'insufficientSignal', passed: null, matchedTargets: 0, targetCount: spec.targets.length, noteScore: null, rhythmScore: null };
+    const abstain: PracticeResult = { bpm: spec.bpm, completionMinimumBPM: spec.completionMinimumBPM, practiceSpecRevision: spec.revision, practiceSeconds, score: null, disposition: 'insufficientSignal', passed: null, matchedTargets: 0, targetCount: spec.targets.length, noteScore: null, rhythmScore: null };
     if (!validSpec(spec))
         return abstain;
     const usable = observations.filter(o => Number.isFinite(o.time) && o.time >= 0 && Number.isFinite(o.confidence) && o.confidence >= .6 && (spec.mode !== 'pitchSequence' || (Number.isInteger(o.midi) && Number.isFinite(o.cents ?? 0)))).sort((a, b) => a.time - b.time);
@@ -79,7 +84,7 @@ export function scorePractice(spec: PracticeSpec, observations: Observation[], a
         }
     }
     const score = Math.round(credit / spec.targets.length * 100);
-    return { practiceSeconds, score, disposition: 'scored', passed: score >= spec.passScore, matchedTargets: matched, targetCount: spec.targets.length, noteScore: spec.mode === 'pitchSequence' ? score : null, rhythmScore: spec.mode === 'rhythm' ? score : null };
+    return { bpm: spec.bpm, completionMinimumBPM: spec.completionMinimumBPM, practiceSpecRevision: spec.revision, practiceSeconds, score, disposition: 'scored', passed: score >= spec.passScore && (spec.completionMinimumBPM === undefined || spec.bpm >= spec.completionMinimumBPM), matchedTargets: matched, targetCount: spec.targets.length, noteScore: spec.mode === 'pitchSequence' ? score : null, rhythmScore: spec.mode === 'rhythm' ? score : null };
 }
 /** Active playing time excludes permission prompts, count-ins, and pauses. */
 export class ActivePracticeClock {

@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { estimatePitch, frequencyForMIDI, noteForFrequency, OnsetDetector } from '../lib/audio/dsp.ts';
-import { ActivePracticeClock, scorePractice, transportAt, type PracticeSpec } from '../lib/audio/practice.ts';
+import { ActivePracticeClock, scorePractice, transportAt, validSpec, type PracticeSpec } from '../lib/audio/practice.ts';
+import { validatePracticeSpec } from '../lib/learning/models.ts';
 function sine(frequency: number, sampleRate = 48000) { return Float32Array.from({ length: 4096 }, (_, i) => .3 * Math.sin(2 * Math.PI * frequency * i / sampleRate)); }
 test('active practice excludes permission wait, count-in and long pauses, then resumes normally', () => {
     const clock = new ActivePracticeClock();
@@ -17,6 +18,16 @@ test('active practice excludes permission wait, count-in and long pauses, then r
     assert.equal(scorePractice(pitchSpec, [], clock.elapsed(1000)).practiceSeconds, 16);
     clock.reset();
     assert.equal(clock.elapsed(1000), 0);
+});
+test('looped practice excludes every fresh lead-in while retaining actual music time', () => {
+    const clock = new ActivePracticeClock();
+    clock.start(4);
+    clock.pause(20);
+    clock.start(24);
+    assert.equal(clock.elapsed(22), 16);
+    assert.equal(clock.elapsed(40), 32);
+    clock.pause(40);
+    assert.equal(clock.elapsed(0), 32, 'a stopped audio context does not erase accumulated time');
 });
 test('YIN resolves all six open strings and A4 at actual input sample rates', () => {
     for (const sr of [44100, 48000])
@@ -76,4 +87,39 @@ test('timed missed targets preserve later correct notes and confident mistakes g
     assert.equal(wrong.disposition, 'scored');
     assert.equal(wrong.score, 0);
     assert.equal(wrong.passed, false);
+});
+test('a named tempo checkpoint keeps slower scores without passing its tempo criterion', () => {
+    const spec: PracticeSpec = { mode: 'rhythm', bpm: 80, completionMinimumBPM: 80, countInBeats: 4, toleranceCents: 35, passScore: 80, targets: Array.from({ length: 64 }, (_, beat) => ({ id: `stroke-${beat}`, beat })) };
+    for (const bpm of [40, 60, 80, 96]) {
+        const observations = spec.targets.map(target => ({ time: target.beat * 60 / bpm, confidence: .95 }));
+        const result = scorePractice({ ...spec, bpm }, observations, 64 * 60 / bpm);
+        assert.equal(result.score, 100);
+        assert.equal(result.bpm, bpm);
+        assert.equal(result.completionMinimumBPM, 80);
+        assert.equal(result.passed, bpm >= 80);
+        assert.equal(result.targetCount, 64);
+        assert.equal(result.disposition, 'scored');
+    }
+    const inaccurate = spec.targets.map(target => ({ time: target.beat * 60 / spec.bpm + .2, confidence: .95 }));
+    assert.equal(scorePractice(spec, inaccurate).passed, false);
+    const ordinary = { ...spec, completionMinimumBPM: undefined, bpm: 40 };
+    assert.equal(scorePractice(ordinary, ordinary.targets.map(target => ({ time: target.beat * 60 / 40, confidence: .95 }))).passed, true);
+});
+test('invalid completion tempo metadata cannot silently remove a checkpoint condition', () => {
+    for (const completionMinimumBPM of [0, -20, NaN, Infinity, 301]) {
+        const spec = { ...pitchSpec, completionMinimumBPM };
+        assert.equal(validSpec(spec), false);
+        assert.equal(scorePractice(spec, []).disposition, 'insufficientSignal');
+        assert.throws(() => validatePracticeSpec(spec), /completion minimum BPM/);
+    }
+    assert.doesNotThrow(() => validatePracticeSpec({ ...pitchSpec, completionMinimumBPM: 80 }));
+});
+test('invalid exercise revisions abstain and results retain their authored revision', () => {
+    for (const revision of [0, -1, 1.5, NaN, Infinity]) {
+        const spec = { ...pitchSpec, revision };
+        assert.equal(validSpec(spec), false);
+        assert.equal(scorePractice(spec, []).passed, null);
+        assert.throws(() => validatePracticeSpec(spec), /revision/);
+    }
+    assert.equal(scorePractice({ ...pitchSpec, revision: 2 }, []).practiceSpecRevision, 2);
 });
