@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import {
   GUIDES,
   OG_IMAGE,
@@ -14,6 +16,9 @@ import {
 } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/guides`;
+
+/** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
+const CRUMBS = crumbTrail("Guides", CANONICAL);
 
 const TITLE = "Guitar Practice Guides: The Complete GuitarHub Library";
 // Kept inside 140-160 characters so Google prints the differentiating tail
@@ -302,14 +307,7 @@ const JSON_LD = {
         description: guide.blurb,
       })),
     },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${CANONICAL}#breadcrumb`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "GuitarHub", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "Guides", item: CANONICAL },
-      ],
-    },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -364,6 +362,8 @@ export default function GuidesPage() {
       />
 
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main>
         <section className="px-3 pt-3">

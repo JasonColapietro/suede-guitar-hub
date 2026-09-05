@@ -4,6 +4,7 @@ import {
   GUIDES,
   HOME,
   HUBS,
+  LEARN,
   LEGAL,
   RESOURCES,
   SITE_URL,
@@ -38,6 +39,10 @@ type Group = {
 
 const GROUPS: readonly Group[] = [
   { entries: [HOME], priority: 1, changeFrequency: "weekly" },
+  // The learning paths sit with `/method` at the top: `/learn/guitar` is the
+  // target of the site-wide "Start learning" link, so it is the route a
+  // crawler is pointed at most often after the home page.
+  { entries: LEARN, priority: 0.9, changeFrequency: "weekly" },
   { entries: METHOD, priority: 0.9, changeFrequency: "monthly" },
   { entries: HUBS, priority: 0.85, changeFrequency: "weekly" },
   { entries: TOOLS, priority: 0.8, changeFrequency: "monthly" },

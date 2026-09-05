@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import type { Crumb } from "@/lib/breadcrumbs";
 import { isInternalHref } from "@/lib/site";
 
 /**
@@ -42,6 +44,12 @@ export type ArticleProps = {
   related?: readonly RelatedLink[];
   /** Heading for the related block. */
   relatedTitle?: string;
+  /**
+   * The visible breadcrumb trail, rendered between the header and the hero.
+   * Pass the same `Crumb[]` the page hands `breadcrumbList`, so the structured
+   * data never describes a hierarchy the page does not show.
+   */
+  crumbs?: readonly Crumb[];
   showPracticeCallToAction?: boolean;
 };
 
@@ -109,10 +117,13 @@ export default function Article({
   related,
   relatedTitle = "Where to go next",
   showPracticeCallToAction = true,
+  crumbs,
 }: ArticleProps) {
   return (
     <>
       <SiteNav />
+
+      {crumbs && crumbs.length > 0 ? <Breadcrumbs crumbs={crumbs} /> : null}
 
       <main>
         <article>

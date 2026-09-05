@@ -1,11 +1,42 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { curricula, availableLessons } from "@/lib/learning/curriculum";
+import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
+
+const CANONICAL = `${SITE_URL}/learn`;
+const TITLE = "Learn guitar and voice | GuitarHub";
+const DESCRIPTION =
+  "Follow GuitarHub’s guitar and voice learning paths. Start with free foundation lessons, build a practice habit, and save your progress in this browser.";
+
+/**
+ * The `openGraph` and `twitter` blocks are the point of this object, not
+ * decoration. Without them Next resolves the root layout's, so a share of this
+ * page previewed as the home page: same title, same description, same card.
+ *
+ * `images` is required alongside them. A page-level `openGraph` key replaces
+ * the layout's resolved object wholesale, taking the file-convention card with
+ * it, so a block without `images` ships no `og:image` at all. See OG_IMAGE in
+ * lib/site.ts.
+ */
 export const metadata: Metadata = {
-  title: "Learn guitar and voice | GuitarHub",
-  description: "Follow GuitarHub’s guitar and voice learning paths. Start with free foundation lessons, build a practice habit, and save your progress in this browser.",
-  alternates: { canonical: "/learn" },
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: CANONICAL },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: CANONICAL,
+    siteName: "GuitarHub",
+    type: "website",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
 };
 export default function LearnPage() {
   return <>
