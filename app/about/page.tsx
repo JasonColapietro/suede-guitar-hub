@@ -167,7 +167,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          <strong>Free tools</strong>, all of which run in your browser:
+          <strong>Free tools</strong>, each running in your browser:
         </p>
 
         <ul>
@@ -209,7 +209,7 @@ export default function AboutPage() {
           a 30-day challenge that ends in evidence, an intermediate weekly
           routine, how long to practice each day, a schedule that survives a
           real week, why speed has a ceiling, how to memorize a song, and how to
-          work with a metronome. They are linked from the footer of every page.
+          work with a metronome. They are linked from the site footer.
         </p>
 
         <p>
@@ -229,12 +229,11 @@ export default function AboutPage() {
             lesson videos here.
           </li>
           <li>
-            <strong>Not an app.</strong> There is nothing to download and nothing
-            to install.
+            <strong>Not an app.</strong> There is no download and no installer.
           </li>
           <li>
             <strong>Not an account system.</strong> There is no sign-up, no
-            login, and no password, because there are no accounts.
+            login, and no password. The site has no accounts.
           </li>
           <li>
             <strong>Not a streak tracker.</strong> A kept streak and a changed
@@ -257,8 +256,8 @@ export default function AboutPage() {
           <li>
             <strong>Not a replacement for a teacher.</strong> A good teacher can
             do the isolate stage for you in about a minute. The loop is a
-            structure for the other six days, and it makes a lesson worth more,
-            because you arrive with a recording and a specific question.
+            structure for the other six days, and it makes a lesson worth more.
+            You arrive with a recording and a specific question.
           </li>
           <li>
             <strong>Not a free trial.</strong> No payment is taken anywhere on
@@ -328,9 +327,9 @@ export default function AboutPage() {
 
         <p>
           The tools keep their state in your own browser, in local storage,
-          and nowhere else. Nothing you enter is sent to a server. Close the tab
-          and the work is still there next time; clear your browser data and it
-          is gone, and we cannot recover it, because we never had it.
+          and nowhere else. What you enter is not sent to a server. Close the
+          tab and the work is still there next time; clear your browser data and
+          it is gone. We cannot recover it, and we did not have it to begin with.
         </p>
 
         <p>

@@ -7,4 +7,4 @@
    worth being able to word differently per network. */
 export { default, size, contentType } from "./opengraph-image";
 
-export const alt = "GuitarHub — prove one guitar breakthrough in 30 days.";
+export const alt = "GuitarHub: prove one guitar breakthrough in 30 days.";

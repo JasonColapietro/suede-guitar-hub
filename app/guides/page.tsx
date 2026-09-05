@@ -90,7 +90,7 @@ const CLUSTERS: readonly Cluster[] = [
         spine of the site: one goal at a time, four stages, and an exit test for
         each stage so you can tell when it is finished instead of guessing. The
         rest of this group turns that into what you do with a single practice
-        hour. Read them in the order below — every other group assumes them.
+        hour. Read them in the order below. Every other group assumes them.
       </>
     ),
     hrefs: ["/method", "/how-to-practice-guitar-effectively"],
@@ -258,7 +258,7 @@ const LIBRARY_NOTES: readonly { title: string; body: string }[] = [
   },
   {
     title: "Leave with a sentence",
-    body: "The useful output of any page here is a named target with a location in it — the chorus-to-bridge change drops a beat. If you finish a guide and cannot write that sentence, it was the wrong guide for this month, not a failure of attention.",
+    body: "The useful output of any page here is a named target with a location in it: the chorus-to-bridge change drops a beat. If you finish a guide and cannot write that sentence, it was the wrong guide for this month, not a failure of attention.",
   },
   {
     title: "Then go and run it",
@@ -543,7 +543,7 @@ export default function GuidesPage() {
           <p className="mt-10 max-w-2xl text-lg leading-relaxed text-ink/70">
             GuitarHub orchestrates the practice; Strumly powers the tools and
             keeps its own library on technique, gear and repertoire. When a guide
-            here stops at the edge of its subject, it points there — the{" "}
+            here stops at the edge of its subject, it points there. The{" "}
             <a
               href={STRUMLY.guides}
               className="text-indigo-deep underline underline-offset-4 hover:text-violet"

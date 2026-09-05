@@ -20,12 +20,12 @@ const CRUMBS = crumbTrail("Tools", CANONICAL);
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "Free Guitar Practice Tools | GuitarHub";
-// 146 characters. No count of the tools, and no list of them, appears here, in
+// 143 characters. No count of the tools, and no list of them, appears here, in
 // the openGraph description, or anywhere in the body copy: this page is
 // generated from the registry, and a hard-typed "four" — or a hand-kept list of
 // five — becomes a lie the moment another entry is added to `TOOLS`.
 const DESCRIPTION =
-  "Every free guitar practice tool on GuitarHub in one place: what each one is for, who it helps, and why they all run in your browser with no account.";
+  "The free guitar practice tools on GuitarHub in one place: what each one is for, who it helps, and why they run in your browser with no account.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -161,24 +161,24 @@ const COMMON = [
   },
   {
     title: "No account",
-    body: "No sign-up, no login, no password, no email address. Not a guest mode either — there is no account system here to be a guest of.",
+    body: "No sign-up, no login, no password, no email address. Not a guest mode either. There is no account system here to be a guest of.",
   },
   {
     title: "Runs in your browser",
     body: "Every plan, diagnosis, ladder, score, and summary is computed by code already running on the page. Your answers are not sent somewhere to be processed and handed back.",
   },
   {
-    title: "Stores nothing on a server",
-    body: "Each tool keeps its state in your browser's local storage and nowhere else. Close the tab and the work is still there. Clear your browser data and it is gone, including for us, who never had it.",
+    title: "Stores no data on a server",
+    body: "Each tool keeps its state in your browser's local storage and nowhere else. Close the tab and the work is still there. Clear your browser data and it is gone, including for us, who did not have it to begin with.",
   },
 ];
 
 const LIMITS = [
   "No metronome, no tuner, and no audio of any kind. Use the ones you already practice with.",
   "Nothing is recorded, uploaded, or listened to. Every honest answer these tools depend on is one you supply.",
-  "State does not follow you between devices or browsers, because there is no account to carry it. A plan built on your laptop is not on your phone.",
+  "State does not follow you between devices or browsers. No account carries it. A plan built on your laptop is not on your phone.",
   "Clearing your browser data deletes what you entered, and it cannot be restored from here.",
-  "They need JavaScript. The results are computed on the page rather than fetched, so nothing computes without it.",
+  "They need JavaScript. The results are computed on the page rather than fetched, so the tools produce no results without it.",
   "They prescribe practice and cannot hear you play. A tool can tell you the next tempo. It cannot tell you your left hand is late because your right hand is early.",
 ];
 
@@ -192,11 +192,11 @@ const LIMITS = [
 const FAQS = [
   {
     q: "Are the tools actually free?",
-    a: "Yes, and there is nothing here to upgrade to. No payment is taken anywhere on this site and no card is collected. The tools are not a trial, a sample, or a gated preview of a larger version — what is on the page is the whole tool.",
+    a: "Yes, and there is no paid tier to upgrade to. No payment is taken anywhere on this site and no card is collected. The tools are not a trial, a sample, or a gated preview of a larger version. What is on the page is the whole tool.",
   },
   {
     q: "Do I need an account?",
-    a: "No. There is no sign-up, no login, and no password anywhere on GuitarHub, because there is no account system. Nothing asks for your email address except the founding-room application, which is a separate thing and is not required to use any tool.",
+    a: "No. There is no sign-up, no login, and no password anywhere on GuitarHub. The site has no account system. The founding-room application is the one place that asks for your email address, and it is a separate thing, not required to use any tool.",
   },
   {
     q: "Where does what I type go?",
@@ -208,7 +208,7 @@ const FAQS = [
   },
   {
     q: "Can I use them without JavaScript?",
-    a: "No. The plans, diagnoses, ladders, scores, and summaries are computed by code running in your browser rather than fetched from a server. That is the same design decision that keeps your answers off a server, and the cost of it is that nothing computes with JavaScript switched off.",
+    a: "No. The plans, diagnoses, ladders, scores, and summaries are computed by code running in your browser rather than fetched from a server. That is the same design decision that keeps your answers off a server, and the cost of it is that the tools produce no results with JavaScript switched off.",
   },
 ] as const;
 
@@ -272,7 +272,7 @@ const JSON_LD = {
           applicationSubCategory: "Guitar practice tool",
           operatingSystem: "Web",
           browserRequirements:
-            "Requires JavaScript. No account, and nothing is uploaded.",
+            "Requires JavaScript. No account, and no data is uploaded.",
           isAccessibleForFree: true,
           // Genuinely free: there is no payment step, no card, and no gate
           // anywhere in any of these tools.
@@ -378,10 +378,10 @@ export default function ToolsPage() {
               </em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              Every tool GuitarHub publishes, in one place: what each one is for,
+              The tools GuitarHub publishes, in one place: what each one is for,
               who it helps, and which part of the practice loop it belongs to.
-              None of them ask for an account, and nothing you type into them
-              leaves your browser.
+              None of them ask for an account, and what you type into them stays
+              in your browser.
             </p>
           </div>
         </section>
@@ -393,12 +393,12 @@ export default function ToolsPage() {
             </p>
             <h2 className="mt-4 max-w-3xl text-4xl leading-snug text-indigo-deep md:text-5xl">
               The same conditions,{" "}
-              <em className="font-display italic">on every one of them.</em>
+              <em className="font-display italic">on each one of them.</em>
             </h2>
             <p className="mt-6 max-w-2xl text-lg text-ink/70">
               These are not a funnel with the good part behind a form. They are
               small, finished tools, and the conditions below are the same for
-              all of them.
+              each of them.
             </p>
 
             <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-indigo-deep/10 md:grid-cols-2">
@@ -500,9 +500,10 @@ export default function ToolsPage() {
             What these tools do not do.
           </h2>
           <p className="mt-6 text-lg text-ink/70">
-            The limits are the other half of the privacy claim. Nothing above is
-            free because something else is being taken instead — it is free
-            because these tools are small and do less than a product would.
+            The limits are the other half of the privacy claim. The tools above
+            are not free in exchange for something taken from you. They are free
+            in the ordinary way: they are small, and they do less than a product
+            would.
           </p>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (
@@ -545,9 +546,9 @@ export default function ToolsPage() {
           </ul>
 
           <p className="mt-10 max-w-2xl text-ink/70">
-            The tools decide what to practice. For the material that does it —
-            the metronome work, the chord shapes, the coach — GuitarHub links
-            out to Strumly rather than building a second, worse copy:
+            The tools decide what to practice. For the material that does it (the
+            metronome work, the chord shapes, the coach), GuitarHub links out to
+            Strumly rather than building a second, worse copy:
           </p>
           <ul className="mt-5 flex flex-wrap gap-3">
             <li>
