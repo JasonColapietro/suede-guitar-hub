@@ -20,24 +20,24 @@ const TOOL_COUNT = (() => {
 // breakpoint this row is brand + links + apply pill inside 720px, and a fifth
 // label pushes the three groups into each other at exactly 768px.
 const NAV_LINKS = [
+  { href: "/learn", label: "Learn" },
   { href: "/method", label: "Method" },
   { href: "#tools", label: "Tools" },
   { href: "/guides", label: "Guides" },
-  { href: "#apply", label: "Founding room" },
 ] as const;
 
 const PILLARS = [
   {
-    title: "One finish line",
-    body: "Choose one change you can prove in 30 days. GuitarHub removes everything that does not move that specific performance.",
+    title: "Learn the movement",
+    body: "Start with your instrument in tune and your hands comfortable. Follow the written steps and diagrams, then check what you understand.",
   },
   {
-    title: "Evidence every week",
-    body: "A short recording, self-diagnosis, and visible practice action replace watch time, vague streaks, and hoping it sounds better.",
+    title: "Practice at your pace",
+    body: "Repeat a short section, slow the tempo, listen to a reference, and return to a shape that needs more time.",
   },
   {
-    title: "One next correction",
-    body: "The founding room is designed to return the highest-leverage correction and the exact Strumly routine to run next.",
+    title: "Come back to your place",
+    body: "Save your practice in this browser and continue from an available lesson. Your own reflections stay separate from reading checks and microphone results.",
   },
 ] as const;
 
@@ -120,7 +120,7 @@ const SONG_LESSONS = [
 const FAQS = [
   {
     q: "Who is GuitarHub for?",
-    a: "Advanced beginners, intermediates, and returning players who already have lessons but need one measurable goal, a sequence, and accountability.",
+    a: "New guitarists can begin with the free opening lessons. Returning players can revisit the foundations and use the practice tools. The wider curriculum is visible as a preview while web access is being connected.",
   },
   {
     q: "Can I use the planner without joining?",
@@ -131,8 +131,8 @@ const FAQS = [
     a: "No native GuitarHub forum is being claimed. Suede Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
   },
   {
-    q: "Does GuitarHub upload my recordings?",
-    a: "Not in this release. The public planner stores only your profile and checked actions in your browser. Any founding-room evidence workflow will be disclosed before you commit.",
+    q: "Does GuitarHub upload my playing?",
+    a: "Microphone exercises analyze audio on your device. Raw audio is not recorded or uploaded. Practice history stays in this browser; the application form sends the details you choose to submit by email.",
   },
 ] as const;
 
@@ -190,7 +190,7 @@ export default function Home() {
               </a>
             ))}
           </nav>
-          <ApplyButton compact />
+          <Link href="/learn/guitar" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-indigo-mid md:px-5">Start learning</Link>
         </div>
       </header>
 
@@ -210,52 +210,50 @@ export default function Home() {
             <div className="relative">
             <Reveal>
               <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-soft">
-                30-Day Breakthrough Room
+                Guitar lessons · practice · progress
               </span>
             </Reveal>
             <Reveal delay={1}>
               <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight text-cream md:text-6xl">
-                Stop collecting lessons.{" "}
-                <em className="font-display italic text-peach">Prove one change.</em>
+                Pick up your guitar.{" "}
+                <em className="font-display italic text-peach">Start with one note.</em>
               </h1>
             </Reveal>
             <Reveal delay={2}>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-                Choose one finish line. Practice the right thing. End every week with
-                evidence and one next move instead of another saved video.
+                Get comfortable, tune up, and learn your first sounds.
+                Follow the lesson, try it yourself, and come back where you left off.
               </p>
             </Reveal>
             <Reveal delay={3}>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a
-                  href="/breakthrough"
+                <Link
+                  href="/learn/guitar"
                   className="inline-flex items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
                 >
-                  Build my 30-day plan <span aria-hidden>→</span>
-                </a>
-                <ApplyButton variant="light" />
-                <span className="rounded-full bg-white/10 px-6 py-3.5 text-sm text-white/80">
-                  Built by Suede Labs · the team behind Strumly
-                </span>
+                  Start learning guitar <span aria-hidden>→</span>
+                </Link>
+                <Link href="/learn/voice" className="inline-flex min-h-11 items-center rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream hover:bg-white/5">Explore voice lessons</Link>
               </div>
+              <p className="mt-5 text-sm text-white/80">Three opening lessons free. No account needed. Later modules are currently web previews.</p>
             </Reveal>
             <Reveal delay={3}>
-              <a
-                href="/breakthrough"
+              <Link
+                href="/learn/guitar"
                 className="mx-auto mt-16 grid max-w-3xl gap-px overflow-hidden rounded-3xl bg-white/15 text-left ring-1 ring-white/20 sm:grid-cols-4"
               >
                 {[
-                  ["01", "Baseline"],
-                  ["02", "Repair"],
-                  ["03", "Pressure"],
-                  ["04", "Proof"],
+                  ["01", "Get comfortable"],
+                  ["02", "Tune up"],
+                  ["03", "Try one note"],
+                  ["04", "Repeat & review"],
                 ].map(([number, label]) => (
                   <span key={number} className="bg-indigo-deep/70 p-6">
                     <span className="text-xs font-semibold tracking-widest text-violet-soft">{number}</span>
                     <span className="mt-2 block font-display text-xl text-cream">{label}</span>
                   </span>
                 ))}
-              </a>
+              </Link>
             </Reveal>
             </div>
           </div>
@@ -265,15 +263,15 @@ export default function Home() {
         <section className="mx-auto max-w-4xl px-6 py-24 text-center">
           <Reveal>
             <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-              Most guitarists don&apos;t quit.{" "}
-              <em className="font-display italic">They plateau.</em>
+              A little practice.{" "}
+              <em className="font-display italic">A clearer next step.</em>
             </h2>
           </Reveal>
           <Reveal delay={1}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              Years of tabs, videos, and scattered lessons produce players who can
-              almost play a hundred things and fully play none. The missing piece is
-              a closed loop: diagnose, prescribe, practice, prove, correct, repeat.
+              Learn one action, give your hands time to find it, and return to it
+              tomorrow. The opening lessons guide your preparation before asking
+              you to play. You can pause, revisit, and practice without chasing a perfect score.
             </p>
           </Reveal>
           <div className="strings-divider mx-auto mt-16 h-10 max-w-xs" aria-hidden />
@@ -295,8 +293,8 @@ export default function Home() {
           <div className="mt-24">
             <Reveal>
               <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
-                One room. Four weeks.{" "}
-                <em className="font-display italic">Evidence at every turn.</em>
+                Want personal feedback?{" "}
+                <em className="font-display italic">Explore the founding room.</em>
               </h2>
             </Reveal>
             <ol className="mt-12 grid gap-6 md:grid-cols-2">

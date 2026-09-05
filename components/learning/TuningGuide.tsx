@@ -140,7 +140,7 @@ export function TuningGuide({ onReadyChange }: { onReadyChange: (ready: boolean)
   }
   return <section className={styles.panel} aria-labelledby="tuning-guide-title">
     <h2 id="tuning-guide-title">First, tune your guitar</h2>
-    <p>Use standard tuning: low E2, A2, D3, G3, B3, high E4. Check every string before the pitch exercise. This preparation is included in the free lesson.</p>
+      <p>Use standard tuning: low E2, A2, D3, G3, B3, high E4. Check every string before playing. This tuner is free to use.</p>
     <fieldset className={styles.assessment}><legend>Choose your tuner</legend>
       <label><input type="radio" name="tuning-route" checked={route === "microphone"} onChange={() => chooseRoute("microphone")} />Use this microphone tuner</label>
       <label><input type="radio" name="tuning-route" checked={route === "external"} onChange={() => chooseRoute("external")} />Use my own tuner</label>

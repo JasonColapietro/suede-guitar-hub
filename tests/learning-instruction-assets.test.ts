@@ -39,3 +39,17 @@ test("reference comparisons and rhythm diagrams preserve their authored teaching
   assert.equal(rhythm.kind, "rhythm");
   if (rhythm.kind === "rhythm") { assert.equal(rhythm.bpm, 60); assert.deepEqual(rhythm.meter, { numerator: 4, denominator: 4 }); assert.deepEqual(rhythm.eventBeats, [0, 1, 2, 3]); }
 });
+
+test("the sixteen-bar checkpoint references every-beat notation while the study keeps its first-beat guide", () => {
+  const checkpoint = getLessonInstructions("g-l2-m2-06")!;
+  assert.equal(checkpoint.assets.some(asset => asset.id === "stage2-four-beat-bar"), false);
+  const notation = checkpoint.assets.find(asset => asset.kind === "rhythm");
+  assert.ok(notation && notation.kind === "rhythm");
+  assert.deepEqual(notation.meter, { numerator: 4, denominator: 4 });
+  assert.deepEqual(notation.eventBeats, [0, 1, 2, 3]);
+
+  const study = getLessonInstructions("g-l2-m2-04")!;
+  const firstBeatGuide = study.assets.find(asset => asset.id === "stage2-four-beat-bar");
+  assert.ok(firstBeatGuide && firstBeatGuide.kind === "barGuide");
+  assert.deepEqual(firstBeatGuide.beats.map(beat => beat.action), ["Downstroke", "Let ring", "Let ring", "Let ring and prepare"]);
+});

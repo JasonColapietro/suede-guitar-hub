@@ -4,7 +4,7 @@ import Article from "@/components/Article";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/about`;
-const PUBLISHED = "2026-08-29";
+const PUBLISHED = "2026-09-04";
 
 const TITLE = "About GuitarHub: Who Built It and What It Actually Does";
 // Kept near 155 characters. The longer version ran to 189 and Google truncated
@@ -117,16 +117,16 @@ export default function AboutPage() {
         relatedTitle="Start with one of these"
       >
         <p>
-          GuitarHub is a guitar practice method and the free tools that run it.
-          It exists because of one gap: guitar education is very good at
-          supplying lessons and close to silent on how you would ever know
-          whether a lesson worked. You can spend a year on tabs, videos, and
-          courses, arrive at the end of it able to almost play a hundred things,
-          and have no way to tell which of those hours were the useful ones.
+          GuitarHub brings guitar and voice lessons, guided practice, and
+          progress together. Start with the free opening module on the{" "}
+          <Link href="/learn/guitar">guitar learning path</Link>, or explore the{" "}
+          <Link href="/learn/voice">voice path</Link>. The web keeps your place
+          in this browser. Later modules are currently previews while purchase
+          access is being connected.
         </p>
 
         <p>
-          Everything on this site follows from that. Choose one change you can
+          The site also has a four-week practice planner. Choose one change you can
           prove in thirty days. Record where you are before you start fixing it.
           Find the single thing that actually breaks the result and repair that
           one thing. Put the repair back under real pressure. Then record the
@@ -158,12 +158,18 @@ export default function AboutPage() {
         </p>
 
         <p>
-          That is also why this site is small. It has a short list of tools
-          instead of a library, because a library is the thing that caused the
-          problem.
+          The lesson paths and the practice tools serve different needs. A new
+          player can follow the opening instruction; a returning player can
+          use a planner or practice log alongside lessons they already follow.
         </p>
 
         <h2>What GuitarHub is</h2>
+
+        <p><strong>A learning app.</strong> The opening guitar lessons guide setup,
+          tuning preparation, and single-note practice. The wider curriculum
+          includes chord, reading, and rhythm work. Lesson previews identify what
+          is available. Listening demonstrations, self-reported practice, visual
+          reading results, and microphone scores are labeled separately.</p>
 
         <p>
           <strong>A method.</strong> One loop, run against one goal at a time,
@@ -340,8 +346,8 @@ export default function AboutPage() {
         </p>
 
         <p>
-          There are no accounts, so there is no profile to fill in, nothing to
-          sign in to, and nothing for us to lose. There is no analytics script
+          The current learning release has no account sign-in or cross-device
+          progress sync. There is no analytics script
           and no third-party tracker on this site, which you can confirm from
           the page source rather than take on trust. There is no uploaded audio
           and no recording feature. When the method tells you to record a
@@ -349,11 +355,11 @@ export default function AboutPage() {
         </p>
 
         <p>
-          The one exception is the application form, which is the only place on
-          the site that transmits anything. It sends exactly the four fields you
-          filled in, by email, to info@suedeai.ai. If any evidence workflow ever
-          becomes part of the founding room, it will be described in full before
-          anyone is asked to use it.
+          The application form sends the four fields you fill in through Resend
+          to info@suedeai.ai. The website host also processes ordinary connection
+          information to deliver and protect the site. The{" "}
+          <Link href="/privacy">Privacy Policy</Link> explains microphone use,
+          local records, purchases, hosting, and messages in more detail.
         </p>
 
         <h2>Corrections and contact</h2>

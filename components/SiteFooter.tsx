@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   GUIDES,
+  LEGAL,
   RESOURCES,
   STRUMLY,
   TOOLS,
@@ -28,6 +29,7 @@ import {
  */
 const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: "/about", label: "About GuitarHub" },
+  ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },
   { href: STRUMLY.path, label: "Strumly learning path" },
   { href: STRUMLY.rig, label: "Strumly rig board" },
@@ -94,8 +96,8 @@ export default function SiteFooter() {
                 and measures 3.34:1, under the 4.5:1 AA minimum for 14px text.
                 ink/60 measures 4.54:1. Same for the bottom row below. */}
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink/60">
-              GuitarHub orchestrates the practice. Strumly powers the tools.
-              Suede Social carries the wider conversation.
+              GuitarHub brings lessons and practice together. Explore more guitar
+              tools with Strumly and the wider conversation on Suede Social.
             </p>
           </div>
         </div>

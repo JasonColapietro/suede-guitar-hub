@@ -55,8 +55,8 @@ export const HOME: SiteEntry = {
   href: "/",
   title: "GuitarHub",
   blurb:
-    "Choose one guitar breakthrough, practice the thing that moves it, and end every week with evidence.",
-  lastModified: "2026-08-30",
+    "Start with free guitar lessons, tuning preparation, and guided practice, then continue from your saved place.",
+  lastModified: "2026-09-04",
 };
 
 /**
@@ -69,8 +69,13 @@ export const ABOUT: SiteEntry = {
   title: "About GuitarHub",
   blurb:
     "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
-  lastModified: "2026-08-29",
+  lastModified: "2026-09-04",
 };
+
+export const LEGAL: readonly SiteEntry[] = [
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-09-04" },
+  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-09-04" },
+];
 
 export const TOOLS: readonly SiteEntry[] = [
   {
@@ -278,6 +283,7 @@ export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
   ...GUIDES,
   ...RESOURCES,
   ABOUT,
+  ...LEGAL,
 ];
 
 /**

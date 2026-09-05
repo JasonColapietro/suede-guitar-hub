@@ -42,6 +42,7 @@ export type ArticleProps = {
   related?: readonly RelatedLink[];
   /** Heading for the related block. */
   relatedTitle?: string;
+  showPracticeCallToAction?: boolean;
 };
 
 const PROSE = [
@@ -107,6 +108,7 @@ export default function Article({
   children,
   related,
   relatedTitle = "Where to go next",
+  showPracticeCallToAction = true,
 }: ArticleProps) {
   return (
     <>
@@ -149,7 +151,7 @@ export default function Article({
           </section>
         ) : null}
 
-        <section className="px-3 pb-3">
+        {showPracticeCallToAction ? <section className="px-3 pb-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center md:py-24">
             <h2 className="mx-auto max-w-2xl text-4xl text-cream md:text-5xl">
               Put this to work{" "}
@@ -175,7 +177,7 @@ export default function Article({
               </Link>
             </div>
           </div>
-        </section>
+        </section> : null}
       </main>
 
       <SiteFooter />

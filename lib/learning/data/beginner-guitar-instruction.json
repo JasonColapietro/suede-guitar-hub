@@ -2777,7 +2777,7 @@
           "title": "Free the fretting hand",
           "action": "Bring your fretting hand around the neck with the thumb resting lightly behind it. Bend the fingertips toward the strings without squeezing. Relax and repeat.",
           "lookCheck": "You can move your fingers while the guitar remains supported; avoid forcing your wrist into a deep bend.",
-          "listenCheck": "This checks positioning, not pitch."
+          "listenCheck": "Keep your hand relaxed; no note is needed yet."
         },
         {
           "title": "Make a small pick stroke",
@@ -2822,8 +2822,8 @@
         ],
         "readyWhen": "You can repeat the setup and controlled stroke without forcing the position.",
         "ifNotReady": "Repeat only the support or pick step that needs attention; stop and adjust if the position hurts.",
-        "proves": "A learner-confirmed starting setup.",
-        "doesNotProve": "Tuning, tone quality, or a medically assessed playing posture."
+        "proves": "Your own check of the starting setup and a controlled pick stroke.",
+        "doesNotProve": "Tuning, tone quality, or comfort during longer playing sessions."
       },
       "demoAssetIds": [
         "support-and-pick"
@@ -2869,7 +2869,7 @@
         },
         {
           "observation": "The pitch display jumps or does not settle.",
-          "recovery": "Stop other sounds and reference playback, check tuning and input readiness, then pluck once. Do not assume the result diagnoses bad technique."
+          "recovery": "Stop other sounds and reference playback, check tuning and microphone access, then pluck once. Use your ears to check for extra ringing or buzz."
         }
       ],
       "practiceSegments": [
@@ -2898,8 +2898,8 @@
         ],
         "readyWhen": "You can complete the sequence at your own pace with deliberate string choices; replay any uncertain target.",
         "ifNotReady": "Return to tuning if the target pitch remains wrong; repeat just the confused string pair otherwise.",
-        "proves": "Pitch results, when available, apply only to the isolated notes measured in this attempt.",
-        "doesNotProve": "Steady tempo, fret accuracy, buzz detection, or chord quality."
+        "proves": "Any available pitch feedback for the single notes in this attempt.",
+        "doesNotProve": "Steady tempo, fretting accuracy, fret buzz, or chord quality."
       },
       "demoAssetIds": [
         "six-open-strings"
@@ -2923,7 +2923,7 @@
         {
           "title": "Prepare a quiet check",
           "action": "Check tuning and stop any reference tones. Keep the string-name diagram available for preparation, then hide it for your first pass.",
-          "lookCheck": "The microphone or manual-check mode is clearly identified.",
+          "lookCheck": "Check whether you are using microphone feedback or your own listening check.",
           "listenCheck": "Only the guitar should supply the attempted note."
         },
         {
@@ -2946,7 +2946,7 @@
         },
         {
           "observation": "No reliable microphone result is available.",
-          "recovery": "Use the clearly labeled manual listening check and record an unmeasured attempt; do not award an acoustic pass."
+          "recovery": "Use your own listening check and save what you noticed. A self-check does not give a microphone pitch score."
         }
       ],
       "practiceSegments": [
@@ -2974,8 +2974,8 @@
           "I know which string, if any, needs another check."
         ],
         "readyWhen": "You can find all six strings without guessing and can repeat an uncertain note deliberately.",
-        "ifNotReady": "Revisit the open-string exercise for the specific confusion; keep later reading lessons available.",
-        "proves": "A string-identification and isolated-note check, with measured pitch only where supported.",
+        "ifNotReady": "Revisit the open-string exercise for the strings you confused; you can continue practicing reading too.",
+        "proves": "Your string choices and listening check, plus any available pitch feedback.",
         "doesNotProve": "Clean fretted notes, chord competence, or rhythmic accuracy."
       },
       "demoAssetIds": [
@@ -3130,9 +3130,9 @@
           "I rechecked all six strings."
         ],
         "readyWhen": "All six strings have been checked against their correct targets using a working tuner.",
-        "ifNotReady": "Continue slowly, or use a trusted external tuner if the app cannot provide a reliable reading; record that route honestly.",
-        "proves": "A tuning check using the available tuner and learner observation.",
-        "doesNotProve": "A ninety-second skill, perfect intonation across the neck, or automatically verified tuning if no tuner reading exists."
+        "ifNotReady": "Continue slowly. If the app reading is unreliable, use a trusted external tuner and note which tuner you used.",
+        "proves": "Your check of all six strings with a tuner.",
+        "doesNotProve": "Tuning by ear, tuning quickly, or perfect intonation at every fret. A checklist alone does not measure pitch."
       },
       "demoAssetIds": [
         "six-open-strings",
@@ -3165,19 +3165,19 @@
           "title": "Check every string",
           "action": "For each string, identify its peg, pluck, read the target, adjust only if necessary, and repluck to confirm. A string already in tune still earns a checked row.",
           "lookCheck": "A stable correct target matters more than the elapsed time.",
-          "listenCheck": "Listen for one isolated note; a pitch match does not diagnose a rattle or buzz."
+          "listenCheck": "Listen for one isolated note. Check any rattle or buzz by ear as well as reading its pitch."
         },
         {
           "title": "Confirm after adjustments",
           "action": "Make a final six-string pass without skipping the strings you checked first. Save whether the check used app readings or your own external tuner.",
-          "lookCheck": "Every row reflects an actual check, not a timer finishing.",
+          "lookCheck": "Confirm each string after checking it with the tuner.",
           "listenCheck": "Compare any doubtful string again before moving to pitch practice."
         }
       ],
       "mistakeRecovery": [
         {
-          "observation": "You rush to meet the old ninety-second title.",
-          "recovery": "Ignore speed here. The checkpoint is complete only after the six targets and final recheck are addressed."
+          "observation": "You rush through the tuning check.",
+          "recovery": "Take the time you need to check all six targets and make the final pass."
         },
         {
           "observation": "A string drifts after another adjustment.",
@@ -3210,8 +3210,8 @@
         ],
         "readyWhen": "The guitar is checked and any unresolved tuning problem is identified before pitch exercises.",
         "ifNotReady": "Return to the target-practice steps or use an external tuner. Leave the tuning status incomplete if any string is unresolved.",
-        "proves": "A completed six-string check with its actual evidence source.",
-        "doesNotProve": "Independent ear tuning, a speed milestone, or measured completion from a manual confirmation alone."
+        "proves": "Your completed six-string check and the tuner you used.",
+        "doesNotProve": "Tuning by ear or at speed. Confirming a checklist alone does not measure pitch."
       },
       "demoAssetIds": [
         "six-open-strings",
@@ -3243,7 +3243,7 @@
           "title": "Read a chord box",
           "action": "Use the upright diagram: vertical lines are strings and horizontal divisions are frets. O means play open; X means leave that string silent. Finger numbers use 1 index, 2 middle, 3 ring, 4 little. Compare the labeled A and D examples before hiding either name.",
           "lookCheck": "A starts on string 5; D starts on string 4. Trace each marked dot to its string and fret.",
-          "listenCheck": "An optional reference demonstrates the written pitches, not whether your own chord is clean."
+          "listenCheck": "Use the optional reference to hear the written pitches. Check the sound of your own chord by ear."
         },
         {
           "title": "Read time separately",
@@ -3318,19 +3318,19 @@
           "title": "Study, then name",
           "action": "Review the labeled A and D diagrams once. Hide the title, choose A or D, then reveal the answer. Read the lowest sounding string and X/O marks aloud too.",
           "lookCheck": "Use the dot locations and starting string, not only color.",
-          "listenCheck": "No microphone is needed to score a diagram answer."
+          "listenCheck": "You can answer the diagram questions with the microphone off."
         },
         {
           "title": "Place D deliberately",
           "action": "Place index at string 3 fret 2, middle at string 1 fret 2, then ring at string 2 fret 3. Leave string 4 open and avoid 5 and 6. Release, then compare the two diagrams again.",
           "lookCheck": "Each fingertip approaches its own string; keep the ring finger from lying across the thin first string.",
-          "listenCheck": "If a picked string sounds dull, lift and reposition the finger touching it; take the result as your own listening check."
+          "listenCheck": "If a picked string sounds dull, lift and reposition the finger touching it, then listen again."
         },
         {
           "title": "Place A deliberately",
           "action": "With the A diagram visible, put index finger at string 3 fret 2, middle at string 4 fret 2, then ring at string 2 fret 2. Leave strings 5 and 1 open; avoid string 6. Place one finger at a time, then release.",
           "lookCheck": "Dots, finger numbers, and real string positions agree.",
-          "listenCheck": "If you choose to pick strings 5–1 individually, check their sound yourself; chord correctness is not automatically measured here."
+          "listenCheck": "If you choose to pick strings 5–1 individually, listen for each note to ring clearly."
         }
       ],
       "mistakeRecovery": [
@@ -3369,8 +3369,8 @@
         ],
         "readyWhen": "You identify both diagrams and can map the positions deliberately; fast changes and clean full chords are later practice goals.",
         "ifNotReady": "Return to the labeled diagrams and practice only the confused symbol or finger location.",
-        "proves": "Diagram recognition plus self-checked finger mapping.",
-        "doesNotProve": "Detected chord accuracy, fluent changes, or complete chord tone quality."
+        "proves": "Your diagram answers and your own check of finger positions.",
+        "doesNotProve": "An automatic chord check, fluent changes, or clear sound from every string."
       },
       "demoAssetIds": [
         "d-chord-reading",
@@ -3398,25 +3398,25 @@
           "title": "Answer before revealing",
           "action": "Read each prompt and choose your answer once before showing the explanation. Work without the legend for the first attempt, but take as much thinking time as you need.",
           "lookCheck": "The prompt clearly distinguishes tab, a chord diagram, or a rhythm bar.",
-          "listenCheck": "Audio is optional reference material; this assessment is visual reading."
+          "listenCheck": "You may use the reference audio while learning; the quiz checks your reading."
         },
         {
           "title": "Map one answer physically",
           "action": "For a string/fret prompt, point to that position on the guitar. For a beat prompt, count and tap. For a chord prompt, name the shape and its lowest sounding string without racing to fret it.",
           "lookCheck": "Your intended physical action matches the selected answer.",
-          "listenCheck": "Physical examples are self-checked; they do not change the visual quiz score."
+          "listenCheck": "Check the sound of your physical examples yourself. The quiz score comes from your answers."
         },
         {
           "title": "Review the misses",
           "action": "After all ten answers, revisit each missed category using the matching diagram. Try again as a new attempt; keep the first result visible separately.",
-          "lookCheck": "Show correct answers out of ten and the categories to revisit.",
-          "listenCheck": "No microphone-based musical judgment is implied by eight correct reading answers."
+          "lookCheck": "Read your correct answers out of ten and the categories to revisit.",
+          "listenCheck": "Eight correct answers show your reading progress; keep practicing the sounds and movements too."
         }
       ],
       "mistakeRecovery": [
         {
           "observation": "You keep choosing answers until one is accepted.",
-          "recovery": "Count only the first answer in the checkpoint score; use later choices as guided review."
+          "recovery": "Your first answer counts toward the score. Use the explanation to review, then try a new attempt."
         },
         {
           "observation": "A score below eight feels like a reason to repeat everything.",
@@ -3442,7 +3442,7 @@
         }
       ],
       "quiz": {
-        "scoring": "One point for each first-attempt correct answer; ten prompts, no time bonus. Eight correct is this catalog's reading checkpoint criterion, not a competitor-derived mastery threshold.",
+        "scoring": "Earn one point for each question answered correctly on the first try. There are ten questions and no time bonus. Eight correct answers meets this checkpoint.",
         "passingCorrectCount": 8,
         "items": [
           {
@@ -3624,7 +3624,7 @@
           "title": "Compare the shared position",
           "action": "Place D again and point to your index. Its string and fret also belong to this A shape. For now, read the two diagrams and say the starting string before each gentle strum.",
           "lookCheck": "Index is on string 3, fret 2 in both shapes; the other fingers occupy different places.",
-          "listenCheck": "Compare optional chord references with the microphone off. Their synthesized sound demonstrates pitches, not your own tone quality."
+          "listenCheck": "With the microphone off, compare the optional chord references. Listen for those pitches when you play your own strings."
         }
       ],
       "mistakeRecovery": [
@@ -3659,8 +3659,8 @@
         ],
         "readyWhen": "You can use the diagrams to build both shapes deliberately; fluent switching comes later.",
         "ifNotReady": "Return to one diagram and place only one finger at a time.",
-        "proves": "Your own confirmation that the diagrams and intended hand positions agree.",
-        "doesNotProve": "This does not prove automatic chord recognition, clean chord tone, healthy technique, or an independently measured song performance."
+        "proves": "Your own comparison of the chord diagrams with your finger positions.",
+        "doesNotProve": "Clean sound from every string or fluent chord changes."
       },
       "demoAssetIds": [
         "stage2-d-chord",
@@ -3687,7 +3687,7 @@
           "title": "Give D its three minutes",
           "action": "Start the D block after tuning. Place index, middle, then ring as shown. Strum strings 4–1 softly. Pick 4, 3, 2, 1 separately; if one is unclear, adjust the fingertip touching that string or its neighbor. Strum again.",
           "lookCheck": "Keep each finger near the fret within its own space. Check that the ring finger does not lie against string 1.",
-          "listenCheck": "Compare the unclear note before and after your adjustment yourself. A pitch match cannot diagnose a buzz."
+          "listenCheck": "Compare the unclear note before and after your adjustment. Listen for any remaining buzz."
         },
         {
           "title": "Use the same check on A",
@@ -3699,7 +3699,7 @@
           "title": "Repeat without racing",
           "action": "Release your fingers briefly between repetitions and rebuild in the same order. Pause the block whenever you need to reset. Stop at a useful observation even if the sound is still developing.",
           "lookCheck": "Your hand can release its pressure and return without a forced wrist position.",
-          "listenCheck": "Record one string that improved or still needs attention. The countdown does not decide whether the chord is clean."
+          "listenCheck": "Record one string that improved or still needs attention. Keep listening as you work through the practice block."
         }
       ],
       "mistakeRecovery": [
@@ -3726,12 +3726,12 @@
         "criteria": [
           "I used the complete check on D and A.",
           "I identified a particular unclear string or confirmed each intended string by ear.",
-          "I can name the adjustment I tried, without calling it an app diagnosis."
+          "I can name the adjustment I tried and describe what I heard."
         ],
         "readyWhen": "You understand the checking method and can use it on either shape; keep developing the sound as you continue.",
         "ifNotReady": "Repeat the affected chord's block with its diagram and one string at a time.",
-        "proves": "A manual account of careful chord practice and a specific listening check.",
-        "doesNotProve": "This does not prove automatic chord recognition, clean chord tone, healthy technique, or an independently measured song performance."
+        "proves": "Your chord practice and the specific sound you checked.",
+        "doesNotProve": "An automatic judgment of chord clarity or playing comfort."
       },
       "demoAssetIds": [
         "stage2-d-chord",
@@ -3759,20 +3759,20 @@
         {
           "title": "Try the shapes from memory",
           "action": "Tune first. Look away from the diagram and place D, then A, one at a time. Reveal the diagram after each attempt and compare the intended positions.",
-          "lookCheck": "Mark remembered shape separately from used diagram. Both are useful observations.",
+          "lookCheck": "Note which shape you remembered and when you needed the diagram.",
           "listenCheck": "There is no microphone score in this check."
         },
         {
           "title": "Check the actual strings",
           "action": "For D, strum then pick strings 4–1 individually. For A, use 5–1. Make a small correction if a note is unclear and strum again.",
           "lookCheck": "Check the low starting string before you sound each chord.",
-          "listenCheck": "Judge ringing and unwanted strings yourself. Record an uncertainty instead of claiming a clean result you did not hear."
+          "listenCheck": "Listen for clear notes and unwanted strings. Note any sound you are unsure about."
         },
         {
           "title": "Choose the next useful action",
           "action": "Record which shapes you recalled and one string to revisit. Continue to the silent anchor lesson when both shapes make sense; keep the accuracy exercise available.",
           "lookCheck": "The record distinguishes recall from sound quality.",
-          "listenCheck": "This checks chord preparation. It does not claim a forty-five-second song or a full-stage performance."
+          "listenCheck": "Keep working on chord sound as you move on to changes and the study."
         }
       ],
       "mistakeRecovery": [
@@ -3782,7 +3782,7 @@
         },
         {
           "observation": "You can place the shapes but one string stays unclear.",
-          "recovery": "Log that string and revisit its accuracy block. Do not turn the timer into a speed or tone-quality pass."
+          "recovery": "Log that string and revisit its accuracy block. Take time to listen after each adjustment."
         }
       ],
       "practiceSegments": [
@@ -3811,12 +3811,12 @@
         "criteria": [
           "I tried recalling both shapes before checking the diagram.",
           "I checked the intended strings of each shape.",
-          "I recorded any unresolved note or position honestly."
+          "I recorded any note or position that still needs attention."
         ],
         "readyWhen": "Both shapes are familiar enough to begin slow anchor movement; continue the accuracy work where needed.",
         "ifNotReady": "Use the D or A accuracy block again, with the specific issue you recorded.",
         "proves": "Your own shape-recall and individual-string check.",
-        "doesNotProve": "This does not prove automatic chord recognition, clean chord tone, healthy technique, or an independently measured song performance."
+        "doesNotProve": "Fast chord changes or playing a complete song."
       },
       "demoAssetIds": [
         "stage2-d-chord",
@@ -3844,19 +3844,19 @@
           "title": "Start with a light D shape",
           "action": "Place D without strumming. Rest the fingertips on the strings; you do not need full playing pressure for this silent exercise.",
           "lookCheck": "Index touches string 3 in fret 2, middle touches string 1 in fret 2, and ring touches string 2 in fret 3.",
-          "listenCheck": "Silence is intentional. Microphone permission and pitch feedback are unnecessary."
+          "listenCheck": "Keep the strings silent. You can leave the microphone off."
         },
         {
           "title": "Keep the index in contact",
           "action": "Lift middle and ring while leaving the index on string 3. Slide the index slightly back within fret 2 to make room. Put middle on string 4, fret 2 and ring on string 2, fret 2 to form A.",
           "lookCheck": "The index never changes string or fret; it may move a little within the same fret space.",
-          "listenCheck": "Do not strum to count a success. Look at the contact and placement."
+          "listenCheck": "Watch the contact and placement without strumming."
         },
         {
           "title": "Return to D slowly",
           "action": "Lift middle and ring again. Let the index move back toward its D position within fret 2, then place middle on 1/2 and ring on 2/3. Continue D–A–D for the two-minute practice block, pausing as needed.",
           "lookCheck": "The guitar stays supported while the other two fingers move independently of the index.",
-          "listenCheck": "This is silent coordination practice, not a chord-sound assessment."
+          "listenCheck": "Keep the movement quiet and check each finger position."
         }
       ],
       "mistakeRecovery": [
@@ -3891,8 +3891,8 @@
         ],
         "readyWhen": "You can repeat the slow movement and understand the shared contact point; speed develops in a separate exercise.",
         "ifNotReady": "Repeat only the lift-and-return part before attempting the full change.",
-        "proves": "A manual visual check of the anchor movement.",
-        "doesNotProve": "This does not measure chord sound, count changes automatically, or establish performance speed."
+        "proves": "Your visual check of the anchor movement.",
+        "doesNotProve": "Chord sound or change speed; those have their own exercises."
       },
       "demoAssetIds": [
         "stage2-d-chord",
@@ -3911,21 +3911,21 @@
       "sourceTitle": "The Sixty-Second Change",
       "type": "exercise",
       "suggestedSeconds": 300,
-      "objective": "Make and record two separate sixty-second A/D switching attempts, using a clear manual count.",
+      "objective": "Make and record two separate sixty-second A/D switching attempts, counting each completed move yourself.",
       "prerequisiteLessonIds": [
         "g-l2-m3-01"
       ],
       "steps": [
         {
           "title": "Set up one chord pair",
-          "action": "Tune first. Read the A and D diagrams and choose A as the starting shape. Form it before the timer begins; this setup shape is not a change. Keep the microphone off for this manual exercise.",
-          "lookCheck": "The display names starting chord A, duration 60 seconds, and Manual count.",
+          "action": "Tune first. Read the A and D diagrams and choose A as the starting shape. Form it before the timer begins; this setup shape is not a change. Keep the microphone off for this exercise.",
+          "lookCheck": "Check that A is selected as the starting chord and the timer is set for 60 seconds.",
           "listenCheck": "One light strum after arriving at the next basic shape is enough; this block works on switching, while the accuracy block works on clean sound."
         },
         {
           "title": "Alternate for sixty seconds",
           "action": "Start. Move A to D and count 1, then D to A and count 2. Continue alternating one completed move at a time. Do not add a count for a strum that repeats the same shape or an abandoned move. Stop counting when the full minute ends.",
-          "lookCheck": "Keep the basic finger positions recognizable. An imperfect sound is not automatically a failed switch, but merely lifting the hand is not a completed one.",
+          "lookCheck": "Count a move when the basic finger positions are formed. An imperfect sound can still count; lifting the hand without forming the next shape cannot.",
           "listenCheck": "Say your count or keep your own tally. GuitarHub does not listen and count these chord changes."
         },
         {
@@ -3938,23 +3938,23 @@
           "title": "Choose the difficult move",
           "action": "Review the two counts and return to a slow anchor movement if needed. Work toward 30 changes in a complete minute as an early guide; 60 is a longer-term goal. Do not rush the next attempt just to beat a number.",
           "lookCheck": "Compare counts only for complete one-minute attempts using the same counting rule.",
-          "listenCheck": "Return to the accuracy blocks for tone quality. A manual count does not claim that every chord rang cleanly."
+          "listenCheck": "Return to the accuracy blocks to work on chord sound separately from your change count."
         }
       ],
       "mistakeRecovery": [
         {
           "observation": "You counted the initial chord or both chords as one pair.",
-          "recovery": "Use the transition convention: starting A is zero, arriving at D is one, returning to A is two. Apply it consistently to every new attempt."
+          "recovery": "Starting A is zero, arriving at D is one, and returning to A is two. Use this counting rule for each new attempt."
         },
         {
           "observation": "The timer was paused, hidden, or interrupted.",
-          "recovery": "Keep actual practiced seconds and label the count partial. Do not normalize or extrapolate it to changes per minute; restart for a comparable full trial."
+          "recovery": "Save the time you practiced as a partial attempt. Start a fresh full minute before comparing change counts; do not turn a short attempt into an estimated one-minute count."
         }
       ],
       "practiceSegments": [
         {
           "seconds": 30,
-          "instruction": "Prepare A, review the manual-count convention, and reset to zero."
+          "instruction": "Prepare A, review how to count each completed move, and reset to zero."
         },
         {
           "seconds": 60,
@@ -3983,10 +3983,10 @@
           "I kept the two sixty-second attempts separate.",
           "I labeled interruptions or partial counts instead of treating them as a full-minute result."
         ],
-        "readyWhen": "You can run the exercise honestly. Around 30 changes in one complete minute supports early progress; continue toward 60 over time.",
+        "readyWhen": "You can count each completed move consistently for a full minute. Around 30 changes supports early progress; continue toward 60 over time.",
         "ifNotReady": "Use the silent anchor block and try a fresh minute later. Do not trade all shape accuracy or comfort for speed.",
-        "proves": "Your manually entered number of completed transitions during a known interval.",
-        "doesNotProve": "This is not an automatically detected chord count, a clean-chord score, or proof that the learner played a song."
+        "proves": "Your own count of completed changes during the recorded practice time.",
+        "doesNotProve": "A microphone chord count, clean chord sound, or playing a song."
       },
       "demoAssetIds": [
         "stage2-d-chord",
@@ -4006,7 +4006,7 @@
       "sourceTitle": "Checkpoint: Twenty Clean Changes",
       "type": "checkpoint",
       "suggestedSeconds": 300,
-      "objective": "Record a fresh, complete one-minute switching attempt and assess readiness without inventing a microphone count.",
+      "objective": "Record a fresh, complete one-minute switching attempt and review your count and chord shapes.",
       "prerequisiteLessonIds": [
         "g-l2-m3-02"
       ],
@@ -4014,20 +4014,20 @@
         {
           "title": "Recall and prepare",
           "action": "Recall A and D before using the diagram. Choose the starting chord and form it before starting the timer. Reset the count to zero.",
-          "lookCheck": "The result form clearly says Manual count and shows the chosen starting chord.",
+          "lookCheck": "Check your chosen starting chord before beginning your manual count.",
           "listenCheck": "No microphone is needed."
         },
         {
           "title": "Make a fresh one-minute attempt",
           "action": "Alternate between A and D for 60 active uninterrupted seconds. Count each completed move once. At the end enter the count you observed and whether the basic shapes stayed recognizable.",
-          "lookCheck": "A pause, background event, or interruption makes this a partial attempt, which can be retained separately.",
-          "listenCheck": "Sound-quality judgments remain your own. This test does not require an automated clean-chord verdict."
+          "lookCheck": "Pausing, leaving the app or tab, or another interruption makes this a partial attempt. Save it separately and begin a fresh minute when ready.",
+          "listenCheck": "Listen to your own chord sound. This exercise counts completed changes rather than grading tone."
         },
         {
           "title": "Review, then optionally repeat",
-          "action": "Record the first attempt before another. If you choose a second trial, start from the other chord after resting and keep its result separate. Use 30 changes in a full minute as the early guide, not the old twenty-clean-changes claim.",
-          "lookCheck": "A visible date, duration, starting chord, count, and completion state identify each attempt.",
-          "listenCheck": "Try the original study after the counting and beat-one lessons. The count alone does not complete the whole stage."
+          "action": "Record the first attempt before another. If you choose a second trial, start from the other chord after resting and keep its result separate. Use 30 changes in a full minute as the early guide.",
+          "lookCheck": "Check the date, duration, starting chord, count, and whether you finished the full minute.",
+          "listenCheck": "Try the original study after the counting and beat-one lessons, and keep developing the sound of each chord."
         }
       ],
       "mistakeRecovery": [
@@ -4037,7 +4037,7 @@
         },
         {
           "observation": "The number is below 30.",
-          "recovery": "Mark it for review, slow the anchor movement, and practice again. The checkpoint can record useful work without labeling it a pass or mastery."
+          "recovery": "Save the count, slow down the anchor movement, and practice again. Use what you noticed to choose the next thing to work on."
         }
       ],
       "practiceSegments": [
@@ -4072,10 +4072,10 @@
           "My entered count uses the stated transition rule.",
           "I recorded remembered shapes and basic position accuracy separately from the number."
         ],
-        "readyWhen": "Remembered A/D shapes plus at least 30 manually counted transitions in a complete minute meet the early change-speed guide. Attempt the study as the separate musical-application step.",
-        "ifNotReady": "Record the attempt for review and repeat the relevant accuracy or anchor block. A lower count need not lock all learning.",
-        "proves": "A self-reported full-minute transition count with explicit readiness criteria.",
-        "doesNotProve": "This does not prove automated chord counting, a full clean-tone score, or song competence; 60 changes per minute is a later goal."
+        "readyWhen": "Recall the A/D shapes and complete at least 30 changes in one full minute, counting each move yourself. Then try the study to use the changes in music.",
+        "ifNotReady": "Save the attempt for review and repeat the accuracy or anchor block that needs attention. You can keep learning while building your count.",
+        "proves": "Your own full-minute count and check of the remembered shapes.",
+        "doesNotProve": "An automatic chord count, clear tone throughout, or playing a song. Sixty changes per minute is a later goal."
       },
       "demoAssetIds": [
         "stage2-d-chord",
@@ -4102,20 +4102,20 @@
         {
           "title": "Find one complete bar",
           "action": "Use the four-beat display at 60 BPM. Count 1, 2, 3, 4 aloud while tapping your knee. The next 1 begins a new bar; each number is one quarter-note beat.",
-          "lookCheck": "Four beat cells make one bar. The count-in has its own row and is not bar 1.",
+          "lookCheck": "Four numbered beats make one bar. Count the separate lead-in before starting bar 1.",
           "listenCheck": "Use an optional quiet click while learning, or follow the visual pulse."
         },
         {
           "title": "Sound only the first beat",
           "action": "Hold D. On 1, make one downstroke across strings 4–1. Let it ring through 2, 3, 4 while continuing to count. Repeat without adding a second strike on the same 1.",
-          "lookCheck": "A single slash appears on beat 1; ties or hold marks show the note continuing through the remaining beats.",
+          "lookCheck": "Read Downstroke on beat 1, then let the chord ring through beats 2, 3, and 4.",
           "listenCheck": "Listen for one attack per bar, with time to prepare the next downstroke."
         },
         {
           "title": "Prepare the next chord",
           "action": "Look at a D bar followed by an A bar. During the end of the D bar, prepare the change so the A downstroke belongs to the next 1. Slow down or rehearse the change separately if needed.",
           "lookCheck": "The chord name tells what to hold; its bar and beat tell when to sound it.",
-          "listenCheck": "Keep counting evenly. This lesson introduces the pulse; it is not a scored timing attempt."
+          "listenCheck": "Keep counting evenly as you change. This is unscored practice."
         }
       ],
       "mistakeRecovery": [
@@ -4154,8 +4154,8 @@
         ],
         "readyWhen": "You can follow the displayed bars at a manageable tempo and try the study's first phrase.",
         "ifNotReady": "Return to count-and-tap practice, then add only one chord before changes.",
-        "proves": "A manual understanding of bar/beat structure and first-beat strumming.",
-        "doesNotProve": "This does not certify attack timing, chord identity, or the whole study."
+        "proves": "Your own check of counting four beats and strumming on beat 1.",
+        "doesNotProve": "A timing score, correct chord sound, or playing the complete study."
       },
       "demoAssetIds": [
         "stage2-four-beat-bar",
@@ -4184,8 +4184,8 @@
         {
           "title": "Read the complete study",
           "action": "Tune first. The study has 16 bars in 4/4 at a suggested 60 BPM. Its four-bar phrases are D D A A | D A D D | A A D D | A A D D. A separate four-beat count-in comes first. Begin with one downstroke on beat 1 of every bar.",
-          "lookCheck": "All 16 numbered bars and their four beats are available. The label says Original study; this is not a commercial song recording.",
-          "listenCheck": "Hear the optional synthesized demo first with capture off, then stop it before your own attempt."
+          "lookCheck": "Follow the 16 numbered bars and their chord names. First Light is an original study.",
+          "listenCheck": "Listen to the optional synthesized demo with the microphone off, then stop it before your own attempt."
         },
         {
           "title": "Rehearse one phrase",
@@ -4196,14 +4196,14 @@
         {
           "title": "Play from bar 1 to bar 16",
           "action": "Turn looping off. After the count-in, follow the full score and play through bar 16. Let the final D ring through that bar's fourth beat. At 60 BPM the music lasts 64 seconds; including the count-in it lasts 68 seconds.",
-          "lookCheck": "Bar 16 must finish before the end screen. The suggested practice block may contain several takes; it is not the study's playback length.",
-          "listenCheck": "If you lose your place, keep the attempt as a learning observation, identify the bar, and practice that phrase before a fresh full take."
+          "lookCheck": "Keep going until bar 16 ends. You can use the suggested practice block for several takes and rests.",
+          "listenCheck": "If you lose your place, note the bar and practice that phrase before a fresh full take."
         },
         {
           "title": "Record the musical attempt",
           "action": "Mark whether you attempted all 16 bars, where you hesitated, and whether you used the guide or an external familiar-song lesson. When one stroke per bar feels comfortable, the optional four-downstrokes version uses one attack on each beat with the same chord sequence.",
           "lookCheck": "The optional version contains 64 downstrokes; the starting version contains 16. Both still contain 16 bars.",
-          "listenCheck": "Your completion is self-reported. Neither version proves automatic chord recognition or clean tone."
+          "listenCheck": "Record what you played and heard yourself. The app does not check chord identity or clean tone in either version."
         }
       ],
       "mistakeRecovery": [
@@ -4240,14 +4240,14 @@
       ],
       "selfAssessment": {
         "criteria": [
-          "I know that the piece is an original study and selected its strum pattern.",
+          "I know this is an original study and chose which strum pattern to practice.",
           "I attempted all 16 bars at my chosen tempo or recorded exactly where I stopped.",
-          "I distinguished my own chord and continuity observations from an automatic score."
+          "I recorded my own observations about chord sound and staying with the beat."
         ],
-        "readyWhen": "You have tried the complete musical application, can follow its chord plan, and can name a useful review point; perfection is not required before further learning.",
+        "readyWhen": "Try the complete study, follow its chord plan, and choose a useful point to review. Keep learning while you improve.",
         "ifNotReady": "Loop the uncertain phrase and keep the previous attempt visible. Use a slower tempo or one downstroke per bar.",
-        "proves": "A manual record of practicing or attempting a complete original study.",
-        "doesNotProve": "This does not establish familiar-song repertoire, app-verified chord correctness, or a scored sixteen-bar timing performance."
+        "proves": "Your record of practicing or attempting the complete original study.",
+        "doesNotProve": "Playing a familiar song, automatically checked chords, or a scored sixteen-bar timing check."
       },
       "demoAssetIds": [
         "stage2-first-light-study",
@@ -4270,7 +4270,7 @@
       "sourceTitle": "Checkpoint: Sixteen Bars at Eighty",
       "type": "checkpoint",
       "suggestedSeconds": 300,
-      "objective": "Play sixty-four quarter-note down-strums across sixteen bars and interpret the timing-only result accurately.",
+      "objective": "Play sixty-four quarter-note downstrums across sixteen bars and review how closely you followed the beat.",
       "prerequisiteLessonIds": [
         "g-l2-m2-01",
         "g-l2-m2-04"
@@ -4278,41 +4278,41 @@
       "steps": [
         {
           "title": "Prepare the complete timing check",
-          "action": "Use the guitar as prepared and select a comfortable single chord or lightly muted strings. The full checkpoint is 16 bars of 4/4 at 80 BPM, with one downstroke on every beat. Rehearse more slowly first if needed. Stop speaker references and backing sounds before scored capture.",
-          "lookCheck": "The screen shows 16 bars, four beats each, 64 targets, and Attack timing only.",
-          "listenCheck": "The detector hears audio attacks; it cannot tell whether you chose A, D, or a correct chord."
+          "action": "Choose a comfortable single chord or lightly muted strings. The full checkpoint is 16 bars of 4/4 at 80 BPM, with one downstroke on every beat. Rehearse more slowly first if needed. Stop reference sounds and backing audio before the microphone check.",
+          "lookCheck": "Count four beats in each of sixteen bars: 64 downstrokes altogether.",
+          "listenCheck": "The microphone checks when you strum. It cannot identify A, D, or whether a chord is correct."
         },
         {
           "title": "Follow all sixteen bars",
           "action": "After a separate four-beat visual count-in, play beats 1–4 of each numbered bar from 1 through 16. Keep following the visual pulse until bar 16, beat 4 has sounded and the final bar ends.",
-          "lookCheck": "Target beat offsets are 0 through 63. At 80 BPM, each bar lasts 3 seconds; the music lasts 48 seconds plus a 3-second count-in.",
-          "listenCheck": "If counting aloud helps, do that in unscored practice. During microphone timing capture, spoken attacks may interfere, so follow the visual beat labels."
+          "lookCheck": "Follow beats 1–4 through all sixteen bars. At 80 BPM, each bar lasts 3 seconds; the music lasts 48 seconds plus a 3-second count-in.",
+          "listenCheck": "Count aloud in unscored practice if it helps. During the microphone check, follow the visual beats quietly so your voice is not mistaken for a strum."
         },
         {
           "title": "Interpret score and tempo separately",
-          "action": "The existing GuitarHub scoring model uses a local threshold of 75 for timing credit. To mark this named checkpoint checked at 80 BPM, the actual attempt must be at 80 BPM or faster and meet that threshold. A slower successful rehearsal remains a result at its real tempo.",
-          "lookCheck": "Show the actual BPM, observed matched attacks out of 64, and weighted timing score separately. A score of 75 does not mean 75 percent of chords are correct.",
-          "listenCheck": "If the signal is insufficient, record no measured pass and offer another attempt. The engine does not verify chord identity or tone."
+          "action": "Play through all 16 bars at 80 BPM or faster and earn a timing score of at least 75 to complete this checkpoint. Keep slower attempts as practice at the tempo you played.",
+          "lookCheck": "Read your BPM, matched strums out of 64, and timing score. A score of 75 describes timing; it is not a percentage of correct chords.",
+          "listenCheck": "If there is no reliable score, check the microphone and quiet the room, then try again. Check chord sound separately by ear."
         },
         {
-          "title": "Keep the evidence distinct",
-          "action": "This checkpoint contains 64 attacks over 16 bars. The study's starting version contains 16 attacks over the same number of bars because it strikes only on each 1. Keep the study reflection, manual change count, and this timing result as separate records.",
-          "lookCheck": "The final checkpoint target is bar 16, beat 4. Do not finish after the first 16 attacks; that reaches only bar 4.",
+          "title": "Compare the two strumming patterns",
+          "action": "This checkpoint has 64 strums over 16 bars. The study starts with 16 strums over the same number of bars because you play only on each 1. Keep your study notes, change counts, and timing results separate.",
+          "lookCheck": "The last downstroke is bar 16, beat 4. Keep going after the first 16 strums; those complete only four bars.",
           "listenCheck": "Review uncertain timing separately from chord sound, then make a fresh complete sixteen-bar attempt."
         }
       ],
       "mistakeRecovery": [
         {
           "observation": "You stop after sixteen downstrokes.",
-          "recovery": "That completes four bars at one stroke per beat. Follow bar numbers 1–16 and reach the full 64 targets."
+          "recovery": "That completes four bars at one stroke per beat. Follow bars 1–16 and play all 64 beats."
         },
         {
           "observation": "The result includes sounds you did not intend as strums.",
-          "recovery": "Stop speaker backing/reference sounds, use the quiet input setup, and make a fresh attempt. This attack detector can also respond to other percussive sounds."
+          "recovery": "Stop reference and backing sounds, quiet the room, and try again. Other sharp sounds can be mistaken for strums."
         },
         {
-          "observation": "A slower take passed its timing threshold.",
-          "recovery": "Keep the result labeled at its actual BPM. Increase speed in practice when ready; do not label it an80-BPM checkpoint result before reaching that tempo."
+          "observation": "You earned a timing score of at least 75 at a slower tempo.",
+          "recovery": "Keep that result at the tempo you played. Increase the speed when ready; this checkpoint needs an 80-BPM or faster attempt."
         }
       ],
       "practiceSegments": [
@@ -4334,23 +4334,23 @@
         },
         {
           "seconds": 60,
-          "instruction": "Read the result source, actual tempo, and limits; choose what to revisit."
+          "instruction": "Review the tempo, timing score, and what you heard; choose what to revisit."
         }
       ],
       "selfAssessment": {
         "criteria": [
-          "I distinguish sixteen bars from sixteen beats and completed the intended 64-target form.",
-          "I read actual tempo, matched attacks, and timing score as different quantities.",
-          "I kept this result separate from chord identity, the original-study reflection, and manual change counts."
+          "I played through sixteen bars with one downstroke on each of the 64 beats.",
+          "I checked my tempo, matched strums, and timing score.",
+          "I kept my timing result separate from chord checks, study notes, and change counts."
         ],
-        "readyWhen": "A scored complete 64-target attempt at 80 BPM or faster that meets the current GuitarHub timing-score threshold of 75 can check this rhythm goal. This is a local product criterion, not a competitor's published tolerance.",
-        "ifNotReady": "Rehearse a shorter section or use a slower selected tempo, then start a fresh full sixteen-bar attempt. If capture is unreliable, retain manual practice without inventing a measured pass.",
-        "proves": "When supported by actual input, this supplies attack-timing evidence over sixteen bars at the recorded tempo.",
-        "doesNotProve": "This does not prove automatic chord identity, clean tone, perfect continuity, or 90-percent chord accuracy. The scoring formula supplies weighted timing credit."
+        "readyWhen": "Play through all sixteen bars, with 64 downstrokes, at 80 BPM or faster and earn a timing score of at least 75.",
+        "ifNotReady": "Rehearse a shorter section or choose a slower tempo, then try a fresh full sixteen-bar run. If the microphone reading is unreliable, save your own practice notes and try the scored check later.",
+        "proves": "Any available timing score for this sixteen-bar attempt, at the tempo played.",
+        "doesNotProve": "Chord identity, clean tone, or a flawless performance. The score measures how closely your strums follow the beat."
       },
       "demoAssetIds": [
         "stage2-sixteen-bar-timing-check",
-        "stage2-four-beat-bar"
+        "four-beat-reading"
       ],
       "referenceIds": [
         "stage2-yousician-modes"
