@@ -45,10 +45,10 @@ export default function SiteNav() {
         </nav>
 
         <Link
-          href="/#apply"
+          href="/learn/guitar"
           className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-indigo-mid md:px-5"
         >
-          Apply to the room
+          Start learning
         </Link>
       </div>
     </header>

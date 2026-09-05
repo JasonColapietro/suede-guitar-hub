@@ -1,0 +1,54 @@
+.routine { max-width: 1040px; margin: 0 auto; padding: 2rem 0 4rem; color: #292330; }
+.routine h1,.routine h2,.routine h3 { color: #261d2f; }
+.routine h1 { font-size: clamp(2.7rem,6vw,4.8rem); line-height: 1.07; max-width: 800px; letter-spacing: -.04em; margin: .8rem 0 1.3rem; }
+.routine h2 { font-size: clamp(1.4rem,3vw,2rem); margin: 0; }
+.routine h3 { font-size: 1.2rem; }
+.routine p { line-height: 1.65; }
+.routine a { color: #633390; text-underline-offset: 4px; }
+.routine button,.routine input { font: inherit; }
+.routine button { cursor: pointer; }
+.routine button:disabled { opacity: .5; cursor: not-allowed; }
+.routine :is(button,a,input,summary):focus-visible { outline: 3px solid #793bc0; outline-offset: 4px; }
+.breadcrumbs,.small,.source { font-size: .9rem; }
+.hero { margin: 3.2rem 0 2rem; }
+.hero > p:last-child { font-size: 1.2rem; max-width: 760px; }
+.eyebrow { text-transform: uppercase; font-size: .76rem; letter-spacing: .12em; color: #725d7d; font-weight: 650; }
+.note { padding: 1rem 1.2rem; background: #efe9f3; border-radius: 12px; }
+.preparation { border-block: 1px solid #d9cfdc; margin: 2rem 0; padding: 1.4rem 0; }
+.preparation > summary { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; align-items: center; justify-content: space-between; cursor: pointer; min-height: 48px; }
+.preparation > summary::after { content: '+'; font-size: 1.6rem; }
+.preparation[open] > summary::after { content: '−'; }
+.prepList { list-style: none; padding: 0; }
+.prepList li { padding: 1.15rem 0; border-bottom: 1px solid #e3dae6; }
+.links { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; margin: .9rem 0; font-size: .92rem; }
+.links a { padding: .3rem 0; }
+.check { display: flex; align-items: flex-start; gap: .7rem; min-height: 48px; padding-top: .8rem; line-height: 1.6; }
+.check input { margin-top: .3rem; width: 21px; height: 21px; flex-shrink: 0; accent-color: #6d28a9; }
+.sectionHeading { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+.plan { list-style: none; padding: 0; margin: 1.5rem 0; }
+.plan li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid #ded4e2; padding: .8rem; }
+.plan li:last-child { border-bottom: 1px solid #ded4e2; }
+.plan li[data-current='true'] { background: #eee6f4; border-radius: 8px; }
+.plan li > div { display: flex; align-items: center; gap: .8rem; }
+.number { color: #786781; width: 1.3rem; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.blockLink { text-align: left; color: inherit; background: none; border: 0; text-decoration: underline; text-underline-offset: 4px; min-height: 48px; padding: 0; font-weight: 600 !important; }
+.plan label { display: flex; gap: .4rem; align-items: center; flex-shrink: 0; font-size: .88rem; }
+.plan input,.count input { min-height: 48px; border: 1px solid #b4a4bd; border-radius: 8px; padding: .5rem; width: 5.8rem; background: #fffdfa; color: #292330; }
+.actions { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; margin: 1rem 0; }
+.primary,.secondary { border-radius: 999px; min-height: 48px; padding: .7rem 1.25rem; border: 1px solid #704390; }
+.primary { color: #fff; background: #643189; }
+.secondary { color: #633390; background: transparent; }
+.practice { border: 1px solid #d3c3dc; border-radius: 22px; background: #faf6f0; padding: clamp(1.2rem,4vw,2.5rem); margin: 2.5rem 0; }
+.diagrams { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.diagrams > figure { width: min(100%, 280px); margin: 1rem 0; }
+.timer { font-size: clamp(4rem,14vw,7rem); text-align: center; font-variant-numeric: tabular-nums; letter-spacing: -.04em; line-height: 1.2; margin-top: 1.5rem; }
+.timeCaption { text-align: center; color: #705b7a; margin-top: .3rem; }
+.review { padding-block: 1.2rem; border-block: 1px solid #d9cddd; margin: 1.5rem 0; }
+.count { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin: 1rem 0; }
+.status { min-height: 1.7rem; }
+.history { border-bottom: 1px solid #d9cddd; padding: 1rem 0; }
+.history summary { min-height: 48px; cursor: pointer; padding: .7rem 0; }
+.history li { margin: .7rem 0; line-height: 1.65; }
+.source { margin-top: 2.5rem; color: #75657d; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media(max-width: 540px) { .plan li { padding: .6rem .2rem; gap: .5rem; } .plan input { width: 4.4rem; } .number { display: none; } .plan li > div { gap: .2rem; } .actions > button { flex-grow: 1; } .hero { margin-top: 2rem; } }

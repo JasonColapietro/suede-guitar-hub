@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
-  title: "GuitarHub — Prove One Guitar Breakthrough in 30 Days",
+  title: "GuitarHub — Learn Guitar, One Step at a Time",
   description:
-    "Build a four-week guitar practice plan, launch the right Strumly tools, track weekly evidence in your browser, and apply to the GuitarHub founding room.",
+    "Start with free guitar lessons, tuning preparation, and guided practice. Save progress in your browser and explore guitar and voice learning paths.",
   openGraph: {
-    title: "GuitarHub — Prove One Guitar Breakthrough in 30 Days",
+    title: "GuitarHub — Learn Guitar, One Step at a Time",
     description:
-      "One finish line, four weeks of focused practice, and evidence instead of lesson collecting.",
+      "Get comfortable, tune up, and practice your first sounds. Three opening lessons free, with progress saved in your browser.",
     url: "https://guitarhub.org",
     siteName: "GuitarHub",
     type: "website",
@@ -66,7 +66,7 @@ const JSON_LD = {
       url: "https://guitarhub.org",
       name: "GuitarHub",
       description:
-        "A four-week guitar practice plan with weekly evidence, built on Strumly tools.",
+        "Guitar and voice learning paths, guided practice, and browser tools from Suede Labs.",
       inLanguage: "en-US",
       publisher: { "@id": SUEDE_ORG_ID },
       author: { "@id": JASON_PERSON_ID },

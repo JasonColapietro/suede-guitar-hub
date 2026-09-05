@@ -25,7 +25,7 @@
 .secondary { border: 1px solid var(--line); background: transparent; color: #251152; }
 .primary:hover { filter: brightness(1.09); }
 .secondary:hover { background: #efe9df; }
-.notice { padding: 1rem 1.2rem; border-left: 3px solid #a78bfa; background: #eee7f7; line-height: 1.65; margin: 1.5rem 0; color: #493761; }
+.notice { padding: 1rem 1.2rem; border: 1px solid #d9cfdc; border-radius: 12px; background: #eee7f7; line-height: 1.65; margin: 1.5rem 0; color: #493761; }
 .notice a { text-decoration: underline; text-underline-offset: 3px; }
 .small { font-size: .85rem; line-height: 1.6; color: inherit; }
 .muted { color: var(--muted); }

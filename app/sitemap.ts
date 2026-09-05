@@ -4,6 +4,7 @@ import {
   GUIDES,
   HOME,
   HUBS,
+  LEGAL,
   RESOURCES,
   SITE_URL,
   TOOLS,
@@ -43,6 +44,7 @@ const GROUPS: readonly Group[] = [
   { entries: RESOURCES, priority: 0.75, changeFrequency: "monthly" },
   { entries: OTHER_GUIDES, priority: 0.7, changeFrequency: "monthly" },
   { entries: [ABOUT], priority: 0.5, changeFrequency: "yearly" },
+  { entries: LEGAL, priority: 0.3, changeFrequency: "yearly" },
 ];
 
 /** `SITE_URL` carries no trailing slash, so the home entry is the bare origin. */
