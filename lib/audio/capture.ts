@@ -74,7 +74,7 @@ export async function startCapture(onSamples: (samples: Float32Array, time: numb
     }
 }
 export async function playReference(frequency: number, externalSignal: AbortSignal) {
-    if (externalSignal.aborted) return;
+    if (externalSignal.aborted) return false;
     const controller = new AbortController(), signal = controller.signal;
     const cancel = () => controller.abort();
     externalSignal.addEventListener('abort', cancel, { once: true });
@@ -87,7 +87,7 @@ export async function playReference(frequency: number, externalSignal: AbortSign
     try {
         await context.resume();
         if (signal.aborted)
-            return;
+            return false;
         oscillator.frequency.value = frequency;
         oscillator.type = 'sine';
         oscillator.connect(gain);
@@ -110,6 +110,7 @@ export async function playReference(frequency: number, externalSignal: AbortSign
                 const timer = setTimeout(() => { signal.removeEventListener('abort', cancelled); resolve(); }, 1000);
                 signal.addEventListener('abort', cancelled, { once: true });
             });
+        return !signal.aborted;
     }
     finally {
         signal.removeEventListener('abort', stop);

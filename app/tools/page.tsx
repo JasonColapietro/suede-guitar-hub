@@ -69,6 +69,10 @@ type ToolDetail = {
 };
 
 const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
+  "/practice": {
+    purpose: "Check the pitch and octave of one open guitar string at a time, hear synthesized standard tuning references, and use a four-beat metronome at your chosen tempo. The microphone stays off until you start the tuner.",
+    audience: "Players tuning up before a lesson or practicing chord changes, scales, and short passages with a steady click.",
+  },
   "/breakthrough": {
     purpose:
       "You choose one finish line, say where you are as a player, and say how many days a week and how many minutes a session you actually have. It returns four weeks, each with a focus, the actions that serve it, and the recording that ends the week.",
@@ -117,6 +121,11 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
  */
 const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
   {
+    href: "/practice",
+    sentence: "I have my guitar ready and need to tune up or set a steady tempo.",
+    stage: "During practice. Open the tuner and metronome without starting a lesson.",
+  },
+  {
     href: "/diagnose",
     sentence:
       "I practice most days and cannot say what stopped producing change.",
@@ -157,29 +166,29 @@ const ROUTING_ROWS = ROUTING.flatMap((row) => {
 const COMMON = [
   {
     title: "Free, with nothing behind it",
-    body: "No payment step, no card, no trial, and no locked second half. Nothing on this site takes money, so there is no version of these tools you are being shown the outline of.",
+    body: "These practice tools are free. They have no payment step, trial, or locked second half.",
   },
   {
     title: "No account",
-    body: "No sign-up, no login, no password, no email address. Not a guest mode either. There is no account system here to be a guest of.",
+    body: "Open any tool and use it without signing in or entering an email address.",
   },
   {
     title: "Runs in your browser",
-    body: "Every plan, diagnosis, ladder, score, and summary is computed by code already running on the page. Your answers are not sent somewhere to be processed and handed back.",
+    body: "Plans, diagnoses, ladders, and summaries are computed on the page. The tuner processes microphone sound on your device; it does not upload audio.",
   },
   {
     title: "Stores no data on a server",
-    body: "Each tool keeps its state in your browser's local storage and nowhere else. Close the tab and the work is still there. Clear your browser data and it is gone, including for us, who did not have it to begin with.",
+    body: "Plans and logs stay in this browser's local storage. Tuner readings and metronome playback are temporary and stop when you leave. These standalone tools do not upload practice history.",
   },
 ];
 
 const LIMITS = [
-  "No metronome, no tuner, and no audio of any kind. Use the ones you already practice with.",
-  "Nothing is recorded, uploaded, or listened to. Every honest answer these tools depend on is one you supply.",
+  "The tuner listens only after you start it and allow microphone access. It detects one note at a time; it does not verify complete chords or award a lesson score.",
+  "The metronome and synthesized reference tones do not need microphone permission. Starting another audio tool stops the current one, and hiding or leaving the page stops playback and listening.",
   "State does not follow you between devices or browsers. No account carries it. A plan built on your laptop is not on your phone.",
   "Clearing your browser data deletes what you entered, and it cannot be restored from here.",
   "They need JavaScript. The results are computed on the page rather than fetched, so the tools produce no results without it.",
-  "They prescribe practice and cannot hear you play. A tool can tell you the next tempo. It cannot tell you your left hand is late because your right hand is early.",
+  "Planning tools depend on your own answers. The tuner reports pitch; it cannot assess your posture, complete chord fingering, or overall playing technique.",
 ];
 
 /**
@@ -192,19 +201,19 @@ const LIMITS = [
 const FAQS = [
   {
     q: "Are the tools actually free?",
-    a: "Yes, and there is no paid tier to upgrade to. No payment is taken anywhere on this site and no card is collected. The tools are not a trial, a sample, or a gated preview of a larger version. What is on the page is the whole tool.",
+    a: "Yes. The standalone practice tools are free to use, with no trial, card, or paid upgrade required.",
   },
   {
     q: "Do I need an account?",
-    a: "No. There is no sign-up, no login, and no password anywhere on GuitarHub. The site has no account system. The founding-room application is the one place that asks for your email address, and it is a separate thing, not required to use any tool.",
+    a: "No. These tools work without signing in. Learning accounts, where available, are separate and are not required for the tuner, metronome, or planning tools.",
   },
   {
     q: "Where does what I type go?",
-    a: "Into your own browser's local storage, under a key belonging to that tool, and nowhere else. Nothing you enter is transmitted. There is also no analytics script and no third-party tracker on this site, which you can confirm from the page source rather than take on trust.",
+    a: "Plans and logs stay in this browser's local storage. Tuner readings are temporary; microphone samples are processed on your device and are not uploaded or saved. The standalone tools do not send your practice entries to a server.",
   },
   {
     q: "Which tool should I open first?",
-    a: "If you cannot name what stopped working, start with the practice plateau diagnostic. If you know the goal but need a month, use the 30-day planner; if you know today's target and time, build the session. Log what happened afterwards so the next diagnosis starts from evidence.",
+    a: "Use the tuner and metronome when your guitar is in hand. If you cannot name what stopped working, start with the practice plateau diagnostic. If you know the goal but need a month, use the 30-day planner; if you know today's target and time, build the session. Log what happened afterwards.",
   },
   {
     q: "Can I use them without JavaScript?",
@@ -546,9 +555,9 @@ export default function ToolsPage() {
           </ul>
 
           <p className="mt-10 max-w-2xl text-ink/70">
-            The tools decide what to practice. For the material that does it (the
-            metronome work, the chord shapes, the coach), GuitarHub links out to
-            Strumly rather than building a second, worse copy:
+            Use GuitarHub’s lessons, tuner, and metronome alongside your practice
+            plan. These related Strumly guides offer more help with routines and
+            chord transitions:
           </p>
           <ul className="mt-5 flex flex-wrap gap-3">
             <li>

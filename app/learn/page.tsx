@@ -52,6 +52,7 @@ export default function LearnPage() {
         <Link className={styles.primary} href={`/learn/${track}`}>Explore {track}</Link>
       </section>)}
     </div>
+    <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Start an A/D practice routine</Link></div>
     <div className={styles.notice}>Start without an account. The first module of each track is free; other modules are curriculum previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
     <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>Written lessons and curriculum outlines give each session a focus. Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
   </>;

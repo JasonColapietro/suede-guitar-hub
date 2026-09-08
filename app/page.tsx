@@ -21,6 +21,7 @@ const TOOL_COUNT = (() => {
 // label pushes the three groups into each other at exactly 768px.
 const NAV_LINKS = [
   { href: "/learn", label: "Learn" },
+  { href: "/practice", label: "Practice" },
   { href: "/method", label: "Method" },
   { href: "#tools", label: "Tools" },
   { href: "/guides", label: "Guides" },

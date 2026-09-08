@@ -1,0 +1,1153 @@
+{
+  "beatFixtures" : [
+    {
+      "beat" : 0,
+      "nextBeat" : 1
+    },
+    {
+      "beat" : 1,
+      "nextBeat" : 2
+    },
+    {
+      "beat" : 2,
+      "nextBeat" : 3
+    },
+    {
+      "beat" : 3,
+      "nextBeat" : 0
+    },
+    {
+      "beat" : 4,
+      "nextBeat" : 1
+    },
+    {
+      "beat" : 5,
+      "nextBeat" : 2
+    },
+    {
+      "beat" : 6,
+      "nextBeat" : 3
+    },
+    {
+      "beat" : 7,
+      "nextBeat" : 0
+    }
+  ],
+  "clickFixtures" : [
+    {
+      "accent" : false,
+      "frame" : 0,
+      "sample" : 0,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : false,
+      "frame" : 1,
+      "sample" : 0.099836461246013641,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : false,
+      "frame" : 10,
+      "sample" : 0.74478191137313843,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : false,
+      "frame" : 100,
+      "sample" : -0.018585359677672386,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : false,
+      "frame" : 1000,
+      "sample" : -0.029218152165412903,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : false,
+      "frame" : 1543,
+      "sample" : 0,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : false,
+      "frame" : 1544,
+      "sample" : 0,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 0,
+      "sample" : 0,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 1,
+      "sample" : 0.14904072880744934,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 10,
+      "sample" : 0.74718171358108521,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 100,
+      "sample" : -0.046430390328168869,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 1000,
+      "sample" : -0.067937701940536499,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 1543,
+      "sample" : 0,
+      "sampleRate" : 44100
+    },
+    {
+      "accent" : true,
+      "frame" : 1544,
+      "sample" : 0,
+      "sampleRate" : 44100
+    }
+  ],
+  "knownDivergences" : [
+
+  ],
+  "metronome" : {
+    "accentFrequencyHz" : 1318,
+    "amplitude" : 0.80000000000000004,
+    "beatsPerBar" : 4,
+    "buttonStepBPM" : 5,
+    "clickSeconds" : 0.035000000000000003,
+    "defaultBPM" : 90,
+    "envelopeDecay" : 90,
+    "maximumBPM" : 208,
+    "minimumBPM" : 40,
+    "sliderStepBPM" : 1,
+    "tickFrequencyHz" : 880
+  },
+  "note" : "Generated controls, click synthesis and tuner configuration. Regenerate with CONTRACT_WRITE=1 swift test --package-path GuitarHubCore --filter PracticeToolsContractTests.",
+  "reference" : "Native MetronomeConfiguration.standard and GuitarTuning runtime models",
+  "tempoFixtures" : [
+    {
+      "bpm" : 20,
+      "clampedBPM" : 40,
+      "intervalSeconds" : 1.5
+    },
+    {
+      "bpm" : 40,
+      "clampedBPM" : 40,
+      "intervalSeconds" : 1.5
+    },
+    {
+      "bpm" : 41,
+      "clampedBPM" : 41,
+      "intervalSeconds" : 1.4634146341463414
+    },
+    {
+      "bpm" : 85,
+      "clampedBPM" : 85,
+      "intervalSeconds" : 0.70588235294117652
+    },
+    {
+      "bpm" : 90,
+      "clampedBPM" : 90,
+      "intervalSeconds" : 0.66666666666666663
+    },
+    {
+      "bpm" : 110,
+      "clampedBPM" : 110,
+      "intervalSeconds" : 0.54545454545454541
+    },
+    {
+      "bpm" : 203,
+      "clampedBPM" : 203,
+      "intervalSeconds" : 0.29556650246305421
+    },
+    {
+      "bpm" : 208,
+      "clampedBPM" : 208,
+      "intervalSeconds" : 0.28846153846153844
+    },
+    {
+      "bpm" : 240,
+      "clampedBPM" : 208,
+      "intervalSeconds" : 0.28846153846153844
+    }
+  ],
+  "tuning" : {
+    "maximumFrequencyHz" : 1000,
+    "maximumReadingAgeSeconds" : 0.45000000000000001,
+    "minimumClarity" : 0.84999999999999998,
+    "minimumFrequencyHz" : 55,
+    "targets" : [
+      {
+        "frequencyHz" : 82.406889228217494,
+        "midi" : 40,
+        "note" : "E2",
+        "string" : 6
+      },
+      {
+        "frequencyHz" : 110,
+        "midi" : 45,
+        "note" : "A2",
+        "string" : 5
+      },
+      {
+        "frequencyHz" : 146.83238395870379,
+        "midi" : 50,
+        "note" : "D3",
+        "string" : 4
+      },
+      {
+        "frequencyHz" : 195.99771799087463,
+        "midi" : 55,
+        "note" : "G3",
+        "string" : 3
+      },
+      {
+        "frequencyHz" : 246.94165062806206,
+        "midi" : 59,
+        "note" : "B3",
+        "string" : 2
+      },
+      {
+        "frequencyHz" : 329.62755691286992,
+        "midi" : 64,
+        "note" : "E4",
+        "string" : 1
+      }
+    ],
+    "toleranceCents" : 5
+  },
+  "tuningFixtures" : [
+    {
+      "capturedAt" : 10,
+      "case" : "target",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 40
+      },
+      "frequency" : 82.406889228217494,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "below tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -4.9999999999998179,
+        "direction" : "nearTarget",
+        "midi" : 40
+      },
+      "frequency" : 82.169232154820904,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "above tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.0000000000000959,
+        "direction" : "nearTarget",
+        "midi" : 40
+      },
+      "frequency" : 82.645233674284555,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "raise pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0999999999999606,
+        "direction" : "raisePitch",
+        "midi" : 40
+      },
+      "frequency" : 82.164486010929821,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "lower pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.1000000000000796,
+        "direction" : "lowerPitch",
+        "midi" : 40
+      },
+      "frequency" : 82.650007588051594,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong note",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 100.00000000000007,
+        "direction" : "checkStringAndOctave",
+        "midi" : 41
+      },
+      "frequency" : 87.307057858250985,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong octave",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 1200,
+        "direction" : "checkStringAndOctave",
+        "midi" : 52
+      },
+      "frequency" : 164.81377845643499,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "clarity boundary",
+      "clarity" : 0.84999999999999998,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 40
+      },
+      "frequency" : 82.406889228217494,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "insufficient clarity",
+      "clarity" : 0.84899999999999998,
+      "expected" : null,
+      "frequency" : 82.406889228217494,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "invalid clarity",
+      "clarity" : 1.01,
+      "expected" : null,
+      "frequency" : 82.406889228217494,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "age boundary",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 40
+      },
+      "frequency" : 82.406889228217494,
+      "now" : 0.45000000000000001,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "stale",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 82.406889228217494,
+      "now" : 0.45100000000000001,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 11,
+      "case" : "future",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 82.406889228217494,
+      "now" : 10,
+      "targetString" : 6
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "target",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 45
+      },
+      "frequency" : 110,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "below tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0000000000000107,
+        "direction" : "nearTarget",
+        "midi" : 45
+      },
+      "frequency" : 109.68276586680481,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "above tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.0000000000000959,
+        "direction" : "nearTarget",
+        "midi" : 45
+      },
+      "frequency" : 110.31815166563038,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "raise pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0999999999999606,
+        "direction" : "raisePitch",
+        "midi" : 45
+      },
+      "frequency" : 109.67643052478537,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "lower pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.1000000000000796,
+        "direction" : "lowerPitch",
+        "midi" : 45
+      },
+      "frequency" : 110.324524075987,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong note",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 100.00000000000007,
+        "direction" : "checkStringAndOctave",
+        "midi" : 46
+      },
+      "frequency" : 116.54094037952248,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong octave",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 1200,
+        "direction" : "checkStringAndOctave",
+        "midi" : 57
+      },
+      "frequency" : 220,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "clarity boundary",
+      "clarity" : 0.84999999999999998,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 45
+      },
+      "frequency" : 110,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "insufficient clarity",
+      "clarity" : 0.84899999999999998,
+      "expected" : null,
+      "frequency" : 110,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "invalid clarity",
+      "clarity" : 1.01,
+      "expected" : null,
+      "frequency" : 110,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "age boundary",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 45
+      },
+      "frequency" : 110,
+      "now" : 0.45000000000000001,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "stale",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 110,
+      "now" : 0.45100000000000001,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 11,
+      "case" : "future",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 110,
+      "now" : 10,
+      "targetString" : 5
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "target",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 50
+      },
+      "frequency" : 146.83238395870379,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "below tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -4.9999999999998179,
+        "direction" : "nearTarget",
+        "midi" : 50
+      },
+      "frequency" : 146.40892719461178,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "above tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.0000000000000959,
+        "direction" : "nearTarget",
+        "midi" : 50
+      },
+      "frequency" : 147.2570654816578,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "raise pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0999999999999606,
+        "direction" : "raisePitch",
+        "midi" : 50
+      },
+      "frequency" : 146.40047052759442,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "lower pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.1000000000000796,
+        "direction" : "lowerPitch",
+        "midi" : 50
+      },
+      "frequency" : 147.26557162896896,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong note",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 100.00000000000007,
+        "direction" : "checkStringAndOctave",
+        "midi" : 51
+      },
+      "frequency" : 155.56349186104046,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong octave",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 1200,
+        "direction" : "checkStringAndOctave",
+        "midi" : 62
+      },
+      "frequency" : 293.66476791740757,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "clarity boundary",
+      "clarity" : 0.84999999999999998,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 50
+      },
+      "frequency" : 146.83238395870379,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "insufficient clarity",
+      "clarity" : 0.84899999999999998,
+      "expected" : null,
+      "frequency" : 146.83238395870379,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "invalid clarity",
+      "clarity" : 1.01,
+      "expected" : null,
+      "frequency" : 146.83238395870379,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "age boundary",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 50
+      },
+      "frequency" : 146.83238395870379,
+      "now" : 0.45000000000000001,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "stale",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 146.83238395870379,
+      "now" : 0.45100000000000001,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 11,
+      "case" : "future",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 146.83238395870379,
+      "now" : 10,
+      "targetString" : 4
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "target",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 55
+      },
+      "frequency" : 195.99771799087463,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "below tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0000000000000107,
+        "direction" : "nearTarget",
+        "midi" : 55
+      },
+      "frequency" : 195.43247102564672,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "above tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.0000000000000959,
+        "direction" : "nearTarget",
+        "midi" : 55
+      },
+      "frequency" : 196.56459981304329,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "raise pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0999999999999606,
+        "direction" : "raisePitch",
+        "midi" : 55
+      },
+      "frequency" : 195.42118272947855,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "lower pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.1000000000000796,
+        "direction" : "lowerPitch",
+        "midi" : 55
+      },
+      "frequency" : 196.57595415747963,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong note",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 100.00000000000007,
+        "direction" : "checkStringAndOctave",
+        "midi" : 56
+      },
+      "frequency" : 207.65234878997256,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong octave",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 1200,
+        "direction" : "checkStringAndOctave",
+        "midi" : 67
+      },
+      "frequency" : 391.99543598174927,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "clarity boundary",
+      "clarity" : 0.84999999999999998,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 55
+      },
+      "frequency" : 195.99771799087463,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "insufficient clarity",
+      "clarity" : 0.84899999999999998,
+      "expected" : null,
+      "frequency" : 195.99771799087463,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "invalid clarity",
+      "clarity" : 1.01,
+      "expected" : null,
+      "frequency" : 195.99771799087463,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "age boundary",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 55
+      },
+      "frequency" : 195.99771799087463,
+      "now" : 0.45000000000000001,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "stale",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 195.99771799087463,
+      "now" : 0.45100000000000001,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 11,
+      "case" : "future",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 195.99771799087463,
+      "now" : 10,
+      "targetString" : 3
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "target",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 59
+      },
+      "frequency" : 246.94165062806206,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "below tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0000000000000107,
+        "direction" : "nearTarget",
+        "midi" : 59
+      },
+      "frequency" : 246.22948407818222,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "above tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.0000000000000959,
+        "direction" : "nearTarget",
+        "midi" : 59
+      },
+      "frequency" : 247.6558769686151,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "raise pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0999999999999606,
+        "direction" : "raisePitch",
+        "midi" : 59
+      },
+      "frequency" : 246.21526171622247,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "lower pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.1000000000000796,
+        "direction" : "lowerPitch",
+        "midi" : 59
+      },
+      "frequency" : 247.67018254617824,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong note",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 100.00000000000007,
+        "direction" : "checkStringAndOctave",
+        "midi" : 60
+      },
+      "frequency" : 261.62556530059868,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong octave",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 1200,
+        "direction" : "checkStringAndOctave",
+        "midi" : 71
+      },
+      "frequency" : 493.88330125612413,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "clarity boundary",
+      "clarity" : 0.84999999999999998,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 59
+      },
+      "frequency" : 246.94165062806206,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "insufficient clarity",
+      "clarity" : 0.84899999999999998,
+      "expected" : null,
+      "frequency" : 246.94165062806206,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "invalid clarity",
+      "clarity" : 1.01,
+      "expected" : null,
+      "frequency" : 246.94165062806206,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "age boundary",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 59
+      },
+      "frequency" : 246.94165062806206,
+      "now" : 0.45000000000000001,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "stale",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 246.94165062806206,
+      "now" : 0.45100000000000001,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 11,
+      "case" : "future",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 246.94165062806206,
+      "now" : 10,
+      "targetString" : 2
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "target",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 64
+      },
+      "frequency" : 329.62755691286992,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "below tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -4.9999999999998179,
+        "direction" : "nearTarget",
+        "midi" : 64
+      },
+      "frequency" : 328.67692861928356,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "above tolerance",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.0000000000000959,
+        "direction" : "nearTarget",
+        "midi" : 64
+      },
+      "frequency" : 330.58093469713816,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "raise pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : -5.0999999999999606,
+        "direction" : "raisePitch",
+        "midi" : 64
+      },
+      "frequency" : 328.65794404371923,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "lower pitch",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 5.1000000000000796,
+        "direction" : "lowerPitch",
+        "midi" : 64
+      },
+      "frequency" : 330.60003035220632,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong note",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 100.00000000000007,
+        "direction" : "checkStringAndOctave",
+        "midi" : 65
+      },
+      "frequency" : 349.22823143300388,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "wrong octave",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 1200,
+        "direction" : "checkStringAndOctave",
+        "midi" : 76
+      },
+      "frequency" : 659.25511382573984,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "clarity boundary",
+      "clarity" : 0.84999999999999998,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 64
+      },
+      "frequency" : 329.62755691286992,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "insufficient clarity",
+      "clarity" : 0.84899999999999998,
+      "expected" : null,
+      "frequency" : 329.62755691286992,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 10,
+      "case" : "invalid clarity",
+      "clarity" : 1.01,
+      "expected" : null,
+      "frequency" : 329.62755691286992,
+      "now" : 10,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "age boundary",
+      "clarity" : 0.94999999999999996,
+      "expected" : {
+        "centsFromTarget" : 0,
+        "direction" : "nearTarget",
+        "midi" : 64
+      },
+      "frequency" : 329.62755691286992,
+      "now" : 0.45000000000000001,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 0,
+      "case" : "stale",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 329.62755691286992,
+      "now" : 0.45100000000000001,
+      "targetString" : 1
+    },
+    {
+      "capturedAt" : 11,
+      "case" : "future",
+      "clarity" : 0.94999999999999996,
+      "expected" : null,
+      "frequency" : 329.62755691286992,
+      "now" : 10,
+      "targetString" : 1
+    }
+  ],
+  "version" : 1
+}
