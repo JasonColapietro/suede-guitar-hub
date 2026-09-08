@@ -1,0 +1,23 @@
+.tools { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: start; gap: clamp(1.25rem,3vw,2rem); }
+.metronome { border: 1px solid var(--line); border-radius: 1.5rem; background: #fffaf2; padding: clamp(1.25rem,3vw,2rem); color: #251152; }
+.eyebrow { color: #76614b; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: .75rem; }
+.metronome h2 { font: 550 1.7rem/1.25 var(--font-display); margin-bottom: 1rem; }
+.metronome p { line-height: 1.7; }
+.beats { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0 1.5rem; }
+.beats span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: #e8e0d5; border: 2px solid transparent; border-radius: 50%; color: #493e36; font-weight: 650; }
+.beats span[data-active=true] { background: #9cdbd2; border-color: #325d58; color: #233e3b; }
+.beats span[data-active=true][data-accent=true] { background: #ecb665; border-color: #80500e; color: #422a0c; }
+.tempo { text-align: center; font-variant-numeric: tabular-nums; margin-bottom: 1.5rem; }
+.tempo strong { display: block; font: 550 clamp(3rem,7vw,4.5rem)/1.15 var(--font-display); }
+.tempo span { font-size: .8rem; color: #675951; }
+.tempoControls { display: grid; grid-template-columns: 44px minmax(0,1fr) 44px; align-items: end; gap: .75rem; }
+.tempoControls button { width: 44px; height: 44px; font-size: 1.5rem; border: 1px solid #d7c5b0; background: #f0e4d4; border-radius: 50%; }
+.slider { display: grid; gap: .3rem; text-align: center; font-size: .85rem; font-weight: 650; }
+.slider input { width: 100%; min-width: 0; height: 44px; accent-color: #a96b16; cursor: pointer; }
+.caption { color: #675951; font-size: .8rem; margin: .8rem 0 1.5rem; text-align: center; }
+.start { min-height: 48px; width: 100%; padding: .8rem 1.4rem; border-radius: 999px; background: #251152; color: #f7f3ee; font-weight: 650; }
+.start:hover { background: #423063; }
+.status { min-height: 3.5rem; margin-top: 1rem; font-size: .85rem; color: #675951; }
+.tuner { min-width: 0; scroll-margin-top: 150px; }
+.links { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0; }
+@media(max-width: 850px) { .tools { grid-template-columns: 1fr; } }

@@ -13,6 +13,7 @@ import Link from "next/link";
 
 const NAV_LINKS = [
   { href: "/learn", label: "Learn" },
+  { href: "/practice", label: "Practice" },
   { href: "/method", label: "Method" },
   { href: "/tools", label: "Tools" },
   { href: "/guides", label: "Guides" },

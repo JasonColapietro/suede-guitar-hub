@@ -30,8 +30,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: [...SECURITY_HEADERS] },
-      // Only the learning app can request microphone access, with user consent.
+      // Learning exercises and the standalone tuner can request consented microphone access.
       { source: "/learn/:path*", headers: [
+        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
+      ] },
+      { source: "/practice", headers: [
         { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
       ] },
     ];

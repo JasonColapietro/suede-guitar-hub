@@ -1,7 +1,8 @@
 /** Monophonic YIN (de Cheveigné & Kawahara), same band and threshold as iOS.
  * These are GuitarHub parameters, not undocumented competitor tolerances. */
-export function estimatePitch(samples: Float32Array, sampleRate: number) {
-    const min = 60, max = 1400, threshold = .15;
+export function estimatePitch(samples: Float32Array, sampleRate: number, band?: { minimumFrequency: number; maximumFrequency: number }) {
+    const min = band?.minimumFrequency ?? 60, max = band?.maximumFrequency ?? 1400, threshold = .15;
+    if (!Number.isFinite(min) || !Number.isFinite(max) || min <= 0 || max <= min) return null;
     if (!Number.isFinite(sampleRate) || sampleRate <= 0 || samples.some(x => !Number.isFinite(x)))
         return null;
     const maxLag = Math.floor(sampleRate / min), minLag = Math.max(2, Math.floor(sampleRate / max));
