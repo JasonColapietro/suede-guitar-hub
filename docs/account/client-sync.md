@@ -6,6 +6,8 @@ The client uses the shared transport adapters in `lib/learning-auth/sync.ts`. Ev
 
 Only newly saved attempts after explicit opt-in enqueue. Reading attempts and manual counts started before opt-in remain local. A reading update is a new immutable event containing its original attempt ID and first-answer snapshot. With sync enabled, an insufficient-signal finish is recorded without a grade; scored results sync when the learner saves them. Microphone results preserve scored versus insufficient-signal disposition, observed seconds, actual BPM, revision, and target evidence. Manual counts and chord studies remain self reports. Routine timers remain local because the current shared attempt contract has no routine identity or completion type.
 
+Routine history and preparation confirmations use the existing guest key when signed out and an account-specific key when signed in. Signing in never adopts earlier browser history. Account changes replace the routine's mounted timer, tuner, and reflection controls; any final timer checkpoint retains its original account key. Routine instruction links recognize verified track access while keeping unimplemented outlines as previews. The routine identifies its history as browser-local, not cloud-synced.
+
 Downloaded evidence is kept separate from browser-local history. The existing decoders derive current progress: reading uses authored questions and answers; measured imports require actual target count, bounded matched targets and score, observed full Play duration, current revision, and required BPM. Missing historical elapsed time is not inferred. Raw manual/study evidence cannot satisfy a measured or reading checkpoint. Progress never changes purchase access.
 
 Pausing, sign-out, account changes, reset, and unmount invalidate outstanding operations. Sign-out suspends and broadcasts synchronously before the POST form submits. Both account and epoch are checked after network awaits. The client retries on online/focus and every 30 seconds while mounted, with bounded batch/page work and visible pending/error state. Corrupt data is retained and stops processing; it is never silently replaced with an empty queue. No microphone audio is sent.
@@ -13,6 +15,8 @@ Pausing, sign-out, account changes, reset, and unmount invalidate outstanding op
 ## Verification
 
 `tests/account-client-sync.test.ts` exercises the real injected storage/network controller, including offline reload, concurrent tabs, immutable identities, late acknowledgements/downloads, account/epoch switches, malformed data, quota failure, more than 1000 downloaded records, explicit reset, and current curriculum evidence derivation. `tests/learning-components.test.ts` renders the actual React components for account OFF/consent/reset/form markup. These are not browser interaction tests.
+
+`tests/routine-account-scope.test.ts` exercises the real routine storage adapter for guest/A/B isolation, late cleanup, storage failure, and external changes. It inspects the production React subtree keys and renders actual access-aware lesson links. Browser timer/control transitions still require the acceptance check below.
 
 ## Browser acceptance still required
 
@@ -25,3 +29,4 @@ Use disposable test accounts in a configured non-production environment. Never u
 5. Confirm reset using a disposable account. Verify sync pauses, the server epoch changes, old device history remains visible, and old outbox events are not uploaded when sync is explicitly enabled again.
 6. Continue an imported unfinished reading attempt: verify first answers are retained and current result is recomputed. Older pre-opt-in local quizzes are not uploaded automatically.
 7. Verify keyboard focus, live status announcements, disabled reset until checked, mobile wrapping, and error/retry copy in actual browsers. Verify microphone timing/pitch on physical devices separately.
+8. Save different routines as guest and two accounts, switch during an active timer and while entering a reflection, and verify each history remains separate after reload. Earlier guest history must remain visible only as guest. Verify a guitar entitlement opens guided instruction from the routine, and an advanced outline remains a preview. Confirm routine history is not uploaded by Enable sync.
