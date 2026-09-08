@@ -17,6 +17,14 @@ export function tunerInputError(error: unknown) {
   return "The tuner could not get a reliable audio input. Check the microphone, try again, or use your own tuner.";
 }
 
+/** The action guard is required even when the reference button is no longer visible. */
+export function confirmTuningPreparation(state: { allChecked: boolean; referenceActive: boolean; quietUntil: number; now: number }, confirm: () => void): "waitingForFade" | "incomplete" | "confirmed" {
+  if (state.referenceActive || !Number.isFinite(state.now) || !Number.isFinite(state.quietUntil) || state.now < state.quietUntil) return "waitingForFade";
+  if (!state.allChecked) return "incomplete";
+  confirm();
+  return "confirmed";
+}
+
 /** Same monophonic detector, with the native tuner's band rather than lesson defaults. */
 export function estimateTuningPitch(samples: Float32Array, sampleRate: number) {
   return estimatePitch(samples, sampleRate, { minimumFrequency: tuningConfiguration.minimumFrequencyHz, maximumFrequency: tuningConfiguration.maximumFrequencyHz });

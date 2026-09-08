@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import contract from "../contracts/practice-tools.json" with { type: "json" };
-import { bindPracticeLifecycle, estimateTuningPitch, metronomeBPM, metronomeConfiguration as configuration, metronomeInterval, nextMetronomeBeat, startMetronome, tunerInputError, tuningReading } from "../lib/audio/practice-tools.ts";
+import { bindPracticeLifecycle, confirmTuningPreparation, estimateTuningPitch, metronomeBPM, metronomeConfiguration as configuration, metronomeInterval, nextMetronomeBeat, startMetronome, tunerInputError, tuningReading } from "../lib/audio/practice-tools.ts";
 import { claimAudioSession, startCapture } from "../lib/audio/capture.ts";
 import { estimatePitch } from "../lib/audio/dsp.ts";
 
@@ -240,4 +240,29 @@ test("microphone failures explain permission, missing input and busy input separ
   assert.match(tunerInputError(new DOMException("missing", "NotFoundError")), /No microphone was found/);
   assert.match(tunerInputError(new DOMException("busy", "NotReadableError")), /another app/);
   assert.match(tunerInputError(new Error("unexpected")), /try again/);
+});
+
+test("the actual tuning confirmation action waits after reference stop or interruption before reporting readiness", () => {
+  const ready: string[] = [];
+  const confirm = () => ready.push("ready");
+  // A learner can recheck the boxes while the reference is playing.
+  const state = { allChecked: true, referenceActive: true, quietUntil: 0, now: 1000 };
+  assert.equal(confirmTuningPreparation(state, confirm), "waitingForFade");
+  // Both explicit Stop and arbiter interruption become idle before their one-second fade expires.
+  for (const stoppedBy of ["stop", "interruption"]) {
+    state.referenceActive = false; state.now = 1000; state.quietUntil = 2000;
+    const previous = ready.length;
+    assert.equal(confirmTuningPreparation(state, confirm), "waitingForFade", stoppedBy);
+    state.now = 1999;
+    assert.equal(confirmTuningPreparation(state, confirm), "waitingForFade", stoppedBy);
+    assert.equal(ready.length, previous, "early confirmation must not invoke the readiness callback");
+    state.now = 2000;
+    assert.equal(confirmTuningPreparation(state, confirm), "confirmed", stoppedBy);
+    assert.equal(ready.length, previous + 1);
+  }
+  state.allChecked = false;
+  assert.equal(confirmTuningPreparation(state, confirm), "incomplete");
+  assert.equal(ready.length, 2, "fade expiry cannot replace a complete learner checklist");
+  assert.equal(confirmTuningPreparation({ ...state, allChecked: true, now: NaN }, confirm), "waitingForFade");
+  assert.equal(ready.length, 2);
 });

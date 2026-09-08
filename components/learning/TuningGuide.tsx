@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { startCapture, playReference, type Capture } from "@/lib/audio/capture";
-import { bindPracticeLifecycle, estimateTuningPitch, tunerInputError, tuningConfiguration, tuningReading } from "@/lib/audio/practice-tools";
+import { bindPracticeLifecycle, confirmTuningPreparation, estimateTuningPitch, tunerInputError, tuningConfiguration, tuningReading } from "@/lib/audio/practice-tools";
 import authored from "@/lib/learning/data/beginner-guitar-instruction.json";
 import styles from "./Learning.module.css";
 
@@ -127,10 +127,12 @@ export function TuningGuide({ onReadyChange }: { onReadyChange?: (ready: boolean
     if (confirmed) { setConfirmed(false); onReadyChange?.(false); }
   }
   function confirm() {
-    if (!allChecked) return;
-    stopResources(); setReading(null); setPhase("idle");
-    setConfirmed(true); onReadyChange?.(true);
-    setMessage("Tuning check confirmed by you. The tuner is stopped; continue to the lesson below.");
+    const outcome = confirmTuningPreparation({ allChecked, referenceActive: phase === "reference", quietUntil: quietUntil.current, now: performance.now() }, () => {
+      stopResources(); setReading(null); setPhase("idle");
+      setConfirmed(true); onReadyChange?.(true);
+    });
+    if (outcome === "waitingForFade") setMessage("Let the reference fade before confirming and continuing to the lesson.");
+    else if (outcome === "confirmed") setMessage("Tuning check confirmed by you. The tuner is stopped; continue to the lesson below.");
   }
   return <section className={styles.panel} aria-labelledby="tuning-guide-title">
     <h2 id="tuning-guide-title">{onReadyChange ? "First, tune your guitar" : "Guitar tuner"}</h2>
