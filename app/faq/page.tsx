@@ -127,7 +127,7 @@ const FAQS: readonly Faq[] = [
     id: "what-is-guitarhub",
     group: "what-it-is",
     q: "What is GuitarHub?",
-    a: "GuitarHub is a guitar practice method and a set of free browser tools that run it. The method is one loop against one goal at a time: record where you actually are, isolate the single thing that breaks the result, put that repair back under the pressure of a full performance, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. The site exists for that gap.",
+    a: "GuitarHub is the Suede Labs guitar lessons site: a step-by-step guitar curriculum, a voice path, a practice method, and free browser tools that run it. The method is one loop against one goal at a time: record where you actually are, isolate the single thing that breaks the result, put that repair back under the pressure of a full performance, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. The site exists for that gap.",
   },
   {
     id: "what-guitarhub-is-not",
