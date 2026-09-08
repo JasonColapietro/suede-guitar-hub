@@ -51,3 +51,18 @@ test('real library exposes native filter names, search label and honest preview/
   assert.match(markup, /Available/);
   assert.match(markup, /Wonderwall/);
 });
+
+test('account controls stay dark without verified configuration and use explicit consent when enabled', async () => {
+  const { AccountSyncControls, ScopedAccountSignOut } = await import('../components/learning/AccountSyncControls.tsx');
+  const { LearningAccessProvider } = await import('../components/learning/LearningAccessProvider.tsx');
+  assert.equal(renderToStaticMarkup(createElement(AccountSyncControls)), '');
+  const Provider = LearningAccessProvider as (props: { access: Parameters<typeof LearningAccessProvider>[0]['access']; children?: React.ReactNode }) => React.ReactNode;
+  const markup = renderToStaticMarkup(createElement(Provider, { access: { enabled: true, status: 'verified', accountId: 'a1111111-1111-4111-8111-111111111111', tracks: [] } }, createElement(AccountSyncControls)));
+  assert.match(markup, /Enable sync/);
+  assert.match(markup, /Sync is off/);
+  assert.match(markup, /not uploaded/);
+  assert.match(markup, /type="checkbox"/);
+  assert.match(markup, /disabled=""[^>]*>Delete cloud practice history/);
+  const signOut = renderToStaticMarkup(createElement(ScopedAccountSignOut));
+  assert.match(signOut, /action="\/auth\/sign-out" method="post"/);
+});

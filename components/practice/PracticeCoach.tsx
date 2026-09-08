@@ -9,11 +9,12 @@ import styles from './PracticeCoach.module.css';
 import { recommendPracticeTempo, type TempoAttempt } from '@/lib/audio/practice-tempo';
 import { practiceSelection, targetMap, rhythmCueAt } from '@/lib/audio/practice-selection';
 type Phase = 'ready' | 'requesting' | 'counting' | 'running' | 'paused' | 'help' | 'result' | 'reference';
-export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAttempts = [] }: {
+export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscoredResult, recentAttempts = [] }: {
     spec: PracticeSpec;
     track: 'guitar' | 'voice';
     recentAttempts?: TempoAttempt[];
     onComplete?: (result: PracticeResult, attemptId: string) => void;
+    onUnscoredResult?: (result: PracticeResult, attemptId: string) => void;
 }) {
     const [phase, setPhase] = useState<Phase>('ready'), [mode, setMode] = useState<'practice' | 'play'>('practice');
     const [loopStart, setLoopStart] = useState(0), [loopEnd, setLoopEnd] = useState(Math.min(1, authoredSpec.targets.length - 1));
@@ -38,8 +39,8 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
     const guitarGate = useRef(new FreshPitchGate()), guitarRelease = useRef(new GuitarRearticulationGate());
     const guitarStableMIDI = useRef<number | null>(null);
     const acceptedPitch = useRef<number | null>(null), acceptedAudioTime = useRef(-Infinity);
-    const live = useRef({ mode, loop, speed, onComplete });
-    useEffect(() => { live.current = { mode, loop, speed, onComplete }; }, [mode, loop, speed, onComplete]);
+    const live = useRef({ mode, loop, speed, onComplete, onUnscoredResult });
+    useEffect(() => { live.current = { mode, loop, speed, onComplete, onUnscoredResult }; }, [mode, loop, speed, onComplete, onUnscoredResult]);
     function stopCapture() { activeClock.current.pause(capture.current?.context.currentTime ?? 0); active.current = false; generation.current++; abort.current?.abort(); capture.current?.stop(); capture.current = null; cancelAnimationFrame(animation.current); fresh.current = null; guitarGate.current.reset(); }
     function pause(reason = 'Paused. Resume when you are ready.') { stopCapture(); setMessage(reason); setPhase('paused'); }
     useEffect(() => {
@@ -70,6 +71,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
         setResultSaved(false);
         setResult(scored);
         setPhase('result');
+        if (scored.disposition === 'insufficientSignal') live.current.onUnscoredResult?.(scored, resultId.current);
         // Saving/awarding completion remains an explicit action in the result view.
     }
     async function start(resume = false) {
