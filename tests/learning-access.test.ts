@@ -15,7 +15,7 @@ test("only verified server access opens the owned track; the exact sampler remai
     }
   }
   assert.deepEqual(accessibleLessonIds("guitar", owned), allLessons("guitar").filter(entry => isLessonReady("guitar", entry.lesson.id)).map(entry => entry.lesson.id));
-  assert.equal(accessibleLessonIds("guitar", owned).length, 81);
+  assert.equal(accessibleLessonIds("guitar", owned).length, 99);
   assert.deepEqual(accessibleLessonIds("voice", owned), []);
   assert.equal(canOpenModule("guitar", "invented-module", owned), false);
   const paidModule = curricula.guitar.levels[0].modules[1].id;

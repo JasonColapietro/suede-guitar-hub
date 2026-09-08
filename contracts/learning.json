@@ -454,6 +454,141 @@
         "l3-g-chord"
       ]
     },
+    "g-l5-m1-01" : {
+      "assetIds" : [
+        "advanced-partial-f"
+      ]
+    },
+    "g-l5-m1-02" : {
+      "assetIds" : [
+        "advanced-partial-f",
+        "advanced-f-entry-check"
+      ]
+    },
+    "g-l5-m1-07" : {
+      "assetIds" : [
+        "advanced-partial-f",
+        "advanced-f-entry-check"
+      ]
+    },
+    "g-l5-m2-01" : {
+      "assetIds" : [
+        "advanced-g5-two-note",
+        "advanced-g5-three-note",
+        "advanced-a5-three-note",
+        "advanced-c5-three-note"
+      ]
+    },
+    "g-l5-m2-04" : {
+      "assetIds" : [
+        "advanced-g5-three-note",
+        "advanced-a5-three-note",
+        "advanced-c5-three-note",
+        "advanced-switchyard-map"
+      ]
+    },
+    "g-l5-m2-07" : {
+      "assetIds" : [
+        "advanced-g5-three-note",
+        "advanced-a5-three-note",
+        "advanced-c5-three-note",
+        "advanced-switchyard-map"
+      ]
+    },
+    "g-l5-m3-01" : {
+      "assetIds" : [
+        "advanced-a7-open",
+        "advanced-d7-open",
+        "advanced-e7-open",
+        "advanced-a-blues-form"
+      ]
+    },
+    "g-l5-m3-03" : {
+      "assetIds" : [
+        "advanced-a7-open",
+        "advanced-d7-open",
+        "advanced-e7-open",
+        "advanced-a-blues-form",
+        "advanced-blues-calls"
+      ]
+    },
+    "g-l5-m3-07" : {
+      "assetIds" : [
+        "advanced-a-blues-form"
+      ]
+    },
+    "g-l5-m4-01" : {
+      "assetIds" : [
+        "advanced-a-blues-palette",
+        "advanced-a-blues-form"
+      ]
+    },
+    "g-l5-m4-03" : {
+      "assetIds" : [
+        "advanced-solo-seed",
+        "advanced-a-blues-palette",
+        "advanced-solo-answers"
+      ]
+    },
+    "g-l5-m4-07" : {
+      "assetIds" : [
+        "advanced-a-blues-palette",
+        "advanced-a-blues-form"
+      ]
+    },
+    "g-l5-m5-01" : {
+      "assetIds" : [
+        "advanced-semitone-reference"
+      ]
+    },
+    "g-l5-m5-02" : {
+      "assetIds" : [
+        "advanced-semitone-reference",
+        "advanced-bend-four-attempts"
+      ]
+    },
+    "g-l5-m5-07" : {
+      "assetIds" : [
+        "advanced-semitone-reference",
+        "advanced-bend-four-attempts"
+      ]
+    },
+    "g-l5-m6-01" : {
+      "assetIds" : [
+        "l3-c-chord",
+        "advanced-triad-c",
+        "advanced-triad-f",
+        "advanced-triad-g",
+        "advanced-triad-a",
+        "advanced-triad-am"
+      ]
+    },
+    "g-l5-m6-03" : {
+      "assetIds" : [
+        "advanced-three-key-map",
+        "advanced-triad-c",
+        "advanced-triad-f",
+        "advanced-triad-g",
+        "advanced-triad-am",
+        "advanced-triad-d",
+        "advanced-triad-em",
+        "advanced-triad-a",
+        "advanced-triad-bm"
+      ]
+    },
+    "g-l5-m6-07" : {
+      "assetIds" : [
+        "advanced-three-key-map",
+        "advanced-triad-c",
+        "advanced-triad-f",
+        "advanced-triad-g",
+        "advanced-triad-am",
+        "advanced-triad-d",
+        "advanced-triad-em",
+        "advanced-triad-a",
+        "advanced-triad-bm"
+      ]
+    },
     "g-songs-m1-01" : {
       "assetIds" : [
         "song-guitar-shape-em7",
@@ -833,7 +968,25 @@
         "g-songs-m6-02",
         "g-songs-m6-03",
         "g-songs-m6-04",
-        "g-songs-m6-05"
+        "g-songs-m6-05",
+        "g-l5-m1-01",
+        "g-l5-m1-02",
+        "g-l5-m1-07",
+        "g-l5-m2-01",
+        "g-l5-m2-04",
+        "g-l5-m2-07",
+        "g-l5-m3-01",
+        "g-l5-m3-03",
+        "g-l5-m3-07",
+        "g-l5-m4-01",
+        "g-l5-m4-03",
+        "g-l5-m4-07",
+        "g-l5-m5-01",
+        "g-l5-m5-02",
+        "g-l5-m5-07",
+        "g-l5-m6-01",
+        "g-l5-m6-03",
+        "g-l5-m6-07"
       ],
       "query" : "",
       "track" : "guitar"
@@ -939,7 +1092,24 @@
         "g-songs-m6-02",
         "g-songs-m6-03",
         "g-songs-m6-04",
-        "g-songs-m6-05"
+        "g-songs-m6-05",
+        "g-l5-m1-01",
+        "g-l5-m1-02",
+        "g-l5-m1-07",
+        "g-l5-m2-01",
+        "g-l5-m2-04",
+        "g-l5-m2-07",
+        "g-l5-m3-01",
+        "g-l5-m3-03",
+        "g-l5-m3-07",
+        "g-l5-m4-03",
+        "g-l5-m4-07",
+        "g-l5-m5-01",
+        "g-l5-m5-02",
+        "g-l5-m5-07",
+        "g-l5-m6-01",
+        "g-l5-m6-03",
+        "g-l5-m6-07"
       ],
       "query" : "  a   d  ",
       "track" : "guitar"
@@ -989,7 +1159,8 @@
         "g-songs-m6-01",
         "g-songs-m6-02",
         "g-songs-m6-03",
-        "g-songs-m6-04"
+        "g-songs-m6-04",
+        "g-l5-m2-04"
       ],
       "query" : "",
       "track" : "guitar"
@@ -1041,7 +1212,8 @@
         "g-songs-m6-01",
         "g-songs-m6-02",
         "g-songs-m6-03",
-        "g-songs-m6-04"
+        "g-songs-m6-04",
+        "g-l5-m2-04"
       ],
       "query" : "  a   d  ",
       "track" : "guitar"
@@ -1191,24 +1363,6 @@
     {
       "filter" : "previews",
       "lessonIds" : [
-        "g-l5-m1-01",
-        "g-l5-m1-02",
-        "g-l5-m1-07",
-        "g-l5-m2-01",
-        "g-l5-m2-04",
-        "g-l5-m2-07",
-        "g-l5-m3-01",
-        "g-l5-m3-03",
-        "g-l5-m3-07",
-        "g-l5-m4-01",
-        "g-l5-m4-03",
-        "g-l5-m4-07",
-        "g-l5-m5-01",
-        "g-l5-m5-02",
-        "g-l5-m5-07",
-        "g-l5-m6-01",
-        "g-l5-m6-03",
-        "g-l5-m6-07",
         "g-l6-m1-01",
         "g-l6-m1-02",
         "g-l6-m1-08",
@@ -1268,23 +1422,6 @@
     {
       "filter" : "previews",
       "lessonIds" : [
-        "g-l5-m1-01",
-        "g-l5-m1-02",
-        "g-l5-m1-07",
-        "g-l5-m2-01",
-        "g-l5-m2-04",
-        "g-l5-m2-07",
-        "g-l5-m3-01",
-        "g-l5-m3-03",
-        "g-l5-m3-07",
-        "g-l5-m4-03",
-        "g-l5-m4-07",
-        "g-l5-m5-01",
-        "g-l5-m5-02",
-        "g-l5-m5-07",
-        "g-l5-m6-01",
-        "g-l5-m6-03",
-        "g-l5-m6-07",
         "g-l6-m1-01",
         "g-l6-m1-02",
         "g-l6-m1-08",
@@ -12900,7 +13037,25 @@
         "g-songs-m6-02",
         "g-songs-m6-03",
         "g-songs-m6-04",
-        "g-songs-m6-05"
+        "g-songs-m6-05",
+        "g-l5-m1-01",
+        "g-l5-m1-02",
+        "g-l5-m1-07",
+        "g-l5-m2-01",
+        "g-l5-m2-04",
+        "g-l5-m2-07",
+        "g-l5-m3-01",
+        "g-l5-m3-03",
+        "g-l5-m3-07",
+        "g-l5-m4-01",
+        "g-l5-m4-03",
+        "g-l5-m4-07",
+        "g-l5-m5-01",
+        "g-l5-m5-02",
+        "g-l5-m5-07",
+        "g-l5-m6-01",
+        "g-l5-m6-03",
+        "g-l5-m6-07"
       ],
       "lessonIds" : [
         "g-l1-m1-01",
@@ -19827,7 +19982,8 @@
         "g-songs-m6-01",
         "g-songs-m6-02",
         "g-songs-m6-03",
-        "g-songs-m6-04"
+        "g-songs-m6-04",
+        "g-l5-m2-04"
       ]
     },
     "voice" : {

@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { register } from 'node:module';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { getInstructionAsset } from '../lib/learning/instructions.ts';
+import { getInstructionAsset, getLessonInstructions } from '../lib/learning/instructions.ts';
 import { getLesson } from '../lib/learning/curriculum.ts';
+import advanced from '../lib/learning/data/advanced-guitar-instruction.json' with { type: 'json' };
 register('./component-render-hooks.mjs', import.meta.url);
 const { ChordDiagram, LessonInstructionAssets } = await import('../components/learning/LessonInstructionAssets.tsx');
 const { PracticeCoach } = await import('../components/practice/PracticeCoach.tsx');
@@ -27,6 +28,26 @@ test('real riff component renders every authored reference button and accessible
   assert.match(markup, /Hear slot 7, string 6, fret 5, A2/);
   assert.match(markup, /Original GuitarHub exercise/);
 });
+test('all eighteen advanced guides render their real supported diagrams and pitch references', () => {
+  assert.equal(advanced.lessons.length, 18);
+  for (const lesson of advanced.lessons) {
+    const instruction = getLessonInstructions(lesson.id);
+    assert.ok(instruction, lesson.id);
+    assert.equal(getLesson('guitar', lesson.id)?.lesson.title, lesson.title, lesson.id);
+    const markup = renderToStaticMarkup(createElement(LessonInstructionAssets, { assets: instruction.assets }));
+    assert.ok(markup.length > 100, lesson.id);
+    assert.doesNotMatch(markup, /Unsupported|undefined|NaN/, lesson.id);
+    for (const asset of instruction.assets) {
+      if (asset.kind === 'riff') {
+        for (const [index, fret] of asset.frets.entries()) {
+          assert.ok(markup.includes(`Hear slot ${index + 1}, string ${asset.stringNumber}, fret ${fret},`), `${lesson.id}: physical reference ${index}`);
+        }
+      }
+    }
+    assert.equal(getLesson('guitar', lesson.id)?.lesson.practiceSpec, undefined,
+      'Written self-checks must not appear as an automatic playing assessment');
+  }
+});
 test('real coach renders every offbeat target with authored cues and no result before playing', () => {
   const spec = getLesson('guitar', 'g-l3-m3-02')?.lesson.practiceSpec;
   // Resolve the actual offbeat lesson by source data instead of a hand-authored UI fixture.
@@ -45,7 +66,7 @@ test('real library exposes native filter names, search label and honest preview/
   assert.match(markup, /Song, artist, chord or skill/);
   assert.match(markup, /Mic exercises/);
   assert.match(markup, /All topics/);
-  assert.match(markup, /81 results/);
+  assert.match(markup, /99 results/);
   assert.match(markup, /Lesson preview/);
   assert.equal((markup.match(/>Available<\/span>/g) ?? []).length, 3, "guest sampler only");
   assert.match(markup, /Available/);

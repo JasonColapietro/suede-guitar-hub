@@ -148,7 +148,9 @@ test("guest, voice-only, disabled and unavailable account routine links remain p
 });
 
 test("a paid track cannot label an unimplemented advanced outline as instruction", () => {
-  const markup = lessonLink(paid, "g-l5-m1-01");
+  assert.match(lessonLink(paid, "g-l5-m1-01"), /Review GuitarHub instruction/,
+    "the newly authored barre lesson is now guided");
+  const markup = lessonLink(paid, "g-l7-m1-01");
   assert.match(markup, /GuitarHub curriculum preview/);
   assert.doesNotMatch(markup, /Review GuitarHub instruction/);
   assert.equal(lessonLink(paid, "not-a-lesson"), "");
