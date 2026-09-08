@@ -1867,7 +1867,7 @@
               "title": "Call the Changes",
               "type": "exercise",
               "minutes": 6,
-              "summary": "The app calls the next chord one bar early until you stop needing it."
+              "summary": "Call the next chord one bar early, then reduce the prompts as the form becomes familiar."
             },
             {
               "id": "g-l5-m3-07",
@@ -1899,7 +1899,7 @@
               "title": "One Phrase, Three Answers",
               "type": "exercise",
               "minutes": 6,
-              "summary": "The app plays a phrase. You answer it three different ways."
+              "summary": "Learn an original written phrase with individual pitch references, then answer it three different ways."
             },
             {
               "id": "g-l5-m4-07",
@@ -1931,14 +1931,14 @@
               "title": "Bend to Target",
               "type": "exercise",
               "minutes": 6,
-              "summary": "The app shows your pitch against the target. Ears second, eyes first, then eyes off."
+              "summary": "Use an external chromatic meter for guided bends, then repeat by ear without live visual correction."
             },
             {
               "id": "g-l5-m5-07",
               "title": "Checkpoint: Semitone Within Twenty Cents",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Three of four, target hidden."
+              "summary": "Attempt four blind semitone bends; report actual external observations, or keep the numeric result unverified."
             }
           ]
         },
@@ -1953,7 +1953,7 @@
           "lessons": [
             {
               "id": "g-l5-m6-01",
-              "title": "Every Chord Is Three Notes",
+              "title": "Triads: Three Notes, Many Shapes",
               "type": "concept",
               "minutes": 4,
               "summary": "Triads, and why the big open shapes are just triads with doublings."

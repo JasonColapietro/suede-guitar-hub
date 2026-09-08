@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import source from '../lib/learning/data/beginner-guitar-instruction.json' with { type: 'json' };
 import songs from '../lib/learning/data/song-guitar-instruction.json' with { type: 'json' };
+import advanced from '../lib/learning/data/advanced-guitar-instruction.json' with { type: 'json' };
 import { getInstructionAsset } from '../lib/learning/instructions.ts';
 import { chordFretRange, practiceSelection, rhythmCueAt } from '../lib/audio/practice-selection.ts';
 import type { PracticeSpec } from '../lib/audio/practice.ts';
@@ -30,7 +31,7 @@ test('a selected offbeat phrase starts from its first target and retains the aut
   assert.equal(rhythmCueAt(practiceSelection(offbeat, 'play', true, 1, 2), 0)?.target.id, 'one');
 });
 test('all native chord diagrams retain exact string pitches and every fretted dot stays in view', () => {
-  const assets = { ...source.demoAssets, ...songs.demoAssets };
+  const assets = { ...source.demoAssets, ...songs.demoAssets, ...advanced.demoAssets };
   let chordCount = 0;
   for (const [id, raw] of Object.entries(assets)) {
     if (raw.kind !== 'chord_diagram_and_reference_tones') continue;
@@ -45,7 +46,7 @@ test('all native chord diagrams retain exact string pitches and every fretted do
       else { assert.ok(fret >= range.first && fret <= range.last, `${id}: fret out of view`); assert.ok(asset.fingers[index]! >= 1 && asset.fingers[index]! <= 4, `${id}: invalid finger`); }
     });
   }
-  assert.equal(chordCount, 74, 'nonempty full reference inventory');
+  assert.equal(chordCount, 90, 'nonempty full reference inventory');
 });
 test('the riff references match the physical string and written frets in every slot', () => {
   const riff = getInstructionAsset('stage2-first-riff');

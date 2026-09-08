@@ -18,7 +18,7 @@ input for acoustic checks. Do not fabricate completion by editing storage.
 
 | Check | Action and required result |
 | --- | --- |
-| Initial catalog | Guitar library starts on Guided with 81 results. Songs has 27 guided song-typed lessons: 24 popular-song companions plus three foundation song lessons. Mic exercises has 39, Previews 54, All topics 135. Voice has 102 previews and no authored guided/mic/song lessons. |
+| Initial catalog | Guitar library starts on Guided with 99 results. Songs has 28 guided song-typed lessons: 24 popular-song companions plus three foundation song lessons and one original power-chord piece. Mic exercises has 39, Previews 36, All topics 135. Voice has 102 previews and no authored guided/mic/song lessons. |
 | Search | Search `OASIS`, `Taylor Swift`, multiple words such as `a d`, and an unknown phrase. Compare with the native contract. Search is insensitive to case/diacritics; each word must match. Clearing search restores the selected filter's complete results. Empty state offers Show all topics. |
 | Responsive library | Search field, filter buttons, lesson cards and long song titles fit the viewport. Buttons remain keyboard reachable with visible focus; selected filters expose pressed state. |
 | Sampler | Signed-out real app opens the three first-module guitar lessons. A later lesson remains behind verified access. Voice outlines cannot be marked complete. A local progress record or query parameter never unlocks a lesson. |
