@@ -2,10 +2,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { browseLessons, lessonFilters, type LessonFilter } from "@/lib/learning/library";
-import { isModuleAvailable, lessonHref, type TrackId } from "@/lib/learning/curriculum";
+import { lessonHref, type TrackId } from "@/lib/learning/curriculum";
 import styles from "./Learning.module.css";
+import { canOpenModule } from "@/lib/learning/access";
+import { useLearningAccess } from "./LearningAccessProvider";
 
 export function LessonLibrary({ track }: { track: TrackId }) {
+  const access = useLearningAccess();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<LessonFilter>("guided");
   const entries = browseLessons(track, filter, query);
@@ -17,6 +20,6 @@ export function LessonLibrary({ track }: { track: TrackId }) {
     <p className={styles.small} role="status">{entries.length} {entries.length === 1 ? "result" : "results"} · {lessonFilters[filter]}</p>
     {filter === "songs" && <p className={styles.notice}>Popular-song companions pair original in-app drills with external full-song tutorials. Microphone results measure the drill&apos;s pitch or attack timing; check chords and song performance by ear.</p>}
     {entries.length === 0 && <div className={styles.panel}><h3>No matching lessons</h3><p>{track === "voice" && filter === "guided" ? "Voice currently has curriculum previews. Choose Previews to explore the planned topics." : "Try a shorter search or choose another filter."}</p><button type="button" className={styles.secondary} onClick={() => { setQuery(""); setFilter("all"); }}>Show all topics</button></div>}
-    <ol className={styles.libraryResults}>{entries.map(({ lesson, module, isGuided }) => <li key={lesson.id}><Link href={lessonHref(track, lesson.id)}><h3>{lesson.title}</h3><p className={styles.small}>{module.name}</p><p>{lesson.summary}</p><span className={styles.badge}>{lesson.practiceSpec ? "Mic exercise" : isGuided ? "Guided self-check" : "Preview outline"}</span><span className={styles.badge}>{isModuleAvailable(track, module.id) ? "Available" : "Lifetime access"}</span>{(isGuided || lesson.practiceSpec) && <span className={styles.small}>{lesson.minutes} min</span>}</Link></li>)}</ol>
+    <ol className={styles.libraryResults}>{entries.map(({ lesson, module, isGuided }) => <li key={lesson.id}><Link href={lessonHref(track, lesson.id)}><h3>{lesson.title}</h3><p className={styles.small}>{module.name}</p><p>{lesson.summary}</p><span className={styles.badge}>{lesson.practiceSpec ? "Mic exercise" : isGuided ? "Guided self-check" : "Preview outline"}</span><span className={styles.badge}>{!isGuided && !lesson.practiceSpec ? "Curriculum outline" : canOpenModule(track, module.id, access) ? "Available" : "Lesson preview"}</span>{(isGuided || lesson.practiceSpec) && <span className={styles.small}>{lesson.minutes} min</span>}</Link></li>)}</ol>
   </section>;
 }

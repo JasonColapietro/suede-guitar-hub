@@ -76,12 +76,25 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const binding = await bindingFor(accountId);
       if ((cursor !== "0" && !expectedEpoch) || (expectedEpoch && accountUUID(expectedEpoch) !== binding.syncEpoch)) throw new LearningAccountError("sync_epoch_changed");
       const result = await deps.listAttempts(accountId, cursor);
-      const page = result.slice(0, 100);
+      // UTF-8 can be larger than the bounded JSON string length. Keep the
+      // complete response comfortably below the hosting payload limit, while
+      // advancing only across records actually returned to this client.
+      const page: AttemptPageRow[] = [];
+      let pageBytes = 2_048;
+      for (const row of result.slice(0, 100)) {
+        const bytes = new TextEncoder().encode(JSON.stringify(row.body)).byteLength + 1;
+        if (pageBytes + bytes > 2_000_000) {
+          if (page.length === 0) throw new AccountHTTPError(503, "attempt_page_too_large");
+          break;
+        }
+        page.push(row);
+        pageBytes += bytes;
+      }
       const nextBinding = await bindingFor(accountId);
       if (nextBinding.syncEpoch !== binding.syncEpoch) throw new LearningAccountError("sync_epoch_changed");
       const lastCursor = page.length ? attemptCursor(page.at(-1)!.sequence) : cursor;
       return accountJSON({ accountId, syncEpoch: binding.syncEpoch, attempts: page.map((row) => row.body), cursor: lastCursor,
-        nextCursor: result.length > 100 ? lastCursor : null });
+        nextCursor: result.length > page.length ? lastCursor : null });
     }),
     appendAttempts: route(async (request) => {
       const accountId = await signedIn(request, true);

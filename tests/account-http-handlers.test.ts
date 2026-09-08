@@ -4,7 +4,7 @@ import { createLearningHandlers, type LearningHandlerDependencies } from "../lib
 import { createEmailAuthHandlers, type EmailAuthClient } from "../lib/learning-auth/email-handlers.ts";
 import { boundedAccountBody } from "../lib/learning-auth/http.ts";
 import { parseAccountBearer, verifiedProviderUser } from "../lib/learning-auth/identity.ts";
-import { LearningAccountError, GUITARHUB_BUNDLE_ID, GUITARHUB_LIFETIME_PRODUCT_ID, type VerifiedLifetimePurchase } from "../lib/learning-account/contracts.ts";
+import { LearningAccountError, parseLearningAttempt, GUITARHUB_BUNDLE_ID, GUITARHUB_LIFETIME_PRODUCT_ID, type VerifiedLifetimePurchase } from "../lib/learning-account/contracts.ts";
 
 const id = "a1111111-1111-4111-8111-111111111111", epoch = "b2222222-2222-4222-8222-222222222222", other = "c3333333-3333-4333-8333-333333333333";
 const purchase: VerifiedLifetimePurchase = { environment: "Production", originalTransactionId: "123", transactionId: "123", bundleId: GUITARHUB_BUNDLE_ID, productId: GUITARHUB_LIFETIME_PRODUCT_ID, appAccountToken: id, purchasedAt: "2026-09-01T00:00:00Z", signedAt: "2026-09-02T00:00:00Z", revokedAt: null };
@@ -144,4 +144,34 @@ test("email verification requires provider acceptance and a fresh non-anonymous 
     assert.equal(response.status,401);assert.deepEqual(await response.json(),{error:"sign_in_failed"});
     assert.deepEqual(h.calls.at(-1),{scope:"local"});
   }
+});
+
+test("UTF-8 sized history pages preserve every record and advance only across returned rows", async () => {
+  const details = Object.fromEntries(Array.from({length: 16}, (_, i) => [`part${i}`, "界".repeat(1_000)]));
+  const rows = Array.from({length: 100}, (_, i) => ({sequence: String(i + 1), body: {
+    ...attempt, id: `${String(i + 1).padStart(8, "0")}-3333-4333-8333-333333333333`, details,
+  }}));
+  for (const row of rows) parseLearningAttempt(row.body, new Map([["g-l1-m1-02", "guitar"]]));
+  const h = harness({listAttempts: async (_, cursor) => rows.filter(row => BigInt(row.sequence) > BigInt(cursor)).slice(0, 101)});
+  const received: string[] = [];
+  let cursor = "0";
+  let pages = 0;
+  for (;;) {
+    const response = await h.handlers.readAttempts(request(undefined, {}, `?after=${cursor}&syncEpoch=${epoch}`));
+    assert.equal(response.status, 200);
+    const text = await response.text();
+    assert.ok(new TextEncoder().encode(text).byteLength <= 2_000_000);
+    const page = JSON.parse(text);
+    assert.ok(page.attempts.length > 0 && page.attempts.length <= 100);
+    received.push(...page.attempts.map((item: {id: string}) => item.id));
+    assert.equal(page.cursor, String(received.length));
+    pages++;
+    if (page.nextCursor === null) break;
+    assert.equal(page.nextCursor, page.cursor);
+    assert.ok(BigInt(page.cursor) > BigInt(cursor));
+    cursor = page.nextCursor;
+    assert.ok(pages < 10);
+  }
+  assert.ok(pages > 1);
+  assert.deepEqual(received, rows.map(row => row.body.id));
 });

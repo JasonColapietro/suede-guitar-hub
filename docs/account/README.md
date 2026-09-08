@@ -1,10 +1,10 @@
 # GuitarHub shared account and access foundations
 
-These modules are server integration foundations. They do not enable production accounts, purchase sharing, or synchronization by themselves. The SQL is a reviewed proposal and has not been applied to Supabase. Anonymous sampler access and existing local progress remain independent.
+These modules are server integration foundations. They do not enable production accounts, purchase sharing, or synchronization by themselves. The reviewed ledger is deployed as migration `20260908044358_guitarhub_account_learning_ledger`; see [deployment evidence](deployment-2026-09-08.md). Provider integration remains disabled. Anonymous sampler access and existing local progress remain independent.
 
 ## Verified infrastructure and source
 
-On September 7, 2026, the connected Supabase API reported `drzuelosizfllruocmly` (`Suede-AI's Project`) as `ACTIVE_HEALTHY`, Postgres 17. A metadata-only catalog query found no `guitarhub%` tables. No user rows or secret values were requested. The current canonical source is [Suede-AI/Suede-AI-App at 916cf7fd](https://github.com/Suede-AI/Suede-AI-App/tree/916cf7fded0e321db5a9d5a8ba5007eb68df4ad5).
+On September 7, 2026, the connected Supabase API reported `drzuelosizfllruocmly` (`Suede-AI's Project`) as `ACTIVE_HEALTHY`, Postgres 17. The initial metadata-only catalog query found no `guitarhub%` tables. On September 8, the scoped ledger migration added three GuitarHub tables and four service-only functions; empty counts, RLS, grants and unchanged security advisors were verified. No user rows or secret values were requested. The current canonical source is [Suede-AI/Suede-AI-App at 916cf7fd](https://github.com/Suede-AI/Suede-AI-App/tree/916cf7fded0e321db5a9d5a8ba5007eb68df4ad5).
 
 The existing Suede browser uses PKCE and the server verifies sessions through `supabase.auth.getUser()`. Its native Apple helper sends a hashed nonce to Apple and the original nonce to Supabase `signInWithIdToken`. The durable identity is verified `auth.users.id`, not email, a wallet JWT, or the possibly different `public.users.id`. Current source changes since the September 4 audit await `cookies()` before passing it to auth helpers and retain host-only cookies outside the configured Suede domain estate. GuitarHub is explicitly recognized as its own cookie root.
 
@@ -80,7 +80,7 @@ Deleting `auth.users` externally cascades GuitarHub attempts and binding rows; p
 - The disabled HTTP/auth/sync integration passed 32 account tests, scoped ESLint with no warnings and a full TypeScript check. Handler tests use the production handler functions with isolated provider dependencies; no real emails, accounts or purchases are generated. They cover fresh non-anonymous identity, body/account conflicts, rejected signatures without writes, old refund precedence, epoch-safe reads/reset, exact bigint cursors and scoped queue acknowledgements.
 - Eleven Node tests exercise contract validation, account switching/reset, evidence separation, environment access, unsupported/legacy purchases, and actual official-library rejection of unsigned JWS and untrusted roots.
 - `bash tests/account-ledger.sh` starts a disposable local PostgreSQL database on a Unix socket, disables TCP, applies the SQL proposal, and exercises real RLS/permissions, atomic batches, duplicate and conflicting purchases/attempts, out-of-order refunds, environment separation, and account deletion. It does not use a production connection.
-- The first run passed on PostgreSQL 16.14. Hosted Supabase 17 migration/API tests and an Apple-signed positive purchase/notification flow remain required before activation. Test fixtures are synthetic and do not prove a real production purchase.
+- The first run passed on PostgreSQL 16.14. The hosted Supabase 17 migration and metadata checks passed. Authenticated hosted API journeys and an Apple-signed positive purchase/notification flow remain required before activation. Test fixtures are synthetic and do not prove a real production purchase.
 
 ## Official references
 

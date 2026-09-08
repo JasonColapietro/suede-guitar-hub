@@ -48,7 +48,7 @@ test("reading, study and manual count remain distinct evidence rather than micro
 test("invalid or mismatched lessons, bounds and evidence fail closed", () => {
   for (const changes of [
     { lessonId: "does-not-exist" }, { track: "voice" }, { version: 2 }, { practiceSeconds: -1 },
-    { practiceSeconds: 86_401 }, { exerciseRevision: 0 }, { bpm: Infinity }, { score: 101 },
+    { practiceSeconds: 86_401 }, { exerciseRevision: 0 }, { bpm: 0 }, { bpm: 401 }, { bpm: Infinity }, { score: 101 },
     { createdAt: "yesterday" }, { source: "measured", kind: "study" }, { source: "legacy" },
     { disposition: "scored", score: null }, { source: "selfReported", disposition: "scored" },
   ]) assert.throws(() => parseLearningAttempt({ ...attempt, ...changes }, lessons));
@@ -63,4 +63,10 @@ test("sandbox and revoked purchases never become production access", () => {
   assert.deepEqual(lifetimeTracks({ ...purchase, environment: "Sandbox" }, "Production"), []);
   assert.deepEqual(lifetimeTracks({ ...purchase, revokedAt: purchase.signedAt }, "Production"), []);
   assert.deepEqual(lifetimeTracks(null, "Production"), []);
+});
+
+test("quarter-speed practice retains actual tempo even below 20 BPM", () => {
+  for (const bpm of [1, 13, 15, 19.5, 400]) {
+    assert.equal(parseLearningAttempt({ ...attempt, bpm }, lessons).bpm, bpm);
+  }
 });

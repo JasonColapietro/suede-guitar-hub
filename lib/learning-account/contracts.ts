@@ -66,7 +66,7 @@ export function parseLearningAttempt(input: unknown, allowedLessons: ReadonlyMap
   if (!object(input) || input.version !== 1 || typeof input.lessonId !== "string" || allowedLessons.get(input.lessonId) !== input.track || !["guitar", "voice"].includes(String(input.track))) throw new LearningAccountError("invalid_attempt");
   const id = accountUUID(input.id);
   if (typeof input.createdAt !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/.test(input.createdAt) || !Number.isFinite(Date.parse(input.createdAt))) throw new LearningAccountError("invalid_attempt");
-  if (!nullableNumber(input.practiceSeconds, 0, 86_400) || !nullableNumber(input.exerciseRevision, 1, 1_000, true) || !nullableNumber(input.score, 0, 100) || !nullableNumber(input.bpm, 20, 400)) throw new LearningAccountError("invalid_attempt");
+  if (!nullableNumber(input.practiceSeconds, 0, 86_400) || !nullableNumber(input.exerciseRevision, 1, 1_000, true) || !nullableNumber(input.score, 0, 100) || !nullableNumber(input.bpm, 1, 400)) throw new LearningAccountError("invalid_attempt");
   if (!["microphone", "reading", "study", "manualCount", "legacy"].includes(String(input.kind)) || !["measured", "selfReported", "legacy"].includes(String(input.source)) || !["scored", "insufficientSignal", "manualOverride", "reflection", "imported"].includes(String(input.disposition)) || !["repeat", "ready"].includes(String(input.assessment))) throw new LearningAccountError("invalid_attempt");
   if (!object(input.details) || !isBoundedJSON(input.details) || JSON.stringify(input.details).length > 16_384) throw new LearningAccountError("invalid_attempt_details");
   const source = input.source as AttemptSource;
