@@ -1,0 +1,5801 @@
+{
+  "track": "guitar",
+  "version": 1,
+  "levels": [
+    {
+      "id": "g-songs",
+      "name": "Popular Song Companions",
+      "subtitle": "Original practice studies for recognizable songs, with external guitar tutorials linked for the actual arrangements.",
+      "modules": [
+        {
+          "id": "g-songs-m1",
+          "name": "Foundations in familiar songs",
+          "promise": "Prepare four recognizable chord loops with clean counted attacks.",
+          "lessons": [
+            {
+              "id": "g-songs-m1-01",
+              "title": "Wonderwall — Oasis practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for steady quarter-note chord changes using Em7, G, D, A7sus4. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 72,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 72,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "A7sus4 · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m1-02",
+              "title": "Let It Be — The Beatles practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for steady quarter-note chord changes using C, G, Am, Fmaj7. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 68,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 68,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "Fmaj7 · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "Fmaj7 · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m1-03",
+              "title": "Knockin' on Heaven's Door — Bob Dylan practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for steady quarter-note chord changes using G, D, Am. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 76,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 76,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "G · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m1-04",
+              "title": "Perfect — Ed Sheeran practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for steady quarter-note chord changes using G, Em, C, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m1-05",
+              "moduleId": "g-songs-m1",
+              "title": "Module 1 checkpoint — four song companions prepared",
+              "type": "checkpoint",
+              "minutes": 12,
+              "summary": "Fresh bounded preparation evidence for one selected companion; it does not assess chords or full-song mastery.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 72,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 72,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "Em7 · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "A7sus4 · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "A7sus4 · ↓"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "g-songs-m2",
+          "name": "Dynamics and texture",
+          "promise": "Prepare muted, picked, and dynamic changes without losing the pulse.",
+          "lessons": [
+            {
+              "id": "g-songs-m2-01",
+              "title": "Enchanted — Taylor Swift practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for offbeat upstrokes and silent hand movement using G, Bm, C, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 70,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 70,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5.5,
+                    "cue": "Bm · ↑"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21.5,
+                    "cue": "Bm · ↑"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m2-02",
+              "title": "Teardrops On My Guitar — Taylor Swift practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for offbeat upstrokes and silent hand movement using G, C, Em, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 64,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 64,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m2-03",
+              "title": "Photograph — Ed Sheeran practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for offbeat upstrokes and silent hand movement using C, Am, G, F. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 66,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 66,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13.5,
+                    "cue": "F · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29.5,
+                    "cue": "F · ↑"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "F · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m2-04",
+              "title": "Here Comes The Sun — The Beatles practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for offbeat upstrokes and silent hand movement using A, D, E, F#m. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 62,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 62,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "A · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1.5,
+                    "cue": "A · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "A · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "A · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9.5,
+                    "cue": "E · ↑"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "F#m · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13.5,
+                    "cue": "F#m · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "F#m · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "F#m · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "A · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17.5,
+                    "cue": "A · ↑"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "A · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "A · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25.5,
+                    "cue": "E · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "F#m · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29.5,
+                    "cue": "F#m · ↑"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "F#m · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "F#m · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m2-05",
+              "moduleId": "g-songs-m2",
+              "title": "Module 2 checkpoint — four song companions prepared",
+              "type": "checkpoint",
+              "minutes": 12,
+              "summary": "Fresh bounded preparation evidence for one selected companion; it does not assess chords or full-song mastery.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 70,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 70,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5.5,
+                    "cue": "Bm · ↑"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21.5,
+                    "cue": "Bm · ↑"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Bm · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ↓"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "g-songs-m3",
+          "name": "Steady strum and groove",
+          "promise": "Prepare repeatable accompaniment patterns with deliberate accents and silence.",
+          "lessons": [
+            {
+              "id": "g-songs-m3-01",
+              "title": "Good Riddance (Time Of Your Life) — Green Day practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for short down-up groups with counted rests using G, Cadd9, D, Em. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 78,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 78,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 0.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 4,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 4.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 5,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 6,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 6.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 7,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 8,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 8.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 9,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 10,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 10.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 11,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 12,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 12.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 13,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 14,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 14.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 15,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 16.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 20,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 20.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-33",
+                    "beat": 21,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-34",
+                    "beat": 22,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-35",
+                    "beat": 22.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-36",
+                    "beat": 23,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-37",
+                    "beat": 24,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-38",
+                    "beat": 24.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-39",
+                    "beat": 25,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-40",
+                    "beat": 26,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-41",
+                    "beat": 26.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-42",
+                    "beat": 27,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-43",
+                    "beat": 28,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-44",
+                    "beat": 28.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-45",
+                    "beat": 29,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-46",
+                    "beat": 30,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-47",
+                    "beat": 30.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-48",
+                    "beat": 31,
+                    "cue": "Em · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m3-02",
+              "title": "Stand By Me — Ben E. King practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for short down-up groups with counted rests using G, Em, C, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 74,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 74,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 0.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 4,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 4.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 5,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 6,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 6.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 7,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 8,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 8.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 9,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 10,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 10.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 11,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 12,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 12.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 13,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 14,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 14.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 15,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 16.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 20,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 20.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-33",
+                    "beat": 21,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-34",
+                    "beat": 22,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-35",
+                    "beat": 22.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-36",
+                    "beat": 23,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-37",
+                    "beat": 24,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-38",
+                    "beat": 24.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-39",
+                    "beat": 25,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-40",
+                    "beat": 26,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-41",
+                    "beat": 26.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-42",
+                    "beat": 27,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-43",
+                    "beat": 28,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-44",
+                    "beat": 28.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-45",
+                    "beat": 29,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-46",
+                    "beat": 30,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-47",
+                    "beat": 30.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-48",
+                    "beat": 31,
+                    "cue": "D · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m3-03",
+              "title": "Take It Easy — Eagles practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for short down-up groups with counted rests using G, C, D, Em. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 82,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 82,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 0.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 4,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 4.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 5,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 6,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 6.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 7,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 8,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 8.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 9,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 10,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 10.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 11,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 12,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 12.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 13,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 14,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 14.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 15,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 16.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 20,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 20.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-33",
+                    "beat": 21,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-34",
+                    "beat": 22,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-35",
+                    "beat": 22.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-36",
+                    "beat": 23,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-37",
+                    "beat": 24,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-38",
+                    "beat": 24.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-39",
+                    "beat": 25,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-40",
+                    "beat": 26,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-41",
+                    "beat": 26.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-42",
+                    "beat": 27,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-43",
+                    "beat": 28,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-44",
+                    "beat": 28.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-45",
+                    "beat": 29,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-46",
+                    "beat": 30,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-47",
+                    "beat": 30.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-48",
+                    "beat": 31,
+                    "cue": "Em · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m3-04",
+              "title": "The Sound Of Silence — Simon & Garfunkel practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for short down-up groups with counted rests using Am, C, F, G. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 66,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 66,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 0.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 1,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 2,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 2.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 3,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 4,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 4.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 5,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 6,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 6.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 7,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 8,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 8.5,
+                    "cue": "F · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 9,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 10,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 10.5,
+                    "cue": "F · ↑"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 11,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 12,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 12.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 13,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 14,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 14.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 15,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 16,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 16.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 17,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 18,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 18.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 19,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 20,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 20.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-33",
+                    "beat": 21,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-34",
+                    "beat": 22,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-35",
+                    "beat": 22.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-36",
+                    "beat": 23,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-37",
+                    "beat": 24,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-38",
+                    "beat": 24.5,
+                    "cue": "F · ↑"
+                  },
+                  {
+                    "id": "run-39",
+                    "beat": 25,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-40",
+                    "beat": 26,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-41",
+                    "beat": 26.5,
+                    "cue": "F · ↑"
+                  },
+                  {
+                    "id": "run-42",
+                    "beat": 27,
+                    "cue": "F · ↓"
+                  },
+                  {
+                    "id": "run-43",
+                    "beat": 28,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-44",
+                    "beat": 28.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-45",
+                    "beat": 29,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-46",
+                    "beat": 30,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-47",
+                    "beat": 30.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-48",
+                    "beat": 31,
+                    "cue": "G · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m3-05",
+              "moduleId": "g-songs-m3",
+              "title": "Module 3 checkpoint — four song companions prepared",
+              "type": "checkpoint",
+              "minutes": 12,
+              "summary": "Fresh bounded preparation evidence for one selected companion; it does not assess chords or full-song mastery.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 78,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 78,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 0.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 2,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 4,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 4.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 5,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 6,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 6.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 7,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 8,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 8.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 9,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 10,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 10.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 11,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 12,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 12.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 13,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 14,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 14.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 15,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 16.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 18,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 20,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 20.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-33",
+                    "beat": 21,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-34",
+                    "beat": 22,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-35",
+                    "beat": 22.5,
+                    "cue": "Cadd9 · ↑"
+                  },
+                  {
+                    "id": "run-36",
+                    "beat": 23,
+                    "cue": "Cadd9 · ↓"
+                  },
+                  {
+                    "id": "run-37",
+                    "beat": 24,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-38",
+                    "beat": 24.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-39",
+                    "beat": 25,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-40",
+                    "beat": 26,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-41",
+                    "beat": 26.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-42",
+                    "beat": 27,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-43",
+                    "beat": 28,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-44",
+                    "beat": 28.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-45",
+                    "beat": 29,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-46",
+                    "beat": 30,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-47",
+                    "beat": 30.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-48",
+                    "beat": 31,
+                    "cue": "Em · ↓"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "g-songs-m4",
+          "name": "Fingerstyle and melody",
+          "promise": "Prepare independent thumb, treble, and ringing-note control.",
+          "lessons": [
+            {
+              "id": "g-songs-m4-01",
+              "title": "Fast Car — Tracy Chapman practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for thumb-and-finger coordination using C, G, Em, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 64,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 64,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "Em · thumb: bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "Em · index: string 3"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "Em · middle: string 2"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "Em · ring: string 1"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · thumb: bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "D · index: string 3"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · middle: string 2"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ring: string 1"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "Em · thumb: bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "Em · index: string 3"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "Em · middle: string 2"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "Em · ring: string 1"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · thumb: bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "D · index: string 3"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · middle: string 2"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ring: string 1"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m4-02",
+              "title": "Hallelujah — Leonard Cohen practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for thumb-and-finger coordination using C, Am, F, G. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 58,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 58,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Am · thumb: bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "Am · index: string 3"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Am · middle: string 2"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Am · ring: string 1"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "F · thumb: bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "F · index: string 3"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "F · middle: string 2"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "F · ring: string 1"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Am · thumb: bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "Am · index: string 3"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Am · middle: string 2"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Am · ring: string 1"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "F · thumb: bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "F · index: string 3"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "F · middle: string 2"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "F · ring: string 1"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "G · ring: string 1"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m4-03",
+              "title": "Blackbird — The Beatles practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for thumb-and-finger coordination using G, Am7, C, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 56,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 56,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Am7 · thumb: bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "Am7 · index: string 3"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Am7 · middle: string 2"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Am7 · ring: string 1"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · thumb: bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "D · index: string 3"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · middle: string 2"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ring: string 1"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Am7 · thumb: bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "Am7 · index: string 3"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Am7 · middle: string 2"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Am7 · ring: string 1"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · thumb: bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "D · index: string 3"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · middle: string 2"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ring: string 1"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m4-04",
+              "title": "Wish You Were Here — Pink Floyd practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for thumb-and-finger coordination using Em, G, A, C. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "Em · thumb: bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "Em · index: string 3"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "Em · middle: string 2"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "Em · ring: string 1"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "A · thumb: bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "A · index: string 3"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "A · middle: string 2"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "A · ring: string 1"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "Em · thumb: bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "Em · index: string 3"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "Em · middle: string 2"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "Em · ring: string 1"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "A · thumb: bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "A · index: string 3"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "A · middle: string 2"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "A · ring: string 1"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "C · ring: string 1"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m4-05",
+              "moduleId": "g-songs-m4",
+              "title": "Module 4 checkpoint — four song companions prepared",
+              "type": "checkpoint",
+              "minutes": 12,
+              "summary": "Fresh bounded preparation evidence for one selected companion; it does not assess chords or full-song mastery.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 64,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 64,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "Em · thumb: bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "Em · index: string 3"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "Em · middle: string 2"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "Em · ring: string 1"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · thumb: bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "D · index: string 3"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "D · middle: string 2"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ring: string 1"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "C · thumb: bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "C · index: string 3"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "C · middle: string 2"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "C · ring: string 1"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · thumb: bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · index: string 3"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · middle: string 2"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ring: string 1"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "Em · thumb: bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "Em · index: string 3"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "Em · middle: string 2"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "Em · ring: string 1"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · thumb: bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "D · index: string 3"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "D · middle: string 2"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ring: string 1"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "g-songs-m5",
+          "name": "Roots and movement",
+          "promise": "Prepare classic open-chord motion, pickups, and bass awareness.",
+          "lessons": [
+            {
+              "id": "g-songs-m5-01",
+              "title": "I Walk The Line — Johnny Cash practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for alternating bass notes and upper-string brushes using A, D, E. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 76,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 76,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "A · ↓ upper strings"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m5-02",
+              "title": "Take Me Home, Country Roads — John Denver practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for alternating bass notes and upper-string brushes using G, Em, D, C. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 80,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 80,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "C · ↓ upper strings"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m5-03",
+              "title": "Hey Joe — Jimi Hendrix practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for alternating bass notes and upper-string brushes using C, G, D, A. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 72,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 72,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "A · ↓ upper strings"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m5-04",
+              "title": "Brown Eyed Girl — Van Morrison practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for alternating bass notes and upper-string brushes using G, C, D, Em. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 86,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 86,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "G · bass"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "C · bass"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "C · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "Em · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "Em · bass"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "Em · ↓ upper strings"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m5-05",
+              "moduleId": "g-songs-m5",
+              "title": "Module 5 checkpoint — four song companions prepared",
+              "type": "checkpoint",
+              "minutes": 12,
+              "summary": "Fresh bounded preparation evidence for one selected companion; it does not assess chords or full-song mastery.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 76,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 76,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22,
+                    "cue": "D · bass"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "D · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26,
+                    "cue": "E · bass"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "E · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "A · ↓ upper strings"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30,
+                    "cue": "A · bass"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "A · ↓ upper strings"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "g-songs-m6",
+          "name": "A small singalong set",
+          "promise": "Prepare four flexible companions whose dynamics survive a room.",
+          "lessons": [
+            {
+              "id": "g-songs-m6-01",
+              "title": "Yellow Submarine — The Beatles practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for syncopated strums with counted spaces using G, D, C, Em. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 78,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 78,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "Em · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m6-02",
+              "title": "Songbird — Oasis practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for syncopated strums with counted spaces using G, C, Em, D. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 68,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 68,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "D · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m6-03",
+              "title": "Heart Of Gold — Neil Young practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for syncopated strums with counted spaces using Em, C, D, G. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 74,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 74,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "G · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m6-04",
+              "title": "Ain't No Sunshine — Bill Withers practice companion",
+              "type": "song",
+              "minutes": 10,
+              "summary": "Original 4/4 preparation for syncopated strums with counted spaces using Am, Dm, E. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 64,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 64,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "Dm · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "Dm · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6.5,
+                    "cue": "Dm · ↑"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "Dm · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10.5,
+                    "cue": "E · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "Dm · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "Dm · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22.5,
+                    "cue": "Dm · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "Dm · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26.5,
+                    "cue": "E · ↑"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "E · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "Am · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30.5,
+                    "cue": "Am · ↑"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "Am · ↓"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "g-songs-m6-05",
+              "moduleId": "g-songs-m6",
+              "title": "Module 6 checkpoint — four song companions prepared",
+              "type": "checkpoint",
+              "minutes": 12,
+              "summary": "Fresh bounded preparation evidence for one selected companion; it does not assess chords or full-song mastery.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 78,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 78,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "run-01",
+                    "beat": 0,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-02",
+                    "beat": 1,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-03",
+                    "beat": 2.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-04",
+                    "beat": 3,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-05",
+                    "beat": 4,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-06",
+                    "beat": 5,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-07",
+                    "beat": 6.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-08",
+                    "beat": 7,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-09",
+                    "beat": 8,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-10",
+                    "beat": 9,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-11",
+                    "beat": 10.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-12",
+                    "beat": 11,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-13",
+                    "beat": 12,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-14",
+                    "beat": 13,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-15",
+                    "beat": 14.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-16",
+                    "beat": 15,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-17",
+                    "beat": 16,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-18",
+                    "beat": 17,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-19",
+                    "beat": 18.5,
+                    "cue": "G · ↑"
+                  },
+                  {
+                    "id": "run-20",
+                    "beat": 19,
+                    "cue": "G · ↓"
+                  },
+                  {
+                    "id": "run-21",
+                    "beat": 20,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-22",
+                    "beat": 21,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-23",
+                    "beat": 22.5,
+                    "cue": "D · ↑"
+                  },
+                  {
+                    "id": "run-24",
+                    "beat": 23,
+                    "cue": "D · ↓"
+                  },
+                  {
+                    "id": "run-25",
+                    "beat": 24,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-26",
+                    "beat": 25,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-27",
+                    "beat": 26.5,
+                    "cue": "C · ↑"
+                  },
+                  {
+                    "id": "run-28",
+                    "beat": 27,
+                    "cue": "C · ↓"
+                  },
+                  {
+                    "id": "run-29",
+                    "beat": 28,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-30",
+                    "beat": 29,
+                    "cue": "Em · ↓"
+                  },
+                  {
+                    "id": "run-31",
+                    "beat": 30.5,
+                    "cue": "Em · ↑"
+                  },
+                  {
+                    "id": "run-32",
+                    "beat": 31,
+                    "cue": "Em · ↓"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "status": "authored_for_integration",
-  "scope": "GuitarHub guitar preparation and D/A chord, change, study, and timing instruction: eighteen authored lessons.",
-  "authoredDate": "2026-09-04",
+  "scope": "GuitarHub guitar preparation, D/A chord, change, study, timing, and original single-string riff instruction: twenty-one authored lessons.",
+  "authoredDate": "2026-09-05",
   "sourceCatalog": "ios/GuitarHubCore/Sources/GuitarHubCore/Resources/guitar.json",
   "instructionConventions": {
     "handNames": "Use picking hand and fretting hand; mirror physical diagrams for the selected handedness while retaining string numbers and note identities.",
@@ -62,15 +62,15 @@
       "doesNotProve": "Complete beginner-grade proficiency, fluent A/D changes, steady song performance, healthy technique, or clean chord tone.",
       "reviewBehavior": "Allow continued learning with targeted review available. Do not label one completed session as mastery; do not require perfect stars on every attempt."
     },
-    "unimplementedRequirements": "Tone/diagram suggestions and quiz items below are specifications for integration, not claims those controls already exist. Use only available working controls in published copy.",
+    "unimplementedRequirements": "Only working native controls are described as available. Tone, physical string and finger choice, comfort, and technique remain self-assessed unless a specific measurement says otherwise.",
     "stageTwo": {
-      "summary": "Merge these nine lessons by stable ID into the existing instruction library, along with uniquely named stage2 assets/references. This is data for implementation and review, not proof that renderer controls already exist.",
+      "summary": "Twelve Stage 2 lessons are attached by stable ID, including the original Low E Lantern riff and its native pitch-sequence exercises.",
       "schemaCompatibility": {
         "baseModel": "LessonInstructionLibrary / LessonInstruction in ios/GuitarHubCore/Sources/GuitarHubCore/Content/LessonInstruction.swift",
         "existingFieldsOnlyAtTypedLessonLevel": true,
         "extensionsLocation": "integrationNote and demoAssets use the existing heterogeneous InstructionJSONValue model.",
         "bundleMerge": "Add by lesson/reference/asset ID; do not replace the existing nine Stage 1 instruction lessons.",
-        "currentRendererWork": "Generalize instructional rendering to these referenced assets, connect manual trial controls, and implement the original study transport. Merely decoding this file does not render the interactions.",
+        "currentRendererWork": "The native lesson renderer presents the referenced diagrams, practice controls, original study, and one-string riff card. Decoding content alone never creates assessment evidence.",
         "progressAdapter": "Manual attempt records are a separate model. If the existing LessonRecord summary is updated, map it to source selfReported with score null; do not add an unsupported source manual enum to LessonRecord or fabricate a PracticeResult.",
         "practiceSpecExtension": "The checkpoint uses optional completionMinimumBPM:80 in the PracticeSpec being implemented by the native/web work. This is the existing catalog tempo goal and is separate from passScore."
       },
@@ -89,9 +89,12 @@
         "g-l2-m3-06",
         "g-l2-m2-01",
         "g-l2-m2-04",
-        "g-l2-m2-06"
+        "g-l2-m2-06",
+        "g-l2-m4-01",
+        "g-l2-m4-03",
+        "g-l2-m4-06"
       ],
-      "orderingReason": "D and A shapes/accuracy precede silent anchor and counted changes; bar/beat strumming then leads to musical application. Keep original IDs and route both Next and Continue through the teaching order. The g-l2-m4 riff lessons are unchanged, not authored here.",
+      "orderingReason": "D and A shapes/accuracy precede silent anchor and counted changes; bar/beat strumming leads to musical application, then the original one-string riff introduces fretted pitch sequences. Keep original IDs and route both Next and Continue through this teaching order.",
       "catalogCorrections": {
         "level": {
           "id": "g-l2",
@@ -129,6 +132,16 @@
               "promise": "Play an original sixteen-bar study and check sixty-four quarter-note attacks across sixteen bars at eighty BPM",
               "skill": "Counting, first-beat strumming, and separate attack-timing practice",
               "proofMetric": "attack_timing_score_and_manual_study"
+            },
+            "counts": "Current published lessonsTotal and sampleLessonsShown should both derive as 3."
+          },
+          {
+            "id": "g-l2-m4",
+            "set": {
+              "name": "First Riff",
+              "promise": "Play an original one-string riff through three consecutive passes at ninety BPM",
+              "skill": "Single-string pitch sequence",
+              "proofMetric": "three_pass_pitch_slots_at_90_bpm"
             },
             "counts": "Current published lessonsTotal and sampleLessonsShown should both derive as 3."
           }
@@ -499,6 +512,39 @@
               }
             },
             "requiredRuntime": "Full 64-target timing capture, actual-tempo readiness gate, and content-version separation from legacy 16-target attempts."
+          },
+          {
+            "id": "g-l2-m4-01",
+            "expectedPreviousTitle": "A Riff Is a Melody You Can Hold",
+            "set": {
+              "title": "A Riff Is a Melody You Can Hold",
+              "type": "concept",
+              "minutes": 3,
+              "summary": "Read an original eight-note riff and prepare four positions on the low E string."
+            },
+            "requiredRuntime": "Authored instruction and native one-string riff card"
+          },
+          {
+            "id": "g-l2-m4-03",
+            "expectedPreviousTitle": "One String, Four Notes",
+            "set": {
+              "title": "One String, Four Notes",
+              "type": "exercise",
+              "minutes": 5,
+              "summary": "Play the eight-note riff in guided Practice and a complete pitch-sequence Play attempt."
+            },
+            "requiredRuntime": "Eight playable single-string pitch targets with actual-tempo evidence"
+          },
+          {
+            "id": "g-l2-m4-06",
+            "expectedPreviousTitle": "Checkpoint: Three Clean Passes at Ninety",
+            "set": {
+              "title": "Checkpoint: Three Complete Passes at Ninety",
+              "type": "checkpoint",
+              "minutes": 5,
+              "summary": "Play three consecutive riff passes at ninety BPM with all 24 target pitches detected in their assigned slots."
+            },
+            "requiredRuntime": "One 24-slot pitch-sequence run, 100 pitch score, and actual BPM at least 90"
           }
         ],
         "doNotAttachPitchOrRhythmSpecToManualCountLessons": [
@@ -715,7 +761,7 @@
           "Use the original study attempt as explicitly labeled musical application. External familiar-song practice can add the song experience.",
           "Keep sixteen-bar/64-attack timing evidence separate. 75 is a local timing threshold, and the named checkpoint requires actualBPM at least 80; neither is a sourced chord-readiness criterion."
         ],
-        "doesNotEstablish": "This nine-lesson proposal does not author the g-l2-m4 riff module or certify complete Stage 2/Grade 1 musicianship.",
+        "doesNotEstablish": "These twelve Stage 2 lessons do not certify complete Grade 1 musicianship, clean tone, memorization, or healthy technique.",
         "review": "Keep earlier accuracy, anchor, and musical phrases available. Allow exploration with a review recommendation instead of requiring perfect performance."
       },
       "validationRequirements": [
@@ -2755,6 +2801,199 @@
         "stepBPM": 4,
         "source": "Existing GuitarHub Practice/Play percentage control."
       }
+    },
+    "stage2-first-riff": {
+      "kind": "single_string_riff",
+      "id": "low-e-lantern",
+      "title": "Low E Lantern",
+      "provenance": "Original GuitarHub exercise",
+      "stringNumber": 6,
+      "stringName": "low E",
+      "meter": "4/4",
+      "exerciseBPM": 60,
+      "checkpointBPM": 90,
+      "passesRequired": 3,
+      "frets": [0, 2, 3, 2, 0, 2, 5, 3],
+      "midi": [40, 42, 43, 42, 40, 42, 45, 43],
+      "noteNames": ["E2", "F#2", "G2", "F#2", "E2", "F#2", "A2", "G2"],
+      "beatOffsets": [0, 1, 2, 3, 4, 5, 6, 7],
+      "tabText": "E2 | 0 2 3 2 | 0 2 5 3 |",
+      "instruction": "Play only string 6. Each fret number receives one beat; a fresh pluck is required for every slot.",
+      "evidence": {
+        "measured": "A Play attempt can detect the authored pitch in each assigned slot and record the actual BPM.",
+        "selfChecked": "The learner listens for buzz, accidental adjacent strings, relaxed movement, and unwanted ringing.",
+        "notMeasured": "The microphone cannot identify the physical string or finger, certify clean tone, prove memorization, or report precise attack timing for pitch-sequence mode."
+      }
+    },
+    "l3-em-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E minor",
+      "description": "Open E minor: 0,2,2,0,0,0 on strings 6 through 1.",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        2,
+        3,
+        0,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ]
+    },
+    "l3-am-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A minor",
+      "description": "A minor: mute 6, then 0,2,2,1,0 on strings 5 through 1.",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        0,
+        2,
+        3,
+        1,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ]
+    },
+    "l3-dm-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D minor",
+      "description": "D minor: mute 6 and 5, then 0,2,3,1 on strings 4 through 1.",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        1
+      ],
+      "fingersString6To1": [
+        0,
+        0,
+        0,
+        2,
+        3,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        65
+      ]
+    },
+    "l3-e-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E major",
+      "description": "Open E major: 0,2,2,1,0,0 on strings 6 through 1.",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        2,
+        3,
+        1,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        56,
+        59,
+        64
+      ]
+    },
+    "l3-c-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major",
+      "description": "C major: mute 6, then 3,2,0,1,0 on strings 5 through 1.",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ]
+    },
+    "l3-g-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major",
+      "description": "G major: 3,2,0,0,0,3 on strings 6 through 1.",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        0,
+        0,
+        0,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ]
     }
   },
   "lessons": [
@@ -4354,6 +4593,3515 @@
       ],
       "referenceIds": [
         "stage2-yousician-modes"
+      ]
+    },
+    {
+      "id": "g-l2-m4-01",
+      "moduleId": "g-l2-m4",
+      "title": "A Riff Is a Melody You Can Hold",
+      "sourceTitle": "A Riff Is a Melody You Can Hold",
+      "type": "concept",
+      "suggestedSeconds": 180,
+      "objective": "Read and prepare Low E Lantern, an original eight-note riff that uses four positions on string 6.",
+      "prerequisiteLessonIds": [
+        "g-l2-m2-06"
+      ],
+      "steps": [
+        {
+          "title": "Read the one-string map",
+          "action": "Tune first. Low E Lantern stays on thick string 6. Read one fret number per beat: 0 2 3 2 | 0 2 5 3. Zero means play the open string; the other numbers name frets, not fingers.",
+          "lookCheck": "Keep your attention on string 6 and trace all eight numbers from left to right before playing.",
+          "listenCheck": "The four pitches are E2, F#2, G2, and A2. The repeated F#2 is a new pluck each time, not one held note."
+        },
+        {
+          "title": "Prepare four positions",
+          "action": "Play open string 6, then fret 2 close to its body-side fret wire, fret 3, and fret 5. Use a comfortable fingering such as index at 2, middle at 3, and little finger at 5, or release and shift if the stretch creates tension.",
+          "lookCheck": "Your fingertip lands on string 6 without touching string 5. Keep the thumb and wrist comfortable rather than forcing a fixed shape.",
+          "listenCheck": "Play each position separately. Listen for the pitch to speak, then check buzz or an accidental second string yourself."
+        },
+        {
+          "title": "Find the two-bar shape",
+          "action": "Tap eight even beats while saying 0, 2, 3, 2 | 0, 2, 5, 3. Then play only the first four notes. Rest, play only the second four, and finally join them at a pace you can control.",
+          "lookCheck": "The bar line divides two groups of four; it does not add a pause or an extra beat.",
+          "listenCheck": "Hear the first group return toward the open note, then hear the second group climb to fret 5 before ending on fret 3."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "A fret number is being treated as a finger number.",
+          "recovery": "Point to the numbered fret space first, then choose the comfortable finger that reaches it without strain."
+        },
+        {
+          "observation": "String 5 rings with the riff.",
+          "recovery": "Reduce the picking motion and aim through string 6 only. Stop, reset, and make one deliberate pluck."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Read the eight fret numbers and name the four pitches."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Find open, fret 2, fret 3, and fret 5 separately on string 6."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Tap and say both four-note groups, then play each group slowly."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Join the two groups once and record what needs attention."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can identify string 6 and all four fret positions.",
+          "I can explain that the tab numbers name frets, not fingers.",
+          "I tried both four-note groups without forcing a stretch."
+        ],
+        "readyWhen": "You can read the eight-note pattern and find all four positions at a comfortable pace with the tab visible.",
+        "ifNotReady": "Practice only 0–2–3–2, then only 0–2–5–3. Shift instead of stretching if fret 5 creates tension.",
+        "proves": "Your own reading and position check for the original one-string riff.",
+        "doesNotProve": "Measured pitch, timing, clean tone, memorization, or a completed performance."
+      },
+      "demoAssetIds": [
+        "stage2-first-riff"
+      ],
+      "referenceIds": [
+        "yousician-tab",
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l2-m4-03",
+      "moduleId": "g-l2-m4",
+      "title": "One String, Four Notes",
+      "sourceTitle": "One String, Four Notes",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Play the complete eight-note Low E Lantern riff on string 6 and use the coach to check the authored pitch order.",
+      "prerequisiteLessonIds": [
+        "g-l2-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Tune and isolate string 6",
+          "action": "Confirm standard tuning, then play only thick string 6. Review 0 2 3 2 | 0 2 5 3 and stop any reference sound before the microphone listens.",
+          "lookCheck": "The target card names string 6, its fret, and the expected pitch for every note.",
+          "listenCheck": "Check for one note at a time. The coach can recognize pitch, but only you can notice buzz or an adjacent string."
+        },
+        {
+          "title": "Practice each half",
+          "action": "Choose Practice and loop targets 1–4 until 0–2–3–2 feels clear. Then loop targets 5–8 for 0–2–5–3. Practice waits for the requested pitch and does not save a score.",
+          "lookCheck": "Each target advances only after a fresh matching note; repeated pitches need another pluck or a brief mute.",
+          "listenCheck": "Use Pause and hear this note when needed. Let the synthesized reference finish before resuming."
+        },
+        {
+          "title": "Join all eight notes",
+          "action": "Turn the loop off and rehearse the full riff. Start below 60 BPM if needed, keep one note per displayed slot, and raise the tempo only when the movement stays comfortable.",
+          "lookCheck": "Follow targets 1 through 8 without skipping. The bar line falls between targets 4 and 5.",
+          "listenCheck": "Listen for each fresh attack and for the final G2 to sound intentionally rather than as a stopped A2."
+        },
+        {
+          "title": "Make a complete Play attempt",
+          "action": "Choose Play for the whole eight-note riff. A score of at least 75 at the selected tempo completes this exercise; slower attempts remain labeled with the BPM you actually used.",
+          "lookCheck": "Review matched pitches out of 8 and the saved BPM. Pitch-sequence mode checks the requested pitch inside each slot, not exact attack offset.",
+          "listenCheck": "After the result, separately note any buzz, extra strings, or tension that the microphone cannot judge."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The coach stays on a repeated F#2.",
+          "recovery": "Release the ringing note with a brief mute or make a clear fresh pluck; one sustained pitch cannot fill two targets."
+        },
+        {
+          "observation": "Fret 5 arrives late or feels strained.",
+          "recovery": "Loop the second group more slowly. Release pressure and shift the hand toward fret 5 instead of forcing the little finger."
+        },
+        {
+          "observation": "The room produces an unscored result.",
+          "recovery": "Stop speaker audio, confirm the input, reduce background sound, and try again; an uncertain signal does not count as a failed performance."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Tune and find all four positions with single deliberate notes."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Loop targets 1–4 and 5–8 separately in unscored Practice."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Join all eight notes at a comfortable selected tempo."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make a complete Play attempt and review pitch evidence separately from tone."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used string 6 and followed all eight fret positions in order.",
+          "I made a fresh pluck for every target, including repeated pitches.",
+          "I checked buzz, extra strings, and hand comfort myself."
+        ],
+        "readyWhen": "Complete all eight slots in Play with at least a 75 pitch score at the tempo you chose, then review the separate tone self-check.",
+        "ifNotReady": "Return to one four-note loop, lower the tempo, or use the reference for one target before a fresh attempt.",
+        "proves": "The detected target-pitch order and actual BPM of a complete Play attempt.",
+        "doesNotProve": "Exact attack timing, physical string or finger choice, clean tone, relaxed technique, or memorization."
+      },
+      "demoAssetIds": [
+        "stage2-first-riff"
+      ],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l2-m4-06",
+      "moduleId": "g-l2-m4",
+      "title": "Checkpoint: Three Complete Passes at Ninety",
+      "sourceTitle": "Checkpoint: Three Clean Passes at Ninety",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play three consecutive repeats of Low E Lantern at 90 BPM with every authored pitch detected in its assigned slot.",
+      "prerequisiteLessonIds": [
+        "g-l2-m4-01",
+        "g-l2-m4-03"
+      ],
+      "steps": [
+        {
+          "title": "Prepare one continuous checkpoint",
+          "action": "Tune, stop reference playback, and review the eight-note riff. The checkpoint is one 24-slot Play run: Low E Lantern three times without pausing or skipping, after a separate four-beat count-in.",
+          "lookCheck": "Targets 1–8 are pass 1, 9–16 are pass 2, and 17–24 are pass 3. Each pass keeps the same 0 2 3 2 | 0 2 5 3 order.",
+          "listenCheck": "Use unscored Practice first. During Play, keep reference sound off so it cannot become microphone evidence."
+        },
+        {
+          "title": "Reach the authored tempo",
+          "action": "Build toward 90 BPM with the tempo control. Slower completed runs save their pitch score and actual BPM as rehearsal, but they do not complete this named checkpoint.",
+          "lookCheck": "The setup states both the selected BPM and the 90-BPM completion minimum.",
+          "listenCheck": "At 90 BPM, the 24 played slots last 16 seconds after the four-beat count-in."
+        },
+        {
+          "title": "Fill every pitch slot",
+          "action": "In Play, make one fresh pluck for each displayed target. Completion requires a 100 pitch score at 90 BPM or faster, so all 24 authored slots must contain their requested pitch in one continuous run.",
+          "lookCheck": "Review matched pitches out of 24, score 100, and the actual BPM before continuing.",
+          "listenCheck": "A missing, different, or uncertain pitch prevents completion. Insufficient microphone evidence abstains instead of awarding a pass."
+        },
+        {
+          "title": "Keep the claim honest",
+          "action": "Treat the saved result as pitch-in-slot evidence for three consecutive passes. The note cards remain visible, so this is not a memory test. Listen separately for buzz, accidental strings, unwanted ringing, and comfortable movement.",
+          "lookCheck": "The result reports pitch score, matched targets, target count, and BPM; it does not report clean tone or exact timing.",
+          "listenCheck": "If your self-check finds a tone or technique problem, keep the measured completion and choose that issue for the next practice block."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "A slower run has all 24 pitches.",
+          "recovery": "Keep the score as slower rehearsal and raise the tempo in small steps. Only a run at 90 BPM or faster completes this checkpoint."
+        },
+        {
+          "observation": "One repeated note is not accepted.",
+          "recovery": "Practice the boundary around that slot with a clear fresh pluck or brief mute, then start a new complete Play run."
+        },
+        {
+          "observation": "The pitch result is complete but the sound was not clean to you.",
+          "recovery": "The app cannot certify tone. Rehearse the affected four-note group slowly and use your own listening check before the next run."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Tune, review the tab, and stop all reference sound."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Rehearse one pass and build toward 90 BPM."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Practice joining pass 1 into pass 2 and pass 2 into pass 3."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make fresh complete 24-slot Play attempts with rest between them."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Review pitch evidence, BPM, and the separate tone and comfort self-check."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I played one uninterrupted 24-slot run containing three full riff passes.",
+          "I reviewed all 24 matched pitches, the 100 pitch score, and the actual BPM.",
+          "I checked tone, accidental strings, and hand comfort separately by ear and feel."
+        ],
+        "readyWhen": "Complete one continuous Play run with all 24 pitch slots detected at 90 BPM or faster, then make the separate tone and comfort self-check.",
+        "ifNotReady": "Keep the latest run at its real BPM, loop the uncertain four-note group in Practice, and make a fresh complete run when ready.",
+        "proves": "All 24 authored target pitches were detected in their assigned slots across three consecutive passes at the saved BPM.",
+        "doesNotProve": "Exact attack timing, clean tone, physical string or finger choice, memorization, relaxed technique, or a flawless performance."
+      },
+      "demoAssetIds": [
+        "stage2-first-riff"
+      ],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m1-01",
+      "moduleId": "g-l3-m1",
+      "title": "Why Minor Sounds Like That",
+      "sourceTitle": "Why Minor Sounds Like That",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Hear the minor third in Em, Am, and Dm, then place each open shape without squeezing.",
+      "prerequisiteLessonIds": [
+        "g-l2-m4-06"
+      ],
+      "steps": [
+        {
+          "title": "Compare E colors",
+          "action": "Play E major, then lift the index from string 3 fret 1 for E minor. Name the changed note.",
+          "lookCheck": "E major frets 3/1; E minor leaves string 3 open.",
+          "listenCheck": "The open G in Em sounds darker than G-sharp in E."
+        },
+        {
+          "title": "Build E minor",
+          "action": "Place middle on string 5 fret 2 and ring on string 4 fret 2; strum all six strings.",
+          "lookCheck": "Both fingers arch over their strings and strings 3–1 stay open.",
+          "listenCheck": "Pluck strings 6–1 one at a time and find any buzz."
+        },
+        {
+          "title": "Build A and D minor",
+          "action": "Am: mute 6, then 5 open, 4/3 fret 2, 2 fret 1, 1 open. Dm: mute 6/5, then 4 open, 3/2, 2/3, 1/1.",
+          "lookCheck": "Say Am uses strings 5–1 and Dm uses 4–1 before strumming.",
+          "listenCheck": "Hear A and D as separate bass homes, with the minor color above each."
+        },
+        {
+          "title": "Use the color",
+          "action": "Strum Em, Am, Dm for four counts each, stopping between shapes to name the bass string.",
+          "lookCheck": "Use the same relaxed downstroke while only the shape changes.",
+          "listenCheck": "Listen for root changes and for open strings to ring."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The chord sounds major.",
+          "recovery": "Check that the minor third is open: string 3 in Em, string 2 fret 1 in Am, string 2 fret 3 in Dm."
+        },
+        {
+          "observation": "A note buzzes.",
+          "recovery": "Pluck that string alone, release excess pressure, and place the fingertip just behind its fret wire."
+        },
+        {
+          "observation": "The stretch feels tense.",
+          "recovery": "Place one finger at a time, move the thumb behind the neck, and pause rather than squeezing."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Compare major and minor E."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Build Em, Am, and Dm string by string."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Cycle the three shapes for four counts."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Repeat and note one listening change."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can state the sounding strings for Em, Am, and Dm.",
+          "I can identify the changed third in E.",
+          "I checked buzz and muting by ear."
+        ],
+        "readyWhen": "You can place the three shapes with sounding-string rules visible and explain the darker third.",
+        "ifNotReady": "Use one shape at a time, pluck its fretted notes, then rebuild the chord.",
+        "proves": "Your shape and listening understanding of three open minor chords.",
+        "doesNotProve": "Chord speed, tone quality, intonation, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "l3-em-chord",
+        "l3-am-chord",
+        "l3-dm-chord"
+      ],
+      "referenceIds": [
+        "stage2-justin-a",
+        "stage2-justin-d"
+      ]
+    },
+    {
+      "id": "g-l3-m1-03",
+      "moduleId": "g-l3-m1",
+      "title": "Three Minors on Cue",
+      "sourceTitle": "Three Minors on Cue",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Recall Em, Am, and Dm from spoken calls, then verify each permitted string deliberately.",
+      "prerequisiteLessonIds": [
+        "g-l3-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Shuffle the calls",
+          "action": "Say Em, Am, and Dm in a shuffled order and allow yourself five seconds to prepare each.",
+          "lookCheck": "Keep the card visible as a reading aid; this does not claim hidden memory.",
+          "listenCheck": "Name the lowest sounding string before strumming."
+        },
+        {
+          "title": "Place from the bass",
+          "action": "Start Em on 6, Am on 5, and Dm on 4, then add the remaining fretted notes.",
+          "lookCheck": "Keep unused strings away from the pick path and fingers arched.",
+          "listenCheck": "Pluck the bass and each fretted note before a full chord."
+        },
+        {
+          "title": "Run a two-pass check",
+          "action": "First pass forms the shape; second pass inspects bass, fretted notes, open strings, and omissions.",
+          "lookCheck": "A slow check is more useful than a rushed shape.",
+          "listenCheck": "A dead inner note means repeat the shape, not just strum louder."
+        },
+        {
+          "title": "Add four-count changes",
+          "action": "At 60 BPM hold each called chord for four beats, changing on the next bar for six calls.",
+          "lookCheck": "The metronome marks the change point; it does not grade tone.",
+          "listenCheck": "Listen for the new root on beat 1 and reset silently if needed."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "You forget the call.",
+          "recovery": "Say the name aloud, place its bass finger first, and restart calmly."
+        },
+        {
+          "observation": "Shapes blur together.",
+          "recovery": "Compare bass strings 6, 5, and 4 by plucking them before the chord."
+        },
+        {
+          "observation": "Five seconds creates tension.",
+          "recovery": "Use ten seconds for two rounds, then shorten only while the wrist stays relaxed."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 75,
+          "instruction": "Shuffle and place six chord calls."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Run the bass and sounding-string check."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Change every four beats at 60 BPM."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repeat the hardest transition slowly."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I named the bass string for every call.",
+          "I checked permitted strings instead of only strumming.",
+          "I found one transition to revisit."
+        ],
+        "readyWhen": "Complete six shuffled calls with correct sounding-string checks and no forced squeeze.",
+        "ifNotReady": "Use only two shapes, give each ten seconds, and pluck its bass before strumming.",
+        "proves": "Manual recall and listening for three open minor shapes.",
+        "doesNotProve": "Three-second speed, tone, or automatic chord recognition."
+      },
+      "demoAssetIds": [
+        "l3-em-chord",
+        "l3-am-chord",
+        "l3-dm-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m1-07",
+      "moduleId": "g-l3-m1",
+      "title": "Checkpoint: Three Minors, Self-Checked",
+      "sourceTitle": "Checkpoint: Eight Open Shapes, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Run a deliberate circuit of Em, Am, and Dm with manual string checks before moving to the next open-chord module.",
+      "prerequisiteLessonIds": [
+        "g-l3-m1-03"
+      ],
+      "steps": [
+        {
+          "title": "Prepare three calls",
+          "action": "Shuffle Em, Am, and Dm and keep their diagrams available for each call.",
+          "lookCheck": "This is a self-check of the three new minor shapes; it does not test hidden recall or three-second speed.",
+          "listenCheck": "Name the lowest permitted string first."
+        },
+        {
+          "title": "Inspect each shape",
+          "action": "Pluck the bass and fretted strings before four even downstrokes.",
+          "lookCheck": "Em sounds 6–1; Am omits 6; Dm omits 6 and 5. Verify each minor diagram.",
+          "listenCheck": "Listen for dead inner notes hidden by a full strum."
+        },
+        {
+          "title": "Run the circuit",
+          "action": "At 60 BPM hold each called minor for one four-count bar; silently reset when needed.",
+          "lookCheck": "Mark a call for review instead of hiding a scramble; the eight-shape circuit comes in the next module.",
+          "listenCheck": "Listen for the root on beat 1 and ringing open strings."
+        },
+        {
+          "title": "Review honestly",
+          "action": "Repeat the weakest minor call for three slow bars and write the issue you heard.",
+          "lookCheck": "There is no app measurement attached to this checkpoint.",
+          "listenCheck": "Separate buzz, omission, transition tension, and comfort in your notes."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Three seconds is unrealistic.",
+          "recovery": "Use the minor diagram and build from its bass with a full breath."
+        },
+        {
+          "observation": "A dead note is hard to find.",
+          "recovery": "Pluck upward one string at a time until the contact is identified."
+        },
+        {
+          "observation": "Changes blur.",
+          "recovery": "Return to four-count bars with silent resets between calls."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Review the Em, Am, and Dm diagrams."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Run six shuffled four-count calls across the three minors."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Repeat the weakest minor call string by string."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Write the self-check result."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I checked permitted strings for Em, Am, and Dm.",
+          "I completed or documented a six-call circuit across the three minors.",
+          "I wrote two tone or comfort observations."
+        ],
+        "readyWhen": "Complete the six-call minor circuit and document any shape needing review; this is a self-check.",
+        "ifNotReady": "Use one minor at a time and pluck every unclear string before returning to the shuffled calls.",
+        "proves": "A manual check of Em, Am, and Dm.",
+        "doesNotProve": "Three-second recall, clean tone, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "stage2-a-chord",
+        "stage2-d-chord",
+        "l3-em-chord",
+        "l3-am-chord",
+        "l3-dm-chord",
+        "l3-e-chord",
+        "l3-c-chord",
+        "l3-g-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m2-01",
+      "moduleId": "g-l3-m2",
+      "title": "The Stretch Chords",
+      "sourceTitle": "The Stretch Chords",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Build E, C, and G with low effort, using each shape's bass and omitted-string rules.",
+      "prerequisiteLessonIds": [
+        "g-l3-m1-07"
+      ],
+      "steps": [
+        {
+          "title": "Map the basses",
+          "action": "Say E, C, G while touching their lowest strings: 6, 5, 6.",
+          "lookCheck": "C's string 6 is silent; begin its check on string 5.",
+          "listenCheck": "Hear the root move E–C–G even as open notes overlap."
+        },
+        {
+          "title": "Build E major",
+          "action": "Place index 3/1, middle 5/2, ring 4/2 and strum six strings.",
+          "lookCheck": "Strings 2 and 1 are open; keep fingertips arched.",
+          "listenCheck": "Pluck 6 through 1 and correct buzz before strumming."
+        },
+        {
+          "title": "Reach C safely",
+          "action": "Place ring 5/3, middle 4/2, index 2/1; mute 6 and leave 3 and 1 open.",
+          "lookCheck": "Move the whole hand toward the nut instead of reaching one finger.",
+          "listenCheck": "The open G on string 3 must ring."
+        },
+        {
+          "title": "Build G",
+          "action": "Place middle 6/3, index 5/2, ring 1/3; let 4–2 ring open.",
+          "lookCheck": "Check fretted outer strings and relaxed thumb.",
+          "listenCheck": "Hear low and high G frame the open notes."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "C hurts.",
+          "recovery": "Bring the thumb behind the neck, move the elbow forward, and shorten the block."
+        },
+        {
+          "observation": "String 6 rings in C.",
+          "recovery": "Angle the ring finger or touch string 6 lightly with the thumb, then pluck it alone."
+        },
+        {
+          "observation": "G is muddy.",
+          "recovery": "Pluck each string from 6 to 1 and repair the first dead contact."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Locate E, C, and G roots."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Build E and inspect all strings."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Build C and G slowly."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Cycle E–C–G once."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can name each root string.",
+          "I built C without forcing my wrist.",
+          "I checked each shape string by string."
+        ],
+        "readyWhen": "You can place E, C, and G with the bass rules visible and no hand strain.",
+        "ifNotReady": "Practice C in ten-second placements, then add its bass and open-string check.",
+        "proves": "A placement and listening plan for three open shapes.",
+        "doesNotProve": "Stretch tolerance, tone, speed, or measured chord score."
+      },
+      "demoAssetIds": [
+        "l3-e-chord",
+        "l3-c-chord",
+        "l3-g-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m2-04",
+      "moduleId": "g-l3-m2",
+      "title": "Four-Corner Turnaround: An Original Study",
+      "sourceTitle": "Four-Corner Turnaround: An Original Study",
+      "type": "song",
+      "suggestedSeconds": 360,
+      "objective": "Play the original E–C–G–D four-bar study with counted changes and a calm reset plan.",
+      "prerequisiteLessonIds": [
+        "g-l3-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the map",
+          "action": "The original study is E | C | G | D, one chord per four-count bar. Say the map aloud.",
+          "lookCheck": "No commercial melody or recording is needed.",
+          "listenCheck": "Hear bass movement E–C–G–D."
+        },
+        {
+          "title": "Rehearse pairs",
+          "action": "Play E–C for two bars, then G–D for two, checking permitted strings.",
+          "lookCheck": "C omits 6 and D omits 6/5; keep that picking path.",
+          "listenCheck": "A silent reset is cleaner than a rushed chord."
+        },
+        {
+          "title": "Join four bars",
+          "action": "At 60 BPM play E | C | G | D twice and change on bar lines.",
+          "lookCheck": "Count 1–2–3–4; the metronome guides rather than scores.",
+          "listenCheck": "Listen for each root on beat 1 and ring through 2–4."
+        },
+        {
+          "title": "Shape the next take",
+          "action": "Make one full take, then isolate one hard transition for three slow repetitions.",
+          "lookCheck": "Name the transition rather than labeling the whole take.",
+          "listenCheck": "Check buzz, extra strings, and tension by ear and feel."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Change comes after beat 1.",
+          "recovery": "Say the destination on beat 4 and re-enter on beat 1."
+        },
+        {
+          "observation": "C or D includes a low string.",
+          "recovery": "Mute the excluded string and pluck the bass before rebuilding."
+        },
+        {
+          "observation": "C→G stops the study.",
+          "recovery": "Loop C | G at 40 BPM, then add surrounding bars."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 75,
+          "instruction": "Read and speak the map."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Loop E–C and G–D."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Play two four-bar passes."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Isolate one transition."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I counted four beats in every bar.",
+          "I checked C and D omissions.",
+          "I identified one transition to revisit."
+        ],
+        "readyWhen": "Play two original study passes and record transition and tone observations.",
+        "ifNotReady": "Return to the hardest pair at 40 BPM with silent resets.",
+        "proves": "A self-guided E–C–G–D study.",
+        "doesNotProve": "Commercial-song coverage, mastery, timing, or microphone scoring."
+      },
+      "demoAssetIds": [
+        "l3-e-chord",
+        "l3-c-chord",
+        "l3-g-chord",
+        "stage2-d-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m2-07",
+      "moduleId": "g-l3-m2",
+      "title": "Checkpoint: Eight Open Shapes, Self-Checked",
+      "sourceTitle": "Checkpoint: Eight Open Shapes, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Complete an eight-shape circuit including E, C, and G, checking every permitted string manually.",
+      "prerequisiteLessonIds": [
+        "g-l3-m2-04"
+      ],
+      "steps": [
+        {
+          "title": "Choose a circuit",
+          "action": "Use E, C, G, D, Em, Am, Dm, and A in a shuffled order with one four-count bar each.",
+          "lookCheck": "This is a manual reflection, not an automated clean-chord score.",
+          "listenCheck": "Name each root string before the first stroke."
+        },
+        {
+          "title": "Inspect hard shapes",
+          "action": "For C/Am omit 6; for D/Dm omit 6/5; pluck bass and fretted notes first.",
+          "lookCheck": "Release pressure between checks and compare the diagram.",
+          "listenCheck": "Listen for a dead inner string."
+        },
+        {
+          "title": "Play and mark",
+          "action": "At 60 BPM strum four downstrokes per chord and mark any scrambled change for review.",
+          "lookCheck": "A silent reset is allowed and should be recorded honestly.",
+          "listenCheck": "Listen for roots on beat 1 and open strings through 4."
+        },
+        {
+          "title": "Repair two calls",
+          "action": "Repeat the two least reliable shapes for three slow bars and write the issue.",
+          "lookCheck": "Keep string, tone, and comfort notes separate.",
+          "listenCheck": "Use your ear for buzz and muting, not loudness."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Too many weak shapes.",
+          "recovery": "Split into two groups of four and revisit after a rest."
+        },
+        {
+          "observation": "Dead string is hidden.",
+          "recovery": "Pluck upward while holding the shape until the contact is found."
+        },
+        {
+          "observation": "60 BPM is fast.",
+          "recovery": "Drop to 40 BPM for placement, then restore four counts."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Review diagrams and bass rules."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Run eight four-count calls."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Repeat the two weakest shapes."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Write observations and next target."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I checked lowest and omitted strings.",
+          "I completed or documented the eight-bar circuit.",
+          "I wrote separate tone and comfort observations."
+        ],
+        "readyWhen": "Complete the eight-bar manual circuit and its follow-up checks.",
+        "ifNotReady": "Use four shapes at a time and isolate unclear strings.",
+        "proves": "A self-checked circuit across eight open shapes.",
+        "doesNotProve": "Speed, tone, finger pressure, timing, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "l3-e-chord",
+        "l3-c-chord",
+        "l3-g-chord",
+        "stage2-d-chord",
+        "l3-em-chord",
+        "l3-am-chord",
+        "l3-dm-chord",
+        "stage2-a-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m3-01",
+      "moduleId": "g-l3-m3",
+      "title": "The Hand Never Stops",
+      "sourceTitle": "The Hand Never Stops",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Coordinate constant down-up motion and controlled ghost strokes while keeping the spoken subdivision even.",
+      "prerequisiteLessonIds": [
+        "g-l3-m2-07"
+      ],
+      "steps": [
+        {
+          "title": "Air-strum",
+          "action": "Make small wrist-led down-up motions while saying 1-and-2-and-3-and-4-and.",
+          "lookCheck": "Down and up travel the same distance; elbow stays quiet.",
+          "listenCheck": "The spoken subdivisions remain even without guitar sound."
+        },
+        {
+          "title": "Mute lightly",
+          "action": "Lay the fretting hand across strings and brush down-up at 50 BPM.",
+          "lookCheck": "Mute without pressing; pick crosses a narrow path.",
+          "listenCheck": "Hear a soft percussive tick on every subdivision."
+        },
+        {
+          "title": "Miss on purpose",
+          "action": "Keep moving but lift above the strings on each upstroke, returning on the next down.",
+          "lookCheck": "Ghost timing stays; only contact changes.",
+          "listenCheck": "Hear a gap while the count continues."
+        },
+        {
+          "title": "Transfer to Em",
+          "action": "Play two bars Em normally, then ghost every upstroke for two bars.",
+          "lookCheck": "Chord hand stays still while contact changes.",
+          "listenCheck": "Listen for equal spacing between pitched and muted strokes."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Motion stops after a miss.",
+          "recovery": "Air-strum one bar while counting, then return to muted strings."
+        },
+        {
+          "observation": "Elbow is tense.",
+          "recovery": "Shrink the wrist motion and shake out every four bars."
+        },
+        {
+          "observation": "Ghost becomes a chord.",
+          "recovery": "Raise the pick slightly and lighten contact."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Air-strum spoken eighths."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Brush muted strings."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Add deliberate ghost upstrokes."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Transfer to Em."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I kept motion through a missed stroke.",
+          "I distinguished pitched and muted strokes.",
+          "My wrist and forearm stayed comfortable."
+        ],
+        "readyWhen": "You can count eighths for four bars while moving through muted, ghost, and chord strokes.",
+        "ifNotReady": "Return to air and one muted bar before adding Em.",
+        "proves": "Manual control of continuous strumming motion.",
+        "doesNotProve": "Automatic rhythm accuracy, tone, or measured tempo pass."
+      },
+      "demoAssetIds": [
+        "stage2-four-beat-bar"
+      ],
+      "referenceIds": [
+        "stage2-justin-bars",
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m3-02",
+      "moduleId": "g-l3-m3",
+      "title": "Ghost Strums",
+      "sourceTitle": "Ghost Strums",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Play two bars of downbeat strokes and ghost upstrokes, then transfer the exact 16-slot motion to Em.",
+      "prerequisiteLessonIds": [
+        "g-l3-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Read 16 slots",
+          "action": "Count 1-and-2-and-3-and-4-and for two bars: strike each downbeat and ghost every upstroke.",
+          "lookCheck": "Targets are beats 0,.5,1,1.5 through 7.5; no extra strokes belong.",
+          "listenCheck": "Muted downbeats are audible; ghost upstrokes are quiet."
+        },
+        {
+          "title": "Prepare the mute",
+          "action": "Lay fingers lightly across all strings and use shallow pick depth.",
+          "lookCheck": "The hand returns after every stroke without squeezing.",
+          "listenCheck": "Hear short clicks, never pitched chords or scrapes."
+        },
+        {
+          "title": "Run Play",
+          "action": "After the four-beat count-in, choose Play at 60 BPM. Rhythm score checks event timing, not mute quality.",
+          "lookCheck": "Review 16 targets, score, and actual BPM; it cannot see ghost motion.",
+          "listenCheck": "If input is uncertain, use Practice; abstention is not a failure."
+        },
+        {
+          "title": "Transfer to Em",
+          "action": "Hold Em and play four bars with ghost upstrokes, then listen for even gaps.",
+          "lookCheck": "Keep chord fingers placed and the same 16-slot map.",
+          "listenCheck": "Hear Em only on intentional downbeats."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "A slot is missed after a ghost.",
+          "recovery": "Keep moving in air, say the next syllable, and restart the two-bar loop slower."
+        },
+        {
+          "observation": "Mute creates pitches.",
+          "recovery": "Flatten fingers gently without pressing and test one string."
+        },
+        {
+          "observation": "Score is low but motion felt right.",
+          "recovery": "Check input and repeat; score is rhythm-event evidence only."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Speak and air-strum the map."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Practice muted down-up motion."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Make Play attempts at 60 BPM."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Transfer to Em and self-check."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I moved on all 16 subdivisions.",
+          "I reviewed score and BPM separately from mute quality.",
+          "I transferred the pattern to Em without wrist tension."
+        ],
+        "readyWhen": "Complete a 16-slot Play run at 60 BPM or faster with an 80 rhythm score, then self-check mute and comfort.",
+        "ifNotReady": "Use Practice at 40 BPM and isolate one bar before another Play run.",
+        "proves": "Rhythm-event timing for the authored 16-slot drill.",
+        "doesNotProve": "Mute quality, ghost silence, chord tone, or hand technique."
+      },
+      "demoAssetIds": [
+        "stage2-four-beat-bar"
+      ],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ],
+      "practiceSpec": {
+        "mode": "rhythm",
+        "bpm": 60,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 80,
+        "completionMinimumBPM": 60,
+        "revision": 1,
+        "targets": [
+          {
+            "id": "target-00",
+            "beat": 0.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-01",
+            "beat": 0.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-02",
+            "beat": 1.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-03",
+            "beat": 1.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-04",
+            "beat": 2.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-05",
+            "beat": 2.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-06",
+            "beat": 3.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-07",
+            "beat": 3.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-08",
+            "beat": 4.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-09",
+            "beat": 4.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-10",
+            "beat": 5.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-11",
+            "beat": 5.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-12",
+            "beat": 6.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-13",
+            "beat": 6.5,
+            "cue": "Muted · ↑"
+          },
+          {
+            "id": "target-14",
+            "beat": 7.0,
+            "cue": "Muted · ↓"
+          },
+          {
+            "id": "target-15",
+            "beat": 7.5,
+            "cue": "Muted · ↑"
+          }
+        ]
+      }
+    },
+    {
+      "id": "g-l3-m3-07",
+      "moduleId": "g-l3-m3",
+      "title": "Checkpoint: Twenty-Four Bars, Self-Checked",
+      "sourceTitle": "Checkpoint: Twenty-Four Bars, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Hold counted down-up motion through a 24-bar original map and document recovery after missed strokes.",
+      "prerequisiteLessonIds": [
+        "g-l3-m3-02"
+      ],
+      "steps": [
+        {
+          "title": "Map 24 bars",
+          "action": "Use four muted, eight Em, eight C, and four G bars; count every 1-and-2-and-3-and-4-and.",
+          "lookCheck": "Section changes occur only on bar lines.",
+          "listenCheck": "Listen for pulse under every chord."
+        },
+        {
+          "title": "Choose tempo",
+          "action": "Start 60–90 BPM and record the tempo you actually sustain.",
+          "lookCheck": "This is a continuity self-check, not automatic tempo certification.",
+          "listenCheck": "A steady slower pulse is useful evidence."
+        },
+        {
+          "title": "Play through",
+          "action": "Keep moving for 24 bars; after a miss, ghost the next stroke and re-enter on its downbeat.",
+          "lookCheck": "Mark a stopped section rather than hiding it.",
+          "listenCheck": "Listen for pulse survival after recovery."
+        },
+        {
+          "title": "Review",
+          "action": "Write where motion stopped, what chord or tone issue appeared, and one section to repeat.",
+          "lookCheck": "No app score is attached to this claim.",
+          "listenCheck": "Separate continuity, tone, and comfort in review."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Hand stops.",
+          "recovery": "Keep count, ghost once, and re-enter on the next downbeat."
+        },
+        {
+          "observation": "Change breaks motion.",
+          "recovery": "Mute one bar with the hand moving, then add the destination chord."
+        },
+        {
+          "observation": "Forearm tightens.",
+          "recovery": "Stop safely and build eight bars before adding sections."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Speak the section map."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Run muted and Em bars."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Add C and G with recovery."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review and repeat one section."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I counted and completed or documented all sections.",
+          "I used a ghost recovery after a miss.",
+          "I checked continuity separately from tone and comfort."
+        ],
+        "readyWhen": "Complete the 24-bar written run at a comfortable tempo and document recovery.",
+        "ifNotReady": "Reduce to eight bars and mute through transitions.",
+        "proves": "Self-reported continuity through the 24-bar map.",
+        "doesNotProve": "90 BPM, exact timing, clean chords, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "stage2-four-beat-bar"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m4-01",
+      "moduleId": "g-l3-m4",
+      "title": "Same Shapes, New Key",
+      "sourceTitle": "Same Shapes, New Key",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Use a capo to raise the sounding key while keeping written open-chord shapes unchanged.",
+      "prerequisiteLessonIds": [
+        "g-l3-m3-07"
+      ],
+      "steps": [
+        {
+          "title": "Compare open and capo",
+          "action": "Play G open, place capo behind fret 2, and play the same G shape.",
+          "lookCheck": "Capo raises sound; it does not replace fingers or rename the written shape.",
+          "listenCheck": "Hear the same interval pattern higher."
+        },
+        {
+          "title": "Check pressure",
+          "action": "Test every open string with capo 2, then play an E-shape chord.",
+          "lookCheck": "Capo sits just behind fret 2 and clamps evenly.",
+          "listenCheck": "Listen for rattle, buzz, or pinched notes."
+        },
+        {
+          "title": "Transpose a set",
+          "action": "Play original G | C | Em | D open, then repeat with capo 2 while saying written names.",
+          "lookCheck": "Fingerings and omitted strings stay the same.",
+          "listenCheck": "Hear a higher register with the same contour."
+        },
+        {
+          "title": "Try capo 3",
+          "action": "Move to fret 3 for one pass, then remove it and recheck standard tuning.",
+          "lookCheck": "Count position from the nut; do not stretch to compensate.",
+          "listenCheck": "Describe direction of change without claiming exact frequency."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Capo buzzes.",
+          "recovery": "Move it behind the fret and use only enough pressure to hold strings."
+        },
+        {
+          "observation": "Shape names change.",
+          "recovery": "Keep written chord and capo number as separate labels."
+        },
+        {
+          "observation": "Guitar is sharp after removal.",
+          "recovery": "Remove capo, let strings settle, and check all six strings."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Compare G open and capo 2."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Check capo and open strings."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Play G–C–Em–D twice."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Try capo 3 and retune."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I distinguish written shape from capo sound.",
+          "I placed capo behind the fret.",
+          "I removed capo and checked tuning."
+        ],
+        "readyWhen": "Play the same shape set with capo 2 and explain that the key moved.",
+        "ifNotReady": "Use one chord at capo 2 and compare open strings.",
+        "proves": "Manual understanding of capo placement and transposition.",
+        "doesNotProve": "Exact concert pitch, intonation, performance, or capo detection."
+      },
+      "demoAssetIds": [
+        "l3-c-chord",
+        "l3-g-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m4-03",
+      "moduleId": "g-l3-m4",
+      "title": "Three Keys, One Original Study",
+      "sourceTitle": "Three Keys, One Original Study",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Move original G–C–Em–D between open, capo 2, and capo 4 while keeping written shapes and four-count bars.",
+      "prerequisiteLessonIds": [
+        "g-l3-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the study",
+          "action": "Play G | C | Em | D once open and mark two difficult transitions.",
+          "lookCheck": "The study is original and uses one chord per four-count bar.",
+          "listenCheck": "Hear bass changes at bar lines."
+        },
+        {
+          "title": "Set capo 2",
+          "action": "Place capo just behind fret 2, test open strings, and repeat the four-bar study.",
+          "lookCheck": "Fingerings and C/D omissions do not change.",
+          "listenCheck": "The study sounds higher with the same contour."
+        },
+        {
+          "title": "Set capo 4",
+          "action": "Move capo to fret 4, check tuning, and repeat the same map.",
+          "lookCheck": "Speak the capo number; do not stretch fingers.",
+          "listenCheck": "Compare register and clarity, not exact frequency."
+        },
+        {
+          "title": "Log three passes",
+          "action": "Remove capo, restore tuning, and record position, best transition, and one tone issue per pass.",
+          "lookCheck": "Keep written shape, capo, and sound notes separate.",
+          "listenCheck": "If unstable, isolate the chord before blaming the capo."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Capo buzzes.",
+          "recovery": "Reseat behind the fret and retest open strings."
+        },
+        {
+          "observation": "Fingerings change.",
+          "recovery": "Play four shapes open once, then repeat the same map at each capo."
+        },
+        {
+          "observation": "Final pass is out of tune.",
+          "recovery": "Remove capo, tune, and repeat only the affected bar."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Play and mark open study."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Repeat with capo 2."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Repeat with capo 4."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Retune and write observations."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I kept shapes consistent in all passes.",
+          "I checked capo placement and tuning.",
+          "I logged register, transition, and tone separately."
+        ],
+        "readyWhen": "Complete open, capo 2, and capo 4 passes of the original study with a listening log.",
+        "ifNotReady": "Use open and capo 2 first, then add capo 4.",
+        "proves": "Self-guided capo transposition practice.",
+        "doesNotProve": "Exact key, pitch accuracy, tone, or song measurement."
+      },
+      "demoAssetIds": [
+        "l3-g-chord",
+        "l3-c-chord",
+        "l3-em-chord",
+        "stage2-d-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m4-07",
+      "moduleId": "g-l3-m4",
+      "title": "Checkpoint: One Original Study, Three Capos",
+      "sourceTitle": "Checkpoint: One Original Study, Three Capos",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play original G–C–Em–D open, at capo 2, and at capo 4, then review shape consistency and tuning.",
+      "prerequisiteLessonIds": [
+        "g-l3-m4-03"
+      ],
+      "steps": [
+        {
+          "title": "Prepare passes",
+          "action": "Write OPEN, CAPO 2, CAPO 4 above three copies of G | C | Em | D.",
+          "lookCheck": "Written chord names remain unchanged.",
+          "listenCheck": "Hear open pass as the reference."
+        },
+        {
+          "title": "Check setups",
+          "action": "Before each pass test capo position, two open strings, and each shape's bass.",
+          "lookCheck": "Pressure is even and omissions remain unchanged.",
+          "listenCheck": "Repair rattle or tuning before playing."
+        },
+        {
+          "title": "Play four bars",
+          "action": "Make one pass at each position with a calm reset while moving the capo.",
+          "lookCheck": "No microphone measurement is attached.",
+          "listenCheck": "Listen for bar lengths and register rising."
+        },
+        {
+          "title": "Review honestly",
+          "action": "Restore standard tuning and write clearest pass, weak transition, and next practice.",
+          "lookCheck": "Do not turn tone impression into pitch claim.",
+          "listenCheck": "Your ear judges buzz and balance."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Rhythm changes.",
+          "recovery": "Use spoken 1–2–3–4 before each pass."
+        },
+        {
+          "observation": "Capo 4 exposes a weak shape.",
+          "recovery": "Correct it open, then repeat that bar at capo 4."
+        },
+        {
+          "observation": "Removal changes tuning.",
+          "recovery": "Retune after removal and keep notes separate."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Write the three-pass map."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Play and inspect open pass."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Play capo 2 and 4."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Retune and review."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I completed or documented all three passes.",
+          "I checked tuning before and after.",
+          "I recorded clearest pass and next target."
+        ],
+        "readyWhen": "Complete the three passes and a tuning/shape review; readiness is self-reported.",
+        "ifNotReady": "Use two positions with a rest before adding the third.",
+        "proves": "Manual three-position capo study.",
+        "doesNotProve": "Exact key, intonation, timing, or capo recognition."
+      },
+      "demoAssetIds": [
+        "l3-g-chord",
+        "l3-c-chord",
+        "l3-em-chord",
+        "stage2-d-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m5-01",
+      "moduleId": "g-l3-m5",
+      "title": "Counting in Threes",
+      "sourceTitle": "Counting in Threes",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Feel 3/4 as 1-2-3 and 6/8 as 1-la-li 2-la-li through spoken counts and chord strokes.",
+      "prerequisiteLessonIds": [
+        "g-l3-m4-07"
+      ],
+      "steps": [
+        {
+          "title": "Walk 3/4",
+          "action": "At 60 BPM speak 1-2-3 with an accent on 1 and play Em downstrokes for four bars.",
+          "lookCheck": "Each bar has three quarter counts; no fourth stroke.",
+          "listenCheck": "Hear strong-weak-weak."
+        },
+        {
+          "title": "Group 6/8",
+          "action": "Count 1-la-li 2-la-li and brush two muted groups of three.",
+          "lookCheck": "Six eighths form two large pulses, not six quarter beats.",
+          "listenCheck": "Accent first and fourth subdivisions."
+        },
+        {
+          "title": "Compare Em",
+          "action": "Play four bars in 3/4, then four in 6/8 with the same chord.",
+          "lookCheck": "Write meter above each pass and keep strokes visible.",
+          "listenCheck": "Feel two sways in 6/8 versus three steps in 3/4."
+        },
+        {
+          "title": "Speak before switching",
+          "action": "Alternate one spoken 3/4 bar and one 6/8 bar, then add muted strokes.",
+          "lookCheck": "The switch is a count exercise, not a speed test.",
+          "listenCheck": "Listen for accent reset on each new 1."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "6/8 becomes six quarters.",
+          "recovery": "Return to 1-la-li 2-la-li and tap only two large beats."
+        },
+        {
+          "observation": "3/4 gains a stroke.",
+          "recovery": "Say 1-2-3 and tap only 1 before adding notes."
+        },
+        {
+          "observation": "Switch loses beat 1.",
+          "recovery": "Speak a full bar of each meter before playing."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Speak and tap 3/4."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Speak and brush 6/8."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Compare Em in both."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Practice spoken switches."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I spoke four bars of 3/4 correctly.",
+          "I spoke four bars of 6/8 correctly.",
+          "I heard the accent change."
+        ],
+        "readyWhen": "You can count and play both groupings with accents in place; this is self-guided.",
+        "ifNotReady": "Tap large beats and speak each meter without guitar.",
+        "proves": "Spoken and manual meter grouping.",
+        "doesNotProve": "Exact tempo, alignment, or microphone meter evidence."
+      },
+      "demoAssetIds": [
+        "stage2-four-beat-bar"
+      ],
+      "referenceIds": [
+        "stage2-justin-bars",
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m5-04",
+      "moduleId": "g-l3-m5",
+      "title": "Lantern Tide: An Original 6/8 Study",
+      "sourceTitle": "Lantern Tide: An Original 6/8 Study",
+      "type": "song",
+      "suggestedSeconds": 360,
+      "objective": "Play original Em–C–G–D in 6/8 with two bass pulses per bar and counted recovery.",
+      "prerequisiteLessonIds": [
+        "g-l3-m5-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the map",
+          "action": "Lantern Tide is Em | C | G | D, one 6/8 bar each. Count 1-la-li 2-la-li and bass 1 and 2.",
+          "lookCheck": "The study is original with no borrowed lyrics or recording.",
+          "listenCheck": "Hear two large pulses within every bar."
+        },
+        {
+          "title": "Add upper brush",
+          "action": "Hold each shape and brush lightly on the two large beats.",
+          "lookCheck": "C omits 6 and D omits 6/5; keep bass in permitted strings.",
+          "listenCheck": "Bass anchors the bar while brush stays softer."
+        },
+        {
+          "title": "Join four bars",
+          "action": "Play the sequence twice at 50–60 BPM and change after the second pulse.",
+          "lookCheck": "Do not invent a fourth quarter beat.",
+          "listenCheck": "Hear next chord arrive on new 1."
+        },
+        {
+          "title": "Recover",
+          "action": "If a change slips, keep counting, play muted pulses for a bar, and re-enter on next chord.",
+          "lookCheck": "Mark the recovery bar rather than restarting silently.",
+          "listenCheck": "A muted recovery preserves compound pulse."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Feels like 3/4.",
+          "recovery": "Accent two large beats, each split into three."
+        },
+        {
+          "observation": "Change after five subdivisions.",
+          "recovery": "Count all six syllables before changing."
+        },
+        {
+          "observation": "Bass overwhelms.",
+          "recovery": "Use smaller bass stroke and softer brush."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 75,
+          "instruction": "Speak map and bass pulses."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Practice Em and C."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Play Em–C–G–D twice."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Make recovery take."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I counted six subdivisions as two pulses.",
+          "I kept the sequence for two passes.",
+          "I recovered one missed change by counting."
+        ],
+        "readyWhen": "Play two original study passes with two pulses per 6/8 bar and note meter/tone observations.",
+        "ifNotReady": "Tap two large beats on one chord before adding the sequence.",
+        "proves": "Original 6/8 study and recovery.",
+        "doesNotProve": "Exact alignment, tone, mastery, or microphone scoring."
+      },
+      "demoAssetIds": [
+        "l3-em-chord",
+        "l3-c-chord",
+        "l3-g-chord",
+        "stage2-d-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l3-m5-07",
+      "moduleId": "g-l3-m5",
+      "title": "Checkpoint: Meter Switch, Self-Checked",
+      "sourceTitle": "Checkpoint: Meter Switch, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play an original map of four bars 4/4, four 3/4, four 6/8, then four 4/4 with spoken counts.",
+      "prerequisiteLessonIds": [
+        "g-l3-m5-04"
+      ],
+      "steps": [
+        {
+          "title": "Write map",
+          "action": "Use Em in 4/4, C in 3/4, G in 6/8, and D in 4/4; mark every count above the bars.",
+          "lookCheck": "4/4: 1-2-3-4; 3/4: 1-2-3; 6/8: 1-la-li 2-la-li.",
+          "listenCheck": "Hear bar length change at each chord."
+        },
+        {
+          "title": "Speak and tap",
+          "action": "Tap accents for all 16 bars before touching the guitar.",
+          "lookCheck": "Use one tap per quarter in 4/4/3/4 and two large taps in 6/8.",
+          "listenCheck": "Listen for accent reset at each section."
+        },
+        {
+          "title": "Play the map",
+          "action": "Use one stroke per spoken beat in 4/4/3/4 and two bass pulses in 6/8.",
+          "lookCheck": "This is self-observed; no beat scorer is attached.",
+          "listenCheck": "If a stroke misses, keep speaking and re-enter."
+        },
+        {
+          "title": "Review switch",
+          "action": "Write clearest switch, wavering count, and whether chord or meter caused it.",
+          "lookCheck": "Keep meter notes separate from tone and fretting notes.",
+          "listenCheck": "Your voice and ear judge grouping."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "6/8 rushes.",
+          "recovery": "Stop and speak 1-la-li 2-la-li while tapping two beats."
+        },
+        {
+          "observation": "Switch adds a beat.",
+          "recovery": "Count final bar aloud before starting next 1."
+        },
+        {
+          "observation": "Chord distracts.",
+          "recovery": "Mute strings and play accents before adding shapes."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Speak complete map."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Play 4/4 and 3/4."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Play 6/8 and return."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repeat weak switch."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I spoke the grouping for every section.",
+          "I completed or documented the stopping point.",
+          "I separated meter and tone observations."
+        ],
+        "readyWhen": "Complete the 16-bar map and document the clearest and weakest switch.",
+        "ifNotReady": "Practice each four-bar section, then pair adjacent switches.",
+        "proves": "Manual meter grouping and recovery.",
+        "doesNotProve": "Exact timing, tone, chord mastery, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "stage2-four-beat-bar"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m1-01",
+      "moduleId": "g-l4-m1",
+      "title": "Five Notes That Always Work",
+      "sourceTitle": "Five Notes That Always Work",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Map A minor pentatonic box one from frets 5–8 and locate its A roots.",
+      "prerequisiteLessonIds": [
+        "g-l3-m5-07"
+      ],
+      "steps": [
+        {
+          "title": "Map the position",
+          "action": "Use 6:5–8, 5:5–7, 4:5–7, 3:5–7, 2:5–8, 1:5–8.",
+          "lookCheck": "Index anchors fret 5; ring fret 7; little fret 8.",
+          "listenCheck": "Roots are 6/5, 4/7, and 1/5."
+        },
+        {
+          "title": "Place one finger per fret",
+          "action": "Keep thumb relaxed behind neck and hand over frets 5–8.",
+          "lookCheck": "Do not shift when reaching fret 8.",
+          "listenCheck": "Listen for even volume across fingers."
+        },
+        {
+          "title": "Walk strings",
+          "action": "Play the map upward one string at a time, using alternate picking.",
+          "lookCheck": "All notes stay in frets 5–8.",
+          "listenCheck": "Hear one connected color rather than six starts."
+        },
+        {
+          "title": "Resolve to A",
+          "action": "Use only box notes for four slow beats over an A drone and end on a root.",
+          "lookCheck": "A root is a musical destination, not a score.",
+          "listenCheck": "Ending on A sounds settled."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Position is lost.",
+          "recovery": "Say the map and reset index at fret 5."
+        },
+        {
+          "observation": "Little finger overreaches.",
+          "recovery": "Move thumb behind neck and shrink motion."
+        },
+        {
+          "observation": "No home note.",
+          "recovery": "Stop on each A root and compare nearby notes."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read six-string map."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Place and play strings."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Walk all six strings."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Resolve phrases to A."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can state each string's fret pair.",
+          "I located three A roots.",
+          "I checked pressure and evenness by ear."
+        ],
+        "readyWhen": "You can show box one from frets 5–8, name its roots, and play it slowly.",
+        "ifNotReady": "Use strings 6 and 5 until their patterns are stable.",
+        "proves": "Visual and aural map of box one.",
+        "doesNotProve": "Scale speed, picking accuracy, improvisation, or microphone evidence."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m1-02",
+      "moduleId": "g-l4-m1",
+      "title": "Box One, Up and Down",
+      "sourceTitle": "Box One, Up and Down",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Play the authored 23-note A minor pentatonic route across six strings with alternate picking.",
+      "prerequisiteLessonIds": [
+        "g-l4-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Read exact route",
+          "action": "Ascend 6:5–8, 5:5–7, 4:5–7, 3:5–7, 2:5–8, 1:5–8; descend in reverse.",
+          "lookCheck": "There are 23 targets; high string 1 fret 5 is the turn.",
+          "listenCheck": "Listen for every fret before crossing strings."
+        },
+        {
+          "title": "Set picking",
+          "action": "Start down at string 6 fret 5 and alternate continuously through string changes.",
+          "lookCheck": "Write D U above the first cell and keep it through the turn.",
+          "listenCheck": "Hear equal attacks without a string-change accent."
+        },
+        {
+          "title": "Loop groups",
+          "action": "Loop strings 6–4, then 3–1 at 40 BPM, and join them.",
+          "lookCheck": "Do not substitute a different position.",
+          "listenCheck": "Check high-string crossing for gaps."
+        },
+        {
+          "title": "Run Play",
+          "action": "After count-in, choose Play at 60 BPM. Pitch slots are measured; pick direction and tone are self-checks.",
+          "lookCheck": "Review 23 matches, score, and BPM; scorer cannot see pick direction.",
+          "listenCheck": "Use Practice if signal is uncertain."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "String crossing loses pattern.",
+          "recovery": "Loop last note and first next-string note with written D-U."
+        },
+        {
+          "observation": "Fret 8 is missed.",
+          "recovery": "Center hand at fret 5 and lower tempo."
+        },
+        {
+          "observation": "Score and sound disagree.",
+          "recovery": "Keep pitch evidence separate and repeat at same BPM."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read and finger route."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Loop string groups at 40."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Join and reverse route."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Make Play attempt."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed all 23 string/fret targets.",
+          "I started down and alternated.",
+          "I separated pitch, picking, and tone checks."
+        ],
+        "readyWhen": "Complete the 23-slot Play run at 60 BPM or faster with an 80 pitch score, then self-check technique.",
+        "ifNotReady": "Loop the failed string boundary in Practice at 40 BPM.",
+        "proves": "Pitch-in-slot evidence for box-one route and BPM.",
+        "doesNotProve": "Pick direction, tone, technique, or memorization."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ],
+      "practiceSpec": {
+        "mode": "pitchSequence",
+        "bpm": 60,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 80,
+        "completionMinimumBPM": 60,
+        "revision": 1,
+        "targets": [
+          {
+            "id": "target-00",
+            "beat": 0,
+            "midi": 45,
+            "guitarString": 6,
+            "fret": 5
+          },
+          {
+            "id": "target-01",
+            "beat": 1,
+            "midi": 48,
+            "guitarString": 6,
+            "fret": 8
+          },
+          {
+            "id": "target-02",
+            "beat": 2,
+            "midi": 50,
+            "guitarString": 5,
+            "fret": 5
+          },
+          {
+            "id": "target-03",
+            "beat": 3,
+            "midi": 52,
+            "guitarString": 5,
+            "fret": 7
+          },
+          {
+            "id": "target-04",
+            "beat": 4,
+            "midi": 55,
+            "guitarString": 4,
+            "fret": 5
+          },
+          {
+            "id": "target-05",
+            "beat": 5,
+            "midi": 57,
+            "guitarString": 4,
+            "fret": 7
+          },
+          {
+            "id": "target-06",
+            "beat": 6,
+            "midi": 60,
+            "guitarString": 3,
+            "fret": 5
+          },
+          {
+            "id": "target-07",
+            "beat": 7,
+            "midi": 62,
+            "guitarString": 3,
+            "fret": 7
+          },
+          {
+            "id": "target-08",
+            "beat": 8,
+            "midi": 64,
+            "guitarString": 2,
+            "fret": 5
+          },
+          {
+            "id": "target-09",
+            "beat": 9,
+            "midi": 67,
+            "guitarString": 2,
+            "fret": 8
+          },
+          {
+            "id": "target-10",
+            "beat": 10,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-11",
+            "beat": 11,
+            "midi": 72,
+            "guitarString": 1,
+            "fret": 8
+          },
+          {
+            "id": "target-12",
+            "beat": 12,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-13",
+            "beat": 13,
+            "midi": 67,
+            "guitarString": 2,
+            "fret": 8
+          },
+          {
+            "id": "target-14",
+            "beat": 14,
+            "midi": 64,
+            "guitarString": 2,
+            "fret": 5
+          },
+          {
+            "id": "target-15",
+            "beat": 15,
+            "midi": 62,
+            "guitarString": 3,
+            "fret": 7
+          },
+          {
+            "id": "target-16",
+            "beat": 16,
+            "midi": 60,
+            "guitarString": 3,
+            "fret": 5
+          },
+          {
+            "id": "target-17",
+            "beat": 17,
+            "midi": 57,
+            "guitarString": 4,
+            "fret": 7
+          },
+          {
+            "id": "target-18",
+            "beat": 18,
+            "midi": 55,
+            "guitarString": 4,
+            "fret": 5
+          },
+          {
+            "id": "target-19",
+            "beat": 19,
+            "midi": 52,
+            "guitarString": 5,
+            "fret": 7
+          },
+          {
+            "id": "target-20",
+            "beat": 20,
+            "midi": 50,
+            "guitarString": 5,
+            "fret": 5
+          },
+          {
+            "id": "target-21",
+            "beat": 21,
+            "midi": 48,
+            "guitarString": 6,
+            "fret": 8
+          },
+          {
+            "id": "target-22",
+            "beat": 22,
+            "midi": 45,
+            "guitarString": 6,
+            "fret": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "g-l4-m1-07",
+      "moduleId": "g-l4-m1",
+      "title": "Checkpoint: Box One, Self-Checked",
+      "sourceTitle": "Checkpoint: Box One, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Make two authored box-one route passes and document pitch evidence separately from picking, tone, and comfort.",
+      "prerequisiteLessonIds": [
+        "g-l4-m1-02"
+      ],
+      "steps": [
+        {
+          "title": "Prepare passes",
+          "action": "Choose 40–80 BPM and keep the 23-note route visible for both passes.",
+          "lookCheck": "This does not claim memory or clean technique.",
+          "listenCheck": "Hear the turn-around before starting."
+        },
+        {
+          "title": "Run pass one",
+          "action": "Play up and down, then note missed slot, crossing, or noise. Rest before pass two.",
+          "lookCheck": "If using Play, record pitch and BPM separately.",
+          "listenCheck": "Listen for buzz and uneven accents."
+        },
+        {
+          "title": "Run pass two",
+          "action": "Repeat the route with the same starting downstroke; record a stop honestly if needed.",
+          "lookCheck": "Do not omit difficult notes silently.",
+          "listenCheck": "Compare attack consistency, not only speed."
+        },
+        {
+          "title": "Review",
+          "action": "Write actual BPM, pitch result if used, and one next technical target.",
+          "lookCheck": "The app does not award a clean-pass claim.",
+          "listenCheck": "Use ear for tone and hand for comfort."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Routes differ.",
+          "recovery": "Mark first divergence on the map and restart that pass."
+        },
+        {
+          "observation": "Speed causes tension.",
+          "recovery": "Drop to 40 BPM and use smaller pick motion."
+        },
+        {
+          "observation": "Pitch and tone disagree.",
+          "recovery": "Keep pitch result and tone note separate."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Review route and BPM."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Complete or rehearse pass one."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Complete or rehearse pass two."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review evidence and technique."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed the route on both passes or documented stops.",
+          "I recorded BPM and pitch separately.",
+          "I checked picking, buzz, and comfort."
+        ],
+        "readyWhen": "Complete two truthful passes and separate pitch from technique observations.",
+        "ifNotReady": "Use one string group at 40 BPM, then join groups.",
+        "proves": "Self-reviewed pair of box-one passes.",
+        "doesNotProve": "Two clean passes, exact picking, tone, or memory."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m2-01",
+      "moduleId": "g-l4-m2",
+      "title": "Down-Up Is Not Optional",
+      "sourceTitle": "Down-Up Is Not Optional",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Establish economical alternate picking on one string and keep down-up subdivisions even.",
+      "prerequisiteLessonIds": [
+        "g-l4-m1-07"
+      ],
+      "steps": [
+        {
+          "title": "Anchor motion",
+          "action": "Play string 1 fret 5 once per click at 50 BPM with a small wrist-led downstroke.",
+          "lookCheck": "Forearm stays quiet and pick depth is shallow.",
+          "listenCheck": "Hear one even note per click."
+        },
+        {
+          "title": "Double subdivision",
+          "action": "Play two notes per click, down on click and up between, saying 1-and.",
+          "lookCheck": "Upstroke returns through the string with equal distance.",
+          "listenCheck": "Listen for equal volume."
+        },
+        {
+          "title": "Cross a cell",
+          "action": "Play 5–7–8–7 while preserving D-U-D-U and restart down after the cell.",
+          "lookCheck": "Write directions above the group.",
+          "listenCheck": "Hear one even loop without resets."
+        },
+        {
+          "title": "Compare strokes",
+          "action": "Play one slow all-down bar and one alternate bar at same tempo.",
+          "lookCheck": "This demonstrates economy, not a universal speed limit.",
+          "listenCheck": "Hear less hand travel in the alternate bar."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Upstroke misses.",
+          "recovery": "Reduce pick depth and practice a two-note 1-and cell."
+        },
+        {
+          "observation": "Downstrokes accent.",
+          "recovery": "Lighten downstroke to match upstroke."
+        },
+        {
+          "observation": "Boundary locks.",
+          "recovery": "Loop last note and first next string at 40 BPM."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "One note per click."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Even down-up subdivisions."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Loop 5–7–8–7."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Compare all-down and alternate."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can say 1-and while alternating.",
+          "I kept pick depth small.",
+          "I corrected a missed or accented stroke."
+        ],
+        "readyWhen": "You can play a four-note cell down-up at a controlled tempo and explain the motion.",
+        "ifNotReady": "Return to muted strings and one down-up pair.",
+        "proves": "Manual understanding of strict alternate picking.",
+        "doesNotProve": "Maximum speed, tone, endurance, or microphone evidence."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m2-03",
+      "moduleId": "g-l4-m2",
+      "title": "Metronome Ladder, Sixty to One Hundred",
+      "sourceTitle": "Metronome Ladder, Sixty to One Hundred",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Practice the exact high-E 5–7–8–7 cell through a controlled tempo ladder with measured pitch slots.",
+      "prerequisiteLessonIds": [
+        "g-l4-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Set the cell",
+          "action": "Use string 1 frets 5–7–8–7 repeated four times, starting down-up-down-up.",
+          "lookCheck": "The authored drill is 16 notes at half-beat spacing.",
+          "listenCheck": "Hear four-note groups and return to fret 5."
+        },
+        {
+          "title": "Climb steps",
+          "action": "Start 60 BPM and raise 5 BPM only after a relaxed pass; drop 10 when a note blurs.",
+          "lookCheck": "Record highest comfortable and breakdown BPM.",
+          "listenCheck": "Listen for click alignment without force."
+        },
+        {
+          "title": "Run measured route",
+          "action": "Choose Play at selected BPM; pitch score checks written notes and slots.",
+          "lookCheck": "Review matches, score, and actual BPM; it cannot see pick direction.",
+          "listenCheck": "Use Practice when signal is uncertain."
+        },
+        {
+          "title": "Consolidate",
+          "action": "Repeat best tempo three times with rest; stop if wrist tightens.",
+          "lookCheck": "100 BPM is ladder endpoint, not guaranteed result.",
+          "listenCheck": "Listen for equal volume before climbing."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Score drops.",
+          "recovery": "Keep last passing BPM and reduce step to 2–3."
+        },
+        {
+          "observation": "Pick catches.",
+          "recovery": "Reduce depth and relax thumb-index pinch."
+        },
+        {
+          "observation": "Result abstains.",
+          "recovery": "Stop reference audio, check input, and retry."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 75,
+          "instruction": "Read and finger cells."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Climb 60–75 BPM."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Climb 80–100 only relaxed."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Repeat best tempo and review."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used the exact 16-note route.",
+          "I recorded actual and comfortable BPM.",
+          "I checked direction, pick depth, and comfort."
+        ],
+        "readyWhen": "Complete a 16-slot Play pass at 60 BPM or faster with an 80 pitch score, then choose sustainable tempo.",
+        "ifNotReady": "Stay at last sustainable BPM and loop four notes.",
+        "proves": "Pitch-in-slot evidence for the cell and BPM.",
+        "doesNotProve": "Pick direction, maximum speed, endurance, tone, or tension-free technique."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ],
+      "practiceSpec": {
+        "mode": "pitchSequence",
+        "bpm": 60,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 80,
+        "completionMinimumBPM": 60,
+        "revision": 1,
+        "targets": [
+          {
+            "id": "target-00",
+            "beat": 0.0,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-01",
+            "beat": 0.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-02",
+            "beat": 1.0,
+            "midi": 72,
+            "guitarString": 1,
+            "fret": 8
+          },
+          {
+            "id": "target-03",
+            "beat": 1.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-04",
+            "beat": 2.0,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-05",
+            "beat": 2.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-06",
+            "beat": 3.0,
+            "midi": 72,
+            "guitarString": 1,
+            "fret": 8
+          },
+          {
+            "id": "target-07",
+            "beat": 3.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-08",
+            "beat": 4.0,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-09",
+            "beat": 4.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-10",
+            "beat": 5.0,
+            "midi": 72,
+            "guitarString": 1,
+            "fret": 8
+          },
+          {
+            "id": "target-11",
+            "beat": 5.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-12",
+            "beat": 6.0,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-13",
+            "beat": 6.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-14",
+            "beat": 7.0,
+            "midi": 72,
+            "guitarString": 1,
+            "fret": 8
+          },
+          {
+            "id": "target-15",
+            "beat": 7.5,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "g-l4-m2-07",
+      "moduleId": "g-l4-m2",
+      "title": "Checkpoint: Eighth-Note Cell, Self-Checked",
+      "sourceTitle": "Checkpoint: Eighth-Note Cell, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Run the authored cell at a sustainable tempo and review pitch evidence separately from alternate-picking mechanics.",
+      "prerequisiteLessonIds": [
+        "g-l4-m2-03"
+      ],
+      "steps": [
+        {
+          "title": "Choose honest tempo",
+          "action": "Set 60–100 BPM from ladder results and keep 16-note cell visible.",
+          "lookCheck": "100 BPM is not an automatic technique claim.",
+          "listenCheck": "Hear grouping before starting."
+        },
+        {
+          "title": "Make two passes",
+          "action": "Play two passes with rest; record score/BPM or exact stopping point.",
+          "lookCheck": "The route is fixed but outcome is self-reported.",
+          "listenCheck": "Listen for even volume and relaxed wrist."
+        },
+        {
+          "title": "Check boundary",
+          "action": "Loop first note after each 5–7–8–7 cell while preserving written pick directions.",
+          "lookCheck": "Continuous run restarts only intentionally.",
+          "listenCheck": "Boundary should not add accent or gap."
+        },
+        {
+          "title": "Record result",
+          "action": "Write sustainable BPM, pitch result if used, and one mechanic issue.",
+          "lookCheck": "Keep measured pitch and self-observed technique separate.",
+          "listenCheck": "Microphone cannot prove picking or relaxation."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "100 is not sustainable.",
+          "recovery": "Use highest comfortable BPM as truthful record."
+        },
+        {
+          "observation": "Second pass drifts.",
+          "recovery": "Rest, lower tempo, and loop one cell."
+        },
+        {
+          "observation": "Score incomplete.",
+          "recovery": "Review route and input, then use Practice."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Choose BPM and review cell."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Pass one."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Pass two and boundary."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Log evidence and next tempo."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I completed or documented two exact passes.",
+          "I separated pitch/BPM from mechanics.",
+          "I chose next tempo from actual playing."
+        ],
+        "readyWhen": "Complete two truthful passes and document tempo plus technique self-check.",
+        "ifNotReady": "Use four notes at 40–60 BPM, adding cells gradually.",
+        "proves": "Self-reviewed alternate-picking cell.",
+        "doesNotProve": "95% mechanics, 100 BPM mastery, tone, or microphone evidence."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m3-01",
+      "moduleId": "g-l4-m3",
+      "title": "Notes Without Picking",
+      "sourceTitle": "Notes Without Picking",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Create hammer-on and pull-off pairs and compare the fretting-hand note volume by ear.",
+      "prerequisiteLessonIds": [
+        "g-l4-m2-07"
+      ],
+      "steps": [
+        {
+          "title": "Hammer on",
+          "action": "On string 1 fret 5 pick once, then hammer to fret 7 without another pick.",
+          "lookCheck": "Index stays ready at 5; ring drops a short distance.",
+          "listenCheck": "Second note should speak."
+        },
+        {
+          "title": "Pull off",
+          "action": "Pick fret 7, then pull slightly toward floor to fret 5.",
+          "lookCheck": "Index remains fretting destination; do not lift straight up.",
+          "listenCheck": "Hear fresh note, not scrape or gap."
+        },
+        {
+          "title": "Move strings",
+          "action": "Repeat 5–7 and 7–5 on strings 1, 2, and 3.",
+          "lookCheck": "Use same finger roles and mute unused strings.",
+          "listenCheck": "Compare volume across strings."
+        },
+        {
+          "title": "Place in time",
+          "action": "At 50 BPM use one pick on beat 1 and let legato note occupy beat 2.",
+          "lookCheck": "Do not add an accidental second pick.",
+          "listenCheck": "Hear pair inside steady count."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Hammer silent.",
+          "recovery": "Drop finger closer to fret 7 with firm relaxed fingertip."
+        },
+        {
+          "observation": "Pull scrapes.",
+          "recovery": "Pull toward floor and mute adjacent strings."
+        },
+        {
+          "observation": "Second note weak.",
+          "recovery": "Practice without click and match volume by ear."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Hammer-on string 1."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Pull-off string 1."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Move across strings 1–3."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Place pairs in count."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I made second note with one pick.",
+          "I used a directional pull-off.",
+          "I compared pair volume by ear."
+        ],
+        "readyWhen": "You can produce clear 5–7 and 7–5 pairs on strings 1–3 with one pick attack.",
+        "ifNotReady": "Use one pair on string 1 and shorten finger motion.",
+        "proves": "Manual understanding of legato mechanics.",
+        "doesNotProve": "Volume consistency, timing, speed, tone, or technique measurement."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m3-02",
+      "moduleId": "g-l4-m3",
+      "title": "Legato Pairs, Three Strings",
+      "sourceTitle": "Legato Pairs, Three Strings",
+      "type": "exercise",
+      "suggestedSeconds": 300,
+      "objective": "Play the exact 12-note 5–7–5–7 route on strings 1, 2, and 3 with one pick per pair.",
+      "prerequisiteLessonIds": [
+        "g-l4-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the route",
+          "action": "Play string 1: 5–7–5–7, string 2 same, string 3 same; pick only first note of each pair.",
+          "lookCheck": "There are 12 targets; string changes follow notes 4 and 8.",
+          "listenCheck": "Hear destination notes without second pick."
+        },
+        {
+          "title": "Mute around pairs",
+          "action": "Use index 5, ring 7, and light picking-hand muting on unused strings.",
+          "lookCheck": "Keep index down through pull-off; do not lift both fingers.",
+          "listenCheck": "Hear clean contour with no open-string noise."
+        },
+        {
+          "title": "Loop each string",
+          "action": "Practice each four-note group at 40 BPM, then connect groups without an extra pick.",
+          "lookCheck": "Do not change position.",
+          "listenCheck": "Compare final pull-off with next string's hammer."
+        },
+        {
+          "title": "Run Play",
+          "action": "After count-in choose Play at 60 BPM; pitch slots are measured, legato quality self-checked.",
+          "lookCheck": "Review 12 matches and BPM; app cannot see pick count or volume.",
+          "listenCheck": "Use Practice if input uncertain."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Pull-off lands open.",
+          "recovery": "Keep index planted at fret 5."
+        },
+        {
+          "observation": "String change adds pick.",
+          "recovery": "Loop last pair and first next-string pair."
+        },
+        {
+          "observation": "Pitch passes but uneven.",
+          "recovery": "Keep pitch evidence and practice volume slowly."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read and finger 12 notes."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Loop each string group."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Join strings without extra picks."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Play and self-check."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed 12 targets in order.",
+          "I used one pick per pair.",
+          "I checked volume, scrape, and muting."
+        ],
+        "readyWhen": "Complete a 12-slot Play pass at 60 BPM or faster with an 80 pitch score, then self-check legato.",
+        "ifNotReady": "Loop affected group in Practice at 40 BPM and count pick attacks.",
+        "proves": "Pitch-in-slot evidence for route and BPM.",
+        "doesNotProve": "Legato execution, volume, pick count, tone, or technique."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ],
+      "practiceSpec": {
+        "mode": "pitchSequence",
+        "bpm": 60,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 80,
+        "completionMinimumBPM": 60,
+        "revision": 1,
+        "targets": [
+          {
+            "id": "target-00",
+            "beat": 0,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-01",
+            "beat": 1,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-02",
+            "beat": 2,
+            "midi": 69,
+            "guitarString": 1,
+            "fret": 5
+          },
+          {
+            "id": "target-03",
+            "beat": 3,
+            "midi": 71,
+            "guitarString": 1,
+            "fret": 7
+          },
+          {
+            "id": "target-04",
+            "beat": 4,
+            "midi": 64,
+            "guitarString": 2,
+            "fret": 5
+          },
+          {
+            "id": "target-05",
+            "beat": 5,
+            "midi": 66,
+            "guitarString": 2,
+            "fret": 7
+          },
+          {
+            "id": "target-06",
+            "beat": 6,
+            "midi": 64,
+            "guitarString": 2,
+            "fret": 5
+          },
+          {
+            "id": "target-07",
+            "beat": 7,
+            "midi": 66,
+            "guitarString": 2,
+            "fret": 7
+          },
+          {
+            "id": "target-08",
+            "beat": 8,
+            "midi": 60,
+            "guitarString": 3,
+            "fret": 5
+          },
+          {
+            "id": "target-09",
+            "beat": 9,
+            "midi": 62,
+            "guitarString": 3,
+            "fret": 7
+          },
+          {
+            "id": "target-10",
+            "beat": 10,
+            "midi": 60,
+            "guitarString": 3,
+            "fret": 5
+          },
+          {
+            "id": "target-11",
+            "beat": 11,
+            "midi": 62,
+            "guitarString": 3,
+            "fret": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "g-l4-m3-07",
+      "moduleId": "g-l4-m3",
+      "title": "Checkpoint: Legato Pairs, Self-Checked",
+      "sourceTitle": "Checkpoint: Legato Pairs, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Complete two slow three-string legato passes, keeping pitch evidence separate from pick count, volume, and muting.",
+      "prerequisiteLessonIds": [
+        "g-l4-m3-02"
+      ],
+      "steps": [
+        {
+          "title": "Prepare route",
+          "action": "Review string 1/2/3 each 5–7–5–7; choose 40–80 BPM and mark one pick per pair.",
+          "lookCheck": "Keep 12 notes and two string boundaries visible.",
+          "listenCheck": "Hear contour before speed."
+        },
+        {
+          "title": "Run pass one",
+          "action": "Play slowly and note whether each second note spoke without a pick; rest and choose a weak pair.",
+          "lookCheck": "If Play is used, record pitch/BPM only.",
+          "listenCheck": "Listen for volume drop or scrape."
+        },
+        {
+          "title": "Run pass two",
+          "action": "Repeat route while focusing on weak pair and stopping safely if tense.",
+          "lookCheck": "Record a partial pass honestly.",
+          "listenCheck": "Compare second note to picked neighbor."
+        },
+        {
+          "title": "Repair",
+          "action": "Do three slow repetitions of the weakest pair and write the next target.",
+          "lookCheck": "Separate pitch, pick count, volume, and comfort.",
+          "listenCheck": "Microphone cannot prove technique."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Second pass weakens.",
+          "recovery": "Rest, lower tempo, and isolate one pair per string."
+        },
+        {
+          "observation": "Scrape persists.",
+          "recovery": "Mute, shorten pull direction, and repeat pair."
+        },
+        {
+          "observation": "Pitch passes, legato uneven.",
+          "recovery": "Keep results separate and practice volume."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Review route and pick attacks."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Pass one."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Pass two and isolate pair."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Record repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I completed or documented two exact passes.",
+          "I checked one pick per pair and muting.",
+          "I recorded the pair to repair."
+        ],
+        "readyWhen": "Complete two truthful passes and separate pitch from legato quality.",
+        "ifNotReady": "Practice one pair per string at 40 BPM, then join.",
+        "proves": "Self-reviewed legato passes.",
+        "doesNotProve": "Even volume certification, timing, tone, or microphone technique."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m4-01",
+      "moduleId": "g-l4-m4",
+      "title": "Where the Edge of the Hand Goes",
+      "sourceTitle": "Where the Edge of the Hand Goes",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Find bridge-side palm contact and distinguish a pitched muted note from a dead click.",
+      "prerequisiteLessonIds": [
+        "g-l4-m3-07"
+      ],
+      "steps": [
+        {
+          "title": "Find bridge contact",
+          "action": "Rest palm edge lightly just in front of bridge saddles and play open string 6.",
+          "lookCheck": "Move millimeters; do not mute over middle of string.",
+          "listenCheck": "Near bridge gives short low-E pitch."
+        },
+        {
+          "title": "Compare pressure",
+          "action": "Play no mute, light mute, and heavy mute with same pick motion.",
+          "lookCheck": "Only palm pressure changes.",
+          "listenCheck": "Hear ring, muted pitch, and dead click."
+        },
+        {
+          "title": "Add eighths",
+          "action": "At 60 BPM alternate muted open low E for two bars while counting.",
+          "lookCheck": "Use shallow pick and relaxed wrist.",
+          "listenCheck": "Hear eight short identifiable notes per bar."
+        },
+        {
+          "title": "Move to E5",
+          "action": "Hold string 6 open/string 5 fret 2 and test same contact.",
+          "lookCheck": "Palm remains near bridge; no full major/minor shape.",
+          "listenCheck": "Hear tight two-string attack."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Note dead.",
+          "recovery": "Move palm closer to bridge or reduce pressure."
+        },
+        {
+          "observation": "Note rings.",
+          "recovery": "Move slightly forward and add only enough contact."
+        },
+        {
+          "observation": "Wrist tightens.",
+          "recovery": "Shrink stroke, pause, and practice one bar."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Find contact points."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Compare three pressures."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Play muted low-E eighths."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Transfer to E5."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I produced pitched muted note.",
+          "I found comfortable bridge contact.",
+          "I kept two bars relaxed."
+        ],
+        "readyWhen": "You can shorten low-E sustain while keeping pitch audible.",
+        "ifNotReady": "Return to one low-E note and adjust palm by millimeters.",
+        "proves": "Manual palm-mute contact and listening.",
+        "doesNotProve": "Mute consistency, timing, tone, or microphone technique."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m4-04",
+      "moduleId": "g-l4-m4",
+      "title": "Iron Road: An Original Palm-Muted Study",
+      "sourceTitle": "Iron Road: An Original Palm-Muted Study",
+      "type": "song",
+      "suggestedSeconds": 360,
+      "objective": "Play original Iron Road as palm-muted E5 eighths with a low-E pickup and counted recovery.",
+      "prerequisiteLessonIds": [
+        "g-l4-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the riff",
+          "action": "Use one open low-E pickup beat followed by three bars of E5 muted eighths; study is original.",
+          "lookCheck": "E5 uses string 6 open and string 5 fret 2.",
+          "listenCheck": "Hear low-E pulse and short two-string hits."
+        },
+        {
+          "title": "Set the mute",
+          "action": "Test one low-E bar, then add string 5 fret 2 for E5.",
+          "lookCheck": "Palm stays at bridge and finger stays near fret 2.",
+          "listenCheck": "Compare tight E5 with dead click."
+        },
+        {
+          "title": "Join four bars",
+          "action": "At 60 BPM count four bars with continuous down-up motion and ghost recovery after a miss.",
+          "lookCheck": "Retain the written low-E/E5 map.",
+          "listenCheck": "Hear even engine of eighths."
+        },
+        {
+          "title": "Review take",
+          "action": "After two passes note whether mute, omission, or recovery limited you; repeat one bar slowly.",
+          "lookCheck": "Record bar and issue, not mastery.",
+          "listenCheck": "Tone and palm contact are self-checks."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Mute opens.",
+          "recovery": "Reset palm during silent bar and re-enter next downbeat."
+        },
+        {
+          "observation": "Pickup missed.",
+          "recovery": "Loop low-E into first E5 at 40 BPM."
+        },
+        {
+          "observation": "All click no pitch.",
+          "recovery": "Reduce palm pressure and test low E."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 75,
+          "instruction": "Read map and test E5."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Find light mute."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Play two study passes."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Repeat weak bar."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed original low-E/E5 map.",
+          "I kept motion through a miss.",
+          "I checked palm, pitch, and unwanted strings."
+        ],
+        "readyWhen": "Play two original study passes and document mute, recovery, and tone.",
+        "ifNotReady": "Loop pickup into one E5 hit at 40 BPM.",
+        "proves": "Self-guided original palm-muted study.",
+        "doesNotProve": "Commercial song, mute certification, tone, or microphone score."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m4-07",
+      "moduleId": "g-l4-m4",
+      "title": "Checkpoint: Twenty-Four Bars, Self-Checked",
+      "sourceTitle": "Checkpoint: Twenty-Four Bars, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Hold an original palm-muted eighth-note map for 24 bars and document continuity, balance, and recovery.",
+      "prerequisiteLessonIds": [
+        "g-l4-m4-04"
+      ],
+      "steps": [
+        {
+          "title": "Map sections",
+          "action": "Use eight bars low-E muted, eight E5, and eight alternating; count every eighth.",
+          "lookCheck": "Keep Iron Road cell visible.",
+          "listenCheck": "Hear mute character through sections."
+        },
+        {
+          "title": "Choose pace",
+          "action": "Start 60–80 BPM and record actual sustainable tempo.",
+          "lookCheck": "This is self-guided, not automatic technique proof.",
+          "listenCheck": "Listen for steadiness before speed."
+        },
+        {
+          "title": "Play and recover",
+          "action": "Run 24 bars; after miss ghost next subdivision and re-enter downbeat.",
+          "lookCheck": "Mark reset bar instead of restarting silently.",
+          "listenCheck": "Hear pulse and mute return."
+        },
+        {
+          "title": "Review",
+          "action": "Separate continuity, palm position, pitch audibility, and wrist comfort; repeat weakest 8 bars.",
+          "lookCheck": "Do not turn mute issue into microphone score.",
+          "listenCheck": "Use ear and hand for quality."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Palm opens.",
+          "recovery": "Reduce stroke and build eight bars before rejoining."
+        },
+        {
+          "observation": "String rings.",
+          "recovery": "Isolate E5 and check picking path."
+        },
+        {
+          "observation": "Recovery stops.",
+          "recovery": "Practice one ghost recovery on muted strings."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read 24-bar map."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Run low-E section."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Run E5 and alternating."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I completed or documented three sections.",
+          "I used counted recovery.",
+          "I checked balance and comfort independently."
+        ],
+        "readyWhen": "Complete the 24-bar map at sustainable tempo and record continuity and mute observations.",
+        "ifNotReady": "Practice one eight-bar section at 40–60 BPM.",
+        "proves": "Self-reported continuity and palm-mute observations.",
+        "doesNotProve": "100 BPM, exact timing, tone, or microphone evidence."
+      },
+      "demoAssetIds": [],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m5-01",
+      "moduleId": "g-l4-m5",
+      "title": "Thumb Keeps Time",
+      "sourceTitle": "Thumb Keeps Time",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Establish alternating bass on strings 5 and 4, then add treble answers without disturbing the pulse.",
+      "prerequisiteLessonIds": [
+        "g-l4-m4-07"
+      ],
+      "steps": [
+        {
+          "title": "Assign thumb",
+          "action": "Hold C; thumb plays string 5 on beat 1 and string 4 on beat 3.",
+          "lookCheck": "String 6 remains silent in C.",
+          "listenCheck": "Hear two low pulses."
+        },
+        {
+          "title": "Count bass",
+          "action": "At 50 BPM play bass–rest–bass–rest for four bars, saying 1–2–3–4.",
+          "lookCheck": "Thumb returns close to next string.",
+          "listenCheck": "Hear stable frame."
+        },
+        {
+          "title": "Add treble",
+          "action": "Use index string 3 and middle string 2 on beats 2 and 4.",
+          "lookCheck": "Treble fingers do not pull strings sideways.",
+          "listenCheck": "Hear bass on 1/3 and answers on 2/4."
+        },
+        {
+          "title": "Change chord",
+          "action": "Play one bar C and one G while preserving thumb plan.",
+          "lookCheck": "G thumb can use strings 6 and 5; keep treble quiet.",
+          "listenCheck": "Listen for bass through change."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Thumb hits treble.",
+          "recovery": "Return to thumb-only bass and keep stroke close."
+        },
+        {
+          "observation": "Treble erases bass.",
+          "recovery": "Remove I/M, restore beats 1/3, add one answer."
+        },
+        {
+          "observation": "C includes string 6.",
+          "recovery": "Mute string 6 and begin on string 5."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Assign bass strings."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Count thumb-only bass."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Add treble answers."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Carry C to G."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "Thumb stayed on assigned bass strings.",
+          "I heard bass on 1 and 3.",
+          "I added treble without losing pulse."
+        ],
+        "readyWhen": "You can play four bars of alternating bass and add simple treble answers.",
+        "ifNotReady": "Remove treble and restore two bass pulses.",
+        "proves": "Manual understanding of fingerstyle roles.",
+        "doesNotProve": "Continuity, timing, tone, independence, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "l3-c-chord",
+        "l3-g-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
+      ]
+    },
+    {
+      "id": "g-l4-m5-03",
+      "moduleId": "g-l4-m5",
+      "title": "Alternating Bass",
+      "sourceTitle": "Alternating Bass",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Play 16 alternating open A/D bass targets, then add a quiet treble answer while preserving the measured route.",
+      "prerequisiteLessonIds": [
+        "g-l4-m5-01"
+      ],
+      "steps": [
+        {
+          "title": "Read bass route",
+          "action": "Targets alternate string 5 open A2 and string 4 open D3 for 16 quarter notes; thumb only first.",
+          "lookCheck": "Odd targets are string 5/A2; even are string 4/D3.",
+          "listenCheck": "Hear A–D walking pattern."
+        },
+        {
+          "title": "Place thumb",
+          "action": "At 60 BPM play one bass per click and let each ring until next.",
+          "lookCheck": "Use small strokes; fingers rest without sounding.",
+          "listenCheck": "Hear even pulse and no treble."
+        },
+        {
+          "title": "Add answer",
+          "action": "After thumb pass, add index on string 3 between bass notes; treble is unmeasured.",
+          "lookCheck": "Thumb still owns every target.",
+          "listenCheck": "Bass should stay louder and even."
+        },
+        {
+          "title": "Run Play",
+          "action": "After count-in choose Play at 60 BPM; result checks 16 bass pitches and slots only.",
+          "lookCheck": "Review score and BPM; app cannot know thumb use or treble balance.",
+          "listenCheck": "Use Practice when input uncertain."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Alternation reverses.",
+          "recovery": "Say A–D and loop the two-note pair starting string 5."
+        },
+        {
+          "observation": "Treble disturbs target.",
+          "recovery": "Remove treble and complete thumb-only pass."
+        },
+        {
+          "observation": "Pitch passes but groove stops.",
+          "recovery": "Keep pitch evidence and practice four-bar continuity."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 75,
+          "instruction": "Read 16 A/D targets."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Play thumb-only at 60."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Add quiet index answers."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Make Play pass and review."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed all 16 A/D targets.",
+          "Thumb played each measured bass.",
+          "I checked treble, continuity, and strings."
+        ],
+        "readyWhen": "Complete a 16-slot Play pass at 60 BPM or faster with an 80 pitch score, then self-check fingerstyle.",
+        "ifNotReady": "Use Practice at 40 BPM for thumb-only pairs.",
+        "proves": "Pitch-in-slot evidence for bass route and BPM.",
+        "doesNotProve": "Thumb technique, groove, tone, or full fingerstyle coordination."
+      },
+      "demoAssetIds": [
+        "l3-c-chord",
+        "l3-g-chord"
+      ],
+      "referenceIds": [
+        "yousician-practice",
+        "yousician-revisit"
+      ],
+      "practiceSpec": {
+        "mode": "pitchSequence",
+        "bpm": 60,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 80,
+        "completionMinimumBPM": 60,
+        "revision": 1,
+        "targets": [
+          {
+            "id": "target-00",
+            "beat": 0,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-01",
+            "beat": 1,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-02",
+            "beat": 2,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-03",
+            "beat": 3,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-04",
+            "beat": 4,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-05",
+            "beat": 5,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-06",
+            "beat": 6,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-07",
+            "beat": 7,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-08",
+            "beat": 8,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-09",
+            "beat": 9,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-10",
+            "beat": 10,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-11",
+            "beat": 11,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-12",
+            "beat": 12,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-13",
+            "beat": 13,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-14",
+            "beat": 14,
+            "midi": 45,
+            "guitarString": 5,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          },
+          {
+            "id": "target-15",
+            "beat": 15,
+            "midi": 50,
+            "guitarString": 4,
+            "fret": 0,
+            "cue": "Bass · ↓"
+          }
+        ]
+      }
+    },
+    {
+      "id": "g-l4-m5-07",
+      "moduleId": "g-l4-m5",
+      "title": "Checkpoint: Alternating Bass, Self-Checked",
+      "sourceTitle": "Checkpoint: Alternating Bass, Self-Checked",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play an original 16-bar C–G fingerstyle map and document bass steadiness, continuity, and treble balance.",
+      "prerequisiteLessonIds": [
+        "g-l4-m5-03"
+      ],
+      "steps": [
+        {
+          "title": "Read map",
+          "action": "Use C four bars, G four, C four, G four; alternate bass and add string 3 answer on beats 2/4.",
+          "lookCheck": "C omits 6; G may use 6/5 basses.",
+          "listenCheck": "Hear two bass pulses and treble answers."
+        },
+        {
+          "title": "Run thumb-only",
+          "action": "Play 16 bars at 50–60 BPM, changing on bar lines; note breaks.",
+          "lookCheck": "This is self-check, not microphone continuity measurement.",
+          "listenCheck": "Listen for bass through C↔G."
+        },
+        {
+          "title": "Add treble",
+          "action": "Repeat with index answer, softer than bass; allow silent bar-line reset.",
+          "lookCheck": "Do not add treble to cover missed bass.",
+          "listenCheck": "Compare bass and treble balance."
+        },
+        {
+          "title": "Repair",
+          "action": "Choose a four-bar section for three slow repetitions and write next target.",
+          "lookCheck": "Separate pitch result from fingerstyle qualities.",
+          "listenCheck": "App cannot infer thumb use or independence."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "C→G collapses.",
+          "recovery": "Loop one C bar into G with bass only, then add treble."
+        },
+        {
+          "observation": "Treble overpowers.",
+          "recovery": "Use lighter index and return to bass-only."
+        },
+        {
+          "observation": "Fatigue appears.",
+          "recovery": "Stop safely and build four-bar blocks."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read 16-bar map."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Run bass-only blocks."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Add treble and changes."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repair one block."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I completed or documented all four sections.",
+          "Thumb bass stayed steady through changes.",
+          "I wrote separate continuity and balance notes."
+        ],
+        "readyWhen": "Complete the map or document exact repair block with separate fingerstyle self-check.",
+        "ifNotReady": "Practice one bass-only four-bar block, then add treble.",
+        "proves": "Self-reviewed continuity and role balance.",
+        "doesNotProve": "Unbroken certification, timing, tone, thumb detection, or microphone evidence."
+      },
+      "demoAssetIds": [
+        "l3-c-chord",
+        "l3-g-chord"
+      ],
+      "referenceIds": [
+        "yousician-revisit"
       ]
     }
   ],

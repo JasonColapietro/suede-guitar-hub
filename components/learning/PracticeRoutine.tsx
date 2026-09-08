@@ -1,34 +1,53 @@
 "use client";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { getLesson, isModuleAvailable, lessonHref } from "@/lib/learning/curriculum";
+import { getLesson, lessonHref } from "@/lib/learning/curriculum";
 import { getInstructionAsset } from "@/lib/learning/instructions";
 import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineChangeRate, routineElapsedSeconds, routinePrepared, routineStorageKey, routineTemplate, RoutineTimer, type RoutineAttempt, type RoutineBlock, type RoutineSession, type RoutineState } from "@/lib/learning/routine";
 import { ChordDiagram } from "./LessonInstructionAssets";
 import { TuningGuide } from "./TuningGuide";
 import { useLearningProgress } from "./useLearningProgress";
 import styles from "./PracticeRoutine.module.css";
+import { accountHistoryKey, canOpenModule, isLessonReady } from "@/lib/learning/access";
+import { useAccountSync, useLearningAccess } from "./LearningAccessProvider";
 
-let memory: string | null = null;
+const memory = new Map<string, string>();
 const eventName = "guitarhub-routine-change";
-function read() { try { return memory ?? window.localStorage.getItem(routineStorageKey) ?? ""; } catch { return memory ?? ""; } }
-function subscribe(callback: () => void) {
-  const storage = (event: StorageEvent) => { if (event.key === routineStorageKey || event.key === null) { memory = null; callback(); } };
-  window.addEventListener("storage", storage); window.addEventListener(eventName, callback);
-  return () => { window.removeEventListener("storage", storage); window.removeEventListener(eventName, callback); };
+
+/** Capture the account key once, so late timer cleanup can only update its original history. */
+export function routineHistoryForAccount(accountId: string | null, getStorage: () => Pick<Storage, "getItem" | "setItem"> = () => window.localStorage) {
+  const key = accountHistoryKey(routineStorageKey, accountId);
+  const read = () => { try { return memory.get(key) ?? getStorage().getItem(key) ?? ""; } catch { return memory.get(key) ?? ""; } };
+  return {
+    key, read,
+    invalidate: () => { memory.delete(key); },
+    write(update: (state: RoutineState) => RoutineState) {
+      const next = parseRoutineState(JSON.stringify(update(parseRoutineState(read()))));
+      const serialized = JSON.stringify(next);
+      let persisted = true;
+      try { getStorage().setItem(key, serialized); } catch { persisted = false; }
+      memory.set(key, serialized);
+      return { state: next, persisted };
+    },
+  };
 }
 const serverSnapshot = () => "";
-function useRoutineStore() {
-  const raw = useSyncExternalStore(subscribe, read, serverSnapshot);
+function useRoutineStore(accountId: string | null) {
+  const history = useMemo(() => routineHistoryForAccount(accountId), [accountId]);
+  const subscribe = useCallback((callback: () => void) => {
+    const storage = (event: StorageEvent) => { if (event.key === history.key || event.key === null) { history.invalidate(); callback(); } };
+    window.addEventListener("storage", storage); window.addEventListener(eventName, callback);
+    return () => { window.removeEventListener("storage", storage); window.removeEventListener(eventName, callback); };
+  }, [history]);
+  const raw = useSyncExternalStore(subscribe, history.read, serverSnapshot);
   const state = useMemo(() => parseRoutineState(raw), [raw]);
   const [storageWarning, setStorageWarning] = useState(false);
   const change = useCallback((update: (state: RoutineState) => RoutineState) => {
-    const next = parseRoutineState(JSON.stringify(update(parseRoutineState(read()))));
-    memory = JSON.stringify(next);
-    try { window.localStorage.setItem(routineStorageKey, memory); } catch { setStorageWarning(true); }
-    window.dispatchEvent(new Event(eventName)); return next;
-  }, []);
-  return { state, change, storageWarning };
+    const result = history.write(update);
+    if (!result.persisted) setStorageWarning(true);
+    window.dispatchEvent(new Event(eventName)); return result.state;
+  }, [history]);
+  return { state, change, storageWarning, history };
 }
 const stamp = () => new Date().toISOString();
 const monotonicNow = () => performance.now();
@@ -39,15 +58,26 @@ function updateSession(state: RoutineState, id: string, update: (session: Routin
 function replaceAttempt(state: RoutineState, sessionId: string, blockId: string, attempt: RoutineAttempt): RoutineState {
   return updateSession(state, sessionId, session => ({ ...session, blocks: session.blocks.map(block => block.blockId === blockId ? { ...block, attempts: block.attempts.map(item => item.id === attempt.id ? attempt : item) } : block) }));
 }
-function LessonLink({ id, pause }: { id: string; pause: () => void }) {
+export function RoutineLessonLink({ id, pause }: { id: string; pause: () => void }) {
+  const access = useLearningAccess();
   const found = getLesson("guitar", id);
   if (!found) return null;
-  const available = isModuleAvailable("guitar", found.module.id);
+  const available = isLessonReady("guitar", id) && canOpenModule("guitar", found.module.id, access);
   return <Link href={lessonHref("guitar", id)} target="_blank" rel="noopener noreferrer" onClick={pause}>{available ? "Review GuitarHub instruction" : "GuitarHub curriculum preview"} (new tab)</Link>;
 }
 
+/** React keys discard account-specific timer, review, preparation and tuner component state. */
+export function routineContentForAccount(accountId: string | null) {
+  return <RoutineContent key={accountHistoryKey(routineStorageKey, accountId)} accountId={accountId} />;
+}
 export function PracticeRoutine() {
-  const { state, change, storageWarning } = useRoutineStore();
+  const access = useLearningAccess();
+  const sync = useAccountSync();
+  if (access.accountId && sync.status === "suspended") return <p role="status">Your sign-in changed. This routine is paused and its history is kept with the original account. Reload to continue.</p>;
+  return routineContentForAccount(access.accountId);
+}
+function RoutineContent({ accountId }: { accountId: string | null }) {
+  const { state, change, storageWarning, history } = useRoutineStore(accountId);
   const { progress } = useLearningProgress("guitar");
   const [running, setRunning] = useState(false);
   const [message, setMessage] = useState("");
@@ -75,10 +105,10 @@ export function PracticeRoutine() {
     const interval = window.setInterval(() => checkpoint(false, false), 250);
     const hide = () => { if (document.visibilityState === "hidden") checkpoint(true, true); };
     const leave = () => checkpoint(true, true);
-    const anotherTab = (event: StorageEvent) => { if (event.key === routineStorageKey || event.key === null) { runtime.current = null; setRunning(false); setMessage("Another tab changed this routine. Review the saved state before resuming."); } };
+    const anotherTab = (event: StorageEvent) => { if (event.key === history.key || event.key === null) { runtime.current = null; setRunning(false); setMessage("Another tab changed this routine. Review the saved state before resuming."); } };
     document.addEventListener("visibilitychange", hide); window.addEventListener("pagehide", leave); window.addEventListener("storage", anotherTab);
     return () => { window.clearInterval(interval); checkpoint(true, true, false); document.removeEventListener("visibilitychange", hide); window.removeEventListener("pagehide", leave); window.removeEventListener("storage", anotherTab); };
-  }, [checkpoint]);
+  }, [checkpoint, history.key]);
   function start() {
     if (!session || !record || !prepared || document.visibilityState === "hidden") return;
     if (attempt && ["review", "reviewed", "skipped"].includes(attempt.status)) return;
@@ -104,17 +134,17 @@ export function PracticeRoutine() {
     });
   }
   function exportHistory() {
-    pause(); const data = { template: routineTemplate, progress: parseRoutineState(read()) };
+    pause(); const data = { template: routineTemplate, progress: parseRoutineState(history.read()) };
     const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
     const anchor = document.createElement("a"); anchor.href = url; anchor.download = "guitarhub-routine-history.json"; anchor.click(); URL.revokeObjectURL(url);
   }
   return <div className={styles.routine}>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn/guitar" onClick={pause}>Guitar learning path</Link><span aria-hidden="true"> / </span><span>Daily practice</span></nav>
     <header className={styles.hero}><p className={styles.eyebrow}>A little practice, often</p><h1>Your first A/D routine.</h1><p>Tune up, check your chords, practice changes, and spend time on songs. Seven blocks, {defaultRoutineSeconds / 60} minutes. Adjust the time to fit today.</p></header>
-    <p className={styles.note}>A free practice companion. Your history stays in this browser. Counts and reflections come from you and are saved separately from lesson checks and microphone results.</p>
+    <p className={styles.note}>A free practice companion. Your history stays in this browser{accountId ? " with this account" : " as guest history"}. Counts and reflections come from you and are saved separately from lesson checks and microphone results.</p>
     {storageWarning && <p role="alert" className={styles.note}>This browser could not save your routine to local storage. Keep this tab open and export your history before leaving.</p>}
     <details className={styles.preparation} open={!prepared}><summary><h2>Before the routine</h2><span>{prepared ? "Preparation available · review or reset" : "Learn the moves, then prepare"}</span></summary><p>Read or watch instruction first. Saved lesson evidence can satisfy preparation, or confirm that you have received instruction elsewhere and understand the exercise. These confirmations describe your preparation, not a skill test.</p>
-      <ul className={styles.prepList}>{routineTemplate.preparation.map(item => { const evidence = preparationEvidence(item.id, state, progress); return <li key={item.id}><strong>{item.title}</strong><div className={styles.links}><LessonLink id={item.lessonIds[0]} pause={pause} /><a href={item.externalUrl} target="_blank" rel="noopener noreferrer" onClick={pause}>{item.externalLabel} (external, new tab)</a></div>{evidence === "lessonEvidence" ? <p>Available from your saved lesson evidence.</p> : <label className={styles.check}><input type="checkbox" checked={evidence === "selfReported"} disabled={running} onChange={event => { const checked = event.target.checked; change(state => { const preparation = { ...state.preparation }; if (checked) preparation[item.id] = { source: "selfReported", confirmedAt: stamp() }; else delete preparation[item.id]; return { ...state, preparation }; }); }} />I have received instruction and understand this exercise.</label>}</li>; })}</ul>
+      <ul className={styles.prepList}>{routineTemplate.preparation.map(item => { const evidence = preparationEvidence(item.id, state, progress); return <li key={item.id}><strong>{item.title}</strong><div className={styles.links}><RoutineLessonLink id={item.lessonIds[0]} pause={pause} /><a href={item.externalUrl} target="_blank" rel="noopener noreferrer" onClick={pause}>{item.externalLabel} (external, new tab)</a></div>{evidence === "lessonEvidence" ? <p>Available from your saved lesson evidence.</p> : <label className={styles.check}><input type="checkbox" checked={evidence === "selfReported"} disabled={running} onChange={event => { const checked = event.target.checked; change(state => { const preparation = { ...state.preparation }; if (checked) preparation[item.id] = { source: "selfReported", confirmedAt: stamp() }; else delete preparation[item.id]; return { ...state, preparation }; }); }} />I have received instruction and understand this exercise.</label>}</li>; })}</ul>
       <button type="button" className={styles.secondary} disabled={running || Object.keys(state.preparation).length === 0} onClick={() => change(state => ({ ...state, preparation: {} }))}>Reset my preparation confirmations</button>
     </details>
     <section aria-labelledby="routine-plan-title"><div className={styles.sectionHeading}><h2 id="routine-plan-title">Today’s plan</h2><span>{formatTime(totalSeconds)} planned</span></div><p>Adjust any block in seconds while the timer is paused. A little practice each day helps the movements become familiar.</p>
@@ -123,7 +153,7 @@ export function PracticeRoutine() {
     </section>
     {session && record && <section className={styles.practice} aria-labelledby="active-block-title"><p className={styles.eyebrow}>Block {routineTemplate.blocks.findIndex(item => item.id === block.id) + 1} of 7</p><h2 id="active-block-title">{block.title}</h2><p>{block.prompt}</p>
       <div className={styles.diagrams}>{block.assetIds.map(id => { const asset = getInstructionAsset(id); return asset?.kind === "chord" ? <ChordDiagram key={id} asset={asset} /> : null; })}</div>
-      <div className={styles.links}><LessonLink id={block.lessonId} pause={pause} />{block.kind === "songs" && <a href={routineTemplate.preparation.find(item => item.id === "songs")!.externalUrl} target="_blank" rel="noopener noreferrer" onClick={pause}>Find suitable two-chord songs at JustinGuitar (external, new tab)</a>}</div><p className={styles.small}>Instruction links pause this routine. Time spent on another tab is excluded. Resume here when ready to practice.</p>
+      <div className={styles.links}><RoutineLessonLink id={block.lessonId} pause={pause} />{block.kind === "songs" && <a href={routineTemplate.preparation.find(item => item.id === "songs")!.externalUrl} target="_blank" rel="noopener noreferrer" onClick={pause}>Find suitable two-chord songs at JustinGuitar (external, new tab)</a>}</div><p className={styles.small}>Instruction links pause this routine. Time spent on another tab is excluded. Resume here when ready to practice.</p>
       {block.kind === "tuning" && <><p>Set up the tuner and respond to the microphone permission request before starting this block’s timer. Reference sounds, small adjustments, and rechecking are part of this self-reported tuning practice. Extend the time whenever needed.</p><TuningGuide onReadyChange={ready => { if (ready) setMessage("Your tuning checklist is confirmed by you. Review the tuning block below when ready; no lesson completion was recorded."); }} /></>}
       <div className={styles.timer} role="timer" aria-label="Practice time remaining">{formatTime(Math.ceil(((attempt?.targetSeconds ?? record.plannedSeconds) * 1000 - (attempt?.elapsedMs ?? 0)) / 1000))}</div><p className={styles.timeCaption}>{formatTime((attempt?.elapsedMs ?? 0) / 1000)} foreground time · {running ? "Running" : attempt?.status === "reviewed" ? "Reflection saved" : attempt?.status === "review" ? "Time reached" : attempt?.status === "skipped" ? "Skipped" : "Paused / ready"}</p>
       <div className={styles.actions}>{running ? <button type="button" className={styles.primary} onClick={pause}>Pause</button> : <button type="button" className={styles.primary} disabled={!prepared || !!attempt && ["review", "reviewed", "skipped"].includes(attempt.status)} onClick={start}>{attempt?.status === "reviewed" ? "Reflection saved" : attempt?.status === "review" ? "Review this attempt" : attempt?.status === "skipped" ? "Block skipped" : attempt && attempt.elapsedMs > 0 ? "Resume block" : "Start block"}</button>}{attempt && !running && <button className={styles.secondary} type="button" onClick={repeat}>Prepare a fresh attempt</button>}{!running && (!attempt || !["reviewed", "skipped"].includes(attempt.status)) && <button className={styles.secondary} type="button" disabled={(attempt?.targetSeconds ?? record.plannedSeconds) >= 3600} onClick={() => editDuration(block.id, Math.min(3600, (attempt?.targetSeconds ?? record.plannedSeconds) + 60))}>Add a minute</button>}</div>
@@ -133,7 +163,7 @@ export function PracticeRoutine() {
       <div className={styles.actions}>{(!attempt || !running && !["reviewed", "skipped"].includes(attempt.status)) && <button type="button" className={styles.secondary} onClick={() => { pause(); const skipped = { ...(attempt ?? newRoutineAttempt(crypto.randomUUID(), stamp(), record.plannedSeconds)), status: "skipped" as const, completeMinute: false, updatedAt: stamp() }; change(state => updateSession(state, session.id, current => ({ ...current, blocks: current.blocks.map(item => item.blockId === block.id ? { ...item, attempts: attempt ? item.attempts.map(old => old.id === skipped.id ? skipped : old) : [...item.attempts, skipped] } : item) }))); }}>Skip this block</button>}{block.id !== "songs" && <button className={styles.secondary} type="button" onClick={() => select(routineTemplate.blocks[routineTemplate.blocks.findIndex(item => item.id === block.id) + 1].id)}>Next block</button>}<button type="button" className={styles.secondary} onClick={() => { pause(); change(state => finishRoutineSession(state, stamp())); setMessage("Routine saved. Any skipped or unfinished blocks remain visible in history."); }}>End and review routine</button></div>
     </section>}
     <p role="status" className={styles.status}>{message}</p>
-    <section aria-labelledby="routine-history-title"><div className={styles.sectionHeading}><h2 id="routine-history-title">Your practice history</h2>{state.sessions.length > 0 && <button type="button" className={styles.secondary} onClick={exportHistory}>Export history</button>}</div><p>Saved in this browser. Returning restores paused time; closed-tab or background time is never added. Counts and reflections are kept as separate attempts.</p>{state.sessions.length === 0 ? <p>No routines yet.</p> : [...state.sessions].reverse().map(item => <details className={styles.history} key={item.id}><summary>{new Date(item.createdAt).toLocaleDateString()} · {formatTime(routineElapsedSeconds(item))} foreground time · {item.finishedAt ? "Ended" : "In progress"}</summary><ol>{item.blocks.map(saved => <li key={saved.blockId}><strong>{routineTemplate.blocks.find(block => block.id === saved.blockId)!.title}</strong>{saved.attempts.length ? <ul>{saved.attempts.map((attempt, index) => <li key={attempt.id}>Attempt {index + 1}: {formatTime(attempt.elapsedMs / 1000)} / {formatTime(attempt.targetSeconds)} · {attempt.status === "reviewed" ? `self-reported ${attempt.reflection}` : attempt.status === "review" ? "awaiting reflection" : attempt.status}{attempt.interrupted ? " · interrupted" : ""}{attempt.manualCount !== null ? ` · ${attempt.manualCount} manual changes${routineChangeRate(attempt) === null ? ", no per-minute rate" : " in one minute"}` : ""}</li>)}</ul> : <p>Not started</p>}</li>)}</ol></details>)}</section>
+    <section aria-labelledby="routine-history-title"><div className={styles.sectionHeading}><h2 id="routine-history-title">Your practice history</h2>{state.sessions.length > 0 && <button type="button" className={styles.secondary} onClick={exportHistory}>Export history</button>}</div><p>Saved in this browser{accountId ? " with this account" : " as guest history"}. Routine history is not cloud-synced. Returning restores paused time; closed-tab or background time is never added. Counts and reflections are kept as separate attempts.</p>{state.sessions.length === 0 ? <p>No routines yet.</p> : [...state.sessions].reverse().map(item => <details className={styles.history} key={item.id}><summary>{new Date(item.createdAt).toLocaleDateString()} · {formatTime(routineElapsedSeconds(item))} foreground time · {item.finishedAt ? "Ended" : "In progress"}</summary><ol>{item.blocks.map(saved => <li key={saved.blockId}><strong>{routineTemplate.blocks.find(block => block.id === saved.blockId)!.title}</strong>{saved.attempts.length ? <ul>{saved.attempts.map((attempt, index) => <li key={attempt.id}>Attempt {index + 1}: {formatTime(attempt.elapsedMs / 1000)} / {formatTime(attempt.targetSeconds)} · {attempt.status === "reviewed" ? `self-reported ${attempt.reflection}` : attempt.status === "review" ? "awaiting reflection" : attempt.status}{attempt.interrupted ? " · interrupted" : ""}{attempt.manualCount !== null ? ` · ${attempt.manualCount} manual changes${routineChangeRate(attempt) === null ? ", no per-minute rate" : " in one minute"}` : ""}</li>)}</ul> : <p>Not started</p>}</li>)}</ol></details>)}</section>
     <p className={styles.source}>Practice cadence based on the <a href={routineTemplate.sourceUrl} target="_blank" rel="noopener noreferrer" onClick={pause}>{routineTemplate.sourceLabel}</a>. GuitarHub provides its own presentation and local practice record.</p>
   </div>;
 }

@@ -1,10 +1,15 @@
 import guitar from "./data/guitar.json" with { type: "json" };
 import voice from "./data/voice.json" with { type: "json" };
+import songGuitar from "./data/song-guitar.json" with { type: "json" };
 import { validateCurriculum, type TrackId } from "./models.ts";
 export type { TrackId, PracticeSpec, Lesson, LearningModule, LearningLevel, Curriculum } from "./models.ts";
 
+const guitarPath = validateCurriculum(guitar, "guitar");
+const songs = validateCurriculum(songGuitar, "guitar");
+const insertion = guitarPath.levels.findIndex(level => level.id === "g-l5");
+const songInsertion = insertion < 0 ? guitarPath.levels.length : insertion;
 export const curricula = {
-  guitar: validateCurriculum(guitar, "guitar"),
+  guitar: { ...guitarPath, version: Math.max(guitarPath.version, songs.version), levels: [...guitarPath.levels.slice(0, songInsertion), ...songs.levels, ...guitarPath.levels.slice(songInsertion)] },
   voice: validateCurriculum(voice, "voice"),
 };
 export const trackNames = { guitar: "Guitar", voice: "Voice" } as const;

@@ -16,7 +16,7 @@ import { isStageTwoAsset } from "@/lib/learning/stage-two";
 import { lessonPracticeSeconds, noStageTwoEvidence } from "@/lib/learning/stage-two-evidence";
 export type { LessonInstructions } from "@/lib/learning/instructions";
 export function LessonSession({ track, lesson, module, instructions }: { track: TrackId; lesson: Lesson; module: LearningModule; instructions?: LessonInstructions }) {
-  const { progress, save } = useLearningProgress(track);
+  const { progress, save, saveUnscored } = useLearningProgress(track);
   const reading = useReadingQuizProgress(track, lesson.id, instructions?.quiz);
   const currentReadingResult = instructions?.quiz && reading.currentAttempt ? readingQuizResult(instructions.quiz, reading.currentAttempt) : null;
   const [running, setRunning] = useState(false);
@@ -77,8 +77,8 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
     setSeconds(0); setRunning(false); setFinished(false); setMessage("");
   }
   function finish() { pause(); setFinished(true); }
-  function persist(record: LessonRecord, attemptId?: string) {
-    const persisted = save(lesson.id, record, attemptId);
+  function persist(record: LessonRecord, attemptId?: string, result?: PracticeResult) {
+    const persisted = save(lesson.id, record, attemptId, result);
     setMessage(persisted ? "Saved in this browser." : "Saved for this open page only. Browser storage is unavailable, so this attempt may be lost when you close or reload the page.");
   }
   function saveAssessment() {
@@ -94,10 +94,11 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
   }
   function measuredResult(result: PracticeResult, attemptId: string) {
     if (result.disposition !== "scored" || result.score === null || result.passed === null) {
+      saveUnscored(lesson.id, result, attemptId);
       setMessage("No measured result saved: there was not enough clear sound to judge this attempt. Try again in a quieter room, or record your own assessment below.");
       return;
     }
-    persist({ updatedAt: new Date().toISOString(), practiceSeconds: result.practiceSeconds, assessment: result.passed ? "ready" : "repeat", source: "measured", score: result.score, bpm: result.bpm, completionMinimumBPM: result.completionMinimumBPM, practiceSpecRevision: result.practiceSpecRevision }, attemptId);
+    persist({ updatedAt: new Date().toISOString(), practiceSeconds: result.practiceSeconds, assessment: result.passed ? "ready" : "repeat", source: "measured", score: result.score, bpm: result.bpm, completionMinimumBPM: result.completionMinimumBPM, practiceSpecRevision: result.practiceSpecRevision }, attemptId, result);
   }
   return <>
     <div className={styles.lessonGrid}>
@@ -123,7 +124,7 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
           <h3>Ready for another step</h3><p>{instructions?.completion ?? module.promise}</p>{instructions && <><p className={styles.check}>{instructions.ifNotReady}</p><p className={styles.check}>What this check shows: {instructions.evidence}</p><p className={styles.check}>It does not assess: {instructions.limitation}</p></>}
           <p className={`${styles.small} ${styles.muted}`}>{track === "voice" ? "Keep the range and volume comfortable. Stop if singing hurts or makes you hoarse; a pitch reading cannot assess vocal health." : "Keep your hand and shoulder relaxed. Stop and reset if you feel pain. Pitch feedback cannot judge tension, fingering, or buzzing."}</p>
         </section>
-        {lesson.practiceSpec && (!needsTuning || tuningReady) && <PracticeCoach key={lesson.id} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} />}
+        {lesson.practiceSpec && (!needsTuning || tuningReady) && <PracticeCoach key={lesson.id} recentAttempts={(progress.measuredAttempts ?? []).filter(attempt => attempt.lessonId === lesson.id).map(attempt => ({ bpm: attempt.record.bpm ?? 0, score: attempt.record.score, disposition: "scored" as const, passed: attempt.record.assessment === "ready", specRevision: attempt.record.practiceSpecRevision }))} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} onUnscoredResult={(result, id) => saveUnscored(lesson.id, result, id)} />}
         {lesson.practiceSpec && needsTuning && !tuningReady && <div className={styles.notice}>Complete and confirm the free tuning check above to open the pitch exercise. You can use this tuner or your own.</div>}
         {!lesson.practiceSpec && <div className={styles.notice}>{instructions?.quiz ? "This lesson checks written notation. A reading result is separate from playing ability, microphone feedback, and your own observations." : "This lesson uses your own assessment. Pitch, timing, tone quality, and technique are not scored here."}</div>}
       </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { playReference } from "@/lib/audio/capture";
+import { chordFretRange } from "@/lib/audio/practice-selection";
 import { frequencyForMIDI, noteName } from "@/lib/audio/dsp";
 import { readingQuizResult, type InstructionAsset, type InstructionQuiz, type InstructionQuizItem, type ReadingQuizAttempt } from "@/lib/learning/instructions";
 import styles from "./InstructionAssets.module.css";
@@ -58,15 +59,18 @@ function PitchComparison({ asset }: { asset: Extract<InstructionAsset, { kind: "
 }
 
 export function ChordDiagram({ asset, hideName = false }: { asset: ChordAsset; hideName?: boolean }) {
+  const range = chordFretRange(asset.frets);
+  const rows = range.last - range.first + 1;
+  const bottom = 65 + rows * 40;
   const accessible = `${hideName ? "Chord diagram" : `${asset.name} chord diagram`}. Strings 6 to 1 from left to right. ${asset.frets.map((fret, i) => `String ${6 - i}: ${fret === null ? "X, silent" : fret === 0 ? "O, open" : `fret ${fret}${asset.fingers[i] ? `, finger ${asset.fingers[i]}` : ""}`}`).join(". ")}.`;
   return <figure className={styles.chord}>
     <figcaption>{hideName ? "Read this shape" : `${asset.name} chord`}</figcaption>
-    <svg viewBox="0 0 300 218" role="img" aria-label={accessible}>
-      {[1, 2, 3, 4].map(fret => <g key={fret}><line x1="38" y1={65 + (fret - 1) * 40} x2="263" y2={65 + (fret - 1) * 40} stroke="currentColor" strokeWidth={fret === 1 ? 5 : 1} />{fret <= 3 && <text x="10" y={93 + (fret - 1) * 40} fontSize="12">{fret}</text>}</g>)}
-      {asset.frets.map((fret, i) => <g key={i}><text x={38 + i * 45} y="17" textAnchor="middle" fontSize="12">{6 - i}</text><text x={38 + i * 45} y="48" textAnchor="middle" fontSize="17" fontWeight="700">{fret === null ? "X" : fret === 0 ? "O" : ""}</text><line x1={38 + i * 45} y1="65" x2={38 + i * 45} y2="185" stroke="currentColor" strokeWidth="1" />{fret !== null && fret > 0 && <><circle cx={38 + i * 45} cy={45 + fret * 40} r="15" fill="#6d28d9" /><text x={38 + i * 45} y={50 + fret * 40} textAnchor="middle" fill="white" fontSize="14" fontWeight="650">{asset.fingers[i] ?? "●"}</text></>}</g>)}
-      <text x="150" y="211" textAnchor="middle" fontSize="12">Strings 6 → 1</text>
+    <svg viewBox={`0 0 300 ${bottom + 33}`} role="img" aria-label={accessible}>
+      {Array.from({ length: rows + 1 }, (_, row) => <g key={row}><line x1="38" y1={65 + row * 40} x2="263" y2={65 + row * 40} stroke="currentColor" strokeWidth={row === 0 && range.first === 1 ? 5 : 1} />{row < rows && <text x="10" y={93 + row * 40} fontSize="12">{range.first + row}</text>}</g>)}
+      {asset.frets.map((fret, i) => <g key={i}><text x={38 + i * 45} y="17" textAnchor="middle" fontSize="12">{6 - i}</text><text x={38 + i * 45} y="48" textAnchor="middle" fontSize="17" fontWeight="700">{fret === null ? "X" : fret === 0 ? "O" : ""}</text><line x1={38 + i * 45} y1="65" x2={38 + i * 45} y2={bottom} stroke="currentColor" strokeWidth="1" />{fret !== null && fret > 0 && <><circle cx={38 + i * 45} cy={85 + (fret - range.first) * 40} r="15" fill="#6d28d9" /><text x={38 + i * 45} y={90 + (fret - range.first) * 40} textAnchor="middle" fill="white" fontSize="14" fontWeight="650">{asset.fingers[i] ?? "●"}</text></>}</g>)}
+      <text x="150" y={bottom + 26} textAnchor="middle" fontSize="12">Strings 6 → 1</text>
     </svg>
-    <p className={styles.caption}>X = silent · O = open. Dots contain finger numbers. The thick top line is the nut; frets 1–3 run downward.</p>
+    <p className={styles.caption}>X = silent · O = open. Dots contain finger numbers. Frets {range.first}–{range.last} run downward{range.first === 1 ? "; the thick top line is the nut" : ""}.</p>
   </figure>;
 }
 
@@ -99,8 +103,14 @@ function SetupDiagram() {
   return <section className={styles.asset}><h3>Support the guitar. Free your fretting hand.</h3><div className={styles.setup}><div><strong>Body and thigh</strong><p>Rest the guitar body on your thigh and lightly against your torso.</p></div><div><strong>Picking forearm</strong><p>Let your forearm rest over the body edge without clamping your shoulder.</p></div><div><strong>Pick grip</strong><p>Meet the thumb pad with the side of a gently curled index finger. Leave a small pick tip showing.</p></div></div><p className={styles.caption}>Your fretting hand should be able to move without carrying the guitar.</p></section>;
 }
 
+function SingleStringRiff({ asset }: { asset: Extract<InstructionAsset, { kind: "riff" }> }) {
+  const sound = useReferenceSound();
+  return <section className={styles.asset}><h3>{asset.title}</h3><p className={styles.caption}>{asset.provenance}</p><pre className={styles.riffTab}>{asset.tabText}</pre><div className={styles.actions}>{asset.frets.map((fret, index) => <button className={styles.button} type="button" key={index} disabled={sound.playing} onClick={() => void sound.play(asset.midi[index])} aria-label={`Hear slot ${index + 1}, string ${asset.stringNumber}, fret ${fret}, ${noteName(asset.midi[index])}`}>{index + 1}. {fret === 0 ? "Open" : `Fret ${fret}`} · {noteName(asset.midi[index])}</button>)}</div><p>{asset.instruction}</p><SoundNote {...sound} /></section>;
+}
+
 export function LessonInstructionAssets({ assets, startCollapsed = false }: { assets: InstructionAsset[]; startCollapsed?: boolean }) {
   return <details className={styles.references} open={!startCollapsed}><summary>Lesson references · sounds and diagrams</summary><div className={styles.assetList}>{assets.map(asset => {
+    if (asset.kind === "riff") return <SingleStringRiff key={asset.id} asset={asset} />;
     if (asset.kind === "strings") return <StringReferences key={asset.id} asset={asset} />;
     if (asset.kind === "pitchComparison") return <PitchComparison key={asset.id} asset={asset} />;
     if (asset.kind === "chord") return <ChordReference key={asset.id} asset={asset} />;
