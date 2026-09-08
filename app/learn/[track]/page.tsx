@@ -21,7 +21,10 @@ export async function generateMetadata({ params }: { params: Promise<{ track: st
   const { track } = await params;
   if (!isTrackId(track)) return {};
   const canonical = `${SITE_URL}/learn/${track}`;
-  const title = `Learn ${track} step by step | GuitarHub`;
+  const title =
+    track === "guitar"
+      ? "Beginner Guitar Lessons, Step by Step | GuitarHub"
+      : `Learn ${track} step by step | GuitarHub`;
   const description = `Follow the GuitarHub ${track} curriculum from the first foundations. Free first module, guided practice, and browser-local progress.`;
   return {
     title,

@@ -20,7 +20,7 @@ const CANONICAL = `${SITE_URL}/guides`;
 /** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
 const CRUMBS = crumbTrail("Guides", CANONICAL);
 
-const TITLE = "Guitar Practice Guides: The Complete GuitarHub Library";
+const TITLE = "Guitar Practice Guides and Tips: The Complete GuitarHub Library";
 // Kept inside 140-160 characters so Google prints the differentiating tail
 // rather than truncating it.
 const DESCRIPTION =

@@ -5,7 +5,7 @@ import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 
 const CANONICAL = `${SITE_URL}/learn`;
-const TITLE = "Learn guitar and voice | GuitarHub";
+const TITLE = "Learn Guitar and Voice Online: Free First Lessons | GuitarHub";
 const DESCRIPTION =
   "Follow GuitarHub’s guitar and voice learning paths. Start with free foundation lessons, build a practice habit, and save your progress in this browser.";
 
