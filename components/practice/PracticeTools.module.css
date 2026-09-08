@@ -1,7 +1,7 @@
 .tools { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: start; gap: clamp(1.25rem,3vw,2rem); }
 .metronome { border: 1px solid var(--line); border-radius: 1.5rem; background: #fffaf2; padding: clamp(1.25rem,3vw,2rem); color: #251152; }
 .eyebrow { color: #76614b; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: .75rem; }
-.metronome h2 { font: 550 1.7rem/1.25 var(--font-display); margin-bottom: 1rem; }
+.metronome h2 { scroll-margin-top: 150px; font: 550 1.7rem/1.25 var(--font-display); margin-bottom: 1rem; }
 .metronome p { line-height: 1.7; }
 .beats { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0 1.5rem; }
 .beats span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: #e8e0d5; border: 2px solid transparent; border-radius: 50%; color: #493e36; font-weight: 650; }
