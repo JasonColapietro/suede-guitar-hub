@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { estimatePitch, frequencyForMIDI, noteName, OnsetDetector } from '@/lib/audio/dsp';
 import { startCapture, playReference, type Capture } from '@/lib/audio/capture';
 import { startRhythmPractice, type RhythmPlayback } from '@/lib/audio/practice-playback';
@@ -7,7 +7,7 @@ import { guitarPractice, guitarCountIn, FreshPitchGate, GuitarRearticulationGate
 import { ActivePracticeClock, scorePractice, transportAt, validSpec, type Observation, type PracticeResult, type PracticeSpec } from '@/lib/audio/practice';
 import styles from './PracticeCoach.module.css';
 import { recommendPracticeTempo, type TempoAttempt } from '@/lib/audio/practice-tempo';
-import { practiceSelection, targetMap } from '@/lib/audio/practice-selection';
+import { practiceSelection, targetMap, rhythmCueAt } from '@/lib/audio/practice-selection';
 type Phase = 'ready' | 'requesting' | 'counting' | 'running' | 'paused' | 'help' | 'result' | 'reference';
 export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAttempts = [] }: {
     spec: PracticeSpec;
@@ -19,9 +19,10 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
     const [loopStart, setLoopStart] = useState(0), [loopEnd, setLoopEnd] = useState(Math.min(1, authoredSpec.targets.length - 1));
     const [audibleMetronome, setAudibleMetronome] = useState(true);
     const [speed, setSpeed] = useState(100), [index, setIndex] = useState(0), [loop, setLoop] = useState(false), [leftHanded, setLeftHanded] = useState(false);
-    const spec = practiceSelection(authoredSpec, mode, loop, loopStart, loopEnd);
+    const spec = useMemo(() => practiceSelection(authoredSpec, mode, loop, loopStart, loopEnd), [authoredSpec, mode, loop, loopStart, loopEnd]);
+    const map = useMemo(() => targetMap(spec), [spec]);
     const [pulse, setPulse] = useState(0), [count, setCount] = useState(4), [heard, setHeard] = useState('Play one note at a time.');
-    const [musicBeat, setMusicBeat] = useState(0);
+    const [musicBeat, setMusicBeat] = useState(0), [exactMusicBeat, setExactMusicBeat] = useState(-1);
     const [message, setMessage] = useState(''), [result, setResult] = useState<PracticeResult | null>(null);
     const capture = useRef<Capture | null>(null), abort = useRef<AbortController | null>(null), animation = useRef<number>(0);
     const activeClock = useRef(new ActivePracticeClock());
@@ -54,6 +55,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
     const target = spec.targets[Math.min(index, spec.targets.length - 1)];
     const totalMusicBeats = Math.max(1, Math.ceil((spec.targets.at(-1)?.beat ?? 0) + 1));
     const totalBars = Math.ceil(totalMusicBeats / 4);
+    const cue = phase === 'running' ? rhythmCueAt(spec, exactMusicBeat) : null;
     const suggestion = recommendPracticeTempo(authoredSpec, authoredSpec.bpm * speed / 100, recentAttempts);
     const busy = phase === 'requesting' || phase === 'running' || phase === 'counting' || phase === 'reference';
     function finish() {
@@ -74,6 +76,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
         stopCapture();
         playbackAbort.current?.abort();
         setMessage('');
+        setExactMusicBeat(-1);
         setResult(null);
         if (document.hidden) {
             setPhase('paused');
@@ -101,7 +104,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
         const id = ++generation.current;
         abort.current = new AbortController();
         setPhase('requesting');
-        let detector: OnsetDetector | null = null, firstSample: number | null = null, runStart = Infinity, epoch = Infinity;
+        let detector: OnsetDetector | null = null, firstSample: number | null = null, runStart = Infinity, epoch = Infinity, lastCueUpdate = -Infinity;
         const bpm = spec.bpm * speed / 100, timed = spec.mode === 'rhythm' || mode === 'play';
         const countIn = track === 'guitar' ? guitarCountIn(spec.countInBeats, timed) : timed ? Math.max(4, spec.countInBeats) : spec.countInBeats;
         const microphoneFree = track === 'guitar' && spec.mode === 'rhythm' && mode === 'practice';
@@ -281,6 +284,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
                     setMusicBeat(shownBeat);
                     setMessage('');
                     if (spec.mode === 'rhythm') {
+                        if (now - lastCueUpdate >= 1 / 30) { setExactMusicBeat(transport.beat); lastCueUpdate = now; }
                         const next = spec.targets.findIndex(t => t.beat > transport.beat);
                         setIndex(next < 0 ? spec.targets.length - 1 : Math.max(0, next - 1));
                         if (transport.beat > spec.targets[spec.targets.length - 1].beat + 1) {
@@ -292,7 +296,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
                                 observations.current = [];
                                 epoch = now + (microphoneFree ? .15 : 0);
                                 runStart = epoch + countIn * 60 / bpm;
-                                setMusicBeat(0); setPulse(0);
+                                setMusicBeat(0); setExactMusicBeat(-1); setPulse(0);
                                 if (microphoneFree && audibleMetronome) (audio as RhythmPlayback).schedule(epoch, bpm, countIn, duration);
                                 activeClock.current.pause(now);
                                 activeClock.current.start(runStart);
@@ -366,14 +370,14 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, recentAtt
     {suggestion.bpm !== authoredSpec.bpm * speed / 100 && <button type="button" disabled={busy} onClick={() => { setSpeed(Math.round(suggestion.bpm / authoredSpec.bpm * 100)); setMode('practice'); setPhase('ready'); setResult(null); }}>Try coach suggestion: {Math.round(suggestion.bpm)} BPM</button>}
     {spec.completionMinimumBPM !== undefined && <p>This checkpoint needs {spec.completionMinimumBPM} BPM or faster and the required accuracy. Slower Play attempts still produce practice scores.</p>}
     {mode === 'practice' && <><label className={styles.check}><input type="checkbox" checked={loop} disabled={busy} onChange={e => { setLoop(e.target.checked); current.current = 0; setIndex(0); setPhase('ready'); }}/>Loop a section</label>{loop && <div className={styles.loopControls}><label>From target<select aria-label="From target" value={loopStart} disabled={busy} onChange={e => { const start = Number(e.target.value); setLoopStart(start); setLoopEnd(end => Math.max(start, end)); current.current = 0; setIndex(0); setPhase('ready'); }}>{authoredSpec.targets.map((target, i) => <option key={target.id} value={i}>{i + 1}. {target.midi != null ? noteName(target.midi) : target.cue ?? `Beat ${target.beat + 1}`}</option>)}</select></label><label>Through target<select aria-label="Through target" value={loopEnd} disabled={busy} onChange={e => { setLoopEnd(Number(e.target.value)); current.current = 0; setIndex(0); setPhase('ready'); }}>{authoredSpec.targets.slice(loopStart).map((target, i) => <option key={target.id} value={i + loopStart}>{i + loopStart + 1}. {target.midi != null ? noteName(target.midi) : target.cue ?? `Beat ${target.beat + 1}`}</option>)}</select></label></div>}</>}
-    <details className={styles.map}><summary>Exercise map · {spec.targets.length} targets</summary><ol>{targetMap(spec).map(target => <li key={target.id}><strong>{target.number}. {target.midi != null ? noteName(target.midi) : target.cue ?? 'Strum'}</strong><span>Bar {target.bar} · beat {target.beatInBar}{target.guitarString != null ? ` · string ${target.guitarString} · fret ${target.fret ?? 0}` : ''}</span></li>)}</ol><p>Chord names and stroke directions are visual guidance. Rhythm scoring measures attack timing.</p></details>
+    <details className={styles.map}><summary>Exercise map · {spec.targets.length} targets</summary><ol>{map.map(target => <li key={target.id}><strong>{target.number}. {target.midi != null ? noteName(target.midi) : target.cue ?? 'Strum'}</strong><span>Bar {target.bar} · beat {target.beatInBar}{target.guitarString != null ? ` · string ${target.guitarString} · fret ${target.fret ?? 0}` : ''}</span></li>)}</ol><p>Chord names and stroke directions are visual guidance. Rhythm scoring measures attack timing.</p></details>
     {track === 'guitar' && spec.mode === 'rhythm' && mode === 'practice' && <label className={styles.check}><input type="checkbox" checked={audibleMetronome} disabled={busy} onChange={e => setAudibleMetronome(e.target.checked)}/>Audible metronome · microphone stays off</label>}
     {spec.mode === 'pitchSequence' && target && <>
       <div className={styles.target}><span>Target {Math.min(index + 1, spec.targets.length)} of {spec.targets.length}</span><strong>{target.midi != null ? noteName(target.midi) : '—'}</strong><span>{track === 'guitar' && target.guitarString ? `String ${target.guitarString} · ${target.fret === 0 ? 'open' : `fret ${target.fret}`}` : 'Match the note at a comfortable volume'}</span></div>
       {track === 'guitar' && target.guitarString && <><label className={styles.check}><input type="checkbox" checked={leftHanded} onChange={e => setLeftHanded(e.target.checked)}/>Left-handed diagram</label><div className={styles.strings} style={{ direction: leftHanded ? 'rtl' : 'ltr' }} role="img" aria-label={`Play string ${target.guitarString}, ${target.fret === 0 ? 'open' : `fret ${target.fret}`}. String six is the thickest, low E.`}>{[6, 5, 4, 3, 2, 1].map((string, i) => <div key={string} className={string === target.guitarString ? styles.selected : ''}><span>{string}</span><i style={{ height: string }}/><span>{['E2', 'A2', 'D3', 'G3', 'B3', 'E4'][i]} {string === target.guitarString ? '●' : ''}</span></div>)}</div></>}
       <p className={styles.heard}>{heard}</p>
     </>}
-    {spec.mode === 'rhythm' && <>{target?.cue && <div className={styles.cue}><strong>{target.cue}</strong><span>Target {index + 1} of {spec.targets.length}</span>{spec.targets[index + 1]?.cue && <span>Next: {spec.targets[index + 1].cue}</span>}</div>}<p className={styles.position}>Bar {Math.floor(musicBeat / 4) + 1} of {totalBars} · beat {pulse + 1} of 4</p><div className={styles.beats} aria-label={`Beat ${pulse + 1} of 4`}>{[0, 1, 2, 3].map(n => <span key={n} className={phase === 'running' && pulse === n ? styles.beatOn : ''}>{n + 1}</span>)}</div></>}
+    {spec.mode === 'rhythm' && <><div className={styles.cue} data-active={cue?.active === true}><strong>{(cue?.target ?? target)?.cue ?? 'Strum'}</strong><span aria-hidden="true" className={styles.cueLight} /><span>Target {(cue?.index ?? index) + 1} of {spec.targets.length} · attack when the cue lights up</span>{cue?.next && <span>Next: {cue.next.cue ?? 'Strum'} · in {cue.beatsUntilNext?.toFixed(1)} beats</span>}</div><p>Keep counting through the spaces. Chord names and stroke directions are visual guides; only attack timing is measured.</p><p className={styles.position}>Bar {Math.floor(musicBeat / 4) + 1} of {totalBars} · beat {pulse + 1} of 4</p><div className={styles.beats} aria-label={`Beat ${pulse + 1} of 4`}>{[0, 1, 2, 3].map(n => <span key={n} className={phase === 'running' && pulse === n ? styles.beatOn : ''}>{n + 1}</span>)}</div></>}
     <p role="status" className={styles.status}>{phase === 'counting' ? `Count in: ${count}. ${message}` : message || (phase === 'running' ? (track === 'guitar' && spec.mode === 'rhythm' && mode === 'practice' ? 'Microphone off · follow the pulse.' : 'Listening — keep playing.') : phase === 'requesting' ? (track === 'guitar' && spec.mode === 'rhythm' && mode === 'practice' ? 'Preparing the practice pulse…' : 'Waiting for microphone permission…') : 'Tune first. Audio stays on this device.')}</p>
     {phase === 'result' && result && <div className={styles.result}>
       <h3>{result.score === null ? 'No reliable result' : `${result.noteScore !== null ? 'Pitch' : 'Timing'}: ${result.score}%`}</h3>

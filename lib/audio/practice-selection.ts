@@ -18,3 +18,15 @@ export function chordFretRange(frets: (number | null)[]) {
   const first = highest <= 4 ? 1 : Math.max(1, Math.min(...frets.filter((fret): fret is number => fret !== null && fret > 0)));
   return { first, last: Math.max(first + 3, highest) };
 }
+
+/** Use the native target highlight window, including offbeats and intentional gaps. */
+export function rhythmCueAt(spec: PracticeSpec, beat: number) {
+  const end = (spec.targets.at(-1)?.beat ?? -1) + 1;
+  if (!Number.isFinite(beat) || beat < 0 || beat >= end || spec.targets.length === 0) return null;
+  const upcoming = spec.targets.findIndex(target => target.beat > beat);
+  const index = upcoming === 0 ? 0 : upcoming < 0 ? spec.targets.length - 1 : upcoming - 1;
+  const target = spec.targets[index];
+  const sinceTarget = beat - target.beat;
+  const next = sinceTarget < 0 ? target : spec.targets[index + 1];
+  return { index, target, active: sinceTarget >= 0 && sinceTarget < .2, next, beatsUntilNext: next ? Math.max(0, next.beat - beat) : null };
+}

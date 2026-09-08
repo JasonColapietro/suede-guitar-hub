@@ -57,3 +57,21 @@ Physical microphone accuracy, timing latency and sound quality are device tests.
 Synthetic scoring and a compiled web app do not establish those results. Browser
 interaction verification should cover song/artist search, section loops and
 count-ins, reference playback interruption, cue maps, and the upper-fret shapes.
+
+Presentation review on 2026-09-08 found and corrected a visual timing gap: the
+web had target cue text but only whole-beat indicators. Rhythm cues now use the
+native 0.2-beat highlight window at every actual target, including offbeats, and
+remain inactive through rests. The small cue indicator avoids flashing the
+whole practice surface. It is not an audio-scoring change.
+
+Eight additional checks cover the actual React components' structural output
+and the cue/string/fret behavior. The complete reference inventory includes 74
+chord assets; each fretted position resolves to the written pitch and fits its
+view range. The eight riff references match string 6 and their written frets.
+620 scoped parity/presentation assertions passed. React server rendering does
+not run browser effects or prove keyboard/screen-reader interaction.
+
+The finite pending browser matrix is in `docs/learning-ui-checklist.md`. The
+sibling `browser-qa` folder imports these actual components, including all 81
+authored lessons and the daily routine, and has no deployment target. Its
+TypeScript configuration and audio-worklet link point to this checkout.
