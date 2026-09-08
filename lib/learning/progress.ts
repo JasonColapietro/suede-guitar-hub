@@ -48,7 +48,7 @@ export function parseProgress(raw: string | null, track: TrackId, validLessonIds
       clean.lessons[id] = {
         updatedAt: new Date(entry.updatedAt).toISOString(),
         practiceSeconds: entry.practiceSeconds,
-        assessment: getLessonInstructions(id)?.quiz || (requiredRevision !== undefined && (entry.source !== "measured" || entry.practiceSpecRevision !== requiredRevision || entry.score < authoredSpec!.passScore)) || (requiredBPM !== undefined && (entry.source !== "measured" || entry.bpm === undefined || entry.bpm < requiredBPM || entry.score < authoredSpec!.passScore)) || (entry.source === "measured" && entry.completionMinimumBPM !== undefined && entry.bpm < entry.completionMinimumBPM) ? "repeat" : entry.assessment,
+        assessment: getLessonInstructions(id)?.quiz || (authoredSpec && (entry.source !== "measured" || entry.score < authoredSpec.passScore)) || (requiredRevision !== undefined && (entry.source !== "measured" || entry.practiceSpecRevision !== requiredRevision || entry.score < authoredSpec!.passScore)) || (requiredBPM !== undefined && (entry.source !== "measured" || entry.bpm === undefined || entry.bpm < requiredBPM || entry.score < authoredSpec!.passScore)) || (entry.source === "measured" && entry.completionMinimumBPM !== undefined && entry.bpm < entry.completionMinimumBPM) ? "repeat" : entry.assessment,
         source: entry.source,
         score: entry.source === "measured" ? entry.score : null,
         ...(entry.source === "measured" && entry.bpm !== undefined ? { bpm: entry.bpm } : {}),
