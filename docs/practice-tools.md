@@ -29,7 +29,7 @@ The follower tests call the real public controller/tuner behavior against nine t
 
 `tests/practice-tools.test.ts` uses the actual controller, shared capture arbiter, detector, and generated contract with injected audio/timer surfaces. It checks continuous tempo edits, restart, cancellation, playback failure, interruption, background cleanup, low/upper tuner band, and microphone error explanations. `tests/practice-tools-components.test.ts` renders actual React components and the page, and verifies route microphone policy. `tests/audio-capture.test.ts` also proves reference cancellation versus full fade completion. These are unit and server-render tests, not browser or acoustic acceptance.
 
-The final scoped run passed 168/168 tools, audio, route/SEO, and existing learning/routine regression tests. `tsc --noEmit --pretty false --incremental false`, scoped ESLint, and the native contract byte check passed. No production build was run during this slice because native release testing shared the machine's resource budget.
+The initial scoped run passed 168/168 tools, audio, route/SEO, and existing learning/routine regression tests. After adding the reference-decay confirmation guard and merging the 99-guide content release, the full Node suite passed 989/989 tests with `--test-concurrency=2`. Full ESLint, `next typegen`, `tsc --noEmit --pretty false --incremental false`, and the native contract byte check passed. Production build validation runs in CI because native release testing shares the local machine's resource budget.
 
 When a supported browser is available, run this finite check on desktop and mobile widths:
 
@@ -40,7 +40,7 @@ When a supported browser is available, run this finite check on desktop and mobi
 5. Start the tuner, deny permission, retry after granting it, and try a missing/busy microphone. Check that each message provides a usable next step.
 6. Cancel a pending microphone prompt or audio start, then allow the late request. It must not reopen resources or start a beat.
 7. Pluck each standard open string at actual device input rates. Verify note, octave, below/above guidance, and the cents meter; test silence, noise, wrong octave, and stale input. Compare with a physical tuner.
-8. Play and stop a reference, then try starting the tuner before its decay wait ends. Repeat by starting the metronome during the reference. The tuner must wait for residual sound to fade.
+8. Play and stop a reference, then try starting the tuner before its decay wait ends. Repeat by starting the metronome during the reference. In a lesson, recheck every box during playback and try confirming immediately after Stop or interruption; readiness must remain false until the decay wait expires. After expiry, a complete checklist can confirm and an incomplete checklist still cannot.
 9. Start the tuner while the metronome runs and vice versa. Confirm only one tool remains active and the stopped tool explains the handoff.
 10. Hide the tab, navigate away/back, and disconnect/reconnect the input/output. Confirm audio stops, no timer catches up in a burst, and returning requires explicit Start.
 11. In a lesson, verify tuning checkboxes remain learner-controlled, changing a checked string invalidates the final recheck, and starting tuning or a reference clears prior confirmation.
