@@ -44,3 +44,4 @@
 .history li { padding: .4rem 0; line-height: 1.5; }
 .references :is(button, select, summary):focus-visible, .quiz :is(button, input, summary):focus-visible { outline: 3px solid #6d28d9; outline-offset: 4px; }
 @media(max-width: 430px) { .question { padding: .85rem; } .button { width: 100%; } }
+.riffTab{white-space:pre-wrap;overflow-wrap:anywhere;font-size:1.1rem;padding:1rem;background:#efe6dc;border-radius:12px}

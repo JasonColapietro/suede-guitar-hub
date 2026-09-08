@@ -4,6 +4,7 @@ export interface PracticeTarget {
     midi?: number | null;
     guitarString?: number | null;
     fret?: number | null;
+    cue?: string;
 }
 export interface PracticeSpec {
     mode: 'pitchSequence' | 'rhythm';

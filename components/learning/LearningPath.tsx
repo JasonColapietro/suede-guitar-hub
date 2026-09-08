@@ -5,6 +5,7 @@ import { curricula, trackNames, availableLessons, isModuleAvailable, lessonHref,
 import { completedCount, nextLessonId } from "@/lib/learning/progress";
 import { useLearningProgress } from "./useLearningProgress";
 import styles from "./Learning.module.css";
+import { LessonLibrary } from "./LessonLibrary";
 const lessonTypes = { concept: "Learn", exercise: "Practice", song: "Song", checkpoint: "Checkpoint" };
 export function LearningPath({ track }: { track: TrackId }) {
   const { progress } = useLearningProgress(track);
@@ -24,13 +25,14 @@ export function LearningPath({ track }: { track: TrackId }) {
     <p className={`${styles.small} ${styles.muted}`}>Your progress is saved in this browser. Each saved result identifies its evidence: your own assessment, a visual reading check, or a microphone exercise. You can revisit any available lesson.</p>
     <div className={styles.notice}>The first module is free, matching the iOS sampler. Other modules are previews on the web while purchase access is being connected. An iOS purchase does not unlock web lessons yet.</div>
     {track === "guitar" && <section className={styles.continue} aria-label="Daily guitar practice"><div><h2>Your first A/D routine</h2><p>Seven familiar blocks, 21 suggested minutes. Prepare with instruction, then tune, work on shapes, change chords, and play songs.</p></div><Link className={styles.primary} href="/learn/guitar/routine">Open practice routine</Link></section>}
+    <LessonLibrary track={track} />
     {curriculum.levels.map((level, levelIndex) => <details className={styles.level} key={level.id} open={levelIndex === 0}>
-      <summary><span className={styles.stage} aria-hidden="true">{level.stage}</span><div><h2>{level.name}</h2><p className={styles.muted}>{level.subtitle}</p><span className={styles.badge}>{level.modules.length} modules</span><span className={styles.badge}>{levelIndex === 0 ? "First module free" : "Curriculum preview"}</span></div></summary>
+      <summary><span className={styles.stage} aria-hidden="true">{level.stage ?? "♪"}</span><div><h2>{level.name}</h2><p className={styles.muted}>{level.subtitle}</p><span className={styles.badge}>{level.modules.length} modules</span><span className={styles.badge}>{levelIndex === 0 ? "First module free" : "Curriculum preview"}</span></div></summary>
       {level.modules.map((module) => { const available = isModuleAvailable(track, module.id); return <section className={styles.module} key={module.id} aria-labelledby={module.id}>
         <header className={styles.moduleHeader}><h3 id={module.id}>{module.name}</h3><p>Practice goal: {module.promise}</p><span className={styles.badge}>{module.lessons.length} lessons</span>{!available && <span className={styles.badge}>Preview</span>}</header>
         <ol className={styles.lessons}>{module.lessons.map((lesson, index) => {
           const record = progress.lessons[lesson.id]; const done = record?.assessment === "ready";
-          return <li key={lesson.id}><Link className={styles.lessonLink} href={lessonHref(track, lesson.id)}><span className={`${styles.lessonStatus} ${done ? styles.done : ""}`} aria-label={done ? "Marked ready" : `Lesson ${index + 1}`}>{done ? "✓" : index + 1}</span><span><strong>{lesson.title}</strong><span className={`${styles.small} ${styles.muted}`} style={{display:"block"}}>{lessonTypes[lesson.type]}{lesson.practiceSpec ? " · Microphone exercise" : getLessonInstructions(lesson.id)?.quiz ? " · Reading check" : " · Self-assessment"}{record?.assessment === "repeat" ? " · Revisit" : ""}</span></span><span className={styles.small}>{available ? `${lesson.minutes} min` : "Preview"}</span></Link></li>;
+          return <li key={lesson.id}><Link className={styles.lessonLink} href={lessonHref(track, lesson.id)}><span className={`${styles.lessonStatus} ${done ? styles.done : ""}`} aria-label={done ? "Marked ready" : `Lesson ${index + 1}`}>{done ? "✓" : index + 1}</span><span><strong>{lesson.title}</strong><span className={`${styles.small} ${styles.muted}`} style={{display:"block"}}>{lessonTypes[lesson.type]}{lesson.practiceSpec ? " · Microphone exercise" : getLessonInstructions(lesson.id)?.quiz ? " · Reading check" : getLessonInstructions(lesson.id) ? " · Self-assessment" : " · Preview outline"}{record?.assessment === "repeat" ? " · Revisit" : ""}</span></span><span className={styles.small}>{available ? `${lesson.minutes} min` : "Preview"}</span></Link></li>;
         })}</ol>
       </section>; })}
     </details>)}

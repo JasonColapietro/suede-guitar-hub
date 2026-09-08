@@ -1,4 +1,5 @@
 import source from "./data/beginner-guitar-instruction.json" with { type: "json" };
+import songSource from "./data/song-guitar-instruction.json" with { type: "json" };
 import { decodeStageTwoAsset, type StageTwoAsset } from "./stage-two.ts";
 export interface ReferenceString { string: number; name: string; note: string; midi: number; fret: number }
 export type InstructionAsset =
@@ -7,6 +8,7 @@ export type InstructionAsset =
   | { id: string; kind: "pitchComparison"; baseMidi: number; examples: { label: string; centsOffset: number }[] }
   | { id: string; kind: "chord"; name: string; frets: (number | null)[]; fingers: (number | null)[]; soundingMidi: number[] }
   | { id: string; kind: "rhythm"; bpm: number; meter: { numerator: number; denominator: number }; countInBeats: number; eventBeats: number[] }
+  | { id: string; kind: "riff"; title: string; provenance: string; stringNumber: number; frets: number[]; midi: number[]; tabText: string; instruction: string }
   | { id: string; kind: "diagram"; description: string; textAlternative?: string };
 export interface InstructionQuizItem {
   id: string; kind: string; prompt: string; options: string[]; correctOptionIndex: number;
@@ -65,7 +67,9 @@ export interface LessonInstructions {
   assets: InstructionAsset[];
   quiz?: InstructionQuiz;
 }
-const sourceAssets: Record<string, unknown> = source.demoAssets;
+const sourceAssets: Record<string, unknown> = { ...songSource.demoAssets, ...source.demoAssets };
+const sourceLessons = [...source.lessons, ...songSource.lessons];
+export const guidedLessonIds = sourceLessons.map(lesson => lesson.id);
 function numericList(value: unknown): value is number[] { return Array.isArray(value) && value.every(item => typeof item === "number" && Number.isFinite(item)); }
 function stringPositions(value: unknown): value is (number | null)[] { return Array.isArray(value) && value.length === 6 && value.every(item => item === null || (Number.isInteger(item) && item >= 0 && item <= 24)); }
 export function getInstructionAsset(id: string): InstructionAsset {
@@ -90,6 +94,9 @@ export function getInstructionAsset(id: string): InstructionAsset {
     return { id, kind: "rhythm", bpm: asset.bpm, meter, countInBeats: asset.countInBeats, eventBeats: asset.eventBeats };
   }
   if (asset.kind === "diagram" && typeof asset.description === "string") return { id, kind: "diagram", description: asset.description, textAlternative: typeof asset.textAlternative === "string" ? asset.textAlternative : undefined };
+  if (asset.kind === "single_string_riff" && typeof asset.title === "string" && typeof asset.provenance === "string" && typeof asset.stringNumber === "number" && numericList(asset.frets) && numericList(asset.midi) && asset.frets.length === asset.midi.length && asset.frets.length > 0 && typeof asset.tabText === "string" && typeof asset.instruction === "string") {
+    return { id, kind: "riff", title: asset.title, provenance: asset.provenance, stringNumber: asset.stringNumber, frets: asset.frets, midi: asset.midi, tabText: asset.tabText, instruction: asset.instruction };
+  }
   const stageTwo = decodeStageTwoAsset(id, asset);
   if (stageTwo) return stageTwo;
   throw new Error(`Unsupported instruction asset: ${id}`);
@@ -104,7 +111,7 @@ function validatedQuiz(quiz: InstructionQuiz): InstructionQuiz {
 }
 /** Source JSON stays intact; the runtime receives the authored assets and quiz. */
 export function getLessonInstructions(lessonId: string): LessonInstructions | undefined {
-  const lesson = source.lessons.find(item => item.id === lessonId);
+  const lesson = sourceLessons.find(item => item.id === lessonId);
   if (!lesson) return undefined;
   return {
     setup: [lesson.objective],
@@ -117,6 +124,6 @@ export function getLessonInstructions(lessonId: string): LessonInstructions | un
     evidence: lesson.selfAssessment.proves,
     limitation: lesson.selfAssessment.doesNotProve,
     assets: lesson.demoAssetIds.map(getInstructionAsset),
-    quiz: "quiz" in lesson ? validatedQuiz(lesson.quiz as InstructionQuiz) : undefined,
+    quiz: "quiz" in lesson && lesson.quiz ? validatedQuiz(lesson.quiz as InstructionQuiz) : undefined,
   };
 }

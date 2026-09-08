@@ -535,9 +535,9 @@
         {
           "id": "g-l2-m4",
           "name": "First Riff",
-          "promise": "Play a single-string riff at ninety BPM, three clean passes of three",
-          "skill": "Single-note riffs",
-          "proofMetric": "tempo_bpm",
+          "promise": "Play an original one-string riff through three consecutive passes at ninety BPM",
+          "skill": "Single-string pitch sequence",
+          "proofMetric": "three_pass_pitch_slots_at_90_bpm",
           "lessonsTotal": 3,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -546,21 +546,266 @@
               "title": "A Riff Is a Melody You Can Hold",
               "type": "concept",
               "minutes": 3,
-              "summary": "Why single-note lines are easier than chords and why they sound harder."
+              "summary": "Read an original eight-note riff and prepare four positions on the low E string."
             },
             {
               "id": "g-l2-m4-03",
               "title": "One String, Four Notes",
               "type": "exercise",
               "minutes": 5,
-              "summary": "Fretting-hand accuracy on one string before you cross to another."
+              "summary": "Play Low E Lantern in two four-note groups, then join the complete riff at a manageable tempo.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 75,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "riff-01",
+                    "beat": 0,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "riff-02",
+                    "beat": 1,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "riff-03",
+                    "beat": 2,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  },
+                  {
+                    "id": "riff-04",
+                    "beat": 3,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "riff-05",
+                    "beat": 4,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "riff-06",
+                    "beat": 5,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "riff-07",
+                    "beat": 6,
+                    "midi": 45,
+                    "guitarString": 6,
+                    "fret": 5
+                  },
+                  {
+                    "id": "riff-08",
+                    "beat": 7,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  }
+                ]
+              }
             },
             {
               "id": "g-l2-m4-06",
-              "title": "Checkpoint: Three Clean Passes at Ninety",
+              "title": "Checkpoint: Three Complete Passes at Ninety",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Three of three, in time, from memory."
+              "summary": "Play three consecutive riff passes at ninety BPM with every target pitch detected in its assigned slot.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 90,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 100,
+                "completionMinimumBPM": 90,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "pass-1-01",
+                    "beat": 0,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "pass-1-02",
+                    "beat": 1,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-1-03",
+                    "beat": 2,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  },
+                  {
+                    "id": "pass-1-04",
+                    "beat": 3,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-1-05",
+                    "beat": 4,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "pass-1-06",
+                    "beat": 5,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-1-07",
+                    "beat": 6,
+                    "midi": 45,
+                    "guitarString": 6,
+                    "fret": 5
+                  },
+                  {
+                    "id": "pass-1-08",
+                    "beat": 7,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  },
+                  {
+                    "id": "pass-2-01",
+                    "beat": 8,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "pass-2-02",
+                    "beat": 9,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-2-03",
+                    "beat": 10,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  },
+                  {
+                    "id": "pass-2-04",
+                    "beat": 11,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-2-05",
+                    "beat": 12,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "pass-2-06",
+                    "beat": 13,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-2-07",
+                    "beat": 14,
+                    "midi": 45,
+                    "guitarString": 6,
+                    "fret": 5
+                  },
+                  {
+                    "id": "pass-2-08",
+                    "beat": 15,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  },
+                  {
+                    "id": "pass-3-01",
+                    "beat": 16,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "pass-3-02",
+                    "beat": 17,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-3-03",
+                    "beat": 18,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  },
+                  {
+                    "id": "pass-3-04",
+                    "beat": 19,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-3-05",
+                    "beat": 20,
+                    "midi": 40,
+                    "guitarString": 6,
+                    "fret": 0
+                  },
+                  {
+                    "id": "pass-3-06",
+                    "beat": 21,
+                    "midi": 42,
+                    "guitarString": 6,
+                    "fret": 2
+                  },
+                  {
+                    "id": "pass-3-07",
+                    "beat": 22,
+                    "midi": 45,
+                    "guitarString": 6,
+                    "fret": 5
+                  },
+                  {
+                    "id": "pass-3-08",
+                    "beat": 23,
+                    "midi": 43,
+                    "guitarString": 6,
+                    "fret": 3
+                  }
+                ]
+              }
             }
           ]
         }
@@ -578,7 +823,7 @@
         {
           "id": "g-l3-m1",
           "name": "Minor Colors",
-          "promise": "Produce any of eight chord shapes on demand within three seconds",
+          "promise": "Place Em, Am, and Dm and check each deliberately by hand and ear",
           "skill": "Em, Am and Dm",
           "proofMetric": "duration_sec",
           "lessonsTotal": 7,
@@ -600,17 +845,17 @@
             },
             {
               "id": "g-l3-m1-07",
-              "title": "Checkpoint: Eight Shapes, Three Seconds Each",
+              "title": "Checkpoint: Three Minors, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "The full open set, called at random."
+              "summary": "Em, Am, and Dm, each deliberately checked by hand and ear; no automatic three-second or clean-chord claim."
             }
           ]
         },
         {
           "id": "g-l3-m2",
           "name": "E, C and G",
-          "promise": "Play the full open eight cleanly, every string ringing",
+          "promise": "Play and self-check the full open eight, with every permitted string ringing",
           "skill": "The stretch chords",
           "proofMetric": "recall_pct",
           "lessonsTotal": 7,
@@ -625,24 +870,24 @@
             },
             {
               "id": "g-l3-m2-04",
-              "title": "Four-Chord Song",
+              "title": "Four-Corner Turnaround: An Original Study",
               "type": "song",
               "minutes": 6,
-              "summary": "The progression behind more hit songs than any other, played to the metronome."
+              "summary": "An original E–C–G–D four-bar study with counted changes and a self-guided tone check."
             },
             {
               "id": "g-l3-m2-07",
-              "title": "Checkpoint: The Open Eight, Clean",
+              "title": "Checkpoint: Eight Open Shapes, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "All eight, all strings ringing, called at random."
+              "summary": "Eight open shapes, each sounding string checked manually; record the two shapes to revisit."
             }
           ]
         },
         {
           "id": "g-l3-m3",
           "name": "Up and Down",
-          "promise": "Hold the universal strumming pattern for twenty-four bars at ninety BPM",
+          "promise": "Keep a counted strumming pattern through 24 bars and document recovery",
           "skill": "Up-strums and constant motion",
           "proofMetric": "tempo_bpm",
           "lessonsTotal": 7,
@@ -660,21 +905,112 @@
               "title": "Ghost Strums",
               "type": "exercise",
               "minutes": 5,
-              "summary": "Miss the strings on purpose to keep the arm in motion. The core of every pattern."
+              "summary": "Miss the strings on purpose to keep the arm in motion. The core of every pattern.",
+              "practiceSpec": {
+                "mode": "rhythm",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "target-00",
+                    "beat": 0.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-01",
+                    "beat": 0.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-02",
+                    "beat": 1.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-03",
+                    "beat": 1.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-04",
+                    "beat": 2.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-05",
+                    "beat": 2.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-06",
+                    "beat": 3.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-07",
+                    "beat": 3.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-08",
+                    "beat": 4.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-09",
+                    "beat": 4.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-10",
+                    "beat": 5.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-11",
+                    "beat": 5.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-12",
+                    "beat": 6.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-13",
+                    "beat": 6.5,
+                    "cue": "Muted · ↑"
+                  },
+                  {
+                    "id": "target-14",
+                    "beat": 7.0,
+                    "cue": "Muted · ↓"
+                  },
+                  {
+                    "id": "target-15",
+                    "beat": 7.5,
+                    "cue": "Muted · ↑"
+                  }
+                ]
+              }
             },
             {
               "id": "g-l3-m3-07",
-              "title": "Checkpoint: Twenty-Four Bars at Ninety",
+              "title": "Checkpoint: Twenty-Four Bars, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Pattern held, no drift, no stops."
+              "summary": "A self-guided 24-bar continuity and recovery run; note actual tempo and any stops."
             }
           ]
         },
         {
           "id": "g-l3-m4",
           "name": "Capo and Keys",
-          "promise": "Play the same song in three different keys using a capo",
+          "promise": "Play one original study in three capo positions and document the key shift",
           "skill": "Capo and key changes",
           "proofMetric": "recall_pct",
           "lessonsTotal": 7,
@@ -689,24 +1025,24 @@
             },
             {
               "id": "g-l3-m4-03",
-              "title": "Three Keys, One Song",
+              "title": "Three Keys, One Original Study",
               "type": "exercise",
               "minutes": 5,
-              "summary": "Move the capo, keep the shapes, hear the key change."
+              "summary": "Move an original G–C–Em–D study between open, capo 2, and capo 4 while keeping written shapes."
             },
             {
               "id": "g-l3-m4-07",
-              "title": "Checkpoint: One Song, Three Keys",
+              "title": "Checkpoint: One Original Study, Three Capos",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Played, not explained."
+              "summary": "Play the same original study open, at capo 2, and at capo 4, then record shape and tuning observations."
             }
           ]
         },
         {
           "id": "g-l3-m5",
           "name": "Three-Four and Six-Eight",
-          "promise": "Switch between meters mid-song without a stumble",
+          "promise": "Count and play an original map through 4/4, 3/4, and 6/8 with self-checks",
           "skill": "Compound and triple meter",
           "proofMetric": "recall_pct",
           "lessonsTotal": 7,
@@ -721,17 +1057,17 @@
             },
             {
               "id": "g-l3-m5-04",
-              "title": "Six-Eight Ballad",
+              "title": "Lantern Tide: An Original 6/8 Study",
               "type": "song",
               "minutes": 6,
-              "summary": "A full song in compound time, played to the metronome."
+              "summary": "An original Em–C–G–D study with two large pulses per 6/8 bar and counted recovery."
             },
             {
               "id": "g-l3-m5-07",
-              "title": "Checkpoint: Meter Switch, No Stumble",
+              "title": "Checkpoint: Meter Switch, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Four bars of four, four of three, back again."
+              "summary": "A self-guided original map through 4/4, 3/4, 6/8, and back to 4/4 with spoken counts."
             }
           ]
         }
@@ -749,7 +1085,7 @@
         {
           "id": "g-l4-m1",
           "name": "Box One",
-          "promise": "Play minor pentatonic box one up and down at eighty BPM, two clean passes",
+          "promise": "Play the authored minor-pentatonic box route and review pitch separately from technique",
           "skill": "Minor pentatonic, position one",
           "proofMetric": "tempo_bpm",
           "lessonsTotal": 7,
@@ -767,21 +1103,193 @@
               "title": "Box One, Up and Down",
               "type": "exercise",
               "minutes": 5,
-              "summary": "Two notes per string, strict alternate picking, metronome on."
+              "summary": "Two notes per string, strict alternate picking, metronome on.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "target-00",
+                    "beat": 0,
+                    "midi": 45,
+                    "guitarString": 6,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-01",
+                    "beat": 1,
+                    "midi": 48,
+                    "guitarString": 6,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-02",
+                    "beat": 2,
+                    "midi": 50,
+                    "guitarString": 5,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-03",
+                    "beat": 3,
+                    "midi": 52,
+                    "guitarString": 5,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-04",
+                    "beat": 4,
+                    "midi": 55,
+                    "guitarString": 4,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-05",
+                    "beat": 5,
+                    "midi": 57,
+                    "guitarString": 4,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-06",
+                    "beat": 6,
+                    "midi": 60,
+                    "guitarString": 3,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-07",
+                    "beat": 7,
+                    "midi": 62,
+                    "guitarString": 3,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-08",
+                    "beat": 8,
+                    "midi": 64,
+                    "guitarString": 2,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-09",
+                    "beat": 9,
+                    "midi": 67,
+                    "guitarString": 2,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-10",
+                    "beat": 10,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-11",
+                    "beat": 11,
+                    "midi": 72,
+                    "guitarString": 1,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-12",
+                    "beat": 12,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-13",
+                    "beat": 13,
+                    "midi": 67,
+                    "guitarString": 2,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-14",
+                    "beat": 14,
+                    "midi": 64,
+                    "guitarString": 2,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-15",
+                    "beat": 15,
+                    "midi": 62,
+                    "guitarString": 3,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-16",
+                    "beat": 16,
+                    "midi": 60,
+                    "guitarString": 3,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-17",
+                    "beat": 17,
+                    "midi": 57,
+                    "guitarString": 4,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-18",
+                    "beat": 18,
+                    "midi": 55,
+                    "guitarString": 4,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-19",
+                    "beat": 19,
+                    "midi": 52,
+                    "guitarString": 5,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-20",
+                    "beat": 20,
+                    "midi": 50,
+                    "guitarString": 5,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-21",
+                    "beat": 21,
+                    "midi": 48,
+                    "guitarString": 6,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-22",
+                    "beat": 22,
+                    "midi": 45,
+                    "guitarString": 6,
+                    "fret": 5
+                  }
+                ]
+              }
             },
             {
               "id": "g-l4-m1-07",
-              "title": "Checkpoint: Two Clean Passes at Eighty",
+              "title": "Checkpoint: Box One, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Ascending and descending, no missed notes."
+              "summary": "Two authored box-one route passes with pitch evidence kept separate from picking and tone."
             }
           ]
         },
         {
           "id": "g-l4-m2",
           "name": "Alternate Picking",
-          "promise": "Play eighth notes at one hundred BPM at ninety-five percent accuracy",
+          "promise": "Build an alternate-picking cell through a sustainable tempo ladder",
           "skill": "Strict alternate picking",
           "proofMetric": "accuracy_pct",
           "lessonsTotal": 7,
@@ -799,21 +1307,144 @@
               "title": "Metronome Ladder, Sixty to One Hundred",
               "type": "exercise",
               "minutes": 6,
-              "summary": "Five BPM at a time. Drop back the moment accuracy breaks."
+              "summary": "Five BPM at a time. Drop back the moment accuracy breaks.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "target-00",
+                    "beat": 0.0,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-01",
+                    "beat": 0.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-02",
+                    "beat": 1.0,
+                    "midi": 72,
+                    "guitarString": 1,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-03",
+                    "beat": 1.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-04",
+                    "beat": 2.0,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-05",
+                    "beat": 2.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-06",
+                    "beat": 3.0,
+                    "midi": 72,
+                    "guitarString": 1,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-07",
+                    "beat": 3.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-08",
+                    "beat": 4.0,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-09",
+                    "beat": 4.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-10",
+                    "beat": 5.0,
+                    "midi": 72,
+                    "guitarString": 1,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-11",
+                    "beat": 5.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-12",
+                    "beat": 6.0,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-13",
+                    "beat": 6.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-14",
+                    "beat": 7.0,
+                    "midi": 72,
+                    "guitarString": 1,
+                    "fret": 8
+                  },
+                  {
+                    "id": "target-15",
+                    "beat": 7.5,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  }
+                ]
+              }
             },
             {
               "id": "g-l4-m2-07",
-              "title": "Checkpoint: Eighths at One Hundred",
+              "title": "Checkpoint: Eighth-Note Cell, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Ninety-five percent correct notes, on the click."
+              "summary": "Run the authored cell at a sustainable tempo and record pitch evidence separately from picking mechanics."
             }
           ]
         },
         {
           "id": "g-l4-m3",
           "name": "Hammer-Ons and Pull-Offs",
-          "promise": "Play clean legato pairs across three strings at eighty BPM",
+          "promise": "Play three-string legato pairs and separate pitch evidence from technique",
           "skill": "Legato technique",
           "proofMetric": "tempo_bpm",
           "lessonsTotal": 7,
@@ -831,21 +1462,116 @@
               "title": "Legato Pairs, Three Strings",
               "type": "exercise",
               "minutes": 5,
-              "summary": "Volume matching is the whole exercise. A weak pull-off is an inaudible one."
+              "summary": "Volume matching is the whole exercise. A weak pull-off is an inaudible one.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "target-00",
+                    "beat": 0,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-01",
+                    "beat": 1,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-02",
+                    "beat": 2,
+                    "midi": 69,
+                    "guitarString": 1,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-03",
+                    "beat": 3,
+                    "midi": 71,
+                    "guitarString": 1,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-04",
+                    "beat": 4,
+                    "midi": 64,
+                    "guitarString": 2,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-05",
+                    "beat": 5,
+                    "midi": 66,
+                    "guitarString": 2,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-06",
+                    "beat": 6,
+                    "midi": 64,
+                    "guitarString": 2,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-07",
+                    "beat": 7,
+                    "midi": 66,
+                    "guitarString": 2,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-08",
+                    "beat": 8,
+                    "midi": 60,
+                    "guitarString": 3,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-09",
+                    "beat": 9,
+                    "midi": 62,
+                    "guitarString": 3,
+                    "fret": 7
+                  },
+                  {
+                    "id": "target-10",
+                    "beat": 10,
+                    "midi": 60,
+                    "guitarString": 3,
+                    "fret": 5
+                  },
+                  {
+                    "id": "target-11",
+                    "beat": 11,
+                    "midi": 62,
+                    "guitarString": 3,
+                    "fret": 7
+                  }
+                ]
+              }
             },
             {
               "id": "g-l4-m3-07",
-              "title": "Checkpoint: Clean Legato at Eighty",
+              "title": "Checkpoint: Legato Pairs, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Even volume across all pairs."
+              "summary": "Two three-string legato route passes with separate observations for pitch, pick count, volume, and muting."
             }
           ]
         },
         {
           "id": "g-l4-m4",
           "name": "Eighths and Palm Mute",
-          "promise": "Hold twenty-four bars of palm-muted eighths at one hundred BPM",
+          "promise": "Hold a counted palm-muted eighth-note study and review mute balance",
           "skill": "Palm muting",
           "proofMetric": "tempo_bpm",
           "lessonsTotal": 7,
@@ -860,24 +1586,24 @@
             },
             {
               "id": "g-l4-m4-04",
-              "title": "Palm-Muted Rock Song",
+              "title": "Iron Road: An Original Palm-Muted Study",
               "type": "song",
               "minutes": 6,
-              "summary": "A driving eighth-note song, played to the metronome."
+              "summary": "An original E5 palm-muted eighth-note study with counted recovery and a self-guided mute check."
             },
             {
               "id": "g-l4-m4-07",
-              "title": "Checkpoint: Twenty-Four Bars at One Hundred",
+              "title": "Checkpoint: Twenty-Four Bars, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Mute consistent, tempo held."
+              "summary": "A self-guided 24-bar palm-muted continuity run; record actual tempo, mute balance, and recovery."
             }
           ]
         },
         {
           "id": "g-l4-m5",
           "name": "Fingers, Not Pick",
-          "promise": "Play sixteen bars of alternating-bass fingerstyle without stopping",
+          "promise": "Play an original alternating-bass map and review continuity by ear and feel",
           "skill": "Fingerstyle basics",
           "proofMetric": "continuity",
           "lessonsTotal": 7,
@@ -895,14 +1621,153 @@
               "title": "Alternating Bass",
               "type": "exercise",
               "minutes": 6,
-              "summary": "Thumb alone first, then add one finger at a time."
+              "summary": "Thumb alone first, then add one finger at a time.",
+              "practiceSpec": {
+                "mode": "pitchSequence",
+                "bpm": 60,
+                "countInBeats": 4,
+                "toleranceCents": 35,
+                "passScore": 80,
+                "completionMinimumBPM": 60,
+                "revision": 1,
+                "targets": [
+                  {
+                    "id": "target-00",
+                    "beat": 0,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-01",
+                    "beat": 1,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-02",
+                    "beat": 2,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-03",
+                    "beat": 3,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-04",
+                    "beat": 4,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-05",
+                    "beat": 5,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-06",
+                    "beat": 6,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-07",
+                    "beat": 7,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-08",
+                    "beat": 8,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-09",
+                    "beat": 9,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-10",
+                    "beat": 10,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-11",
+                    "beat": 11,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-12",
+                    "beat": 12,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-13",
+                    "beat": 13,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-14",
+                    "beat": 14,
+                    "midi": 45,
+                    "guitarString": 5,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  },
+                  {
+                    "id": "target-15",
+                    "beat": 15,
+                    "midi": 50,
+                    "guitarString": 4,
+                    "fret": 0,
+                    "cue": "Bass · ↓"
+                  }
+                ]
+              }
             },
             {
               "id": "g-l4-m5-07",
-              "title": "Checkpoint: Sixteen Bars, No Stop",
+              "title": "Checkpoint: Alternating Bass, Self-Checked",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Pattern intact, bass steady."
+              "summary": "A self-guided original 16-bar C–G fingerstyle map with separate bass, treble, and continuity observations."
             }
           ]
         }
