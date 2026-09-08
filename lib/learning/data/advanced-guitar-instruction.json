@@ -1,0 +1,2865 @@
+{
+  "schemaVersion": 1,
+  "status": "authored_for_integration",
+  "scope": "All eighteen actual Level 5 Barre Line lessons: The F Problem, Power Chords, Twelve Bars, First Solo, Bend and Vibrato, and Triads and Chords in Keys.",
+  "authoredDate": "2026-09-08",
+  "sourceCatalog": "GuitarHubCore/Sources/GuitarHubCore/Resources/guitar.json",
+  "instructionConventions": {
+    "handNames": "Use picking hand and fretting hand. String numbers remain the same for either handedness.",
+    "stringNumbers": "String 6 is thick low E; string 1 is thin high E. Shape strings are always listed 6 to 1. x means exclude and mute; 0 means open.",
+    "fretNumbers": "A fret number names the space ending at that fret wire toward the body. Place just behind the wire within that space, not on top of it.",
+    "practiceTiming": "Segment durations sum to catalog minutes and are suggested attention blocks, including rests. They are not deadlines for competence or continuous grip requirements.",
+    "evidence": "All eighteen lessons lack a catalog practiceSpec. Technique, form recall, improvisation, chord naming and playing judgments are self-reported. A numeric bend result requires the described actual external observation and remains learner-reported; listening and synthesized references never create measured evidence.",
+    "referenceAudio": "Existing reference controls synthesize individual pitches. They are not guitar recordings, a chord-quality score or an automatic backing track. Stop them before checking a learner performance.",
+    "comfort": "Use short supported attempts and release between them. Stop for pain or persistent discomfort. Never force a bend, an extreme stretch, or one hand, thumb or elbow angle.",
+    "metronome": "Use a separate metronome while keeping the written map visible. If using the iOS Practice metronome, copy the bar map first; its sheet stops on dismissal. No in-lesson metronome or synchronized transport is asserted for these guided lessons."
+  },
+  "integrationNote": {
+    "barreAndPowerChords": {
+      "summary": "Merge only these six existing lesson IDs plus the namespaced assets and references into the current instruction library after review. Nothing here changes catalog IDs, types, titles, advertised counts, app UI or scoring.",
+      "recommendedLessonOrder": [
+        "g-l5-m1-01",
+        "g-l5-m1-02",
+        "g-l5-m1-07",
+        "g-l5-m2-01",
+        "g-l5-m2-04",
+        "g-l5-m2-07"
+      ],
+      "rendererContract": "Uses existing chord_diagram_and_reference_tones and instruction_diagram assets only. A mini barre is represented by finger 1 on strings 2 and 1; text explicitly explains that one finger spans both. All step/action/look/listen and self-assessment fields use the existing LessonInstruction schema.",
+      "piecePresentation": "Switchyard is a complete original written sixteen-bar piece. Use its panel map with a separate metronome. Native Practice > Metronome works only while its sheet remains open; users can copy the chart before opening it. The web rhythm metronome is currently within PracticeCoach and these six lessons have no practiceSpec. Do not advertise an in-lesson metronome, synchronized score following, guitar audio demo, backing track, automatic chord grading or study-attempt recording for this map.",
+      "studyDecoderBoundary": "Current native ChordStudy.decode and web decodeChordStudy accept A and D only. These new G5/A5/C5 assets intentionally do not use original_chord_study. Do not route this map through the A/D study player without a separately reviewed renderer expansion.",
+      "assessmentBoundary": "No practiceSpec or automatic metric is introduced. The F consecutive-entry count and power-riff full-take result are learner judgments. Existing generic self-reflection may preserve that status; do not synthesize measured attempts or automatically pass these targets from duration.",
+      "catalogThresholds": "Four consecutive F entries and 110 BPM are existing GuitarHub promises. The 16-bar composition, 32-attack pattern, four count-in beats, written rests and shorter rehearsal blocks are original implementation choices using standard practice conventions.",
+      "catalogInventory": "Each selected module currently contains three actual lesson objects despite lessonsTotal 7. This file supplies all six existing objects in the two modules, without inventing missing numbered IDs or claiming fourteen published lessons.",
+      "sourceBoundary": "Public provider course pages support the teaching conventions; private recognition, timing tolerance, latency, scheduling and progression algorithms are not available and are not claimed to be reproduced.",
+      "releaseBoundary": "This file is staged outside both source trees. Parent integration still needs loader inclusion, web/native content equality and rendered lesson verification.",
+      "batchConventions": {
+        "handNames": "Use picking hand and fretting hand. String numbers remain the same for either handedness.",
+        "stringNumbers": "String 6 is thick low E; string 1 is thin high E. Shape strings are always listed 6 to 1. x means exclude and mute; 0 means open.",
+        "fretNumbers": "A fret number names the space ending at that fret wire toward the body. Place just behind the wire within that space, not on top of it.",
+        "practiceTiming": "Segment durations sum to catalog minutes and are suggested attention blocks, including rests. They are not deadlines for competence or continuous grip requirements.",
+        "evidence": "These six lessons have no catalog practiceSpec. Listening, placement, consecutive F entries, full-form continuity and 110-BPM performance are explicitly self-assessed.",
+        "referenceAudio": "Existing reference controls synthesize individual pitches. They are not guitar recordings, a chord-quality score or an automatic backing track. Stop them before checking a learner performance.",
+        "comfort": "Use brief attempts and release between them. Stop for pain or persistent discomfort; do not force one hand, thumb or elbow angle.",
+        "metronome": "Use a separate metronome while keeping the written map visible. If using the iOS Practice metronome, copy the bar map first; its sheet stops on dismissal. No in-lesson metronome or synchronized transport is asserted for these six lessons."
+      }
+    },
+    "bluesLeadAndTriads": {
+      "summary": "Merge by stable lesson, asset and reference IDs only after review. Preserve the existing first-six staging file unchanged. No catalog source, UI, metric or runtime feature is implemented by this file.",
+      "recommendedLessonOrder": [
+        "g-l5-m3-01",
+        "g-l5-m3-03",
+        "g-l5-m3-07",
+        "g-l5-m4-01",
+        "g-l5-m4-03",
+        "g-l5-m4-07",
+        "g-l5-m5-01",
+        "g-l5-m5-02",
+        "g-l5-m5-07",
+        "g-l5-m6-01",
+        "g-l5-m6-03",
+        "g-l5-m6-07"
+      ],
+      "externalAssetDependencies": [
+        {
+          "id": "l3-c-chord",
+          "source": "beginner-guitar-instruction.json",
+          "reason": "Compare the existing open C chord with a three-note C triad."
+        }
+      ],
+      "externalLessonDependencies": [
+        "g-l5-m2-07",
+        "g-l5-m1-07",
+        "g-l5-m2-01"
+      ],
+      "firstSixAssetDependencies": [],
+      "rendererContract": "New assets use only chord_diagram_and_reference_tones, instruction_diagram and single_string_riff. No A/D-only original_chord_study, new scale renderer, complete-phrase playback or meter control is assumed.",
+      "catalogClaimsRequiringReview": [
+        {
+          "id": "g-l5-m3-03",
+          "field": "summary",
+          "current": "The app calls the next chord one bar early until you stop needing it.",
+          "suggested": "Call the next chord one bar early, then reduce the prompts as the form becomes familiar.",
+          "reason": "No automatic spoken chord caller is implemented."
+        },
+        {
+          "id": "g-l5-m4-03",
+          "field": "summary",
+          "current": "The app plays a phrase. You answer it three different ways.",
+          "suggested": "Learn an original written phrase with individual pitch references, then answer it three different ways.",
+          "reason": "Current single-string renderer has per-note reference buttons, not complete timed-phrase playback."
+        },
+        {
+          "id": "g-l5-m5-02",
+          "field": "summary",
+          "current": "The app shows your pitch against the target. Ears second, eyes first, then eyes off.",
+          "suggested": "Use an external chromatic meter for guided bends, then repeat by ear without live visual correction.",
+          "reason": "Native standard-string tuner cents are relative to selected open-string targets; no arbitrary G4 target or bend trace exists."
+        },
+        {
+          "id": "g-l5-m5-07",
+          "field": "summary",
+          "current": "Three of four, target hidden.",
+          "suggested": "Attempt four blind semitone bends; report actual external observations, or keep the numeric result unverified.",
+          "reason": "There is no hidden-target, four-attempt cents assessment in GuitarHub."
+        },
+        {
+          "id": "g-l5-m6-01",
+          "field": "title",
+          "current": "Every Chord Is Three Notes",
+          "suggested": "Triads: Three Notes, Many Shapes",
+          "reason": "The current title is false for power, seventh and extended chords. Lesson copy explicitly qualifies it; source title remains unchanged in staging."
+        }
+      ],
+      "missingRuntimeNotClaimed": [
+        "Automatic chord calls and fading prompts",
+        "Timed full-phrase demo playback",
+        "A7/D7/E7 accompaniment and an improvisation backing timeline",
+        "Arbitrary-target bend meter with hidden-feedback mode and stored four-attempt evidence",
+        "Automatic chart hiding, speech/name scoring or polyphonic triad recognition"
+      ],
+      "assessmentChoices": "Three memory choruses = 36 bars in the selected A blues variant. Four-bar improvisation uses A minor-pentatonic vocabulary over the first four A7 bars with actual accompaniment. Three keys are C,G,D with major I/IV/V and minor vi. Bend target is F#4 to G4 on string 2, ±20 cents in three of four externally observed attempts; the one-second stable hold and no-live-correction protocol are explicit local operational rules.",
+      "availabilityBoundary": "Without external accompaniment, improvisation is click-only preparation. Without usable external hidden-feedback pitch observations, the numeric bend checkpoint is unverified. Do not map either fallback to a completed measured target.",
+      "sourceBoundary": "Public teaching conventions only; no private competitor recognition, timing, latency, scheduling or progression code is claimed. New phrases and diagrams are original, and the twelve-bar progression is a common form rather than a commercial-song transcription.",
+      "releaseBoundary": "This staging does not publish the twelve lessons. Parent must include data in both loaders, verify reference merging, maintain evidence distinctions and render all routes. Review the existing catalog overclaims before public release.",
+      "batchConventions": {
+        "handNames": "Use picking hand and fretting hand; string numbers are unchanged for handedness.",
+        "stringNumbers": "String 6 is low E and string 1 high E. Shape arrays run 6 to 1. X excludes a string; zero is open.",
+        "practiceTiming": "Durations are attention blocks that sum to catalog minutes. Pause, rest, or repeat rather than treating the time as a competence deadline.",
+        "referenceAudio": "Single-string and chord buttons supply isolated synthesized pitches only. They are not performed phrases, guitar recordings, backing tracks or evidence of the learner playing.",
+        "evidence": "All twelve lessons lack a catalog practiceSpec. Technique, form recall, improvisation and naming/playing judgments are self-reported. A numeric bend result requires the described actual external observation and remains learner-reported.",
+        "metronome": "Keep the map visible with a separate metronome. If using iOS Practice > Metronome, copy the chart first; the sheet stops audio on dismissal. No in-lesson metronome is asserted.",
+        "comfort": "Use short supported attempts and release between them. Stop for pain or persistent discomfort; never force a bend or an extreme stretch."
+      }
+    },
+    "catalogCorrectionsApplied": [
+      {
+        "lessonId": "g-l5-m3-03",
+        "expected": {
+          "summary": "The app calls the next chord one bar early until you stop needing it."
+        },
+        "set": {
+          "summary": "Call the next chord one bar early, then reduce the prompts as the form becomes familiar."
+        },
+        "reason": "No automatic spoken chord caller is implemented."
+      },
+      {
+        "lessonId": "g-l5-m4-03",
+        "expected": {
+          "summary": "The app plays a phrase. You answer it three different ways."
+        },
+        "set": {
+          "summary": "Learn an original written phrase with individual pitch references, then answer it three different ways."
+        },
+        "reason": "Current single-string renderer has per-note reference buttons, not complete timed-phrase playback."
+      },
+      {
+        "lessonId": "g-l5-m5-02",
+        "expected": {
+          "summary": "The app shows your pitch against the target. Ears second, eyes first, then eyes off."
+        },
+        "set": {
+          "summary": "Use an external chromatic meter for guided bends, then repeat by ear without live visual correction."
+        },
+        "reason": "Native standard-string tuner cents are relative to selected open-string targets; no arbitrary G4 target or bend trace exists."
+      },
+      {
+        "lessonId": "g-l5-m5-07",
+        "expected": {
+          "summary": "Three of four, target hidden."
+        },
+        "set": {
+          "summary": "Attempt four blind semitone bends; report actual external observations, or keep the numeric result unverified."
+        },
+        "reason": "There is no hidden-target, four-attempt cents assessment in GuitarHub."
+      },
+      {
+        "lessonId": "g-l5-m6-01",
+        "expected": {
+          "title": "Every Chord Is Three Notes"
+        },
+        "set": {
+          "title": "Triads: Three Notes, Many Shapes"
+        },
+        "reason": "The current title is false for power, seventh and extended chords. Lesson copy explicitly qualifies it; source title remains unchanged in staging.",
+        "instructionLibrarySynchronization": {
+          "lessonId": "g-l5-m6-01",
+          "expected": {
+            "title": "Every Chord Is Three Notes"
+          },
+          "set": {
+            "title": "Triads: Three Notes, Many Shapes"
+          },
+          "preserveSourceTitle": true
+        }
+      }
+    ]
+  },
+  "demoAssets": {
+    "advanced-partial-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Partial F major — four strings",
+      "description": "Strings 6 and 5 are silent. String 4: fret 3, ring finger. String 3: fret 2, middle finger. Strings 2 and 1: fret 1, one index finger spanning both. Low to high: F3, A3, C4, F4. The two finger-1 dots indicate one short barre, not two separate fingers.",
+      "fretsString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        57,
+        60,
+        65
+      ],
+      "textAlternative": "Strings 6 and 5 are silent. String 4: fret 3, ring finger. String 3: fret 2, middle finger. Strings 2 and 1: fret 1, one index finger spanning both. Low to high: F3, A3, C4, F4. The two finger-1 dots indicate one short barre, not two separate fingers."
+    },
+    "advanced-g5-two-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G5 — root and fifth",
+      "description": "Play strings 6 and 5 only: fret 3 with index, fret 5 with ring. Keep strings 4 through 1 silent. Low to high: G2, D3.",
+      "fretsString6To1": [
+        3,
+        5,
+        null,
+        null,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        null,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50
+      ],
+      "textAlternative": "Play strings 6 and 5 only: fret 3 with index, fret 5 with ring. Keep strings 4 through 1 silent. Low to high: G2, D3."
+    },
+    "advanced-g5-three-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G5 — root, fifth, octave",
+      "description": "Play strings 6, 5, 4: frets 3, 5, 5 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: G2, D3, G3.",
+      "fretsString6To1": [
+        3,
+        5,
+        5,
+        null,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50,
+        55
+      ],
+      "textAlternative": "Play strings 6, 5, 4: frets 3, 5, 5 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: G2, D3, G3."
+    },
+    "advanced-a5-three-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A5 — root on string 6",
+      "description": "Play strings 6, 5, 4: frets 5, 7, 7 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: A2, E3, A3.",
+      "fretsString6To1": [
+        5,
+        7,
+        7,
+        null,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57
+      ],
+      "textAlternative": "Play strings 6, 5, 4: frets 5, 7, 7 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: A2, E3, A3."
+    },
+    "advanced-c5-three-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C5 — root on string 5",
+      "description": "Keep string 6 silent. Play strings 5, 4, 3: frets 3, 5, 5 with index, ring, little finger. Keep strings 2 and 1 silent. Low to high: C3, G3, C4.",
+      "fretsString6To1": [
+        null,
+        3,
+        5,
+        5,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        3,
+        4,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60
+      ],
+      "textAlternative": "Keep string 6 silent. Play strings 5, 4, 3: frets 3, 5, 5 with index, ring, little finger. Keep strings 2 and 1 silent. Low to high: C3, G3, C4."
+    },
+    "advanced-f-entry-check": {
+      "kind": "instruction_diagram",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Build a new entry",
+          "action": "Start with all fretting fingers off the strings. Set partial F: xx3211 from string 6 to string 1. No tempo requirement."
+        },
+        {
+          "number": 2,
+          "label": "Hear four strings",
+          "action": "Pick strings 4, 3, 2, 1 separately: F, A, C, F. Each must ring clearly. A dead or buzzing string makes this entry a repair attempt."
+        },
+        {
+          "number": 3,
+          "label": "Check the strum",
+          "action": "Down-strum only strings 4 through 1. Keep strings 6 and 5 quiet. Do not count four re-plucks of a held shape as four entries."
+        },
+        {
+          "number": 4,
+          "label": "Release and count",
+          "action": "Silence the chord with the picking hand, then take the fretting fingers off. Count one successful entry only after the four-string check, short strum, and release. Four consecutive entries is the goal; a failed entry resets the consecutive count."
+        }
+      ]
+    },
+    "advanced-switchyard-map": {
+      "kind": "instruction_diagram",
+      "name": "Switchyard — an original sixteen-bar power-chord piece",
+      "provenance": "Original GuitarHub instructional composition. Not an arrangement or transcription of a commercial song.",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Meter and shapes",
+          "action": "Switchyard is 16 bars of 4/4 in standard tuning, no capo. Use the three-string G5, A5 and C5 diagrams. Each chord name occupies one whole bar. G5 and A5 start on string 6; C5 starts on string 5."
+        },
+        {
+          "number": 2,
+          "label": "The repeating riff cell",
+          "action": "In EVERY bar: down-strum the named chord on beat 1; stop its sound on beat 2; down-strum again on beat 3; stop on beat 4. Count 1, 2, 3, 4 throughout. Rest through all of beats 2 and 4. This gives 32 attacks in the complete piece."
+        },
+        {
+          "number": 3,
+          "label": "A — bars 1 through 4",
+          "action": "Bar 1: G5. Bar 2: G5. Bar 3: A5. Bar 4: G5. Apply the same play, stop, play, stop cell in every bar."
+        },
+        {
+          "number": 4,
+          "label": "B — bars 5 through 8",
+          "action": "Bar 5: C5. Bar 6: C5. Bar 7: G5. Bar 8: G5. Use the silent beat 4 before a change to aim the next root; keep the strings muted while moving."
+        },
+        {
+          "number": 5,
+          "label": "A returns — bars 9 through 12",
+          "action": "Bar 9: G5. Bar 10: G5. Bar 11: A5. Bar 12: G5. Keep the second A section at the same pulse as the first."
+        },
+        {
+          "number": 6,
+          "label": "Ending — bars 13 through 16",
+          "action": "Bar 13: C5. Bar 14: A5. Bar 15: G5. Bar 16: G5. Play both attacks in bar 16, then stop on beat 4. There is no extra final strum."
+        },
+        {
+          "number": 7,
+          "label": "Count in and prepare",
+          "action": "Keep this map visible and use a separate metronome set to quarter-note clicks in 4/4. If using the iOS Practice metronome, copy the bar map before opening it. Begin with four silent count-in beats, then bar 1. Start practice at 60 BPM or slower if needed. The separate checkpoint target is 110 BPM."
+        },
+        {
+          "number": 8,
+          "label": "Review the take",
+          "action": "Count the silent beats as carefully as the attacks. Hear no pitched open string during the rests or chord moves. If you lose the bar, mute, keep counting, and re-enter at the next four-bar section during practice; label that take interrupted. A full checkpoint take has no restarts or skipped bars."
+        }
+      ]
+    },
+    "advanced-a7-open": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A7 — open",
+      "description": "x02020 from strings 6 to 1. Index: string 4 fret 2. Middle: string 2 fret 2. Sound strings 5–1; low to high A2, E3, G3, C#4, E4. Exclude string 6.",
+      "textAlternative": "x02020 from strings 6 to 1. Index: string 4 fret 2. Middle: string 2 fret 2. Sound strings 5–1; low to high A2, E3, G3, C#4, E4. Exclude string 6.",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        0,
+        1,
+        0,
+        2,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        55,
+        61,
+        64
+      ]
+    },
+    "advanced-d7-open": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D7 — open",
+      "description": "xx0212 from strings 6 to 1. Middle: string 3 fret 2. Index: string 2 fret 1. Ring: string 1 fret 2. Sound strings 4–1: D3, A3, C4, F#4.",
+      "textAlternative": "xx0212 from strings 6 to 1. Middle: string 3 fret 2. Index: string 2 fret 1. Ring: string 1 fret 2. Sound strings 4–1: D3, A3, C4, F#4.",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        1,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        0,
+        2,
+        1,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        60,
+        66
+      ]
+    },
+    "advanced-e7-open": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E7 — open",
+      "description": "020100 from strings 6 to 1. Middle: string 5 fret 2. Index: string 3 fret 1. Sound all six: E2, B2, D3, G#3, B3, E4.",
+      "textAlternative": "020100 from strings 6 to 1. Middle: string 5 fret 2. Index: string 3 fret 1. Sound all six: E2, B2, D3, G#3, B3, E4.",
+      "fretsString6To1": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        50,
+        56,
+        59,
+        64
+      ]
+    },
+    "advanced-a-blues-form": {
+      "kind": "instruction_diagram",
+      "name": "One twelve-bar A blues form",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Choose this version",
+          "action": "Use this exact 12-bar form in A, in 4/4, with no quick change in bar 2. One chord per bar. Roman numerals I7, IV7 and V7 mean A7, D7 and E7 here."
+        },
+        {
+          "number": 2,
+          "label": "Bars 1–4",
+          "action": "Bar 1 A7; bar 2 A7; bar 3 A7; bar 4 A7. Say each bar number on its first beat, then count 2, 3, 4."
+        },
+        {
+          "number": 3,
+          "label": "Bars 5–8",
+          "action": "Bar 5 D7; bar 6 D7; bar 7 A7; bar 8 A7. Keep four beats in every bar, even when the same chord repeats."
+        },
+        {
+          "number": 4,
+          "label": "Bars 9–12",
+          "action": "Bar 9 E7; bar 10 D7; bar 11 A7; bar 12 E7. The E7 at bar 12 leads to A7 at bar 1 of the next chorus."
+        },
+        {
+          "number": 5,
+          "label": "Play a clear skeleton",
+          "action": "Choose a separate metronome around 60 BPM, or slower if needed. Give four count-in beats, then one gentle downstroke on beat 1 of each bar, allowing the chord to ring through 2, 3, 4. This is a straight counted skeleton, not a shuffle-rhythm test."
+        },
+        {
+          "number": 6,
+          "label": "Three-chorus check",
+          "action": "Repeat the exact form three times: 36 bars total, with no extra count-in or extra bar between choruses. After beat 4 of bar 12 in chorus 3, mute and finish. Hide or cover the map for the memory check; the lesson has no automatic chart-hide or bar-call control."
+        }
+      ]
+    },
+    "advanced-blues-calls": {
+      "kind": "instruction_diagram",
+      "name": "Manual one-bar-ahead call guide",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "How to call",
+          "action": "On beat 4 of the CURRENT bar, say the chord for the NEXT bar. Continue playing the current chord until the next beat 1. Say E-seven, not a bare number that could be confused with the bar count."
+        },
+        {
+          "number": 2,
+          "label": "First line",
+          "action": "During bars 1, 2 and 3, call A7 for the next bar. During bar 4, call D7 for bar 5."
+        },
+        {
+          "number": 3,
+          "label": "Middle line",
+          "action": "During bar 5, call D7; during bar 6, call A7; during bar 7, call A7; during bar 8, call E7."
+        },
+        {
+          "number": 4,
+          "label": "Last line",
+          "action": "During bar 9, call D7; during bar 10, call A7; during bar 11, call E7; during bar 12, call A7 for the next chorus."
+        },
+        {
+          "number": 5,
+          "label": "Fade the prompt",
+          "action": "First speak every next-bar chord with this guide. Next speak only before an actual chord change. Finally cover the guide and call from memory. These are your own spoken prompts, or a partner’s; no automatic app voice is provided."
+        }
+      ]
+    },
+    "advanced-a-blues-palette": {
+      "kind": "single_string_riff",
+      "title": "A minor-pentatonic note choices on string 1",
+      "provenance": "Original GuitarHub instructional note set; not a commercial-song transcription. Per-note synthesized references only.",
+      "stringNumber": 1,
+      "frets": [
+        5,
+        8,
+        10,
+        12,
+        15,
+        17
+      ],
+      "midi": [
+        69,
+        72,
+        74,
+        76,
+        79,
+        81
+      ],
+      "tabText": "e |--5(A)--8(C)--10(D)--12(E)--15(G)--17(A)--|",
+      "instruction": "This is a note map, not a timed scale run. Move the whole hand to reach a new position; do not stretch from fret 5 to 17. Start with A at 5 and C at 8; add E at 12 only when the move is comfortable. A, C, D, E, G is the A minor-pentatonic palette used over the A blues form. Its C is a deliberate blues colour against A7’s C#, not the A-major scale."
+    },
+    "advanced-solo-seed": {
+      "kind": "single_string_riff",
+      "title": "Original question: A, C, E",
+      "provenance": "Original GuitarHub instructional note set; not a commercial-song transcription. Per-note synthesized references only.",
+      "stringNumber": 1,
+      "frets": [
+        5,
+        8,
+        12
+      ],
+      "midi": [
+        69,
+        72,
+        76
+      ],
+      "tabText": "e |--5----8----12-------|",
+      "instruction": "One bar of 4/4: play A/fret 5 on beat 1 for one beat, C/fret 8 on beat 2 for one beat, and E/fret 12 on beat 3 for two beats. Stop at the next bar line. The buttons play individual pitches only; sing or play the written rhythm yourself."
+    },
+    "advanced-solo-answers": {
+      "kind": "instruction_diagram",
+      "name": "Three possible answers to the original question",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Bar 1 — question",
+          "action": "At a comfortable quarter-note pulse, play string 1 fret 5 on beat 1, fret 8 on beat 2, and fret 12 on beat 3, holding through beat 4. These notes are A, C, E."
+        },
+        {
+          "number": 2,
+          "label": "Bar 2 — answer one",
+          "action": "Play C at fret 8 on beat 1 and hold for two beats. Play A at fret 5 on beat 3 and hold for two beats. The ending returns home."
+        },
+        {
+          "number": 3,
+          "label": "Bar 3 — answer two",
+          "action": "Play A at fret 5 on beat 1, C at fret 8 on beat 2, and A at fret 5 on beat 3, holding through beat 4. This keeps the question’s rhythm and changes its ending."
+        },
+        {
+          "number": 4,
+          "label": "Bar 4 — answer three",
+          "action": "Rest for beat 1. Play C at fret 8 on beat 2, E at fret 12 on beat 3, and A at fret 5 on beat 4. Each note lasts one beat; stop at the next bar line."
+        },
+        {
+          "number": 5,
+          "label": "Now make your own",
+          "action": "The written answers are demonstrations, not an improvisation pass. Invent three answers by changing a rhythm, ending, or rest while staying inside A, C, D, E, G. Keep counting through silence and finish each response within its allotted bar."
+        }
+      ]
+    },
+    "advanced-semitone-reference": {
+      "kind": "single_string_riff",
+      "title": "Semitone reference: F#4 to G4 on string 2",
+      "provenance": "Original GuitarHub instructional note set; not a commercial-song transcription. Per-note synthesized references only.",
+      "stringNumber": 2,
+      "frets": [
+        7,
+        8
+      ],
+      "midi": [
+        66,
+        67
+      ],
+      "tabText": "B |--7(F#)----8(G target)--|",
+      "instruction": "Fret 8 supplies the target pitch. For the bend, stay at fret 7 and bend string 2 toward the thicker strings until its pitch matches that G4. Do not slide to fret 8 during the bend. Buttons provide separate synthesized notes, not a bend recording or a live cents meter."
+    },
+    "advanced-bend-four-attempts": {
+      "kind": "instruction_diagram",
+      "name": "Four-attempt semitone check",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Prepare the measurement",
+          "action": "Use your own chromatic tuner or pitch meter that shows G4 and cents at A4 = 440 Hz. Confirm the unbent reference at string 2 fret 8. GuitarHub’s standard-string tuner does not measure this G4 target."
+        },
+        {
+          "number": 2,
+          "label": "Define one attempt",
+          "action": "Pick F#4 at string 2 fret 7, bend to G4, and try to hold that pitch for one second without vibrato or a second pick. Mute before releasing. A success needs a stable G4 reading within −20 to +20 cents for that hold; a brief crossing is insufficient."
+        },
+        {
+          "number": 3,
+          "label": "Hide live feedback",
+          "action": "For the checkpoint, look away from the meter before picking. A helper can observe it, or you can review your own external tuner recording afterward. Do not steer the bend using the live display. No observer or usable recording means the numeric result remains unverified."
+        },
+        {
+          "number": 4,
+          "label": "Keep all four",
+          "action": "Number four attempts in advance and keep them in order, resting between each. Record the actual observed result for every attempt. No reading is unknown, not success; do not replace a failed bend with a later good one inside the same set."
+        },
+        {
+          "number": 5,
+          "label": "Report the result",
+          "action": "The target is at least three successful attempts in one fully observed set of four. Report ear-only practice separately when you lack numeric evidence. There is no in-app four-attempt grader or saved cents record for this exercise."
+        }
+      ]
+    },
+    "advanced-three-key-map": {
+      "kind": "instruction_diagram",
+      "name": "I, IV, V and vi in C, G and D major",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Build the quality pattern",
+          "action": "For these major keys: I, IV and V are major; vi is minor. In the spoken title, six means the sixth scale degree, not a major VI chord. Add m when naming the sixth chord."
+        },
+        {
+          "number": 2,
+          "label": "C major",
+          "action": "Scale: C D E F G A B. I = C (C E G); IV = F (F A C); V = G (G B D); vi = Am (A C E)."
+        },
+        {
+          "number": 3,
+          "label": "G major",
+          "action": "Scale: G A B C D E F#. I = G (G B D); IV = C (C E G); V = D (D F# A); vi = Em (E G B)."
+        },
+        {
+          "number": 4,
+          "label": "D major",
+          "action": "Scale: D E F# G A B C#. I = D (D F# A); IV = G (G B D); V = A (A C# E); vi = Bm (B D F#)."
+        },
+        {
+          "number": 5,
+          "label": "Read the small voicings",
+          "action": "All accompanying triad diagrams sound strings 3, 2 and 1 only. The lowest sounding note is not always the root: F, G, A and Em here place the third lowest; D places the fifth lowest. The chord name follows all three note names, not just the bass."
+        },
+        {
+          "number": 6,
+          "label": "Recall procedure",
+          "action": "Study one key, then cover both this key table and the named diagrams. Say the four chord names first; then form and pick each three-string voicing. Uncover only after all four to check the names, quality and notes. Do not count answers read from the chart as memory recall."
+        }
+      ]
+    },
+    "advanced-triad-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major triad",
+      "description": "Strings 3,2,1: frets 5,5,3, fingers ring,little,index; notes C4,E4,G4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 5,5,3, fingers ring,little,index; notes C4,E4,G4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        5,
+        5,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        60,
+        64,
+        67
+      ]
+    },
+    "advanced-triad-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F major triad",
+      "description": "Strings 3,2,1: frets 2,1,1, middle then index mini barre; notes A3,C4,F4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 2,1,1, middle then index mini barre; notes A3,C4,F4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        57,
+        60,
+        65
+      ]
+    },
+    "advanced-triad-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major triad",
+      "description": "Strings 3,2,1: frets 4,3,3, middle then index mini barre; notes B3,D4,G4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 4,3,3, middle then index mini barre; notes B3,D4,G4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        4,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        59,
+        62,
+        67
+      ]
+    },
+    "advanced-triad-am": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A minor triad",
+      "description": "Strings 3,2,1 all at fret 5 with one short index barre; notes C4,E4,A4. Exclude strings 6–4; three finger-1 dots mean one finger spans three strings.",
+      "textAlternative": "Strings 3,2,1 all at fret 5 with one short index barre; notes C4,E4,A4. Exclude strings 6–4; three finger-1 dots mean one finger spans three strings.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        5,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        60,
+        64,
+        69
+      ]
+    },
+    "advanced-triad-d": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D major triad",
+      "description": "Strings 3,2,1: frets 2,3,2, fingers index,ring,middle; notes A3,D4,F#4. Exclude strings 6–4, including the normally open D string for this three-note exercise.",
+      "textAlternative": "Strings 3,2,1: frets 2,3,2, fingers index,ring,middle; notes A3,D4,F#4. Exclude strings 6–4, including the normally open D string for this three-note exercise.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        57,
+        62,
+        66
+      ]
+    },
+    "advanced-triad-em": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E minor triad",
+      "description": "Strings 3,2,1 are open: G3,B3,E4. No fretting fingers. Exclude strings 6–4 so exactly three notes sound.",
+      "textAlternative": "Strings 3,2,1 are open: G3,B3,E4. No fretting fingers. Exclude strings 6–4 so exactly three notes sound.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        0,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        55,
+        59,
+        64
+      ]
+    },
+    "advanced-triad-a": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A major triad",
+      "description": "Strings 3,2,1: frets 6,5,5, middle then index mini barre; notes C#4,E4,A4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 6,5,5, middle then index mini barre; notes C#4,E4,A4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        6,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        61,
+        64,
+        69
+      ]
+    },
+    "advanced-triad-bm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "B minor triad",
+      "description": "Strings 3,2,1: frets 4,3,2, fingers ring,middle,index; notes B3,D4,F#4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 4,3,2, fingers ring,middle,index; notes B3,D4,F#4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        4,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        3,
+        2,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        59,
+        62,
+        66
+      ]
+    }
+  },
+  "lessons": [
+    {
+      "id": "g-l5-m1-01",
+      "moduleId": "g-l5-m1",
+      "title": "Barre Is Leverage, Not Strength",
+      "sourceTitle": "Barre Is Leverage, Not Strength",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Find a comfortable two-string mini barre and explain how partial F uses four sounding strings without clamping the whole neck.",
+      "prerequisiteLessonIds": [
+        "g-l4-m5-07"
+      ],
+      "steps": [
+        {
+          "title": "Support the instrument first",
+          "action": "Tune the open strings. Let your lap or strap support the guitar; take the fretting hand away briefly to check that the neck does not drop. Raise the neck a little if that makes the wrist easier to position.",
+          "lookCheck": "The shoulder is relaxed and the fretting hand can return without catching a falling neck. Use a clean, modest sound if amplified.",
+          "listenCheck": "Play an open string once, then mute it. A long effect tail would make the later release check harder to hear."
+        },
+        {
+          "title": "Make the smallest barre",
+          "action": "Lay the index across strings 2 and 1 just behind fret 1, toward the guitar body within that fret space. Begin with gentle contact; add only enough pressure for each note to sound. Try a small roll toward the index finger’s thumb-facing edge if a soft crease sits on a string.",
+          "lookCheck": "One finger crosses two strings. It is beside the fret wire, not on top of it; the remaining fingers stay loose.",
+          "listenCheck": "Pick string 2, then string 1. Listen for two separate ringing notes, C then F. Stop and adjust one contact point if either is dead."
+        },
+        {
+          "title": "Adjust support before pressure",
+          "action": "Place the thumb comfortably behind the neck, roughly opposite the index or middle finger. Move the elbow slightly until the index meets the two strings without a sharply bent wrist. Change one position at a time; avoid hauling the neck toward your body.",
+          "lookCheck": "The thumb is a light counter-support. There is no fixed elbow angle to force, and the guitar remains supported when pressure releases.",
+          "listenCheck": "Find the least pressure that still produces both notes. Extra pressure that does not improve the sound is not the objective."
+        },
+        {
+          "title": "Build the four-string F",
+          "action": "Keep the short index barre. Put middle finger on string 3 fret 2 and ring finger on string 4 fret 3. Pick 4, 3, 2, 1, then make a small down-strum across those four strings only.",
+          "lookCheck": "The diagram is xx3211 from string 6 to 1. Curved middle and ring fingertips clear the next string; strings 6 and 5 are excluded.",
+          "listenCheck": "Hear F, A, C, F separately before the strum. The A is the major third; this partial shape is an F major chord, not an F5 power chord."
+        },
+        {
+          "title": "Release deliberately",
+          "action": "Stop the strings with the picking hand, then remove the fretting fingers. Rest briefly and describe which placement adjustment improved the sound. Stop the attempt if there is pain or persistent discomfort.",
+          "lookCheck": "You can let go immediately; the grip does not remain clenched between attempts.",
+          "listenCheck": "The chord stops when intended, without an accidental open-string pull-off as the fretting hand leaves."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The B string rings but the high E is dead.",
+          "recovery": "Check whether the index has lost contact with string 1. Move the small barre nearer fret 1 and change its angle slightly, then test only those two strings before rebuilding F."
+        },
+        {
+          "observation": "The high E rings but the B string buzzes.",
+          "recovery": "Look for a finger crease over string 2 or an index positioned too far from the fret wire. Reposition by a small amount; do not solve every buzz by squeezing harder."
+        },
+        {
+          "observation": "Adding the middle finger kills a note that was clear.",
+          "recovery": "Lift that finger and check the index pair again. Replace the middle fingertip on string 3, curving it enough to leave string 2 clear."
+        },
+        {
+          "observation": "The thumb or wrist tightens while you hold the chord.",
+          "recovery": "Mute and release. Recheck instrument support and try a shorter two-string attempt with a comfortable wrist; do not keep a painful shape held for the attention block."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Tune, support the guitar, and test a relaxed fretting-hand approach."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Explore the two-string barre with short press, pick, and release attempts."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Adjust thumb, elbow and index placement one variable at a time."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Add the middle and ring fingers; check all four intended strings."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Rest, then explain the shape and one useful placement correction."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can identify strings 4 through 1 as the sounding strings and 6 and 5 as excluded.",
+          "I can explain that the index spans B and high E at fret 1.",
+          "I found a brief, comfortable two-string barre and can release it immediately."
+        ],
+        "readyWhen": "Explain the four-string shape and demonstrate a short, comfortable index barre. A first uneven full F is a reason to use the next placement exercise, not to hold more tension.",
+        "ifNotReady": "Return to the B/high-E pair, reposition near the fret wire, and release after each two-note check. Revisit support before adding more pressure.",
+        "proves": "A learner’s placement and comfort reflection, plus their own two-string listening check.",
+        "doesNotProve": "Automatic chord recognition, healthy-technique certification, four clean full entries, speed, or microphone-scored evidence."
+      },
+      "demoAssetIds": [
+        "advanced-partial-f"
+      ],
+      "referenceIds": [
+        "advanced-yousician-f",
+        "advanced-justin-grade-two"
+      ]
+    },
+    {
+      "id": "g-l5-m1-02",
+      "moduleId": "g-l5-m1",
+      "title": "Partial F, In and Out",
+      "sourceTitle": "Partial F, In and Out",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Build partial F from a released hand, diagnose each sounding string, and remove the shape without leaving tension behind.",
+      "prerequisiteLessonIds": [
+        "g-l5-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the entry sequence",
+          "action": "Use the four-string F diagram and the entry-check panels. Keep the metronome off: this exercise has no race or required change rate. Check standard tuning before working on the fretted notes.",
+          "lookCheck": "Read xx3211 from thick to thin string; two finger-1 dots mean one mini barre.",
+          "listenCheck": "If a fretted note seems far from the reference pitch, check tuning and fret choice before changing hand pressure."
+        },
+        {
+          "title": "Start with two clear notes",
+          "action": "From fingers off, place the index across strings 2 and 1 at fret 1. Pick both once, release, and repeat at a comfortable pace. If only one rings, repair that contact before adding other fingers.",
+          "lookCheck": "The index lands beside fret 1 each time; the hand fully releases between tries.",
+          "listenCheck": "Both C4 and F4 should ring. Synthesized reference notes are pitch examples, not a recording of the desired guitar tone."
+        },
+        {
+          "title": "Add and inspect the full shape",
+          "action": "Add middle on string 3 fret 2, ring on string 4 fret 3. Pick 4, 3, 2, 1 slowly. When a note fails, identify that string, lift the likely blocking finger, and rebuild just that part.",
+          "lookCheck": "Check fingertip clearance on adjacent strings; do not let the ring finger fall flat across string 3.",
+          "listenCheck": "Hear four distinct notes before judging the chord as a whole. One loud clear note must not hide a dead neighbour."
+        },
+        {
+          "title": "Make one complete entry",
+          "action": "Start with fingers off, form F, inspect all four notes, make one small four-string down-strum, then mute and take the hand off. This entire cycle is one entry. Rest for a moment before the next.",
+          "lookCheck": "The picking motion begins at string 4. The hand resets rather than holding the same F for repeated strums.",
+          "listenCheck": "The strum contains the four intended notes and no low E or A. The release leaves no pitched string ringing."
+        },
+        {
+          "title": "Repeat for recall, then choose a repair",
+          "action": "Try several new entries with the diagram, then one with the shape recalled before you look. Keep a mental or paper note of which string most often needs adjustment. Short rests are part of the practice.",
+          "lookCheck": "Do not change the shape or count a two-string version as a full F entry. Keep the same four-string target for comparison.",
+          "listenCheck": "Decide whether the issue is a muted neighbour, a buzz, an excluded bass string, or a noisy release; choose the matching correction."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The chord sounds acceptable as a strum but one string is dead.",
+          "recovery": "Return to individual picking. Clear that string before counting a clean entry; a louder strum is not a repair."
+        },
+        {
+          "observation": "A low bass string sneaks into the chord.",
+          "recovery": "Shorten the downstroke and begin at string 4. Practise the picking path once with the fretting hand gently muting all strings, then rebuild F."
+        },
+        {
+          "observation": "The chord is clean only while it stays held.",
+          "recovery": "Practise fingers-off, place, inspect, release without any time target. Recall of the shape is the work; repeated strums of one held shape do not test it."
+        },
+        {
+          "observation": "Open notes sound when the hand leaves.",
+          "recovery": "Mute with the picking hand first. Lift the fretting fingers directly away without flicking a string sideways."
+        },
+        {
+          "observation": "Each new attempt requires more squeezing.",
+          "recovery": "Pause and let the hand relax. Recheck support and index contact, then do one two-string attempt before returning to all four."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Read xx3211, check tuning, and leave the metronome off."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make short two-string barre entries with a release between each."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Add the other fingers and diagnose individual-string failures."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Repeat full place, inspect, strum, mute, release cycles with short rests."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Recall the shape once, then name and practise the most useful repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I checked every intended string instead of judging only the loudest part of the strum.",
+          "I made more than one fresh full-shape entry, releasing my hand between them.",
+          "I can name the string or movement I need to improve next."
+        ],
+        "readyWhen": "Make two fresh four-string entries that you judge clean and comfortable, then describe the repair you used. The following checkpoint separately asks for four consecutive entries.",
+        "ifNotReady": "Work on the weakest string in a short two- or three-finger fragment, then test a fresh full entry. Take as many short sessions as needed.",
+        "proves": "Self-reported placement practice and individual-string listening observations.",
+        "doesNotProve": "An automatically counted trial, four consecutive successful entries, a changes-per-minute result, or measured chord quality."
+      },
+      "demoAssetIds": [
+        "advanced-partial-f",
+        "advanced-f-entry-check"
+      ],
+      "referenceIds": [
+        "advanced-yousician-f",
+        "advanced-justin-grade-two"
+      ]
+    },
+    {
+      "id": "g-l5-m1-07",
+      "moduleId": "g-l5-m1",
+      "title": "Checkpoint: Four Clean Entries",
+      "sourceTitle": "Checkpoint: Four Clean Entries",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Demonstrate four consecutive fresh partial-F entries, with every intended string ringing and a complete release after each.",
+      "prerequisiteLessonIds": [
+        "g-l5-m1-02"
+      ],
+      "steps": [
+        {
+          "title": "Set an honest start",
+          "action": "Tune, read the four-entry protocol, and prepare a way to remember a count from zero to four. This is a self-counted accuracy check with no time limit; the five-minute plan is suggested practice time.",
+          "lookCheck": "Use the same xx3211 partial F for every entry. A diagram is allowed; declare to yourself whether you used it.",
+          "listenCheck": "Use a clean sound with no long delay or reverb so you can hear buzzes and the release."
+        },
+        {
+          "title": "Inspect before counting",
+          "action": "From fingers off, build F. Pick strings 4, 3, 2, 1 separately, then down-strum just those four. All four notes must sound without a dead string or obvious buzz, and excluded bass strings must stay silent.",
+          "lookCheck": "The index covers 2 and 1; middle is on 3/2 and ring on 4/3. Check the fretted positions, not just the hand silhouette.",
+          "listenCheck": "Listen to F, A, C, F one at a time. A missing high F or muffled A makes this a repair attempt."
+        },
+        {
+          "title": "Finish the entry and reset the hand",
+          "action": "Mute the strings with the picking hand, then take every fretting finger off. If the placement, four-note check, short strum and release all met the rule, advance your consecutive count by one.",
+          "lookCheck": "A held shape followed by four strums still counts as only one entry. Each next entry begins from a released hand.",
+          "listenCheck": "Listen after the release: there should be no accidental open-string note."
+        },
+        {
+          "title": "Keep the consecutive rule",
+          "action": "Continue until you have four in a row. If any entry fails, stop, identify the failure, and reset the consecutive count to zero before a new series. Do not combine successful entries from separate broken series.",
+          "lookCheck": "Repair attempts are useful practice but do not become successful entries after several hidden adjustments. Rebuild from fingers off for the next counted entry.",
+          "listenCheck": "Name the failed string or noisy release before repeating; this keeps the check about sound rather than reaching a number."
+        },
+        {
+          "title": "Report the actual result",
+          "action": "After the series, state your longest clean sequence and one observation. If four happened, repeat this checkpoint on a later day to check retention. If it did not, return to the placement exercise with the actual weak string.",
+          "lookCheck": "Do not treat finishing the attention blocks or opening the lesson as a four-entry result. No automatic counter is provided for this F exercise.",
+          "listenCheck": "A clean result means your own listening found all four intended notes and controlled releases in that series."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The third entry fails after two clear ones.",
+          "recovery": "Keep the two as practice history in your own notes, but restart the consecutive count at zero after the repair."
+        },
+        {
+          "observation": "I fixed a string while holding the shape and counted the repaired chord.",
+          "recovery": "Use that adjustment to learn the placement. Release completely and test a new entry before advancing the count."
+        },
+        {
+          "observation": "The bass strings ring although the fretted notes are clear.",
+          "recovery": "Practise the four-string picking path and the picking-hand stop. The next counted series must include quiet excluded strings."
+        },
+        {
+          "observation": "I am rushing to fit four entries inside the lesson time.",
+          "recovery": "Pause the check. There is no speed requirement or deadline; rest and rebuild at a pace that lets you hear each string."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Tune and read the complete-entry and consecutive-count rules."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Make warm-up entries; choose one placement repair before the check."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Attempt a fresh four-entry series, inspecting and releasing each shape."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Rest, repair any failed string, then attempt a new complete series if comfortable."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State the actual longest sequence and the next review action."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I started each counted entry with all fretting fingers off.",
+          "In each of four consecutive entries I heard all four intended notes and kept strings 6 and 5 quiet.",
+          "Each entry ended with a controlled mute and released hand.",
+          "A failed entry reset my consecutive count; I did not add separate partial series."
+        ],
+        "readyWhen": "Your own check reaches four consecutive fresh entries that meet every criterion, without discomfort. This fulfills the named self-assessed accuracy target for this shape.",
+        "ifNotReady": "Record the actual longest sequence, repair the specific string or release, and return to Partial F, In and Out. A partial series remains practice, not a completed four-entry check.",
+        "proves": "A learner-reported series of four independent partial-F placements and releases.",
+        "doesNotProve": "Microphone verification, a timed change count, full six-string barre proficiency, technique certification, or long-term retention."
+      },
+      "demoAssetIds": [
+        "advanced-partial-f",
+        "advanced-f-entry-check"
+      ],
+      "referenceIds": [
+        "advanced-yousician-f",
+        "advanced-justin-grade-two"
+      ]
+    },
+    {
+      "id": "g-l5-m2-01",
+      "moduleId": "g-l5-m2",
+      "title": "Two Notes, No Quality",
+      "sourceTitle": "Two Notes, No Quality",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Identify a power chord’s root and fifth, add an octave without adding a third, and move the shape while controlling unused strings.",
+      "prerequisiteLessonIds": [
+        "g-l5-m1-07",
+        "g-l4-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Hear the two-note G5",
+          "action": "Use standard tuning. Put index on string 6 fret 3 and ring on string 5 fret 5. Pick the two strings separately, then together with a small downstroke. Keep the other four strings silent.",
+          "lookCheck": "The root is the lower G on string 6. The D on string 5 is its perfect fifth: seven semitones above this G.",
+          "listenCheck": "Hear G then D. Neither a B nor a B-flat is included, so this voicing does not supply the third that distinguishes G major from G minor."
+        },
+        {
+          "title": "Add the repeated root",
+          "action": "Add little finger on string 4 fret 5 while retaining the two-note shape. Compare the two-string version with the three-string version at the same gentle volume.",
+          "lookCheck": "The added note is another G, one octave above the root. Three sounding strings do not necessarily mean three different note names.",
+          "listenCheck": "The extra string thickens the voicing without supplying a major or minor third. The 5 in G5 names the fifth, not the number of fingers."
+        },
+        {
+          "title": "Move the root, keep the spacing",
+          "action": "Move the complete three-string G5 shape up two frets to A5: 5, 7, 7 on strings 6, 5, 4. Release fretting pressure during the move while keeping gentle string contact, then settle before picking.",
+          "lookCheck": "The ring and little fingers remain two frets above the index. Follow the index root to fret 5 rather than moving each finger independently at random.",
+          "listenCheck": "Hear A, E, A. There should be no unintended open-string note between G5 and A5."
+        },
+        {
+          "title": "Move to a fifth-string root",
+          "action": "Build C5 with index on string 5 fret 3, ring on string 4 fret 5, little finger on string 3 fret 5. Begin the pick stroke on string 5; let a light touch of the index tip silence string 6 without fretting it.",
+          "lookCheck": "Use the C5 diagram: x355xx. The root string changed, so the previous six-string-root picking path must change too.",
+          "listenCheck": "Hear C, G, C. A ringing low E adds an unwanted note for this exercise; listen to that string separately while gently brushing it to test the mute."
+        },
+        {
+          "title": "Separate muting from silence between chords",
+          "action": "Let unused higher strings touch the relaxed underside of a fretting finger while the intended fingertips stay clear. Strum the intended group, then stop all vibration using picking-hand contact and released fretting pressure. Rebuild before the next strum.",
+          "lookCheck": "Muted strings are touched lightly, not pressed into extra notes. Palm-muted tone while playing and a complete stop between attacks are different actions.",
+          "listenCheck": "An intentional light brush of an excluded string should make no clear pitch. After the stop, listen for silence rather than a sustained muted chord."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The little finger mutes the fifth instead of adding the octave.",
+          "recovery": "Lift it, confirm the two-note version, then replace it with the fingertip on the octave string. Keep the ring fingertip clear of that neighbouring string."
+        },
+        {
+          "observation": "C5 sounds larger than expected.",
+          "recovery": "Check that the downstroke starts on string 5 and that string 6 is lightly muted. Do not use the open low E as part of this C5 voicing."
+        },
+        {
+          "observation": "Moving G5 to A5 produces a loud slide or an open note.",
+          "recovery": "Reduce pressure while retaining light contact, keep the picking hand still, and move during a silent beat. Plant the new frets before sounding them."
+        },
+        {
+          "observation": "I call the three-string shape major because it has three notes.",
+          "recovery": "Name the pitches aloud: G, D, G. The repeated G is an octave, and there is still no B or B-flat third."
+        },
+        {
+          "observation": "Every string goes dead when I try to mute.",
+          "recovery": "First restore the clear two-note root and fifth. Add contact only to an unused string at a time; keep the active fingertips curved enough to avoid their neighbours."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Build and compare the separate notes of two-string G5."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Add the octave and explain why it is still G5."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Move G5 to A5 slowly, with a silent transition."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Build fifth-string-root C5 and test its excluded strings."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Alternate a clear chord with a complete stop; recap root, fifth and octave."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can name the root and fifth in G5, A5 and C5.",
+          "I can explain why adding the root’s octave does not add a major or minor third.",
+          "I can play the two- and three-string G5 versions and identify the correct starting string for C5.",
+          "I can stop a chord and test that an unused string is muted."
+        ],
+        "readyWhen": "Explain the missing-third idea and demonstrate both G5 voicings plus a deliberate, quiet move to A5 or C5. Use the next lesson for repeated changes in time.",
+        "ifNotReady": "Return to two-string G5, then add one task at a time: octave, slide, fifth-string root, and excluded-string muting.",
+        "proves": "A learner’s interval explanation and self-checked shape and muting practice.",
+        "doesNotProve": "Automatic recognition of simultaneous notes, measured muting, a 110-BPM result, or a rule that every song can use power chords in place of its written harmony."
+      },
+      "demoAssetIds": [
+        "advanced-g5-two-note",
+        "advanced-g5-three-note",
+        "advanced-a5-three-note",
+        "advanced-c5-three-note"
+      ],
+      "referenceIds": [
+        "advanced-yousician-power",
+        "advanced-justin-grade-two"
+      ]
+    },
+    {
+      "id": "g-l5-m2-04",
+      "moduleId": "g-l5-m2",
+      "title": "Power-Chord Riff Song",
+      "sourceTitle": "Power-Chord Riff Song",
+      "type": "song",
+      "suggestedSeconds": 360,
+      "objective": "Play Switchyard, an original sixteen-bar G5–A5–C5 piece, with two attacks and two deliberate rests per bar.",
+      "prerequisiteLessonIds": [
+        "g-l5-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the whole piece",
+          "action": "Use the Switchyard bar map. It has A, B, returning A, and ending sections, four bars each. Use the three-string G5, A5 and C5 voicings; standard tuning, no capo. Read all sixteen chord names before playing.",
+          "lookCheck": "Each chord label fills one bar. Bars 9–12 repeat bars 1–4; the ending at 13–16 is C5, A5, G5, G5.",
+          "listenCheck": "Sound each shape separately at a clean, modest volume. Stop the synthesized pitch references before starting the metronome."
+        },
+        {
+          "title": "Learn the riff cell on one chord",
+          "action": "Keep the map visible and use a separate metronome at 60 BPM with quarter-note clicks in 4/4, or a slower setting you can control. If using the iOS Practice metronome, copy the bar map before opening it. On G5: downstroke on 1, stop on 2, downstroke on 3, stop on 4. Repeat while counting every beat.",
+          "lookCheck": "Make two downstrokes per bar. Beats 2 and 4 are full rests, not extra muted strums. Let the picking hand return above the strings without striking them.",
+          "listenCheck": "The sound starts with beats 1 and 3 and ends at beats 2 and 4. A muted but still pitched sustain is not the complete rest this riff asks for."
+        },
+        {
+          "title": "Prepare changes during the rest",
+          "action": "Practise one G5 bar into one A5 bar, then one G5 bar into one C5 bar. On silent beat 4, keep the strings muted and aim the next root; land the entire shape for the next beat 1.",
+          "lookCheck": "A5 uses frets 5,7,7 on strings 6,5,4. C5 uses frets 3,5,5 on 5,4,3, so move the picking start to string 5.",
+          "listenCheck": "No open string should sound in the move. If the new chord is late, lower the working tempo rather than shortening the preceding bar."
+        },
+        {
+          "title": "Join four-bar sections",
+          "action": "Give yourself four count-in clicks and play bars 1–4. Repeat that section until the cell and chord order are clear, then practise 5–8 and 13–16. Count through a missed attack and re-enter at the next section during rehearsal.",
+          "lookCheck": "The map remains visible. Do not jump from a missed chord into the next bar early to catch up.",
+          "listenCheck": "Keep the click and rests audible. Notice whether C5 introduces a low E, or an upward move leaves a ringing slide."
+        },
+        {
+          "title": "Play the full form",
+          "action": "After four count-in beats, play bars 1 through 16 without stopping the click. Every bar uses the same cell, including bar 16; mute on its beat 4 and finish. The complete piece contains 32 attacks and no extra ending strum.",
+          "lookCheck": "Follow A, B, A, ending. If you restart or skip a bar, remember where it happened and describe the take as interrupted.",
+          "listenCheck": "The last rest should be as controlled as the first. Listen for the same pulse when A returns, rather than accelerating because it is familiar."
+        },
+        {
+          "title": "Choose the next practice tempo",
+          "action": "State the tempo you actually used, whether every bar was played, and one specific bar to repair. If the full form was clear, raise the available metronome setting a small amount and repeat a short section first. The later checkpoint target is 110 BPM.",
+          "lookCheck": "This is a written piece played to a separate metronome. There is no automatic bar-following backing track or polyphonic score for it.",
+          "listenCheck": "Judge timing and muting separately. Reaching the last bar does not prove every chord was clean."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The pick strums on all four clicks.",
+          "recovery": "Stay on G5 and say play, stop, play, stop for four bars. Use the picking hand to silence on 2 and 4, without another downstroke."
+        },
+        {
+          "observation": "The move to C5 includes the low E.",
+          "recovery": "Loop G5 into C5 slowly. Aim the next root on string 5 during beat 4 and check the low-E mute before the next attack."
+        },
+        {
+          "observation": "I lose my place at the returning A section.",
+          "recovery": "Read bars 9–12 aloud, then practise bars 7–10 so the transition into the repeat is familiar. Keep counting four beats per bar."
+        },
+        {
+          "observation": "I speed up as soon as the shape repeats.",
+          "recovery": "Keep the same quarter-note click running through two consecutive G5 bars. Count the silent beats aloud; do not use chord changes as the only timing landmarks."
+        },
+        {
+          "observation": "I miss a chord and restart the whole piece immediately.",
+          "recovery": "During rehearsal, mute and keep counting to the next four-bar section, then re-enter. After the take, loop the failed change. Call the recovered take interrupted rather than a continuous full performance."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Read all sixteen bars and check the three chord shapes."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Practise the play, stop, play, stop cell on G5 with quarter-note clicks."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Loop G5–A5 and G5–C5 changes at a controllable tempo."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Practise the four-bar sections, including the ending."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Count in and play the complete sixteen-bar form at the chosen tempo."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State actual tempo, continuity, mute quality, and one repair bar."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can follow all sixteen bars and identify the A, B, A and ending sections.",
+          "I use downstrokes on 1 and 3, with full rests on 2 and 4.",
+          "I know when the root moves from string 6 to string 5.",
+          "I can state my actual tempo and whether the full take included a restart, skipped bar or recovery."
+        ],
+        "readyWhen": "Play the whole sixteen-bar piece at a controllable tempo with its written attacks and rests, and identify any remaining repair. The 110-BPM checkpoint is a separate next step.",
+        "ifNotReady": "Loop the exact transition that failed at a slower available tempo, then connect it to the bar before and after. Keep interrupted attempts distinct from full takes.",
+        "proves": "Self-reported practice of a complete original piece at the learner’s stated tempo.",
+        "doesNotProve": "Automatic play-along completion, measured chord correctness or muting, a 110-BPM checkpoint, or performance of a licensed commercial song."
+      },
+      "demoAssetIds": [
+        "advanced-g5-three-note",
+        "advanced-a5-three-note",
+        "advanced-c5-three-note",
+        "advanced-switchyard-map"
+      ],
+      "referenceIds": [
+        "advanced-yousician-power",
+        "advanced-yousician-practice",
+        "advanced-sonora-foundations"
+      ]
+    },
+    {
+      "id": "g-l5-m2-07",
+      "moduleId": "g-l5-m2",
+      "title": "Checkpoint: Riff at One Hundred and Ten",
+      "sourceTitle": "Checkpoint: Riff at One Hundred and Ten",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play all sixteen bars of Switchyard at 110 BPM with the written chord changes, on-beat attacks, and fully muted rests, then report the result honestly.",
+      "prerequisiteLessonIds": [
+        "g-l5-m2-04"
+      ],
+      "steps": [
+        {
+          "title": "Check the target and the sound",
+          "action": "Use the same three-string G5, A5 and C5 voicings and sixteen-bar map as the song lesson. Tune and check each chord’s individual strings. Keep the map visible and set a separate metronome to exactly 110 BPM, quarter-note clicks, 4/4. If using the iOS Practice metronome, copy the map before opening it.",
+          "lookCheck": "The tempo is 110, not a percentage label or an estimated speed. Keep the bar map available; memorization is not part of this checkpoint.",
+          "listenCheck": "Use a clean sound so unwanted open strings and incomplete stops remain audible. A click is timing support, not a recording of your performance."
+        },
+        {
+          "title": "Confirm the pulse before the full take",
+          "action": "At 110, play the G5 riff cell for two bars: sound on 1 and 3, silence on 2 and 4. If the cell already feels uncontrolled, return to a slower practice tempo before attempting the complete checkpoint.",
+          "lookCheck": "There are two attacks per four-beat bar. Do not convert the clicks to eighth notes or omit the silent beats to make the number easier.",
+          "listenCheck": "The two starts align with the intended clicks; no pitched note carries through the full-rest beats."
+        },
+        {
+          "title": "Count in and play all sixteen bars",
+          "action": "Count four silent clicks, then begin bar 1. Follow A at 1–4, B at 5–8, A at 9–12, and ending at 13–16. Make both attacks in the final bar and stop on beat 4.",
+          "lookCheck": "Use the silent beat 4 to prepare each change without an extra strum. C5 starts on string 5; G5 and A5 start on string 6.",
+          "listenCheck": "Listen for 32 intended attacks, quiet transitions, and full stops on 2 and 4. Do not let a clean root hide a dead fifth or octave."
+        },
+        {
+          "title": "Separate a full take from a recovered take",
+          "action": "If you miss a bar or stop, keep the attempt as practice and name its interruption. Repair that section after resting, then use a new four-beat count-in for another complete take. Do not splice two partial runs into one result.",
+          "lookCheck": "The checkpoint form is 16 bars without restarts or skipped bars. Recovering later is useful practice, but it does not erase an earlier interruption.",
+          "listenCheck": "Check whether the rests stayed quiet through the fastest-feeling change, especially C5 to A5 in bars 13–14."
+        },
+        {
+          "title": "Review the named goal",
+          "action": "State the actual tempo, whether every bar and attack was played, and whether any buzz, wrong string or pitched rest remained. Claim the 110-BPM target only when this full take meets every criterion. Otherwise state the working tempo and exact repair bar.",
+          "lookCheck": "A completed lesson screen or elapsed metronome time is not proof of the performance. These judgments are yours; this checkpoint has no chord-recognition score.",
+          "listenCheck": "Judge the sound you actually heard. If unsure about one section, treat it as needing review and repeat that section before the next full take."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "110 BPM is selected but I am playing once every two clicks.",
+          "recovery": "Count all four beats and use the specified two attacks per bar. Verify the cell on one chord before counting a full take."
+        },
+        {
+          "observation": "The chord is correct but its sound runs across beat 2 or 4.",
+          "recovery": "Practise a firm, quiet picking-hand stop on those beats at a slower tempo, then restore 110. Palm-muted sustain still contains pitch and is not a full rest."
+        },
+        {
+          "observation": "The complete map fits only if I shorten a bar at a change.",
+          "recovery": "Repeat that two-bar transition slowly while counting four beats in each bar. Restore the target tempo only after the full-length bars remain intact."
+        },
+        {
+          "observation": "I play the first half cleanly and restart the second half.",
+          "recovery": "Keep both sections as rehearsal. For this checkpoint, begin a fresh full take with a count-in and preserve the complete order without splicing."
+        },
+        {
+          "observation": "I finish at 100 BPM and want to count the 110-BPM goal.",
+          "recovery": "Keep the successful 100-BPM take as progress and practise a short section at the next comfortable setting. The named target remains 110 BPM; do not relabel a slower take."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Tune, inspect the three voicings, and read the full-take criteria."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Set 110 BPM and check the cell on G5; return to practice if uncontrolled."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Take four count-in beats and play the complete sixteen-bar map."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Rest and repair one exact transition; make a fresh full take only if ready."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review actual tempo, all-bar continuity, intended strings and quiet rests."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "The metronome was set to 110 BPM with a quarter-note click in 4/4.",
+          "After four count-in beats, I played all 16 bars in order without restarting or skipping a bar.",
+          "I made the 32 written attacks on beats 1 and 3 with the intended three-string voicings.",
+          "I stopped the sound on every beat 2 and 4, including the final stop, with no unwanted pitched string ringing.",
+          "I can distinguish this full take from earlier slower, interrupted or repaired practice."
+        ],
+        "readyWhen": "A full self-reviewed sixteen-bar take at 110 BPM meets every listed condition. Recheck another day before treating the skill as retained.",
+        "ifNotReady": "Keep the actual working tempo and the first failed bar in your practice notes. Repair its transition or mute at a slower setting, then make a new full 110-BPM take when ready.",
+        "proves": "A learner-reported full performance of this specific original riff at the stated 110-BPM target.",
+        "doesNotProve": "Microphone-certified pitch, rhythm, chord voicing or muting; automated bar counting; mastery of other power-chord riffs; or long-term retention."
+      },
+      "demoAssetIds": [
+        "advanced-g5-three-note",
+        "advanced-a5-three-note",
+        "advanced-c5-three-note",
+        "advanced-switchyard-map"
+      ],
+      "referenceIds": [
+        "advanced-yousician-power",
+        "advanced-yousician-practice",
+        "advanced-sonora-foundations"
+      ]
+    },
+    {
+      "id": "g-l5-m3-01",
+      "moduleId": "g-l5-m3",
+      "title": "The Form You Already Know",
+      "sourceTitle": "The Form You Already Know",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Locate the three four-bar lines of one standard A blues form and connect A7, D7 and E7 to I7, IV7 and V7.",
+      "prerequisiteLessonIds": [
+        "g-l5-m2-07"
+      ],
+      "steps": [
+        {
+          "title": "Choose one form",
+          "action": "Read the twelve-bar panel map. This version keeps A7 for bars 1–4; it does not use a quick change in bar 2. One chorus means one complete trip through all twelve bars.",
+          "lookCheck": "Point to bar 5, then bar 9: these are the starts of the second and third lines.",
+          "listenCheck": "Say twelve groups of four beats; the chord staying the same does not stop the bar count."
+        },
+        {
+          "title": "Check the three chord colours",
+          "action": "Use the A7, D7 and E7 diagrams. Pick their intended strings separately, then strum each gently. These dominant-seventh chords add a seventh to the major-chord sound you know.",
+          "lookCheck": "A7 starts on string 5, D7 on string 4, E7 on string 6. Follow the X markers instead of sweeping all six automatically.",
+          "listenCheck": "Hear the open strings clearly, especially G in A7 and D in E7. These notes are part of the intended seventh chords."
+        },
+        {
+          "title": "Play the counted skeleton",
+          "action": "Use a separate metronome at about 60 BPM. After four count-in beats, strum once on beat 1 of every bar and let it ring through the remaining beats. Say the bar number on beat 1.",
+          "lookCheck": "Keep the map visible. If using iOS Practice > Metronome, copy the map before opening that sheet.",
+          "listenCheck": "Hear four even beats in every bar, with a clear change at bars 5, 7, 9, 10, 11 and 12."
+        },
+        {
+          "title": "Hear the return",
+          "action": "Play bars 9–12, then bar 1 of the next chorus without adding a gap. E7 at the end points back toward A7. Stop afterward and recite the three lines.",
+          "lookCheck": "A new chorus starts directly after bar 12; there is no new count-in between choruses.",
+          "listenCheck": "Listen to E7 returning to A7, then distinguish that return from a restart caused by losing place."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I treat four A7 bars as one long bar.",
+          "recovery": "Say 1-2-3-4, 2-2-3-4, 3-2-3-4, 4-2-3-4 before D7. Keep separate bar numbers."
+        },
+        {
+          "observation": "I switch to D7 in bar 2.",
+          "recovery": "That is a different valid blues variant, but this exercise uses A7 throughout bars 1–4. Re-read the selected map."
+        },
+        {
+          "observation": "The return adds an extra bar of E7.",
+          "recovery": "Loop bars 11, 12 and next 1; count four beats in each and change directly to A7."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Read the three four-bar lines and identify the home chord."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Check A7, D7 and E7 one string at a time."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Play the twelve-bar skeleton with one stroke per bar."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Connect the last line back to the first and recite the form."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can point to the starts of the three lines.",
+          "I connect A7, D7 and E7 to I7, IV7 and V7.",
+          "I understand a chorus has twelve four-beat bars in this version."
+        ],
+        "readyWhen": "Explain the selected form and follow one counted chorus with the map.",
+        "ifNotReady": "Practise the last four bars and the return to A7, then rebuild the full map.",
+        "proves": "Self-checked understanding of one twelve-bar variant and its three chords.",
+        "doesNotProve": "Memory recall, shuffle feel, three uninterrupted choruses or automatic chord recognition."
+      },
+      "demoAssetIds": [
+        "advanced-a7-open",
+        "advanced-d7-open",
+        "advanced-e7-open",
+        "advanced-a-blues-form"
+      ],
+      "referenceIds": [
+        "l5r-justin-blues",
+        "l5r-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l5-m3-03",
+      "moduleId": "g-l5-m3",
+      "title": "Call the Changes",
+      "sourceTitle": "Call the Changes",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Prepare the next chord one bar ahead, then reduce spoken prompts while retaining the twelve-bar order.",
+      "prerequisiteLessonIds": [
+        "g-l5-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Prepare your own calls",
+          "action": "Read the call guide and twelve-bar map. Speak the NEXT bar’s chord on beat 4 of the current bar. You or a practice partner provide the calls; this lesson does not generate an automatic spoken cue.",
+          "lookCheck": "Distinguish a chord name from a bar number: say A-seven, D-seven or E-seven.",
+          "listenCheck": "Say a call while keeping four evenly spaced beats; do not speed through the final beat."
+        },
+        {
+          "title": "Call without the guitar first",
+          "action": "At a comfortable click, count one chorus and speak every next-bar chord. In bar 4 call D7; in bar 8 call E7; in bar 12 call A7 for the next chorus.",
+          "lookCheck": "Your eyes may follow the map during this first pass. You are reading ahead, not changing early.",
+          "listenCheck": "The call on beat 4 anticipates the next downbeat while the current bar still lasts four beats."
+        },
+        {
+          "title": "Add one strum per bar",
+          "action": "Play the current chord on beat 1, then call the next chord on beat 4. Loop bars 8–12 into 1 if the final line overloads your attention.",
+          "lookCheck": "Do not move to the called chord until the next beat 1. Prepare the fingers silently during the last beat.",
+          "listenCheck": "The chord sound changes at the bar line, not at the spoken cue."
+        },
+        {
+          "title": "Fade the prompts",
+          "action": "On the next chorus, call only before a real chord change. Then cover the guide and try a chorus with calls from memory; finally keep only the bar count.",
+          "lookCheck": "Cover both the map and the call guide, or turn away. There is no automatic cue-fading switch.",
+          "listenCheck": "Listen for even time as the speech gets quieter; losing the spoken cue must not remove a beat."
+        },
+        {
+          "title": "Locate the first uncertainty",
+          "action": "State the first bar where you needed the chart. Practise that bar plus the bar before and after, then rejoin a full chorus.",
+          "lookCheck": "A glance at the chart means supported practice, not chart-free recall.",
+          "listenCheck": "Keep the chord-quality check separate from remembering the order."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I play the next chord as soon as I say it.",
+          "recovery": "Keep the picking hand still on beat 4. Place the next chord only for the following beat 1."
+        },
+        {
+          "observation": "Speaking and playing break the pulse.",
+          "recovery": "Return to spoken calls only, then add one downstroke per bar. Use a slower click."
+        },
+        {
+          "observation": "The last four calls become scrambled.",
+          "recovery": "Speak E7, D7, A7, E7 over bars 9–12 first; then rehearse the one-bar-ahead call sequence from bar 8."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Read the manual cue rule and mark the six change points."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Speak one-bar-ahead cues without playing."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Add a current-chord strum on each first beat."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Reduce cues, cover the guide, and try memory-led choruses."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repair the first uncertain transition and state what support remained."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "My spoken cue comes before the change while the chord changes on the next downbeat.",
+          "I can call the final line and its return to A7.",
+          "I distinguish chart-supported, spoken and silent practice."
+        ],
+        "readyWhen": "Play a full chorus with correctly anticipated changes, then identify whether you still need spoken or visual prompts.",
+        "ifNotReady": "Repeat a three-bar window around the first uncertain change and reduce only one kind of support at a time.",
+        "proves": "Self-reported anticipatory cue practice and form navigation.",
+        "doesNotProve": "Automated chord calls, speech detection, chart-free three-chorus recall or measured timing."
+      },
+      "demoAssetIds": [
+        "advanced-a7-open",
+        "advanced-d7-open",
+        "advanced-e7-open",
+        "advanced-a-blues-form",
+        "advanced-blues-calls"
+      ],
+      "referenceIds": [
+        "l5r-justin-blues",
+        "l5r-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l5-m3-07",
+      "moduleId": "g-l5-m3",
+      "title": "Checkpoint: Three Choruses From Memory",
+      "sourceTitle": "Checkpoint: Three Choruses From Memory",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Play three consecutive twelve-bar choruses in the chosen A blues form without looking at a chart.",
+      "prerequisiteLessonIds": [
+        "g-l5-m3-03"
+      ],
+      "steps": [
+        {
+          "title": "Set the memory rule",
+          "action": "Review the form once, choose a comfortable quarter-note tempo, then cover the form, call guide and chord diagrams or turn the screen away. You may count bars aloud, but do not read chord names or accept spoken chord prompts.",
+          "lookCheck": "The goal is three complete choruses, 36 bars. There is no required catalog tempo; record the one you use.",
+          "listenCheck": "Check the click before starting; it supplies pulse but no chord answers."
+        },
+        {
+          "title": "Count in once",
+          "action": "Take four count-in beats and play one downstroke per bar. Hold the exact form used in the teaching lesson, including A7 throughout bars 1–4 and E7 in bar 12.",
+          "lookCheck": "Keep the same chord version throughout. Changing to another blues variant midway is not this recall check.",
+          "listenCheck": "Each bar contains four beats even when the chord repeats."
+        },
+        {
+          "title": "Connect all three choruses",
+          "action": "Go straight from bar 12 to the next bar 1. Repeat twice more, counting chorus 1, 2 and 3 as you begin them. Mute after the final beat of chorus 3; do not add an extra ending bar.",
+          "lookCheck": "No chart glance, extra count-in, stopped click or skipped bar inside the 36-bar take.",
+          "listenCheck": "Listen for smooth returns from E7 to A7 and an unchanged pulse at each new chorus."
+        },
+        {
+          "title": "Review without rewriting the take",
+          "action": "Uncover the map after stopping and compare the sequence you played. State whether any memory hesitation, wrong change, added bar or external cue occurred.",
+          "lookCheck": "A repaired take is practice. Start a new full attempt if the chart was needed; do not combine shorter successful sections.",
+          "listenCheck": "Note chord clarity separately: knowing the order does not automatically make every string clean."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I lose the chorus number.",
+          "recovery": "During rehearsal, say first, second or third on each return to bar 1. Keep that neutral count in the memory check."
+        },
+        {
+          "observation": "I glance at the chart to rescue bar 9.",
+          "recovery": "Label the run supported practice. Loop bars 8–10 with the chart, then begin a fresh chart-free three-chorus take."
+        },
+        {
+          "observation": "The last chord of a chorus gets five beats.",
+          "recovery": "Practise bar 12 into 1 with four beats per bar, then reconnect the complete form."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Review the map and choose the actual tempo."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Rehearse the two chorus boundaries, then cover all chord prompts."
+        },
+        {
+          "seconds": 150,
+          "instruction": "Attempt one uninterrupted 36-bar memory take with one initial count-in."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Compare the recalled sequence with the map and locate any error."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State the result and the next repair or retention check."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I played the same twelve-bar version three times in order.",
+          "I used no chart or chord-name prompts during the take.",
+          "All 36 bars kept four beats, with no extra gap between choruses."
+        ],
+        "readyWhen": "Self-review confirms three consecutive complete choruses from memory; recheck on another day for retention.",
+        "ifNotReady": "Keep the actual first error and practise its three-bar neighbourhood. A supported or partial take does not meet the memory target.",
+        "proves": "Learner-reported recall and continuity across this specific 36-bar form.",
+        "doesNotProve": "Automatic chart hiding, verified recall percentage, certified chord quality, other blues variants or long-term retention."
+      },
+      "demoAssetIds": [
+        "advanced-a-blues-form"
+      ],
+      "referenceIds": [
+        "l5r-justin-blues",
+        "l5r-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l5-m4-01",
+      "moduleId": "g-l5-m4",
+      "title": "Four Bars Is a Sentence",
+      "sourceTitle": "Four Bars Is a Sentence",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Shape a four-bar blues phrase with a clear opening, an answer and intentional space while the underlying pulse continues.",
+      "prerequisiteLessonIds": [
+        "g-l5-m3-07"
+      ],
+      "steps": [
+        {
+          "title": "Choose the note language",
+          "action": "Use the A minor-pentatonic map: A, C, D, E, G. Begin with A at string 1 fret 5 and C at fret 8; add E at fret 12 only when moving there comfortably.",
+          "lookCheck": "Move the hand between positions rather than stretching across seven frets. The palette is A blues vocabulary, not the A-major scale.",
+          "listenCheck": "C adds a blues colour against the C# inside A7. Return to A to hear home; do not assume every sustained note blends equally with every chord."
+        },
+        {
+          "title": "Make a short question",
+          "action": "Count one bar of four beats. Play A on 1, C on 2, then either hold C or leave space through 3 and 4. Repeat the same small idea so you can recognize it.",
+          "lookCheck": "Two intentional notes are enough. You do not need to run the whole scale.",
+          "listenCheck": "Hear a recognizable rhythm, followed by an ending or breath."
+        },
+        {
+          "title": "Answer and leave space",
+          "action": "Over the next bar, answer with C then A, using a different rhythm. Let bar 3 rest while you keep counting; use bar 4 for one final A.",
+          "lookCheck": "A full bar of planned silence still occupies four beats. A restart after losing count does not.",
+          "listenCheck": "The answer feels connected because it shares notes or rhythm; the final A settles the phrase."
+        },
+        {
+          "title": "Place it in the blues form",
+          "action": "Use a partner or your own separately recorded accompaniment playing the taught twelve-bar A blues. Enter on bar 1 and improvise through bars 1–4, which are A7 in this version. Without accompaniment, rehearse with a click and label it solo preparation.",
+          "lookCheck": "Confirm the start of the chorus with your partner or recording; no backing track is supplied in this lesson.",
+          "listenCheck": "Keep hearing the four-bar boundary under your pauses. Stop your phrase in time for the change to D7 at bar 5."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I fill every beat because silence feels like stopping.",
+          "recovery": "Plan one full rest bar and count it aloud. Continue the pulse, then land on the next intended beat."
+        },
+        {
+          "observation": "My fingers keep moving while I cannot hear an idea.",
+          "recovery": "Limit the phrase to A and C. Repeat one rhythm before adding another note."
+        },
+        {
+          "observation": "I use the wrong backing key or do not know the entry bar.",
+          "recovery": "Confirm A blues and bar 1 before playing. A click-only phrase is preparation, not evidence of following the blues form."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Find A and C, then inspect the rest of the note palette."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Create and repeat a one-bar question."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Answer it, count a rest bar and make a final landing."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Place the four-bar idea over known A-blues accompaniment, if available."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Describe the phrase boundary and whether accompaniment was used."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can recognize my opening idea and its answer.",
+          "I count through intentional rests.",
+          "I know the phrase occupies bars 1–4 of the selected blues form."
+        ],
+        "readyWhen": "Demonstrate a counted four-bar phrase with a related answer and planned space; identify whether it was played with accompaniment.",
+        "ifNotReady": "Use two notes and a click until the four-bar shape holds; add known accompaniment afterward.",
+        "proves": "Self-reviewed phrase structure and pulse awareness.",
+        "doesNotProve": "Automatic improvisation grading, backing-track playback, scale recognition or over-form performance when rehearsed with a click alone."
+      },
+      "demoAssetIds": [
+        "advanced-a-blues-palette",
+        "advanced-a-blues-form"
+      ],
+      "referenceIds": [
+        "l5r-justin-blues",
+        "l5r-sonora"
+      ]
+    },
+    {
+      "id": "g-l5-m4-03",
+      "moduleId": "g-l5-m4",
+      "title": "One Phrase, Three Answers",
+      "sourceTitle": "One Phrase, Three Answers",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Use an original one-bar question to invent three related answers with different rhythms, endings or rests.",
+      "prerequisiteLessonIds": [
+        "g-l5-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Learn the supplied question",
+          "action": "Read the A–C–E seed: string 1 frets 5, 8, 12 on beats 1, 2, 3, with E held through 4. Tap individual reference cells if useful, then play or sing the rhythm yourself.",
+          "lookCheck": "The buttons sound one pitch at a time; there is no automatic complete-phrase performance. Shift the hand for fret 12.",
+          "listenCheck": "Hear the upward question and its two-beat last note."
+        },
+        {
+          "title": "Hear three kinds of response",
+          "action": "Read the three written answer examples. First change the ending to A; then retain the seed rhythm with a different note order; then begin with a rest. Play them slowly without treating them as required improvisations.",
+          "lookCheck": "Each answer occupies exactly one four-beat bar. A note on beat 3 may hold through beat 4.",
+          "listenCheck": "The examples remain related even though the rhythm or ending changes."
+        },
+        {
+          "title": "Invent your own first answer",
+          "action": "Repeat the original question, then invent a one-bar response using A, C or E. Choose one deliberate difference, such as a longer A at the end.",
+          "lookCheck": "Do not copy the supplied answer and label it newly improvised. Keep the bar count audible.",
+          "listenCheck": "Decide whether the response sounds like an answer rather than another unrelated scale run."
+        },
+        {
+          "title": "Make two more answers",
+          "action": "Return to the same question before each new response. Change a different feature for each: rhythm, final note or placement of a rest. Stay inside A, C, D, E, G if adding notes.",
+          "lookCheck": "Use three separate question-answer pairs during rehearsal; these are not three stitched attempts at the later continuity checkpoint.",
+          "listenCheck": "Identify the audible difference between your three answers."
+        },
+        {
+          "title": "Join a four-bar exchange",
+          "action": "Play the question in bar 1 and your three answers in bars 2–4 with a continuous pulse. Use known A-blues accompaniment if available; otherwise label this click-only phrase practice.",
+          "lookCheck": "No supplied backing or recorded prompt is implied. A planned rest preserves the count; a restart changes the take.",
+          "listenCheck": "Leave the final note in a place that lets you hear bar 5 coming."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "All three answers are the same notes at the same times.",
+          "recovery": "Keep the notes for one answer but move its first attack to beat 2. For another, change only its ending."
+        },
+        {
+          "observation": "The question itself keeps changing.",
+          "recovery": "Repeat the written seed until you can recall it, then hold that question constant while varying answers."
+        },
+        {
+          "observation": "Moving to fret 12 breaks the count.",
+          "recovery": "Practise the shift slowly, or rehearse answers on A and C while separately learning the seed. Do not stretch the hand across the full distance."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Hear the separate seed pitches and play its written rhythm."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Explore the three supplied answer types."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Invent and repeat your first two distinct responses."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Invent a third response and join the four-bar exchange."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Name the differences and review pulse, palette and accompaniment use."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can play the same one-bar seed before each response.",
+          "My three answers differ in an audible, describable way.",
+          "I keep each response inside its allotted bar and intended note palette."
+        ],
+        "readyWhen": "Demonstrate three distinct self-authored responses to the same seed, then connect the question and answers in a four-bar rehearsal.",
+        "ifNotReady": "Change one feature at a time and keep the seed fixed. Rehearse the fret shift separately if it overwhelms phrasing.",
+        "proves": "Self-reported phrase variation and counted call-and-answer practice.",
+        "doesNotProve": "Automatic phrase playback, originality detection, measured timing or a completed over-blues checkpoint without accompaniment."
+      },
+      "demoAssetIds": [
+        "advanced-solo-seed",
+        "advanced-a-blues-palette",
+        "advanced-solo-answers"
+      ],
+      "referenceIds": [
+        "l5r-justin-blues",
+        "l5r-sonora"
+      ]
+    },
+    {
+      "id": "g-l5-m4-07",
+      "moduleId": "g-l5-m4",
+      "title": "Checkpoint: Four Bars, In Key, No Stop",
+      "sourceTitle": "Checkpoint: Four Bars, In Key, No Stop",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Improvise one complete four-bar phrase from the A-blues note palette while staying with bars 1–4 of known twelve-bar accompaniment.",
+      "prerequisiteLessonIds": [
+        "g-l5-m4-03"
+      ],
+      "steps": [
+        {
+          "title": "Set a real accompaniment context",
+          "action": "Use a partner or your own separate recording playing the exact A7/D7/E7 twelve-bar map. Confirm the tempo and chorus start. There is no supplied backing track here; a click alone supports rehearsal but cannot establish the over-form part of this target.",
+          "lookCheck": "Have the palette available for preparation, then choose a few familiar notes. Memorizing every fret is not required.",
+          "listenCheck": "Hear A7 at the beginning and know D7 arrives at bar 5."
+        },
+        {
+          "title": "Set the four-bar boundary",
+          "action": "Count the lead-in or one full chorus, then enter at bar 1. Let the accompaniment continue while you create a question and answer through bars 1–4.",
+          "lookCheck": "The performance window is four complete bars. Keep a private count even if the phrase starts after beat 1.",
+          "listenCheck": "Rests are intentional time inside the phrase; the underlying music does not pause."
+        },
+        {
+          "title": "Use the palette deliberately",
+          "action": "Choose from A, C, D, E, G. Repeat or vary an idea rather than racing through positions. If a wrong fret sounds, keep time and note the mistake afterward.",
+          "lookCheck": "Avoid new bends for this check; fretted notes make your intended pitch choices easier to identify.",
+          "listenCheck": "A is a useful landing note. The C against A7 is an intentional blues colour; an accidental outside note is a pitch-choice error to review."
+        },
+        {
+          "title": "Finish and report separately",
+          "action": "Finish the four-bar phrase as D7 begins at bar 5, then stop your lead line while accompaniment continues. Report continuity, note choices and accompaniment alignment as separate observations.",
+          "lookCheck": "A take with a restart or lost bar cannot become continuous because its ending was good. An accidental outside note is not erased by a later correct note.",
+          "listenCheck": "Hear whether your final phrase landed within the intended window, rather than one beat after the form moved on."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I stop the whole pulse to find a note.",
+          "recovery": "Reduce the note set to A and C and practise four counted bars with rests. Repeat the full check with accompaniment when the pulse holds."
+        },
+        {
+          "observation": "I stay in the note set but lose the bar number.",
+          "recovery": "Rehearse entering on bar 1 and finishing at bar 5 with one repeated A before adding improvisation."
+        },
+        {
+          "observation": "I have only a metronome available.",
+          "recovery": "Practise the full phrase and label it click-only preparation. Return to the over-form check when known accompaniment or a partner is available."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Confirm accompaniment, key, tempo and chorus entry."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Warm up a small palette and rehearse the four-bar boundary."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Play a new four-bar phrase with the accompaniment continuing."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review continuity, note choices and alignment independently."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Repair one issue and state whether the actual checkpoint conditions were met."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "Known A-blues accompaniment continued throughout my four bars.",
+          "I followed bars 1–4 without a restart or lost bar, including intentional rests.",
+          "My intended and sounded notes stayed in A, C, D, E, G.",
+          "I finished at the boundary leading into bar 5."
+        ],
+        "readyWhen": "Your own review confirms one continuous four-bar improvisation in the taught blues palette and in the correct accompaniment window.",
+        "ifNotReady": "Rehearse the first failing dimension: palette, pulse or form alignment. Keep click-only and interrupted practice distinct from this complete target.",
+        "proves": "Learner-reported four-bar improvisation with the stated accompaniment conditions.",
+        "doesNotProve": "Automatic key detection, microphone-certified continuity, artistic quality, unfamiliar-key fluency or an included backing track."
+      },
+      "demoAssetIds": [
+        "advanced-a-blues-palette",
+        "advanced-a-blues-form"
+      ],
+      "referenceIds": [
+        "l5r-justin-blues",
+        "l5r-sonora"
+      ]
+    },
+    {
+      "id": "g-l5-m5-01",
+      "moduleId": "g-l5-m5",
+      "title": "Pitch You Control After the Pick",
+      "sourceTitle": "Pitch You Control After the Pick",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Distinguish a bend that reaches a new pitch from controlled vibrato, and prepare a comfortable semitone bend from F#4 to G4.",
+      "prerequisiteLessonIds": [
+        "g-l5-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Learn the two pitches before bending",
+          "action": "On string 2, play fret 7, then fret 8 normally: F#4 then G4. One fret is one semitone. Use the separate synthesized reference cells if needed, then stop them before your own notes.",
+          "lookCheck": "The target is a pitch interval, not a fixed sideways travel distance or a turn of the tuning peg.",
+          "listenCheck": "Remember G4 clearly enough to compare it with a bend from F#4."
+        },
+        {
+          "title": "Support a small bend",
+          "action": "Place ring finger on string 2 fret 7, with middle and index behind it on the same string around frets 6 and 5. Find comfortable thumb support. Pick once, then use a small coordinated hand rotation to move the string toward the thicker strings.",
+          "lookCheck": "The ring fingertip stays at fret 7; the hand supports it rather than extending one isolated finger. Stop if the movement hurts or the string resists beyond a comfortable attempt.",
+          "listenCheck": "Listen for pitch rising smoothly. Do not scrape into a new fretted note or add a second pick to disguise the bend."
+        },
+        {
+          "title": "Reach, hold, mute, release",
+          "action": "Aim for the remembered G4, hold briefly, then mute with the picking hand before returning the string. Check the unbent fret-8 target again.",
+          "lookCheck": "Keep other strings quiet with available hand contact; do not hook an adjacent string under a fingernail.",
+          "listenCheck": "A pitch near the target is different from noise or another string ringing. The muted release should not add an unintended descending note."
+        },
+        {
+          "title": "Contrast a small vibrato",
+          "action": "On a comfortable sustained fret-7 note, make small, even pitch rises and returns without changing fret. Use a slower, narrower motion first; stop after a few cycles and release the hand.",
+          "lookCheck": "This is fretting-hand vibrato, not a tremolo-arm exercise. Keep the movement controlled rather than shaking the instrument.",
+          "listenCheck": "Hear a regular pulse around the intended note area. A single rise held at G is a bend; repeated small rises and returns create this vibrato effect."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I push farther but cannot hear a clear pitch.",
+          "recovery": "Stop, check the fretted starting note and mute other strings. Rebuild a smaller supported movement."
+        },
+        {
+          "observation": "My pitch rises when I wanted a steady note.",
+          "recovery": "Reduce vibrato width and speed. Hold the unbent note briefly before starting the first small movement."
+        },
+        {
+          "observation": "The string catches or my finger hurts.",
+          "recovery": "Mute and release. Check hand support and string contact before another attempt; do not force the semitone during this session."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Play and remember the F#4 and G4 reference pitches."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Explore short, supported semitone bends with rests."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Practise reaching, holding, muting and releasing."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Compare a steady bend with narrow repeated vibrato movements."
+        },
+        {
+          "seconds": 15,
+          "instruction": "Name the difference and your next comfort or pitch repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can identify the starting pitch and semitone target.",
+          "I understand that the finger remains at fret 7 during the bend.",
+          "I can distinguish a held bend from a few controlled vibrato cycles."
+        ],
+        "readyWhen": "Explain the difference and make a short comfortable movement that raises pitch, with a controlled stop. Numeric accuracy is assessed separately.",
+        "ifNotReady": "Use the two normally fretted reference notes and shorter movements; do not force a painful bend.",
+        "proves": "Self-checked technique distinction and initial pitch-control exploration.",
+        "doesNotProve": "A measured ±20-cent bend, vibrato quality certification, safe setup certification or automatic technique detection."
+      },
+      "demoAssetIds": [
+        "advanced-semitone-reference"
+      ],
+      "referenceIds": [
+        "l5r-yamaha-technique",
+        "l5r-justin-lead"
+      ]
+    },
+    {
+      "id": "g-l5-m5-02",
+      "moduleId": "g-l5-m5",
+      "title": "Bend to Target",
+      "sourceTitle": "Bend to Target",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Practise matching F#4-to-G4 semitone bends using a chromatic meter when available, then repeat by ear without live visual correction.",
+      "prerequisiteLessonIds": [
+        "g-l5-m5-01"
+      ],
+      "steps": [
+        {
+          "title": "Choose an appropriate pitch reference",
+          "action": "Tune normally, then use your own chromatic tuner or pitch meter showing G4 and cents at A4 = 440 Hz. First check string 2 fret 8 without a bend. GuitarHub’s standard-string tuner compares against open strings, so it is not the target meter for this exercise.",
+          "lookCheck": "Confirm both note and octave. A display saying G3 is not the G4 target.",
+          "listenCheck": "Hear the normally fretted G4; stop any reference playback before observing your guitar."
+        },
+        {
+          "title": "Match with visual help",
+          "action": "From F#4 at fret 7, pick once and bend toward the thicker strings. Watch the external meter as a guide, approach G4, and hold briefly without vibrato. Mute, release and rest.",
+          "lookCheck": "Do not slide to fret 8, retune the string or count a momentary sweep through the target as a held pitch.",
+          "listenCheck": "Listen to the same rise you see. The sound should settle, not keep climbing while the display briefly flashes G."
+        },
+        {
+          "title": "Reduce the visual help",
+          "action": "Play the normal fret-8 reference, look away, and make another bend. Decide by ear whether you reached it; then check the held pitch if still stable. Any adjustment made after looking is a guided correction, not a blind first result.",
+          "lookCheck": "Keep ear-led and visually corrected attempts separate. This lesson does not save a bend trace or cents values.",
+          "listenCheck": "Compare your original judgment with the meter, rather than replacing the memory of an inaccurate bend with its correction."
+        },
+        {
+          "title": "Use an ear-only route honestly",
+          "action": "If a suitable meter is unavailable, alternate the normally fretted G4 with a bend from F#4 and listen for a match. This is useful practice; do not assign a numeric cents result by ear.",
+          "lookCheck": "Keep the same target and comfortable movement. The per-note reference buttons are not live pitch feedback.",
+          "listenCheck": "Listen for undershoot, overshoot and instability as qualitative observations."
+        },
+        {
+          "title": "Rest and name the pattern",
+          "action": "Review several short attempts, not a continuous grip. State whether you tend to undershoot, overshoot or wobble, and whether your evidence came from a meter or your ears.",
+          "lookCheck": "A stable target hold has no added vibrato. Stop the session if discomfort persists.",
+          "listenCheck": "Make the next correction smaller and deliberate rather than increasing force on every attempt."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The display jumps between unrelated notes.",
+          "recovery": "Mute neighbouring strings, let the pick transient settle and try a clean single note. No usable reading means no numeric conclusion."
+        },
+        {
+          "observation": "Every bend overshoots before I correct it.",
+          "recovery": "Approach more gradually and compare a smaller motion with the normally fretted reference. Keep the initial overshoot distinct from the final correction."
+        },
+        {
+          "observation": "I watch a standard-open-string target and chase its centre.",
+          "recovery": "Use a chromatic meter configured for G4. The centre of a different open-string target is not this bend’s target."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Confirm the external meter, note, octave and reference pitch, or choose ear-only practice."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Make short visually guided bends with releases and rests."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Repeat by ear, then inspect any still-stable held pitch."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Repair the most common direction or stability error."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State the observation method and remaining uncertainty."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I know whether my feedback came from a suitable G4 meter or my ears.",
+          "I can separate an initial bend from a visually corrected one.",
+          "I can identify the most common pitch or stability error."
+        ],
+        "readyWhen": "Make repeatable comfortable attempts and describe their observed direction and stability. Keep numeric claims only when an appropriate meter supplied them.",
+        "ifNotReady": "Return to the two normally fretted reference notes, reduce the movement and test isolated single-string input.",
+        "proves": "Self-reported bend practice with stated external or ear-only feedback.",
+        "doesNotProve": "Built-in arbitrary-target display, stored bend traces, a blind three-of-four result or inferred cents accuracy from listening alone."
+      },
+      "demoAssetIds": [
+        "advanced-semitone-reference",
+        "advanced-bend-four-attempts"
+      ],
+      "referenceIds": [
+        "l5r-yamaha-technique",
+        "l5r-justin-lead"
+      ]
+    },
+    {
+      "id": "g-l5-m5-07",
+      "moduleId": "g-l5-m5",
+      "title": "Checkpoint: Semitone Within Twenty Cents",
+      "sourceTitle": "Checkpoint: Semitone Within Twenty Cents",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Attempt four independent semitone bends with live feedback hidden and report whether at least three hold G4 within twenty cents, using actual external observations.",
+      "prerequisiteLessonIds": [
+        "g-l5-m5-02"
+      ],
+      "steps": [
+        {
+          "title": "Establish the measurement before the set",
+          "action": "Use a chromatic meter for G4 at A4 = 440 Hz, and verify string 2 fret 8 as the unbent target. Arrange a helper to observe the meter or your own external tuner recording for later review. Without usable hidden-feedback observations, this remains an unverified ear exercise.",
+          "lookCheck": "The four numbered attempts are selected before starting. The target is F#4 at fret 7 bent up to G4; do not change string or target within the set.",
+          "listenCheck": "Play the reference once, let it end, and remember its pitch."
+        },
+        {
+          "title": "Make one blind attempt",
+          "action": "Look away before picking fret 7. Bend toward the remembered G4 and hold for one second without vibrato or another pick. Mute before returning the string. Do not watch and correct the pitch during this attempt.",
+          "lookCheck": "An observer or later recording checks the held portion; a flash through the correct range is not a stable hold.",
+          "listenCheck": "Hear one picked note rise and settle, with other strings quiet."
+        },
+        {
+          "title": "Keep all four observations",
+          "action": "Rest and repeat until you have four attempts in the set. Record whether each held G4 between −20 and +20 cents for the one-second hold. Keep misses and unknown readings; do not replace them with later successes.",
+          "lookCheck": "A no-reading attempt is unknown, not a pass. An incompletely observed set cannot establish the numeric target.",
+          "listenCheck": "A sharp, flat or unstable result is useful information, even if a later corrected practice bend sounds good."
+        },
+        {
+          "title": "Apply the stated rule",
+          "action": "Review after the set. At least three successful, fully observed attempts out of those four meet the target. Fewer successes, live visual steering, or missing observations leave the checkpoint unmet or unverified.",
+          "lookCheck": "This is externally observed and learner-reported evidence. GuitarHub does not verify, record or grade these cents in this lesson.",
+          "listenCheck": "Listen to the stable hold when reviewing; do not judge only the highest pitch reached."
+        },
+        {
+          "title": "Use the result to plan a repair",
+          "action": "If the target was not established, name overshoot, undershoot, instability or measurement failure and return to the matching practice step. If it was, repeat another day without carrying forward old successes.",
+          "lookCheck": "Each new set starts with four new numbered attempts; no averaging or best-of-many selection.",
+          "listenCheck": "Restore a relaxed hand before repeating. Accuracy does not justify forcing a painful bend."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Three bends felt right but I have no meter observations.",
+          "recovery": "Report ear-only practice. A twenty-cent threshold cannot be verified from that feeling alone."
+        },
+        {
+          "observation": "I see G briefly while the pitch continues rising.",
+          "recovery": "Treat the attempt as unstable. Practise stopping and holding the movement, then start a new set."
+        },
+        {
+          "observation": "One attempt has no clear reading.",
+          "recovery": "Keep it unknown and label the set incomplete. Fix the input conditions before a fresh four-attempt set."
+        },
+        {
+          "observation": "I corrected a flat bend while looking at the display.",
+          "recovery": "Use it as guided practice; it is not a hidden-feedback success. Begin a new blind attempt only after resting."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Verify the external measurement method and pre-number four attempts."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Warm up the reference and comfortable motion before the observed set."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Make four blind attempts with rests; retain every observation."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Review the four held-pitch results and apply the three-of-four rule."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State established, unmet or unverified, and choose the next repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "All four attempts used the same F#4-to-G4 semitone target and hidden live feedback.",
+          "An external observer or usable recording checked each one-second held portion.",
+          "At least three of the four held G4 within −20 to +20 cents without vibrato or a second pick.",
+          "I kept failures and unknowns and did not splice successful attempts from different sets."
+        ],
+        "readyWhen": "A fully observed set contains at least three qualifying blind bends out of four. Preserve the external-method label; no in-app verification is implied.",
+        "ifNotReady": "Report the actual count or unknown status, return to guided pitch practice, and make a new complete set later.",
+        "proves": "Learner-reported results from the stated external hidden-feedback measurement procedure, when observations exist.",
+        "doesNotProve": "In-app cents verification, automatic target hiding, saved pitch traces, guitar-technique certification or a numeric pass from ear-only practice."
+      },
+      "demoAssetIds": [
+        "advanced-semitone-reference",
+        "advanced-bend-four-attempts"
+      ],
+      "referenceIds": [
+        "l5r-yamaha-technique",
+        "l5r-justin-lead"
+      ]
+    },
+    {
+      "id": "g-l5-m6-01",
+      "moduleId": "g-l5-m6",
+      "title": "Triads: Three Notes, Many Shapes",
+      "sourceTitle": "Every Chord Is Three Notes",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Identify root, third and fifth in basic major/minor triads and recognize the same three note names inside larger open-chord shapes.",
+      "prerequisiteLessonIds": [
+        "g-l5-m1-07",
+        "g-l5-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Define the scope correctly",
+          "action": "A basic major or minor triad uses three distinct note names: root, third and fifth. The title is shorthand for these chords; power chords omit the third and seventh chords add another note, so not every chord literally has three distinct notes.",
+          "lookCheck": "Count note names, not fingers or sounding strings. Doubling a note in another octave does not create a new chord member.",
+          "listenCheck": "Compare the idea with G5 from the earlier lesson: two pitch classes are not a complete major or minor triad."
+        },
+        {
+          "title": "Find C inside a familiar shape",
+          "action": "Pick the open C-major chord’s sounding strings separately: C, E, G, C, E. Name the repetitions, then use the small C triad on strings 3–1 at frets 5,5,3.",
+          "lookCheck": "The small shape contains C4, E4 and G4 exactly once. Exclude strings 6–4 when playing it.",
+          "listenCheck": "Both voicings use C, E and G, although their register and fullness differ."
+        },
+        {
+          "title": "Keep identity when note order changes",
+          "action": "Play the F triad on strings 3–1 at 2,1,1, then G at 4,3,3. These put the third at the bottom: A–C–F and B–D–G.",
+          "lookCheck": "The lowest sounding note need not be the root. Use all three note names to identify the chord.",
+          "listenCheck": "Hear each note clearly before the strum; a muted third removes information about major/minor quality."
+        },
+        {
+          "title": "Compare major and minor thirds",
+          "action": "Compare A major at 6,5,5 with A minor at 5,5,5 on strings 3–1. Only the note on string 3 changes, from C# to C, while E and A remain.",
+          "lookCheck": "Major A contains A,C#,E; minor A contains A,C,E. Do not lower every note or change the root.",
+          "listenCheck": "Hear the quality change caused by the third. The single index barre in Am must leave all three strings clear."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I call a six-string chord a six-note triad.",
+          "recovery": "List distinct note names and remove octave duplicates before counting chord members."
+        },
+        {
+          "observation": "I name F as A because A is its lowest note here.",
+          "recovery": "Name all three notes A,C,F, then locate the root F. An inversion changes order, not the chord’s identity."
+        },
+        {
+          "observation": "The small chord sounds incomplete.",
+          "recovery": "Pick strings 3,2,1 separately and clear the dead note before adding any bass strings."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Separate note names, octave doublings and chord types."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Compare open C with the three-note C voicing."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Inspect F and G note order and excluded strings."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Compare the A-major and A-minor third."
+        },
+        {
+          "seconds": 15,
+          "instruction": "State the rule and its power/seventh-chord exceptions."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I can name root, third and fifth in C major.",
+          "I know repeated strings or octaves do not add distinct chord members.",
+          "I can explain why the lowest note of a triad voicing need not name the chord.",
+          "I can identify the C#/C difference between A major and A minor."
+        ],
+        "readyWhen": "Name the three chord members and demonstrate one clear three-string voicing, including the major/minor distinction.",
+        "ifNotReady": "Inspect one string at a time and name its note before comparing a larger shape.",
+        "proves": "Self-checked triad vocabulary, voicing and listening distinctions.",
+        "doesNotProve": "A claim that all chords have only three notes, automatic harmonic recognition or three-key recall."
+      },
+      "demoAssetIds": [
+        "l3-c-chord",
+        "advanced-triad-c",
+        "advanced-triad-f",
+        "advanced-triad-g",
+        "advanced-triad-a",
+        "advanced-triad-am"
+      ],
+      "referenceIds": [
+        "l5r-justin-triads",
+        "l5r-yousician-chords"
+      ]
+    },
+    {
+      "id": "g-l5-m6-03",
+      "moduleId": "g-l5-m6",
+      "title": "One, Four, Five, Six",
+      "sourceTitle": "One, Four, Five, Six",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Derive and play I, IV, V and vi in C, G and D major, preserving the minor quality of vi.",
+      "prerequisiteLessonIds": [
+        "g-l5-m6-01"
+      ],
+      "steps": [
+        {
+          "title": "Derive the first key",
+          "action": "Read the C-major scale and select roots 1,4,5,6: C,F,G,A. Apply the major-key qualities: C major, F major, G major, A minor. Say C, F, G, A-minor before forming shapes.",
+          "lookCheck": "Uppercase I,IV,V are major; lowercase vi is minor. The title’s six means a scale degree, not a major VI chord.",
+          "listenCheck": "Play each chord’s three notes separately so the third is audible."
+        },
+        {
+          "title": "Play a four-chord cycle",
+          "action": "Use the top-three-string diagrams for C, F, G and Am. Play each once and allow an unhurried pause for the next shape; a metronome is optional here.",
+          "lookCheck": "Exclude strings 6–4, including open basses that belong to larger shapes. Release between attempts if the mini barre tightens.",
+          "listenCheck": "Hear three clear notes for every chord; a memorized root name alone is not a played triad."
+        },
+        {
+          "title": "Transfer the numbers to G",
+          "action": "Use G,A,B,C,D,E,F#. The required chords are G,C,D,Em. Find each root in the scale, say its quality, then use the matching diagram.",
+          "lookCheck": "The V chord D contains F#, not F. Em may use the three open top strings G,B,E.",
+          "listenCheck": "Compare D major with an accidental D-minor sound; check string 1 fret 2 if its third is wrong."
+        },
+        {
+          "title": "Transfer to D",
+          "action": "Use D,E,F#,G,A,B,C#. The required chords are D,G,A,Bm. Name the four first, then play their three-string voicings.",
+          "lookCheck": "A contains C#; Bm contains D and F#. Keep Bm minor rather than guessing a major shape from its letter name.",
+          "listenCheck": "Listen for clear thirds in A and Bm, without an extra open string changing the voicing."
+        },
+        {
+          "title": "Retrieve instead of copying",
+          "action": "Choose one key, cover the key map and named diagrams, say the four chord names, then play them. Uncover afterward to check names, quality and notes. Repeat with another key.",
+          "lookCheck": "You may study the maps between rounds. A looked-up answer is review, not chart-free recall.",
+          "listenCheck": "Keep naming accuracy separate from buzzing or muted strings; fix the dimension that actually failed."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I name a major sixth chord.",
+          "recovery": "Write lowercase vi beside scale degree 6, and say the minor suffix aloud: Am, Em or Bm in these keys."
+        },
+        {
+          "observation": "I carry the C-key chord names into G.",
+          "recovery": "Restart from the G-major scale and select roots 1,4,5,6 before choosing shapes."
+        },
+        {
+          "observation": "I know the names but cannot form Bm.",
+          "recovery": "Practise strings 3–1 at 4,3,2 slowly, pick each note, then place it back into the D-key cycle."
+        },
+        {
+          "observation": "I play quickly enough to hide a dead third.",
+          "recovery": "Remove the pulse temporarily and inspect the three notes. This exercise prioritizes correct construction and recall."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Derive and play C,F,G,Am."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Derive and play G,C,D,Em."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Derive and play D,G,A,Bm."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Cover the answers for short naming-then-playing retrieval rounds."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repair one naming error and one physical voicing issue separately."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I derive the correct four chords in C, G and D major.",
+          "I say the minor suffix for vi in every key.",
+          "I can play the intended three-string voicings and inspect their thirds.",
+          "I know which answers were retrieved and which required the chart."
+        ],
+        "readyWhen": "Name and play each four-chord set with study support as needed, then prepare for a fresh chart-free check.",
+        "ifNotReady": "Rebuild the scale-degree roots and quality pattern before repeating the matching voicing.",
+        "proves": "Self-reported chord derivation, triad practice and retrieval preparation in three named keys.",
+        "doesNotProve": "Universal any-key fluency, automated chord recognition or completed chart-free recall when answers were visible."
+      },
+      "demoAssetIds": [
+        "advanced-three-key-map",
+        "advanced-triad-c",
+        "advanced-triad-f",
+        "advanced-triad-g",
+        "advanced-triad-am",
+        "advanced-triad-d",
+        "advanced-triad-em",
+        "advanced-triad-a",
+        "advanced-triad-bm"
+      ],
+      "referenceIds": [
+        "l5r-justin-triads",
+        "l5r-yousician-chords"
+      ]
+    },
+    {
+      "id": "g-l5-m6-07",
+      "moduleId": "g-l5-m6",
+      "title": "Checkpoint: Three Keys, Named and Played",
+      "sourceTitle": "Checkpoint: Three Keys, Named and Played",
+      "type": "checkpoint",
+      "suggestedSeconds": 300,
+      "objective": "Name I, IV, V and vi first, then play the four chords from memory in each of C, G and D major.",
+      "prerequisiteLessonIds": [
+        "g-l5-m6-03"
+      ],
+      "steps": [
+        {
+          "title": "Prepare a chart-free round",
+          "action": "Review the three keys once, then cover the key map and every named chord diagram, or turn the screen away. Use C, G and D in that order for the first check; a later practice round can change the order.",
+          "lookCheck": "The target is three keys and twelve chord responses. There is no required speed, timed-answer percentage or automatic random key caller.",
+          "listenCheck": "Confirm tuning before hiding the references so pitch preparation does not interrupt the recall round."
+        },
+        {
+          "title": "Name the four before playing",
+          "action": "For C major, say the names of I, IV, V and vi aloud before touching the first shape. Do the same when moving to G and D. Keep the minor suffix explicit.",
+          "lookCheck": "Do not use the shape you happen to form as a cue for guessing its name afterward. No written answers or partner chord prompts during the round.",
+          "listenCheck": "Say each name distinctly enough to remember whether you said major or minor."
+        },
+        {
+          "title": "Play and inspect each response",
+          "action": "After naming a key’s four chords, form each taught three-string voicing in that order. Pick strings 3,2,1 separately, then strum them together. Take a reasonable untimed pause to place the fingers.",
+          "lookCheck": "Keep strings 6–4 excluded. Each response requires a recalled chord identity and a played voicing, not only the root note.",
+          "listenCheck": "Hear all three intended notes, including the quality-defining third. A buzz or wrong note means that played response needs repair."
+        },
+        {
+          "title": "Complete all three keys before looking",
+          "action": "Continue through C, G and D without consulting the charts. After stopping, uncover the table and verify all twelve names and played voicings; state any prompt, correction or uncertain response.",
+          "lookCheck": "Correcting a name after looking is learning, but does not rewrite that recall attempt. Do not combine the best key from three different rounds.",
+          "listenCheck": "Recall success and clean playing must both be supported by your own review; neither is inferred from elapsed time."
+        },
+        {
+          "title": "Report the actual scope",
+          "action": "Claim the three-key target only when all twelve chord identities and voicings were recalled in one chart-free round. Otherwise name the exact key, degree or string to practise before a new round.",
+          "lookCheck": "These are the three taught keys. Passing them does not establish every major key or all triad inversions.",
+          "listenCheck": "Revisit the weakest quality contrast, such as A versus Am or the F# inside D, before repeating."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I forget the minor suffix but play a minor shape.",
+          "recovery": "Treat the naming response as needing review. Practise naming and playing as two explicit steps."
+        },
+        {
+          "observation": "I need one quick diagram glance for Bm.",
+          "recovery": "Keep the round as supported practice, repair Bm, then start a fresh full round without charts."
+        },
+        {
+          "observation": "Every chord name is correct but one string is consistently dead.",
+          "recovery": "Repair that voicing string by string. Names alone do not meet the named-and-played target."
+        },
+        {
+          "observation": "I pass a different key in each separate attempt.",
+          "recovery": "Keep those as progress, then make one new round containing all three keys; do not splice results."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Check tuning, review the rules and cover the key map and diagrams."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Name then play the four responses in C major."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Name then play the four responses in G major."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Name then play the four responses in D major."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Uncover references and review all twelve responses honestly."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State the achieved scope or the exact repair before the next round."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I named the four chords before playing each key’s set.",
+          "C gave C,F,G,Am; G gave G,C,D,Em; D gave D,G,A,Bm.",
+          "I played all twelve taught three-string voicings and heard their intended notes.",
+          "One complete round used no chart, diagram glance or supplied chord-name prompt."
+        ],
+        "readyWhen": "One chart-free round contains all twelve correctly named and played chord responses across C, G and D major.",
+        "ifNotReady": "Keep the failed naming or voicing response, repair it with the chart, then make a new complete round.",
+        "proves": "Self-reported naming and playing recall for the three specifically taught keys.",
+        "doesNotProve": "An automatic recall score, microphone verification, fluency in every key or mastery of every inversion."
+      },
+      "demoAssetIds": [
+        "advanced-three-key-map",
+        "advanced-triad-c",
+        "advanced-triad-f",
+        "advanced-triad-g",
+        "advanced-triad-am",
+        "advanced-triad-d",
+        "advanced-triad-em",
+        "advanced-triad-a",
+        "advanced-triad-bm"
+      ],
+      "referenceIds": [
+        "l5r-justin-triads",
+        "l5r-yousician-chords"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "id": "advanced-yousician-f",
+      "title": "Yousician — How to Play the F Chord on the Guitar",
+      "url": "https://yousician.com/blog/f-chord-guitar",
+      "supports": "Public explanation of F barre-chord difficulty and the mini-barre alternative; GuitarHub supplies the original placement exercises and entry rules."
+    },
+    {
+      "id": "advanced-yousician-power",
+      "title": "Yousician — Guitar power chords",
+      "url": "https://yousician.com/blog/power-chords",
+      "supports": "Root-and-fifth construction, absent third, movable shapes and excluded-string muting. The diagrams, riff and checkpoint protocol here are independently authored."
+    },
+    {
+      "id": "advanced-yousician-practice",
+      "title": "Yousician — Practice and Play modes in guitar",
+      "url": "https://support.yousician.com/hc/en-us/articles/201558362-Practice-and-Play-modes-in-guitar",
+      "supports": "Public practice convention of slowing difficult material and repeating a selected section before a complete performance; not a claim about private scoring or GuitarHub transport features."
+    },
+    {
+      "id": "advanced-justin-grade-two",
+      "title": "JustinGuitar — Beginner Guitar Course, Grade 2",
+      "url": "https://www.justinguitar.com/classes/beginner-guitar-course-grade-two",
+      "supports": "Public course scope includes F chords and power chords after initial open-chord foundations. No private lesson algorithm or exact checkpoint threshold is attributed to JustinGuitar."
+    },
+    {
+      "id": "advanced-sonora-foundations",
+      "title": "Sonora — Beginner Guitar Roadmap",
+      "url": "https://www.learnwithsonora.com/beginner-guitar-roadmap-b",
+      "supports": "Public progressive curriculum connects chord technique with rhythm, structured practice and musical application. The six lesson durations and target tempos come from GuitarHub, not Sonora."
+    },
+    {
+      "id": "l5r-justin-blues",
+      "title": "JustinGuitar — Blues Guitar & Easy Improvisation",
+      "url": "https://www.justinguitar.com/modules/blues-guitar-easy-improvisation",
+      "supports": "Public module links open seventh chords, twelve-bar forms and A minor-pentatonic solo/improvisation teaching. The exact map and phrase exercises here are independently authored."
+    },
+    {
+      "id": "l5r-yousician-practice",
+      "title": "Yousician — Practice and Play modes in guitar",
+      "url": "https://support.yousician.com/hc/en-us/articles/201558362-Practice-and-Play-modes-in-guitar",
+      "supports": "Public slow-and-repeat practice convention, applied here without claiming unimplemented transport, cue or score features."
+    },
+    {
+      "id": "l5r-sonora",
+      "title": "Sonora — Beginner Guitar Roadmap",
+      "url": "https://www.learnwithsonora.com/beginner-guitar-roadmap-b",
+      "supports": "Public progression connects rhythm, lead articulation and ensemble roles; no private curriculum or algorithm is claimed."
+    },
+    {
+      "id": "l5r-yamaha-technique",
+      "title": "Yamaha — How to Play the Electric Guitar",
+      "url": "https://www.yamaha.com/en/musical_instrument_guide/electric_guitar/play/",
+      "supports": "Bending raises pitch; a half bend is one semitone; vibrato varies pitch, and neighbouring strings need control. Numeric checkpoint and one-second hold are GuitarHub choices."
+    },
+    {
+      "id": "l5r-justin-lead",
+      "title": "JustinGuitar — Essential Blues Lead Guitar",
+      "url": "https://www.justinguitar.com/modules/essential-blues-lead-guitar",
+      "supports": "Public blues-lead module context for learning articulation and using it in musical phrases; full private lesson internals were not accessed."
+    },
+    {
+      "id": "l5r-justin-triads",
+      "title": "JustinGuitar — Triad Chord Grips",
+      "url": "https://www.justinguitar.com/guitar-lessons/triad-chord-grips-im-151",
+      "supports": "Public teaching starts triad grips on strings 1,2,3 and addresses muting and note order. These exact diagrams and three-key tests are independently authored."
+    },
+    {
+      "id": "l5r-yousician-chords",
+      "title": "Yousician — Guitar chord charts",
+      "url": "https://yousician.com/blog/guitar-chord-charts",
+      "supports": "Major/minor root-third-fifth construction, with power and seventh chords distinguished. No literal every-chord-is-three-notes rule is adopted."
+    }
+  ]
+}

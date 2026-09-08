@@ -1,5 +1,6 @@
 import source from "./data/beginner-guitar-instruction.json" with { type: "json" };
 import songSource from "./data/song-guitar-instruction.json" with { type: "json" };
+import advancedSource from "./data/advanced-guitar-instruction.json" with { type: "json" };
 import { decodeStageTwoAsset, type StageTwoAsset } from "./stage-two.ts";
 export interface ReferenceString { string: number; name: string; note: string; midi: number; fret: number }
 export type InstructionAsset =
@@ -67,8 +68,8 @@ export interface LessonInstructions {
   assets: InstructionAsset[];
   quiz?: InstructionQuiz;
 }
-const sourceAssets: Record<string, unknown> = { ...songSource.demoAssets, ...source.demoAssets };
-const sourceLessons = [...source.lessons, ...songSource.lessons];
+const sourceAssets: Record<string, unknown> = { ...advancedSource.demoAssets, ...songSource.demoAssets, ...source.demoAssets };
+const sourceLessons = [...source.lessons, ...songSource.lessons, ...advancedSource.lessons];
 export const guidedLessonIds = sourceLessons.map(lesson => lesson.id);
 function numericList(value: unknown): value is number[] { return Array.isArray(value) && value.every(item => typeof item === "number" && Number.isFinite(item)); }
 function stringPositions(value: unknown): value is (number | null)[] { return Array.isArray(value) && value.length === 6 && value.every(item => item === null || (Number.isInteger(item) && item >= 0 && item <= 24)); }

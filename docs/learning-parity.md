@@ -65,13 +65,13 @@ remain inactive through rests. The small cue indicator avoids flashing the
 whole practice surface. It is not an audio-scoring change.
 
 Eight additional checks cover the actual React components' structural output
-and the cue/string/fret behavior. The complete reference inventory includes 74
+and the cue/string/fret behavior. The complete reference inventory includes 90
 chord assets; each fretted position resolves to the written pitch and fits its
 view range. The eight riff references match string 6 and their written frets.
 620 scoped parity/presentation assertions passed. React server rendering does
 not run browser effects or prove keyboard/screen-reader interaction.
 
 The finite pending browser matrix is in `docs/learning-ui-checklist.md`. The
-sibling `browser-qa` folder imports these actual components, including all 81
+sibling `browser-qa` folder imports these actual components, including all 99
 authored lessons and the daily routine, and has no deployment target. Its
 TypeScript configuration and audio-worklet link point to this checkout.

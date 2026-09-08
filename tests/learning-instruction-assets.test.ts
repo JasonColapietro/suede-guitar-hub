@@ -1,10 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import source from "../lib/learning/data/beginner-guitar-instruction.json" with { type: "json" };
+import songs from "../lib/learning/data/song-guitar-instruction.json" with { type: "json" };
+import advanced from "../lib/learning/data/advanced-guitar-instruction.json" with { type: "json" };
 import { getInstructionAsset, getLessonInstructions } from "../lib/learning/instructions.ts";
 
 test("every authored lesson reference and reading question resolves to a typed asset", () => {
-  for (const lesson of source.lessons) {
+  for (const lesson of [...source.lessons, ...songs.lessons, ...advanced.lessons]) {
     const instructions = getLessonInstructions(lesson.id)!;
     assert.deepEqual(instructions.assets.map(asset => asset.id), lesson.demoAssetIds);
     for (const question of instructions.quiz?.items ?? []) if (question.demoAssetId) assert.ok(instructions.assets.some(asset => asset.id === question.demoAssetId));
