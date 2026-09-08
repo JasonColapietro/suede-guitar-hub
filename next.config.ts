@@ -24,6 +24,8 @@ const SECURITY_HEADERS = [
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
+  // Apple verification uses the checked-in public trust anchor at runtime.
+  outputFileTracingIncludes: { "/*": ["./lib/learning-account/AppleRootCA-G3.pem"] },
   poweredByHeader: false,
   async headers() {
     return [
