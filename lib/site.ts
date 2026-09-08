@@ -296,7 +296,7 @@ export const LEARN: readonly SiteEntry[] = [
   },
   {
     href: "/learn/guitar",
-    title: "Learn guitar step by step",
+    title: "Beginner guitar lessons, step by step",
     blurb:
       "The guitar curriculum from the first foundations: a free opening module, guided practice, and browser-local progress.",
     lastModified: "2026-09-04",
