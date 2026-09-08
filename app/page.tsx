@@ -15,10 +15,7 @@ const TOOL_COUNT = (() => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 })();
 
-// Four links, matching components/SiteNav.tsx label for label so the header
-// reads the same on every route. Deliberately capped at four: at the `md`
-// breakpoint this row is brand + links + apply pill inside 720px, and a fifth
-// label pushes the three groups into each other at exactly 768px.
+// Keep navigation labels aligned with SiteNav; Tools jumps to the homepage section.
 const NAV_LINKS = [
   { href: "/learn", label: "Learn" },
   { href: "/practice", label: "Practice" },
@@ -167,23 +164,14 @@ export default function Home() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur">
-        {/* Wraps below md instead of hiding the nav, matching
-            components/SiteNav.tsx: the nav is `w-full order-last`, so it drops
-            to a second row while the brand and the apply pill stay on the
-            first. This page previously hid the nav outright below 768px, which
-            left the site's highest-traffic page with no navigation at all on a
-            phone. Wrapping also makes horizontal overflow structurally
-            impossible; there is no hamburger, no toggle, and no state. */}
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-6 py-4 md:gap-x-6">
-          <a href="#top" className="inline-flex min-h-11 items-center whitespace-nowrap font-display text-2xl font-semibold tracking-wide text-indigo-deep">
+        {/* Match the compact two-row phone header in SiteNav. */}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-2 sm:px-6 sm:py-3 lg:gap-x-6 lg:py-4">
+          <a href="#top" className="inline-flex min-h-11 items-center whitespace-nowrap font-display text-xl font-semibold tracking-wide text-indigo-deep sm:text-2xl">
             GUITARHUB
           </a>
-          {/* gap-x-8 wrapped, gap-6 until lg on one row: at exactly 768px the
-              brand, these links and the apply pill total 709px inside a 720px
-              container, and gap-8 leaves only 6px between the three groups. */}
           <nav
             aria-label="Primary"
-            className="order-last flex w-full flex-wrap items-center gap-x-6 text-sm font-medium text-ink/70 md:order-none md:w-auto lg:gap-x-8"
+            className="order-last flex w-full flex-wrap items-center justify-between gap-x-2 text-sm font-medium text-ink/70 sm:justify-start sm:gap-x-6 lg:order-none lg:w-auto lg:gap-x-8"
           >
             {NAV_LINKS.map((link) => (
               <a key={link.href} href={link.href} className="inline-flex min-h-11 items-center transition hover:text-indigo-deep">
@@ -191,7 +179,7 @@ export default function Home() {
               </a>
             ))}
           </nav>
-          <Link href="/learn/guitar" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-4 py-2.5 text-sm font-semibold text-cream transition hover:bg-indigo-mid md:px-5">Start learning</Link>
+          <Link href="/learn/guitar" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-3 py-2.5 text-xs font-semibold text-cream transition hover:bg-indigo-mid sm:px-4 sm:text-sm lg:px-5">Start learning</Link>
         </div>
       </header>
 
