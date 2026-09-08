@@ -111,7 +111,7 @@ $$;
 -- The route validates every attempt with parseLearningAttempt before this atomic RPC.
 -- Identical retries acknowledge the existing row; a changed duplicate rolls back the batch.
 create function public.guitarhub_append_attempts(p_account_id uuid, p_sync_epoch uuid, p_attempts jsonb)
-returns table (attempt_id uuid, sequence bigint) language plpgsql security invoker set search_path = '' as $$
+returns table (attempt_id uuid, sequence text) language plpgsql security invoker set search_path = '' as $$
 declare attempt jsonb; current_body jsonb; current_id uuid; current_epoch uuid;
 begin
   -- Serializes against reset: an accepted old batch is removed by reset, and a
@@ -130,16 +130,20 @@ begin
     select stored.body into strict current_body from public.guitarhub_attempts stored
       where stored.account_id = p_account_id and stored.attempt_id = current_id;
     if current_body is distinct from attempt then raise exception 'attempt_identity_conflict' using errcode = '23514'; end if;
-    return query select stored.attempt_id, stored.sequence from public.guitarhub_attempts stored
+    return query select stored.attempt_id, stored.sequence::text from public.guitarhub_attempts stored
       where stored.account_id = p_account_id and stored.attempt_id = current_id;
   end loop;
 end;
 $$;
 
-create function public.guitarhub_clear_history(p_account_id uuid) returns uuid
+create function public.guitarhub_clear_history(p_account_id uuid, p_sync_epoch uuid) returns uuid
 language plpgsql security invoker set search_path = '' as $$
-declare next_epoch uuid;
+declare current_epoch uuid; next_epoch uuid;
 begin
+  select sync_epoch into current_epoch from public.guitarhub_account_tokens where account_id = p_account_id for update;
+  if current_epoch is null or current_epoch is distinct from p_sync_epoch then
+    raise exception 'sync_epoch_changed' using errcode = '23514';
+  end if;
   update public.guitarhub_account_tokens set sync_epoch = gen_random_uuid() where account_id = p_account_id returning sync_epoch into next_epoch;
   if next_epoch is null then raise exception 'account_binding_missing' using errcode = '23514'; end if;
   delete from public.guitarhub_attempts where account_id = p_account_id;
@@ -147,6 +151,6 @@ begin
 end;
 $$;
 
-revoke all on function public.guitarhub_get_account_token(uuid), public.guitarhub_record_apple_purchase(uuid, jsonb), public.guitarhub_append_attempts(uuid, uuid, jsonb), public.guitarhub_clear_history(uuid) from public, anon, authenticated;
-grant execute on function public.guitarhub_get_account_token(uuid), public.guitarhub_record_apple_purchase(uuid, jsonb), public.guitarhub_append_attempts(uuid, uuid, jsonb), public.guitarhub_clear_history(uuid) to service_role;
+revoke all on function public.guitarhub_get_account_token(uuid), public.guitarhub_record_apple_purchase(uuid, jsonb), public.guitarhub_append_attempts(uuid, uuid, jsonb), public.guitarhub_clear_history(uuid, uuid) from public, anon, authenticated;
+grant execute on function public.guitarhub_get_account_token(uuid), public.guitarhub_record_apple_purchase(uuid, jsonb), public.guitarhub_append_attempts(uuid, uuid, jsonb), public.guitarhub_clear_history(uuid, uuid) to service_role;
 commit;

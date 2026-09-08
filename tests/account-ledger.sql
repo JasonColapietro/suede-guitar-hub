@@ -53,7 +53,7 @@ begin
   select count(*) into count_rows from public.guitarhub_attempts;
   if count_rows <> 1 then raise exception 'conflicted batch was not atomic'; end if;
   perform public.guitarhub_append_attempts(b,epoch_b,jsonb_build_array(attempt));
-  next_epoch := public.guitarhub_clear_history(a);
+  next_epoch := public.guitarhub_clear_history(a,epoch_a);
   if next_epoch = epoch_a or token_a <> public.guitarhub_get_account_token(a) then raise exception 'history reset changed purchase binding or kept old sync epoch'; end if;
   select count(*) into count_rows from public.guitarhub_apple_purchases where account_id = a;
   if count_rows <> 2 then raise exception 'history reset changed purchases'; end if;
@@ -64,6 +64,12 @@ begin
   select count(*) into count_rows from public.guitarhub_attempts where account_id = a;
   if count_rows <> 0 then raise exception 'reset did not delete history'; end if;
   perform public.guitarhub_append_attempts(a,next_epoch,jsonb_build_array(attempt || '{"id":"d4444444-4444-4444-8444-444444444444"}'));
+  begin
+    perform public.guitarhub_clear_history(a,epoch_a);
+    raise exception 'replayed reset deleted new history';
+  exception when check_violation then null; end;
+  select count(*) into count_rows from public.guitarhub_attempts where account_id = a;
+  if count_rows <> 1 then raise exception 'replayed reset lost new attempts'; end if;
   begin
     update public.guitarhub_attempts set body = body || '{"score":100}';
     raise exception 'attempt update accepted';
@@ -96,7 +102,7 @@ begin
     raise exception 'client selected arbitrary upload account';
   exception when insufficient_privilege then null; end;
   begin
-    perform public.guitarhub_clear_history('a1111111-1111-4111-8111-111111111111');
+    perform public.guitarhub_clear_history('a1111111-1111-4111-8111-111111111111','a1111111-1111-4111-8111-111111111111');
     raise exception 'client invoked another account reset';
   exception when insufficient_privilege then null; end;
   begin

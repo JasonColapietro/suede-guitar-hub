@@ -41,11 +41,33 @@ Before returning shared access, the integration must reconcile existing purchase
 | `guitarhub_get_account_token(p_account_id uuid)` | Stable server-generated binding UUID |
 | `guitarhub_record_apple_purchase(p_account_id uuid, p_purchase jsonb)` | Current purchase row after ownership and event-order checks |
 | `guitarhub_append_attempts(p_account_id uuid, p_sync_epoch uuid, p_attempts jsonb)` | Acknowledged `{attempt_id, sequence}` rows, maximum 100 per atomic batch |
-| `guitarhub_clear_history(p_account_id uuid)` | New sync epoch after deleting GuitarHub attempts; preserves purchase and shared identity |
+| `guitarhub_clear_history(p_account_id uuid, p_sync_epoch uuid)` | New sync epoch after deleting GuitarHub attempts; rejects stale/replayed reset and preserves purchase/shared identity |
 
 `parseLearningAttempt(input, allowedLessons)` validates stable UUIDs, lesson/track correspondence, revision, duration, score and tempo bounds, distinct evidence types, and bounded JSON details. Self-reports and legacy imports cannot become measured scores. Unknown duration remains null. Client timestamps and measured results remain client evidence; they are not proof of purchase or server-certified performance. Derive lesson completion separately against the current exercise revision and actual assessment rules. History reads must use an account-filtered server sequence cursor, not client wall clocks.
 
 Attempts are immutable. Identical retries acknowledge the original row. Reusing an ID with changed evidence fails the entire batch, preventing partial acknowledgement and silent overwrites. Keep local data until the server confirms the matching IDs.
+
+## Disabled HTTP integration
+
+The shell now uses existing-account email codes with `shouldCreateUser: false`. It makes no OAuth callback exchange and does not create accounts. `/auth/email/send` and `/auth/email/verify` accept bounded JSON and always require an exact browser Origin; a Bearer header cannot waive this. Send returns the same response for existing/missing accounts and provider errors, so it does not disclose account existence or assert delivery. Verify checks the provider response and then a fresh, non-anonymous `getUser` result. These routes have only been exercised with provider test doubles; no real emails were sent.
+
+`accountConfiguration` requires the explicit enable flag, exact shared project URL, publishable key and server service-role key. This is a minimum configuration guard, not proof that the schema/provider/deletion setup is ready. `GUITARHUB_ACCOUNTS_ENABLED` remains off until all activation gates below are verified. The account page is not advertised from the learning site.
+
+`getVerifiedLearningAccess()` in `lib/learning-auth/access.ts` provides `{enabled, accountId, tracks, status}` to server-rendered lessons. Status is `disabled`, `signedOut`, `verified`, or `unavailable`. It uses request-scoped React memoization and the same current Apple reconciliation as the access API. Any provider outage returns unavailable and no shared grants. It never caches a grant across requests or reads a purchase flag from browser storage.
+
+| Endpoint | Request | Response |
+| --- | --- | --- |
+| `POST /api/learning/binding` | Verified account; no body required | `{accountId, appAccountToken, syncEpoch}` |
+| `GET /api/learning/access` | Verified account | `{accountId, tracks, environment}` after Apple reconciliation |
+| `POST /api/learning/purchases/apple` | `{accountId, signedTransaction}` and existing server binding | `{accountId, tracks, environment}`; no mutation before signature acceptance |
+| `POST /api/learning/attempts` | `{accountId, syncEpoch, attempts}` | `{accountId, syncEpoch, acknowledged:[{attempt_id, sequence}]}` |
+| `GET /api/learning/attempts?after=0&syncEpoch=...` | Expected epoch required when cursor is nonzero | `{accountId, syncEpoch, attempts, cursor, nextCursor}` |
+| `DELETE /api/learning/attempts` | `{accountId, syncEpoch, confirmation:"DELETE_GUITARHUB_CLOUD_HISTORY"}` | `{accountId, syncEpoch}` with new epoch |
+| `POST /api/learning/notifications/apple` | `{signedPayload}` | `{received:true}` only after verification; unclaimed transactions never assign ownership |
+
+All cursors and sequence acknowledgements are decimal strings, preserving PostgreSQL bigint precision. Reads fetch at most 100 attempts plus one pagination sentinel and check the epoch before and after the query. Error responses contain only `{error:code}` and use private/no-store cache headers. Native bearer requests require fresh Supabase verification; browser writes also require Origin. Invalid/missing sessions are 401, origin errors 403, malformed content 400/413/415, account/epoch/identity conflicts 409 and provider failures 503.
+
+`lib/learning-auth/sync.ts` contains pure web adapters for future lesson records, scoped queues, uploads, acknowledgements and received pages. They do not read storage or perform network I/O. Every queued attempt has an account and sync epoch. Re-read the live current account/epoch **after** an awaited request before accepting its response; a captured request scope is insufficient. Quarantine stale queue data rather than retagging it. Non-UUID historical IDs require explicit persisted import mapping and never enter automatic upload. Routine/tool histories remain in their existing local stores until their own typed migration and sync contract is implemented.
 
 ## Deletion boundary
 
@@ -55,6 +77,7 @@ Deleting `auth.users` externally cascades GuitarHub attempts and binding rows; p
 
 ## Validation
 
+- The disabled HTTP/auth/sync integration passed 32 account tests, scoped ESLint with no warnings and a full TypeScript check. Handler tests use the production handler functions with isolated provider dependencies; no real emails, accounts or purchases are generated. They cover fresh non-anonymous identity, body/account conflicts, rejected signatures without writes, old refund precedence, epoch-safe reads/reset, exact bigint cursors and scoped queue acknowledgements.
 - Eleven Node tests exercise contract validation, account switching/reset, evidence separation, environment access, unsupported/legacy purchases, and actual official-library rejection of unsigned JWS and untrusted roots.
 - `bash tests/account-ledger.sh` starts a disposable local PostgreSQL database on a Unix socket, disables TCP, applies the SQL proposal, and exercises real RLS/permissions, atomic batches, duplicate and conflicting purchases/attempts, out-of-order refunds, environment separation, and account deletion. It does not use a production connection.
 - The first run passed on PostgreSQL 16.14. Hosted Supabase 17 migration/API tests and an Apple-signed positive purchase/notification flow remain required before activation. Test fixtures are synthetic and do not prove a real production purchase.
