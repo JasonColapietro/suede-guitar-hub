@@ -2013,7 +2013,7 @@
               "title": "Checkpoint: Major and Minor at Five Positions",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Called at random by fret number."
+              "summary": "Use self-shuffled fret-and-quality prompts and check every intended string."
             }
           ]
         },
@@ -2031,7 +2031,7 @@
               "title": "The Second Movable Shape",
               "type": "concept",
               "minutes": 4,
-              "summary": "Why two shapes cover every chord on the neck."
+              "summary": "Use a fifth-string-root major grip alongside the sixth-string-root family."
             },
             {
               "id": "g-l6-m2-05",
@@ -2045,7 +2045,7 @@
               "title": "Checkpoint: One-Four-Five, Both Shapes",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Three keys, minimum hand movement."
+              "summary": "Play three keys with the specified nearby E- and A-shape roots."
             }
           ]
         },
@@ -2070,7 +2070,7 @@
               "title": "Connect Three Positions",
               "type": "exercise",
               "minutes": 7,
-              "summary": "Shift on the string, not on the beat."
+              "summary": "Connect the written three-position route while keeping each shift inside the pulse."
             },
             {
               "id": "g-l6-m3-08",
@@ -2102,14 +2102,14 @@
               "title": "Target the Third",
               "type": "exercise",
               "minutes": 7,
-              "summary": "Land on the third of each chord as it arrives. The single fastest upgrade to a solo."
+              "summary": "Practise landing each chord’s third on its arrival, then connect the targets with short phrases."
             },
             {
               "id": "g-l6-m4-08",
               "title": "Checkpoint: Eight Bars, Chord Tones Landed",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Measured on chord-tone arrival, not note count."
+              "summary": "Self-review an eight-bar take for all four planned chord-tone arrivals and intact form."
             }
           ]
         },
@@ -2134,14 +2134,14 @@
               "title": "Four Notes From Audio",
               "type": "exercise",
               "minutes": 7,
-              "summary": "Short phrases, loop enabled, no notation shown."
+              "summary": "Hear a helper repeat an original four-note prompt while its answer stays out of view."
             },
             {
               "id": "g-l6-m5-08",
               "title": "Checkpoint: Four Bars Transcribed",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Ninety percent of notes and rhythms correct."
+              "summary": "Use an accurate unseen helper performance; compare the first transcript’s pitch and rhythm separately against ninety percent."
             }
           ]
         },
@@ -2159,7 +2159,7 @@
               "title": "Sixteenths and the Space Between",
               "type": "concept",
               "minutes": 5,
-              "summary": "Syncopation is defined by the notes you do not play."
+              "summary": "Keep sixteenth subdivisions moving while selected off-beat attacks sustain across unplayed downbeats."
             },
             {
               "id": "g-l6-m6-05",
@@ -2173,7 +2173,7 @@
               "title": "Checkpoint: Twenty-Four Bars at One Hundred",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Pattern intact, no drift."
+              "summary": "Self-review the complete written pattern for twenty-four bars at one hundred BPM, including off-beat sustains."
             }
           ]
         }

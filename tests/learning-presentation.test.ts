@@ -46,7 +46,7 @@ test('all native chord diagrams retain exact string pitches and every fretted do
       else { assert.ok(fret >= range.first && fret <= range.last, `${id}: fret out of view`); assert.ok(asset.fingers[index]! >= 1 && asset.fingers[index]! <= 4, `${id}: invalid finger`); }
     });
   }
-  assert.equal(chordCount, 90, 'nonempty full reference inventory');
+  assert.equal(chordCount, 105, 'nonempty full reference inventory');
 });
 test('the riff references match the physical string and written frets in every slot', () => {
   const riff = getInstructionAsset('stage2-first-riff');
