@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "authored_for_integration",
-  "scope": "All eighteen actual Level 5 Barre Line lessons: The F Problem, Power Chords, Twelve Bars, First Solo, Bend and Vibrato, and Triads and Chords in Keys.",
+  "scope": "All thirty-six actual Level 5 Barre Line and Level 6 Whole Neck lessons, with original written material and explicit self-assessment.",
   "authoredDate": "2026-09-08",
   "sourceCatalog": "GuitarHubCore/Sources/GuitarHubCore/Resources/guitar.json",
   "instructionConventions": {
@@ -9,7 +9,7 @@
     "stringNumbers": "String 6 is thick low E; string 1 is thin high E. Shape strings are always listed 6 to 1. x means exclude and mute; 0 means open.",
     "fretNumbers": "A fret number names the space ending at that fret wire toward the body. Place just behind the wire within that space, not on top of it.",
     "practiceTiming": "Segment durations sum to catalog minutes and are suggested attention blocks, including rests. They are not deadlines for competence or continuous grip requirements.",
-    "evidence": "All eighteen lessons lack a catalog practiceSpec. Technique, form recall, improvisation, chord naming and playing judgments are self-reported. A numeric bend result requires the described actual external observation and remains learner-reported; listening and synthesized references never create measured evidence.",
+    "evidence": "All thirty-six Level 5 and Level 6 lessons lack a catalog practiceSpec. Their form, fingering, chord clarity, improvisation, transcription and exact-tempo claims are self-reported. Synthesized references and elapsed practice time never create measured performance evidence.",
     "referenceAudio": "Existing reference controls synthesize individual pitches. They are not guitar recordings, a chord-quality score or an automatic backing track. Stop them before checking a learner performance.",
     "comfort": "Use short supported attempts and release between them. Stop for pain or persistent discomfort. Never force a bend, an extreme stretch, or one hand, thumb or elbow angle.",
     "metronome": "Use a separate metronome while keeping the written map visible. If using the iOS Practice metronome, copy the bar map first; its sheet stops on dismissal. No in-lesson metronome or synchronized transport is asserted for these guided lessons."
@@ -193,7 +193,170 @@
           "preserveSourceTitle": true
         }
       }
-    ]
+    ],
+    "wholeNeck": {
+      "summary": "Merge by unique stable IDs after review. Keep this batch’s integration notes separate from the prior Level 5 notes. No source, apparatus or measured assessment is implemented by this file.",
+      "recommendedLessonOrder": [
+        "g-l6-m1-01",
+        "g-l6-m1-02",
+        "g-l6-m1-08",
+        "g-l6-m2-01",
+        "g-l6-m2-05",
+        "g-l6-m2-08",
+        "g-l6-m3-01",
+        "g-l6-m3-03",
+        "g-l6-m3-08",
+        "g-l6-m4-01",
+        "g-l6-m4-04",
+        "g-l6-m4-08",
+        "g-l6-m5-01",
+        "g-l6-m5-03",
+        "g-l6-m5-08",
+        "g-l6-m6-01",
+        "g-l6-m6-05",
+        "g-l6-m6-08"
+      ],
+      "externalAssetDependencies": [
+        {
+          "id": "l3-c-chord",
+          "source": "beginner-guitar-instruction.json"
+        },
+        {
+          "id": "l3-em-chord",
+          "source": "beginner-guitar-instruction.json"
+        },
+        {
+          "id": "l3-g-chord",
+          "source": "beginner-guitar-instruction.json"
+        },
+        {
+          "id": "stage2-d-chord",
+          "source": "beginner-guitar-instruction.json"
+        }
+      ],
+      "rendererContract": "Uses only chord_diagram_and_reference_tones, instruction_diagram and single_string_riff. Five scale views are executable numbered text maps; position metadata and event lists support validation, not a new renderer or score.",
+      "musicalProtocols": {
+        "barres": "Five E-shape roots F/G/A/B/C, major and minor, ten full six-string responses. A-shape I–IV–V routes use G/A/C with two-fret root spans.",
+        "scale": "One G-major collection in E/D/C/A/G CAGED regions; explicit sixteen-note/four-bar route connects E/D/C hand regions at the catalog 100-BPM goal.",
+        "arrivals": "Eight bars G,G,Em,Em,C,C,D,D. Four arrivals at bar 1/3/5/7, each declared chord root/third/fifth on beat 1, held at least one beat. Exercise specifically targets thirds.",
+        "transcription": "Original helper-performed twenty-event phrase across four bars. First answer needs at least 18/20 pitch and 18/20 onset-plus-duration separately. No fresh score after reading the key or from uncertain helper audio.",
+        "rhythm": "Original six-contact cell at offsets 0,.75,1.5,2,2.75,3.5 per four-beat bar. Twenty-four-bar original Em/C/G/D form produces 144 contacts; 100 BPM is the existing goal."
+      },
+      "catalogCorrections": [
+        {
+          "lessonId": "g-l6-m1-08",
+          "expected": {
+            "summary": "Called at random by fret number."
+          },
+          "set": {
+            "summary": "Use self-shuffled fret-and-quality prompts and check every intended string."
+          }
+        },
+        {
+          "lessonId": "g-l6-m2-01",
+          "expected": {
+            "summary": "Why two shapes cover every chord on the neck."
+          },
+          "set": {
+            "summary": "Use a fifth-string-root major grip alongside the sixth-string-root family."
+          }
+        },
+        {
+          "lessonId": "g-l6-m2-08",
+          "expected": {
+            "summary": "Three keys, minimum hand movement."
+          },
+          "set": {
+            "summary": "Play three keys with the specified nearby E- and A-shape roots."
+          }
+        },
+        {
+          "lessonId": "g-l6-m3-03",
+          "expected": {
+            "summary": "Shift on the string, not on the beat."
+          },
+          "set": {
+            "summary": "Connect the written three-position route while keeping each shift inside the pulse."
+          }
+        },
+        {
+          "lessonId": "g-l6-m4-04",
+          "expected": {
+            "summary": "Land on the third of each chord as it arrives. The single fastest upgrade to a solo."
+          },
+          "set": {
+            "summary": "Practise landing each chord’s third on its arrival, then connect the targets with short phrases."
+          }
+        },
+        {
+          "lessonId": "g-l6-m4-08",
+          "expected": {
+            "summary": "Measured on chord-tone arrival, not note count."
+          },
+          "set": {
+            "summary": "Self-review an eight-bar take for all four planned chord-tone arrivals and intact form."
+          }
+        },
+        {
+          "lessonId": "g-l6-m5-03",
+          "expected": {
+            "summary": "Short phrases, loop enabled, no notation shown."
+          },
+          "set": {
+            "summary": "Hear a helper repeat an original four-note prompt while its answer stays out of view."
+          }
+        },
+        {
+          "lessonId": "g-l6-m5-08",
+          "expected": {
+            "summary": "Ninety percent of notes and rhythms correct."
+          },
+          "set": {
+            "summary": "Use an accurate unseen helper performance; compare the first transcript’s pitch and rhythm separately against ninety percent."
+          }
+        },
+        {
+          "lessonId": "g-l6-m6-01",
+          "expected": {
+            "summary": "Syncopation is defined by the notes you do not play."
+          },
+          "set": {
+            "summary": "Keep sixteenth subdivisions moving while selected off-beat attacks sustain across unplayed downbeats."
+          }
+        },
+        {
+          "lessonId": "g-l6-m6-08",
+          "expected": {
+            "summary": "Pattern intact, no drift."
+          },
+          "set": {
+            "summary": "Self-review the complete written pattern for twenty-four bars at one hundred BPM, including off-beat sustains."
+          }
+        }
+      ],
+      "missingRuntimeNotClaimed": [
+        "Automatic random fret/quality calls",
+        "Full synthesized phrase performance with notation hidden and source repeats",
+        "Automatic transcription capture/scoring",
+        "Backing timelines for the new chord maps",
+        "Chord-tone arrival recognition or hand-position detection",
+        "Scoring of the new sixteenth pattern or scale route"
+      ],
+      "fallbackValidity": "Helper-based transcription requires an accurate unseen source and preserved first answer; without these, use familiar-source practice without a fresh accuracy claim. Improvisation without actual accompaniment is click-only preparation. Per-note synthesized playback and elapsed metronome time never establish performance.",
+      "copyrightAndSourceBoundary": "All prose, patterns, voicings, phrase protocols and complete original studies are authored for GuitarHub. No commercial song tab/audio or private competitor implementation is reused. Public methods inform teaching conventions only.",
+      "releaseBoundary": "Parent must merge both loaders, resolve existing asset dependencies, apply truthful catalog corrections, verify native/web equality and rendered routes, and preserve self-reported evidence. Staging does not publish these lessons.",
+      "level5AssetDependencies": [],
+      "batchConventions": {
+        "handNames": "Use picking hand and fretting hand; string numbers remain unchanged for handedness.",
+        "stringNumbers": "String 6 is thick low E; string 1 is thin high E. Chord arrays run 6 to 1. X means excluded; zero means open.",
+        "fretNumbers": "Place fretting contact just behind the relevant fret wire within the numbered space; do not interpret a fret number as a scale degree.",
+        "practiceTiming": "Segment durations are suggested attention blocks including rests and review, not competence deadlines or continuous-grip requirements.",
+        "evidence": "These eighteen catalog lessons have no practiceSpec. Their form, fingering, chord clarity, improvisation, transcription and exact-tempo claims are self-reported/manual; no measured pass is synthesized.",
+        "referenceAudio": "Existing reference buttons supply isolated synthesized pitches, not performed guitar phrases, blind audio tests or accompaniment. Stop reference sound before evaluating the learner.",
+        "tools": "Use a separate quarter-note metronome while viewing a written map. If opening a native metronome sheet, copy the map first; no background continuity or new lesson control is promised.",
+        "comfort": "Use brief supported grips, release between attempts and stop for pain or persistent discomfort. Shift the whole hand instead of forcing a wide stretch."
+      }
+    }
   },
   "demoAssets": {
     "advanced-partial-f": {
@@ -934,6 +1097,1497 @@
         59,
         62,
         66
+      ]
+    },
+    "l6-e-shape-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F major — E-shape barre",
+      "description": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Middle frets string 3 at 2 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Middle frets string 3 at 2 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        1,
+        3,
+        3,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        41,
+        48,
+        53,
+        57,
+        60,
+        65
+      ]
+    },
+    "l6-e-shape-fm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F minor — E-shape barre",
+      "description": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Index also sounds string 3 at 1 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Index also sounds string 3 at 1 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        1,
+        3,
+        3,
+        1,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        41,
+        48,
+        53,
+        56,
+        60,
+        65
+      ]
+    },
+    "l6-e-shape-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major — E-shape barre",
+      "description": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Middle frets string 3 at 4 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Middle frets string 3 at 4 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        3,
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50,
+        55,
+        59,
+        62,
+        67
+      ]
+    },
+    "l6-e-shape-gm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G minor — E-shape barre",
+      "description": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Index also sounds string 3 at 3 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Index also sounds string 3 at 3 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        3,
+        5,
+        5,
+        3,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50,
+        55,
+        58,
+        62,
+        67
+      ]
+    },
+    "l6-e-shape-a": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A major — E-shape barre",
+      "description": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Middle frets string 3 at 6 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Middle frets string 3 at 6 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        5,
+        7,
+        7,
+        6,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64,
+        69
+      ]
+    },
+    "l6-e-shape-am": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A minor — E-shape barre",
+      "description": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Index also sounds string 3 at 5 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Index also sounds string 3 at 5 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        5,
+        7,
+        7,
+        5,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64,
+        69
+      ]
+    },
+    "l6-e-shape-b": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "B major — E-shape barre",
+      "description": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Middle frets string 3 at 8 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Middle frets string 3 at 8 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        7,
+        9,
+        9,
+        8,
+        7,
+        7
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        47,
+        54,
+        59,
+        63,
+        66,
+        71
+      ]
+    },
+    "l6-e-shape-bm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "B minor — E-shape barre",
+      "description": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Index also sounds string 3 at 7 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Index also sounds string 3 at 7 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        7,
+        9,
+        9,
+        7,
+        7,
+        7
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        47,
+        54,
+        59,
+        62,
+        66,
+        71
+      ]
+    },
+    "l6-e-shape-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major — E-shape barre",
+      "description": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Middle frets string 3 at 9 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Middle frets string 3 at 9 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        8,
+        10,
+        10,
+        9,
+        8,
+        8
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60,
+        64,
+        67,
+        72
+      ]
+    },
+    "l6-e-shape-cm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C minor — E-shape barre",
+      "description": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Index also sounds string 3 at 8 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Index also sounds string 3 at 8 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        8,
+        10,
+        10,
+        8,
+        8,
+        8
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60,
+        63,
+        67,
+        72
+      ]
+    },
+    "l6-a-shape-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 3; middle, ring and little fingers fret strings 4,3,2 at 5. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 3; middle, ring and little fingers fret strings 4,3,2 at 5. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        3,
+        5,
+        5,
+        5,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60,
+        64,
+        67
+      ]
+    },
+    "l6-a-shape-d": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 5; middle, ring and little fingers fret strings 4,3,2 at 7. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 5; middle, ring and little fingers fret strings 4,3,2 at 7. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        5,
+        7,
+        7,
+        7,
+        5
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66,
+        69
+      ]
+    },
+    "l6-a-shape-e": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 7; middle, ring and little fingers fret strings 4,3,2 at 9. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 7; middle, ring and little fingers fret strings 4,3,2 at 9. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        7,
+        9,
+        9,
+        9,
+        7
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        52,
+        59,
+        64,
+        68,
+        71
+      ]
+    },
+    "l6-a-shape-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 8; middle, ring and little fingers fret strings 4,3,2 at 10. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 8; middle, ring and little fingers fret strings 4,3,2 at 10. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        8,
+        10,
+        10,
+        10,
+        8
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        60,
+        65,
+        69,
+        72
+      ]
+    },
+    "l6-a-shape-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 10; middle, ring and little fingers fret strings 4,3,2 at 12. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 10; middle, ring and little fingers fret strings 4,3,2 at 12. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        10,
+        12,
+        12,
+        12,
+        10
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        55,
+        62,
+        67,
+        71,
+        74
+      ]
+    },
+    "l6-e-barre-check": {
+      "kind": "instruction_diagram",
+      "name": "Five roots, two qualities",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Positions",
+          "action": "String 6 roots: fret 1 F; fret 3 G; fret 5 A; fret 7 B; fret 8 C. Check E-shape major and minor at every position: ten separate shape-and-quality responses."
+        },
+        {
+          "number": 2,
+          "label": "One response",
+          "action": "Start released. Read or hear a fret and quality, name the chord, form it, pick strings 6 through 1 separately, strum, then mute and release. All six intended strings must ring; a repaired held grip is practice before a new fresh response."
+        },
+        {
+          "number": 3,
+          "label": "Mix the prompts",
+          "action": "Write the ten fret/quality pairs on slips and shuffle them yourself, or have a partner mix them. Every pair appears once. GuitarHub does not supply an automatic random caller."
+        },
+        {
+          "number": 4,
+          "label": "Keep the evidence",
+          "action": "Record which root, quality or string failed. A full self-check contains all ten fresh responses, with no substitution of easier positions or four-string shapes."
+        }
+      ]
+    },
+    "l6-crossings-piece": {
+      "kind": "instruction_diagram",
+      "name": "Crossings — original sixteen-bar barre piece",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Voicings and pulse",
+          "action": "Use G major as an E-shape barre at fret 3; C and D major as A-shape barres at frets 3 and 5. In 4/4, play downstrokes on beats 1 and 3, sustaining each for two beats. Use a separate metronome around 60 BPM; no automatic backing track is supplied."
+        },
+        {
+          "number": 2,
+          "label": "Bars 1–4",
+          "action": "Bar 1 G; bar 2 G; bar 3 C; bar 4 C. Every chord label occupies a whole four-beat bar."
+        },
+        {
+          "number": 3,
+          "label": "Bars 5–8",
+          "action": "Bar 5 G; bar 6 G; bar 7 D; bar 8 D."
+        },
+        {
+          "number": 4,
+          "label": "Bars 9–12",
+          "action": "Bar 9 C; bar 10 D; bar 11 G; bar 12 G."
+        },
+        {
+          "number": 5,
+          "label": "Bars 13–16",
+          "action": "Bar 13 C; bar 14 D; bar 15 G; bar 16 G. Make both attacks in the final bar and mute at the next bar line; no added ending chord."
+        },
+        {
+          "number": 6,
+          "label": "Full form",
+          "action": "Count in for four beats, then play all sixteen bars in order: 32 attacks. Use a small pressure release just before a change, keeping time and avoiding an open-string sweep. A restart or skipped bar makes the take interrupted."
+        }
+      ]
+    },
+    "l6-nearby-keys": {
+      "kind": "instruction_diagram",
+      "name": "Nearby I–IV–V roots in three major keys",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "G major",
+          "action": "I = G, E-shape root on string 6 fret 3. IV = C, A-shape root on string 5 fret 3. V = D, A-shape root on string 5 fret 5. Return to G at fret 3."
+        },
+        {
+          "number": 2,
+          "label": "A major",
+          "action": "I = A, E-shape root on string 6 fret 5. IV = D, A-shape root on string 5 fret 5. V = E, A-shape root on string 5 fret 7. Return to A at fret 5."
+        },
+        {
+          "number": 3,
+          "label": "C major",
+          "action": "I = C, E-shape root on string 6 fret 8. IV = F, A-shape root on string 5 fret 8. V = G, A-shape root on string 5 fret 10. Return to C at fret 8."
+        },
+        {
+          "number": 4,
+          "label": "Practice form",
+          "action": "One four-beat bar each: I, IV, V, I. Begin with one downstroke on beat 1 and count the other three beats. The roots use a two-fret span within each key; this is a defined nearby route, not proof of the globally smallest movement."
+        }
+      ]
+    },
+    "l6-g-major-five-views": {
+      "kind": "instruction_diagram",
+      "name": "Five CAGED-region views of G major",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "One note collection",
+          "action": "All five views contain G,A,B,C,D,E,F#. They follow the overlapping CAGED chord-form regions E,D,C,A,G up this part of the neck. They are maps, not five different keys, five full-scale performances, or a requirement to hold one finger across a whole window."
+        },
+        {
+          "number": 2,
+          "label": "E view",
+          "action": "E view, frets 2–5. String 6: 2(F#), 3(G), 5(A); String 5: 2(B), 3(C), 5(D); String 4: 2(E), 4(F#), 5(G); String 3: 2(A), 4(B), 5(C); String 2: 3(D), 5(E); String 1: 2(F#), 3(G), 5(A). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 3,
+          "label": "D view",
+          "action": "D view, frets 4–8. String 6: 5(A), 7(B), 8(C); String 5: 5(D), 7(E); String 4: 4(F#), 5(G), 7(A); String 3: 4(B), 5(C), 7(D); String 2: 5(E), 7(F#), 8(G); String 1: 5(A), 7(B), 8(C). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 4,
+          "label": "C view",
+          "action": "C view, frets 7–10. String 6: 7(B), 8(C), 10(D); String 5: 7(E), 9(F#), 10(G); String 4: 7(A), 9(B), 10(C); String 3: 7(D), 9(E); String 2: 7(F#), 8(G), 10(A); String 1: 7(B), 8(C), 10(D). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 5,
+          "label": "A view",
+          "action": "A view, frets 9–12. String 6: 10(D), 12(E); String 5: 9(F#), 10(G), 12(A); String 4: 9(B), 10(C), 12(D); String 3: 9(E), 11(F#), 12(G); String 2: 10(A), 12(B); String 1: 10(D), 12(E). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 6,
+          "label": "G view",
+          "action": "G view, frets 12–15. String 6: 12(E), 14(F#), 15(G); String 5: 12(A), 14(B), 15(C); String 4: 12(D), 14(E); String 3: 12(G), 14(A); String 2: 12(B), 13(C), 15(D); String 1: 12(E), 14(F#), 15(G). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 7,
+          "label": "Find roots and overlaps",
+          "action": "Locate G at string 6 fret 3, string 4 fret 5, string 2 fret 8, string 5 fret 10, string 3 fret 12 and string 1 fret 15. A note appearing in two neighbouring views is the same pitch location; use it to connect the maps."
+        }
+      ],
+      "positions": [
+        {
+          "name": "E view",
+          "firstFret": 2,
+          "lastFret": 5,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                2,
+                3,
+                5
+              ],
+              "midi": [
+                42,
+                43,
+                45
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                2,
+                3,
+                5
+              ],
+              "midi": [
+                47,
+                48,
+                50
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                2,
+                4,
+                5
+              ],
+              "midi": [
+                52,
+                54,
+                55
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                2,
+                4,
+                5
+              ],
+              "midi": [
+                57,
+                59,
+                60
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                3,
+                5
+              ],
+              "midi": [
+                62,
+                64
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                2,
+                3,
+                5
+              ],
+              "midi": [
+                66,
+                67,
+                69
+              ]
+            }
+          ]
+        },
+        {
+          "name": "D view",
+          "firstFret": 4,
+          "lastFret": 8,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                5,
+                7,
+                8
+              ],
+              "midi": [
+                45,
+                47,
+                48
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                5,
+                7
+              ],
+              "midi": [
+                50,
+                52
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                4,
+                5,
+                7
+              ],
+              "midi": [
+                54,
+                55,
+                57
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                4,
+                5,
+                7
+              ],
+              "midi": [
+                59,
+                60,
+                62
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                5,
+                7,
+                8
+              ],
+              "midi": [
+                64,
+                66,
+                67
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                5,
+                7,
+                8
+              ],
+              "midi": [
+                69,
+                71,
+                72
+              ]
+            }
+          ]
+        },
+        {
+          "name": "C view",
+          "firstFret": 7,
+          "lastFret": 10,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                7,
+                8,
+                10
+              ],
+              "midi": [
+                47,
+                48,
+                50
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                7,
+                9,
+                10
+              ],
+              "midi": [
+                52,
+                54,
+                55
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                7,
+                9,
+                10
+              ],
+              "midi": [
+                57,
+                59,
+                60
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                7,
+                9
+              ],
+              "midi": [
+                62,
+                64
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                7,
+                8,
+                10
+              ],
+              "midi": [
+                66,
+                67,
+                69
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                7,
+                8,
+                10
+              ],
+              "midi": [
+                71,
+                72,
+                74
+              ]
+            }
+          ]
+        },
+        {
+          "name": "A view",
+          "firstFret": 9,
+          "lastFret": 12,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                10,
+                12
+              ],
+              "midi": [
+                50,
+                52
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                9,
+                10,
+                12
+              ],
+              "midi": [
+                54,
+                55,
+                57
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                9,
+                10,
+                12
+              ],
+              "midi": [
+                59,
+                60,
+                62
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                9,
+                11,
+                12
+              ],
+              "midi": [
+                64,
+                66,
+                67
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                10,
+                12
+              ],
+              "midi": [
+                69,
+                71
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                10,
+                12
+              ],
+              "midi": [
+                74,
+                76
+              ]
+            }
+          ]
+        },
+        {
+          "name": "G view",
+          "firstFret": 12,
+          "lastFret": 15,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                12,
+                14,
+                15
+              ],
+              "midi": [
+                52,
+                54,
+                55
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                12,
+                14,
+                15
+              ],
+              "midi": [
+                57,
+                59,
+                60
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                12,
+                14
+              ],
+              "midi": [
+                62,
+                64
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                12,
+                14
+              ],
+              "midi": [
+                67,
+                69
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                12,
+                13,
+                15
+              ],
+              "midi": [
+                71,
+                72,
+                74
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                12,
+                14,
+                15
+              ],
+              "midi": [
+                76,
+                78,
+                79
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "l6-three-position-route": {
+      "kind": "single_string_riff",
+      "title": "Three-position G-major connection",
+      "provenance": "Original GuitarHub instructional note sequence; isolated synthesized pitch references, not a commercial-song transcription or full audio performance.",
+      "stringNumber": 1,
+      "frets": [
+        3,
+        5,
+        7,
+        8,
+        10,
+        8,
+        7,
+        5,
+        3,
+        5,
+        7,
+        8,
+        10,
+        8,
+        7,
+        3
+      ],
+      "midi": [
+        67,
+        69,
+        71,
+        72,
+        74,
+        72,
+        71,
+        69,
+        67,
+        69,
+        71,
+        72,
+        74,
+        72,
+        71,
+        67
+      ],
+      "tabText": "e | 3 5 7 8 | 10 8 7 5 | 3 5 7 8 | 10 8 7 3 |",
+      "instruction": "Four bars, one note per quarter-note beat. Follow the separate hand-position guide; the reference cells play individual notes only. Actual 100 BPM is the later checkpoint target, not the default speed of these buttons."
+    },
+    "l6-position-route-guide": {
+      "kind": "instruction_diagram",
+      "name": "Route timing and hand positions",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "First move",
+          "action": "Bar 1: frets 3,5,7,8. Play 3 with middle and 5 with little finger in the E view; then move the hand into the D view for ring on 7 and little on 8. One note on each beat."
+        },
+        {
+          "number": 2,
+          "label": "Second move",
+          "action": "Bar 2: frets 10,8,7,5. Move into the C view for little on 10, middle on 8, index on 7; return to the E view for little on 5. Shift pressure lightly between attacks without adding a beat."
+        },
+        {
+          "number": 3,
+          "label": "Repeat and finish",
+          "action": "Bar 3 repeats bar 1. Bar 4: frets 10,8,7,3, using the C-view fingering for 10,8,7, then the E-view middle finger on 3. Sustain that final G for its beat and mute at the next bar line."
+        },
+        {
+          "number": 4,
+          "label": "Check the whole route",
+          "action": "Four count-in beats precede the sixteen quarter-note attacks. In practice, isolate each shift slowly; in a full take, keep all four beats in each bar. The app does not detect the hand position or score this connection."
+        }
+      ]
+    },
+    "l6-eight-bar-arrivals": {
+      "kind": "instruction_diagram",
+      "name": "Eight-bar G-major improvisation map",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "The accompaniment",
+          "action": "Use a partner or your own separate recording for eight bars of 4/4: G,G,Em,Em,C,C,D,D. Each chord lasts two bars. No backing track or automatic arrival detector is supplied in this lesson."
+        },
+        {
+          "number": 2,
+          "label": "Chord-tone choices",
+          "action": "G contains G,B,D; Em contains E,G,B; C contains C,E,G; D contains D,F#,A. These all belong to G major. Choose one destination tone before each new chord."
+        },
+        {
+          "number": 3,
+          "label": "Thirds route",
+          "action": "For the specific third-target exercise, land B4 at bar 1, G4 at bar 3, E4 at bar 5 and F#4 at bar 7. On string 1 these are frets 7,3,0,2."
+        },
+        {
+          "number": 4,
+          "label": "Make the arrival audible",
+          "action": "Sound the destination on beat 1 of its arrival bar and hold it for at least that first beat. Use the remaining time for a short phrase or planned silence; do not stop counting."
+        },
+        {
+          "number": 5,
+          "label": "Eight-bar check",
+          "action": "One full take includes all eight bars and all four planned arrivals at bars 1,3,5,7. The checkpoint permits a root, third or fifth of each chord; state your choices before the take. Finish by the end of bar 8 without a restart."
+        }
+      ]
+    },
+    "l6-third-note-reference": {
+      "kind": "single_string_riff",
+      "title": "Thirds of G, Em, C and D",
+      "provenance": "Original GuitarHub instructional note sequence; isolated synthesized pitch references, not a commercial-song transcription or full audio performance.",
+      "stringNumber": 1,
+      "frets": [
+        7,
+        3,
+        0,
+        2
+      ],
+      "midi": [
+        71,
+        67,
+        64,
+        66
+      ],
+      "tabText": "e | 7(B) | 3(G) | 0(E) | 2(F#) |",
+      "instruction": "These are four reference destinations, not a four-beat performance: B is G’s third, G is Em’s third, E is C’s third, F# is D’s third. In the eight-bar map they arrive at bars 1,3,5,7 respectively."
+    },
+    "l6-ear-four-notes-helper": {
+      "kind": "instruction_diagram",
+      "name": "Helper-only four-note ear prompt",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Learner preparation",
+          "action": "Learner: look away before the helper reads the next panel. Use a guitar-playing helper and a separate click around 60 BPM. The learner hears the notes without seeing frets or note names; the app does not provide hidden-answer phrase audio."
+        },
+        {
+          "number": 2,
+          "label": "Helper answer key",
+          "action": "Helper only: play string 1 frets 3,5,7,3, one quarter note each, after four count-in beats. Pitches are G4,A4,B4,G4. Repeat the same four-note phrase on request; do not change the order or show your hand to the learner."
+        },
+        {
+          "number": 3,
+          "label": "Compare after the attempt",
+          "action": "Keep the learner’s first written four-note answer before revealing the key. Compare the sounded notes and their one-beat durations. If the learner saw the key beforehand, label the exercise familiar-phrase practice, not fresh transcription."
+        }
+      ]
+    },
+    "l6-ear-four-bars-helper": {
+      "kind": "instruction_diagram",
+      "name": "Helper-only original four-bar transcription phrase",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Learner preparation",
+          "action": "Learner: do not read the helper answer panels before writing your first complete transcription. The helper should read them while you look away, then perform the exact original phrase at a comfortable, unchanged tempo. No blind audio playback is supplied by the app."
+        },
+        {
+          "number": 2,
+          "label": "Helper bar 1",
+          "action": "Helper only, bar 1: event 1: string 1 fret 3 (G4), onset 1, length 0.5 beats; event 2: string 1 fret 5 (A4), onset 1&, length 0.5 beats; event 3: string 1 fret 7 (B4), onset 2, length 1 beat; event 4: string 1 fret 10 (D5), onset 3, length 1 beat; event 5: string 1 fret 7 (B4), onset 4, length 1 beat."
+        },
+        {
+          "number": 3,
+          "label": "Helper bar 2",
+          "action": "Helper only, bar 2: event 6: string 1 fret 5 (A4), onset 1, length 1 beat; event 7: string 1 fret 7 (B4), onset 2, length 1 beat; event 8: string 1 fret 8 (C5), onset 3, length 0.5 beats; event 9: string 1 fret 7 (B4), onset 3&, length 0.5 beats; event 10: string 1 fret 5 (A4), onset 4, length 1 beat."
+        },
+        {
+          "number": 4,
+          "label": "Helper bar 3",
+          "action": "Helper only, bar 3: event 11: string 1 fret 3 (G4), onset 1, length 0.5 beats; event 12: string 1 fret 7 (B4), onset 1&, length 0.5 beats; event 13: string 1 fret 10 (D5), onset 2, length 1 beat; event 14: string 1 fret 8 (C5), onset 3, length 1 beat; event 15: string 1 fret 7 (B4), onset 4, length 1 beat."
+        },
+        {
+          "number": 5,
+          "label": "Helper bar 4",
+          "action": "Helper only, bar 4: event 16: string 1 fret 5 (A4), onset 1, length 1 beat; event 17: string 1 fret 8 (C5), onset 2, length 1 beat; event 18: string 1 fret 7 (B4), onset 3, length 0.5 beats; event 19: string 1 fret 5 (A4), onset 3&, length 0.5 beats; event 20: string 1 fret 3 (G4), onset 4, length 1 beat."
+        },
+        {
+          "number": 6,
+          "label": "Helper playback rule",
+          "action": "All four bars are in 4/4 and total sixteen beats. Give four count-in beats, then play the twenty events with the written durations and no extra ornament. Repeat the full phrase or one requested bar accurately; if the helper’s performance was uncertain, do not assign an accuracy percentage."
+        }
+      ],
+      "referenceEvents": [
+        {
+          "number": 1,
+          "bar": 1,
+          "beatOffset": 0,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 3,
+          "midi": 67
+        },
+        {
+          "number": 2,
+          "bar": 1,
+          "beatOffset": 0.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 3,
+          "bar": 1,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 4,
+          "bar": 1,
+          "beatOffset": 2,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 10,
+          "midi": 74
+        },
+        {
+          "number": 5,
+          "bar": 1,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 6,
+          "bar": 2,
+          "beatOffset": 0,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 7,
+          "bar": 2,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 8,
+          "bar": 2,
+          "beatOffset": 2,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 8,
+          "midi": 72
+        },
+        {
+          "number": 9,
+          "bar": 2,
+          "beatOffset": 2.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 10,
+          "bar": 2,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 11,
+          "bar": 3,
+          "beatOffset": 0,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 3,
+          "midi": 67
+        },
+        {
+          "number": 12,
+          "bar": 3,
+          "beatOffset": 0.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 13,
+          "bar": 3,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 10,
+          "midi": 74
+        },
+        {
+          "number": 14,
+          "bar": 3,
+          "beatOffset": 2,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 8,
+          "midi": 72
+        },
+        {
+          "number": 15,
+          "bar": 3,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 16,
+          "bar": 4,
+          "beatOffset": 0,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 17,
+          "bar": 4,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 8,
+          "midi": 72
+        },
+        {
+          "number": 18,
+          "bar": 4,
+          "beatOffset": 2,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 19,
+          "bar": 4,
+          "beatOffset": 2.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 20,
+          "bar": 4,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 3,
+          "midi": 67
+        }
+      ]
+    },
+    "l6-transcription-rubric": {
+      "kind": "instruction_diagram",
+      "name": "Manual first-transcription rubric",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Preserve the first answer",
+          "action": "Before revealing the helper key, write all four bars with note names and octaves or exact string/fret positions, plus each onset and duration in counted beats. Keep that first version; corrections belong on a second copy."
+        },
+        {
+          "number": 2,
+          "label": "Two scores",
+          "action": "The reference has twenty numbered events. Award one pitch point for the correct sounded note and octave at an event; award one rhythm point when both its onset and duration match. Keep pitch and rhythm totals separate, each out of twenty."
+        },
+        {
+          "number": 3,
+          "label": "Threshold and omissions",
+          "action": "The named 90% target needs at least 18/20 pitch points AND 18/20 rhythm points on the first full answer. Unexplained extra or missing events mean the form needs review rather than silently realigning events to inflate the totals."
+        },
+        {
+          "number": 4,
+          "label": "What invalidates the check",
+          "action": "Prior reading of the answer, copying visible notation, an inaccurate helper performance or unavailable source audio means this is practice without a valid fresh accuracy result. The app does not capture the answer or compute these percentages."
+        },
+        {
+          "number": 5,
+          "label": "Review",
+          "action": "After the first answer is kept, compare one missed interval or rhythm cell, hum or tap it, and play it accurately. A corrected copy demonstrates review, not a new unseen first attempt."
+        }
+      ]
+    },
+    "l6-sixteenth-cell": {
+      "kind": "instruction_diagram",
+      "name": "Original one-bar sixteenth cell",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Count and move",
+          "action": "In 4/4, say 1 e & a, 2 e & a, 3 e & a, 4 e & a. Keep down-up-down-up motion through each beat. Numbers and & are down motions; e and a are up motions."
+        },
+        {
+          "number": 2,
+          "label": "Exact contacts",
+          "action": "Contact the strings ONLY on 1, the a of 1, the & of 2, 3, the a of 3, and the & of 4. Directions: down, up, down, down, up, down. Every other motion passes clear of the strings."
+        },
+        {
+          "number": 3,
+          "label": "Hold across the missing beats",
+          "action": "Let each chord ring until the next written contact. In particular, the attacks on 1a and 3a sustain across the following numbered beats 2 and 4; do not insert a fresh attack there. A skipped attack here is not a full mute or rest."
+        },
+        {
+          "number": 4,
+          "label": "Start slowly",
+          "action": "Use a separate quarter-note metronome near 50–60 BPM. First practise the hand motion silently, then add the six contacts on one easy chord. Keep the a subdivisions evenly spaced rather than swinging them."
+        },
+        {
+          "number": 5,
+          "label": "Full bar and ending",
+          "action": "The six attack offsets from bar start are 0,0.75,1.5,2,2.75,3.5 beats. Sustain to the next attack or bar boundary. In a complete piece, keep this same cell for every bar and mute only at the final boundary."
+        }
+      ],
+      "attackBeatOffsets": [
+        0,
+        0.75,
+        1.5,
+        2,
+        2.75,
+        3.5
+      ],
+      "durationBeats": [
+        0.75,
+        0.75,
+        0.5,
+        0.75,
+        0.75,
+        0.5
+      ]
+    },
+    "l6-after-the-line-piece": {
+      "kind": "instruction_diagram",
+      "name": "After the Line — original twenty-four-bar piece",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "One written cell throughout",
+          "action": "Use the sixteenth cell on every bar, with open Em,C,G,D diagrams. Each chord lasts two bars. Count four lead-in beats. At 100 BPM, the music is 24 four-beat bars with 144 written chord attacks."
+        },
+        {
+          "number": 2,
+          "label": "First section, bars 1–8",
+          "action": "Bar 1 Em; 2 Em; 3 C; 4 C; 5 G; 6 G; 7 D; 8 D. Apply the same six contacts and held-note pattern in each bar."
+        },
+        {
+          "number": 3,
+          "label": "Second section, bars 9–16",
+          "action": "Bar 9 Em; 10 Em; 11 C; 12 C; 13 G; 14 G; 15 D; 16 D. The form repeats, but the pulse must not accelerate."
+        },
+        {
+          "number": 4,
+          "label": "Final section, bars 17–24",
+          "action": "Bar 17 Em; 18 Em; 19 C; 20 C; 21 G; 22 G; 23 D; 24 D. Make the last contact on 24’s & of 4, sustain its final half beat, then mute at the following bar line."
+        },
+        {
+          "number": 5,
+          "label": "Practice versus target",
+          "action": "Start below 100 BPM and loop an exact transition as needed. For the named checkpoint, use actual 100 BPM and all 24 bars without a restart, omitted bar or added attack on beats 2/4. No performed audio or automatic pattern score is provided."
+        }
+      ],
+      "barChords": [
+        "Em",
+        "Em",
+        "C",
+        "C",
+        "G",
+        "G",
+        "D",
+        "D",
+        "Em",
+        "Em",
+        "C",
+        "C",
+        "G",
+        "G",
+        "D",
+        "D",
+        "Em",
+        "Em",
+        "C",
+        "C",
+        "G",
+        "G",
+        "D",
+        "D"
       ]
     }
   },
@@ -2786,6 +4440,1725 @@
         "l5r-justin-triads",
         "l5r-yousician-chords"
       ]
+    },
+    {
+      "id": "g-l6-m1-01",
+      "moduleId": "g-l6-m1",
+      "title": "One Shape, Twelve Chords",
+      "sourceTitle": "One Shape, Twelve Chords",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Move an E-based major/minor grip with a sixth-string root and understand what the index barre replaces.",
+      "prerequisiteLessonIds": [
+        "g-l5-m1-07",
+        "g-l5-m6-01"
+      ],
+      "steps": [
+        {
+          "title": "Find the movable root",
+          "action": "Recall open E major, then use middle, ring and little fingers so the index is free. The index takes the role of the nut when the shape moves; the lowest note on string 6 names the chord.",
+          "lookCheck": "Read G major at fret 3 in the diagram. All fret positions move together; no open string remains in this full shape.",
+          "listenCheck": "Pick the low G first, then the remaining notes one at a time."
+        },
+        {
+          "title": "Build G major briefly",
+          "action": "Index barres fret 3; ring and little finger use strings 5/4 fret 5; middle uses string 3 fret 4. Check all six strings, strum once, then mute and release.",
+          "lookCheck": "Keep the guitar supported and make small placement adjustments near the fret wires. Do not clamp continuously for the whole practice block.",
+          "listenCheck": "Hear every intended note, especially the high strings under the index and the middle-finger third."
+        },
+        {
+          "title": "Change the quality",
+          "action": "Lift the middle finger so the index sounds string 3 at fret 3. Recheck that string and the rest of the grip: this is G minor.",
+          "lookCheck": "Only the third changes from B to B-flat; the root and fifth stay in place.",
+          "listenCheck": "Compare G major and G minor as two qualities, not merely different volumes."
+        },
+        {
+          "title": "Connect shape and names",
+          "action": "Read the root table at frets 1,3,5,7,8: F,G,A,B,C. A one-fret movement transposes the grip by one semitone; twelve frets repeats the note names an octave higher.",
+          "lookCheck": "The title refers to transposing this chord family, not to every possible chord type or twelve new fingerings.",
+          "listenCheck": "Name the root before you sound it, then check quality separately."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The index makes some strings clear and others dead.",
+          "recovery": "Release and move the barre slightly toward the fret wire, then test the failing string alone. Do not solve every buzz with greater force."
+        },
+        {
+          "observation": "My minor grip still sounds major.",
+          "recovery": "Check string 3: it should sound at the barre fret after the middle finger lifts."
+        },
+        {
+          "observation": "Moving up the neck leaves an open string ringing.",
+          "recovery": "Mute before the move, reduce pressure without flicking a string, then settle the new grip before picking."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Locate the root and compare the movable grip with open E."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Build and release G major with six-string checks."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Compare G major and minor, inspecting the third."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Name the five selected root positions and recap transposition."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I know the root is on string 6.",
+          "I can describe the index replacing the nut for this closed shape.",
+          "I can identify which note changes major to minor."
+        ],
+        "readyWhen": "Explain the grip and make a short, comfortable G-major/G-minor comparison with each string checked.",
+        "ifNotReady": "Repair the weakest barre contact in short attempts and revisit partial-F work if needed.",
+        "proves": "Self-checked movable-shape understanding and initial tone comparison.",
+        "doesNotProve": "All-position fluency, automatic recognition, a timed strength test or mastery of every chord type."
+      },
+      "demoAssetIds": [
+        "l6-e-shape-g",
+        "l6-e-shape-gm",
+        "l6-e-barre-check"
+      ],
+      "referenceIds": [
+        "l6-justin-barre",
+        "l6-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l6-m1-02",
+      "moduleId": "g-l6-m1",
+      "title": "Five Positions, Clean",
+      "sourceTitle": "Five Positions, Clean",
+      "type": "exercise",
+      "suggestedSeconds": 360,
+      "objective": "Check E-shape major and minor at five named roots without carrying tension from one attempt to the next.",
+      "prerequisiteLessonIds": [
+        "g-l6-m1-01"
+      ],
+      "steps": [
+        {
+          "title": "Use a manageable order",
+          "action": "Work frets 5,3,7,8,1 for A,G,B,C,F. Begin where the strings feel manageable and include fret 1 only in short attempts. At each root, inspect major and minor separately.",
+          "lookCheck": "Use the same six-string voicings throughout; a partial chord is useful preparation but not a full-barre response.",
+          "listenCheck": "Name the root before strumming so moving the grip does not become blind shape sliding."
+        },
+        {
+          "title": "Check one quality completely",
+          "action": "From fingers released, form the major grip. Pick strings 6 through 1, identify any buzz or dead note, then strum and mute. Rest briefly before a new entry.",
+          "lookCheck": "Look for fingertip clearance and index contact at each new fret spacing. Do not hold the shape while repairing several attempts and count them as fresh entries.",
+          "listenCheck": "A loud low string must not cover an inaudible upper string."
+        },
+        {
+          "title": "Change to minor and compare",
+          "action": "Rebuild the minor grip at the same root. Listen especially to string 3 under the index; then inspect all six notes and release.",
+          "lookCheck": "Middle finger stays clear of the minor third; the barre remains at the stated fret.",
+          "listenCheck": "Compare the two qualities before moving on, checking clarity independently from the name."
+        },
+        {
+          "title": "Record a specific repair",
+          "action": "For each root, note major/minor and the first problem string. Revisit that grip after resting instead of repeating every comfortable position again.",
+          "lookCheck": "All ten combinations are practice targets, not a required ten-chord endurance run.",
+          "listenCheck": "Notice whether a small position change fixes the sound more effectively than extra pressure."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "Fret 1 requires an uncomfortable grip.",
+          "recovery": "Stop and reset support. Use shorter partial preparation before returning to full F; do not substitute it in a completed five-position result."
+        },
+        {
+          "observation": "Minor chords lose string 3.",
+          "recovery": "Test the index contact on that string before adding the ring/little fingers."
+        },
+        {
+          "observation": "I slide quickly over difficult positions.",
+          "recovery": "Stop the tempo work and inspect each string; there is no speed target here."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 30,
+          "instruction": "Read the five roots and choose the practice order."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Check major grips at all five positions with rests."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Check minor grips and compare the thirds."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repair the weakest position and string."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State which of the ten combinations still needs work."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I attempted both qualities at all five roots.",
+          "I checked every intended string rather than only the low root.",
+          "I can name the weakest quality/position/string combination."
+        ],
+        "readyWhen": "Complete deliberate checks of the ten combinations, keeping any failed grip visible as a repair before the checkpoint.",
+        "ifNotReady": "Isolate the failing string and repeat a fresh short entry after rest.",
+        "proves": "Self-reported five-position accuracy practice and repair observations.",
+        "doesNotProve": "A random-call assessment, verified clean tone or completion when a full grip was replaced by a partial shape."
+      },
+      "demoAssetIds": [
+        "l6-e-shape-f",
+        "l6-e-shape-g",
+        "l6-e-shape-a",
+        "l6-e-shape-b",
+        "l6-e-shape-c",
+        "l6-e-shape-fm",
+        "l6-e-shape-gm",
+        "l6-e-shape-am",
+        "l6-e-shape-bm",
+        "l6-e-shape-cm",
+        "l6-e-barre-check"
+      ],
+      "referenceIds": [
+        "l6-justin-barre",
+        "l6-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l6-m1-08",
+      "moduleId": "g-l6-m1",
+      "title": "Checkpoint: Major and Minor at Five Positions",
+      "sourceTitle": "Checkpoint: Major and Minor at Five Positions",
+      "type": "checkpoint",
+      "suggestedSeconds": 360,
+      "objective": "Recall and check all ten E-shape major/minor combinations at the five selected frets in mixed order.",
+      "prerequisiteLessonIds": [
+        "g-l6-m1-02"
+      ],
+      "steps": [
+        {
+          "title": "Prepare the ten prompts",
+          "action": "Write each fret 1,3,5,7,8 paired with major and minor on separate slips, then shuffle them, or ask a partner to mix them. No automatic random caller is provided.",
+          "lookCheck": "Every pair appears once; avoid selecting only the easy roots. Cover the diagrams after preparation.",
+          "listenCheck": "You may hear a partner’s fret and quality prompt, but they should not tell you the fingering."
+        },
+        {
+          "title": "Respond from a released hand",
+          "action": "For each prompt, name the chord, form it, and pick all six strings individually before a short strum. Mute and release before drawing the next prompt.",
+          "lookCheck": "The stated fret belongs to the index and root on string 6. Middle finger decides the major/minor third.",
+          "listenCheck": "Every intended string must ring without an obvious dead note or buzz."
+        },
+        {
+          "title": "Keep failures in the round",
+          "action": "If you repair the held shape, note the failed response. Use the repair to learn, then begin a later fresh round rather than replacing only its misses with successes.",
+          "lookCheck": "Ten fresh responses make one round. A partial voicing or changed fret is not an equivalent response.",
+          "listenCheck": "Keep the chord-name/quality check separate from the tone check."
+        },
+        {
+          "title": "Apply the complete target",
+          "action": "Review all ten responses. Claim the five-position major-and-minor target only when the complete mixed round met the naming and six-string criteria comfortably.",
+          "lookCheck": "No timing deadline or endurance requirement; rests between responses are allowed.",
+          "listenCheck": "If a string’s clarity was uncertain, keep that response for review rather than assuming it was clean."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The correct root has the wrong quality.",
+          "recovery": "Review the third on string 3, then start a fresh full round after practising that distinction."
+        },
+        {
+          "observation": "I passed only four positions.",
+          "recovery": "Keep the result as partial practice. The stated target includes all five positions in both qualities."
+        },
+        {
+          "observation": "I used diagrams during the response.",
+          "recovery": "Call it supported practice and repeat without fingering references when ready."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Prepare and mix the ten fret/quality prompts."
+        },
+        {
+          "seconds": 180,
+          "instruction": "Name, form, inspect and release all ten responses with rests."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Review failures by position, quality and string."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repair one grip and state whether the complete target was met."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "The round included both qualities at frets 1,3,5,7,8.",
+          "I named each prompted chord and recalled its grip without a diagram.",
+          "All six intended strings were clear in each fresh response."
+        ],
+        "readyWhen": "One complete mixed round contains ten correctly named, clearly sounded major/minor responses.",
+        "ifNotReady": "Keep the failed combination, repair it, then make a new full round without replacing misses inside the old one.",
+        "proves": "Learner-reported recall and six-string clarity across the ten specified grips.",
+        "doesNotProve": "App-generated random calls, measured recall percentage, microphone-certified chord quality or all-neck mastery."
+      },
+      "demoAssetIds": [
+        "l6-e-barre-check",
+        "l6-e-shape-f",
+        "l6-e-shape-g",
+        "l6-e-shape-a",
+        "l6-e-shape-b",
+        "l6-e-shape-c",
+        "l6-e-shape-fm",
+        "l6-e-shape-gm",
+        "l6-e-shape-am",
+        "l6-e-shape-bm",
+        "l6-e-shape-cm"
+      ],
+      "referenceIds": [
+        "l6-justin-barre",
+        "l6-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l6-m2-01",
+      "moduleId": "g-l6-m2",
+      "title": "The Second Movable Shape",
+      "sourceTitle": "The Second Movable Shape",
+      "type": "concept",
+      "suggestedSeconds": 240,
+      "objective": "Build a five-string A-shape major barre and use its fifth-string root alongside the E-shape family.",
+      "prerequisiteLessonIds": [
+        "g-l6-m1-08"
+      ],
+      "steps": [
+        {
+          "title": "Move the root to string 5",
+          "action": "Read C major as an A-shape barre at fret 3. Index spans strings 5–1; middle, ring and little fingers use strings 4,3,2 at fret 5. Exclude string 6.",
+          "lookCheck": "The root is now C on string 5, not G on string 6 at the same fret.",
+          "listenCheck": "Pick from string 5 and hear the intended C-major notes without a low G beneath them."
+        },
+        {
+          "title": "Keep the top string clear",
+          "action": "Use three separate fingertips for the fret-5 cluster. Let the index sound string 1 at fret 3. Check each of the five intended strings before strumming.",
+          "lookCheck": "Do not force a ring-finger joint backward to make a second barre. If the top string is omitted during preparation, label that a four-string version.",
+          "listenCheck": "A full response here includes the clear high G on string 1."
+        },
+        {
+          "title": "Compare two root locations",
+          "action": "Play G with an E-shape root at fret 3, then C with an A-shape root at fret 3. Release pressure during the change and move the picking start to string 5.",
+          "lookCheck": "Both index positions use fret 3, but the finger cluster and allowed string group change.",
+          "listenCheck": "Listen for the root change rather than judging only whether the hand moved a long distance."
+        },
+        {
+          "title": "Define the useful scope",
+          "action": "Transpose the A-shape root to D at 5 and E at 7. Together with E-shape roots, these major-chord families offer nearby choices; additional qualities and extensions still need their own fingerings.",
+          "lookCheck": "Two families do not literally cover every possible chord. Name the quality and root explicitly.",
+          "listenCheck": "Compare one clean voicing at a time, with a released hand between checks."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The index root stays on string 6.",
+          "recovery": "Say fifth-string root and start the pick on string 5; mute the low string before the next attempt."
+        },
+        {
+          "observation": "The cluster mutes the high string.",
+          "recovery": "Curve the three separate fingertips and inspect string 1 alone. Do not count a four-string version as the taught full five-string shape."
+        },
+        {
+          "observation": "I squeeze the whole hand to make the cluster fit.",
+          "recovery": "Release and place one finger at a time near the fret wire, with short attempts and comfortable support."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Locate the C root and read the five-string grip."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Inspect C major’s five strings and release between entries."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Alternate E-shape G with A-shape C."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Move the A-shape root to D and E and state its scope."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I identify the fifth-string root of the A shape.",
+          "I can explain the excluded low string and the intended high string.",
+          "I can distinguish the two major-grip families at the same fret."
+        ],
+        "readyWhen": "Build and inspect a brief five-string C-major A-shape grip, then explain its difference from E-shape G.",
+        "ifNotReady": "Repair one cluster or barre contact, keeping reduced voicings labelled as preparation.",
+        "proves": "Self-checked A-shape placement and root-location understanding.",
+        "doesNotProve": "Every chord quality, automatic voicing recognition or a full progression performance."
+      },
+      "demoAssetIds": [
+        "l6-a-shape-c",
+        "l6-a-shape-d",
+        "l6-a-shape-e",
+        "l6-e-shape-g"
+      ],
+      "referenceIds": [
+        "l6-justin-barre",
+        "l6-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l6-m2-05",
+      "moduleId": "g-l6-m2",
+      "title": "Barre-Chord Song, Both Shapes",
+      "sourceTitle": "Barre-Chord Song, Both Shapes",
+      "type": "song",
+      "suggestedSeconds": 420,
+      "objective": "Play Crossings, a complete original sixteen-bar piece that switches between E-shape G and A-shape C/D.",
+      "prerequisiteLessonIds": [
+        "g-l6-m2-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the complete map",
+          "action": "Use the Crossings panels and three diagrams. Each bar has downstrokes on 1 and 3, with notes sustained for two beats. Begin with a separate quarter-note metronome around 60 BPM.",
+          "lookCheck": "Keep the map visible, or copy it before opening a separate native metronome sheet. No synchronized backing is provided.",
+          "listenCheck": "Sound G,C,D separately and inspect their intended string groups."
+        },
+        {
+          "title": "Isolate the family change",
+          "action": "Loop one G bar into one C bar, then G into D. Lighten pressure just before the next downbeat, move the cluster, and start the pick on the correct root string.",
+          "lookCheck": "G sounds all six strings; C/D begin on string 5. Do not drag fully pressed fingers across the neck.",
+          "listenCheck": "Listen for a clean next downbeat without an open-string sweep."
+        },
+        {
+          "title": "Join the four-bar sections",
+          "action": "Play bars 1–4, 5–8, 9–12 and 13–16 as separate rehearsal sections, retaining four beats per bar. Repair the C-to-D change without shortening a bar.",
+          "lookCheck": "The ending is C,D,G,G, not another copy of the opening.",
+          "listenCheck": "Keep the same half-note spacing through repeated chords and movement."
+        },
+        {
+          "title": "Play the full piece",
+          "action": "After four count-in beats, play all sixteen bars and 32 attacks in order. Mute after the final bar’s fourth beat. Record actual tempo, continuity and any problem change separately.",
+          "lookCheck": "A restart or omitted bar makes the take interrupted; finishing the panels is not a performed take.",
+          "listenCheck": "The last G should have the same pulse and clarity as the first."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The pick catches string 6 on C or D.",
+          "recovery": "Practise the new picking start with muted strings, then restore the chord."
+        },
+        {
+          "observation": "The C-to-D slide delays the attack.",
+          "recovery": "Move with released pressure at a slower click, then reconnect the preceding bar."
+        },
+        {
+          "observation": "I lose the final section.",
+          "recovery": "Read C,D,G,G aloud and practise bars 11–16 before the next full take."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Read all sixteen bars and inspect the three shapes."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Loop the two grip-family changes slowly."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Practise the four-bar sections."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Play the complete map with a count-in and review continuity."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State actual tempo and one precise repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I played the complete sixteen-bar order.",
+          "I switched picking roots and finger clusters correctly.",
+          "I kept two attacks and four beats per bar and reported interruptions honestly."
+        ],
+        "readyWhen": "Play the full original piece at a controllable tempo and identify any remaining tone or change repair.",
+        "ifNotReady": "Loop the first failing two-bar change, then return to the complete form.",
+        "proves": "Self-reported performance of the original written piece at the stated tempo.",
+        "doesNotProve": "Automatic backing playback, recorded study transport, microphone chord scoring or a commercial-song performance."
+      },
+      "demoAssetIds": [
+        "l6-e-shape-g",
+        "l6-a-shape-c",
+        "l6-a-shape-d",
+        "l6-crossings-piece"
+      ],
+      "referenceIds": [
+        "l6-justin-barre",
+        "l6-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l6-m2-08",
+      "moduleId": "g-l6-m2",
+      "title": "Checkpoint: One-Four-Five, Both Shapes",
+      "sourceTitle": "Checkpoint: One-Four-Five, Both Shapes",
+      "type": "checkpoint",
+      "suggestedSeconds": 360,
+      "objective": "Play I–IV–V–I in G, A and C using the specified nearby E- and A-shape roots.",
+      "prerequisiteLessonIds": [
+        "g-l6-m2-05",
+        "g-l5-m6-07"
+      ],
+      "steps": [
+        {
+          "title": "Read the three routes",
+          "action": "Use the nearby-key guide. In each key, I uses an E-shape root; IV and V use A-shape roots. The index roots stay within a two-fret span.",
+          "lookCheck": "G uses roots 3,3,5; A uses 5,5,7; C uses 8,8,10. The root string is part of the address.",
+          "listenCheck": "Name all three major chords in a key before playing."
+        },
+        {
+          "title": "Play a four-bar cycle",
+          "action": "For each key, use one four-beat bar each of I,IV,V,I and one downstroke on every beat 1. Choose a comfortable unchanged tempo, leaving each chord ringing for its bar.",
+          "lookCheck": "Inspect the intended six or five strings before the check. The high A-shape string is part of this version.",
+          "listenCheck": "The quality remains major for all three chords; a missed third is not hidden by the root."
+        },
+        {
+          "title": "Connect both families",
+          "action": "On each change, release excess pressure, place the next root and cluster, then pick from the right starting string. Complete all three key cycles with short rests between them.",
+          "lookCheck": "No need to optimize every possible fingering; this check uses the explicitly taught nearby route.",
+          "listenCheck": "Listen for a steady bar length and a clean return from V to I."
+        },
+        {
+          "title": "Review the full scope",
+          "action": "State whether G, A and C all met the shape, chord-name and timing rules. Keep any reduced voicing, wrong root or stopped cycle as practice to repair.",
+          "lookCheck": "One complete check includes all three keys; do not combine the best key from unrelated incomplete rounds.",
+          "listenCheck": "Separate a correct name from a clearly sounded chord."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I play IV with the old sixth-string root.",
+          "recovery": "Locate the same fret on string 5, then rebuild the A-shape cluster."
+        },
+        {
+          "observation": "The root span is small but the grip is tense.",
+          "recovery": "Use lighter pressure during movement and allow rests between key cycles; small travel does not require a rigid hand."
+        },
+        {
+          "observation": "One key is missing from my result.",
+          "recovery": "Keep it partial and practise that key before a new complete check."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Name and inspect the three nearby key routes."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Play the G-major four-bar cycle."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Play the A-major cycle."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Play the C-major cycle."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Review all three and repair the weakest change."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State the completed scope or remaining key."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used I,IV,V,I correctly in G,A,C.",
+          "Each cycle used the specified E/A families and root strings.",
+          "I kept four beats per bar with clear intended strings."
+        ],
+        "readyWhen": "All three four-bar key cycles meet the named-chord, full-voicing and steady-bar conditions in one reviewed check.",
+        "ifNotReady": "Repair the failed root-string/cluster change slowly and repeat the complete three-key check.",
+        "proves": "Self-reported I–IV–V application using a defined nearby route in three keys.",
+        "doesNotProve": "Automatic recall scoring, a globally minimal-motion proof, all-key fluency or microphone-certified tone."
+      },
+      "demoAssetIds": [
+        "l6-nearby-keys",
+        "l6-e-shape-g",
+        "l6-e-shape-a",
+        "l6-e-shape-c",
+        "l6-a-shape-c",
+        "l6-a-shape-d",
+        "l6-a-shape-e",
+        "l6-a-shape-f",
+        "l6-a-shape-g"
+      ],
+      "referenceIds": [
+        "l6-justin-barre",
+        "l6-yousician-practice"
+      ]
+    },
+    {
+      "id": "g-l6-m3-01",
+      "moduleId": "g-l6-m3",
+      "title": "The Neck Is One Scale",
+      "sourceTitle": "The Neck Is One Scale",
+      "type": "concept",
+      "suggestedSeconds": 300,
+      "objective": "See five overlapping CAGED regions as the same G-major notes and locate roots and shared positions.",
+      "prerequisiteLessonIds": [
+        "g-l6-m1-01",
+        "g-l5-m6-01"
+      ],
+      "steps": [
+        {
+          "title": "Name one collection",
+          "action": "Read G,A,B,C,D,E,F#. The five map panels show this same collection through E,D,C,A,G chord-form regions; they do not change the key.",
+          "lookCheck": "F# is the only sharp in this key. Every listed fret has its note name beside it.",
+          "listenCheck": "Play G on string 1 fret 3, then A on 5, and hear the beginning of the collection."
+        },
+        {
+          "title": "Read one string at a time",
+          "action": "Start with the E view, frets 2–5. Pick one listed note at a time on one string, then move to the next string. Do not strum the list as a chord.",
+          "lookCheck": "A panel is a fret map, not a command to stretch across the entire window at once.",
+          "listenCheck": "Check that the notes match the named scale, especially F# rather than F."
+        },
+        {
+          "title": "Find roots and overlaps",
+          "action": "Find G at the listed root addresses. Compare two adjacent views and point to a fret present in both. That shared address is literally the same note, not a new scale degree.",
+          "lookCheck": "The views overlap; using a shared note helps you move between them.",
+          "listenCheck": "Sound the same shared fret twice before moving to a neighbouring note."
+        },
+        {
+          "title": "Preview all five views",
+          "action": "Read each panel and locate a G within it. Explore only a few notes in unfamiliar higher regions today, moving the hand instead of forcing a span. The next lesson connects the first three.",
+          "lookCheck": "The CAGED labels describe familiar chord-form landmarks; do not infer a different mode from which note you start.",
+          "listenCheck": "Hear the common G home pitch across octaves and registers."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I treat each panel as a different key.",
+          "recovery": "Recite G,A,B,C,D,E,F# again and compare the same note in two panels."
+        },
+        {
+          "observation": "The many fret numbers look like a chord.",
+          "recovery": "Choose one string and pick its numbers in order as single notes; never hold the full panel at once."
+        },
+        {
+          "observation": "I confuse fret 4 with scale degree 4.",
+          "recovery": "Read the note name beside the fret. In G major the fourth degree is C, regardless of fret number."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Name the seven G-major notes."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Explore the E view string by string."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Find roots and shared notes between adjacent views."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Preview the remaining regions without forced reaches."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Explain why the five views stay in one key."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I name G-major’s seven notes and its F#.",
+          "I can locate a G root and a shared fret in adjacent views.",
+          "I know a fret map is single-note material, not a chord grip."
+        ],
+        "readyWhen": "Explain the shared collection and demonstrate one overlap plus a root in each inspected region.",
+        "ifNotReady": "Return to one string, name its notes, and connect only two overlapping maps first.",
+        "proves": "Self-checked fretboard-map understanding and pitch-location exploration.",
+        "doesNotProve": "Five memorized full patterns, measured scale fluency, automatic position recognition or a tempo result."
+      },
+      "demoAssetIds": [
+        "l6-g-major-five-views"
+      ],
+      "referenceIds": [
+        "l6-justin-framework",
+        "l6-justin-caged"
+      ]
+    },
+    {
+      "id": "g-l6-m3-03",
+      "moduleId": "g-l6-m3",
+      "title": "Connect Three Positions",
+      "sourceTitle": "Connect Three Positions",
+      "type": "exercise",
+      "suggestedSeconds": 420,
+      "objective": "Connect E-, D- and C-region hand positions using the written four-bar G-major route without adding time for a shift.",
+      "prerequisiteLessonIds": [
+        "g-l6-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the route and fingers",
+          "action": "Use the sixteen-note route and hand-position panels. One note occupies each quarter beat. The route deliberately crosses the first three regions and returns.",
+          "lookCheck": "Follow the stated finger changes: E view on 3/5, D view on 7/8, C view on 10/8/7. Shared frets can use different fingers after a shift.",
+          "listenCheck": "Tap individual note references if useful, then let them stop before you play."
+        },
+        {
+          "title": "Isolate the first connection",
+          "action": "Play frets 3,5,7,8 slowly. Release pressure after fret 5 and move the hand so ring reaches 7 and little reaches 8. Keep the intended note order.",
+          "lookCheck": "The movement happens between attacks, not by adding an extra beat or stretching the little finger from the old position.",
+          "listenCheck": "Hear four distinct notes with no accidental open string or dragged extra attack."
+        },
+        {
+          "title": "Connect to the C region and back",
+          "action": "Practise 8 to 10, then 10,8,7,5 using the written new fingers. Make the final return from 7 to 3 in bar 4 a separate slow fragment.",
+          "lookCheck": "Each fragment retains its original number of beats once you restore the click. Preparation pauses are allowed only outside a full take.",
+          "listenCheck": "Listen to the landing pitch as well as the gap before it."
+        },
+        {
+          "title": "Run all four bars",
+          "action": "With a separate quarter-note metronome around 60 BPM, count four lead-in beats and play all sixteen notes. Lower the tempo for a broken shift; the named target later is 100 BPM.",
+          "lookCheck": "Do not relabel slower practice as a 100-BPM result. This lesson has no automatic position or timing score.",
+          "listenCheck": "Keep each shift inside the same pulse as the notes that stay in place."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I wait an extra click before fret 10.",
+          "recovery": "Loop 7,8,10 slowly, moving between attacks and retaining three equal note slots."
+        },
+        {
+          "observation": "The slide itself becomes an extra loud note.",
+          "recovery": "Lighten pressure and keep the picking hand still during movement; re-pick only the written target."
+        },
+        {
+          "observation": "I use one tense stretched grip for all three regions.",
+          "recovery": "Stop and follow the finger/position guide with a relaxed whole-hand move."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read the sixteen-note route and three finger regions."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Loop the E-to-D connection."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Loop the D-to-C and return shifts."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Play full four-bar routes at a controllable tempo."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State actual tempo and the first shift requiring repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed the written sixteen notes and hand-position guide.",
+          "I can move between regions without extending the bar during a practice take.",
+          "I report the actual working tempo and any restart."
+        ],
+        "readyWhen": "Play a complete four-bar route at a controllable tempo with all three planned hand regions; use the checkpoint for 100 BPM.",
+        "ifNotReady": "Slow the exact shift plus its preceding/following note, then reconnect the original rhythm.",
+        "proves": "Self-reported position-connection practice on the defined route.",
+        "doesNotProve": "Microphone-scored note/timing accuracy, detected fingering or a 100-BPM result from slower practice."
+      },
+      "demoAssetIds": [
+        "l6-three-position-route",
+        "l6-position-route-guide",
+        "l6-g-major-five-views"
+      ],
+      "referenceIds": [
+        "l6-justin-framework",
+        "l6-justin-caged"
+      ]
+    },
+    {
+      "id": "g-l6-m3-08",
+      "moduleId": "g-l6-m3",
+      "title": "Checkpoint: Three Positions at One Hundred",
+      "sourceTitle": "Checkpoint: Three Positions at One Hundred",
+      "type": "checkpoint",
+      "suggestedSeconds": 360,
+      "objective": "Play the complete sixteen-note connection at 100 BPM using all three taught regions and an unbroken quarter-note pulse.",
+      "prerequisiteLessonIds": [
+        "g-l6-m3-03"
+      ],
+      "steps": [
+        {
+          "title": "Set the exact target",
+          "action": "Use the same route and fingers. Set a separate metronome to 100 BPM with one click per quarter note; inspect the starting notes before the take.",
+          "lookCheck": "The sixteen notes fill four bars. One click is one written note, not two notes or a half-speed interpretation.",
+          "listenCheck": "Hear four even count-in beats before beginning."
+        },
+        {
+          "title": "Play the four-bar route",
+          "action": "Play each written fret on its beat, including the shifts into D and C regions and the final return to G at fret 3. Hold the last note for its full beat.",
+          "lookCheck": "Do not add a preparation beat, omit a target, or play the route entirely in one stretched hand position.",
+          "listenCheck": "Listen for the landing pitch and attack aligning with the click at each shift."
+        },
+        {
+          "title": "Keep the take intact",
+          "action": "If a note is late, wrong or lost, retain the attempt as practice and identify its bar/beat. Repair afterward and begin a new count-in for a fresh full take.",
+          "lookCheck": "Do not stitch accurate fragments into one claimed continuous route.",
+          "listenCheck": "A correct final G does not erase a wrong or delayed earlier landing."
+        },
+        {
+          "title": "Review sound and movement separately",
+          "action": "State whether all sixteen notes and their spacing were correct, whether all three intended positions were used, and whether the actual tempo was 100.",
+          "lookCheck": "These are self-observations. The app does not verify hand position or score this route.",
+          "listenCheck": "If the click/attack relationship was uncertain, repeat a smaller fragment before another full attempt."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "The metronome says 100 but I wait two clicks per note.",
+          "recovery": "Restore one note per quarter-note click; a half-speed interpretation does not meet this route’s target."
+        },
+        {
+          "observation": "The gap occurs only at the final return.",
+          "recovery": "Loop bar 4 slowly with its exact four notes, then restore the full four-bar take."
+        },
+        {
+          "observation": "A pitch reference played during my take.",
+          "recovery": "Stop the reference and restart. Reference sound is not your performance evidence."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Set 100 BPM and inspect the route/finger plan."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Warm up the two shifts and final return."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Make fresh full four-bar takes with separate count-ins."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Repair the first failed note or timing gap."
+        },
+        {
+          "seconds": 60,
+          "instruction": "State actual tempo, sound and position observations."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used 100 BPM with one note per click.",
+          "All sixteen written notes filled four intact bars without a gap or restart.",
+          "I used the E,D,C regions and the stated return fingering."
+        ],
+        "readyWhen": "One complete self-reviewed route meets the note, pulse and position conditions at 100 BPM.",
+        "ifNotReady": "Keep the actual error and working tempo, repair the fragment and retry a fresh full route.",
+        "proves": "Learner-reported sixteen-note connection at the stated tempo.",
+        "doesNotProve": "Automated pitch/timing score, position detection, five-pattern mastery or other routes at 100 BPM."
+      },
+      "demoAssetIds": [
+        "l6-three-position-route",
+        "l6-position-route-guide"
+      ],
+      "referenceIds": [
+        "l6-justin-framework",
+        "l6-justin-caged"
+      ]
+    },
+    {
+      "id": "g-l6-m4-01",
+      "moduleId": "g-l6-m4",
+      "title": "Phrasing Over the Changes",
+      "sourceTitle": "Phrasing Over the Changes",
+      "type": "concept",
+      "suggestedSeconds": 300,
+      "objective": "Plan an eight-bar phrase around changes in G, Em, C and D, hearing each new chord as a destination.",
+      "prerequisiteLessonIds": [
+        "g-l6-m3-01",
+        "g-l5-m4-07"
+      ],
+      "steps": [
+        {
+          "title": "Read the harmony before the scale",
+          "action": "Use G,G,Em,Em,C,C,D,D, one chord per bar. The chord changes at bars 3,5,7 after the initial G at bar 1. Name each chord’s root, third and fifth.",
+          "lookCheck": "The key is G major; F# belongs to D. This is not the earlier A-blues palette.",
+          "listenCheck": "Play or hear each chord from the existing diagrams before choosing lead notes."
+        },
+        {
+          "title": "Choose four destinations",
+          "action": "Pick one chord tone for each arrival, starting with the thirds B,G,E,F#. Find these on string 1 at frets 7,3,0,2.",
+          "lookCheck": "An arrival is a note at the correct bar and beat, not simply a note that appeared somewhere in the solo.",
+          "listenCheck": "Hold each destination long enough to hear it with its chord."
+        },
+        {
+          "title": "Make space between arrivals",
+          "action": "Use short G-major ideas or deliberate rests between destination bars. Keep counting all eight bars while leaving room for the next change.",
+          "lookCheck": "More notes are not required. Plan the next arrival before filling the remaining beats.",
+          "listenCheck": "Listen for a phrase that leads toward the next harmony rather than continuing an unrelated scale run."
+        },
+        {
+          "title": "Use an actual harmonic context",
+          "action": "Play with a partner or your own separate recording of the eight-bar map. Without accompaniment, rehearse the destination schedule with a click and label it preparation.",
+          "lookCheck": "No supplied backing or automatic chord-tone analysis is implied.",
+          "listenCheck": "Hear whether each destination belongs to the chord that is actually sounding."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I keep using C natural as if this were A blues.",
+          "recovery": "Return to the G-major chord map; C is available in the key but is not a chord tone of G or D."
+        },
+        {
+          "observation": "I arrive after the change.",
+          "recovery": "Practise only a destination on each arrival bar’s first beat before adding fills."
+        },
+        {
+          "observation": "I lose the form during a rest.",
+          "recovery": "Count the two-bar chord spans aloud and re-enter on the planned next beat."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Read and sound the four harmonies."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Find four destination tones."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Create short phrases and counted rests between them."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Place the plan over actual accompaniment if available."
+        },
+        {
+          "seconds": 30,
+          "instruction": "State which arrivals were clear and what support was used."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I know the eight-bar harmonic order.",
+          "I can choose a chord tone for each arrival.",
+          "I keep counting through space and distinguish accompaniment from click-only practice."
+        ],
+        "readyWhen": "Explain the four destinations and rehearse an eight-bar plan with clear arrival points.",
+        "ifNotReady": "Remove fills and play only the destinations until the form is secure.",
+        "proves": "Self-checked harmonic planning and phrase structure.",
+        "doesNotProve": "Automatic chord-tone detection, measured continuity or over-harmony performance with no accompaniment."
+      },
+      "demoAssetIds": [
+        "l6-eight-bar-arrivals",
+        "l6-third-note-reference",
+        "l3-g-chord",
+        "l3-em-chord",
+        "l3-c-chord",
+        "stage2-d-chord"
+      ],
+      "referenceIds": [
+        "l6-justin-framework",
+        "l6-justin-triads"
+      ]
+    },
+    {
+      "id": "g-l6-m4-04",
+      "moduleId": "g-l6-m4",
+      "title": "Target the Third",
+      "sourceTitle": "Target the Third",
+      "type": "exercise",
+      "suggestedSeconds": 420,
+      "objective": "Land on the third of each chord at bars 1,3,5,7, then connect those targets with short G-major phrases.",
+      "prerequisiteLessonIds": [
+        "g-l6-m4-01"
+      ],
+      "steps": [
+        {
+          "title": "Name the thirds",
+          "action": "Say B for G, G for Em, E for C, F# for D. Sound the four reference pitches separately, then stop reference playback before your own practice.",
+          "lookCheck": "The third is counted from each chord root, not always scale degree 3 of the overall key.",
+          "listenCheck": "Compare the minor third of Em with the major thirds of the other chords."
+        },
+        {
+          "title": "Play only arrivals first",
+          "action": "At a comfortable pulse, play string 1 fret 7 at bar 1, 3 at bar 3, open at bar 5 and 2 at bar 7. Hold each for at least the first beat; count the remaining beats and bars.",
+          "lookCheck": "The target schedule spans eight bars, not four quick quarter notes.",
+          "listenCheck": "Each arrival should be heard on the first beat of its new chord."
+        },
+        {
+          "title": "Add one small connection",
+          "action": "Between two arrivals, add two or three G-major notes or a rest, then return to the next scheduled third. Repeat each two-bar span before joining all eight.",
+          "lookCheck": "Do not let a fill take the space reserved for the next arrival.",
+          "listenCheck": "Hear how the third identifies the current chord instead of choosing notes only by proximity."
+        },
+        {
+          "title": "Play and review with harmony",
+          "action": "Use a partner or separate self-made accompaniment of the exact map. After a take, identify each arrival as on time/correct, late, wrong or uncertain.",
+          "lookCheck": "Without accompaniment this is schedule rehearsal; no automatic arrival score is created.",
+          "listenCheck": "Keep arrival quality separate from how many notes you played between changes."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I play B over every chord because the key is G.",
+          "recovery": "Recalculate each chord’s own third and rehearse its note by name before adding the click."
+        },
+        {
+          "observation": "A busy fill pushes out the next target.",
+          "recovery": "Shorten the fill and leave a rest before the arrival."
+        },
+        {
+          "observation": "The open E rings into the next F# target.",
+          "recovery": "End the previous note cleanly and pick the fretted F# on its intended first beat."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Name and sound the four thirds."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Rehearse only the eight-bar arrival schedule."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Add short connections and planned rests."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Join all eight bars with known accompaniment when available."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Review the four arrivals separately."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I identify each chord’s own third.",
+          "I land the thirds at bars 1,3,5,7 rather than at arbitrary times.",
+          "I leave enough space to preserve the next arrival."
+        ],
+        "readyWhen": "Demonstrate the scheduled thirds and connect them through an eight-bar rehearsal, stating whether harmony was present.",
+        "ifNotReady": "Return to arrival-only playing for the first failed change, then restore a shorter fill.",
+        "proves": "Self-reported third-target practice and harmonic listening.",
+        "doesNotProve": "A measured chord-tone result, automatic backing playback or a guarantee of solo quality."
+      },
+      "demoAssetIds": [
+        "l6-eight-bar-arrivals",
+        "l6-third-note-reference"
+      ],
+      "referenceIds": [
+        "l6-justin-framework",
+        "l6-justin-triads"
+      ]
+    },
+    {
+      "id": "g-l6-m4-08",
+      "moduleId": "g-l6-m4",
+      "title": "Checkpoint: Eight Bars, Chord Tones Landed",
+      "sourceTitle": "Checkpoint: Eight Bars, Chord Tones Landed",
+      "type": "checkpoint",
+      "suggestedSeconds": 360,
+      "objective": "Improvise through eight complete bars with a correct planned chord-tone arrival at every new harmony.",
+      "prerequisiteLessonIds": [
+        "g-l6-m4-04"
+      ],
+      "steps": [
+        {
+          "title": "Choose targets and accompaniment",
+          "action": "Use actual accompaniment for G,G,Em,Em,C,C,D,D. State one root, third or fifth for each of G,Em,C,D before the take. Thirds are useful but not mandatory for this checkpoint.",
+          "lookCheck": "The four assessed arrivals are bars 1,3,5,7 on beat 1. No backing means click-only preparation, not a complete harmonic check.",
+          "listenCheck": "Hear the starting G and confirm the exact bar order."
+        },
+        {
+          "title": "Play the full eight bars",
+          "action": "After the agreed count-in, improvise with the G-major collection and land each stated destination on its arrival beat, holding at least one beat. Count through intentional rests.",
+          "lookCheck": "Keep all eight bars; do not pause the accompaniment or restart after a missed note.",
+          "listenCheck": "The destination must belong to the sounding chord, not merely to the overall scale."
+        },
+        {
+          "title": "Finish within the form",
+          "action": "Complete the phrase by the end of bar 8. Keep the take intact and remember any late, wrong or uncertain arrival.",
+          "lookCheck": "A recovered later phrase does not erase a missed arrival. Extra note count earns no credit.",
+          "listenCheck": "Listen for all four clear harmonic landings and a deliberate ending."
+        },
+        {
+          "title": "Review every requirement",
+          "action": "State continuity, the four arrival results and actual accompaniment use. Claim the target only when the complete take met them all.",
+          "lookCheck": "This is a self-review, not an app-measured chord-tone arrival score.",
+          "listenCheck": "If a landing was hard to hear, repeat that two-bar transition before the next full attempt."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "All the notes are in G major but one landing clashes.",
+          "recovery": "Check that landing against the current chord’s root/third/fifth, then practise it with that chord alone."
+        },
+        {
+          "observation": "I miss the first beat but reach the right note later.",
+          "recovery": "Keep that arrival late. Rehearse an earlier preparation rest and retry the full form."
+        },
+        {
+          "observation": "I play four good bars twice.",
+          "recovery": "Keep the fragments as practice; the checkpoint needs one continuous eight-bar take."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Confirm accompaniment and choose four target tones."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Warm up the arrival schedule without fills."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Make full eight-bar attempts with fresh count-ins."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Review and repair the first missed arrival."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State complete, partial or unverified conditions."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "The exact accompaniment continued for all eight bars.",
+          "I landed the four declared chord tones on beat 1 of bars 1,3,5,7.",
+          "I kept the form through rests without a restart or skipped bar."
+        ],
+        "readyWhen": "One self-reviewed eight-bar improvisation contains all four correct on-time arrivals and uninterrupted form awareness.",
+        "ifNotReady": "Practise the first failed arrival with fewer fill notes, then make a new full take.",
+        "proves": "Learner-reported eight-bar continuity and four harmonic arrivals.",
+        "doesNotProve": "Automated chord-tone analysis, microphone timing certification, artistic evaluation or a full result without accompaniment."
+      },
+      "demoAssetIds": [
+        "l6-eight-bar-arrivals",
+        "l6-third-note-reference"
+      ],
+      "referenceIds": [
+        "l6-justin-framework",
+        "l6-justin-triads"
+      ]
+    },
+    {
+      "id": "g-l6-m5-01",
+      "moduleId": "g-l6-m5",
+      "title": "Hear It, Hum It, Find It",
+      "sourceTitle": "Hear It, Hum It, Find It",
+      "type": "concept",
+      "suggestedSeconds": 300,
+      "objective": "Hear a short phrase, keep its contour by humming, then find and write its notes without looking at an answer first.",
+      "prerequisiteLessonIds": [
+        "g-l6-m3-01"
+      ],
+      "steps": [
+        {
+          "title": "Separate listening from reading",
+          "action": "Use a helper for the original four-note prompt below while you look away from its answer panel and the helper’s fretting hand. If you already read the key, call this familiar-phrase practice.",
+          "lookCheck": "No hidden-answer audio player is supplied. The helper performs the written prompt accurately.",
+          "listenCheck": "Listen once without touching the guitar; notice whether the phrase rises, falls or returns."
+        },
+        {
+          "title": "Keep the sound in memory",
+          "action": "Hum or sing the shape softly in a comfortable range, using an octave shift if needed. Tap the four even beats without trying to name notes yet.",
+          "lookCheck": "This is an ear-memory aid, not a vocal-range test or a requirement to imitate guitar register.",
+          "listenCheck": "Hear the final return and compare it with the starting pitch."
+        },
+        {
+          "title": "Find the first note, then intervals",
+          "action": "Find a matching guitar pitch, then locate the remaining notes by comparing their direction and distance. Request another identical hearing if the memory fades.",
+          "lookCheck": "Do not look at the helper key while searching. Guessing many frets at once can replace listening with trial and error.",
+          "listenCheck": "Compare one found note with the sound you remembered before moving on."
+        },
+        {
+          "title": "Write before revealing",
+          "action": "Write the four note names/octaves or string/fret addresses and their beats. Keep that first answer, then compare with the helper key and replay the correction.",
+          "lookCheck": "A corrected answer is review, not the original unseen response.",
+          "listenCheck": "Identify one missed interval or rhythm rather than simply repeating the entire phrase faster."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I search the fretboard before remembering the phrase.",
+          "recovery": "Put the guitar down and hum the short phrase again first."
+        },
+        {
+          "observation": "The register is uncomfortable to hum.",
+          "recovery": "Use a comfortable octave, then match the correct guitar octave separately."
+        },
+        {
+          "observation": "I saw the answer key first.",
+          "recovery": "Use the known phrase for practice and arrange a different unseen prompt for a fresh ear check."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Arrange the helper prompt and avoid its visible answer."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Listen, hum and tap the phrase."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Find the notes by ear on the guitar."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Write and preserve the first response before comparison."
+        },
+        {
+          "seconds": 30,
+          "instruction": "Name the specific ear or rhythm repair."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I listened without seeing the answer first, or labelled prior familiarity.",
+          "I used humming/tapping to retain the phrase before searching.",
+          "I preserved a first written response before correction."
+        ],
+        "readyWhen": "Demonstrate the hear–hum–find–write process and explain the difference between first response and review.",
+        "ifNotReady": "Shorten the sound to two notes and reconnect it after retaining the contour.",
+        "proves": "Self-reported ear-memory and transcription process practice.",
+        "doesNotProve": "Blind in-app playback, a numeric accuracy score or unseen transcription when the key was already read."
+      },
+      "demoAssetIds": [
+        "l6-ear-four-notes-helper"
+      ],
+      "referenceIds": [
+        "l6-justin-ear",
+        "l6-justin-transcribing"
+      ]
+    },
+    {
+      "id": "g-l6-m5-03",
+      "moduleId": "g-l6-m5",
+      "title": "Four Notes From Audio",
+      "sourceTitle": "Four Notes From Audio",
+      "type": "exercise",
+      "suggestedSeconds": 420,
+      "objective": "Transcribe the original four-note prompt by listening to accurate repeats while its notation stays out of view.",
+      "prerequisiteLessonIds": [
+        "g-l6-m5-01"
+      ],
+      "steps": [
+        {
+          "title": "Keep the source unseen",
+          "action": "Ask a helper to use the four-note answer card while you turn away. Do not watch the fretting hand. The helper may repeat the exact phrase; the app has no automatic loop or hidden-notation mode for it.",
+          "lookCheck": "If the phrase is already known from the concept lesson, label this consolidation practice rather than a fresh test.",
+          "listenCheck": "Confirm four clear notes at an unchanged quarter-note pulse."
+        },
+        {
+          "title": "Capture rhythm separately",
+          "action": "Tap four even note lengths and mark their beat positions on paper before choosing pitches. Ask for a repeat only when needed.",
+          "lookCheck": "Do not confuse the count-in with the four-note phrase.",
+          "listenCheck": "Listen for where the sound begins and how long each note lasts."
+        },
+        {
+          "title": "Find and order the pitches",
+          "action": "Hum the phrase, find the first note, then compare each following movement. Write all four notes before the helper reveals the key.",
+          "lookCheck": "Use exact sounding pitch/octave or string/fret notation; a chord name alone is not a melody transcript.",
+          "listenCheck": "Check the final note against the first to hear whether the phrase returns."
+        },
+        {
+          "title": "Compare and repair",
+          "action": "Keep the first response, reveal the answer and compare all four pitches and durations. Re-listen to one missed pair and play it accurately after review.",
+          "lookCheck": "Do not overwrite the first answer and call the corrected copy a perfect transcription.",
+          "listenCheck": "A correctly found pitch with the wrong duration still needs a rhythm repair."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I count a lead-in click as the first note.",
+          "recovery": "Have the helper give the same four-count lead-in and mark the phrase start before repeating."
+        },
+        {
+          "observation": "I find the notes but write them in the wrong order.",
+          "recovery": "Hum the complete contour again, then verify each adjacent pair."
+        },
+        {
+          "observation": "I need a fresh accuracy challenge after memorizing the key.",
+          "recovery": "Use the separate four-bar checkpoint prompt without reading its answer, or ask a helper for a different documented unseen phrase outside this fixed exercise."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Agree the prompt and whether it is unfamiliar."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Listen and write the four rhythm positions."
+        },
+        {
+          "seconds": 150,
+          "instruction": "Hum, locate and write the ordered pitches."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Compare the preserved first response and repair one interval."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State pitch/rhythm errors and prior familiarity honestly."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used repeated actual sound while the answer was out of view.",
+          "I wrote four ordered pitches and durations before comparing.",
+          "I preserved and reviewed the first response."
+        ],
+        "readyWhen": "Complete a documented four-note transcription practice cycle, with familiarity and mistakes clearly stated.",
+        "ifNotReady": "Re-listen to a shorter pair, retain its contour and then reconnect all four notes.",
+        "proves": "Self-reported listening, written response and review of the fixed prompt.",
+        "doesNotProve": "Automatic loops, hidden-notation UI, software-scored transcription or a new unseen result for a memorized phrase."
+      },
+      "demoAssetIds": [
+        "l6-ear-four-notes-helper"
+      ],
+      "referenceIds": [
+        "l6-justin-ear",
+        "l6-justin-transcribing"
+      ]
+    },
+    {
+      "id": "g-l6-m5-08",
+      "moduleId": "g-l6-m5",
+      "title": "Checkpoint: Four Bars Transcribed",
+      "sourceTitle": "Checkpoint: Four Bars Transcribed",
+      "type": "checkpoint",
+      "suggestedSeconds": 360,
+      "objective": "Write a first complete four-bar transcription from an accurately performed unseen original phrase, then check pitch and rhythm independently against the 90% target.",
+      "prerequisiteLessonIds": [
+        "g-l6-m5-03"
+      ],
+      "steps": [
+        {
+          "title": "Protect an unseen source",
+          "action": "Before reading the helper key below, turn away and have a helper prepare its exact four-bar phrase. If you have already seen it, treat this as familiar-phrase practice; do not claim an unseen score. No blind phrase audio is supplied in the app.",
+          "lookCheck": "The helper must be able to perform the written notes and rhythm accurately. An uncertain source cannot support a percentage.",
+          "listenCheck": "Listen to all four bars at a comfortable unchanged tempo after four count-in beats."
+        },
+        {
+          "title": "Transcribe the whole phrase",
+          "action": "Request accurate repeats of a bar or the full phrase. Hum the contour, tap its quarter/eighth rhythm, and write each note’s pitch/octave or string/fret, onset and duration. Keep four bar lines.",
+          "lookCheck": "Do not inspect the helper key until the complete first answer is preserved. Twenty note events occupy sixteen beats.",
+          "listenCheck": "Listen to both the two-eighth-note groups and the longer quarter notes."
+        },
+        {
+          "title": "Score two dimensions after reveal",
+          "action": "Compare the first answer with the twenty numbered reference events. Count correct pitch+octave out of 20 and correct onset+duration out of 20 separately. At least 18/20 is required in each dimension.",
+          "lookCheck": "Do not average the two scores to hide a weak dimension. Extra/missing events require form review rather than silent realignment.",
+          "listenCheck": "A right pitch with a wrong rhythm gets only the pitch point."
+        },
+        {
+          "title": "Apply the validity conditions",
+          "action": "Keep the score unverified if the source performance was uncertain, the key was seen early, or the first answer was replaced by corrections. Otherwise report both first-answer totals.",
+          "lookCheck": "This is a helper-reviewed manual rubric; GuitarHub neither captures the transcription nor computes a score.",
+          "listenCheck": "Compare missed cells against the actual performed source and key, not only what you now expect to hear."
+        },
+        {
+          "title": "Review without rewriting history",
+          "action": "Correct a second copy and replay the difficult interval or rhythm. Retrying this now-known phrase is review; a future unseen assessment needs a new documented prompt.",
+          "lookCheck": "The fixed reference remains unchanged across source repeats.",
+          "listenCheck": "Hear and name the correction you learned, even if the numeric target was not reached."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "My pitch total is high but rhythm is below 18.",
+          "recovery": "Keep the target unmet and practise the missed eighth/quarter cells; do not average the totals."
+        },
+        {
+          "observation": "The helper plays the wrong rhythm in one repeat.",
+          "recovery": "Stop assigning accuracy to that take. Re-establish an accurate source before a fresh procedure."
+        },
+        {
+          "observation": "I saw the answer accidentally.",
+          "recovery": "Label the exercise familiar-source review. Do not report it as fresh unseen transcription."
+        },
+        {
+          "observation": "I inserted or omitted notes.",
+          "recovery": "Compare bar structure first. Do not shift the numbering to match later notes and inflate the result."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Prepare an accurate unseen helper source and read the rubric only."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Listen and map four bars of rhythm."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Find the pitches and preserve the complete first transcription."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Reveal and compare pitch and rhythm totals separately."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Report valid/unverified status and review one missed cell."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "The source was accurately performed and its answer unseen before my first transcript.",
+          "I preserved all four bars with pitches, onsets and durations.",
+          "The first answer earned at least 18/20 pitch and 18/20 rhythm points separately.",
+          "I did not conceal extra/missing events or replace the first copy."
+        ],
+        "readyWhen": "A valid first transcript reaches at least 90% in both dimensions under the documented manual rubric.",
+        "ifNotReady": "Keep the actual two totals or unverified status, repair the missed dimension and use a new unseen source for a future fresh check.",
+        "proves": "Learner/helper-reported first-transcription accuracy for the specific original source, when validity conditions hold.",
+        "doesNotProve": "Software-verified transcription, included blind audio, guaranteed helper accuracy or a fresh score for previously seen material."
+      },
+      "demoAssetIds": [
+        "l6-transcription-rubric",
+        "l6-ear-four-bars-helper"
+      ],
+      "referenceIds": [
+        "l6-justin-ear",
+        "l6-justin-transcribing"
+      ]
+    },
+    {
+      "id": "g-l6-m6-01",
+      "moduleId": "g-l6-m6",
+      "title": "Sixteenths and the Space Between",
+      "sourceTitle": "Sixteenths and the Space Between",
+      "type": "concept",
+      "suggestedSeconds": 300,
+      "objective": "Count steady sixteenth subdivisions and create syncopation by sustaining selected off-beat attacks across unplayed downbeats.",
+      "prerequisiteLessonIds": [
+        "g-l4-m4-07",
+        "g-l5-m2-04"
+      ],
+      "steps": [
+        {
+          "title": "Separate pulse and subdivision",
+          "action": "Use a quarter-note click and say 1 e & a through 4 e & a. Four sixteenths fit each beat; keep down-up-down-up movement through the four syllables.",
+          "lookCheck": "The number and & motions are down; e and a are up. The click marks quarters, not each hand motion.",
+          "listenCheck": "Hear evenly spaced subdivisions rather than a swung long-short pair."
+        },
+        {
+          "title": "Choose the six contacts",
+          "action": "Read the cell: play on 1,1a,2&,3,3a,4& only. Start with muted-string hand practice, then use Em. Every other motion passes above the strings.",
+          "lookCheck": "The physical motion continues even when it makes no new attack.",
+          "listenCheck": "Hear six actual contacts, not sixteen strums with the extra ten hidden quietly."
+        },
+        {
+          "title": "Keep the written sustains",
+          "action": "Let the 1a and 3a attacks ring across beats 2 and 4. Those downbeats have no fresh attack, but the chord sound continues.",
+          "lookCheck": "This differs from the full silent rests of the earlier power-chord piece. Do not mute automatically on 2 and 4.",
+          "listenCheck": "Hear the off-beat sound carrying through the next strong pulse."
+        },
+        {
+          "title": "Build the cell slowly",
+          "action": "Loop one bar below 100 BPM, beginning near 50–60 or slower. Add one contact at a time while keeping motion relaxed, then play the complete cell.",
+          "lookCheck": "Use a separate metronome and keep the pattern visible. No sixteenth scoring or performed demo is supplied.",
+          "listenCheck": "The skipped attacks and held sounds should be as deliberate as the played strokes."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "I swing the e and a subdivisions.",
+          "recovery": "Return to evenly spoken four-part beats at a slower click."
+        },
+        {
+          "observation": "I strike beat 2 after the 1a upstroke.",
+          "recovery": "Keep the next down motion in the air while letting the preceding chord ring."
+        },
+        {
+          "observation": "I mute every missing attack.",
+          "recovery": "Read the sustain rule: this cell omits new contacts while the sound continues."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 60,
+          "instruction": "Count and move through even sixteenth subdivisions."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Add the six chosen contacts on muted strings."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Use Em and preserve the written sustains."
+        },
+        {
+          "seconds": 45,
+          "instruction": "Loop the complete one-bar cell slowly."
+        },
+        {
+          "seconds": 15,
+          "instruction": "Explain skipped attack versus full rest."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I keep sixteen evenly spaced motions per bar.",
+          "Only the six written positions contact the strings.",
+          "I sustain the off-beat attacks across beats 2 and 4 without new strokes."
+        ],
+        "readyWhen": "Demonstrate the slow complete cell and explain how its off-beat sustains create the syncopated feel.",
+        "ifNotReady": "Remove chord changes and rebuild one beat at a time while maintaining the hand motion.",
+        "proves": "Self-checked subdivision and syncopation understanding.",
+        "doesNotProve": "Automatic stroke-direction detection, 100-BPM performance or proof that syncopation is merely silence."
+      },
+      "demoAssetIds": [
+        "l6-sixteenth-cell",
+        "l3-em-chord"
+      ],
+      "referenceIds": [
+        "l6-justin-sixteenths",
+        "l6-yousician-syncopation"
+      ]
+    },
+    {
+      "id": "g-l6-m6-05",
+      "moduleId": "g-l6-m6",
+      "title": "Syncopated Groove Song",
+      "sourceTitle": "Syncopated Groove Song",
+      "type": "song",
+      "suggestedSeconds": 420,
+      "objective": "Play After the Line, a complete original twenty-four-bar Em–C–G–D piece using the same syncopated sixteenth cell throughout.",
+      "prerequisiteLessonIds": [
+        "g-l6-m6-01"
+      ],
+      "steps": [
+        {
+          "title": "Read the full form",
+          "action": "Use the piece map: two bars each of Em,C,G,D, repeated for three eight-bar sections. Every bar uses the same six-contact cell. Begin at a controllable tempo.",
+          "lookCheck": "The complete piece is 24 bars, not one eight-bar loop counted three separate times after restarts.",
+          "listenCheck": "Check the four open chords and keep the intended string groups clear."
+        },
+        {
+          "title": "Maintain the cell through a change",
+          "action": "Loop the second Em bar into the first C bar. Keep the down/up motion and change chord for the next bar’s first attack without adding a strum. Repeat C-to-G, G-to-D and D-to-Em.",
+          "lookCheck": "Prepare the fretting move without turning the skipped attacks into extra contact.",
+          "listenCheck": "The 1a and 3a sustains remain intact before and after the change."
+        },
+        {
+          "title": "Connect sections",
+          "action": "Play one complete eight-bar section, then connect its final D to the next Em without a pause. Use a separate click and count the section number.",
+          "lookCheck": "The repeated form does not excuse speeding up. A stopped section remains a rehearsal fragment.",
+          "listenCheck": "Hear the same quarter pulse across the section boundary."
+        },
+        {
+          "title": "Play and finish the full piece",
+          "action": "Take four count-in beats and play all 24 bars. In the last bar, make the written 4& attack, hold its remaining half beat, then mute at the next boundary. Record tempo, continuity and the first failed cell.",
+          "lookCheck": "There are 144 written attacks in the complete piece; the app does not count them for you.",
+          "listenCheck": "Listen for the final held half beat instead of adding a large extra ending strum."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "A chord change inserts a seventh attack.",
+          "recovery": "Loop the boundary slowly with the exact six-contact grid and keep the spare motion in the air."
+        },
+        {
+          "observation": "I restart after each eight bars.",
+          "recovery": "Keep those as section practice, then join two boundaries for a single full form."
+        },
+        {
+          "observation": "The ending arrives early.",
+          "recovery": "Count all of bar 24, including the 4& contact and its final half beat."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Read the 24-bar map and check Em,C,G,D."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Loop each two-chord boundary with the full cell."
+        },
+        {
+          "seconds": 105,
+          "instruction": "Join eight-bar sections without a gap."
+        },
+        {
+          "seconds": 120,
+          "instruction": "Play the complete original piece with a fresh count-in."
+        },
+        {
+          "seconds": 45,
+          "instruction": "State tempo, continuity and the exact repair cell."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I followed all 24 bars and their chord order.",
+          "I retained six contacts per bar and the held off-beat notes.",
+          "I reported actual tempo and any restart or added attack."
+        ],
+        "readyWhen": "Play the complete written piece at a controllable tempo with a clear account of any remaining rhythmic repair.",
+        "ifNotReady": "Repair the first failed boundary at a slower pulse, then reconnect the full form.",
+        "proves": "Self-reported practice of the original 24-bar composition.",
+        "doesNotProve": "Automatic backing playback, measured rhythm accuracy, a 100-BPM checkpoint or a commercial-song arrangement."
+      },
+      "demoAssetIds": [
+        "l6-sixteenth-cell",
+        "l6-after-the-line-piece",
+        "l3-em-chord",
+        "l3-c-chord",
+        "l3-g-chord",
+        "stage2-d-chord"
+      ],
+      "referenceIds": [
+        "l6-justin-sixteenths",
+        "l6-yousician-syncopation"
+      ]
+    },
+    {
+      "id": "g-l6-m6-08",
+      "moduleId": "g-l6-m6",
+      "title": "Checkpoint: Twenty-Four Bars at One Hundred",
+      "sourceTitle": "Checkpoint: Twenty-Four Bars at One Hundred",
+      "type": "checkpoint",
+      "suggestedSeconds": 360,
+      "objective": "Play the complete twenty-four-bar syncopated piece at 100 BPM with its exact attacks, sustains and bar order intact.",
+      "prerequisiteLessonIds": [
+        "g-l6-m6-05"
+      ],
+      "steps": [
+        {
+          "title": "Set the target exactly",
+          "action": "Use After the Line and its unchanged one-bar cell. Set a separate metronome to 100 BPM with quarter-note clicks in 4/4, then check the cell on Em before the take.",
+          "lookCheck": "Sixteenth hand motions subdivide each click into four; do not treat the click as eighths to halve the actual tempo.",
+          "listenCheck": "Hear the 1a and 3a attacks held across 2 and 4 at the target pulse."
+        },
+        {
+          "title": "Count in and preserve the form",
+          "action": "After four lead-in beats, play the three eight-bar sections continuously: Em,Em,C,C,G,G,D,D each time. Keep the exact six contacts in every bar.",
+          "lookCheck": "Twenty-four bars contain 96 quarter-note beats and 144 written attacks; the lead-in is separate.",
+          "listenCheck": "No extra beat-2 or beat-4 attack should enter as the chord changes."
+        },
+        {
+          "title": "Finish the last full bar",
+          "action": "Make the final 4& contact in bar 24, sustain its half beat and mute at the next bar line. Keep the take intact when reviewing any drift, wrong contact or skipped bar.",
+          "lookCheck": "A restart, short bar or omitted attack cannot be repaired invisibly inside a complete result.",
+          "listenCheck": "Listen for consistent subdivision spacing as well as the overall click alignment."
+        },
+        {
+          "title": "Apply the whole target",
+          "action": "State the actual tempo and whether every bar retained its contact/sustain pattern with no drift or restart. If any part is uncertain, mark that bar for review and make a fresh attempt later.",
+          "lookCheck": "This is self-reviewed continuity and rhythm; no automatic sixteenth-pattern score is present.",
+          "listenCheck": "A loud steady downbeat does not establish that the off-beat placements stayed correct."
+        }
+      ],
+      "mistakeRecovery": [
+        {
+          "observation": "100 is selected but I feel the click twice as fast as my quarter pulse.",
+          "recovery": "Reset the quarter-note interpretation and rehearse one exact bar before another full take."
+        },
+        {
+          "observation": "The final section speeds up.",
+          "recovery": "Practise the bar-16-to-17 boundary with the click and no extra accents, then restart the full form."
+        },
+        {
+          "observation": "I count the right number of strums but their positions are wrong.",
+          "recovery": "Return to the sixteenth grid. Contact timing and sustains matter; a total count alone is insufficient."
+        }
+      ],
+      "practiceSegments": [
+        {
+          "seconds": 45,
+          "instruction": "Set 100 BPM and review the exact grid and full form."
+        },
+        {
+          "seconds": 75,
+          "instruction": "Warm up the hardest chord boundary without changing the cell."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Play a full 24-bar attempt with four count-in beats."
+        },
+        {
+          "seconds": 90,
+          "instruction": "Review the first drift, extra contact or shortened sustain."
+        },
+        {
+          "seconds": 60,
+          "instruction": "Repair that bar and report the actual complete or partial result."
+        }
+      ],
+      "selfAssessment": {
+        "criteria": [
+          "I used actual 100-BPM quarter-note clicks.",
+          "All 24 bars and 144 written contact positions remained intact without a restart.",
+          "The off-beat sustains crossed beats 2 and 4 without extra attacks.",
+          "I ended after the full final half beat and reported any uncertainty."
+        ],
+        "readyWhen": "One complete self-reviewed take meets the 100-BPM, 24-bar, exact-pattern and continuity conditions.",
+        "ifNotReady": "Keep the specific failed bar, practise it slower and begin a new complete take when ready.",
+        "proves": "Learner-reported performance of the specified full pattern at 100 BPM.",
+        "doesNotProve": "Software timing certification, automatic strum counting, drift measurement or mastery of all syncopated sixteenth patterns."
+      },
+      "demoAssetIds": [
+        "l6-sixteenth-cell",
+        "l6-after-the-line-piece"
+      ],
+      "referenceIds": [
+        "l6-justin-sixteenths",
+        "l6-yousician-syncopation"
+      ]
     }
   ],
   "references": [
@@ -2860,6 +6233,60 @@
       "title": "Yousician — Guitar chord charts",
       "url": "https://yousician.com/blog/guitar-chord-charts",
       "supports": "Major/minor root-third-fifth construction, with power and seventh chords distinguished. No literal every-chord-is-three-notes rule is adopted."
+    },
+    {
+      "id": "l6-justin-barre",
+      "title": "JustinGuitar — Intermediate Foundation (Classic)",
+      "url": "https://www.justinguitar.com/classes/intermediate-foundation-classic",
+      "supports": "Public course progression teaches E- and A-shape barre families and scale relationships; exact selected grips and checks are original."
+    },
+    {
+      "id": "l6-yousician-practice",
+      "title": "Yousician — Practice and Play modes in guitar",
+      "url": "https://support.yousician.com/hc/en-us/articles/201558362-Practice-and-Play-modes-in-guitar",
+      "supports": "Public slow/repeat/section practice convention; no private scoring or unsupported transport is claimed."
+    },
+    {
+      "id": "l6-justin-framework",
+      "title": "JustinGuitar — Fretboard Framework",
+      "url": "https://www.justinguitar.com/guitar-lessons/fretboard-framework-mm-010",
+      "supports": "Public lesson connects three major-scale patterns, chord landmarks and fretboard navigation. The exact route and maps here are independently authored."
+    },
+    {
+      "id": "l6-justin-caged",
+      "title": "JustinGuitar Official Guide — Major Scale Pattern 1 discussion",
+      "url": "https://community.justinguitar.com/t/major-scale-pattern-1-lesson-on-justinguitar/3202",
+      "supports": "Official guide explains five overlapping CAGED regions and E-shape pattern convention. Only the official educational explanation is used, not general user comments."
+    },
+    {
+      "id": "l6-justin-triads",
+      "title": "JustinGuitar — Triad Chord Grips",
+      "url": "https://www.justinguitar.com/guitar-lessons/triad-chord-grips-im-151",
+      "supports": "Top-three-string triad and muting conventions support naming root/third/fifth; the arrival map and checks are original."
+    },
+    {
+      "id": "l6-justin-ear",
+      "title": "JustinGuitar Songs — Learning To Sing For Guitarists",
+      "url": "https://www.youtube.com/watch?v=Y3c0wbdBjZI",
+      "supports": "Official ear-training lesson context connects singing with guitar listening. No video script or musical phrase is copied."
+    },
+    {
+      "id": "l6-justin-transcribing",
+      "title": "JustinGuitar — Transcribing Easy Riffs",
+      "url": "https://www.justinguitar.com/guitar-lessons/transcribing-easy-riffs-bg-1708",
+      "supports": "Public lesson scope supports beginning transcription with short riffs. Full body was unavailable; exact helper prompts and manual rubric are original GuitarHub material."
+    },
+    {
+      "id": "l6-justin-sixteenths",
+      "title": "JustinGuitar — Intermediate Rhythm Guitar 2",
+      "url": "https://www.justinguitar.com/guitar-lessons/intermediate-rhythm-guitar-2-im-125",
+      "supports": "Public instruction links steady sixteenth hand motion with down motions on numbers/ands and up motions on e/a, built slowly. The contact pattern and song here are not copied."
+    },
+    {
+      "id": "l6-yousician-syncopation",
+      "title": "Yousician — Back in Black teaching overview",
+      "url": "https://yousician.com/blog/new-song-back-in-black-for-guitar-bass-and-singing",
+      "supports": "First-party teaching describes syncopation as off-beat placement against a steady pulse. No song music, tab, audio or arrangement is reused."
     }
   ]
 }

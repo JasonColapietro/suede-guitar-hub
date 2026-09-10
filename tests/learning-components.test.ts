@@ -28,8 +28,8 @@ test('real riff component renders every authored reference button and accessible
   assert.match(markup, /Hear slot 7, string 6, fret 5, A2/);
   assert.match(markup, /Original GuitarHub exercise/);
 });
-test('all eighteen advanced guides render their real supported diagrams and pitch references', () => {
-  assert.equal(advanced.lessons.length, 18);
+test('all thirty-six advanced guides render their real supported diagrams and pitch references', () => {
+  assert.equal(advanced.lessons.length, 36);
   for (const lesson of advanced.lessons) {
     const instruction = getLessonInstructions(lesson.id);
     assert.ok(instruction, lesson.id);
@@ -66,7 +66,7 @@ test('real library exposes native filter names, search label and honest preview/
   assert.match(markup, /Song, artist, chord or skill/);
   assert.match(markup, /Mic exercises/);
   assert.match(markup, /All topics/);
-  assert.match(markup, /99 results/);
+  assert.match(markup, /117 results/);
   assert.match(markup, /Lesson preview/);
   assert.equal((markup.match(/>Available<\/span>/g) ?? []).length, 3, "guest sampler only");
   assert.match(markup, /Available/);

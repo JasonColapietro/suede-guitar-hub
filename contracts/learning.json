@@ -589,6 +589,150 @@
         "advanced-triad-bm"
       ]
     },
+    "g-l6-m1-01" : {
+      "assetIds" : [
+        "l6-e-shape-g",
+        "l6-e-shape-gm",
+        "l6-e-barre-check"
+      ]
+    },
+    "g-l6-m1-02" : {
+      "assetIds" : [
+        "l6-e-shape-f",
+        "l6-e-shape-g",
+        "l6-e-shape-a",
+        "l6-e-shape-b",
+        "l6-e-shape-c",
+        "l6-e-shape-fm",
+        "l6-e-shape-gm",
+        "l6-e-shape-am",
+        "l6-e-shape-bm",
+        "l6-e-shape-cm",
+        "l6-e-barre-check"
+      ]
+    },
+    "g-l6-m1-08" : {
+      "assetIds" : [
+        "l6-e-barre-check",
+        "l6-e-shape-f",
+        "l6-e-shape-g",
+        "l6-e-shape-a",
+        "l6-e-shape-b",
+        "l6-e-shape-c",
+        "l6-e-shape-fm",
+        "l6-e-shape-gm",
+        "l6-e-shape-am",
+        "l6-e-shape-bm",
+        "l6-e-shape-cm"
+      ]
+    },
+    "g-l6-m2-01" : {
+      "assetIds" : [
+        "l6-a-shape-c",
+        "l6-a-shape-d",
+        "l6-a-shape-e",
+        "l6-e-shape-g"
+      ]
+    },
+    "g-l6-m2-05" : {
+      "assetIds" : [
+        "l6-e-shape-g",
+        "l6-a-shape-c",
+        "l6-a-shape-d",
+        "l6-crossings-piece"
+      ]
+    },
+    "g-l6-m2-08" : {
+      "assetIds" : [
+        "l6-nearby-keys",
+        "l6-e-shape-g",
+        "l6-e-shape-a",
+        "l6-e-shape-c",
+        "l6-a-shape-c",
+        "l6-a-shape-d",
+        "l6-a-shape-e",
+        "l6-a-shape-f",
+        "l6-a-shape-g"
+      ]
+    },
+    "g-l6-m3-01" : {
+      "assetIds" : [
+        "l6-g-major-five-views"
+      ]
+    },
+    "g-l6-m3-03" : {
+      "assetIds" : [
+        "l6-three-position-route",
+        "l6-position-route-guide",
+        "l6-g-major-five-views"
+      ]
+    },
+    "g-l6-m3-08" : {
+      "assetIds" : [
+        "l6-three-position-route",
+        "l6-position-route-guide"
+      ]
+    },
+    "g-l6-m4-01" : {
+      "assetIds" : [
+        "l6-eight-bar-arrivals",
+        "l6-third-note-reference",
+        "l3-g-chord",
+        "l3-em-chord",
+        "l3-c-chord",
+        "stage2-d-chord"
+      ]
+    },
+    "g-l6-m4-04" : {
+      "assetIds" : [
+        "l6-eight-bar-arrivals",
+        "l6-third-note-reference"
+      ]
+    },
+    "g-l6-m4-08" : {
+      "assetIds" : [
+        "l6-eight-bar-arrivals",
+        "l6-third-note-reference"
+      ]
+    },
+    "g-l6-m5-01" : {
+      "assetIds" : [
+        "l6-ear-four-notes-helper"
+      ]
+    },
+    "g-l6-m5-03" : {
+      "assetIds" : [
+        "l6-ear-four-notes-helper"
+      ]
+    },
+    "g-l6-m5-08" : {
+      "assetIds" : [
+        "l6-transcription-rubric",
+        "l6-ear-four-bars-helper"
+      ]
+    },
+    "g-l6-m6-01" : {
+      "assetIds" : [
+        "l6-sixteenth-cell",
+        "l3-em-chord"
+      ]
+    },
+    "g-l6-m6-05" : {
+      "assetIds" : [
+        "l6-sixteenth-cell",
+        "l6-after-the-line-piece",
+        "l3-em-chord",
+        "l3-c-chord",
+        "l3-g-chord",
+        "stage2-d-chord"
+      ]
+    },
+    "g-l6-m6-08" : {
+      "assetIds" : [
+        "l6-sixteenth-cell",
+        "l6-after-the-line-piece"
+      ]
+    },
     "g-songs-m1-01" : {
       "assetIds" : [
         "song-guitar-shape-em7",
@@ -986,7 +1130,25 @@
         "g-l5-m5-07",
         "g-l5-m6-01",
         "g-l5-m6-03",
-        "g-l5-m6-07"
+        "g-l5-m6-07",
+        "g-l6-m1-01",
+        "g-l6-m1-02",
+        "g-l6-m1-08",
+        "g-l6-m2-01",
+        "g-l6-m2-05",
+        "g-l6-m2-08",
+        "g-l6-m3-01",
+        "g-l6-m3-03",
+        "g-l6-m3-08",
+        "g-l6-m4-01",
+        "g-l6-m4-04",
+        "g-l6-m4-08",
+        "g-l6-m5-01",
+        "g-l6-m5-03",
+        "g-l6-m5-08",
+        "g-l6-m6-01",
+        "g-l6-m6-05",
+        "g-l6-m6-08"
       ],
       "query" : "",
       "track" : "guitar"
@@ -1109,7 +1271,24 @@
         "g-l5-m5-07",
         "g-l5-m6-01",
         "g-l5-m6-03",
-        "g-l5-m6-07"
+        "g-l5-m6-07",
+        "g-l6-m1-01",
+        "g-l6-m1-02",
+        "g-l6-m1-08",
+        "g-l6-m2-01",
+        "g-l6-m2-05",
+        "g-l6-m2-08",
+        "g-l6-m3-03",
+        "g-l6-m3-08",
+        "g-l6-m4-01",
+        "g-l6-m4-04",
+        "g-l6-m4-08",
+        "g-l6-m5-01",
+        "g-l6-m5-03",
+        "g-l6-m5-08",
+        "g-l6-m6-01",
+        "g-l6-m6-05",
+        "g-l6-m6-08"
       ],
       "query" : "  a   d  ",
       "track" : "guitar"
@@ -1160,7 +1339,9 @@
         "g-songs-m6-02",
         "g-songs-m6-03",
         "g-songs-m6-04",
-        "g-l5-m2-04"
+        "g-l5-m2-04",
+        "g-l6-m2-05",
+        "g-l6-m6-05"
       ],
       "query" : "",
       "track" : "guitar"
@@ -1213,7 +1394,9 @@
         "g-songs-m6-02",
         "g-songs-m6-03",
         "g-songs-m6-04",
-        "g-l5-m2-04"
+        "g-l5-m2-04",
+        "g-l6-m2-05",
+        "g-l6-m6-05"
       ],
       "query" : "  a   d  ",
       "track" : "guitar"
@@ -1363,24 +1546,6 @@
     {
       "filter" : "previews",
       "lessonIds" : [
-        "g-l6-m1-01",
-        "g-l6-m1-02",
-        "g-l6-m1-08",
-        "g-l6-m2-01",
-        "g-l6-m2-05",
-        "g-l6-m2-08",
-        "g-l6-m3-01",
-        "g-l6-m3-03",
-        "g-l6-m3-08",
-        "g-l6-m4-01",
-        "g-l6-m4-04",
-        "g-l6-m4-08",
-        "g-l6-m5-01",
-        "g-l6-m5-03",
-        "g-l6-m5-08",
-        "g-l6-m6-01",
-        "g-l6-m6-05",
-        "g-l6-m6-08",
         "g-l7-m1-01",
         "g-l7-m1-03",
         "g-l7-m1-08",
@@ -1422,22 +1587,6 @@
     {
       "filter" : "previews",
       "lessonIds" : [
-        "g-l6-m1-01",
-        "g-l6-m1-02",
-        "g-l6-m1-08",
-        "g-l6-m2-01",
-        "g-l6-m2-05",
-        "g-l6-m2-08",
-        "g-l6-m3-08",
-        "g-l6-m4-01",
-        "g-l6-m4-04",
-        "g-l6-m4-08",
-        "g-l6-m5-01",
-        "g-l6-m5-03",
-        "g-l6-m5-08",
-        "g-l6-m6-01",
-        "g-l6-m6-05",
-        "g-l6-m6-08",
         "g-l7-m1-01",
         "g-l7-m1-03",
         "g-l7-m1-08",
@@ -1742,6 +1891,7 @@
         "g-l6-m2-01",
         "g-l6-m2-05",
         "g-l6-m2-08",
+        "g-l6-m3-03",
         "g-l6-m3-08",
         "g-l6-m4-01",
         "g-l6-m4-04",
@@ -13055,7 +13205,25 @@
         "g-l5-m5-07",
         "g-l5-m6-01",
         "g-l5-m6-03",
-        "g-l5-m6-07"
+        "g-l5-m6-07",
+        "g-l6-m1-01",
+        "g-l6-m1-02",
+        "g-l6-m1-08",
+        "g-l6-m2-01",
+        "g-l6-m2-05",
+        "g-l6-m2-08",
+        "g-l6-m3-01",
+        "g-l6-m3-03",
+        "g-l6-m3-08",
+        "g-l6-m4-01",
+        "g-l6-m4-04",
+        "g-l6-m4-08",
+        "g-l6-m5-01",
+        "g-l6-m5-03",
+        "g-l6-m5-08",
+        "g-l6-m6-01",
+        "g-l6-m6-05",
+        "g-l6-m6-08"
       ],
       "lessonIds" : [
         "g-l1-m1-01",
@@ -19983,7 +20151,9 @@
         "g-songs-m6-02",
         "g-songs-m6-03",
         "g-songs-m6-04",
-        "g-l5-m2-04"
+        "g-l5-m2-04",
+        "g-l6-m2-05",
+        "g-l6-m6-05"
       ]
     },
     "voice" : {
