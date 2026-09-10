@@ -1,0 +1,630 @@
+{
+  "fixtures" : [
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l1-m1-01",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "guided-concept",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l1-m1-01",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-absent-concept",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "concept"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l1-m1-01",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-concept-concept",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "guided-exercise",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-absent-exercise",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "concept"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-concept-exercise",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m2-04",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "guided-song",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m2-04",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-absent-song",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "concept"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m2-04",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-concept-song",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-07",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "guided-checkpoint",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-07",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-absent-checkpoint",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "concept"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-07",
+        "practiceSeconds" : 43,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy-concept-checkpoint",
+      "expectedCompleted" : true
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l1-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "ineligible-g-l1-m1-02",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l1-m3-04",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "ineligible-g-l1-m3-04",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "v-l1-m1-01",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "voice",
+        "version" : 1
+      },
+      "case" : "ineligible-v-l1-m1-01",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "manualCount",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "kindManual",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "microphone",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "kindMicrophone",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "manualOverride",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "override",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "repeat",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "repeat",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "imported",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "legacy",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "legacy",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "legacy",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "localSource",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "verifiedSkill"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "unknownLabel",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : null
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "nullLabel",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "practiceScore" : null,
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "practiceScore",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "readingQuizAttempt" : null,
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "readingQuizAttempt",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "chordChangeAttempt" : null,
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck"
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "chordChangeAttempt",
+      "expectedCompleted" : false
+    },
+    {
+      "attempt" : {
+        "assessment" : "ready",
+        "bpm" : null,
+        "createdAt" : "2026-09-08T00:00:00.000Z",
+        "details" : {
+          "localSource" : "selfReported",
+          "reflectionType" : "guidedSelfCheck",
+          "studyPracticeAttempt" : null
+        },
+        "disposition" : "reflection",
+        "exerciseRevision" : null,
+        "id" : "a0000000-0000-4000-8000-000000000001",
+        "kind" : "study",
+        "lessonId" : "g-l5-m1-02",
+        "practiceSeconds" : null,
+        "score" : null,
+        "source" : "selfReported",
+        "track" : "guitar",
+        "version" : 1
+      },
+      "case" : "studyPracticeAttempt",
+      "expectedCompleted" : false
+    }
+  ],
+  "knownDivergences" : [
+
+  ],
+  "note" : "Regenerate with CONTRACT_WRITE=1 swift test --package-path GuitarHubCore --filter LearningEvidenceContractTests.",
+  "reference" : "Native LearningEvidence.reflection and derive with current authored instruction",
+  "version" : 1
+}

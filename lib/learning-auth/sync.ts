@@ -1,5 +1,6 @@
 import { accountUUID, assertSyncScope, parseLearningAttempt, LearningAccountError, type LearningAttempt, type LearningSyncBinding, type LearningTrack } from "../learning-account/contracts.ts";
 import type { LessonRecord } from "../learning/progress.ts";
+import { allowsGuidedSelfCheck } from "../learning/self-check.ts";
 
 export type AccountSyncQueue = LearningSyncBinding & { version: 1; attempts: LearningAttempt[] };
 const object = (value: unknown): value is Record<string, unknown> => !!value && typeof value === "object" && !Array.isArray(value);
@@ -44,6 +45,7 @@ export function attemptFromLessonRecord(id: string, track: LearningTrack, lesson
     disposition: record.source === "measured" ? "scored" : "reflection", assessment: record.assessment,
     score: record.score, bpm: record.bpm ?? null,
     details: { localSource: record.source, ...(record.readingQuizAttempt ? { readingQuizAttempt: record.readingQuizAttempt } : {}),
+      ...(record.source === "selfReported" && allowsGuidedSelfCheck(track, lessonId) ? { reflectionType: "guidedSelfCheck" } : {}),
       ...(record.completionMinimumBPM === undefined ? {} : { completionMinimumBPM: record.completionMinimumBPM }) },
   }, allowedLessons);
 }

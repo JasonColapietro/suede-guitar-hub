@@ -3,6 +3,7 @@ import { allLessons, getLesson } from "../learning/curriculum.ts";
 import { getLessonInstructions, parseReadingQuizAttempt } from "../learning/instructions.ts";
 import { parseProgress, parseReadingQuizProgress, withLessonRecord, withReadingQuizEvidence, type LearningProgress, type LessonRecord, type ReadingQuizProgress } from "../learning/progress.ts";
 import { parseStageTwoHistory, type StageTwoHistory } from "../learning/stage-two.ts";
+import { allowsGuidedSelfCheck } from "../learning/self-check.ts";
 
 export const syncLessonMap = new Map((["guitar", "voice"] as const).flatMap(track => allLessons(track).map(({ lesson }) => [lesson.id, track] as const)));
 const ordered = (attempts: readonly LearningAttempt[]) => [...attempts].sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id));
@@ -33,6 +34,12 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
     if (attempt.track !== local.track || attempt.kind === "reading" || attempt.source === "legacy" || attempt.disposition === "insufficientSignal") continue;
     // Raw manual/study events remain evidence in their own history; only a saved lesson reflection is a lesson record.
     if (attempt.source !== "measured" && attempt.details.localSource !== "selfReported" && attempt.disposition !== "manualOverride") continue;
+    const reflectionLabel = attempt.details.reflectionType;
+    const selfChecked = attempt.kind === "study" && attempt.source === "selfReported" &&
+      attempt.disposition === "reflection" && attempt.details.localSource === "selfReported" &&
+      (reflectionLabel === undefined || reflectionLabel === "concept" || reflectionLabel === "guidedSelfCheck") &&
+      !["practiceScore", "readingQuizAttempt", "chordChangeAttempt", "studyPracticeAttempt"].some(key => Object.hasOwn(attempt.details, key)) &&
+      allowsGuidedSelfCheck(local.track, attempt.lessonId);
     const spec = getLesson(local.track, attempt.lessonId)?.lesson.practiceSpec;
     const measured = attempt.source === "measured" && attempt.disposition === "scored";
     const scoreEvidence = attempt.details.practiceScore;
@@ -43,7 +50,7 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
     const record: LessonRecord = {
       updatedAt: attempt.createdAt, practiceSeconds: Math.floor(attempt.practiceSeconds ?? 0),
       source: measured ? "measured" : "selfReported", score: measured ? attempt.score : null,
-      assessment: measured ? completeTargets && completeDuration && spec && attempt.score !== null && attempt.score >= spec.passScore ? "ready" : "repeat" : attempt.assessment,
+      assessment: measured ? completeTargets && completeDuration && spec && attempt.score !== null && attempt.score >= spec.passScore ? "ready" : "repeat" : selfChecked ? attempt.assessment : "repeat",
       ...(measured && attempt.bpm !== null ? { bpm: attempt.bpm } : {}),
       ...(measured && attempt.exerciseRevision !== null ? { practiceSpecRevision: attempt.exerciseRevision } : {}),
     };
