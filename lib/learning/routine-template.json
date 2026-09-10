@@ -3,15 +3,13 @@
   "revision": 1,
   "title": "Your first A/D routine",
   "track": "guitar",
-  "sourceUrl": "https://www.justinguitar.com/guitar-lessons/module-1-practice-routine-b1-116",
-  "sourceLabel": "JustinGuitar Module 1 practice routine",
   "preparation": [
-    { "id": "tuning", "title": "Tune and recheck all six strings", "lessonIds": ["g-l1-m1-02"], "externalUrl": "https://www.justinguitar.com/modules/before-you-begin-guitar-basics", "externalLabel": "JustinGuitar: before you begin" },
-    { "id": "d-chord", "title": "Form D and check each sounding string", "lessonIds": ["g-l2-m1-01"], "externalUrl": "https://www.justinguitar.com/guitar-lessons/how-to-play-the-d-chord-b1-105", "externalLabel": "JustinGuitar: D chord instruction" },
-    { "id": "a-chord", "title": "Form A and check each sounding string", "lessonIds": ["g-l2-m1-01"], "externalUrl": "https://www.justinguitar.com/guitar-lessons/how-to-play-the-a-chord-b1-108", "externalLabel": "JustinGuitar: A chord instruction" },
-    { "id": "anchor", "title": "Move between D and A with a light anchor", "lessonIds": ["g-l2-m3-01"], "externalUrl": "https://www.justinguitar.com/guitar-lessons/how-to-use-anchor-fingers-b1-109", "externalLabel": "JustinGuitar: anchor-finger instruction" },
-    { "id": "changes", "title": "Understand how to count alternating changes", "lessonIds": ["g-l2-m3-02"], "externalUrl": "https://www.justinguitar.com/guitar-lessons/one-minute-changes-exercise-b1-110", "externalLabel": "JustinGuitar: one-minute changes instruction" },
-    { "id": "songs", "title": "Count four beats and attempt suitable A/D songs", "lessonIds": ["g-l2-m2-01", "g-l2-m2-04"], "externalUrl": "https://www.justinguitar.com/guitar-lessons/super-easy-2-chord-songs-b1-114", "externalLabel": "JustinGuitar: first two-chord songs" }
+    { "id": "tuning", "title": "Tune and recheck all six strings", "lessonIds": ["g-l1-m1-02"] },
+    { "id": "d-chord", "title": "Form D and check each sounding string", "lessonIds": ["g-l2-m1-01"] },
+    { "id": "a-chord", "title": "Form A and check each sounding string", "lessonIds": ["g-l2-m1-01"] },
+    { "id": "anchor", "title": "Move between D and A with a light anchor", "lessonIds": ["g-l2-m3-01"] },
+    { "id": "changes", "title": "Understand how to count alternating changes", "lessonIds": ["g-l2-m3-02"] },
+    { "id": "songs", "title": "Count four beats and attempt suitable A/D songs", "lessonIds": ["g-l2-m2-01", "g-l2-m2-04"] }
   ],
   "blocks": [
     { "id": "tune", "title": "Tune", "kind": "tuning", "suggestedSeconds": 60, "preparationIds": ["tuning"], "lessonId": "g-l1-m1-02", "assetIds": [], "prompt": "Use your tuner to check low E2, A2, D3, G3, B3 and high E4. Make small adjustments, then recheck every string. Extend this block whenever you need.", "selfCheck": "I checked all six strings and rechecked after adjusting." },

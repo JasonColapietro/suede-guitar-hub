@@ -9,7 +9,7 @@
 .routine button { cursor: pointer; }
 .routine button:disabled { opacity: .5; cursor: not-allowed; }
 .routine :is(button,a,input,summary):focus-visible { outline: 3px solid #793bc0; outline-offset: 4px; }
-.breadcrumbs,.small,.source { font-size: .9rem; }
+.breadcrumbs,.small { font-size: .9rem; }
 .hero { margin: 3.2rem 0 2rem; }
 .hero > p:last-child { font-size: 1.2rem; max-width: 760px; }
 .eyebrow { text-transform: uppercase; font-size: .76rem; letter-spacing: .12em; color: #725d7d; font-weight: 650; }
@@ -49,6 +49,5 @@
 .history { border-bottom: 1px solid #d9cddd; padding: 1rem 0; }
 .history summary { min-height: 48px; cursor: pointer; padding: .7rem 0; }
 .history li { margin: .7rem 0; line-height: 1.65; }
-.source { margin-top: 2.5rem; color: #75657d; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 @media(max-width: 540px) { .plan li { padding: .6rem .2rem; gap: .5rem; } .plan input { width: 4.4rem; } .number { display: none; } .plan li > div { gap: .2rem; } .actions > button { flex-grow: 1; } .hero { margin-top: 2rem; } }
