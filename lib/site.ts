@@ -79,6 +79,12 @@ export const LEGAL: readonly SiteEntry[] = [
 
 export const TOOLS: readonly SiteEntry[] = [
   {
+    href: "/practice",
+    title: "Guitar tuner and metronome",
+    blurb: "Check each open string with pitch feedback and reference tones, then practice with a steady four-beat click.",
+    lastModified: "2026-09-08",
+  },
+  {
     href: "/breakthrough",
     title: "30-day breakthrough planner",
     blurb:
