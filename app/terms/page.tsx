@@ -7,7 +7,20 @@ export const metadata: Metadata = {
   title: "Terms of Use | GuitarHub",
   description,
   alternates: { canonical: "https://guitarhub.org/terms" },
-  openGraph: { title: "Terms of Use | GuitarHub", description, url: "https://guitarhub.org/terms", type: "website" },
+  openGraph: {
+    title: "Terms of Use | GuitarHub",
+    description,
+    url: "https://guitarhub.org/terms",
+    type: "website",
+    images: [
+      {
+        url: "https://guitarhub.org/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "GuitarHub guitar and voice learning tools",
+      },
+    ],
+  },
 };
 
 export default function TermsPage() {
