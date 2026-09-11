@@ -1,8 +1,8 @@
 # GuitarHub Breakthrough Room handoff
 
 **Date:** 2026-08-27  
-**Target repo:** `/Users/jasoncolapietro/code/suede-guitar-hub`  
-**Worktree:** `/Users/jasoncolapietro/code/suede-guitar-hub.worktrees/breakthrough-room`  
+**Target repo:** `~/code/suede-guitar-hub`  
+**Worktree:** `~/code/suede-guitar-hub.worktrees/breakthrough-room`  
 **Branch:** `codex/breakthrough-room`  
 **Base:** `main` at `ecde317`  
 **Remote:** `origin` → `https://github.com/JasonColapietro/suede-guitar-hub.git`  
@@ -23,7 +23,7 @@
 
 The supporting official-source competitor report is currently preserved at:
 
-`/Users/jasoncolapietro/code/suede-guitar-hub/research/online-guitar-community-methods-2026-08-27.md`
+`~/code/suede-guitar-hub/research/online-guitar-community-methods-2026-08-27.md`
 
 It compares Pickup Music, ArtistWorks, TrueFire, Guitar Tricks, JamPlay, and JustinGuitar, then maps their strongest mechanisms into GuitarHub's closed loop:
 

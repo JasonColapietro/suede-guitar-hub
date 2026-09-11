@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-27
 **Status:** Approved for implementation by Jason's direction to "just go"
-**Research:** `/Users/jasoncolapietro/code/suede-guitar-hub/research/online-guitar-community-methods-2026-08-27.md`
+**Research:** `~/code/suede-guitar-hub/research/online-guitar-community-methods-2026-08-27.md`
 
 ## Product decision
 
