@@ -59,6 +59,26 @@ test("publishes indexable robots metadata with the canonical sitemap", async () 
   }
 });
 
+test("legal pages own a complete OpenGraph image", () => {
+  for (const route of ["privacy", "terms"] as const) {
+    const source = readFileSync(
+      new URL(`../app/${route}/page.tsx`, import.meta.url),
+      "utf8",
+    );
+    const metadataSource = source.slice(
+      source.indexOf("export const metadata"),
+      source.indexOf("export default function"),
+    );
+
+    assert.match(metadataSource, /openGraph:\s*\{/);
+    assert.match(metadataSource, /images:\s*\[/);
+    assert.match(metadataSource, /url:\s*"https:\/\/guitarhub\.org\/opengraph-image"/);
+    assert.match(metadataSource, /width:\s*1200/);
+    assert.match(metadataSource, /height:\s*630/);
+    assert.match(metadataSource, /alt:\s*"GuitarHub guitar and voice learning tools"/);
+  }
+});
+
 /**
  * Resolve a route path to the `app/` directory whose `page.tsx` renders it,
  * following Next's own order: a literal segment directory wins, and a dynamic

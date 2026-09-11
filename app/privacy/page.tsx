@@ -7,7 +7,20 @@ export const metadata: Metadata = {
   title: "Privacy Policy | GuitarHub",
   description,
   alternates: { canonical: "https://guitarhub.org/privacy" },
-  openGraph: { title: "Privacy Policy | GuitarHub", description, url: "https://guitarhub.org/privacy", type: "website" },
+  openGraph: {
+    title: "Privacy Policy | GuitarHub",
+    description,
+    url: "https://guitarhub.org/privacy",
+    type: "website",
+    images: [
+      {
+        url: "https://guitarhub.org/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "GuitarHub guitar and voice learning tools",
+      },
+    ],
+  },
 };
 
 export default function PrivacyPage() {
