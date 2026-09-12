@@ -47,3 +47,23 @@ export function isFreeModule(track: TrackId, moduleId: string) {
 export function availableLessons(track: TrackId) { return allLessons(track).filter(({ module }) => isModuleAvailable(track, module.id)); }
 export function getLesson(track: TrackId, lessonId: string) { return allLessons(track).find(({ lesson }) => lesson.id === lessonId); }
 export function lessonHref(track: TrackId, lessonId: string) { return `/learn/${track}/${encodeURIComponent(lessonId)}`; }
+
+/**
+ * The comfort-and-safety line for each track.
+ *
+ * This lived inline in `LessonSession`, which only mounts for a lesson that is
+ * "ready" — and no voice lesson is, because the voice track has no authored
+ * lesson bodies yet. So the vocal line never rendered: a singer on a voice
+ * lesson page was told to slide to their lowest and highest comfortable notes,
+ * and to hold a twelve-second hiss, with no caution anywhere on the page. It
+ * matters more now that the first two voice stages are genuinely open rather
+ * than paywalled previews.
+ *
+ * Shared from here so the outline branch and the full lesson say the same thing.
+ */
+export const TRACK_SAFETY_NOTE = {
+  guitar:
+    "Keep your hand and shoulder relaxed. Stop and reset if you feel pain. Pitch feedback cannot judge tension, fingering, or buzzing.",
+  voice:
+    "Keep the range and volume comfortable. Stop if singing hurts or makes you hoarse; a pitch reading cannot assess vocal health.",
+} as const satisfies Record<TrackId, string>;

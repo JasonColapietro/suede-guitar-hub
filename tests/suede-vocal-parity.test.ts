@@ -31,6 +31,7 @@ import test from "node:test";
 
 import contract from "../contracts/suede-vocal.json" with { type: "json" };
 import voiceCurriculum from "../lib/learning/data/voice.json" with { type: "json" };
+import { TRACK_SAFETY_NOTE } from "../lib/learning/curriculum.ts";
 import {
   VOICE_MODULE_PROOF,
   moduleIdForLesson,
@@ -366,4 +367,23 @@ test("lesson ids map to their module", () => {
       }
     }
   }
+});
+
+/**
+ * The vocal safety note has to be on the page a singer actually sees.
+ *
+ * It lived inline in `LessonSession`, which only mounts for a lesson that is
+ * "ready". No voice lesson is ready, so the note never rendered — on a track
+ * that tells a singer to slide to both extremes of their range and hold a
+ * twelve-second hiss, and whose first two stages are now genuinely open rather
+ * than paywalled previews.
+ */
+test("the voice track has a safety note, and it names the real risks", () => {
+  const note = TRACK_SAFETY_NOTE.voice;
+  assert.match(note, /comfortable/i, "the note must tell a singer to stay comfortable");
+  assert.match(note, /hoarse|hurts/i, "the note must name the symptom to stop on");
+  // And it must not overstate what the app can see, which is the same honesty
+  // the measurement registry enforces for the proof metrics.
+  assert.match(note, /cannot assess vocal health/i);
+  assert.notEqual(TRACK_SAFETY_NOTE.voice, TRACK_SAFETY_NOTE.guitar);
 });

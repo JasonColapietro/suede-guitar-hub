@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { allLessons, getLesson, isTrackId, isFreeModule, isModuleAvailable, lessonHref, trackNames } from "@/lib/learning/curriculum";
+import { allLessons, getLesson, isTrackId, isFreeModule, isModuleAvailable, lessonHref, trackNames, TRACK_SAFETY_NOTE } from "@/lib/learning/curriculum";
 import { getLessonInstructions } from "@/lib/learning/instructions";
 import { canOpenModule, isLessonReady } from "@/lib/learning/access";
 import { singCompanionForLesson } from "@/lib/learning/voice-proof";
@@ -50,6 +50,9 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
           : access.enabled
             ? "This lesson requires Complete Lifetime access linked to your account. Sign in to the same account used for a linked iOS purchase."
             : "The first guitar module is free. This guided lesson is a preview while account-linked purchase access is being connected on the web."}</div>
+      {/* The outline branch renders instead of LessonSession, which is where the
+          safety note used to live — so a voice lesson showed none at all. */}
+      <p className={styles.small}>{TRACK_SAFETY_NOTE[track]}</p>
       {companion && <div className={styles.notice}>{companion.measured
         ? "Suede Sing measures this one. Work it there and the numbers are real."
         : "Suede Sing has the room for this, though nothing scores it yet — your ear and a recording are the evidence."}</div>}
