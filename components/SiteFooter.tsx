@@ -33,6 +33,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: STRUMLY.guides, label: "Strumly guides" },
   { href: STRUMLY.path, label: "Strumly learning path" },
   { href: STRUMLY.rig, label: "Strumly rig board" },
+  { href: STRUMLY.sing, label: "Suede Sing" },
   { href: STRUMLY.social, label: "Suede Social" },
   { href: STRUMLY.suedeLabs, label: "Suede Labs" },
 ];

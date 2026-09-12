@@ -362,6 +362,21 @@ export const STRUMLY = {
   },
   social: "https://social.suedeai.ai",
   suedeLabs: "https://suedeai.ai",
+  /**
+   * Suede Sing, the vocal studio. Added 2026-09-12, and overdue: this site
+   * ships a seven-level voice curriculum and had no link to the app that
+   * implements the range scan, the warm-ups, the breath drills and the pitch
+   * studio it teaches. A singer reaching a voice lesson was offered the guitar
+   * sampler and nothing else.
+   *
+   * Individual voice lessons do not link through this constant. They resolve
+   * their room from `contracts/suede-vocal.json` via
+   * `lib/learning/voice-proof.ts`, so a room that moves or a query parameter
+   * that is withdrawn fails a test instead of rotting on 102 pages.
+   */
+  sing: "https://sing.suedeai.ai",
+  singRange: "https://sing.suedeai.ai/range",
+  singWarmups: "https://sing.suedeai.ai/warmups",
 } as const;
 
 /** True for a route on guitarhub.org itself, which should use `next/link`. */

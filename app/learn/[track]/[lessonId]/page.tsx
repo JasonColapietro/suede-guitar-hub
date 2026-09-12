@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { allLessons, getLesson, isTrackId, isModuleAvailable, lessonHref, trackNames } from "@/lib/learning/curriculum";
 import { getLessonInstructions } from "@/lib/learning/instructions";
 import { canOpenModule, isLessonReady } from "@/lib/learning/access";
+import { singCompanionForLesson } from "@/lib/learning/voice-proof";
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
 import { LessonSession } from "@/components/learning/LessonSession";
 import styles from "@/components/learning/Learning.module.css";
@@ -28,6 +29,10 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   const lessons = allLessons(track);
   const index = lessons.findIndex(item => item.lesson.id === lessonId);
   const previous = lessons[index - 1];
+  // Where this lesson's work is actually done. The voice track has no guided
+  // lesson bodies yet, so without this the only thing a singer could press on
+  // a voice page was a link to the guitar sampler.
+  const companion = track === "voice" ? singCompanionForLesson(lesson.id) : undefined;
   const next = lessons[index + 1];
   return <>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><Link href={`/learn/${track}`}>{trackNames[track]}</Link><span aria-hidden="true">/</span><span>{module.name}</span></nav>
@@ -42,7 +47,12 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
           : access.enabled
             ? "This lesson requires Complete Lifetime access linked to your account. Sign in to the same account used for a linked iOS purchase."
             : "The first guitar module is free. This guided lesson is a preview while account-linked purchase access is being connected on the web."}</div>
-      <div className={styles.actions}>{ready && access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "View account access" : "Sign in to check access"}</Link>}<Link className={styles.secondary} href={lessonHref("guitar", allLessons("guitar")[0].lesson.id)}>Try the free guitar sampler</Link></div>
+      {companion && <div className={styles.notice}>{companion.measured
+        ? "Suede Sing measures this one. Work it there and the numbers are real."
+        : "Suede Sing has the room for this, though nothing scores it yet — your ear and a recording are the evidence."}</div>}
+      <div className={styles.actions}>{ready && access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "View account access" : "Sign in to check access"}</Link>}{companion
+        ? <a className={styles.primary} href={companion.href}>{companion.label}</a>
+        : null}<Link className={styles.secondary} href={lessonHref("guitar", allLessons("guitar")[0].lesson.id)}>Try the free guitar sampler</Link></div>
     </section>}
     <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, access) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
   </>;

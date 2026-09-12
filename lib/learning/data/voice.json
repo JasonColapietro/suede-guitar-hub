@@ -16,7 +16,7 @@
           "name": "Set Up Your Space",
           "promise": "Set your room and device up so the range finder reads your voice cleanly",
           "skill": "Room setup and clean input",
-          "proofMetric": "duration_sec",
+          "proofMetric": "phonation_sec",
           "lessonsTotal": 4,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -48,7 +48,7 @@
           "name": "Your Range",
           "promise": "Complete a full range scan without pushing into strain at either end",
           "skill": "Range scan and voice type",
-          "proofMetric": "flag_clear",
+          "proofMetric": "range_midi_span",
           "lessonsTotal": 4,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -71,7 +71,7 @@
               "title": "Checkpoint: Range Scan Complete",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "Your voice type and both passaggio pitches are now yours to work from."
+              "summary": "An estimated voice type and both ends of your range, to fit every later exercise to."
             }
           ]
         },
@@ -80,7 +80,7 @@
           "name": "Breathe Low",
           "promise": "Sustain a twelve-second even hiss on one breath",
           "skill": "Low breath and rib expansion",
-          "proofMetric": "recall_pct",
+          "proofMetric": "sustain_sec",
           "lessonsTotal": 4,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -96,14 +96,14 @@
               "title": "Hiss for Twelve",
               "type": "exercise",
               "minutes": 4,
-              "summary": "Airflow steadiness first, duration second."
+              "summary": "Evenness first, duration second. The breath room times the hiss and reads how even you keep it."
             },
             {
               "id": "v-l1-m3-04",
               "title": "Checkpoint: Twelve Seconds, Even",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "Measured on flow consistency, not length alone."
+              "summary": "The hiss is timed, and its steadiness is read from loudness. Twelve seconds held even clears the room's first mark at ten."
             }
           ]
         }
@@ -123,7 +123,7 @@
           "name": "Straw and Lip Trill",
           "promise": "Hold an unbroken lip trill for eight seconds",
           "skill": "Semi-occluded warm-up",
-          "proofMetric": "duration_sec",
+          "proofMetric": "sustain_sec",
           "lessonsTotal": 6,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -219,7 +219,7 @@
           "name": "First Song, One Register",
           "promise": "Sing a full song in one register, in your key, without stopping",
           "skill": "First repertoire",
-          "proofMetric": "continuity",
+          "proofMetric": "accuracy_pct",
           "lessonsTotal": 6,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -262,7 +262,7 @@
           "name": "Chest, Head, Falsetto",
           "promise": "Produce the same pitch in two mechanisms on cue",
           "skill": "Register identification",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -294,7 +294,7 @@
           "name": "The Siren",
           "promise": "Siren an octave up and down on three vowels with no crack",
           "skill": "Register blending",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -326,7 +326,7 @@
           "name": "Vowels That Work",
           "promise": "Sing one phrase on five vowels with consistent tone",
           "skill": "Vowel shapes and placement",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -349,7 +349,7 @@
               "title": "Checkpoint: Tone Consistent Across Vowels",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Measured on spectral consistency, not on your opinion."
+              "summary": "Judged by your own ear against your own recording. No vowel or formant tracking exists to score this for you."
             }
           ]
         },
@@ -358,7 +358,7 @@
           "name": "Tenth Song",
           "promise": "Sing a song spanning a tenth across both registers with no break",
           "skill": "Two-register repertoire",
-          "proofMetric": "recall_pct",
+          "proofMetric": "accuracy_pct",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -390,7 +390,7 @@
           "name": "Fix the Wobble",
           "promise": "Sharpen your consonants until every word carries at speed",
           "skill": "Breathiness, nasality, tension",
-          "proofMetric": "composite",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -465,7 +465,7 @@
           "name": "On the Beat",
           "promise": "Return four bars at ninety percent timing accuracy",
           "skill": "Rhythm and syncopation",
-          "proofMetric": "accuracy_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -488,7 +488,7 @@
               "title": "Checkpoint: Four Bars Back, Ninety Percent",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Measured on onset timing."
+              "summary": "Checked against a click by ear. Onset timing is not scored anywhere yet."
             }
           ]
         },
@@ -497,7 +497,7 @@
           "name": "Say It Clearly",
           "promise": "Hit the clarity threshold on a lyric-dense verse",
           "skill": "Diction as a scored axis",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -529,7 +529,7 @@
           "name": "Grace and Grit",
           "promise": "Deliver three named articulations on cue in one phrase",
           "skill": "Grace notes, staccato, accent",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -561,7 +561,7 @@
           "name": "Louder, Softer",
           "promise": "Produce four distinct dynamic levels on one sustained note",
           "skill": "Dynamics without pushing",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -584,7 +584,7 @@
               "title": "Checkpoint: Four Levels, One Note",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Measured levels, stable pitch throughout."
+              "summary": "Four audibly distinct levels on one note. Input level is uncalibrated, so your ear is the judge, not a number."
             }
           ]
         }
@@ -602,9 +602,9 @@
         {
           "id": "v-l5-m1",
           "name": "Your Passaggio, By Name",
-          "promise": "Name and sing your own primo and secondo passaggio pitches",
-          "skill": "Personal register boundaries",
-          "proofMetric": "recall_pct",
+          "promise": "Find where your voice changes gear, and sing across it on cue",
+          "skill": "Locating your own transition zone",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -613,21 +613,21 @@
               "title": "Where Your Voice Changes Gear",
               "type": "concept",
               "minutes": 4,
-              "summary": "Computed from your Stage 1 scan. Your two pitches, not a generic diagram."
+              "summary": "Your scan gives the ends of your range, not this. You find the gear change by ear, then read the published zone for your voice type."
             },
             {
               "id": "v-l5-m1-03",
-              "title": "Find Your Two Pitches",
+              "title": "Find Your Zone",
               "type": "exercise",
               "minutes": 6,
               "summary": "Approach each from below and above until you can hear the shift coming."
             },
             {
               "id": "v-l5-m1-07",
-              "title": "Checkpoint: Name and Sing Your Own",
+              "title": "Checkpoint: Cross It On Cue",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Stated, then demonstrated."
+              "summary": "Located by ear, then crossed in both directions."
             }
           ]
         },
@@ -636,7 +636,7 @@
           "name": "Vowel Modification Through the Break",
           "promise": "Cross from primo to secondo on three vowels with no register break",
           "skill": "Vowel modification",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -668,7 +668,7 @@
           "name": "Twang and Ring",
           "promise": "Get louder with no pressed-phonation flag",
           "skill": "Resonance over force",
-          "proofMetric": "flag_clear",
+          "proofMetric": "ring_ratio_delta",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -700,7 +700,7 @@
           "name": "Safe Belt, Not Shout",
           "promise": "Sustain six seconds in mix at the top of your passaggio with no strain",
           "skill": "Mix voice and safe belt",
-          "proofMetric": "flag_clear",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -732,7 +732,7 @@
           "name": "Four Bars, Yours",
           "promise": "Improvise four bars in key over a loop",
           "skill": "Four-bar improvisation",
-          "proofMetric": "continuity",
+          "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -775,7 +775,7 @@
           "name": "Three-Note Runs",
           "promise": "Sing a clean three-note turnaround at ninety BPM",
           "skill": "Melodic agility",
-          "proofMetric": "tempo_bpm",
+          "proofMetric": "accuracy_pct",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -837,9 +837,9 @@
         {
           "id": "v-l6-m3",
           "name": "Vibrato On Demand",
-          "promise": "Sing three seconds straight then three seconds of vibrato at five to seven hertz",
+          "promise": "Switch from straight tone to an even vibrato on cue, and back",
           "skill": "Vibrato control",
-          "proofMetric": "rate_hz",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -862,7 +862,7 @@
               "title": "Checkpoint: Straight to Vibrato on Cue",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Rate measured. This is why the voice engine tracks vibrato separately from pitch error."
+              "summary": "Heard and held, not scored. Nothing measures vibrato rate yet, so this one is your ear and your recording."
             }
           ]
         },
@@ -871,7 +871,7 @@
           "name": "Scoops, Falls, Bends, Slides",
           "promise": "Deliver four named ornaments inside one phrase",
           "skill": "Ornament vocabulary",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -903,7 +903,7 @@
           "name": "Blues and Pentatonic Lines",
           "promise": "Improvise eight bars over a loop",
           "skill": "Eight-bar improvisation",
-          "proofMetric": "continuity",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -935,7 +935,7 @@
           "name": "Twelfth Song",
           "promise": "Sing a twelfth-span song with ornaments intact and no break",
           "skill": "Extended-range repertoire",
-          "proofMetric": "recall_pct",
+          "proofMetric": "accuracy_pct",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -978,7 +978,7 @@
           "name": "Look After It",
           "promise": "Build and run your own warm-up and pass the vocal health check",
           "skill": "Vocal health",
-          "proofMetric": "recall_pct",
+          "proofMetric": "cycle_dose",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -1010,7 +1010,7 @@
           "name": "Style Rooms",
           "promise": "Sing one song in two contrasting styles",
           "skill": "Genre choices",
-          "proofMetric": "recall_pct",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -1042,7 +1042,7 @@
           "name": "Modes of Weight",
           "promise": "Produce three production weights on cue with no strain",
           "skill": "Weight and mode switching",
-          "proofMetric": "flag_clear",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -1074,7 +1074,7 @@
           "name": "Effects, Carefully",
           "promise": "Demonstrate two effects across three attempts with no strain",
           "skill": "Creak, growl, slide, scream",
-          "proofMetric": "flag_clear",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -1106,7 +1106,7 @@
           "name": "Higher and Lower",
           "promise": "Add a clean semitone at either end of your measured range",
           "skill": "Range extension",
-          "proofMetric": "recall_pct",
+          "proofMetric": "range_midi_span",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -1138,7 +1138,7 @@
           "name": "The Room",
           "promise": "Perform a two-octave song with a harmony line held against the lead",
           "skill": "Performance and harmony",
-          "proofMetric": "composite",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
