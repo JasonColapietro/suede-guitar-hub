@@ -91,18 +91,42 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
       return buffer;
     };
     const accent = clickBuffer(metronomeConfiguration.accentFrequencyHz), tick = clickBuffer(metronomeConfiguration.tickFrequencyHz);
+    /**
+     * The audio-clock time the beat being scheduled belongs on.
+     *
+     * Each click used to start at `context.currentTime` — whenever the timer
+     * happened to fire — and the next timer was armed for a whole interval from
+     * that moment. setTimeout is allowed to fire late, and every late firing
+     * pushed the following beat later still, so the error accumulated instead of
+     * cancelling out: a metronome that is audibly behind after a couple of
+     * minutes, which is the one thing a metronome may not be.
+     *
+     * Anchoring to the audio clock fixes that. The beat grid advances by exact
+     * intervals independently of when the timer runs, so a late firing still
+     * places its click on the grid and the next delay is short by exactly the
+     * amount the last one overran.
+     */
+    let nextBeatAt = context.currentTime;
     const playBeat = (initial = false) => {
       if (stopped) return;
       try {
+        const interval = metronomeInterval(bpm);
+        // A suspended tab can leave the grid far in the past. Re-anchor rather
+        // than firing a burst of catch-up clicks for beats nobody heard.
+        if (nextBeatAt < context.currentTime - interval) nextBeatAt = context.currentTime;
         const source = context.createBufferSource();
         source.buffer = beat === 0 ? accent : tick;
         source.connect(context.destination);
         source.onended = () => { sources.delete(source); source.disconnect(); };
-        sources.add(source); source.start(context.currentTime);
+        sources.add(source);
+        // Never schedule in the past: a beat the timer delivered late plays now,
+        // while the grid it belongs to stays where it was.
+        source.start(Math.max(nextBeatAt, context.currentTime));
         onBeat(beat);
         beat = nextMetronomeBeat(beat);
+        nextBeatAt += interval;
         // Keep the already scheduled beat when a slider moves; changing tempo must not starve clicks.
-        cancelTimer = environment.schedule(() => playBeat(), metronomeInterval(bpm) * 1000);
+        cancelTimer = environment.schedule(() => playBeat(), Math.max(0, (nextBeatAt - context.currentTime) * 1000));
       } catch (error) {
         stop();
         if (initial) throw error;

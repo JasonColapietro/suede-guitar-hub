@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { curricula, availableLessons } from "@/lib/learning/curriculum";
+import { curricula } from "@/lib/learning/curriculum";
+import { accessibleLessonIds, guestLearningAccess } from "@/lib/learning/access";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 
@@ -48,12 +49,15 @@ export default function LearnPage() {
         </svg>
         <h2>{track === "guitar" ? "Guitar" : "Voice"}</h2>
         <p>{track === "guitar" ? "From your first clean note to open chords, a steady strum, and a song you can finish." : "From an easy breath to a steady tone, comfortable pitch matching, and your first song."}</p>
-        <p className={styles.small}>{availableLessons(track).length} free {track === "guitar" ? "starter lessons" : "lesson outlines"} · {curricula[track].levels.length} stages in the path</p>
+        {/* What a guest can actually open, not the size of the sampler. These
+            read "3 free starter lessons" while the two levels the catalog marks
+            free held twenty-one. */}
+        <p className={styles.small}>{accessibleLessonIds(track, guestLearningAccess).length} free {track === "guitar" ? "lessons" : "guided lessons"} · {curricula[track].levels.filter(level => level.access === "free").length} free stages of {curricula[track].levels.length} in the path</p>
         <Link className={styles.primary} href={`/learn/${track}`}>Explore {track}</Link>
       </section>)}
     </div>
     <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Start an A/D practice routine</Link></div>
-    <div className={styles.notice}>Start without an account. The first module of each track is free; other modules are curriculum previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
+    <div className={styles.notice}>Start without an account. The first two stages of each track are free; later stages are curriculum previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
     <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>Written lessons and curriculum outlines give each session a focus. Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
   </>;
 }

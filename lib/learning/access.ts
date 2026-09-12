@@ -1,4 +1,4 @@
-import { allLessons, isModuleAvailable, type TrackId } from "./curriculum.ts";
+import { allLessons, isFreeModule, isModuleAvailable, type TrackId } from "./curriculum.ts";
 import { accountUUID } from "../learning-account/contracts.ts";
 import { getLessonInstructions } from "./instructions.ts";
 
@@ -17,7 +17,9 @@ export const guestLearningAccess: LearningAccess = {
 export function canOpenModule(track: TrackId, moduleId: string, access: LearningAccess): boolean {
   // A grant cannot open an invented module, even when a track is owned.
   if (!allLessons(track).some(entry => entry.module.id === moduleId)) return false;
+  // The sampler, anything the catalog declares free, or a verified grant.
   return isModuleAvailable(track, moduleId)
+    || isFreeModule(track, moduleId)
     || (access.enabled && access.status === "verified" && access.accountId !== null && access.tracks.includes(track));
 }
 

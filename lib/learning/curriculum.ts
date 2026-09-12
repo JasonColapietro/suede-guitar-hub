@@ -17,8 +17,33 @@ export function isTrackId(value: string): value is TrackId { return value === "g
 export function allLessons(track: TrackId) {
   return curricula[track].levels.flatMap((level) => level.modules.flatMap((module) => module.lessons.map((lesson) => ({ lesson, module, level }))));
 }
-/** Web has no StoreKit entitlement bridge. Paid lessons remain previews. */
+/**
+ * The sampler: the one module every visitor can open regardless of entitlement.
+ *
+ * This is pinned to `samplerLessonIds` in the iOS-generated
+ * `contracts/learning.json` and asserted by tests/learning-parity.test.ts, so
+ * its definition is not this repo's to change. For "is this module behind the
+ * paywall", use `isFreeModule`.
+ */
 export function isModuleAvailable(track: TrackId, moduleId: string) { return moduleId === curricula[track].levels[0].modules[0].id; }
+
+/**
+ * Whether a module's level is declared free in the curriculum data.
+ *
+ * `LearningLevel.access` has been in every catalog from the start — `g-l1`,
+ * `g-l2`, `v-l1` and `v-l2` are `"free"`, the rest `"paid"` — and nothing read
+ * it. The gate was `isModuleAvailable` alone, so exactly one module per track
+ * opened and the other nine free-marked modules were paywalled. The data and
+ * the code had two different definitions of "free" and the data lost.
+ *
+ * A level with no `access` field is not free: `g-songs` omits it deliberately
+ * and its instruction note places it in the paid guided catalog.
+ */
+export function isFreeModule(track: TrackId, moduleId: string) {
+  return curricula[track].levels.some(
+    (level) => level.access === "free" && level.modules.some((module) => module.id === moduleId),
+  );
+}
 export function availableLessons(track: TrackId) { return allLessons(track).filter(({ module }) => isModuleAvailable(track, module.id)); }
 export function getLesson(track: TrackId, lessonId: string) { return allLessons(track).find(({ lesson }) => lesson.id === lessonId); }
 export function lessonHref(track: TrackId, lessonId: string) { return `/learn/${track}/${encodeURIComponent(lessonId)}`; }

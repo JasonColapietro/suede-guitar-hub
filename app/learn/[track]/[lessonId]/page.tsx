@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { allLessons, getLesson, isTrackId, isModuleAvailable, lessonHref, trackNames } from "@/lib/learning/curriculum";
+import { allLessons, getLesson, isTrackId, isFreeModule, isModuleAvailable, lessonHref, trackNames } from "@/lib/learning/curriculum";
 import { getLessonInstructions } from "@/lib/learning/instructions";
 import { canOpenModule, isLessonReady } from "@/lib/learning/access";
 import { singCompanionForLesson } from "@/lib/learning/voice-proof";
@@ -15,7 +15,10 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!isTrackId(track)) return {};
   const entry = getLesson(track, lessonId);
   if (!entry) return {};
-  return { title: `${entry.lesson.title} | GuitarHub ${trackNames[track]}`, description: entry.lesson.summary, alternates: { canonical: lessonHref(track, lessonId) }, robots: { index: isLessonReady(track, lessonId) && isModuleAvailable(track, entry.module.id), follow: true } };
+  return { title: `${entry.lesson.title} | GuitarHub ${trackNames[track]}`, description: entry.lesson.summary, alternates: { canonical: lessonHref(track, lessonId) }, // Indexable when a visitor can actually read it: ready, and either the
+  // sampler or a level the catalog declares free. Keyed to isModuleAvailable
+  // alone, twenty-one readable guitar lessons were noindex.
+  robots: { index: isLessonReady(track, lessonId) && (isModuleAvailable(track, entry.module.id) || isFreeModule(track, entry.module.id)), follow: true } };
 }
 export default async function LessonPage({ params }: { params: Promise<Params> }) {
   const { track, lessonId } = await params;
