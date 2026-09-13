@@ -386,6 +386,29 @@ this paragraph. `tests/voice-strain-prohibition.test.ts` here and
   module's opening lesson was titled "The Difference You Can Hear and Measure",
   on the one module in the track whose checkpoint cannot be measured at all. It
   is now "The Difference You Can Hear";
+- no voice module's copy, anywhere in the track, promises a flag, meter, reading
+  or verdict for strain, pressing or effort. This is the generalisation of the
+  rule above and it exists because the narrower version missed the worst live
+  violation in the track: `v-l5-m3` promised "Get louder with no
+  pressed-phonation flag" while its proof basis is `measured("ringRatio")` — the
+  page offering a cleared instrument, and behind it a self-relative share of
+  energy in a 2800–3200 Hz band that says nothing about effort. It had survived
+  the pass that removed `flag_clear` and `rate_hz` by name, because the metric
+  names were corrected and the sentence a singer reads was not, which is the
+  entire reason those names were banned. The first version of the guard walked
+  past it twice over: it matched "pressed phonation" only with a space, and it
+  treated reassurance only in terms of the word "strain". Both patterns are
+  widened, the widened guard was confirmed to fail on the tree as it stood
+  before any copy was touched, and the line now drawn is between the singer's
+  experience and an instrument's output — a checkpoint may ask a singer to report
+  that a note felt free, since that is what self-reported means, but no copy may
+  name a flag or a meter for effort, because none exists and a singer promised a
+  cleared flag will wait for a warning that cannot arrive. `v-l5-m3`'s promise
+  now describes the ring-band share rising across the singer's own takes, which
+  is what `ringRatio` can actually show, and its exercise summary stops telling a
+  singer a meter can see their effort. The term "pressed phonation" stays in the
+  module's concept lesson, where it is taught rather than claimed, which is also
+  what keeps it anchored for the glossary;
 - the safety copy is still rendered where a singer reaches a voice lesson, in
   both the outline branch and `LessonSession`, rather than merely still existing
   as a constant. That is the failure the note was written for: it lived in the
