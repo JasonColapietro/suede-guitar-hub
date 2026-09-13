@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { PracticeCoach } from "@/components/practice/PracticeCoach";
-import { TRACK_SAFETY_NOTE, type Lesson, type LearningModule, type TrackId } from "@/lib/learning/curriculum";
+import { MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE, type Lesson, type LearningModule, type TrackId } from "@/lib/learning/curriculum";
 import { elapsedSeconds, type Assessment, type LessonRecord } from "@/lib/learning/progress";
 import { useLearningProgress, useReadingQuizProgress } from "./useLearningProgress";
 import styles from "./Learning.module.css";
@@ -123,6 +123,10 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
           </>}
           <h3>Ready for another step</h3><p>{instructions?.completion ?? module.promise}</p>{instructions && <><p className={styles.check}>{instructions.ifNotReady}</p><p className={styles.check}>What this check shows: {instructions.evidence}</p><p className={styles.check}>It does not assess: {instructions.limitation}</p></>}
           <p className={`${styles.small} ${styles.muted}`}>{TRACK_SAFETY_NOTE[track]}</p>
+          {/* The module-level caution renders here too, so it does not depend on
+              which branch a lesson takes. The track note was lost for the whole
+              voice track once already by living in only one of them. */}
+          {MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE] && <p className={`${styles.small} ${styles.muted}`}>{MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE]}</p>}
         </section>
         {lesson.practiceSpec && (!needsTuning || tuningReady) && <PracticeCoach key={lesson.id} recentAttempts={(progress.measuredAttempts ?? []).filter(attempt => attempt.lessonId === lesson.id).map(attempt => ({ bpm: attempt.record.bpm ?? 0, score: attempt.record.score, disposition: "scored" as const, passed: attempt.record.assessment === "ready", specRevision: attempt.record.practiceSpecRevision }))} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} onUnscoredResult={(result, id) => saveUnscored(lesson.id, result, id)} />}
         {lesson.practiceSpec && needsTuning && !tuningReady && <div className={styles.notice}>Complete and confirm the free tuning check above to open the pitch exercise. You can use this tuner or your own.</div>}

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { allLessons, getLesson, isTrackId, isFreeModule, isModuleAvailable, lessonHref, trackNames, TRACK_SAFETY_NOTE } from "@/lib/learning/curriculum";
+import { allLessons, getLesson, isTrackId, isFreeModule, isModuleAvailable, lessonHref, trackNames, MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE } from "@/lib/learning/curriculum";
 import { getLessonInstructions } from "@/lib/learning/instructions";
 import { canOpenModule, isLessonReady } from "@/lib/learning/access";
 import { singCompanionForLesson } from "@/lib/learning/voice-proof";
 import { voiceEditorialForLesson } from "@/lib/learning/voice-editorial";
 import { LessonEditorialPanel } from "@/components/learning/LessonEditorial";
+import { lessonGlossary } from "@/lib/learning/jargon";
+import { LessonGlossary } from "@/components/learning/LessonGlossary";
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
 import { LessonSession } from "@/components/learning/LessonSession";
 import styles from "@/components/learning/Learning.module.css";
@@ -43,6 +45,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   // behind any of them, while Sing has all of it written. Resolved through the
   // contract so a renamed chapter fails a test rather than rotting here.
   const editorial = track === "voice" ? voiceEditorialForLesson(lesson.id) : undefined;
+  const moduleSafety = MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE] as string | undefined;
   const next = lessons[index + 1];
   return <>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><Link href={`/learn/${track}`}>{trackNames[track]}</Link><span aria-hidden="true">/</span><span>{module.name}</span></nav>
@@ -60,6 +63,11 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
       {/* The outline branch renders instead of LessonSession, which is where the
           safety note used to live — so a voice lesson showed none at all. */}
       <p className={styles.small}>{TRACK_SAFETY_NOTE[track]}</p>
+      {/* And the module's own caution where the track line is not enough. The
+          six-second belt sustain and the effects module both grade a singer on
+          an absence of strain that nothing measures, so the symptoms to stop on
+          have to be on the page that gives the instruction. */}
+      {moduleSafety && <p className={styles.small}>{moduleSafety}</p>}
       {companion && <div className={styles.notice}>{companion.measured
         ? "Suede Sing measures this one. Work it there and the numbers are real."
         : "Suede Sing has the room for this, though nothing scores it yet — your ear and a recording are the evidence."}</div>}
@@ -67,9 +75,17 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
         ? <a className={styles.primary} href={companion.href}>{companion.label}</a>
         : null}<Link className={styles.secondary} href={lessonHref("guitar", allLessons("guitar")[0].lesson.id)}>Try the free guitar sampler</Link></div>
     </section>}
-    {/* Outside the available/outline branches on purpose: every voice lesson
-        takes the outline branch today, which is exactly where a singer is left
-        with nothing to read and no song to sing. */}
+    {/* The words this lesson's own prose uses, resolved where they are read.
+        Before this, `passaggio`, `twang`, `mix` and `pressed phonation` reached
+        beginners on these pages with no definition anywhere on the site, and a
+        glossary nobody is pointed at would not have changed that. Rendered
+        outside the available/outline branches on purpose: every voice lesson
+        takes the outline branch, which is exactly where the undefined words
+        were. */}
+    <LessonGlossary terms={lessonGlossary(track, lesson.id)} />
+    {/* Outside the available/outline branches for the same reason the glossary
+        is: every voice lesson takes the outline branch today, which is exactly
+        where a singer is left with nothing to read and no song to sing. */}
     <LessonEditorialPanel editorial={editorial} />
     <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, access) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
   </>;
