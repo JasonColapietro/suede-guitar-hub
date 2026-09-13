@@ -126,12 +126,14 @@ export const VOICE_MODULE_PROOF: Record<string, VoiceModuleProof> = {
     companion: { room: "analyze" },
   },
   "v-l3-m2": {
-    // A siren with no crack is a continuous voiced run, which is the one
-    // thing an unbroken-phrase reducer would report — and it does not exist
-    // yet, so the pitch trace is the evidence and the singer judges the break.
+    // This said a siren with no crack is a continuous voiced run, so an
+    // unbroken-phrase reducer would report it. That reasoning was wrong, and
+    // building the reducer proved it: a crack stays voiced, so the number reports
+    // one continuous run straight through one. The gap is break detection, which
+    // nothing addresses.
     basis: selfReported(
-      "unbrokenPhraseLength",
-      "That the slide was heard as continuous. The voiced trace is shown; no number scores the absence of a crack.",
+      "registerBreakDetection",
+      "That the slide was heard as continuous. The voiced trace is shown; no number scores the absence of a crack, and a longest-voiced-run figure cannot stand in for one.",
     ),
     companion: { room: "warmups", param: "exercise", value: "octave-siren" },
   },
@@ -220,9 +222,10 @@ export const VOICE_MODULE_PROOF: Record<string, VoiceModuleProof> = {
     companion: { room: "studio" },
   },
   "v-l5-m5": {
+    // Named unbrokenPhraseLength while its own sentence named key adherence.
     basis: selfReported(
-      "unbrokenPhraseLength",
-      "That four improvised bars stayed in key, by ear. Key adherence in free singing is not scored.",
+      "keyAdherence",
+      "That four improvised bars stayed in key, by ear. Key adherence in free singing is not scored: with no authored target there is nothing to deviate from.",
     ),
     companion: { room: "earTraining" },
   },
@@ -244,16 +247,23 @@ export const VOICE_MODULE_PROOF: Record<string, VoiceModuleProof> = {
     companion: { room: "analyze" },
   },
   "v-l6-m4": {
+    // Named unbrokenPhraseLength while its own sentence named ornament naming.
     basis: selfReported(
-      "unbrokenPhraseLength",
-      "That four named ornaments were produced on cue. Ornament classification does not exist, though the pitch trace shows the gesture.",
+      "ornamentClassification",
+      "That four named ornaments were produced on cue. Nothing labels a turn, a slide or a trill, though the pitch trace shows the gesture.",
     ),
     companion: { room: "studio" },
   },
   "v-l6-m5": {
+    // The missing measurement here was recorded as `unbrokenPhraseLength`, and
+    // that was the wrong gap. Sing now reduces the voiced trace to a longest
+    // unbroken run — so that measurement exists, and it still cannot retire this
+    // module, because the promise is to *improvise* eight bars. A continuous
+    // sound is not an invented one. Naming `unbrokenPhraseLength` made this look
+    // one function away from provable when it is not close at all.
     basis: selfReported(
-      "unbrokenPhraseLength",
-      "That eight improvised bars were sung without stopping. No function reduces the voiced trace to a longest unbroken run.",
+      "improvisationQuality",
+      "That the singer improvised eight bars over the loop rather than repeating a line. Sing can now show the phrase was unbroken, which is worth seeing and is a different claim.",
     ),
     companion: { room: "earTraining" },
   },

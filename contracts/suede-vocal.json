@@ -253,10 +253,34 @@
       "note": "Share of energy in a fixed 2800-3200 Hz band. Self-relative only: compare a singer against their own takes, never against a target or another singer. NOT a strain measure."
     },
     "unbrokenPhraseLength": {
-      "measurable": "adaptable",
+      "measurable": "yes",
       "unit": "seconds",
+      "module": "lib/audio/voiced-run.ts",
+      "note": "Longest stretch with a confident fundamental on every frame, bridging unvoiced gaps up to 60 ms so a dropped frame does not end a run. Reduced from the voiced/unvoiced trace and reported by analyzeTake. It says continuous phonation and nothing else: a register crack stays voiced, so this is not the absence of a crack, and a whisper ends a run, so it is not proof the singer did not stop."
+    },
+    "registerBreakDetection": {
+      "measurable": "no",
+      "unit": null,
       "module": null,
-      "note": "The voiced/unvoiced trace already carries this; no function reduces it to a longest-run number."
+      "note": "Nothing detects an audible break or crack at a register transition. This is the measurement a siren module needs and it is NOT unbrokenPhraseLength: a crack stays voiced, so a longest-voiced-run figure reports one continuous run straight through one. Recorded because that substitution had been made, and it made a module look one reducer away from provable when nothing addresses it."
+    },
+    "keyAdherence": {
+      "measurable": "no",
+      "unit": null,
+      "module": null,
+      "note": "Nothing scores whether free singing stayed in a key. Scored songs compare against authored notes, which is a different problem: there is no authored target in an improvisation, so there is nothing to deviate from."
+    },
+    "ornamentClassification": {
+      "measurable": "no",
+      "unit": null,
+      "module": null,
+      "note": "Nothing names a turn, a slide, a scoop or a trill from the pitch contour. The contour is drawn and a singer can see the gesture; no function labels it."
+    },
+    "improvisationQuality": {
+      "measurable": "no",
+      "unit": null,
+      "module": null,
+      "note": "Nothing in Suede judges whether a passage was improvised, or improvised well over a given harmony. A longest-voiced-run figure is sometimes mistaken for this because an improvisation module can be scored on not stopping; it establishes that a sound continued, not that anything was invented. Recorded so a module whose promise is improvisation names the gap it actually has."
     },
     "onsetTimingError": {
       "measurable": "adaptable",
