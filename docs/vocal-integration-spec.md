@@ -523,8 +523,57 @@ ship inside a lesson, and it is what the voice song lessons lack.
 
 ### W21 — Unenforced prerequisites
 
-`prerequisiteLessonIds` is authored on all 117 guitar instruction records and
-referenced by no code. Either enforce it or mark it documentation.
+**Done. Decided as documentation, and enforced as an oracle.**
+
+`prerequisiteLessonIds` is authored on all 117 guitar instruction records and was
+referenced by no code at all — not a component, not a route, not a test. The
+question was the right one: enforce it, or mark it documentation.
+
+**It is not an access gate.** The decisive reason is that a visitor with no
+progress satisfies the prerequisites of exactly one lesson in 117. A guest on a
+deep link, a crawler, anyone who cleared site data — under a gate, `g-l1-m1-01`
+renders and the other 116 do not, which makes the twenty-two deliberately open and
+indexable lessons open in name only. Two more reasons, each sufficient on its own:
+completion lives in `localStorage`, so a gate is bypassed by anyone who wants to
+and locks out only the honest learner on a new device; and a prerequisite here
+means "this makes more sense after that", which is advice, while the thing that
+must not open early is paid content, which `canOpenModule` already decides on
+entitlement.
+
+**But documentation nothing checks is a comment in a data file**, so the graph is
+now enforced — as a consistency oracle over the catalog rather than a gate on the
+learner. `nextLessonId` advances through lessons in catalog array order and
+ignores the graph entirely, which makes the two independent statements of the same
+pedagogical order, so the authored one can check the implicit one. Reorder a
+module's lessons and put one before its prerequisite and
+`prerequisiteOrderViolations` returns it and the test fails. That is the graph
+doing real work: not stopping a learner, but stopping a reordering that would send
+one somewhere they are not ready for.
+
+`lib/learning/prerequisites.ts` holds the policy in code — `isAccessGate: false`,
+and a pointer to the gate that does decide — plus functions that return what is
+wrong rather than throwing, so the test reports the whole list. The graph is
+verified today to be complete over all 117 records, free of dangling references and
+orphans, acyclic, consistent with catalog order, and to have exactly one entry
+point, with ten lessons deliberately requiring more than one predecessor. Two
+tests put teeth on the policy: `lib/learning/access.ts` and
+`lib/learning/curriculum.ts` must not mention prerequisites at all, and no module
+anywhere may both import the graph and talk about access. Four probes confirmed
+non-vacuity, including the one that matters — reversing a module's lesson order
+fails the oracle and nothing else.
+
+**A correction this turned up in its own first draft.** The policy note originally
+justified itself by claiming a free lesson already depends on a closed one.
+Writing the test disproved it: none does. Every cross-level edge — `g-l5-m1-01`
+requires `g-l4-m5-07` — sits inside paid content, so that failure is one authored
+edge away rather than present. Both facts are now asserted: that no open lesson
+depends on a closed one, and that the graph does cross module boundaries, so the
+risk is recorded as latent instead of overstated.
+
+**What this does not do.** No UI shows a learner their prerequisites, and nothing
+in the product behaves differently. The graph's only consumers are its own tests,
+which is the intended end state for documentation — with the difference that it can
+no longer be quietly wrong.
 
 ### W22 — Mastery records carry no conditions
 
@@ -632,9 +681,9 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W21, W22, W24, W25 and W28 have no dependencies and can start immediately. W14 is
-done for the one contract it can cover and blocked on native access for the other
-two. W15, W17 and W18 are done; W2 and W13 can now read their constants off
+W22, W24, W25 and W28 have no dependencies and can start immediately. W14 is done
+for the one contract it can cover and blocked on native access for the other two.
+W15, W17, W18 and W21 are done; W2 and W13 can now read their constants off
 `contracts/adjudications.ts` instead of re-deriving them, and W2's new voice specs
 will be held to the typed vocabulary at import.
 

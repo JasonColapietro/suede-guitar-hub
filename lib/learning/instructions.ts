@@ -71,6 +71,15 @@ export interface LessonInstructions {
 const sourceAssets: Record<string, unknown> = { ...advancedSource.demoAssets, ...songSource.demoAssets, ...source.demoAssets };
 const sourceLessons = [...source.lessons, ...songSource.lessons, ...advancedSource.lessons];
 export const guidedLessonIds = sourceLessons.map(lesson => lesson.id);
+/** The authored ordering graph, projected out of the instruction source.
+ *
+ * `LessonInstructions` deliberately does not carry it: it is not something a
+ * lesson page renders. It is authored on all 117 records and was read by nothing
+ * at all, which is how nobody would have noticed a typo, a cycle, or an order
+ * that contradicts the catalog. `lib/learning/prerequisites.ts` is where the
+ * decision about what it is for lives, and what checks it. */
+export const lessonPrerequisites: readonly { id: string; prerequisiteLessonIds: readonly string[] }[] =
+  sourceLessons.map(lesson => ({ id: lesson.id, prerequisiteLessonIds: lesson.prerequisiteLessonIds }));
 function numericList(value: unknown): value is number[] { return Array.isArray(value) && value.every(item => typeof item === "number" && Number.isFinite(item)); }
 function stringPositions(value: unknown): value is (number | null)[] { return Array.isArray(value) && value.length === 6 && value.every(item => item === null || (Number.isInteger(item) && item >= 0 && item <= 24)); }
 export function getInstructionAsset(id: string): InstructionAsset {

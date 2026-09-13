@@ -55,6 +55,15 @@ nothing reads the register at runtime: its test asserts the restatement is still
 true, and a second test fails if any file outside `tests/` imports it. Do not
 import it from application code.
 
+`prerequisiteLessonIds` is ordering documentation, not an access gate. The
+decision and the reasons are in `lib/learning/prerequisites.ts`; what decides
+whether a learner may open something is `canOpenModule` in
+`lib/learning/access.ts`, and a test fails if the prerequisite graph is ever
+mentioned in that file or in `curriculum.ts`. The graph is still enforced, as a
+consistency oracle: `nextLessonId` walks catalog array order and ignores the
+graph, so the authored order checks the implicit one, and reordering a module's
+lessons past a prerequisite fails `tests/learning-prerequisites.test.ts`.
+
 `proofMetric` is a closed union, not a string. The vocabulary and each value's
 kind live in `lib/learning/proof-metrics.ts`, and `validateCurriculum` rejects
 anything outside it — so because `lib/learning/curriculum.ts` validates all three
