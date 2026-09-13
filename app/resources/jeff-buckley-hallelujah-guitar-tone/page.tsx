@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
 import { OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
 
@@ -103,6 +104,17 @@ export default function HallelujahGuitarTonePage() {
           . The original follows the instrument, amplifier, effects, studio and
           mix history. This page narrows the question: what can a guitarist test
           in one practice session after listening closely?
+        </p>
+
+        <p>
+          This guide studies one recording rather than teaching clean tone in
+          general. The broader question, how to practise clean tone on your own
+          phrase over a week, is answered by{" "}
+          <Link href="/resources/how-to-practice-clean-guitar-tone">
+            the seven-day clean-tone test
+          </Link>
+          . Use that one to build the skill. Use this one to hear what the skill
+          is for.
         </p>
 
         <h2>The rig matters less than the relationship</h2>

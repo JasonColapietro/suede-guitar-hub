@@ -127,6 +127,17 @@ export default function HowToPracticeGuitarEffectivelyPage() {
           does not.
         </p>
 
+        <p>
+          This page is about the inside of one session: what to isolate, how slow
+          to take it, and what order the parts go in. How long the session should
+          run is answered on{" "}
+          <Link href="/how-long-to-practice-guitar-each-day">
+            how long to practice each day
+          </Link>
+          , and where the sessions sit in a week on{" "}
+          <Link href="/guitar-practice-schedule">the practice schedule</Link>.
+        </p>
+
         <h2>Practice the failure, not the song</h2>
 
         <p>
@@ -254,15 +265,15 @@ export default function HowToPracticeGuitarEffectivelyPage() {
         </p>
 
         <p>
-          This is what people mean by deliberate practice. Work aimed at a
-          specific weakness, at a difficulty where you fail some of the time,
-          with feedback close enough that you can act on it. It is uncomfortable
-          by design, which is why practice drifts back into playing whenever you
-          stop paying attention.{" "}
+          A criterion only works if something can tell you whether you met it,
+          and your own ear mid-phrase is the least reliable judge you have
+          available. That problem is large enough to have its own page:{" "}
           <Link href="/deliberate-practice-guitar">
-            Deliberate practice on guitar
+            deliberate practice on guitar
           </Link>{" "}
-          covers what that looks like at the instrument.
+          covers how to get an honest verdict on each attempt when there is no
+          teacher in the room, which is the one part of this the structure below
+          cannot supply.
         </p>
 
         <h2>How to build the session</h2>

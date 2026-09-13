@@ -111,6 +111,23 @@ export default function GuitarPracticeSchedulePage() {
           have.
         </p>
 
+        <p>
+          This page is about the week: the minutes it holds, the one session you
+          defend, and the order you cut things in. What goes inside a session is
+          a different question with two different answers depending on where you
+          are:{" "}
+          <Link href="/how-long-to-practice-guitar-each-day">
+            how long to practice each day
+          </Link>{" "}
+          sizes a single session and says what belongs in ten, twenty-five or
+          sixty minutes, and{" "}
+          <Link href="/guitar-practice-routine-intermediate">
+            the intermediate practice routine
+          </Link>{" "}
+          gives the five blocks a session holds once the beginner gains have run
+          out. This page is the container for both.
+        </p>
+
         <h2>Why rigid daily schedules break</h2>
 
         <p>
@@ -264,58 +281,36 @@ export default function GuitarPracticeSchedulePage() {
           weeks in a row.
         </p>
 
-        <h2>Make a ten-minute day count</h2>
+        <h2>Where a ten-minute day sits in the week</h2>
 
         <p>
-          A ten-minute session is not a compressed full session. It is one job,
-          chosen before you sit down. If you sit down and then decide what to
-          work on, the deciding is the session.
-        </p>
-
-        <ul>
-          <li>
-            <strong>One minute:</strong> tune and settle. Not a ritual.
-          </li>
-          <li>
-            <strong>Six minutes:</strong> the named fragment — the smallest
-            piece that still fails — at a tempo where you play it correctly on
-            purpose rather than correctly by luck.
-          </li>
-          <li>
-            <strong>Two minutes:</strong> play it with the bar before and the
-            bar after, so the repair is attached to something instead of
-            floating.
-          </li>
-          <li>
-            <strong>One minute:</strong> write down the tempo you reached and
-            where you stopped.
-          </li>
-        </ul>
-
-        <p>
-          That last minute is what lets ten-minute days accumulate. Without it,
-          the first five minutes of the next session go to finding your place
-          again, so a ten-minute day costs fifteen and returns five. With it,
-          the next session opens with the answer already written.
+          A ten-minute session is not a compressed full session, and the
+          scheduling question about it is narrower than what to put in it. It is
+          whether the ten minutes count. They do, on one condition: that the
+          minutes came out of the week total rather than out of nowhere, so a
+          run of short days shows up as a light week instead of as a plateau.
         </p>
 
         <p>
-          Turning a fixed number of minutes into blocks with distinct jobs is
-          its own problem, and{" "}
+          So log it as ten, not as a session. Four ten-minute days and one
+          anchor is a real ninety-minute week and should be read as one. The same
+          week recorded as five sessions reads like a productive one that somehow
+          produced nothing, and the next decision you make from it will be the
+          wrong one.
+        </p>
+
+        <p>
+          What those ten minutes should actually contain is the other page&apos;s
+          question, and{" "}
           <Link href="/how-long-to-practice-guitar-each-day">
             how long to practice each day
           </Link>{" "}
-          covers it. The{" "}
-          <Link href="/guitar-practice-routine-intermediate">
-            intermediate practice routine
-          </Link>{" "}
-          lays out that structure in a twenty-five and a fifty-minute version,
-          the two sizes most weeks are made of. For the sizes in between — the
-          odd thirty-five a real week actually hands you — the{" "}
-          <Link href="/session">practice session builder</Link> takes the
-          minutes you have and the one thing you are fixing and returns blocks
-          that add up to exactly that number, dropping the ones whose share came
-          out too small to be worth starting rather than shrinking all of them.
+          answers it in a shape you can run. For sizes in between, the odd
+          thirty-five a real week hands you, the{" "}
+          <Link href="/session">practice session builder</Link> takes the minutes
+          you have and the one thing you are fixing and returns blocks that add
+          up to exactly that number, dropping the ones whose share came out too
+          small to be worth starting rather than shrinking all of them.
         </p>
 
         <h2>Missed days are part of the plan</h2>
@@ -410,8 +405,8 @@ export default function GuitarPracticeSchedulePage() {
             it to the section around it.
           </li>
           <li>
-            <strong>Two floating tens.</strong> The ten-minute template, on
-            whichever two days actually exist.
+            <strong>Two floating tens.</strong> One repair each, on whichever
+            two days actually exist.
           </li>
           <li>
             <strong>One open 35.</strong> Repertoire, new material, or a session

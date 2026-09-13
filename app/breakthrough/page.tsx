@@ -126,6 +126,19 @@ export default function BreakthroughPage() {
               first. It reads nine answers back and tells you what they point
               at, including when they do not point at any one thing.
             </p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/70">
+              This is the planner rather than the guide: it turns one finish line
+              into four weeks of focuses and a piece of evidence to record each
+              week. Choosing a finish line narrow enough to prove, and judging
+              the day 30 recording once you have it, are written out in{" "}
+              <Link
+                href="/30-day-guitar-challenge"
+                className="font-semibold text-peach underline underline-offset-4 hover:brightness-110"
+              >
+                the 30-day guitar challenge
+              </Link>
+              . Read that one for the judgement. Use this one for the four weeks.
+            </p>
           </div>
         </section>
 

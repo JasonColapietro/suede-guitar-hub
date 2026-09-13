@@ -170,6 +170,18 @@ export default function DiagnosePage() {
             <p className="mx-auto mt-5 max-w-2xl text-sm text-white/60">
               No account. No email. Your answers stay in this browser.
             </p>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70">
+              This is the diagnostic rather than the explanation: nine questions,
+              five blockers scored, and the one worth changing next session. If
+              you would rather read the causes and recognise your own,{" "}
+              <Link
+                href="/guitar-practice-plateau"
+                className="font-semibold text-peach underline underline-offset-4 hover:brightness-110"
+              >
+                why guitar practice plateaus
+              </Link>{" "}
+              sets out six of them in prose. That page explains. This one ranks.
+            </p>
           </div>
         </section>
 
