@@ -577,12 +577,51 @@ no longer be quietly wrong.
 
 ### W22 — Mastery records carry no conditions
 
-In the sing repository, mastery is now gated on tempo but the stored record
-remains a bare array of song identifiers. Nothing records the tempo,
-transposition or content version a song was mastered under, so the gate cannot
-be re-evaluated and a historical mastery cannot be audited. This repository
-voids a completion when the authored spec revision changes; the sing repository
-has no equivalent.
+**Done, in the sing repository.** Nothing in this one changed.
+
+Mastery was gated on tempo but the stored record stayed a bare array of song
+identifiers, which made the gate unfixable after the fact: every record already
+on disk had been earned under no tempo floor at all — possibly at quarter speed,
+every note four times easier to hold in tune — and was indistinguishable from a
+clean pass at written tempo. Fixing the rule did not fix the records the rule had
+been wrong about, and nobody looking at a mastered badge or a band unlock could
+ask what run earned it.
+
+Records now carry the tempo the run ended on, the score, the transposition and a
+fingerprint of the melody as it was, and `masteryHolds` applies today's constants
+when the record is read. Raising `MASTERY_SCORE` or `MASTERY_MIN_TEMPO`
+retroactively stops counting what no longer clears it, with no migration; singing
+a song again at tempo upgrades a record that had stopped counting.
+
+**It mirrors this repository's `practiceSpecRevision` handling deliberately**:
+keep the record, re-judge it on read, demote rather than delete — `parseProgress`
+here turns a completion whose revision no longer matches into `"repeat"` rather
+than dropping it. Two differences are deliberate. Songs carry no revision integer,
+so a melody fingerprint plays that part, computed over pitch, onset, duration and
+note count only — a corrected transcription invalidates an audit, a fixed syllable
+break does not. And transposition is recorded but never gated, because fitting a
+song to your own range is the point of the transpose control, not a way around the
+scorer.
+
+v1 records are honoured rather than revoked: the app failing to write down the
+tempo is the app's cost to carry, not the singer's, so a returning singer keeps
+their band unlocks — but `isVerified` reports false and the conditions stay null,
+so nothing claims a check that never happened. A v2 record wins over the same song
+in v1, so a legacy id cannot launder a run today's rule rejects. Mastery also
+moved to a new storage key rather than upgrading the old one in place: writing
+records into the v1 key would make a rollback to an older deploy read them as ids,
+find none, and wipe every band unlock.
+
+Two things are reported rather than enforced, on the same reasoning as W21.
+`staleMasteries` names a mastery earned on a melody that has since changed;
+whether a transcription fix should cost a singer their unlock is a product
+decision, and this is what makes it takeable later instead of impossible to take
+at all. And no UI yet shows a singer the conditions their mastery was earned
+under, though the record is now there to show.
+
+`contracts/practice-parity.ts` is untouched and needs no native re-sync: it
+publishes the gate, which has not moved, and the record shape is local storage
+rather than a cross-surface promise.
 
 ### W23 — Retire the outline copy and settle the taxonomy
 
@@ -681,9 +720,9 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W22, W24, W25 and W28 have no dependencies and can start immediately. W14 is done
-for the one contract it can cover and blocked on native access for the other two.
-W15, W17, W18 and W21 are done; W2 and W13 can now read their constants off
+W24, W25 and W28 have no dependencies and can start immediately. W14 is done for
+the one contract it can cover and blocked on native access for the other two.
+W15, W17, W18, W21 and W22 are done — W22 in the sing repository; W2 and W13 can now read their constants off
 `contracts/adjudications.ts` instead of re-deriving them, and W2's new voice specs
 will be held to the typed vocabulary at import.
 
