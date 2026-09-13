@@ -430,15 +430,86 @@ they should.
 
 ### W18 — Type `proofMetric`
 
-Replace `string?` in `lib/learning/models.ts` with a union wired into
-`validateCurriculum`. The guitar track uses five values the voice track does
-not, so the union spans both tracks.
+**Done.**
+
+`proofMetric` was `string?`, validated as "a non-empty string" and read by
+nothing. That is the hole the false claims came through: a module could declare
+`rate_hz` for a vibrato rate nothing measures, or `flag_clear` for a strain check
+no Suede surface performs, and validation passed. The contract work closed those
+two by name; this closes the hole.
+
+`lib/learning/proof-metrics.ts` holds the vocabulary as a closed union of
+twenty-one values, each declaring its kind — `measured` (15), `selfReported` (3),
+`mixed` (2), `unspecified` (1) — and `validateCurriculum` now rejects anything
+outside it. Because `lib/learning/curriculum.ts` validates all three curricula at
+import, an unknown value does not merely fail a test: the app refuses to boot.
+Verified directly — importing the module with `rate_hz` planted in the data throws
+`Unknown proofMetric: "rate_hz"` instead of loading.
+
+The kind is the part that does work. The interesting question about a proof metric
+is not its spelling but whether the app or the learner is judging, which is what
+`lib/learning/voice-proof.ts` already records per voice module. A test asserts the
+two agree across all 34 voice modules: a module whose basis is self-reported
+because the measurement does not exist cannot carry a metric that claims one. That
+is the exact shape of the defect the contract work found, now unrepresentable. A
+`mixed` metric counts as claiming a measurement, because half of it is a reading
+and a module carrying one is promising that half.
+
+Five probes confirmed non-vacuity: a self-reported module given a measured metric,
+an unknown value in the data, a changed kind in the registry, a union member
+nothing uses, and the import-time refusal.
+
+**Two corrections to this document.**
+
+This section said the guitar track uses five values the voice track does not. It
+uses ten, and the voice track uses six the guitar track does not; the two share
+exactly `accuracy_pct` and `cents_deviation` — the two quantities both an
+instrument and a voice can be judged on. The counts are asserted in the test so
+the prose cannot drift back.
+
+The field is also web-only. `contracts/learning.json` does not carry it at all,
+which is a large part of why it could rot: there was no native side to disagree
+with.
+
+**Three things recorded rather than fixed.**
+
+`composite`, on `g-l7-m6` — the unbroken three-song set — names no quantity. It is
+the one `unspecified` value and the test pins that it is the only one. Stage seven
+has no lesson bodies yet (W19), so it can be given a real metric when it is
+authored; inventing one now would be guessing at a lesson nobody has written.
+
+`three_pass_pitch_slots_at_90_bpm` carries a tempo inside a metric name. The tempo
+belongs in the practice specification. Renaming it touches authored catalog data
+for no behavioural gain, so it is flagged in the registry and left.
+
+`beginner-guitar-instruction.json` carries `integrationNote.recommendedModuleMetadata`,
+with a recommended `proofMetric` per module — and **nothing in `lib/` or `tests/`
+read `integrationNote` before this work**. Three recommendations have sat
+unapplied and uncontradicted: `g-l1-m1` carries `count_in_window` against a
+recommended `open_string_pitch_and_self_check`, `g-l1-m2` `duration_sec` against
+`six_string_tuning_check`, `g-l1-m3` `recall_pct` against
+`reading_quiz_first_attempt`. All three recommended values are in the union, so
+the vocabulary is shared, and a test pins the three disagreements so a fourth — or
+one of these resolving — shows up in review. Adopting them changes what a module
+promises, which is a native authoring decision and not a typing one.
+
+**What this does not do.** The union types the vocabulary in use; it does not
+redesign it. Nothing reads `proofMetric` to decide what to render or score, so a
+module still cannot be checked against the proof it claims except through
+`voice-proof.ts` on the voice side. The guitar track has no equivalent table, so
+its kinds are asserted against nothing but the registry itself.
 
 ### W19 — Guitar stage seven has no lesson bodies
 
 Eighteen lessons under `g-l7-*` are in exactly the state the voice track is in.
 Same pipeline as W1 and the same native gate; worth sequencing together. Easy to
 overlook because the outline problem is framed as a voice problem.
+
+W18 left one thing waiting here: `g-l7-m6` carries `composite`, the only
+`proofMetric` in the vocabulary that names no quantity. Authoring these lessons is
+the moment to replace it with a real metric, and `lib/learning/proof-metrics.ts`
+pins that it is the only one, so a second unnamed quantity cannot slip in
+alongside it.
 
 ### W20 — A voice song catalogue is not expressible
 
@@ -561,10 +632,11 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W18, W21, W22, W24, W25 and W28 have no dependencies and can start immediately.
-W14 is done for the one contract it can cover and blocked on native access for
-the other two. W15 and W17 are done; W2 and W13 can now read their constants off
-`contracts/adjudications.ts` instead of re-deriving them.
+W21, W22, W24, W25 and W28 have no dependencies and can start immediately. W14 is
+done for the one contract it can cover and blocked on native access for the other
+two. W15, W17 and W18 are done; W2 and W13 can now read their constants off
+`contracts/adjudications.ts` instead of re-deriving them, and W2's new voice specs
+will be held to the typed vocabulary at import.
 
 W16 is the exception among the otherwise-unblocked items: it waits on the sing
 repository's version 2 reaching `main`, because the re-sync resolves the default

@@ -55,6 +55,17 @@ nothing reads the register at runtime: its test asserts the restatement is still
 true, and a second test fails if any file outside `tests/` imports it. Do not
 import it from application code.
 
+`proofMetric` is a closed union, not a string. The vocabulary and each value's
+kind live in `lib/learning/proof-metrics.ts`, and `validateCurriculum` rejects
+anything outside it — so because `lib/learning/curriculum.ts` validates all three
+curricula at import, a value that is not in the union stops the app from booting
+rather than failing quietly. Authoring a module with a new metric means adding it
+there first, with its kind, which is the point: the field used to accept any
+non-empty string, and that is how the voice track came to promise measurements no
+Suede surface performs. `tests/learning-proof-metrics.test.ts` also asserts the
+kind agrees with the proof basis `lib/learning/voice-proof.ts` records, so a
+self-reported module cannot carry a metric that claims a measurement.
+
 The explicit source path prevents stale sibling worktrees from silently becoming
 the reference. `--check` compares raw bytes for all five sources and the generated
 contract. Runtime follower tests assert catalog order, sampler boundary, every
