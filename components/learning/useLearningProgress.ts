@@ -4,7 +4,7 @@ import { allLessons, type TrackId } from "@/lib/learning/curriculum";
 import { accessibleLessonIds, accountHistoryKey } from "@/lib/learning/access";
 import { useAccountSync, useLearningAccess } from "./LearningAccessProvider";
 import { parseProgress, progressKey, parseReadingQuizProgress, readingQuizKey, withLessonRecord, type LessonRecord } from "@/lib/learning/progress";
-import { answerReadingQuestion, readingQuizResult, type InstructionQuiz, type ReadingQuizAttempt } from "@/lib/learning/instructions";
+import { answerReadingQuestion, readingQuizResult, type InstructionQuiz, type ReadingQuizAttempt } from "@/lib/learning/reading-quiz";
 import { parseStageTwoHistory, stageTwoKey, type ManualChangeAttempt, type StudyAttempt } from "@/lib/learning/stage-two";
 import { attemptFromLessonRecord } from "@/lib/learning-auth/sync";
 import { parseLearningAttempt } from "@/lib/learning-account/contracts";

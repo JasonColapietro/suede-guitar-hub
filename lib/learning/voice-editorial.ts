@@ -206,7 +206,7 @@ export const VOICE_MODULE_EDITORIAL: Record<string, ModuleEditorial> = {
     reading: [
       {
         target: { shelf: "atlas", slug: "the-safety-rail" },
-        why: "This module sits at the top of the range and asks for a six-second belt, and nothing anywhere measures strain, so the only safety here is a singer who has read what the risk actually is and what stopping looks like.",
+        why: "This module sits near the top of the transition zone and asks for a six-second mixed-voice hold. Nothing here measures strain, so the singer needs the risk and stop rules before attempting it.",
       },
     ],
   },

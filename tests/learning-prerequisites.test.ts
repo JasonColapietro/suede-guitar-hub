@@ -3,22 +3,33 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import {
-    PREREQUISITE_POLICY, PREREQUISITE_RECORD_COUNT, danglingPrerequisites, dependentsOf, entryPoints,
+    PREREQUISITE_POLICY, PREREQUISITE_RECORD_COUNT, crossTrackPrerequisites, danglingPrerequisites, dependentsOf, entryPoints,
     orphanedRecords, prerequisiteCycles, prerequisiteOrderViolations, prerequisitesFor,
 } from '../lib/learning/prerequisites.ts';
 import { allLessons } from '../lib/learning/curriculum.ts';
 import { lessonPrerequisites } from '../lib/learning/instructions.ts';
 import { canOpenModule, guestLearningAccess } from '../lib/learning/access.ts';
+import voiceCurriculum from '../lib/learning/data/voice.json' with { type: 'json' };
 
 test('the graph covers every instruction record', () => {
-    assert.equal(PREREQUISITE_RECORD_COUNT, 117);
+    assert.equal(PREREQUISITE_RECORD_COUNT, 219);
     const withoutField = lessonPrerequisites.filter(entry => !Array.isArray(entry.prerequisiteLessonIds));
-    assert.deepEqual(withoutField, [], 'the field is authored on all 117 records, so it is required and not optional');
+    assert.deepEqual(withoutField, [], 'the field is authored on all 219 records, so it is required and not optional');
 });
 
 test('every prerequisite names a lesson that exists', () => {
     assert.deepEqual(danglingPrerequisites(), [], 'a prerequisite pointing at a lesson the catalog does not contain is advice a learner can never satisfy');
+    assert.deepEqual(crossTrackPrerequisites(), [], 'a prerequisite cannot send a learner into the other track');
     assert.deepEqual(orphanedRecords(), [], 'an instruction record for a lesson the catalog dropped');
+});
+
+test('a cross-track prerequisite is rejected even when both lesson ids exist', () => {
+    const crossed = lessonPrerequisites.map(entry => entry.id === 'v-l1-m1-02'
+        ? { ...entry, prerequisiteLessonIds: ['g-l1-m1-01'] }
+        : entry);
+    assert.deepEqual(crossTrackPrerequisites(crossed), [
+        { id: 'v-l1-m1-02', required: 'g-l1-m1-01', track: 'voice', requiredTrack: 'guitar' },
+    ]);
 });
 
 test('the graph is acyclic', () => {
@@ -34,8 +45,8 @@ test('the catalog never places a lesson before its prerequisite', () => {
     assert.deepEqual(prerequisiteOrderViolations(), [], 'the catalog order and the authored order disagree');
 });
 
-test('there is exactly one place to start', () => {
-    assert.deepEqual(entryPoints(), ['g-l1-m1-01'], 'the first lesson of the first module is the only lesson with no prerequisite');
+test('there is exactly one place to start per track', () => {
+    assert.deepEqual(entryPoints(), ['g-l1-m1-01', 'v-l1-m1-01'], 'each track starts at its first lesson and nowhere else');
 });
 
 test('the graph is a chain with deliberate joins, not a flat list', () => {
@@ -48,13 +59,13 @@ test('the graph is a chain with deliberate joins, not a flat list', () => {
     assert.deepEqual(prerequisitesFor('not-a-lesson'), [], 'an unknown lesson has no prerequisites rather than throwing');
 });
 
-test('a gate would close 116 of 117 lessons to a visitor with no progress', () => {
+test('a gate would close 217 of 219 lessons to a visitor with no progress', () => {
     // The decisive reason the graph is not an access gate. A guest on a deep
     // link, a crawler, or anyone who cleared site data arrives with nothing
-    // completed, and under a gate only a lesson with no prerequisite renders.
+    // completed, and under a gate only one lesson per track renders.
     const unsatisfied = lessonPrerequisites.filter(entry => entry.prerequisiteLessonIds.length > 0);
-    assert.equal(unsatisfied.length, 116);
-    assert.equal(PREREQUISITE_RECORD_COUNT - unsatisfied.length, 1, 'exactly one lesson would survive');
+    assert.equal(unsatisfied.length, 217);
+    assert.equal(PREREQUISITE_RECORD_COUNT - unsatisfied.length, 2, 'exactly one lesson per track would survive');
 
     // Twenty-two lessons are deliberately open to a guest. Almost all of them
     // would be open in name only, which is what makes the gate self-defeating
@@ -114,4 +125,14 @@ test('the policy says documentation, and the access gate stays the access gate',
     };
     for (const root of ['app', 'components', 'lib']) walk(root);
     assert.deepEqual(offenders, [], 'a module that imports the graph and also talks about access is the thing this policy forbids');
+});
+
+test('voice safety copy recommends the health module without claiming an access gate', () => {
+    const health = voiceCurriculum.levels.flatMap(level => level.modules)
+        .find(module => module.id === 'v-l7-m1');
+    assert.ok(health, 'the vocal-health module is missing');
+    const checkpoint = health.lessons.find(lesson => lesson.id === 'v-l7-m1-08');
+    assert.ok(checkpoint, 'the vocal-health checkpoint is missing');
+    assert.match(checkpoint.summary, /review/i);
+    assert.doesNotMatch(checkpoint.summary, /\bgate|lock(?:ed)?\b/i, 'prerequisites are advice, not access control');
 });

@@ -1,6 +1,6 @@
 import { allLessons, isFreeModule, isModuleAvailable, type TrackId } from "./curriculum.ts";
 import { accountUUID } from "../learning-account/contracts.ts";
-import { getLessonInstructions } from "./instructions.ts";
+import { isGuidedLesson } from "./instruction-index.ts";
 
 /** A server-verified access snapshot. It never contains authentication tokens. */
 export type LearningAccess = {
@@ -29,7 +29,7 @@ export function accessibleLessonIds(track: TrackId, access: LearningAccess): str
 
 export function isLessonReady(track: TrackId, lessonId: string): boolean {
   const entry = allLessons(track).find(item => item.lesson.id === lessonId);
-  return !!entry && (!!entry.lesson.practiceSpec || !!getLessonInstructions(lessonId));
+  return !!entry && (!!entry.lesson.practiceSpec || isGuidedLesson(lessonId));
 }
 
 /** Guest records retain their original key; signing in never assigns them to an account. */

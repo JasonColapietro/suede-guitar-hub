@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { getLesson, lessonHref } from "@/lib/learning/curriculum";
-import { getInstructionAsset } from "@/lib/learning/instructions";
+import { getInstructionAsset } from "@/lib/learning/instruction-assets";
 import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineChangeRate, routineElapsedSeconds, routinePrepared, routineStorageKey, routineTemplate, RoutineTimer, type RoutineAttempt, type RoutineBlock, type RoutineSession, type RoutineState } from "@/lib/learning/routine";
 import { ChordDiagram } from "./LessonInstructionAssets";
 import { TuningGuide } from "./TuningGuide";

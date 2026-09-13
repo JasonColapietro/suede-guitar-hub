@@ -46,9 +46,7 @@ suspension, and both were proven against the old scheduler.
 All 102 voice lesson pages resolve a companion room in the sing repository
 through the contract rather than a hand-written URL, so a withdrawn route or
 parameter fails a test instead of rotting on 102 pages. The vocal safety note in
-`TRACK_SAFETY_NOTE` now renders: it had lived inside `LessonSession`, which only
-mounts for a lesson that is ready, and no voice lesson is ready, so it had never
-appeared once.
+`TRACK_SAFETY_NOTE` renders in both the guided and locked-preview branches.
 
 Thirty `proofMetric` values were realigned to the basis that actually backs them,
 and the curriculum prose was corrected where it claimed measurements that do not
@@ -72,59 +70,55 @@ passaggio is not derivable from a range scan at all — the published zones are
 per category, and `lib/voice-types.ts` in the sing repository argues that point
 at length.
 
-`proofMetric` is still typed `string?` and validated only as non-empty. The
-parity test enforces consistency with the declared basis; the type does not.
+`proofMetric` is a closed union and the curriculum is validated at import. The
+parity test also enforces consistency with the declared basis.
 
 ## Work items
 
-Numbered in dependency order. W3 gates W1, W2, W19 and W20. W4 through W12 each
-retire named self-reports and move the pin in
-`tests/suede-vocal-parity.test.ts`.
+The identifiers are stable references, not a sequence. W3 and W1 are complete;
+the measurement, catalogue, and product-decision items retain their own status.
 
 ### W3 — Native authors voice instructions and regenerates the contract
 
-**Still blocked, but the blocker is now three specific things rather than "native
-owns it".** The iOS repository was read directly to establish them.
+**Done.** The canonical iOS package now owns all 102 voice instruction records,
+loads them at runtime, and generates them into the learning contract.
 
-Everything in the content phase depends on this. `contracts/learning.json`
-declares `reference.surface: "ios"`, and `tests/learning-parity.test.ts` asserts
-`browseLessons(track, "guided")` deep-equals `tracks.voice.guidedLessonIds`,
-currently empty. Authoring web-side lesson bodies without a regenerated contract
-fails that test, and hand-editing the vendored file removes the only guarantee
-that makes it worth vendoring.
+`contracts/learning.json` still declares `reference.surface: "ios"`, and
+`tests/learning-parity.test.ts` asserts `browseLessons(track, "guided")`
+deep-equals `tracks.voice.guidedLessonIds`. The generated list now contains all
+102 native voice lesson IDs.
 
-What the native repository actually contains, counted rather than assumed:
-`tracks.guitar` has 117 guided lessons of 135 and `tracks.voice` has **0 of 102**,
-so the voice catalogue exists there and its instruction library does not. The
-`instructions` block holds 117 records, all guitar. `voice.json` is present in
-`GuitarHubCore/Sources/GuitarHubCore/Resources/`; there is no voice instruction
-file beside it.
+The native contract now contains 219 instruction records: 117 guitar and 102
+voice. `voice-instruction.json` sits beside the other package resources and is
+the only authored source for those voice bodies.
 
-The three blockers:
+The three changes that removed the blocker:
 
-**It needs a Swift source change, not only data.**
+**The Swift loader changed, not only the data.**
 `LessonInstructionLibrary.loadBundled()` in
 `GuitarHubCore/Sources/GuitarHubCore/Content/LessonInstruction.swift` names its
 three files literally — `beginner-guitar-instruction` and then a hardcoded array
 of `song-guitar-instruction` and `advanced-guitar-instruction`. It does not glob a
 directory and is not keyed by track, so dropping a `voice-instruction.json` into
-Resources loads nothing. One line has to change, and `ContentError.missingResource`
-means a typo is a thrown error rather than a quiet skip.
+Resources once loaded nothing. The loader now names `voice-instruction`, and
+`ContentError.missingResource` still makes a typo a thrown error rather than a
+quiet skip.
 
-**The generator needs a Swift toolchain.** `contracts/learning.json` is produced
+**The contract was regenerated with the Swift toolchain.** `contracts/learning.json` is produced
 only by `CONTRACT_WRITE=1 swift test --package-path GuitarHubCore --filter
 LearningParityContractTests`, and `LearningParityContractTests` compares both the
 built contract and its canonical bytes — so a hand-edited file fails on any
-machine that can run the suite. That is the guarantee working as designed, and it
-means the regeneration cannot be faked from a Linux checkout with no `swift`
-binary. Whoever does this needs Xcode or a Swift toolchain.
+machine that can run the suite. That guarantee remains: the committed bytes were
+generated with Xcode's Swift toolchain rather than hand-edited.
 
-**Then the authoring itself.** Each guitar instruction record carries a setup, an
+**The authoring itself is complete.** Each instruction record carries a setup, an
 ordered set of steps each with a look check and a listen check, mistake recovery
 pairs, completion criteria, practice segments, a completion and a not-ready
 sentence, an evidence line, a stated limitation, demo assets and sometimes a quiz.
-That is the shape 102 voice lessons need, and it is content work by someone who
-teaches singing, not a mechanical translation of the guitar records.
+All 102 voice lessons now use that shape. Advanced protocols include explicit
+stop rules and state that the app cannot measure strain or certify safety. The
+effects module forbids learning or imitating a new effect from text: learners may
+review prior qualified instruction or take an observation-only path.
 
 Regenerate in the native repository, then from this web root:
 
@@ -134,22 +128,23 @@ node scripts/sync-native-learning.mjs --native=/absolute/path/to/guitarhub-ios -
 npm test
 ```
 
-Done when `tracks.voice.guidedLessonIds` is non-empty and `--check` passes.
+Verified with 157 native package tests, zero failures; the web byte check covers
+all seven vendored runtime resources, the generated contract, and two
+native-derived browser bundles that keep lesson prose out of client code.
 
-**What is ready for the day it lands.** W23 added a test that fails when the
-outline copy becomes false, so the three surfaces saying the voice track is
-outlines will announce themselves rather than shipping a lie. W17 settled W2's
-tolerance at 50 cents. W18 made `proofMetric` a closed union validated at import,
-so a new voice lesson cannot invent an unmeasurable proof. W24 defines the
-vocabulary those lessons will use. None of that needed native, which is why it was
-done first.
+W23's guard fired when the records landed, and W1 retired the stale track-wide
+outline claim. W17's 50-cent tolerance decision and W18's closed `proofMetric`
+union remain the constraints for W2; W24 supplies the shared vocabulary.
 
 ### W1 — Author `lib/learning/data/voice-instruction.json`
 
-One record per covered lesson, up to 102. Authoring a record flips
-`isLessonReady`, which flips the library filters, the lesson page's `available`
-branch and `robots.index`. Every voice lesson currently renders the curriculum
-outline and is `noindex`.
+**Done as a native-follower change.** The web vendors the 102-record native file,
+loads it through `lib/learning/instructions.ts`, and exposes every voice lesson as
+guided. The two free voice stages contain 21 open guided lessons; later stages
+remain previews unless the account owns the track.
+
+Authoring a record flips `isLessonReady`, which flips the library filters, the
+lesson page's `available` branch and `robots.index`. All 102 records now resolve.
 
 Each record requires `id`, `objective`, `steps` of three to six entries carrying
 `title`, `action`, `lookCheck` and `listenCheck`, two to five `mistakeRecovery`
@@ -180,10 +175,9 @@ calls the loader, the throw propagates through `generateStaticParams` and the
 track page, so one bad identifier fails the whole track's build rather than one
 lesson. It is never a 404 and never a silently empty section.
 
-Wiring is not data: add the import in `lib/learning/instructions.ts` and spread
-it into both `sourceAssets` and `sourceLessons`, then update
-`tests/learning-instructions.test.ts`, which asserts voice instructions are
-`undefined`.
+The sync mapping, loader, instruction tests, readiness copy, free-count copy, and
+locked-lesson fallback all moved together. Unknown assets and lesson IDs still
+fail or remain absent under the same rules as guitar.
 
 ### W2 — Add `practiceSpec` blocks for measured voice exercises
 
@@ -685,30 +679,11 @@ published bound.
 
 ### W16 — Re-sync `practice-parity` v2 into `Suede-AI/suede-voice`
 
-That contract moved to version 2: the XP earn rate, all level rungs with titles,
-and `mastery.minTempo`. Until the vendored copy moves, the native assertions
-cannot see any of it, including the tempo gate that stops a quarter-speed pass
-counting as mastery. The command is in the sing repository's
-`contracts/README.md`.
-
-This cannot be done yet, for a reason worth stating because it is easy to get
-wrong. The re-sync fetches the file from the GitHub contents API without a `ref`,
-which resolves to the default branch, and the sing repository's `main` still
-carries version 1 — v2 exists only on
-`claude/guitarhub-suede-voice-integration-9st9ur`. Running the documented command
-today therefore vendors v1 and changes nothing, while looking like the item was
-completed.
-
-So W16 depends on the sing change reaching `main`. Fetching with `?ref=` pinned
-at the unmerged branch would technically move the bytes and should not be done:
-the point of a vendored contract is that it tracks a published reference, and a
-copy taken from an in-flight branch is the silent-drift failure the contract was
-built to prevent.
-
-Once `main` carries v2, expect the native assertions to need updating rather than
-merely passing. `progress.xpThresholds` grew from 12 entries to every rung and
-each entry gained a `title`, so any native assertion that checks the rung count
-or destructures a rung will need to move with it.
+**Done in `Suede-AI/suede-voice`.** The source contract reached the sing
+repository before the native copy moved, so the vendored file now follows a
+published reference instead of an in-flight branch. Version 2 includes the XP
+earn rate, every titled level rung, and `mastery.minTempo`; the native assertions
+were updated with it. Commit `e962c7a` is the verified sync point.
 
 ### W17 — Adjudication register
 
@@ -902,14 +877,13 @@ ship inside a lesson, and it is what the voice song lessons lack.
 
 **Done. Decided as documentation, and enforced as an oracle.**
 
-`prerequisiteLessonIds` is authored on all 117 guitar instruction records and was
-referenced by no code at all — not a component, not a route, not a test. The
-question was the right one: enforce it, or mark it documentation.
+`prerequisiteLessonIds` is authored on all 219 guitar and voice instruction
+records. It is ordering documentation rather than an access gate.
 
 **It is not an access gate.** The decisive reason is that a visitor with no
-progress satisfies the prerequisites of exactly one lesson in 117. A guest on a
-deep link, a crawler, anyone who cleared site data — under a gate, `g-l1-m1-01`
-renders and the other 116 do not, which makes the twenty-two deliberately open and
+progress satisfies exactly one starting lesson per track. A guest on a deep
+link, a crawler, anyone who cleared site data — under a gate, the two entry
+lessons render and the other 217 do not, which makes 43 deliberately open and
 indexable lessons open in name only. Two more reasons, each sufficient on its own:
 completion lives in `localStorage`, so a gate is bypassed by anyone who wants to
 and locks out only the honest learner on a new device; and a prerequisite here
@@ -930,9 +904,9 @@ one somewhere they are not ready for.
 `lib/learning/prerequisites.ts` holds the policy in code — `isAccessGate: false`,
 and a pointer to the gate that does decide — plus functions that return what is
 wrong rather than throwing, so the test reports the whole list. The graph is
-verified today to be complete over all 117 records, free of dangling references and
+verified today to be complete over all 219 records, free of dangling references and
 orphans, acyclic, consistent with catalog order, and to have exactly one entry
-point, with ten lessons deliberately requiring more than one predecessor. Two
+point per track, with ten lessons deliberately requiring more than one predecessor. Two
 tests put teeth on the policy: `lib/learning/access.ts` and
 `lib/learning/curriculum.ts` must not mention prerequisites at all, and no module
 anywhere may both import the graph and talk about access. Four probes confirmed
@@ -1002,51 +976,22 @@ rather than a cross-surface promise.
 
 ### W23 — Retire the outline copy and settle the taxonomy
 
-**Done. The copy is guarded rather than retired, and the taxonomy decision is
-escalated rather than taken.**
+**Done for copy; taxonomy remains an explicit product decision.** W1 made all
+102 voice lessons ready, the guard failed as designed, and the unconditional
+"Voice currently contains curriculum outlines" sentence was removed. Stage
+badges, lesson labels, library filters, and locked previews continue to derive
+their wording from `isLessonReady`; the learn index's broader outlines sentence
+remains true only because guitar stage seven is still unwritten (W19).
 
-W1 has not landed: `lib/learning/data/voice-instruction.json` does not exist,
-`lib/learning/instructions.ts` spreads only the three guitar sources, and
-`isLessonReady` is false for all 102 voice lessons. The outline statements are
-therefore still true, so deleting them would have replaced a true sentence with a
-promise this repository cannot keep. `tests/voice-outline-copy.test.ts` is the
-deliverable instead: it ties each statement to the readiness it claims, so the
-day a voice record is authored the build says which sentence is now a lie.
+The voice card now computes 21 free guided lessons from the two free stages. The
+path and lesson pages no longer describe access as the first guitar module when
+the visitor is browsing voice, and a locked voice lesson links back to a free
+voice lesson rather than the guitar sampler. `tests/voice-outline-copy.test.ts`
+binds those claims to the catalog and scans for new track-wide hardcoding.
 
-Surveying every place that says "outline" or "preview" changed what the work is.
-Eight of the nine derive the word from `isLessonReady` per lesson or per level —
-the stage badges, the per-lesson annotations, both library badges, and the lesson
-page's own heading and notice — and retire themselves. Exactly one is an
-unconditional claim about the whole track, `LearningPath`'s "Voice currently
-contains curriculum outlines.", and it is the only sentence a person has to
-rewrite. `app/learn/page.tsx` turns out to carry no voice-specific claim at all:
-its "written lessons and curriculum outlines" sentence is about both tracks and
-stays true while guitar stage seven has no lesson bodies (W19), and its voice card
-already counts what a guest can open rather than asserting a number. The tests on
-the derived eight are not padding — they are what makes leaving those surfaces
-alone safe, and they fail if a later edit swaps a derivation for a fixed word.
-
-Every assertion is an equality between rendered markup and what `isLessonReady`
-reports, never a match on the wording alone, so a sentence that drifts fails and a
-sentence that outlives its premise fails too. The badge checks run on both tracks
-because guitar carries stages of both kinds, and the set of files making a
-track-wide claim is pinned so a fourth surface cannot quietly acquire one. Proven
-by authoring one voice instruction record and wiring it in exactly as W1 will:
-three of the seven tests fail, and the decisive one names the lesson that is now
-ready and the file to edit.
-
-The two `StageTwoPractice` headings were wrong in both directions. "A chord
-accuracy cycle" and "Keep a light index-finger anchor" read wrongly on a voice
-lesson, where `instruction_diagram` and `step_diagram` are both authorable, and
-they were already wrong for guitar: seventeen of the nineteen authored panel
-assets carry their own `name` and every one of them rendered under the
-accuracy-cycle heading, because `decodeStageTwoAsset` dropped the field. It now
-decodes it, the authored heading wins, and the two fallbacks name what the
-renderer draws without naming an instrument. Four probes confirm each half.
-Still guitar-shaped in that component and out of scope here: the anchor caption's
-"loosen your hand", the timing checkpoint's "strums", the study's "A/D study",
-and `useStageTwoProgress("guitar")`, which W1 already records as the reason two
-asset kinds must not appear on a voice lesson.
+The earlier `StageTwoPractice` heading corrections remain in place. Voice
+instructions deliberately author none of the stateful guitar-only asset kinds,
+so their completion evidence cannot be written to a guitar progress namespace.
 
 **The taxonomy is left as recorded, and the open half is for the owner.** Six of
 eight is already adjudicated in the vocal contract's
@@ -1424,11 +1369,13 @@ sing repository; W2 and W13 can now read their constants off
 `contracts/adjudications.ts` instead of re-deriving them, and W2's new voice specs
 will be held to the typed vocabulary at import.
 
-W16 is the exception among the otherwise-unblocked items: it waits on the sing
-repository's version 2 reaching `main`, because the re-sync resolves the default
-branch. It is cheap once that lands and is a no-op before it.
+W16 is complete: the published version 2 contract is vendored in
+`Suede-AI/suede-voice`. W3 and W1 are also complete: native now authors and
+contracts all 102 voice lessons, and the web follows that source byte-for-byte.
+W2 remains the next measured-practice item; W19 and W20 remain separate content
+and catalogue work rather than blockers on the shipped voice instruction.
 
-W3 is next and gates W1, W2, W19 and W20. W4, W5 and W6 are done on the
+W4, W5 and W6 are done on the
 measurement side in the sing repository: the measurements and their tests exist,
 and what remains of each is the contract key and the module retirements its
 section names, fewer of the latter than first assumed.
@@ -1489,8 +1436,9 @@ accessors; they do not establish microphone accuracy, timing latency or sound
 quality on physical hardware, and they do not prove keyboard or screen-reader
 interaction.
 
-Statements about the native surface are inferred from the generated contracts
-rather than read from that source, and should be confirmed against it before
-anyone commits to a date for W3, W13 or W20. Counts and file-level claims were
-read from the two repositories on the branch named above and will drift as the
-work lands.
+The native files and their generated contract were read and tested directly for
+W3. That establishes source parity, not a qualified vocal-pedagogy or clinical
+review. Advanced belt, weight, range-extension, and effects material must not be
+described as professionally reviewed until that external review happens. Counts
+and file-level claims were read from the two repositories on the branch named
+above and will drift as later work lands.

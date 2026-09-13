@@ -1,6 +1,7 @@
 import type { LearningAttempt } from "../learning-account/contracts.ts";
 import { allLessons, getLesson } from "../learning/curriculum.ts";
-import { getLessonInstructions, parseReadingQuizAttempt } from "../learning/instructions.ts";
+import { getInstructionQuiz } from "../learning/instruction-index.ts";
+import { parseReadingQuizAttempt } from "../learning/reading-quiz.ts";
 import { parseProgress, parseReadingQuizProgress, withLessonRecord, withReadingQuizEvidence, type LearningProgress, type LessonRecord, type ReadingQuizProgress } from "../learning/progress.ts";
 import { parseStageTwoHistory, type StageTwoHistory } from "../learning/stage-two.ts";
 
@@ -12,7 +13,7 @@ export function mergeAccountReading(local: ReadingQuizProgress, cloud: readonly 
   const attempts = new Map(local.attempts.map(attempt => [attempt.id, structuredClone(attempt)]));
   for (const event of ordered(cloud)) {
     if (event.track !== local.track || event.kind !== "reading" || event.source === "legacy") continue;
-    const quiz = getLessonInstructions(event.lessonId)?.quiz;
+    const quiz = getInstructionQuiz(event.lessonId);
     const incoming = quiz ? parseReadingQuizAttempt(event.details.readingQuizAttempt, event.lessonId, quiz) : null;
     if (!incoming) continue;
     const previous = attempts.get(incoming.id);

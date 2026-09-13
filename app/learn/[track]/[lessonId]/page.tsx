@@ -36,14 +36,12 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   const lessons = allLessons(track);
   const index = lessons.findIndex(item => item.lesson.id === lessonId);
   const previous = lessons[index - 1];
-  // Where this lesson's work is actually done. The voice track has no guided
-  // lesson bodies yet, so without this the only thing a singer could press on
-  // a voice page was a link to the guitar sampler.
+  // A measured companion for the voice lessons Sing can score. It supplements
+  // the authored lesson body; it is not evidence that every voice skill is
+  // measured.
   const companion = track === "voice" ? singCompanionForLesson(lesson.id) : undefined;
-  // And what to read and what to sing. The voice track named no repertoire at
-  // all, and taught registers, the passaggio and belt safety with no reading
-  // behind any of them, while Sing has all of it written. Resolved through the
-  // contract so a renamed chapter fails a test rather than rotting here.
+  // What to read and what to sing. Resolved through the contract so a renamed
+  // chapter fails a test rather than rotting here.
   const editorial = track === "voice" ? voiceEditorialForLesson(lesson.id) : undefined;
   const moduleSafety = MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE] as string | undefined;
   const next = lessons[index + 1];
@@ -59,33 +57,31 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
           ? "We could not verify your lifetime access. Your saved progress is kept. Try again shortly, or continue with the free sampler."
           : access.enabled
             ? "This lesson requires Complete Lifetime access linked to your account. Sign in to the same account used for a linked iOS purchase."
-            : "The first guitar module is free. This guided lesson is a preview while account-linked purchase access is being connected on the web."}</div>
-      {/* The outline branch renders instead of LessonSession, which is where the
-          safety note used to live — so a voice lesson showed none at all. */}
+            : "The first two stages of this track are free. This guided lesson is a preview while account-linked purchase access is being connected on the web."}</div>
+      {/* The preview branch renders instead of LessonSession, so it carries the
+          same safety note as an open guided lesson. */}
       <p className={styles.small}>{TRACK_SAFETY_NOTE[track]}</p>
       {/* And the module's own caution where the track line is not enough. The
-          six-second belt sustain and the effects module both grade a singer on
-          an absence of strain that nothing measures, so the symptoms to stop on
-          have to be on the page that gives the instruction. */}
+          mixed-voice sustain and the effects module both need explicit stop
+          symptoms because nothing here measures vocal strain. */}
       {moduleSafety && <p className={styles.small}>{moduleSafety}</p>}
-      {companion && <div className={styles.notice}>{companion.measured
-        ? "Suede Sing measures this one. Work it there and the numbers are real."
-        : "Suede Sing has the room for this, though nothing scores it yet — your ear and a recording are the evidence."}</div>}
-      <div className={styles.actions}>{ready && access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "View account access" : "Sign in to check access"}</Link>}{companion
-        ? <a className={styles.primary} href={companion.href}>{companion.label}</a>
-        : null}<Link className={styles.secondary} href={lessonHref("guitar", allLessons("guitar")[0].lesson.id)}>Try the free guitar sampler</Link></div>
+      <div className={styles.actions}>{ready && access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "View account access" : "Sign in to check access"}</Link>}<Link className={styles.secondary} href={lessonHref(track, lessons[0].lesson.id)}>Try a free {track} lesson</Link></div>
     </section>}
+    {companion && <>
+      <div className={styles.notice}>{companion.measured
+        ? "Suede Sing measures this one. Work it there and the numbers are real."
+        : "Suede Sing has the room for this, though nothing scores it yet — your ear and a recording are the evidence."}</div>
+      <div className={styles.actions}><a className={styles.primary} href={companion.href}>{companion.label}</a></div>
+    </>}
     {/* The words this lesson's own prose uses, resolved where they are read.
         Before this, `passaggio`, `twang`, `mix` and `pressed phonation` reached
         beginners on these pages with no definition anywhere on the site, and a
         glossary nobody is pointed at would not have changed that. Rendered
-        outside the available/outline branches on purpose: every voice lesson
-        takes the outline branch, which is exactly where the undefined words
-        were. */}
+        outside the available/preview branches on purpose so locked lessons do
+        not lose the definitions their summaries use. */}
     <LessonGlossary terms={lessonGlossary(track, lesson.id)} />
-    {/* Outside the available/outline branches for the same reason the glossary
-        is: every voice lesson takes the outline branch today, which is exactly
-        where a singer is left with nothing to read and no song to sing. */}
+    {/* Outside the available/preview branches for the same reason the glossary
+        is: locked lessons should still expose their cited reading and song. */}
     <LessonEditorialPanel editorial={editorial} />
     <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, access) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
   </>;

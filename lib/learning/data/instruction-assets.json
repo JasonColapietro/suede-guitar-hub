@@ -1,0 +1,6739 @@
+{
+  "schemaVersion": 1,
+  "demoAssets": {
+    "support-and-pick": {
+      "kind": "diagram",
+      "description": "Original seated silhouette showing guitar body on thigh, body lightly against torso, picking forearm resting over the body edge, and a relaxed fretting hand that does not carry the instrument. Include an inset of thumb pad meeting the side of a gently curled index finger around a pick, with only its tip exposed.",
+      "textAlternative": "Support the guitar with your body and forearm so the fretting hand is free to move. Hold the pick between thumb and index finger with a small tip showing."
+    },
+    "six-open-strings": {
+      "kind": "string_diagram_and_reference_tones",
+      "referenceAHz": 440,
+      "strings": [
+        {
+          "string": 6,
+          "name": "Low E",
+          "note": "E2",
+          "midi": 40,
+          "fret": 0
+        },
+        {
+          "string": 5,
+          "name": "A",
+          "note": "A2",
+          "midi": 45,
+          "fret": 0
+        },
+        {
+          "string": 4,
+          "name": "D",
+          "note": "D3",
+          "midi": 50,
+          "fret": 0
+        },
+        {
+          "string": 3,
+          "name": "G",
+          "note": "G3",
+          "midi": 55,
+          "fret": 0
+        },
+        {
+          "string": 2,
+          "name": "B",
+          "note": "B3",
+          "midi": 59,
+          "fret": 0
+        },
+        {
+          "string": 1,
+          "name": "High E",
+          "note": "E4",
+          "midi": 64,
+          "fret": 0
+        }
+      ],
+      "playback": "User-triggered single-string reference, 1.5 seconds long with a soft attack and release; label the string, note, and octave. Wait for it to stop before the learner plucks. Also offer an unscored low-to-high sequence."
+    },
+    "flat-target-sharp": {
+      "kind": "reference_tones",
+      "baseMidi": 45,
+      "examples": [
+        {
+          "label": "Lower than the target",
+          "centsOffset": -50
+        },
+        {
+          "label": "Target A2",
+          "centsOffset": 0
+        },
+        {
+          "label": "Higher than the target",
+          "centsOffset": 50
+        }
+      ],
+      "description": "Play the target then one comparison tone with a short silent gap. These deliberately separated examples teach direction; 50 cents is not a tuning pass threshold."
+    },
+    "tuner-directions": {
+      "kind": "diagram",
+      "description": "A selected A2 target with textual states Below target, In tune, and Above target. Show the selected string number and octave next to the reading. Do not hard-code a clockwise peg direction because headstock layouts differ."
+    },
+    "notation-legend": {
+      "kind": "diagram",
+      "description": "Three separate original panels: horizontal tab with high E at top and low E at bottom; an upright chord diagram labeled with string numbers, nut, frets, X and O; a 4/4 bar with four quarter-note rhythm slashes aligned to beat numbers 1–4. Explicitly label tab fret numbers separately from chord-diagram finger numbers."
+    },
+    "a-chord-reading": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "description": "Mark string 6 X; strings 5 and 1 O. D-string fret 2 uses finger 2, G-string fret 2 uses finger 1, B-string fret 2 uses finger 3. Play the five tones separately before an optional short chord reference. Name can be hidden for a reading prompt."
+    },
+    "d-chord-reading": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "Mark strings 6 and 5 X, string 4 O. Place finger 1 at G-string fret 2, finger 2 at high-E fret 2, then finger 3 at B-string fret 3. Name can be hidden for a reading prompt."
+    },
+    "four-beat-reading": {
+      "kind": "rhythm_demo",
+      "bpm": 60,
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "countInBeats": 4,
+      "eventBeats": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "description": "A spoken/text count-in or four clicks, then one soft click per displayed quarter-note slash. Highlight each beat and use a distinct first-beat sound. This is an unscored demonstration."
+    },
+    "stage2-d-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "placementOrder": [
+        {
+          "finger": 1,
+          "string": 3,
+          "fret": 2
+        },
+        {
+          "finger": 2,
+          "string": 1,
+          "fret": 2
+        },
+        {
+          "finger": 3,
+          "string": 2,
+          "fret": 3
+        }
+      ],
+      "referenceAudio": {
+        "enabledByUser": true,
+        "purpose": "Unscored synthesized pitch reference; not a guitar recording",
+        "midi": [
+          50,
+          57,
+          62,
+          66
+        ],
+        "perStringStartOffsetSeconds": 0.045,
+        "noteDurationSeconds": 1.3,
+        "totalDurationSeconds": 1.7,
+        "oscillator": "triangle",
+        "peakGainPerVoice": 0.045,
+        "attackSeconds": 0.015,
+        "releaseSeconds": 0.2,
+        "referenceAHz": 440,
+        "capturePolicy": "Stop capture before starting the reference; do not resume automatically."
+      },
+      "textAlternative": "D: keep strings 6 and 5 silent; string 4 open; index 3/2, middle 1/2, ring 2/3."
+    },
+    "stage2-a-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "placementOrder": [
+        {
+          "finger": 1,
+          "string": 3,
+          "fret": 2
+        },
+        {
+          "finger": 2,
+          "string": 4,
+          "fret": 2
+        },
+        {
+          "finger": 3,
+          "string": 2,
+          "fret": 2
+        }
+      ],
+      "referenceAudio": {
+        "enabledByUser": true,
+        "purpose": "Unscored synthesized pitch reference; not a guitar recording",
+        "midi": [
+          45,
+          52,
+          57,
+          61,
+          64
+        ],
+        "perStringStartOffsetSeconds": 0.045,
+        "noteDurationSeconds": 1.3,
+        "totalDurationSeconds": 1.7,
+        "oscillator": "triangle",
+        "peakGainPerVoice": 0.045,
+        "attackSeconds": 0.015,
+        "releaseSeconds": 0.2,
+        "referenceAHz": 440,
+        "capturePolicy": "Stop capture before starting the reference; do not resume automatically."
+      },
+      "textAlternative": "A: keep string 6 silent; strings 5 and 1 open; index 3/2, middle 4/2, ring 2/2."
+    },
+    "stage2-accuracy-cycle": {
+      "kind": "instruction_diagram",
+      "panels": [
+        {
+          "number": 1,
+          "label": "Place",
+          "action": "Build the selected chord in its taught finger order."
+        },
+        {
+          "number": 2,
+          "label": "Strum",
+          "action": "Sound only the intended strings once."
+        },
+        {
+          "number": 3,
+          "label": "Check",
+          "action": "Pick intended strings individually, locate an unclear note by ear, and adjust one finger if needed."
+        },
+        {
+          "number": 4,
+          "label": "Strum again",
+          "action": "Compare the whole chord after the adjustment."
+        }
+      ],
+      "requiresMicrophone": false,
+      "referenceIds": [
+        "stage2-justin-d"
+      ]
+    },
+    "stage2-silent-anchor": {
+      "kind": "step_diagram",
+      "sequence": [
+        {
+          "number": 1,
+          "chord": "D",
+          "action": "Rest D lightly without strumming."
+        },
+        {
+          "number": 2,
+          "chord": null,
+          "action": "Lift middle and ring; index stays on string 3/fret 2."
+        },
+        {
+          "number": 3,
+          "chord": "A",
+          "action": "Move index a little within fret 2, then put middle on 4/2 and ring on 2/2."
+        },
+        {
+          "number": 4,
+          "chord": "D",
+          "action": "Lift middle/ring, move index within fret 2, then put middle on 1/2 and ring on 2/3."
+        }
+      ],
+      "heldContact": {
+        "finger": 1,
+        "string": 3,
+        "fret": 2,
+        "maySlideWithinFret": true
+      },
+      "suggestedSeconds": 120,
+      "requiresMicrophone": false,
+      "assessment": "manual visual reflection",
+      "textAlternative": "Move silently D to A and back, keeping light index contact on string 3 in fret 2."
+    },
+    "stage2-manual-change-counter": {
+      "kind": "manual_timed_exercise",
+      "durationSeconds": 60,
+      "startingChordOptions": [
+        "A",
+        "D"
+      ],
+      "defaultStartingChord": "A",
+      "chordPair": [
+        "A",
+        "D"
+      ],
+      "captureEnabled": false,
+      "initialShapeCounts": false,
+      "countRule": "Count each completed transition once: setup A is 0, A to D is 1, D to A is 2. A repeated same-shape strum or abandoned move adds nothing.",
+      "inputTiming": "Enter the integer count after the attempt ends, not by tapping during playing.",
+      "earlyReadinessCount": 30,
+      "longerTermGoalCount": 60,
+      "interruptionRule": "Stop the contiguous attempt, retain actual seconds as partial practice, and require a fresh full timer for a comparable checkpoint count.",
+      "evidenceSource": "manual",
+      "toneQualityRule": "The basic destination shape must be formed. Do not demand clean sound for every speed-exercise change; assess chord clarity in its own block.",
+      "referenceIds": [
+        "stage2-justin-changes",
+        "stage2-justin-routine-1"
+      ]
+    },
+    "stage2-four-beat-bar": {
+      "kind": "rhythm_diagram_and_demo",
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "suggestedBPM": 60,
+      "tempoOrigin": "GuitarHub comfortable starting suggestion, not a competitor-prescribed tempo",
+      "countInBeats": 4,
+      "countInIsMusic": false,
+      "beatCells": [
+        {
+          "beatInBar": 1,
+          "beatOffset": 0,
+          "action": "Downstroke"
+        },
+        {
+          "beatInBar": 2,
+          "beatOffset": 1,
+          "action": "Let ring"
+        },
+        {
+          "beatInBar": 3,
+          "beatOffset": 2,
+          "action": "Let ring"
+        },
+        {
+          "beatInBar": 4,
+          "beatOffset": 3,
+          "action": "Let ring and prepare"
+        }
+      ],
+      "optionalClicks": true,
+      "clicksAreUnscored": true,
+      "textAlternative": "Four beats make one bar. Sound the chord once on 1 and let it continue through 2, 3, and 4."
+    },
+    "stage2-first-light-study": {
+      "kind": "original_chord_study",
+      "id": "stage2-first-light-study",
+      "title": "First Light",
+      "displayTitle": "First Light — an original A/D study",
+      "provenance": "Newly authored elementary chord study for GuitarHub. No song melody, lyrics, arrangement, recording, or teacher media has been copied. The educational progression is described in linked public sources.",
+      "isCommercialSong": false,
+      "hasLyrics": false,
+      "defaultBPM": 60,
+      "allowedBPM": {
+        "minimum": 15,
+        "maximum": 75,
+        "step": 3
+      },
+      "tempoOrigin": "Authored 60 BPM is a GuitarHub study choice. Use existing 25–125% Practice/Play controls in 5% steps, giving 15–75 BPM in 3 BPM increments; no separate local tempo range.",
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "barCount": 16,
+      "beatsPerBar": 4,
+      "musicBeats": 64,
+      "countInBeats": 4,
+      "firstMusicBeat": 0,
+      "endMusicBeatExclusive": 64,
+      "musicDurationSecondsAt60BPM": 64,
+      "totalDurationWithCountInSecondsAt60BPM": 68,
+      "firstChord": "D",
+      "finalChord": "D",
+      "chordAssetIds": {
+        "D": "stage2-d-chord",
+        "A": "stage2-a-chord"
+      },
+      "chordSequence": [
+        "D",
+        "D",
+        "A",
+        "A",
+        "D",
+        "A",
+        "D",
+        "D",
+        "A",
+        "A",
+        "D",
+        "D",
+        "A",
+        "A",
+        "D",
+        "D"
+      ],
+      "notationConvention": "Visible bar/beat numbers are one-based; stored music beat offsets are zero-based. Time from music start is beatOffset * 60 / chosenBPM. Count-in offsets are -4 through -1 and are outside bar 1.",
+      "bars": [
+        {
+          "number": 1,
+          "phrase": 1,
+          "chord": "D",
+          "startBeat": 0,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 0,
+          "endBeatExclusive": 4,
+          "firstBeatStrum": {
+            "beat": 0,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 2,
+          "phrase": 1,
+          "chord": "D",
+          "startBeat": 4,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 4,
+          "endBeatExclusive": 8,
+          "firstBeatStrum": {
+            "beat": 4,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 3,
+          "phrase": 1,
+          "chord": "A",
+          "startBeat": 8,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 8,
+          "endBeatExclusive": 12,
+          "firstBeatStrum": {
+            "beat": 8,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 4,
+          "phrase": 1,
+          "chord": "A",
+          "startBeat": 12,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 12,
+          "endBeatExclusive": 16,
+          "firstBeatStrum": {
+            "beat": 12,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 5,
+          "phrase": 2,
+          "chord": "D",
+          "startBeat": 16,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 16,
+          "endBeatExclusive": 20,
+          "firstBeatStrum": {
+            "beat": 16,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 6,
+          "phrase": 2,
+          "chord": "A",
+          "startBeat": 20,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 20,
+          "endBeatExclusive": 24,
+          "firstBeatStrum": {
+            "beat": 20,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 7,
+          "phrase": 2,
+          "chord": "D",
+          "startBeat": 24,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 24,
+          "endBeatExclusive": 28,
+          "firstBeatStrum": {
+            "beat": 24,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 8,
+          "phrase": 2,
+          "chord": "D",
+          "startBeat": 28,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 28,
+          "endBeatExclusive": 32,
+          "firstBeatStrum": {
+            "beat": 28,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 9,
+          "phrase": 3,
+          "chord": "A",
+          "startBeat": 32,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 32,
+          "endBeatExclusive": 36,
+          "firstBeatStrum": {
+            "beat": 32,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 10,
+          "phrase": 3,
+          "chord": "A",
+          "startBeat": 36,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 36,
+          "endBeatExclusive": 40,
+          "firstBeatStrum": {
+            "beat": 36,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 11,
+          "phrase": 3,
+          "chord": "D",
+          "startBeat": 40,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 40,
+          "endBeatExclusive": 44,
+          "firstBeatStrum": {
+            "beat": 40,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 12,
+          "phrase": 3,
+          "chord": "D",
+          "startBeat": 44,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 44,
+          "endBeatExclusive": 48,
+          "firstBeatStrum": {
+            "beat": 44,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 13,
+          "phrase": 4,
+          "chord": "A",
+          "startBeat": 48,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 48,
+          "endBeatExclusive": 52,
+          "firstBeatStrum": {
+            "beat": 48,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 14,
+          "phrase": 4,
+          "chord": "A",
+          "startBeat": 52,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 52,
+          "endBeatExclusive": 56,
+          "firstBeatStrum": {
+            "beat": 52,
+            "direction": "down",
+            "stringsLowToHigh": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 15,
+          "phrase": 4,
+          "chord": "D",
+          "startBeat": 56,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 56,
+          "endBeatExclusive": 60,
+          "firstBeatStrum": {
+            "beat": 56,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "number": 16,
+          "phrase": 4,
+          "chord": "D",
+          "startBeat": 60,
+          "beats": 4,
+          "firstBeatTimeSecondsAt60BPM": 60,
+          "endBeatExclusive": 64,
+          "firstBeatStrum": {
+            "beat": 60,
+            "direction": "down",
+            "stringsLowToHigh": [
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "countLabels": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      ],
+      "phrases": [
+        {
+          "id": "phrase-1",
+          "label": "Bars 1–4",
+          "startBar": 1,
+          "endBar": 4,
+          "startBeat": 0,
+          "endBeatExclusive": 16
+        },
+        {
+          "id": "phrase-2",
+          "label": "Bars 5–8",
+          "startBar": 5,
+          "endBar": 8,
+          "startBeat": 16,
+          "endBeatExclusive": 32
+        },
+        {
+          "id": "phrase-3",
+          "label": "Bars 9–12",
+          "startBar": 9,
+          "endBar": 12,
+          "startBeat": 32,
+          "endBeatExclusive": 48
+        },
+        {
+          "id": "phrase-4",
+          "label": "Bars 13–16",
+          "startBar": 13,
+          "endBar": 16,
+          "startBeat": 48,
+          "endBeatExclusive": 64
+        }
+      ],
+      "variants": [
+        {
+          "id": "one-per-bar",
+          "label": "Start here: one downstroke per bar",
+          "isDefault": true,
+          "strokeCount": 16,
+          "strokeBeatOffsets": [
+            0,
+            4,
+            8,
+            12,
+            16,
+            20,
+            24,
+            28,
+            32,
+            36,
+            40,
+            44,
+            48,
+            52,
+            56,
+            60
+          ],
+          "noteDurationBeats": 4,
+          "action": "Strum the displayed chord on each bar's 1; hold through beats 2–4."
+        },
+        {
+          "id": "four-per-bar",
+          "label": "Optional: a downstroke on each beat",
+          "isDefault": false,
+          "strokeCount": 64,
+          "strokeBeatOffsets": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "noteDurationBeats": 1,
+          "action": "Use the same 16-bar chord plan; strum on each quarter-note beat only after the starting version is comfortable."
+        }
+      ],
+      "countInEvents": [
+        {
+          "beat": -4,
+          "label": "1",
+          "frequencyHz": 880,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        },
+        {
+          "beat": -3,
+          "label": "2",
+          "frequencyHz": 660,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        },
+        {
+          "beat": -2,
+          "label": "3",
+          "frequencyHz": 660,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        },
+        {
+          "beat": -1,
+          "label": "4",
+          "frequencyHz": 660,
+          "durationSeconds": 0.055,
+          "gain": 0.08
+        }
+      ],
+      "demoEvents": [
+        {
+          "id": "demo-bar-01",
+          "beat": 0,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-02",
+          "beat": 4,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-03",
+          "beat": 8,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-04",
+          "beat": 12,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-05",
+          "beat": 16,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-06",
+          "beat": 20,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-07",
+          "beat": 24,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-08",
+          "beat": 28,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-09",
+          "beat": 32,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-10",
+          "beat": 36,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-11",
+          "beat": 40,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-12",
+          "beat": 44,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-13",
+          "beat": 48,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-14",
+          "beat": 52,
+          "chord": "A",
+          "midiLowToHigh": [
+            45,
+            52,
+            57,
+            61,
+            64
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-15",
+          "beat": 56,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        },
+        {
+          "id": "demo-bar-16",
+          "beat": 60,
+          "chord": "D",
+          "midiLowToHigh": [
+            50,
+            57,
+            62,
+            66
+          ],
+          "durationBeats": 3.8,
+          "perStringStrumOffsetBeats": 0.025
+        }
+      ],
+      "synthesis": {
+        "purpose": "Optional unscored demonstration of the complete written study",
+        "referenceAHz": 440,
+        "frequencyFormula": "440 * pow(2, (midi - 69) / 12)",
+        "oscillator": "triangle",
+        "peakGainPerVoice": 0.035,
+        "attackSeconds": 0.012,
+        "releaseSeconds": 0.12,
+        "masterPeakLimit": 0.25,
+        "note": "Render chord voices only for the written sounding strings. Scale beat-based times with chosen BPM. At each new attack end older voices before the next chord; complete after the last bar's beat 4."
+      },
+      "playbackContract": {
+        "modes": [
+          "Listen",
+          "Practice"
+        ],
+        "defaultMode": "Practice",
+        "defaultMicrophoneState": "off",
+        "countInAtStart": true,
+        "loopLeadInBeats": 4,
+        "loopBoundaries": "Whole chosen phrase(s); display inclusive bar numbers and exclusive beat end.",
+        "referenceDuringMeasuredCapture": false,
+        "optionalClicksDuringManualPractice": true,
+        "pause": "Stop generated sound and preserve musical position; resume with a visible fresh lead-in. A full-take reflection must disclose interruption.",
+        "finish": "Reach exclusive music beat 64; do not finish at the final stroke's start or after 16 quarter-note beats.",
+        "reducedMotion": "Show bar/beat/chord as text; animation is optional."
+      },
+      "evidence": {
+        "source": "selfReported",
+        "automaticPitchScore": false,
+        "automaticChordScore": false,
+        "automaticTimingScore": false,
+        "completion": "Learner records all bars attempted, guide use, interruptions, selected variant, actualBPM, and review bar. This remains separate from the sixteen-bar 64-attack microphone timing checkpoint."
+      },
+      "tempoControl": {
+        "unit": "percent",
+        "minimum": 25,
+        "maximum": 125,
+        "step": 5,
+        "default": 100,
+        "authoredBPM": 60,
+        "bpmFormula": "authoredBPM * percent / 100",
+        "source": "Existing GuitarHub Practice/Play percentage controls; the same 25–125% in 5% increment range is publicly documented for Yousician adaptive practice.",
+        "referenceId": "stage2-yousician-modes"
+      }
+    },
+    "stage2-external-song-options": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "justin-two-chord-selection",
+          "title": "Choose a familiar A/D song",
+          "url": "https://www.justinguitar.com/guitar-lessons/super-easy-2-chord-songs-b1-114",
+          "description": "Official song-selection lesson. Check each song's tuning/capo requirements before playing with its recording."
+        },
+        {
+          "id": "justin-dance-night-away",
+          "title": "Dance the Night Away — external guided play-along",
+          "url": "https://www.justinguitar.com/songs/the-mavericks-dance-the-night-away-play-along-chords-tabs-guitar-lesson-sg-038",
+          "description": "A/D application linked by Justin's first-song lesson. Use the external beginner play-along and its available tempo controls."
+        },
+        {
+          "id": "justin-blowin-smoke",
+          "title": "Blowin' Smoke — external song lesson",
+          "url": "https://www.justinguitar.com/songs/kacey-musgraves-blowin-smoke-chords-tabs-guitar-lesson-bs-124",
+          "description": "Listed by Justin as an A/D choice with no capo needed. Review the external lesson; do not import its arrangement or media."
+        }
+      ],
+      "persistence": "Record only the learner's manual statement of practice, URL choice, and their observations. Opening a link or elapsed outside-tab time does not complete a song."
+    },
+    "stage2-sixteen-bar-timing-check": {
+      "kind": "expanded_rhythm_checkpoint",
+      "practiceSpec": {
+        "mode": "rhythm",
+        "bpm": 80,
+        "countInBeats": 4,
+        "toleranceCents": 35,
+        "passScore": 75,
+        "targets": [
+          {
+            "id": "beat-01",
+            "beat": 0
+          },
+          {
+            "id": "beat-02",
+            "beat": 1
+          },
+          {
+            "id": "beat-03",
+            "beat": 2
+          },
+          {
+            "id": "beat-04",
+            "beat": 3
+          },
+          {
+            "id": "beat-05",
+            "beat": 4
+          },
+          {
+            "id": "beat-06",
+            "beat": 5
+          },
+          {
+            "id": "beat-07",
+            "beat": 6
+          },
+          {
+            "id": "beat-08",
+            "beat": 7
+          },
+          {
+            "id": "beat-09",
+            "beat": 8
+          },
+          {
+            "id": "beat-10",
+            "beat": 9
+          },
+          {
+            "id": "beat-11",
+            "beat": 10
+          },
+          {
+            "id": "beat-12",
+            "beat": 11
+          },
+          {
+            "id": "beat-13",
+            "beat": 12
+          },
+          {
+            "id": "beat-14",
+            "beat": 13
+          },
+          {
+            "id": "beat-15",
+            "beat": 14
+          },
+          {
+            "id": "beat-16",
+            "beat": 15
+          },
+          {
+            "id": "beat-17",
+            "beat": 16
+          },
+          {
+            "id": "beat-18",
+            "beat": 17
+          },
+          {
+            "id": "beat-19",
+            "beat": 18
+          },
+          {
+            "id": "beat-20",
+            "beat": 19
+          },
+          {
+            "id": "beat-21",
+            "beat": 20
+          },
+          {
+            "id": "beat-22",
+            "beat": 21
+          },
+          {
+            "id": "beat-23",
+            "beat": 22
+          },
+          {
+            "id": "beat-24",
+            "beat": 23
+          },
+          {
+            "id": "beat-25",
+            "beat": 24
+          },
+          {
+            "id": "beat-26",
+            "beat": 25
+          },
+          {
+            "id": "beat-27",
+            "beat": 26
+          },
+          {
+            "id": "beat-28",
+            "beat": 27
+          },
+          {
+            "id": "beat-29",
+            "beat": 28
+          },
+          {
+            "id": "beat-30",
+            "beat": 29
+          },
+          {
+            "id": "beat-31",
+            "beat": 30
+          },
+          {
+            "id": "beat-32",
+            "beat": 31
+          },
+          {
+            "id": "beat-33",
+            "beat": 32
+          },
+          {
+            "id": "beat-34",
+            "beat": 33
+          },
+          {
+            "id": "beat-35",
+            "beat": 34
+          },
+          {
+            "id": "beat-36",
+            "beat": 35
+          },
+          {
+            "id": "beat-37",
+            "beat": 36
+          },
+          {
+            "id": "beat-38",
+            "beat": 37
+          },
+          {
+            "id": "beat-39",
+            "beat": 38
+          },
+          {
+            "id": "beat-40",
+            "beat": 39
+          },
+          {
+            "id": "beat-41",
+            "beat": 40
+          },
+          {
+            "id": "beat-42",
+            "beat": 41
+          },
+          {
+            "id": "beat-43",
+            "beat": 42
+          },
+          {
+            "id": "beat-44",
+            "beat": 43
+          },
+          {
+            "id": "beat-45",
+            "beat": 44
+          },
+          {
+            "id": "beat-46",
+            "beat": 45
+          },
+          {
+            "id": "beat-47",
+            "beat": 46
+          },
+          {
+            "id": "beat-48",
+            "beat": 47
+          },
+          {
+            "id": "beat-49",
+            "beat": 48
+          },
+          {
+            "id": "beat-50",
+            "beat": 49
+          },
+          {
+            "id": "beat-51",
+            "beat": 50
+          },
+          {
+            "id": "beat-52",
+            "beat": 51
+          },
+          {
+            "id": "beat-53",
+            "beat": 52
+          },
+          {
+            "id": "beat-54",
+            "beat": 53
+          },
+          {
+            "id": "beat-55",
+            "beat": 54
+          },
+          {
+            "id": "beat-56",
+            "beat": 55
+          },
+          {
+            "id": "beat-57",
+            "beat": 56
+          },
+          {
+            "id": "beat-58",
+            "beat": 57
+          },
+          {
+            "id": "beat-59",
+            "beat": 58
+          },
+          {
+            "id": "beat-60",
+            "beat": 59
+          },
+          {
+            "id": "beat-61",
+            "beat": 60
+          },
+          {
+            "id": "beat-62",
+            "beat": 61
+          },
+          {
+            "id": "beat-63",
+            "beat": 62
+          },
+          {
+            "id": "beat-64",
+            "beat": 63
+          }
+        ],
+        "completionMinimumBPM": 80,
+        "revision": 2
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "barCount": 16,
+      "beatsPerBar": 4,
+      "musicBeats": 64,
+      "strokeCount": 64,
+      "countInSecondsAt80BPM": 3,
+      "musicDurationSecondsAt80BPM": 48,
+      "totalDurationWithCountInSecondsAt80BPM": 51,
+      "lastTargetSecondsFromMusicStart": 47.25,
+      "endMusicBeatExclusive": 64,
+      "scoreMeaning": "Existing weighted attack timing score; matched-target count and actualBPM must be displayed separately. It does not measure chord identity or clean sound.",
+      "thresholdOrigin": "Preserve current local passScore 75; this is not a JustinGuitar or Yousician threshold.",
+      "namedCheckpointReadiness": {
+        "minimumActualBPM": 80,
+        "minimumTimingScore": 75,
+        "requiredTargetCount": 64,
+        "requiresScoredResult": true,
+        "slowerAttemptPolicy": "Keep as slower rehearsal at actualBPM. Do not claim the named 80-BPM check passed merely because the generic engine's passed flag is true.",
+        "localRuleDisclosure": "80 BPM is the existing GuitarHub checkpoint goal. The sources do not publish this timing target or numerical tolerance."
+      },
+      "inputLimits": "Attack detection may respond to other percussive or spoken sounds. Use visual count-in/beats during scored capture; speaker clicks must not score the attempt.",
+      "barBeatMapping": [
+        {
+          "id": "beat-01",
+          "beat": 0,
+          "bar": 1,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-02",
+          "beat": 1,
+          "bar": 1,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-03",
+          "beat": 2,
+          "bar": 1,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-04",
+          "beat": 3,
+          "bar": 1,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-05",
+          "beat": 4,
+          "bar": 2,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-06",
+          "beat": 5,
+          "bar": 2,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-07",
+          "beat": 6,
+          "bar": 2,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-08",
+          "beat": 7,
+          "bar": 2,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-09",
+          "beat": 8,
+          "bar": 3,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-10",
+          "beat": 9,
+          "bar": 3,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-11",
+          "beat": 10,
+          "bar": 3,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-12",
+          "beat": 11,
+          "bar": 3,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-13",
+          "beat": 12,
+          "bar": 4,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-14",
+          "beat": 13,
+          "bar": 4,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-15",
+          "beat": 14,
+          "bar": 4,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-16",
+          "beat": 15,
+          "bar": 4,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-17",
+          "beat": 16,
+          "bar": 5,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-18",
+          "beat": 17,
+          "bar": 5,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-19",
+          "beat": 18,
+          "bar": 5,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-20",
+          "beat": 19,
+          "bar": 5,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-21",
+          "beat": 20,
+          "bar": 6,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-22",
+          "beat": 21,
+          "bar": 6,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-23",
+          "beat": 22,
+          "bar": 6,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-24",
+          "beat": 23,
+          "bar": 6,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-25",
+          "beat": 24,
+          "bar": 7,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-26",
+          "beat": 25,
+          "bar": 7,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-27",
+          "beat": 26,
+          "bar": 7,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-28",
+          "beat": 27,
+          "bar": 7,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-29",
+          "beat": 28,
+          "bar": 8,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-30",
+          "beat": 29,
+          "bar": 8,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-31",
+          "beat": 30,
+          "bar": 8,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-32",
+          "beat": 31,
+          "bar": 8,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-33",
+          "beat": 32,
+          "bar": 9,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-34",
+          "beat": 33,
+          "bar": 9,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-35",
+          "beat": 34,
+          "bar": 9,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-36",
+          "beat": 35,
+          "bar": 9,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-37",
+          "beat": 36,
+          "bar": 10,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-38",
+          "beat": 37,
+          "bar": 10,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-39",
+          "beat": 38,
+          "bar": 10,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-40",
+          "beat": 39,
+          "bar": 10,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-41",
+          "beat": 40,
+          "bar": 11,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-42",
+          "beat": 41,
+          "bar": 11,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-43",
+          "beat": 42,
+          "bar": 11,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-44",
+          "beat": 43,
+          "bar": 11,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-45",
+          "beat": 44,
+          "bar": 12,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-46",
+          "beat": 45,
+          "bar": 12,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-47",
+          "beat": 46,
+          "bar": 12,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-48",
+          "beat": 47,
+          "bar": 12,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-49",
+          "beat": 48,
+          "bar": 13,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-50",
+          "beat": 49,
+          "bar": 13,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-51",
+          "beat": 50,
+          "bar": 13,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-52",
+          "beat": 51,
+          "bar": 13,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-53",
+          "beat": 52,
+          "bar": 14,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-54",
+          "beat": 53,
+          "bar": 14,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-55",
+          "beat": 54,
+          "bar": 14,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-56",
+          "beat": 55,
+          "bar": 14,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-57",
+          "beat": 56,
+          "bar": 15,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-58",
+          "beat": 57,
+          "bar": 15,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-59",
+          "beat": 58,
+          "bar": 15,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-60",
+          "beat": 59,
+          "bar": 15,
+          "beatInBar": 4
+        },
+        {
+          "id": "beat-61",
+          "beat": 60,
+          "bar": 16,
+          "beatInBar": 1
+        },
+        {
+          "id": "beat-62",
+          "beat": 61,
+          "bar": 16,
+          "beatInBar": 2
+        },
+        {
+          "id": "beat-63",
+          "beat": 62,
+          "bar": 16,
+          "beatInBar": 3
+        },
+        {
+          "id": "beat-64",
+          "beat": 63,
+          "bar": 16,
+          "beatInBar": 4
+        }
+      ],
+      "intent": "Fulfill the existing sixteen-bar checkpoint by expanding 16 targets to 64 quarter-note targets. Preserve existing beat-01 through beat-16 and add beat-17 through beat-64.",
+      "historyPolicy": "Existing records from the old 16-target specification remain historical four-bar evidence. Give the new 64-target content a version/spec fingerprint; do not reinterpret earlier scores as sixteen-bar results.",
+      "tempoControl": {
+        "unit": "percent",
+        "minimum": 25,
+        "maximum": 125,
+        "step": 5,
+        "default": 100,
+        "authoredBPM": 80,
+        "bpmFormula": "authoredBPM * percent / 100",
+        "minimumBPM": 20,
+        "maximumBPM": 100,
+        "stepBPM": 4,
+        "source": "Existing GuitarHub Practice/Play percentage control."
+      }
+    },
+    "stage2-first-riff": {
+      "kind": "single_string_riff",
+      "id": "low-e-lantern",
+      "title": "Low E Lantern",
+      "provenance": "Original GuitarHub exercise",
+      "stringNumber": 6,
+      "stringName": "low E",
+      "meter": "4/4",
+      "exerciseBPM": 60,
+      "checkpointBPM": 90,
+      "passesRequired": 3,
+      "frets": [
+        0,
+        2,
+        3,
+        2,
+        0,
+        2,
+        5,
+        3
+      ],
+      "midi": [
+        40,
+        42,
+        43,
+        42,
+        40,
+        42,
+        45,
+        43
+      ],
+      "noteNames": [
+        "E2",
+        "F#2",
+        "G2",
+        "F#2",
+        "E2",
+        "F#2",
+        "A2",
+        "G2"
+      ],
+      "beatOffsets": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "tabText": "E2 | 0 2 3 2 | 0 2 5 3 |",
+      "instruction": "Play only string 6. Each fret number receives one beat; a fresh pluck is required for every slot.",
+      "evidence": {
+        "measured": "A Play attempt can detect the authored pitch in each assigned slot and record the actual BPM.",
+        "selfChecked": "The learner listens for buzz, accidental adjacent strings, relaxed movement, and unwanted ringing.",
+        "notMeasured": "The microphone cannot identify the physical string or finger, certify clean tone, prove memorization, or report precise attack timing for pitch-sequence mode."
+      }
+    },
+    "l3-em-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E minor",
+      "description": "Open E minor: 0,2,2,0,0,0 on strings 6 through 1.",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        2,
+        3,
+        0,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ]
+    },
+    "l3-am-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A minor",
+      "description": "A minor: mute 6, then 0,2,2,1,0 on strings 5 through 1.",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        0,
+        2,
+        3,
+        1,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ]
+    },
+    "l3-dm-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D minor",
+      "description": "D minor: mute 6 and 5, then 0,2,3,1 on strings 4 through 1.",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        1
+      ],
+      "fingersString6To1": [
+        0,
+        0,
+        0,
+        2,
+        3,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        65
+      ]
+    },
+    "l3-e-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E major",
+      "description": "Open E major: 0,2,2,1,0,0 on strings 6 through 1.",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        2,
+        3,
+        1,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        56,
+        59,
+        64
+      ]
+    },
+    "l3-c-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major",
+      "description": "C major: mute 6, then 3,2,0,1,0 on strings 5 through 1.",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ]
+    },
+    "l3-g-chord": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major",
+      "description": "G major: 3,2,0,0,0,3 on strings 6 through 1.",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        0,
+        0,
+        0,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ]
+    },
+    "song-guitar-m1-s1-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "Em open shape: strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s1-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s1-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-1-1",
+          "title": "Open Wonderwall — Oasis external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/oasis-wonderwall-chords-tabs-guitar-lesson-bs-805",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m1-s2-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s2-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Fmaj7",
+      "fretsString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        57,
+        60,
+        64
+      ],
+      "description": "Fmaj7 easy shape: mute strings 6 and 5; ring 4/3, middle 3/2, index 2/1, string 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s2-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-1-2",
+          "title": "Open Let It Be — The Beatles external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/the-beatles-let-it-be-chords-tabs-guitar-lesson-bs-910",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m1-s3-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s3-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "D open shape: mute strings 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s3-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-1-3",
+          "title": "Open Knockin' on Heaven's Door — Bob Dylan external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/bob-dylan-knockin-on-heaven-s-door-chords-tabs-guitar-lesson-sg-170",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m1-s4-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s4-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "Em open shape: strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m1-s4-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-1-4",
+          "title": "Open Perfect — Ed Sheeran external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/ed-sheeran-perfect-chords-tabs-guitar-lesson-st-395",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m2-s1-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s1-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s1-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-2-1",
+          "title": "Open Enchanted — Taylor Swift external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/taylor-swift-enchanted-chords-tabs-guitar-lesson-sg-201",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m2-s2-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s2-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s2-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-2-2",
+          "title": "Open Teardrops On My Guitar — Taylor Swift external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/taylor-swift-teardrops-on-my-guitar-chords-tabs-guitar-lesson-sb-214",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m2-s3-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s3-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        3,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ],
+      "description": "Am open shape: mute string 6; strings 5 and 1 open; index 2/1, middle 4/2, ring 3/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s3-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-2-3",
+          "title": "Open Photograph — Ed Sheeran external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/ed-sheeran-photograph-chords-tabs-guitar-lesson-bs-691",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m2-s4-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "description": "A open shape: mute string 6; strings 5 and 1 open; index 3/2, middle 4/2, ring 2/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s4-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "D open shape: mute strings 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m2-s4-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-2-4",
+          "title": "Open Here Comes The Sun — The Beatles external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/the-beatles-here-comes-the-sun-chords-tabs-guitar-lesson-sg-090",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m3-s1-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s1-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "D open shape: mute strings 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s1-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-3-1",
+          "title": "Open Good Riddance (Time Of Your Life) — Green Day external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/green-day-good-riddance-time-of-your-life-chords-tabs-guitar-lesson-sg-066",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m3-s2-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s2-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "Em open shape: strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s2-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-3-2",
+          "title": "Open Stand By Me — Ben E. King external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/ben-e-king-stand-by-me-chords-tabs-guitar-lesson-bs-323",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m3-s3-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s3-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s3-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-3-3",
+          "title": "Open Take It Easy — Eagles external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/eagles-take-it-easy-chords-tabs-guitar-lesson-sb-402",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m3-s4-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        3,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ],
+      "description": "Am open shape: mute string 6; strings 5 and 1 open; index 2/1, middle 4/2, ring 3/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s4-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Fmaj7",
+      "fretsString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        57,
+        60,
+        64
+      ],
+      "description": "Fmaj7 easy shape: mute strings 6 and 5; ring 4/3, middle 3/2, index 2/1, string 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m3-s4-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-3-4",
+          "title": "Open The Sound Of Silence — Simon & Garfunkel external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/simon-garfunkel-the-sound-of-silence-chords-tabs-guitar-lesson-sg-094",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m4-s1-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s1-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s1-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-4-1",
+          "title": "Open Fast Car — Tracy Chapman external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/tracy-chapman-fast-car-chords-tabs-guitar-lesson-bs-802",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m4-s2-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s2-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        3,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ],
+      "description": "Am open shape: mute string 6; strings 5 and 1 open; index 2/1, middle 4/2, ring 3/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s2-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-4-2",
+          "title": "Open Hallelujah — Leonard Cohen external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/leonard-cohen-hallelujah-chords-tabs-guitar-lesson-bs-801",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m4-s3-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s3-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        3,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ],
+      "description": "Am open shape: mute string 6; strings 5 and 1 open; index 2/1, middle 4/2, ring 3/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s3-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-4-3",
+          "title": "Open Blackbird — The Beatles external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/the-beatles-blackbird-chords-tabs-guitar-lesson-sb-113",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m4-s4-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "Em open shape: strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s4-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m4-s4-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-4-4",
+          "title": "Open Wish You Were Here — Pink Floyd external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/pink-floyd-wish-you-were-here-chords-tabs-guitar-lesson-st-301",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m5-s1-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "description": "A open shape: mute string 6; strings 5 and 1 open; index 3/2, middle 4/2, ring 2/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s1-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "D open shape: mute strings 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s1-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-5-1",
+          "title": "Open I Walk The Line — Johnny Cash external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/johnny-cash-i-walk-the-line-chords-tabs-guitar-lesson-bs-105",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m5-s2-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s2-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "Em open shape: strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s2-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-5-2",
+          "title": "Open Take Me Home, Country Roads — John Denver external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/john-denver-take-me-home-country-roads-chords-tabs-guitar-lesson-sg-137",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m5-s3-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s3-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s3-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-5-3",
+          "title": "Open Hey Joe — Jimi Hendrix external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/jimi-hendrix-hey-joe-chords-tabs-guitar-lesson-bs-301",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m5-s4-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s4-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m5-s4-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-5-4",
+          "title": "Open Brown Eyed Girl — Van Morrison external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/van-morrison-brown-eyed-girl-chords-tabs-guitar-lesson-bs-304",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m6-s1-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s1-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "D open shape: mute strings 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s1-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-6-1",
+          "title": "Open Yellow Submarine — The Beatles external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/the-beatles-yellow-submarine-chords-tabs-guitar-lesson-bs-305",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m6-s2-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "G open shape: middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s2-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s2-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-6-2",
+          "title": "Open Songbird — Oasis external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/oasis-songbird-chords-tabs-guitar-lesson-bs-320",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m6-s3-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "Em open shape: strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s3-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "C open shape: mute string 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s3-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-6-3",
+          "title": "Open Heart Of Gold — Neil Young external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/neil-young-heart-of-gold-chords-tabs-guitar-lesson-st-909",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-m6-s4-shape-1": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        3,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ],
+      "description": "Am open shape: mute string 6; strings 5 and 1 open; index 2/1, middle 4/2, ring 3/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s4-shape-2": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "D open shape: mute strings 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-m6-s4-external": {
+      "kind": "external_practice_links",
+      "optional": true,
+      "opensExternally": true,
+      "mediaCopied": false,
+      "automaticCompletion": false,
+      "options": [
+        {
+          "id": "song-guitar-external-6-4",
+          "title": "Open Ain't No Sunshine — Bill Withers external guitar tutorial",
+          "url": "https://www.justinguitar.com/songs/bill-withers-ain-t-no-sunshine-chords-tabs-guitar-lesson-bs-292",
+          "description": "Creator-hosted full song tutorial for the actual arrangement; opening it does not log a performance."
+        }
+      ],
+      "persistence": "Record only learner observations. The external page and elapsed outside-tab time never complete this companion."
+    },
+    "song-guitar-shape-em7": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em7",
+      "fretsString6To1": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        null,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        50,
+        55,
+        59,
+        64
+      ],
+      "description": "open Em7; middle 5/2",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-a7sus4": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A7sus4",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        0,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        null,
+        3,
+        4
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        55,
+        62,
+        67
+      ],
+      "description": "mute 6; middle 4/2, ring 2/3, pinky 1/3",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-bm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Bm",
+      "fretsString6To1": [
+        null,
+        2,
+        4,
+        4,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        3,
+        4,
+        2,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        47,
+        54,
+        59,
+        62,
+        66
+      ],
+      "description": "barre 5 and 1 at fret 2; ring 4/4, pinky 3/4, middle 2/3",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-fsharpm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F#m",
+      "fretsString6To1": [
+        2,
+        4,
+        4,
+        2,
+        2,
+        2
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        42,
+        49,
+        54,
+        57,
+        61,
+        66
+      ],
+      "description": "barre fret 2; ring 5/4, pinky 4/4",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F",
+      "fretsString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        57,
+        60,
+        65
+      ],
+      "description": "mute 6 and 5; ring 4/3, middle 3/2, index strings 2 and 1 at fret 1",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-cadd9": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Cadd9",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        1,
+        null,
+        3,
+        4
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        62,
+        67
+      ],
+      "description": "Mute string 6. Middle finger on string 5, fret 3; index on string 4, fret 2; string 3 open; ring on string 2, fret 3; pinky on string 1, fret 3.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-am7": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am7",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "mute 6; middle 4/2, index 2/1, strings 5, 3, 1 open",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-dm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Dm",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        1
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        3,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        65
+      ],
+      "description": "mute 6 and 5; middle 3/2, ring 2/3, index 1/1",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-e": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        1,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        56,
+        59,
+        64
+      ],
+      "description": "Strings 6, 2 and 1 open. Middle finger on string 5, fret 2; ring on string 4, fret 2; index on string 3, fret 1.",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-a": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        1,
+        3,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64
+      ],
+      "description": "mute 6; strings 5 and 1 open; index 3/2, middle 4/2, ring 2/2",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-am": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Am",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        2,
+        3,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64
+      ],
+      "description": "mute 6; strings 5 and 1 open; index 2/1, middle 4/2, ring 3/2",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C",
+      "fretsString6To1": [
+        null,
+        3,
+        2,
+        0,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        3,
+        2,
+        null,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        52,
+        55,
+        60,
+        64
+      ],
+      "description": "mute 6; ring 5/3, middle 4/2, index 2/1; strings 3 and 1 open",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-d": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66
+      ],
+      "description": "mute 6 and 5; string 4 open; index 3/2, ring 2/3, middle 1/2",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-em": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Em",
+      "fretsString6To1": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        2,
+        3,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        52,
+        55,
+        59,
+        64
+      ],
+      "description": "strings 6, 3, 2, and 1 open; middle 5/2 and ring 4/2",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-fmaj7": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Fmaj7",
+      "fretsString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        57,
+        60,
+        64
+      ],
+      "description": "mute 6 and 5; ring 4/3, middle 3/2, index 2/1, string 1 open",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "song-guitar-shape-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G",
+      "fretsString6To1": [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "fingersString6To1": [
+        2,
+        1,
+        null,
+        null,
+        null,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        47,
+        50,
+        55,
+        59,
+        67
+      ],
+      "description": "middle 6/3, index 5/2, ring 1/3; strings 4, 3, and 2 open",
+      "provenance": "Original preparation companion shape reference; not a song transcription."
+    },
+    "advanced-partial-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "Partial F major — four strings",
+      "description": "Strings 6 and 5 are silent. String 4: fret 3, ring finger. String 3: fret 2, middle finger. Strings 2 and 1: fret 1, one index finger spanning both. Low to high: F3, A3, C4, F4. The two finger-1 dots indicate one short barre, not two separate fingers.",
+      "fretsString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        3,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        57,
+        60,
+        65
+      ],
+      "textAlternative": "Strings 6 and 5 are silent. String 4: fret 3, ring finger. String 3: fret 2, middle finger. Strings 2 and 1: fret 1, one index finger spanning both. Low to high: F3, A3, C4, F4. The two finger-1 dots indicate one short barre, not two separate fingers."
+    },
+    "advanced-g5-two-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G5 — root and fifth",
+      "description": "Play strings 6 and 5 only: fret 3 with index, fret 5 with ring. Keep strings 4 through 1 silent. Low to high: G2, D3.",
+      "fretsString6To1": [
+        3,
+        5,
+        null,
+        null,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        null,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50
+      ],
+      "textAlternative": "Play strings 6 and 5 only: fret 3 with index, fret 5 with ring. Keep strings 4 through 1 silent. Low to high: G2, D3."
+    },
+    "advanced-g5-three-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G5 — root, fifth, octave",
+      "description": "Play strings 6, 5, 4: frets 3, 5, 5 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: G2, D3, G3.",
+      "fretsString6To1": [
+        3,
+        5,
+        5,
+        null,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50,
+        55
+      ],
+      "textAlternative": "Play strings 6, 5, 4: frets 3, 5, 5 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: G2, D3, G3."
+    },
+    "advanced-a5-three-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A5 — root on string 6",
+      "description": "Play strings 6, 5, 4: frets 5, 7, 7 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: A2, E3, A3.",
+      "fretsString6To1": [
+        5,
+        7,
+        7,
+        null,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        null,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57
+      ],
+      "textAlternative": "Play strings 6, 5, 4: frets 5, 7, 7 with index, ring, little finger. Keep strings 3 through 1 silent. Low to high: A2, E3, A3."
+    },
+    "advanced-c5-three-note": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C5 — root on string 5",
+      "description": "Keep string 6 silent. Play strings 5, 4, 3: frets 3, 5, 5 with index, ring, little finger. Keep strings 2 and 1 silent. Low to high: C3, G3, C4.",
+      "fretsString6To1": [
+        null,
+        3,
+        5,
+        5,
+        null,
+        null
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        3,
+        4,
+        null,
+        null
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60
+      ],
+      "textAlternative": "Keep string 6 silent. Play strings 5, 4, 3: frets 3, 5, 5 with index, ring, little finger. Keep strings 2 and 1 silent. Low to high: C3, G3, C4."
+    },
+    "advanced-f-entry-check": {
+      "kind": "instruction_diagram",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Build a new entry",
+          "action": "Start with all fretting fingers off the strings. Set partial F: xx3211 from string 6 to string 1. No tempo requirement."
+        },
+        {
+          "number": 2,
+          "label": "Hear four strings",
+          "action": "Pick strings 4, 3, 2, 1 separately: F, A, C, F. Each must ring clearly. A dead or buzzing string makes this entry a repair attempt."
+        },
+        {
+          "number": 3,
+          "label": "Check the strum",
+          "action": "Down-strum only strings 4 through 1. Keep strings 6 and 5 quiet. Do not count four re-plucks of a held shape as four entries."
+        },
+        {
+          "number": 4,
+          "label": "Release and count",
+          "action": "Silence the chord with the picking hand, then take the fretting fingers off. Count one successful entry only after the four-string check, short strum, and release. Four consecutive entries is the goal; a failed entry resets the consecutive count."
+        }
+      ]
+    },
+    "advanced-switchyard-map": {
+      "kind": "instruction_diagram",
+      "name": "Switchyard — an original sixteen-bar power-chord piece",
+      "provenance": "Original GuitarHub instructional composition. Not an arrangement or transcription of a commercial song.",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Meter and shapes",
+          "action": "Switchyard is 16 bars of 4/4 in standard tuning, no capo. Use the three-string G5, A5 and C5 diagrams. Each chord name occupies one whole bar. G5 and A5 start on string 6; C5 starts on string 5."
+        },
+        {
+          "number": 2,
+          "label": "The repeating riff cell",
+          "action": "In EVERY bar: down-strum the named chord on beat 1; stop its sound on beat 2; down-strum again on beat 3; stop on beat 4. Count 1, 2, 3, 4 throughout. Rest through all of beats 2 and 4. This gives 32 attacks in the complete piece."
+        },
+        {
+          "number": 3,
+          "label": "A — bars 1 through 4",
+          "action": "Bar 1: G5. Bar 2: G5. Bar 3: A5. Bar 4: G5. Apply the same play, stop, play, stop cell in every bar."
+        },
+        {
+          "number": 4,
+          "label": "B — bars 5 through 8",
+          "action": "Bar 5: C5. Bar 6: C5. Bar 7: G5. Bar 8: G5. Use the silent beat 4 before a change to aim the next root; keep the strings muted while moving."
+        },
+        {
+          "number": 5,
+          "label": "A returns — bars 9 through 12",
+          "action": "Bar 9: G5. Bar 10: G5. Bar 11: A5. Bar 12: G5. Keep the second A section at the same pulse as the first."
+        },
+        {
+          "number": 6,
+          "label": "Ending — bars 13 through 16",
+          "action": "Bar 13: C5. Bar 14: A5. Bar 15: G5. Bar 16: G5. Play both attacks in bar 16, then stop on beat 4. There is no extra final strum."
+        },
+        {
+          "number": 7,
+          "label": "Count in and prepare",
+          "action": "Keep this map visible and use a separate metronome set to quarter-note clicks in 4/4. If using the iOS Practice metronome, copy the bar map before opening it. Begin with four silent count-in beats, then bar 1. Start practice at 60 BPM or slower if needed. The separate checkpoint target is 110 BPM."
+        },
+        {
+          "number": 8,
+          "label": "Review the take",
+          "action": "Count the silent beats as carefully as the attacks. Hear no pitched open string during the rests or chord moves. If you lose the bar, mute, keep counting, and re-enter at the next four-bar section during practice; label that take interrupted. A full checkpoint take has no restarts or skipped bars."
+        }
+      ]
+    },
+    "advanced-a7-open": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A7 — open",
+      "description": "x02020 from strings 6 to 1. Index: string 4 fret 2. Middle: string 2 fret 2. Sound strings 5–1; low to high A2, E3, G3, C#4, E4. Exclude string 6.",
+      "textAlternative": "x02020 from strings 6 to 1. Index: string 4 fret 2. Middle: string 2 fret 2. Sound strings 5–1; low to high A2, E3, G3, C#4, E4. Exclude string 6.",
+      "fretsString6To1": [
+        null,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        0,
+        1,
+        0,
+        2,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        55,
+        61,
+        64
+      ]
+    },
+    "advanced-d7-open": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D7 — open",
+      "description": "xx0212 from strings 6 to 1. Middle: string 3 fret 2. Index: string 2 fret 1. Ring: string 1 fret 2. Sound strings 4–1: D3, A3, C4, F#4.",
+      "textAlternative": "xx0212 from strings 6 to 1. Middle: string 3 fret 2. Index: string 2 fret 1. Ring: string 1 fret 2. Sound strings 4–1: D3, A3, C4, F#4.",
+      "fretsString6To1": [
+        null,
+        null,
+        0,
+        2,
+        1,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        0,
+        2,
+        1,
+        3
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        60,
+        66
+      ]
+    },
+    "advanced-e7-open": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E7 — open",
+      "description": "020100 from strings 6 to 1. Middle: string 5 fret 2. Index: string 3 fret 1. Sound all six: E2, B2, D3, G#3, B3, E4.",
+      "textAlternative": "020100 from strings 6 to 1. Middle: string 5 fret 2. Index: string 3 fret 1. Sound all six: E2, B2, D3, G#3, B3, E4.",
+      "fretsString6To1": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        0,
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        40,
+        47,
+        50,
+        56,
+        59,
+        64
+      ]
+    },
+    "advanced-a-blues-form": {
+      "kind": "instruction_diagram",
+      "name": "One twelve-bar A blues form",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Choose this version",
+          "action": "Use this exact 12-bar form in A, in 4/4, with no quick change in bar 2. One chord per bar. Roman numerals I7, IV7 and V7 mean A7, D7 and E7 here."
+        },
+        {
+          "number": 2,
+          "label": "Bars 1–4",
+          "action": "Bar 1 A7; bar 2 A7; bar 3 A7; bar 4 A7. Say each bar number on its first beat, then count 2, 3, 4."
+        },
+        {
+          "number": 3,
+          "label": "Bars 5–8",
+          "action": "Bar 5 D7; bar 6 D7; bar 7 A7; bar 8 A7. Keep four beats in every bar, even when the same chord repeats."
+        },
+        {
+          "number": 4,
+          "label": "Bars 9–12",
+          "action": "Bar 9 E7; bar 10 D7; bar 11 A7; bar 12 E7. The E7 at bar 12 leads to A7 at bar 1 of the next chorus."
+        },
+        {
+          "number": 5,
+          "label": "Play a clear skeleton",
+          "action": "Choose a separate metronome around 60 BPM, or slower if needed. Give four count-in beats, then one gentle downstroke on beat 1 of each bar, allowing the chord to ring through 2, 3, 4. This is a straight counted skeleton, not a shuffle-rhythm test."
+        },
+        {
+          "number": 6,
+          "label": "Three-chorus check",
+          "action": "Repeat the exact form three times: 36 bars total, with no extra count-in or extra bar between choruses. After beat 4 of bar 12 in chorus 3, mute and finish. Hide or cover the map for the memory check; the lesson has no automatic chart-hide or bar-call control."
+        }
+      ]
+    },
+    "advanced-blues-calls": {
+      "kind": "instruction_diagram",
+      "name": "Manual one-bar-ahead call guide",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "How to call",
+          "action": "On beat 4 of the CURRENT bar, say the chord for the NEXT bar. Continue playing the current chord until the next beat 1. Say E-seven, not a bare number that could be confused with the bar count."
+        },
+        {
+          "number": 2,
+          "label": "First line",
+          "action": "During bars 1, 2 and 3, call A7 for the next bar. During bar 4, call D7 for bar 5."
+        },
+        {
+          "number": 3,
+          "label": "Middle line",
+          "action": "During bar 5, call D7; during bar 6, call A7; during bar 7, call A7; during bar 8, call E7."
+        },
+        {
+          "number": 4,
+          "label": "Last line",
+          "action": "During bar 9, call D7; during bar 10, call A7; during bar 11, call E7; during bar 12, call A7 for the next chorus."
+        },
+        {
+          "number": 5,
+          "label": "Fade the prompt",
+          "action": "First speak every next-bar chord with this guide. Next speak only before an actual chord change. Finally cover the guide and call from memory. These are your own spoken prompts, or a partner’s; no automatic app voice is provided."
+        }
+      ]
+    },
+    "advanced-a-blues-palette": {
+      "kind": "single_string_riff",
+      "title": "A minor-pentatonic note choices on string 1",
+      "provenance": "Original GuitarHub instructional note set; not a commercial-song transcription. Per-note synthesized references only.",
+      "stringNumber": 1,
+      "frets": [
+        5,
+        8,
+        10,
+        12,
+        15,
+        17
+      ],
+      "midi": [
+        69,
+        72,
+        74,
+        76,
+        79,
+        81
+      ],
+      "tabText": "e |--5(A)--8(C)--10(D)--12(E)--15(G)--17(A)--|",
+      "instruction": "This is a note map, not a timed scale run. Move the whole hand to reach a new position; do not stretch from fret 5 to 17. Start with A at 5 and C at 8; add E at 12 only when the move is comfortable. A, C, D, E, G is the A minor-pentatonic palette used over the A blues form. Its C is a deliberate blues colour against A7’s C#, not the A-major scale."
+    },
+    "advanced-solo-seed": {
+      "kind": "single_string_riff",
+      "title": "Original question: A, C, E",
+      "provenance": "Original GuitarHub instructional note set; not a commercial-song transcription. Per-note synthesized references only.",
+      "stringNumber": 1,
+      "frets": [
+        5,
+        8,
+        12
+      ],
+      "midi": [
+        69,
+        72,
+        76
+      ],
+      "tabText": "e |--5----8----12-------|",
+      "instruction": "One bar of 4/4: play A/fret 5 on beat 1 for one beat, C/fret 8 on beat 2 for one beat, and E/fret 12 on beat 3 for two beats. Stop at the next bar line. The buttons play individual pitches only; sing or play the written rhythm yourself."
+    },
+    "advanced-solo-answers": {
+      "kind": "instruction_diagram",
+      "name": "Three possible answers to the original question",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Bar 1 — question",
+          "action": "At a comfortable quarter-note pulse, play string 1 fret 5 on beat 1, fret 8 on beat 2, and fret 12 on beat 3, holding through beat 4. These notes are A, C, E."
+        },
+        {
+          "number": 2,
+          "label": "Bar 2 — answer one",
+          "action": "Play C at fret 8 on beat 1 and hold for two beats. Play A at fret 5 on beat 3 and hold for two beats. The ending returns home."
+        },
+        {
+          "number": 3,
+          "label": "Bar 3 — answer two",
+          "action": "Play A at fret 5 on beat 1, C at fret 8 on beat 2, and A at fret 5 on beat 3, holding through beat 4. This keeps the question’s rhythm and changes its ending."
+        },
+        {
+          "number": 4,
+          "label": "Bar 4 — answer three",
+          "action": "Rest for beat 1. Play C at fret 8 on beat 2, E at fret 12 on beat 3, and A at fret 5 on beat 4. Each note lasts one beat; stop at the next bar line."
+        },
+        {
+          "number": 5,
+          "label": "Now make your own",
+          "action": "The written answers are demonstrations, not an improvisation pass. Invent three answers by changing a rhythm, ending, or rest while staying inside A, C, D, E, G. Keep counting through silence and finish each response within its allotted bar."
+        }
+      ]
+    },
+    "advanced-semitone-reference": {
+      "kind": "single_string_riff",
+      "title": "Semitone reference: F#4 to G4 on string 2",
+      "provenance": "Original GuitarHub instructional note set; not a commercial-song transcription. Per-note synthesized references only.",
+      "stringNumber": 2,
+      "frets": [
+        7,
+        8
+      ],
+      "midi": [
+        66,
+        67
+      ],
+      "tabText": "B |--7(F#)----8(G target)--|",
+      "instruction": "Fret 8 supplies the target pitch. For the bend, stay at fret 7 and bend string 2 toward the thicker strings until its pitch matches that G4. Do not slide to fret 8 during the bend. Buttons provide separate synthesized notes, not a bend recording or a live cents meter."
+    },
+    "advanced-bend-four-attempts": {
+      "kind": "instruction_diagram",
+      "name": "Four-attempt semitone check",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Prepare the measurement",
+          "action": "Use your own chromatic tuner or pitch meter that shows G4 and cents at A4 = 440 Hz. Confirm the unbent reference at string 2 fret 8. GuitarHub’s standard-string tuner does not measure this G4 target."
+        },
+        {
+          "number": 2,
+          "label": "Define one attempt",
+          "action": "Pick F#4 at string 2 fret 7, bend to G4, and try to hold that pitch for one second without vibrato or a second pick. Mute before releasing. A success needs a stable G4 reading within −20 to +20 cents for that hold; a brief crossing is insufficient."
+        },
+        {
+          "number": 3,
+          "label": "Hide live feedback",
+          "action": "For the checkpoint, look away from the meter before picking. A helper can observe it, or you can review your own external tuner recording afterward. Do not steer the bend using the live display. No observer or usable recording means the numeric result remains unverified."
+        },
+        {
+          "number": 4,
+          "label": "Keep all four",
+          "action": "Number four attempts in advance and keep them in order, resting between each. Record the actual observed result for every attempt. No reading is unknown, not success; do not replace a failed bend with a later good one inside the same set."
+        },
+        {
+          "number": 5,
+          "label": "Report the result",
+          "action": "The target is at least three successful attempts in one fully observed set of four. Report ear-only practice separately when you lack numeric evidence. There is no in-app four-attempt grader or saved cents record for this exercise."
+        }
+      ]
+    },
+    "advanced-three-key-map": {
+      "kind": "instruction_diagram",
+      "name": "I, IV, V and vi in C, G and D major",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Build the quality pattern",
+          "action": "For these major keys: I, IV and V are major; vi is minor. In the spoken title, six means the sixth scale degree, not a major VI chord. Add m when naming the sixth chord."
+        },
+        {
+          "number": 2,
+          "label": "C major",
+          "action": "Scale: C D E F G A B. I = C (C E G); IV = F (F A C); V = G (G B D); vi = Am (A C E)."
+        },
+        {
+          "number": 3,
+          "label": "G major",
+          "action": "Scale: G A B C D E F#. I = G (G B D); IV = C (C E G); V = D (D F# A); vi = Em (E G B)."
+        },
+        {
+          "number": 4,
+          "label": "D major",
+          "action": "Scale: D E F# G A B C#. I = D (D F# A); IV = G (G B D); V = A (A C# E); vi = Bm (B D F#)."
+        },
+        {
+          "number": 5,
+          "label": "Read the small voicings",
+          "action": "All accompanying triad diagrams sound strings 3, 2 and 1 only. The lowest sounding note is not always the root: F, G, A and Em here place the third lowest; D places the fifth lowest. The chord name follows all three note names, not just the bass."
+        },
+        {
+          "number": 6,
+          "label": "Recall procedure",
+          "action": "Study one key, then cover both this key table and the named diagrams. Say the four chord names first; then form and pick each three-string voicing. Uncover only after all four to check the names, quality and notes. Do not count answers read from the chart as memory recall."
+        }
+      ]
+    },
+    "advanced-triad-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major triad",
+      "description": "Strings 3,2,1: frets 5,5,3, fingers ring,little,index; notes C4,E4,G4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 5,5,3, fingers ring,little,index; notes C4,E4,G4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        5,
+        5,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        60,
+        64,
+        67
+      ]
+    },
+    "advanced-triad-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F major triad",
+      "description": "Strings 3,2,1: frets 2,1,1, middle then index mini barre; notes A3,C4,F4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 2,1,1, middle then index mini barre; notes A3,C4,F4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        57,
+        60,
+        65
+      ]
+    },
+    "advanced-triad-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major triad",
+      "description": "Strings 3,2,1: frets 4,3,3, middle then index mini barre; notes B3,D4,G4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 4,3,3, middle then index mini barre; notes B3,D4,G4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        4,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        59,
+        62,
+        67
+      ]
+    },
+    "advanced-triad-am": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A minor triad",
+      "description": "Strings 3,2,1 all at fret 5 with one short index barre; notes C4,E4,A4. Exclude strings 6–4; three finger-1 dots mean one finger spans three strings.",
+      "textAlternative": "Strings 3,2,1 all at fret 5 with one short index barre; notes C4,E4,A4. Exclude strings 6–4; three finger-1 dots mean one finger spans three strings.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        5,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        60,
+        64,
+        69
+      ]
+    },
+    "advanced-triad-d": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D major triad",
+      "description": "Strings 3,2,1: frets 2,3,2, fingers index,ring,middle; notes A3,D4,F#4. Exclude strings 6–4, including the normally open D string for this three-note exercise.",
+      "textAlternative": "Strings 3,2,1: frets 2,3,2, fingers index,ring,middle; notes A3,D4,F#4. Exclude strings 6–4, including the normally open D string for this three-note exercise.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        2,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        1,
+        3,
+        2
+      ],
+      "soundingMidiLowToHigh": [
+        57,
+        62,
+        66
+      ]
+    },
+    "advanced-triad-em": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E minor triad",
+      "description": "Strings 3,2,1 are open: G3,B3,E4. No fretting fingers. Exclude strings 6–4 so exactly three notes sound.",
+      "textAlternative": "Strings 3,2,1 are open: G3,B3,E4. No fretting fingers. Exclude strings 6–4 so exactly three notes sound.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        0,
+        0,
+        0
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        0,
+        0,
+        0
+      ],
+      "soundingMidiLowToHigh": [
+        55,
+        59,
+        64
+      ]
+    },
+    "advanced-triad-a": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A major triad",
+      "description": "Strings 3,2,1: frets 6,5,5, middle then index mini barre; notes C#4,E4,A4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 6,5,5, middle then index mini barre; notes C#4,E4,A4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        6,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        61,
+        64,
+        69
+      ]
+    },
+    "advanced-triad-bm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "B minor triad",
+      "description": "Strings 3,2,1: frets 4,3,2, fingers ring,middle,index; notes B3,D4,F#4. Exclude strings 6–4.",
+      "textAlternative": "Strings 3,2,1: frets 4,3,2, fingers ring,middle,index; notes B3,D4,F#4. Exclude strings 6–4.",
+      "fretsString6To1": [
+        null,
+        null,
+        null,
+        4,
+        3,
+        2
+      ],
+      "fingersString6To1": [
+        null,
+        null,
+        null,
+        3,
+        2,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        59,
+        62,
+        66
+      ]
+    },
+    "l6-e-shape-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F major — E-shape barre",
+      "description": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Middle frets string 3 at 2 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Middle frets string 3 at 2 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        1,
+        3,
+        3,
+        2,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        41,
+        48,
+        53,
+        57,
+        60,
+        65
+      ]
+    },
+    "l6-e-shape-fm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F minor — E-shape barre",
+      "description": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Index also sounds string 3 at 1 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 1. Sound all six strings. Index spans fret 1; ring and little fingers fret strings 5 and 4 at 3. Index also sounds string 3 at 1 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        1,
+        3,
+        3,
+        1,
+        1,
+        1
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        41,
+        48,
+        53,
+        56,
+        60,
+        65
+      ]
+    },
+    "l6-e-shape-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major — E-shape barre",
+      "description": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Middle frets string 3 at 4 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Middle frets string 3 at 4 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        3,
+        5,
+        5,
+        4,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50,
+        55,
+        59,
+        62,
+        67
+      ]
+    },
+    "l6-e-shape-gm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G minor — E-shape barre",
+      "description": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Index also sounds string 3 at 3 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 3. Sound all six strings. Index spans fret 3; ring and little fingers fret strings 5 and 4 at 5. Index also sounds string 3 at 3 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        3,
+        5,
+        5,
+        3,
+        3,
+        3
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        43,
+        50,
+        55,
+        58,
+        62,
+        67
+      ]
+    },
+    "l6-e-shape-a": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A major — E-shape barre",
+      "description": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Middle frets string 3 at 6 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Middle frets string 3 at 6 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        5,
+        7,
+        7,
+        6,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        61,
+        64,
+        69
+      ]
+    },
+    "l6-e-shape-am": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "A minor — E-shape barre",
+      "description": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Index also sounds string 3 at 5 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 5. Sound all six strings. Index spans fret 5; ring and little fingers fret strings 5 and 4 at 7. Index also sounds string 3 at 5 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        5,
+        7,
+        7,
+        5,
+        5,
+        5
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        45,
+        52,
+        57,
+        60,
+        64,
+        69
+      ]
+    },
+    "l6-e-shape-b": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "B major — E-shape barre",
+      "description": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Middle frets string 3 at 8 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Middle frets string 3 at 8 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        7,
+        9,
+        9,
+        8,
+        7,
+        7
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        47,
+        54,
+        59,
+        63,
+        66,
+        71
+      ]
+    },
+    "l6-e-shape-bm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "B minor — E-shape barre",
+      "description": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Index also sounds string 3 at 7 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 7. Sound all six strings. Index spans fret 7; ring and little fingers fret strings 5 and 4 at 9. Index also sounds string 3 at 7 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        7,
+        9,
+        9,
+        7,
+        7,
+        7
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        47,
+        54,
+        59,
+        62,
+        66,
+        71
+      ]
+    },
+    "l6-e-shape-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major — E-shape barre",
+      "description": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Middle frets string 3 at 9 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Middle frets string 3 at 9 for the major third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        8,
+        10,
+        10,
+        9,
+        8,
+        8
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        2,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60,
+        64,
+        67,
+        72
+      ]
+    },
+    "l6-e-shape-cm": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C minor — E-shape barre",
+      "description": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Index also sounds string 3 at 8 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "textAlternative": "Root on string 6 fret 8. Sound all six strings. Index spans fret 8; ring and little fingers fret strings 5 and 4 at 10. Index also sounds string 3 at 8 for the minor third. Repeated finger-1 dots represent one barre; release between checks.",
+      "fretsString6To1": [
+        8,
+        10,
+        10,
+        8,
+        8,
+        8
+      ],
+      "fingersString6To1": [
+        1,
+        3,
+        4,
+        1,
+        1,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60,
+        63,
+        67,
+        72
+      ]
+    },
+    "l6-a-shape-c": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "C major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 3; middle, ring and little fingers fret strings 4,3,2 at 5. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 3; middle, ring and little fingers fret strings 4,3,2 at 5. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        3,
+        5,
+        5,
+        5,
+        3
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        48,
+        55,
+        60,
+        64,
+        67
+      ]
+    },
+    "l6-a-shape-d": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "D major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 5; middle, ring and little fingers fret strings 4,3,2 at 7. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 5; middle, ring and little fingers fret strings 4,3,2 at 7. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        5,
+        7,
+        7,
+        7,
+        5
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        50,
+        57,
+        62,
+        66,
+        69
+      ]
+    },
+    "l6-a-shape-e": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "E major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 7; middle, ring and little fingers fret strings 4,3,2 at 9. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 7; middle, ring and little fingers fret strings 4,3,2 at 9. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        7,
+        9,
+        9,
+        9,
+        7
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        52,
+        59,
+        64,
+        68,
+        71
+      ]
+    },
+    "l6-a-shape-f": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "F major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 8; middle, ring and little fingers fret strings 4,3,2 at 10. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 8; middle, ring and little fingers fret strings 4,3,2 at 10. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        8,
+        10,
+        10,
+        10,
+        8
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        53,
+        60,
+        65,
+        69,
+        72
+      ]
+    },
+    "l6-a-shape-g": {
+      "kind": "chord_diagram_and_reference_tones",
+      "name": "G major — five-string A-shape barre",
+      "description": "Exclude string 6. Index barres strings 5–1 at fret 10; middle, ring and little fingers fret strings 4,3,2 at 12. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "textAlternative": "Exclude string 6. Index barres strings 5–1 at fret 10; middle, ring and little fingers fret strings 4,3,2 at 12. Sound all five intended strings. Use separate fingertips for the three-note cluster; do not force a ring-finger joint backward.",
+      "fretsString6To1": [
+        null,
+        10,
+        12,
+        12,
+        12,
+        10
+      ],
+      "fingersString6To1": [
+        null,
+        1,
+        2,
+        3,
+        4,
+        1
+      ],
+      "soundingMidiLowToHigh": [
+        55,
+        62,
+        67,
+        71,
+        74
+      ]
+    },
+    "l6-e-barre-check": {
+      "kind": "instruction_diagram",
+      "name": "Five roots, two qualities",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Positions",
+          "action": "String 6 roots: fret 1 F; fret 3 G; fret 5 A; fret 7 B; fret 8 C. Check E-shape major and minor at every position: ten separate shape-and-quality responses."
+        },
+        {
+          "number": 2,
+          "label": "One response",
+          "action": "Start released. Read or hear a fret and quality, name the chord, form it, pick strings 6 through 1 separately, strum, then mute and release. All six intended strings must ring; a repaired held grip is practice before a new fresh response."
+        },
+        {
+          "number": 3,
+          "label": "Mix the prompts",
+          "action": "Write the ten fret/quality pairs on slips and shuffle them yourself, or have a partner mix them. Every pair appears once. GuitarHub does not supply an automatic random caller."
+        },
+        {
+          "number": 4,
+          "label": "Keep the evidence",
+          "action": "Record which root, quality or string failed. A full self-check contains all ten fresh responses, with no substitution of easier positions or four-string shapes."
+        }
+      ]
+    },
+    "l6-crossings-piece": {
+      "kind": "instruction_diagram",
+      "name": "Crossings — original sixteen-bar barre piece",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Voicings and pulse",
+          "action": "Use G major as an E-shape barre at fret 3; C and D major as A-shape barres at frets 3 and 5. In 4/4, play downstrokes on beats 1 and 3, sustaining each for two beats. Use a separate metronome around 60 BPM; no automatic backing track is supplied."
+        },
+        {
+          "number": 2,
+          "label": "Bars 1–4",
+          "action": "Bar 1 G; bar 2 G; bar 3 C; bar 4 C. Every chord label occupies a whole four-beat bar."
+        },
+        {
+          "number": 3,
+          "label": "Bars 5–8",
+          "action": "Bar 5 G; bar 6 G; bar 7 D; bar 8 D."
+        },
+        {
+          "number": 4,
+          "label": "Bars 9–12",
+          "action": "Bar 9 C; bar 10 D; bar 11 G; bar 12 G."
+        },
+        {
+          "number": 5,
+          "label": "Bars 13–16",
+          "action": "Bar 13 C; bar 14 D; bar 15 G; bar 16 G. Make both attacks in the final bar and mute at the next bar line; no added ending chord."
+        },
+        {
+          "number": 6,
+          "label": "Full form",
+          "action": "Count in for four beats, then play all sixteen bars in order: 32 attacks. Use a small pressure release just before a change, keeping time and avoiding an open-string sweep. A restart or skipped bar makes the take interrupted."
+        }
+      ]
+    },
+    "l6-nearby-keys": {
+      "kind": "instruction_diagram",
+      "name": "Nearby I–IV–V roots in three major keys",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "G major",
+          "action": "I = G, E-shape root on string 6 fret 3. IV = C, A-shape root on string 5 fret 3. V = D, A-shape root on string 5 fret 5. Return to G at fret 3."
+        },
+        {
+          "number": 2,
+          "label": "A major",
+          "action": "I = A, E-shape root on string 6 fret 5. IV = D, A-shape root on string 5 fret 5. V = E, A-shape root on string 5 fret 7. Return to A at fret 5."
+        },
+        {
+          "number": 3,
+          "label": "C major",
+          "action": "I = C, E-shape root on string 6 fret 8. IV = F, A-shape root on string 5 fret 8. V = G, A-shape root on string 5 fret 10. Return to C at fret 8."
+        },
+        {
+          "number": 4,
+          "label": "Practice form",
+          "action": "One four-beat bar each: I, IV, V, I. Begin with one downstroke on beat 1 and count the other three beats. The roots use a two-fret span within each key; this is a defined nearby route, not proof of the globally smallest movement."
+        }
+      ]
+    },
+    "l6-g-major-five-views": {
+      "kind": "instruction_diagram",
+      "name": "Five CAGED-region views of G major",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "One note collection",
+          "action": "All five views contain G,A,B,C,D,E,F#. They follow the overlapping CAGED chord-form regions E,D,C,A,G up this part of the neck. They are maps, not five different keys, five full-scale performances, or a requirement to hold one finger across a whole window."
+        },
+        {
+          "number": 2,
+          "label": "E view",
+          "action": "E view, frets 2–5. String 6: 2(F#), 3(G), 5(A); String 5: 2(B), 3(C), 5(D); String 4: 2(E), 4(F#), 5(G); String 3: 2(A), 4(B), 5(C); String 2: 3(D), 5(E); String 1: 2(F#), 3(G), 5(A). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 3,
+          "label": "D view",
+          "action": "D view, frets 4–8. String 6: 5(A), 7(B), 8(C); String 5: 5(D), 7(E); String 4: 4(F#), 5(G), 7(A); String 3: 4(B), 5(C), 7(D); String 2: 5(E), 7(F#), 8(G); String 1: 5(A), 7(B), 8(C). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 4,
+          "label": "C view",
+          "action": "C view, frets 7–10. String 6: 7(B), 8(C), 10(D); String 5: 7(E), 9(F#), 10(G); String 4: 7(A), 9(B), 10(C); String 3: 7(D), 9(E); String 2: 7(F#), 8(G), 10(A); String 1: 7(B), 8(C), 10(D). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 5,
+          "label": "A view",
+          "action": "A view, frets 9–12. String 6: 10(D), 12(E); String 5: 9(F#), 10(G), 12(A); String 4: 9(B), 10(C), 12(D); String 3: 9(E), 11(F#), 12(G); String 2: 10(A), 12(B); String 1: 10(D), 12(E). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 6,
+          "label": "G view",
+          "action": "G view, frets 12–15. String 6: 12(E), 14(F#), 15(G); String 5: 12(A), 14(B), 15(C); String 4: 12(D), 14(E); String 3: 12(G), 14(A); String 2: 12(B), 13(C), 15(D); String 1: 12(E), 14(F#), 15(G). Play one note at a time, never all listed frets as a chord."
+        },
+        {
+          "number": 7,
+          "label": "Find roots and overlaps",
+          "action": "Locate G at string 6 fret 3, string 4 fret 5, string 2 fret 8, string 5 fret 10, string 3 fret 12 and string 1 fret 15. A note appearing in two neighbouring views is the same pitch location; use it to connect the maps."
+        }
+      ],
+      "positions": [
+        {
+          "name": "E view",
+          "firstFret": 2,
+          "lastFret": 5,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                2,
+                3,
+                5
+              ],
+              "midi": [
+                42,
+                43,
+                45
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                2,
+                3,
+                5
+              ],
+              "midi": [
+                47,
+                48,
+                50
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                2,
+                4,
+                5
+              ],
+              "midi": [
+                52,
+                54,
+                55
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                2,
+                4,
+                5
+              ],
+              "midi": [
+                57,
+                59,
+                60
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                3,
+                5
+              ],
+              "midi": [
+                62,
+                64
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                2,
+                3,
+                5
+              ],
+              "midi": [
+                66,
+                67,
+                69
+              ]
+            }
+          ]
+        },
+        {
+          "name": "D view",
+          "firstFret": 4,
+          "lastFret": 8,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                5,
+                7,
+                8
+              ],
+              "midi": [
+                45,
+                47,
+                48
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                5,
+                7
+              ],
+              "midi": [
+                50,
+                52
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                4,
+                5,
+                7
+              ],
+              "midi": [
+                54,
+                55,
+                57
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                4,
+                5,
+                7
+              ],
+              "midi": [
+                59,
+                60,
+                62
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                5,
+                7,
+                8
+              ],
+              "midi": [
+                64,
+                66,
+                67
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                5,
+                7,
+                8
+              ],
+              "midi": [
+                69,
+                71,
+                72
+              ]
+            }
+          ]
+        },
+        {
+          "name": "C view",
+          "firstFret": 7,
+          "lastFret": 10,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                7,
+                8,
+                10
+              ],
+              "midi": [
+                47,
+                48,
+                50
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                7,
+                9,
+                10
+              ],
+              "midi": [
+                52,
+                54,
+                55
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                7,
+                9,
+                10
+              ],
+              "midi": [
+                57,
+                59,
+                60
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                7,
+                9
+              ],
+              "midi": [
+                62,
+                64
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                7,
+                8,
+                10
+              ],
+              "midi": [
+                66,
+                67,
+                69
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                7,
+                8,
+                10
+              ],
+              "midi": [
+                71,
+                72,
+                74
+              ]
+            }
+          ]
+        },
+        {
+          "name": "A view",
+          "firstFret": 9,
+          "lastFret": 12,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                10,
+                12
+              ],
+              "midi": [
+                50,
+                52
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                9,
+                10,
+                12
+              ],
+              "midi": [
+                54,
+                55,
+                57
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                9,
+                10,
+                12
+              ],
+              "midi": [
+                59,
+                60,
+                62
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                9,
+                11,
+                12
+              ],
+              "midi": [
+                64,
+                66,
+                67
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                10,
+                12
+              ],
+              "midi": [
+                69,
+                71
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                10,
+                12
+              ],
+              "midi": [
+                74,
+                76
+              ]
+            }
+          ]
+        },
+        {
+          "name": "G view",
+          "firstFret": 12,
+          "lastFret": 15,
+          "strings": [
+            {
+              "string": 6,
+              "frets": [
+                12,
+                14,
+                15
+              ],
+              "midi": [
+                52,
+                54,
+                55
+              ]
+            },
+            {
+              "string": 5,
+              "frets": [
+                12,
+                14,
+                15
+              ],
+              "midi": [
+                57,
+                59,
+                60
+              ]
+            },
+            {
+              "string": 4,
+              "frets": [
+                12,
+                14
+              ],
+              "midi": [
+                62,
+                64
+              ]
+            },
+            {
+              "string": 3,
+              "frets": [
+                12,
+                14
+              ],
+              "midi": [
+                67,
+                69
+              ]
+            },
+            {
+              "string": 2,
+              "frets": [
+                12,
+                13,
+                15
+              ],
+              "midi": [
+                71,
+                72,
+                74
+              ]
+            },
+            {
+              "string": 1,
+              "frets": [
+                12,
+                14,
+                15
+              ],
+              "midi": [
+                76,
+                78,
+                79
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "l6-three-position-route": {
+      "kind": "single_string_riff",
+      "title": "Three-position G-major connection",
+      "provenance": "Original GuitarHub instructional note sequence; isolated synthesized pitch references, not a commercial-song transcription or full audio performance.",
+      "stringNumber": 1,
+      "frets": [
+        3,
+        5,
+        7,
+        8,
+        10,
+        8,
+        7,
+        5,
+        3,
+        5,
+        7,
+        8,
+        10,
+        8,
+        7,
+        3
+      ],
+      "midi": [
+        67,
+        69,
+        71,
+        72,
+        74,
+        72,
+        71,
+        69,
+        67,
+        69,
+        71,
+        72,
+        74,
+        72,
+        71,
+        67
+      ],
+      "tabText": "e | 3 5 7 8 | 10 8 7 5 | 3 5 7 8 | 10 8 7 3 |",
+      "instruction": "Four bars, one note per quarter-note beat. Follow the separate hand-position guide; the reference cells play individual notes only. Actual 100 BPM is the later checkpoint target, not the default speed of these buttons."
+    },
+    "l6-position-route-guide": {
+      "kind": "instruction_diagram",
+      "name": "Route timing and hand positions",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "First move",
+          "action": "Bar 1: frets 3,5,7,8. Play 3 with middle and 5 with little finger in the E view; then move the hand into the D view for ring on 7 and little on 8. One note on each beat."
+        },
+        {
+          "number": 2,
+          "label": "Second move",
+          "action": "Bar 2: frets 10,8,7,5. Move into the C view for little on 10, middle on 8, index on 7; return to the E view for little on 5. Shift pressure lightly between attacks without adding a beat."
+        },
+        {
+          "number": 3,
+          "label": "Repeat and finish",
+          "action": "Bar 3 repeats bar 1. Bar 4: frets 10,8,7,3, using the C-view fingering for 10,8,7, then the E-view middle finger on 3. Sustain that final G for its beat and mute at the next bar line."
+        },
+        {
+          "number": 4,
+          "label": "Check the whole route",
+          "action": "Four count-in beats precede the sixteen quarter-note attacks. In practice, isolate each shift slowly; in a full take, keep all four beats in each bar. The app does not detect the hand position or score this connection."
+        }
+      ]
+    },
+    "l6-eight-bar-arrivals": {
+      "kind": "instruction_diagram",
+      "name": "Eight-bar G-major improvisation map",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "The accompaniment",
+          "action": "Use a partner or your own separate recording for eight bars of 4/4: G,G,Em,Em,C,C,D,D. Each chord lasts two bars. No backing track or automatic arrival detector is supplied in this lesson."
+        },
+        {
+          "number": 2,
+          "label": "Chord-tone choices",
+          "action": "G contains G,B,D; Em contains E,G,B; C contains C,E,G; D contains D,F#,A. These all belong to G major. Choose one destination tone before each new chord."
+        },
+        {
+          "number": 3,
+          "label": "Thirds route",
+          "action": "For the specific third-target exercise, land B4 at bar 1, G4 at bar 3, E4 at bar 5 and F#4 at bar 7. On string 1 these are frets 7,3,0,2."
+        },
+        {
+          "number": 4,
+          "label": "Make the arrival audible",
+          "action": "Sound the destination on beat 1 of its arrival bar and hold it for at least that first beat. Use the remaining time for a short phrase or planned silence; do not stop counting."
+        },
+        {
+          "number": 5,
+          "label": "Eight-bar check",
+          "action": "One full take includes all eight bars and all four planned arrivals at bars 1,3,5,7. The checkpoint permits a root, third or fifth of each chord; state your choices before the take. Finish by the end of bar 8 without a restart."
+        }
+      ]
+    },
+    "l6-third-note-reference": {
+      "kind": "single_string_riff",
+      "title": "Thirds of G, Em, C and D",
+      "provenance": "Original GuitarHub instructional note sequence; isolated synthesized pitch references, not a commercial-song transcription or full audio performance.",
+      "stringNumber": 1,
+      "frets": [
+        7,
+        3,
+        0,
+        2
+      ],
+      "midi": [
+        71,
+        67,
+        64,
+        66
+      ],
+      "tabText": "e | 7(B) | 3(G) | 0(E) | 2(F#) |",
+      "instruction": "These are four reference destinations, not a four-beat performance: B is G’s third, G is Em’s third, E is C’s third, F# is D’s third. In the eight-bar map they arrive at bars 1,3,5,7 respectively."
+    },
+    "l6-ear-four-notes-helper": {
+      "kind": "instruction_diagram",
+      "name": "Helper-only four-note ear prompt",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Learner preparation",
+          "action": "Learner: look away before the helper reads the next panel. Use a guitar-playing helper and a separate click around 60 BPM. The learner hears the notes without seeing frets or note names; the app does not provide hidden-answer phrase audio."
+        },
+        {
+          "number": 2,
+          "label": "Helper answer key",
+          "action": "Helper only: play string 1 frets 3,5,7,3, one quarter note each, after four count-in beats. Pitches are G4,A4,B4,G4. Repeat the same four-note phrase on request; do not change the order or show your hand to the learner."
+        },
+        {
+          "number": 3,
+          "label": "Compare after the attempt",
+          "action": "Keep the learner’s first written four-note answer before revealing the key. Compare the sounded notes and their one-beat durations. If the learner saw the key beforehand, label the exercise familiar-phrase practice, not fresh transcription."
+        }
+      ]
+    },
+    "l6-ear-four-bars-helper": {
+      "kind": "instruction_diagram",
+      "name": "Helper-only original four-bar transcription phrase",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Learner preparation",
+          "action": "Learner: do not read the helper answer panels before writing your first complete transcription. The helper should read them while you look away, then perform the exact original phrase at a comfortable, unchanged tempo. No blind audio playback is supplied by the app."
+        },
+        {
+          "number": 2,
+          "label": "Helper bar 1",
+          "action": "Helper only, bar 1: event 1: string 1 fret 3 (G4), onset 1, length 0.5 beats; event 2: string 1 fret 5 (A4), onset 1&, length 0.5 beats; event 3: string 1 fret 7 (B4), onset 2, length 1 beat; event 4: string 1 fret 10 (D5), onset 3, length 1 beat; event 5: string 1 fret 7 (B4), onset 4, length 1 beat."
+        },
+        {
+          "number": 3,
+          "label": "Helper bar 2",
+          "action": "Helper only, bar 2: event 6: string 1 fret 5 (A4), onset 1, length 1 beat; event 7: string 1 fret 7 (B4), onset 2, length 1 beat; event 8: string 1 fret 8 (C5), onset 3, length 0.5 beats; event 9: string 1 fret 7 (B4), onset 3&, length 0.5 beats; event 10: string 1 fret 5 (A4), onset 4, length 1 beat."
+        },
+        {
+          "number": 4,
+          "label": "Helper bar 3",
+          "action": "Helper only, bar 3: event 11: string 1 fret 3 (G4), onset 1, length 0.5 beats; event 12: string 1 fret 7 (B4), onset 1&, length 0.5 beats; event 13: string 1 fret 10 (D5), onset 2, length 1 beat; event 14: string 1 fret 8 (C5), onset 3, length 1 beat; event 15: string 1 fret 7 (B4), onset 4, length 1 beat."
+        },
+        {
+          "number": 5,
+          "label": "Helper bar 4",
+          "action": "Helper only, bar 4: event 16: string 1 fret 5 (A4), onset 1, length 1 beat; event 17: string 1 fret 8 (C5), onset 2, length 1 beat; event 18: string 1 fret 7 (B4), onset 3, length 0.5 beats; event 19: string 1 fret 5 (A4), onset 3&, length 0.5 beats; event 20: string 1 fret 3 (G4), onset 4, length 1 beat."
+        },
+        {
+          "number": 6,
+          "label": "Helper playback rule",
+          "action": "All four bars are in 4/4 and total sixteen beats. Give four count-in beats, then play the twenty events with the written durations and no extra ornament. Repeat the full phrase or one requested bar accurately; if the helper’s performance was uncertain, do not assign an accuracy percentage."
+        }
+      ],
+      "referenceEvents": [
+        {
+          "number": 1,
+          "bar": 1,
+          "beatOffset": 0,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 3,
+          "midi": 67
+        },
+        {
+          "number": 2,
+          "bar": 1,
+          "beatOffset": 0.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 3,
+          "bar": 1,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 4,
+          "bar": 1,
+          "beatOffset": 2,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 10,
+          "midi": 74
+        },
+        {
+          "number": 5,
+          "bar": 1,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 6,
+          "bar": 2,
+          "beatOffset": 0,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 7,
+          "bar": 2,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 8,
+          "bar": 2,
+          "beatOffset": 2,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 8,
+          "midi": 72
+        },
+        {
+          "number": 9,
+          "bar": 2,
+          "beatOffset": 2.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 10,
+          "bar": 2,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 11,
+          "bar": 3,
+          "beatOffset": 0,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 3,
+          "midi": 67
+        },
+        {
+          "number": 12,
+          "bar": 3,
+          "beatOffset": 0.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 13,
+          "bar": 3,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 10,
+          "midi": 74
+        },
+        {
+          "number": 14,
+          "bar": 3,
+          "beatOffset": 2,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 8,
+          "midi": 72
+        },
+        {
+          "number": 15,
+          "bar": 3,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 16,
+          "bar": 4,
+          "beatOffset": 0,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 17,
+          "bar": 4,
+          "beatOffset": 1,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 8,
+          "midi": 72
+        },
+        {
+          "number": 18,
+          "bar": 4,
+          "beatOffset": 2,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 7,
+          "midi": 71
+        },
+        {
+          "number": 19,
+          "bar": 4,
+          "beatOffset": 2.5,
+          "durationBeats": 0.5,
+          "string": 1,
+          "fret": 5,
+          "midi": 69
+        },
+        {
+          "number": 20,
+          "bar": 4,
+          "beatOffset": 3,
+          "durationBeats": 1,
+          "string": 1,
+          "fret": 3,
+          "midi": 67
+        }
+      ]
+    },
+    "l6-transcription-rubric": {
+      "kind": "instruction_diagram",
+      "name": "Manual first-transcription rubric",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Preserve the first answer",
+          "action": "Before revealing the helper key, write all four bars with note names and octaves or exact string/fret positions, plus each onset and duration in counted beats. Keep that first version; corrections belong on a second copy."
+        },
+        {
+          "number": 2,
+          "label": "Two scores",
+          "action": "The reference has twenty numbered events. Award one pitch point for the correct sounded note and octave at an event; award one rhythm point when both its onset and duration match. Keep pitch and rhythm totals separate, each out of twenty."
+        },
+        {
+          "number": 3,
+          "label": "Threshold and omissions",
+          "action": "The named 90% target needs at least 18/20 pitch points AND 18/20 rhythm points on the first full answer. Unexplained extra or missing events mean the form needs review rather than silently realigning events to inflate the totals."
+        },
+        {
+          "number": 4,
+          "label": "What invalidates the check",
+          "action": "Prior reading of the answer, copying visible notation, an inaccurate helper performance or unavailable source audio means this is practice without a valid fresh accuracy result. The app does not capture the answer or compute these percentages."
+        },
+        {
+          "number": 5,
+          "label": "Review",
+          "action": "After the first answer is kept, compare one missed interval or rhythm cell, hum or tap it, and play it accurately. A corrected copy demonstrates review, not a new unseen first attempt."
+        }
+      ]
+    },
+    "l6-sixteenth-cell": {
+      "kind": "instruction_diagram",
+      "name": "Original one-bar sixteenth cell",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "Count and move",
+          "action": "In 4/4, say 1 e & a, 2 e & a, 3 e & a, 4 e & a. Keep down-up-down-up motion through each beat. Numbers and & are down motions; e and a are up motions."
+        },
+        {
+          "number": 2,
+          "label": "Exact contacts",
+          "action": "Contact the strings ONLY on 1, the a of 1, the & of 2, 3, the a of 3, and the & of 4. Directions: down, up, down, down, up, down. Every other motion passes clear of the strings."
+        },
+        {
+          "number": 3,
+          "label": "Hold across the missing beats",
+          "action": "Let each chord ring until the next written contact. In particular, the attacks on 1a and 3a sustain across the following numbered beats 2 and 4; do not insert a fresh attack there. A skipped attack here is not a full mute or rest."
+        },
+        {
+          "number": 4,
+          "label": "Start slowly",
+          "action": "Use a separate quarter-note metronome near 50–60 BPM. First practise the hand motion silently, then add the six contacts on one easy chord. Keep the a subdivisions evenly spaced rather than swinging them."
+        },
+        {
+          "number": 5,
+          "label": "Full bar and ending",
+          "action": "The six attack offsets from bar start are 0,0.75,1.5,2,2.75,3.5 beats. Sustain to the next attack or bar boundary. In a complete piece, keep this same cell for every bar and mute only at the final boundary."
+        }
+      ],
+      "attackBeatOffsets": [
+        0,
+        0.75,
+        1.5,
+        2,
+        2.75,
+        3.5
+      ],
+      "durationBeats": [
+        0.75,
+        0.75,
+        0.5,
+        0.75,
+        0.75,
+        0.5
+      ]
+    },
+    "l6-after-the-line-piece": {
+      "kind": "instruction_diagram",
+      "name": "After the Line — original twenty-four-bar piece",
+      "requiresMicrophone": false,
+      "panels": [
+        {
+          "number": 1,
+          "label": "One written cell throughout",
+          "action": "Use the sixteenth cell on every bar, with open Em,C,G,D diagrams. Each chord lasts two bars. Count four lead-in beats. At 100 BPM, the music is 24 four-beat bars with 144 written chord attacks."
+        },
+        {
+          "number": 2,
+          "label": "First section, bars 1–8",
+          "action": "Bar 1 Em; 2 Em; 3 C; 4 C; 5 G; 6 G; 7 D; 8 D. Apply the same six contacts and held-note pattern in each bar."
+        },
+        {
+          "number": 3,
+          "label": "Second section, bars 9–16",
+          "action": "Bar 9 Em; 10 Em; 11 C; 12 C; 13 G; 14 G; 15 D; 16 D. The form repeats, but the pulse must not accelerate."
+        },
+        {
+          "number": 4,
+          "label": "Final section, bars 17–24",
+          "action": "Bar 17 Em; 18 Em; 19 C; 20 C; 21 G; 22 G; 23 D; 24 D. Make the last contact on 24’s & of 4, sustain its final half beat, then mute at the following bar line."
+        },
+        {
+          "number": 5,
+          "label": "Practice versus target",
+          "action": "Start below 100 BPM and loop an exact transition as needed. For the named checkpoint, use actual 100 BPM and all 24 bars without a restart, omitted bar or added attack on beats 2/4. No performed audio or automatic pattern score is provided."
+        }
+      ],
+      "barChords": [
+        "Em",
+        "Em",
+        "C",
+        "C",
+        "G",
+        "G",
+        "D",
+        "D",
+        "Em",
+        "Em",
+        "C",
+        "C",
+        "G",
+        "G",
+        "D",
+        "D",
+        "Em",
+        "Em",
+        "C",
+        "C",
+        "G",
+        "G",
+        "D",
+        "D"
+      ]
+    }
+  }
+}

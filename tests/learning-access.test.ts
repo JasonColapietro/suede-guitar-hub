@@ -66,11 +66,12 @@ test("no module in a free level is paywalled", () => {
   }
 });
 
-test("an entitlement never turns a curriculum outline into a completable lesson", () => {
+test("readiness follows authored content rather than entitlement", () => {
   assert.equal(isLessonReady("guitar", "g-l1-m1-02"), true);
-  assert.equal(isLessonReady("voice", "v-l1-m1-01"), false);
+  assert.equal(isLessonReady("voice", "v-l1-m1-01"), true);
+  assert.equal(isLessonReady("guitar", "g-l7-m1-01"), false);
   assert.equal(isLessonReady("guitar", "missing"), false);
-  assert.deepEqual(accessibleLessonIds("voice", { ...owned, tracks: ["voice"] }), []);
+  assert.equal(accessibleLessonIds("voice", { ...owned, tracks: ["voice"] }).length, 102);
 });
 
 test("history remains isolated on sign-in, sign-out and account switch without rewriting guest keys", () => {
