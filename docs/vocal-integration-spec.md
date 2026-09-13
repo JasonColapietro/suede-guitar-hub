@@ -146,7 +146,9 @@ it into both `sourceAssets` and `sourceLessons`, then update
 Scope is the 15 modules `lib/learning/voice-proof.ts` records as measured. Use
 `mode: "pitchSequence"` with an integer `midi` of 21–108 on every target,
 `beat` monotonically non-decreasing, and no `guitarString` or `fret`.
-`toleranceCents` is subject to W17.
+`toleranceCents` is 50, adjudicated in `contracts/adjudications.ts` under
+`pitchToleranceCents`: sung notes are judged more forgivingly than fretted ones,
+and 35 is the guitar track's number, not a default.
 
 ### W4 — Vibrato rate and extent
 
@@ -221,6 +223,11 @@ The two repositories are complementary rather than duplicated here. This one has
 audio-session claiming and lifecycle binding that the sing repository lacks; the
 sing repository has the context and latency modules this one lacks. Each should
 adopt the other's half.
+
+W17's `frameStaleness` entry settles the one constant this work would otherwise
+have had to decide on its own: the 0.45-second reading age may be tightened and
+must not be widened, and it is not a budget to spend on analyser lag. The rhythm
+window and the staleness gate are separate numbers.
 
 ### W14 — Make contract drift fail CI
 
@@ -334,49 +341,92 @@ or destructures a rung will need to move with it.
 
 ### W17 — Adjudication register
 
-Fourteen constants express the same concept with two or three different values
-across surfaces, with no test able to notice. Each is a decision rather than a
-refactor: unify and let the loser fail, or record it in `knownDivergences` with
-the reason. Leaving them unresolved is the condition that produced most of the
-defects this document records.
+**Done.**
 
-Pitch tolerance is 35 cents on all 39 authored guitar specs, 5 cents in the
-tuner, and 50 cents for sung notes. That is plausibly instrument-dependent and
-most likely belongs in `knownDivergences` rather than being collapsed, but it
-has to be recorded either way.
+Fourteen constants expressed the same concept with two or three different values
+across surfaces, with no test able to notice. Each was a decision rather than a
+refactor: unify and let the loser fail, or record it with the reason. Leaving them
+unresolved is the condition that produced most of the defects this document
+records.
 
-Automatic tempo increase requires two consecutive attempts at or above 90 here
-and one at or above 85 there, which is a pedagogy decision rather than an
-implementation detail. Tempo decrease differs only at exactly 60. Grid snapping
-floors and ceils here and rounds to nearest there.
+`contracts/adjudications.ts` is the register and `tests/adjudications.test.ts`
+binds it. Each entry names the concept, every surface's value, the decision, and
+a reason long enough to be one. Five decisions came out `divergent`, four
+`unify`, two `recordedUpstream`, one `featureGap`, one `notComparable`, and one
+`unify` that is finished rather than assigned.
 
-The metronome range is 40–208 against 30–240, and this repository's value is
-native-pinned, so changing it moves the native contract. The default tempo is 90
-against 96. Click frequencies differ; keep the timbre per application and share
-the scheduler. Beats per bar is fixed at four here and selectable there, which
-is a feature gap rather than a drift.
+The binding is the point. Each recorded value declares how it is held: `live` (a
+constant here, imported by the test), `contract` (a value in a vendored contract
+or this repository's lesson data, read at a named dotted path), or `observed`
+(transcribed from the other repository, where nothing here can check it). Live
+and contract values are asserted against their sources on every run, so a
+constant that moves without its entry moving fails the build. A `unify` entry
+without a `pendingOn` surface fails as a decision with no owner; a
+`recordedUpstream` entry is checked against the vocal contract's
+`knownDivergences` so it cannot claim a decision nobody made. Five probes
+confirmed non-vacuity: a moved live constant, a moved contract value, the lost
+reconciliation sentence, a `unify` stripped of its owner, and a runtime import of
+the register each fail exactly one test.
 
-Three detector bands exist for three jobs and that is legitimate; the gates are
-what should agree. The clarity metric itself differs — one minus a normalized
-difference against a normalized autocorrelation — so the thresholds are not
-comparable and must not be unified without unifying the definition. Frame
-staleness is 0.45 seconds against 0.20.
+That last guard earns its place. The register restates a dozen contract numbers,
+which `docs/practice-tools.md` forbids doing in a configuration. The distinction
+is that a configuration is read at runtime, where a stale copy changes behaviour
+silently, while the register is read only by its test, which proves the
+restatement still true. That distinction holds only while nothing else imports
+it, so a test walks `app`, `components`, `lib`, `contracts` and `scripts` and
+fails on an import — while deliberately allowing the comment in
+`lib/audio/dsp.ts` that points at the register, which is the cross-reference
+working as intended.
 
-Accidentals render as the Unicode sharp `U+266F` here and as an ASCII `#` there,
-so any cross-repository note-string comparison fails on the glyph alone. Nothing
-compares them today, which makes it latent rather than broken, but this
-repository also has no flat spelling and voice work needs one.
+Nine of the fourteen carry a value that only a human has read. `OBSERVED_VALUE_COUNT`
+pins that at nine, so it becomes a number that falls as the vocal contract grows
+rather than a caveat nobody tracks. Every one of the nine also carries at least
+one bound value, so no entry is inert: if this repository's side of a
+disagreement moves, the register fails even when the other side is unverifiable.
 
-The twelve-second hiss target is not a rung on the sustain ladder, which runs
-10, 20, 30 and 45 seconds; twelve clears the first mark at ten. It was reframed
-rather than moved because raising a free level's bar is a product decision.
+**The two gates are answered in the register rather than here.**
 
-Stars are two scales rather than one drifted number: the sing repository grades
-its practice rooms on three stars at percentage floors and its songbook on five
-linear stars plus a letter. Both are real and neither is wrong, so a consumer
-asserting against "stars" has to say which. This one is already recorded in that
-contract's `knownDivergences` and needs no further adjudication — it is listed
-here so it is not mistaken for an omission.
+W2 takes 50, not the guitar track's 35. Judging a sung note to 35 cents would
+fail singers for an accuracy no module asks them to hold, and 50 is already
+published as `pitch.sungToleranceCents`. The test asserts the answer names the
+figure the contract publishes and that it fits the 1-to-100 range
+`lib/learning/models.ts` validates, so the claim that no schema change is needed
+is checked and not merely asserted.
+
+W13 may tighten the staleness gate and must not widen it, and the 0.45-second
+figure is not a budget to spend on analyser lag. The rhythm window and the
+staleness gate are separate numbers; correcting bias in the first is not licence
+to relax the second.
+
+**Three entries worth reading for themselves.**
+
+The accidental glyph is the only one whose losing surface is this repository, so
+it is resolved rather than assigned. `noteName` keeps U+266F because that is the
+correct typography; `asciiNoteName` emits the `#` the vocal contract declares,
+and cross-surface comparison uses that. Picking one glyph for both jobs would
+have made either the display wrong or the comparison impossible. The test also
+asserts no flat spelling has appeared, because when one does this adjudication
+needs a second half — voice work needs flats and this repository has none.
+
+Grid snapping is recorded as a `unify` against sing because round-to-nearest is a
+bug wearing the look of a preference: from a grid position, a five per cent step
+rounded to nearest can return the tempo the learner is already at, so "ready to
+increase" recommends no increase. Outward rounding always moves, which is the
+whole point of a recommendation.
+
+The clarity floors are `notComparable` and must stay that way. One minus a
+cumulative-mean-normalized difference is not a normalized autocorrelation, so
+0.5 here is not a looser 0.85 and neither is a looser anything of sing's. A
+cross-surface assertion on "clarity" today is meaningless rather than merely
+wrong, and unifying the thresholds without first unifying the definition would
+produce a number that looks agreed and means nothing.
+
+**What this does not do.** It changes no behaviour except adding
+`asciiNoteName`, and it cannot make the four `unify` decisions happen: three wait
+on sing and one on native. Recording an owner is not the same as moving the
+value, and a reader should not take a green register as evidence that the
+surfaces agree — only that they disagree in exactly the ways someone decided
+they should.
 
 ### W18 — Type `proofMetric`
 
@@ -511,9 +561,10 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can start
-immediately. W17 unblocks W2 and W13. W14 is done for the one contract it can
-cover and blocked on native access for the other two. W15 is done.
+W18, W21, W22, W24, W25 and W28 have no dependencies and can start immediately.
+W14 is done for the one contract it can cover and blocked on native access for
+the other two. W15 and W17 are done; W2 and W13 can now read their constants off
+`contracts/adjudications.ts` instead of re-deriving them.
 
 W16 is the exception among the otherwise-unblocked items: it waits on the sing
 repository's version 2 reaching `main`, because the re-sync resolves the default

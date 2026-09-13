@@ -91,8 +91,21 @@ export function estimatePitch(samples: Float32Array, sampleRate: number, band?: 
     return note ? { frequency, clarity, ...note } : null;
 }
 export function frequencyForMIDI(midi: number) { return 440 * 2 ** ((midi - 69) / 12); }
+/** The sharp this surface displays, and the sharp the vocal contract declares.
+ *
+ * U+266F is the right typography and ASCII is what sing emits, so a note string
+ * crossing the two surfaces used to fail on the glyph before anything looked at
+ * the pitch. Rather than pick a winner, the two jobs are separated: `noteName`
+ * displays, `asciiNoteName` compares. See `contracts/adjudications.ts`,
+ * `accidentalGlyph`. */
+export const DISPLAY_SHARP = '♯', COMPARISON_SHARP = '#';
 export function noteName(midi: number) {
-    return `${['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'][((midi % 12) + 12) % 12]}${Math.floor(midi / 12) - 1}`;
+    return `${['C', `C${DISPLAY_SHARP}`, 'D', `D${DISPLAY_SHARP}`, 'E', 'F', `F${DISPLAY_SHARP}`, 'G', `G${DISPLAY_SHARP}`, 'A', `A${DISPLAY_SHARP}`, 'B'][((midi % 12) + 12) % 12]}${Math.floor(midi / 12) - 1}`;
+}
+/** The same label in the spelling the vocal contract publishes, for comparing a
+ * note across surfaces. Never for display: a sharp is not a hash. */
+export function asciiNoteName(midi: number) {
+    return noteName(midi).split(DISPLAY_SHARP).join(COMPARISON_SHARP);
 }
 export function noteForFrequency(frequency: number) {
     if (!Number.isFinite(frequency) || frequency <= 0)

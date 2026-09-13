@@ -40,6 +40,21 @@ Read the diff before committing one. A changed value there is a changed promise
 to somebody practising — which notes a lesson may ask for, and how fast the app
 will push them.
 
+`contracts/adjudications.ts` is neither vendored nor generated. It records the
+fourteen constants that express one concept with different values across Suede's
+surfaces, each with a decision: unify and name the surface that has to move, or
+keep both and say why. `tests/adjudications.test.ts` binds every recorded value
+to its source — a live constant here, or a dotted path into a contract — so a
+number that moves without its entry moving fails the build. Values that live only
+in the sing repository are marked as observed and counted, because nothing here
+can check them.
+
+The register restates contract numbers on purpose, which the rule in
+`docs/practice-tools.md` forbids for a configuration. The difference is that
+nothing reads the register at runtime: its test asserts the restatement is still
+true, and a second test fails if any file outside `tests/` imports it. Do not
+import it from application code.
+
 The explicit source path prevents stale sibling worktrees from silently becoming
 the reference. `--check` compares raw bytes for all five sources and the generated
 contract. Runtime follower tests assert catalog order, sampler boundary, every
