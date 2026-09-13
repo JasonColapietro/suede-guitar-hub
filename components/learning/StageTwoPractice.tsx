@@ -186,13 +186,29 @@ function StudyPlayer({ lessonId, study, history, record, onEvidenceChange }: { l
   </section>;
 }
 
+/**
+ * The headings for the two diagram assets that carry no authored `name`.
+ *
+ * Both of these read "A chord accuracy cycle" and "Keep a light index-finger
+ * anchor" until now, which was wrong twice over. It was wrong for guitar,
+ * because seventeen of the nineteen authored panel assets do carry a `name` —
+ * "One twelve-bar A blues form", "Five CAGED-region views of G major" — and
+ * every one of them rendered under the accuracy-cycle heading instead. And it
+ * is wrong for voice, because `instruction_diagram` and `step_diagram` are both
+ * authorable on a voice lesson, where a chord and an index finger do not exist.
+ * An authored heading wins; these two are the fallback, and they name what the
+ * renderer actually draws without naming an instrument.
+ */
+export const PANEL_HEADING = "A practice cycle";
+export const ANCHOR_HEADING = "A movement sequence";
+
 export function StageTwoPractice({ lessonId, assets, checkpoint, onManualEvidenceChange, onStudyEvidenceChange }: { lessonId: string; assets: StageTwoAsset[]; checkpoint: boolean; onManualEvidenceChange: (evidence: StageTwoEvidence) => void; onStudyEvidenceChange: (evidence: StageTwoEvidence) => void }) {
   const { history, recordChange, recordStudy } = useStageTwoProgress("guitar");
   return <div className={styles.stack}>{assets.map(asset => {
     if (asset.kind === "manualChanges") return <ManualChanges key={asset.id} lessonId={lessonId} asset={asset} checkpoint={checkpoint} history={history.changes.filter(attempt => attempt.lessonId === lessonId)} record={recordChange} onEvidenceChange={onManualEvidenceChange} />;
     if (asset.kind === "study") return <StudyPlayer key={asset.id} lessonId={lessonId} study={asset.study} history={history.studies.filter(attempt => attempt.lessonId === lessonId && attempt.studyId === asset.study.id)} record={recordStudy} onEvidenceChange={onStudyEvidenceChange} />;
-    if (asset.kind === "panels") return <section key={asset.id} className={styles.card}><h3>A chord accuracy cycle</h3><ol className={styles.steps}>{asset.panels.map(panel => <li key={panel.number}><strong>{panel.label}</strong><p>{panel.action}</p></li>)}</ol></section>;
-    if (asset.kind === "anchor") return <section key={asset.id} className={styles.card}><h3>Keep a light index-finger anchor</h3><p>{asset.textAlternative}</p><ol className={styles.steps}>{asset.sequence.map(step => <li key={step.number}><strong>{step.chord ?? "Keep contact"}</strong><p>{step.action}</p></li>)}</ol><p className={styles.caption}>Suggested block: {asset.suggestedSeconds / 60} minutes. This is silent movement practice; loosen your hand whenever needed.</p></section>;
+    if (asset.kind === "panels") return <section key={asset.id} className={styles.card}><h3>{asset.title ?? PANEL_HEADING}</h3><ol className={styles.steps}>{asset.panels.map(panel => <li key={panel.number}><strong>{panel.label}</strong><p>{panel.action}</p></li>)}</ol></section>;
+    if (asset.kind === "anchor") return <section key={asset.id} className={styles.card}><h3>{asset.title ?? ANCHOR_HEADING}</h3><p>{asset.textAlternative}</p><ol className={styles.steps}>{asset.sequence.map(step => <li key={step.number}><strong>{step.chord ?? "Keep contact"}</strong><p>{step.action}</p></li>)}</ol><p className={styles.caption}>Suggested block: {asset.suggestedSeconds / 60} minutes. This is silent movement practice; loosen your hand whenever needed.</p></section>;
     if (asset.kind === "barGuide") return <section key={asset.id} className={styles.card}><h3>Four beats make a bar</h3><div className={styles.beatGuide}>{asset.beats.map(beat => <div key={beat.beatInBar}><strong>{beat.beatInBar}</strong><span>{beat.action}</span></div>)}</div><p>{asset.textAlternative}</p><p className={styles.caption}>Say the four beats evenly. Reading this diagram adds no timing score.</p></section>;
     if (asset.kind === "externalLinks") return <section key={asset.id} className={styles.card}><h3>Optional songs to practice elsewhere</h3><p>These links open external lessons. Their recordings and arrangements are not included in GuitarHub, and opening a link does not complete a lesson.</p><ul className={styles.links}>{asset.options.map(option => <li key={option.id}><a href={option.url} target="_blank" rel="noopener noreferrer">{option.title} <span className={styles.caption}>(opens a new tab)</span></a><p>{option.description}</p></li>)}</ul></section>;
     return <section key={asset.id} className={styles.card}><h3>{asset.barCount} bars · {asset.targetCount} strums</h3><p>Follow every beat at {asset.bpm} BPM for the full check. You can rehearse more slowly first; each result keeps the tempo you played.</p><p className={styles.caption}>Follow the visual beats during the microphone check. Speaker clicks can be mistaken for strums.</p></section>;

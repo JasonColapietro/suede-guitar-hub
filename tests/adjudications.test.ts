@@ -22,7 +22,7 @@ const LIVE: Record<string, number | string | readonly number[]> = {
  * cannot reach it and a named test below must. Listing them here rather than
  * skipping silently means a new pathless entry fails until someone writes its
  * test. */
-const ASSERTED_BY_NAME = new Set(['pitchToleranceCents/guitarHubWeb', 'hissTargetVersusSustainLadder/guitarHubWeb']);
+const ASSERTED_BY_NAME = new Set(['pitchToleranceCents/guitarHubWeb', 'hissTargetVersusSustainLadder/guitarHubWeb', 'classifiableVoiceTypes/sing']);
 
 const byId = (id: string): Adjudication => {
     const found = ADJUDICATIONS.find(entry => entry.id === id);
@@ -35,7 +35,7 @@ const onSurface = (id: string, surface: string): SurfaceValue => {
     return found;
 };
 
-test('the register is the fourteen the spec says it is, with unique sorted ids', () => {
+test('the register is the fifteen the spec says it is, with unique sorted ids', () => {
     assert.equal(ADJUDICATIONS.length, ADJUDICATION_COUNT);
     const ids = ADJUDICATIONS.map(entry => entry.id);
     assert.equal(new Set(ids).size, ids.length, 'duplicate adjudication id');
@@ -48,7 +48,7 @@ test('the decision tally is the one the spec prints', () => {
     // say so.
     const tally: Record<string, number> = {};
     for (const entry of ADJUDICATIONS) tally[entry.decision] = (tally[entry.decision] ?? 0) + 1;
-    assert.deepEqual(tally, { divergent: 5, unify: 5, recordedUpstream: 2, featureGap: 1, notComparable: 1 });
+    assert.deepEqual(tally, { divergent: 5, unify: 5, recordedUpstream: 3, featureGap: 1, notComparable: 1 });
     const assigned = ADJUDICATIONS.filter(entry => entry.pendingOn && entry.pendingOn !== 'guitarHubWeb');
     assert.equal(assigned.length, 4, 'the spec says four unify decisions wait on another surface');
     assert.equal(assigned.filter(entry => entry.pendingOn === 'sing').length, 3, 'three on sing');
@@ -212,4 +212,58 @@ test('W13 reads its staleness answer off the register', () => {
     const target = onSurface('frameStaleness', 'sing').value as number;
     assert.ok(target < pinned, 'the decision is to tighten, so the target has to be the smaller number');
     assert.ok(answer.answer.includes(String(pinned)), 'the answer names the figure W13 must not treat as a latency budget');
+});
+
+test('the voice taxonomy gap is six of eight, and both unreachable labels can still be routed', () => {
+    // This entry is the only one whose two values sit on the same surface for a
+    // reason other than starScales': the disagreement is between sing's
+    // classifier and sing's own published taxonomy, and this repository is
+    // downstream of both. Neither value is a single JSON key, so it is asserted
+    // here by name rather than by a dotted path.
+    const contract = JSON.parse(readFileSync('contracts/suede-vocal.json', 'utf8')) as {
+        taxonomy: {
+            voiceKinds: string[];
+            classifiableVoiceTypes: { id: string; label: string }[];
+            referenceBands: Record<string, { low: number; high: number }>;
+            passaggio: { zones: Record<string, { low: number; high: number }> };
+        };
+        knownDivergences: { classifiableVoiceTypes: { surfaces: { web: string[]; editorial: string[] } } };
+    };
+    const { voiceKinds, classifiableVoiceTypes, referenceBands, passaggio } = contract.taxonomy;
+    const reachable = classifiableVoiceTypes.map(type => type.label);
+    const unreachable = voiceKinds.filter(kind => !reachable.includes(kind));
+    assert.equal(reachable.length, 6, 'the register records six reachable labels');
+    assert.equal(voiceKinds.length, 8, 'and eight published categories');
+    assert.deepEqual(unreachable, ['Bass-baritone', 'Countertenor'], 'the register names these two by hand; a third would make its reason wrong');
+
+    // The half that makes the gap safe rather than merely recorded: a label the
+    // classifier cannot produce is still a label this repository can route on,
+    // because the published data covers all eight.
+    for (const kind of voiceKinds) {
+        assert.ok(referenceBands[kind], `${kind} has no reference band to route to`);
+        assert.ok(passaggio.zones[kind], `${kind} has no passaggio zone`);
+    }
+
+    const surfaces = contract.knownDivergences.classifiableVoiceTypes.surfaces;
+    assert.equal(surfaces.web.length, reachable.length, 'the upstream record and the taxonomy have to agree about how many are reachable');
+    assert.deepEqual(surfaces.editorial, voiceKinds, 'and about which eight are published');
+    assert.deepEqual(surfaces.web, classifiableVoiceTypes.map(type => type.id));
+
+    // The register's own prose is the decision, so it has to keep naming the
+    // labels and the overlap the tradeoff turns on.
+    const entry = byId('classifiableVoiceTypes');
+    const recorded = entry.surfaces.map(value => String(value.value)).join(' ');
+    for (const label of [...unreachable, ...classifiableVoiceTypes.map(type => type.id)])
+        assert.ok(recorded.includes(label), `the recorded values must name ${label}`);
+    const bass = referenceBands['Bass'], baritone = referenceBands['Baritone'], bassBaritone = referenceBands['Bass-baritone'];
+    assert.ok(bassBaritone.low > bass.low && bassBaritone.low < baritone.low && bassBaritone.high > bass.high && bassBaritone.high < baritone.high,
+        'the reason argues that a bass-baritone band overlaps both neighbours rather than filling a gap; if the bands move, that argument has to be rewritten');
+    for (const figure of [bass.low, bass.high, baritone.low, baritone.high, bassBaritone.low, bassBaritone.high])
+        assert.ok(entry.reason.includes(String(figure)), `the reason cites the band figures; ${figure} has moved`);
+
+    const answer = entry.resolves?.find(item => item.item === 'W23');
+    assert.ok(answer, 'W23 reads its taxonomy answer off the register');
+    assert.ok(/repository owner/.test(answer.answer), 'an escalated decision has to say who it is escalated to');
+    assert.ok(/bass-baritone/i.test(answer.answer), 'and name the question that is open');
+    assert.equal(entry.pendingOn, undefined, 'the owner is a person, not a surface that has to move a value');
 });

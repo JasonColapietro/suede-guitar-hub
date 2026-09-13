@@ -135,6 +135,46 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
       "that reports a wrong note is worse than one that reports nothing.",
   },
   {
+    id: "classifiableVoiceTypes",
+    concept: "How many voice categories a classified result can name",
+    decision: "recordedUpstream",
+    surfaces: [
+      { surface: "sing", value: "six reachable classifier labels: bass, baritone, tenor, contralto, mezzo, soprano", source: VOCAL, binding: "contract" },
+      { surface: "sing", value: "eight published categories, adding Bass-baritone and Countertenor", source: VOCAL, binding: "contract" },
+    ],
+    reason:
+      "Six of eight is recorded upstream in the vocal contract's knownDivergences and is the right " +
+      "resolution as it stands. Both unreachable labels have a published reference band and a " +
+      "published passaggio zone, so a singer who already knows their category is routed correctly " +
+      "and nothing downstream breaks; what they cannot do is be told the category by a scan. This " +
+      "repository is the consumer rather than a party to the disagreement — it holds no third value " +
+      "and routes on whatever label arrives — which is why both values are recorded on one surface, " +
+      "as starScales does. Whether bass-baritone should join the classifier is a product decision " +
+      "and is deliberately not taken here: the six bands already tile the range without a gap, and a " +
+      "bass-baritone band of 42 to 66 overlaps bass at 40 to 64 and baritone at 45 to 69, so adding " +
+      "it re-partitions occupied territory instead of filling a hole. Every existing singer whose " +
+      "scan lands in that overlap would be re-labelled on their next scan, from a category they were " +
+      "shown to one they were not, which is a cost to weigh against a more precise label and not a " +
+      "consistency fix to apply. Countertenor is a separate question and probably not a classifier " +
+      "output at all: the contract marks its zone as the one figure that varies most from singer to " +
+      "singer, and its transition is a different event from the other seven. The weighing belongs to " +
+      "the repository owner; until it is made, the recorded divergence is the resolution and nothing " +
+      "here may widen the classifier on its own.",
+    resolves: [
+      {
+        item: "W23",
+        answer:
+          "The taxonomy is settled by leaving it settled. The classifier stays at six, " +
+          "knownDivergences.classifiableVoiceTypes is the resolution, and the open question — " +
+          "bass-baritone joining the classifier, which re-labels existing singers — is escalated to " +
+          "the repository owner rather than implemented. The test keeps that position honest: it " +
+          "asserts both unreachable labels still have a reference band and a passaggio zone, so the " +
+          "gap stays safe to route around, and it fails if the classifier or the published set moves " +
+          "without this entry being rewritten.",
+      },
+    ],
+  },
+  {
     id: "clickTimbre",
     concept: "What the metronome sounds like",
     decision: "divergent",
@@ -322,9 +362,12 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
   },
 ] as const;
 
-/** Pinned in the test, and in the spec's own prose. A fifteenth entry is a
- * deliberate act that updates both. */
-export const ADJUDICATION_COUNT = 14;
+/** Pinned in the test, and in the spec's own prose. A sixteenth entry is a
+ * deliberate act that updates both. The fifteenth was classifiableVoiceTypes,
+ * added by W23; `### W23` in docs/vocal-integration-spec.md carries the count
+ * and the tally, because W23 may only edit its own section and W17's prose
+ * describes the fourteen it found. */
+export const ADJUDICATION_COUNT = 15;
 
 /** Values nothing here can check, because they live in a repository this one
  * does not vendor. The pin makes the gap a number that falls when the vocal

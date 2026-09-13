@@ -152,25 +152,88 @@ and 35 is the guitar track's number, not a default.
 
 ### W4 — Vibrato rate and extent
 
-Retires `v-l6-m3`, whose promise previously stated a hertz figure as a measured
-result. The fundamental-frequency contour is already captured at roughly 60
-frames per second; no analysis code exists. Report rate and extent separately
-and keep onset distinct from both. Lands in the sing repository.
+The measurement is done in the sing repository as `lib/audio/vibrato.ts`, with
+`lib/audio/vibrato.test.ts` beside it. Rate in hertz and extent in cents are
+reported separately and neither implies the other. Extent is the peak-to-peak
+width of one cycle, so a vibrato described elsewhere as "±50 cents" reads as 100
+here. Onset is kept out of both: the first 250 ms of the held note is excluded
+from the analysis and the excursion inside that window is reported on its own as
+`onsetSettleCents`, because a scooped entry counted as vibrato is how a straight
+tone gets a rate.
+
+What the numbers establish is that the voiced contour of the take's longest held
+note carried a periodic modulation at that rate and of that width, after its
+onset and any slide were removed. They do not establish that the modulation came
+from the larynx, and nothing here separates a healthy vibrato from a wobble
+caused by strain — that is W9.
+
+A trace must be fast enough to carry the whole 3.5–9 Hz band before any rate is
+reported, which the live 60 fps loop is and the offline take pass, hopping 2048
+samples, is not. So vibrato is measured from the live trace; the take summary
+carries the voiced-run number from W5 and not this one.
+
+Remaining, on top of the measurement: the sing contract needs `vibratoRateHz`
+moved from `no` to `yes` with the module named, and a second key for the extent,
+since one key cannot carry two units. `v-l6-m3` promises only that the singer
+switched from straight tone to vibrato on cue, which the measurement does
+support, so it can then be retired.
 
 ### W5 — Longest unbroken voiced run
 
-Retires `v-l3-m2`, `v-l5-m5`, `v-l6-m4` and `v-l6-m5`, the best ratio of modules
-retired to work in this phase. A reducer over the voiced and unvoiced trace.
-`maxCombo` is the nearest existing primitive and is not a substitute because it
-is pitch-hit based. Note that an unbroken voiced run and the absence of a
-register crack are different claims; state which one the number establishes.
+The measurement is done in the sing repository as `lib/audio/voiced-run.ts`,
+tested beside it, and `analyzeTake` now returns `longestVoicedRunSec` for a
+stored take. `maxCombo` remains no substitute: it counts targets hit, so it
+resets on a wrong note sung beautifully and cannot tell a singer who stopped to
+breathe from one who sang out of tune.
+
+The number establishes exactly one thing: the longest stretch of the take during
+which the detector reported a confident fundamental on every frame, spanning
+unvoiced gaps no longer than 60 ms, which is about three frames and is a dropped
+frame rather than a breath. Gaps that are spanned stay inside the run and count
+toward its length.
+
+It is not the absence of a register crack, and the tests assert the difference
+both ways: a siren that cracks audibly stays voiced throughout and scores one
+run of its full length, while a clean siren with one quiet catch of breath scores
+two. It is also not proof the singer did not stop — a whisper or a long consonant
+ends a run — and it says nothing about pitch or key.
+
+That narrows what this retires. Of the four modules listed for it, only `v-l6-m5`
+promises what the number establishes, eight bars sung without stopping.
+`v-l3-m2` claims a slide heard as continuous, which is the register claim the
+measurement explicitly does not make; `v-l5-m5` claims key adherence in free
+singing and `v-l6-m4` claims ornament classification, neither of which is a
+voicing measurement at all. Those three stay self-reported and want re-keying off
+`unbrokenPhraseLength`. The contract key `unbrokenPhraseLength` moves from
+`adaptable` to `yes`.
 
 ### W6 — Onset timing error
 
-Retires `v-l4-m2` and `v-l4-m4`. Needs an onset detector and a signed error in
-milliseconds. The latency model required to do this honestly already exists in
-the sing repository. Do not ship the detector before the correction: without it
-every onset is attributed to the previous note.
+The measurement is done in the sing repository as `lib/audio/onset-timing.ts`,
+tested beside it. Onsets are found two ways, the voice arriving after silence and
+the pitch stepping a held note to a new one, because a detector that only watched
+for silence would miss every note inside a legato phrase. The error is signed
+milliseconds, negative for early, which is the whole point: a singer 40 ms ahead
+of the click every time and a singer scattering 40 ms either side of it have the
+same unsigned error and need opposite advice.
+
+The correction is not optional in the code. `signedOnsetErrorMs` takes the two
+lags `lib/audio/latency.ts` models as a required argument and returns null rather
+than a figure without them, and matching onsets to beats happens on corrected
+times, since the nearest beat to an onset reported 290 ms late is frequently the
+next one. A test asserts the size of the error that correction removes.
+
+What the number cannot do is resolve finer than about 30 ms, published as
+`ONSET_RESOLUTION_MS`. One frame is 17 ms, the voicing gate opens a frame or two
+into a note, and the model covers the analysis and output paths but not the
+hardware capture path, for which no browser reports a figure. A reported error
+smaller than that floor means on time, not a direction.
+
+The contract key `onsetTimingError` moves from `adaptable` to `yes`. Of the two
+modules listed, `v-l4-m2` promises a phrase returned on the beat against a click,
+which this supports. `v-l4-m4` promises that three articulations were produced
+and are audibly different, which is articulation detection and not onset timing;
+it stays self-reported and wants re-keying.
 
 ### W7 — Register mechanism
 
@@ -219,22 +282,165 @@ Synthetic spectra establish nothing about real voices, microphones or rooms.
 
 ### W8 — Vowel and formant tracking
 
-Retires `v-l3-m3`, `v-l5-m2` and the style half of `v-l7-m2`. Genuinely new
-signal processing; one fixed band ratio is the entire spectral analysis today.
+**A measurement now exists in the sing repository. It retires none of the three
+modules this item was written to retire.**
+
+The original scope said this retires `v-l3-m3`, `v-l5-m2` and the style half of
+`v-l7-m2`. It does not, and the reason is worth recording rather than
+rediscovering. Formant frequencies cannot be estimated honestly from a consumer
+microphone on a sung note — least of all on a high voice, where the harmonics are
+spaced wider apart than the formants they would have to reveal — so a vowel
+identity or an F1 and F2 readout would be a number that is confidently wrong
+often enough to be worse than no number at all. What is defensible from the same
+signal is a self-relative comparison, and that is what was built.
+
+`lib/audio/spectral-envelope.ts` in the sing repository reads the level of each
+harmonic of the detected fundamental, interpolates a spectral envelope through
+those samples, removes the frame's own mean so loudness and microphone distance
+drop out, and reports the RMS deviation in decibels of the per-frame envelopes
+from their own mean across a window. That number says whether the vocal tract
+shape held still during a sustained note. It is not a vowel, not a formant
+frequency, and not comparable between two singers or against a target, because a
+microphone, a distance and a room are all inside it.
+
+It abstains rather than guessing, which is a deliberate feature and not a
+shortcoming. It returns no reading above roughly 583 Hz, a shade under D5, where
+fewer than six harmonics fall in the 300–3500 Hz band the envelope is read
+across; that covers sopranos through most of their upper range, tenors at the top
+of theirs, and anyone in high head voice or whistle register. It also abstains
+when the pitch moved more than a semitone across the window, because a change in
+the envelope would then be partly the pitch and partly the singer and this
+measurement will not pretend to separate them, and when too few frames are
+readable. A surface consuming it must render an abstention as no reading rather
+than as a low score.
+
+That leaves the three modules where they were. `v-l3-m3` promises one phrase on
+five vowels with consistent tone, which is a comparison across deliberately
+different tract shapes and is exactly what an envelope-hold figure cannot judge.
+`v-l5-m2` promises a crossing from primo to secondo on three vowels, which moves
+the pitch across the break and so lands in the abstention case twice over.
+`v-l7-m2` is a stylistic judgement. All three stay self-reported, and the pin of
+19 does not move on this item.
+
+What the measurement does unblock is a module, not yet written, that asks a
+singer to hold one vowel steady on one sustainable note and reports how far the
+shape drifted. That is a real promise this surface can keep.
 
 ### W9 — Strain and pressed phonation
 
-Retires four checkpoints: `v-l3-m5`, `v-l5-m4`, `v-l7-m3` and `v-l7-m4`. Last
-because it needs jitter, shimmer, harmonic-to-noise ratio or cepstral peak
-prominence, none of which exists in any Suede surface, plus a validated
-threshold for a clinical-adjacent claim.
+**Decided rather than pending. No strain measurement was shipped, and the four
+checkpoints — `v-l3-m5`, `v-l5-m4`, `v-l7-m3`, `v-l7-m4` — stay self-reported
+permanently until the conditions at the end of this section are met.**
 
-`ringRatio` must not be substituted. It is a self-relative resonance share, the
-contract says so, and shipping it as a safety verdict would be the most harmful
-available version of this gap. Until the measurement exists these modules stay
-self-reported and the safety copy stays on the page. `v-l5-m4` places a
-six-second sustain at the top of the passaggio and needs a safety hedge
-regardless of whether the measurement ever lands.
+What a real measurement needs is jitter, shimmer, harmonic-to-noise ratio or
+cepstral peak prominence, none of which exists in any Suede surface, and then a
+threshold. **The threshold is the blocker, not the signal processing.** Any of
+the four primitives can be computed from a frame buffer by somebody who reads
+the literature for an afternoon. None of them means anything to a singer until a
+cutoff separates a voice that is working hard from a voice that is being damaged,
+and that cutoff cannot be chosen in a commit. It would be derived from an
+uncalibrated consumer microphone, in an unknown room, on an unknown gain chain,
+and then shown to somebody as a verdict about their body. Recording the gap as
+decided is not pessimism about the DSP; it is a refusal to invent the number that
+would make the DSP mean something.
+
+`ringRatio` is prohibited, and now guarded. It is the share of plotted energy in
+a fixed 2800–3200 Hz band — genuine, shipped, and self-relative, which the
+vendored contract states in as many words and which makes it meaningless against
+a target, another singer, or a notion of safety. It is also exactly the shape of
+thing somebody reaches for under deadline: one number, higher on a bright
+forward tone, that looks like it might say something about effort. Shipping it as
+a safety verdict would be the most harmful available version of this gap, because
+the failure mode is a singer who keeps going on the strength of a reassurance
+nothing could have earned.
+
+So the decision is bound by tests in both repositories rather than recorded in
+this paragraph. `tests/voice-strain-prohibition.test.ts` here and
+`contracts/strain-prohibition.test.ts` in the sing repository assert:
+
+- the contract's `strainOrPressedPhonation` row stays `measurable: "no"` with no
+  module and no unit, keeps naming all four primitives it lacks, and keeps the
+  sentence forbidding the substitution;
+- `ringRatio` keeps saying it is self-relative and not a strain measure, and
+  `unsupportedClaims["strain-free-verdict"].useInstead` stays empty — an empty
+  substitute list is the prohibition in machine-readable form, since every other
+  unsupported claim can name the measurement a lesson should have used and this
+  one cannot;
+- the set of modules resting on an unmeasured strain verdict is exactly those
+  four, each still `selfReported` against `strainOrPressedPhonation` with
+  `proofMetric: "self_reported"`, so a fifth module gating on strain is an edit
+  somebody has to make deliberately;
+- no resonance share — `ringRatio`, `bandRatio`, the band constants, or the words
+  "ring band" and "resonance share" — appears in the same statement as a strain,
+  safety, health, damage, injury or hoarseness claim anywhere under `app`,
+  `components`, `lib`, `contracts` or `scripts` in either repository. Denials at
+  the level of the metric ("not a strain measure", "says nothing about strain")
+  pass, because that is the honest thing to write. Reassurance about the singer
+  ("no strain", "strain-free", "safe to sing") fails even when a denial sits in
+  the same sentence, because that phrasing is the substitution rather than a
+  statement about it. A narrower companion assertion catches the binding form,
+  where a verdict-named symbol takes a band ratio as its value and nobody writes
+  a sentence at all;
+- the four modules' own copy — promises, skills, lesson titles and summaries —
+  never implies a reading confirmed safety. This found one live defect: the belt
+  module's opening lesson was titled "The Difference You Can Hear and Measure",
+  on the one module in the track whose checkpoint cannot be measured at all. It
+  is now "The Difference You Can Hear";
+- the safety copy is still rendered where a singer reaches a voice lesson, in
+  both the outline branch and `LessonSession`, rather than merely still existing
+  as a constant. That is the failure the note was written for: it lived in the
+  branch no voice lesson mounts and rendered nowhere for the whole track;
+- jitter, shimmer, HNR and CPP cannot appear next to a safety claim in the sing
+  repository either, so the primitives cannot arrive quietly ahead of the
+  threshold and start meaning something.
+
+Every one of those assertions was probed by planting the violation it forbids,
+confirming the failure, and restoring: a contract row promoted to `measurable:
+"yes"`, a substitute added to the strain-free claim's `useInstead`, `v-l5-m4`
+promoted to `measured("ringRatio")`, the misleading lesson title restored, a file
+computing a safety flag from `ringRatio`, the module caution deleted, and the
+track note's render removed.
+
+**The safety hedge `v-l5-m4` needed regardless is in.**
+`MODULE_SAFETY_NOTE` in `lib/learning/curriculum.ts` carries a per-module caution
+in the same register as `TRACK_SAFETY_NOTE`: it names the symptoms to stop on and
+says that nothing here can tell a singer whether the attempt was safe. `v-l5-m4`
+has one because it instructs a six-second sustain at the top of the passaggio, on
+a free stage, and grades it on an absence of strain nothing is watching for;
+`v-l7-m4` has one because it asks for creak, growl and scream on the same terms
+and its own proof basis already says it carries real injury risk. Both render in
+the outline branch and in `LessonSession`, so the caution does not depend on
+which branch a lesson takes — the mistake that cost the track note its audience
+once already.
+
+No voice-quality primitives were added. They were permitted as a threshold-free,
+verdict-free, unwired module, and the judgement was that honest jitter, shimmer
+and HNR need reliable period marks, which live in `lib/audio/pitch.ts` and
+`lib/audio/f0-trace.ts` — both being rewritten in this round's other work. An
+unvalidated primitive sitting in `lib/audio` with no caller is also the raw
+material for precisely the substitution these guards exist to prevent, and it
+buys nothing until a threshold exists. Skipping it is the smaller risk.
+
+What a future implementation would have to establish before any of this changes,
+in order:
+
+1. a primitive computed in the sing repository from period marks the pitch
+   tracker actually publishes, with its own tests, no threshold and no caller;
+2. a validated threshold — validated against labelled recordings and a published
+   method, not against one author's ear, and stated with the population and the
+   recording conditions it holds for;
+3. a statement of what the threshold does **not** cover, since an uncalibrated
+   browser microphone in an unknown room will not reproduce whatever conditions
+   the validation used;
+4. the contract's `strainOrPressedPhonation` row promoted in the same commit as
+   the module that implements it, which these tests force;
+5. only then a checkpoint promoted from `selfReported`, and the safety copy stays
+   on the page regardless, because a measurement that can be wrong is not a
+   reason to stop telling a singer what to stop on.
+
+Short of all five, the correct state is this one: the gap open, the reason
+recorded, the substitution unavailable, and the singer told the truth about what
+the page can see.
 
 ### W10, W11, W12 — Calibrated loudness, polyphony, diction
 
@@ -723,15 +929,80 @@ rather than a cross-surface promise.
 
 ### W23 — Retire the outline copy and settle the taxonomy
 
-Three surfaces state that the voice track is outlines — `LearningPath.tsx`,
-`LessonLibrary.tsx` and `app/learn/page.tsx` — and all become false when W1
-lands. Two `StageTwoPractice` panel headings are hardcoded to guitar wording.
+**Done. The copy is guarded rather than retired, and the taxonomy decision is
+escalated rather than taken.**
 
-Separately, the sing repository's classifier returns six of its eight published
-categories; bass-baritone and countertenor are unreachable outputs. Tests prove
-every reachable label has a passaggio zone and a reference band to route to, and
-the gap is recorded. Whether bass-baritone joins the classifier is an open
-decision, and taking it would re-label existing users.
+W1 has not landed: `lib/learning/data/voice-instruction.json` does not exist,
+`lib/learning/instructions.ts` spreads only the three guitar sources, and
+`isLessonReady` is false for all 102 voice lessons. The outline statements are
+therefore still true, so deleting them would have replaced a true sentence with a
+promise this repository cannot keep. `tests/voice-outline-copy.test.ts` is the
+deliverable instead: it ties each statement to the readiness it claims, so the
+day a voice record is authored the build says which sentence is now a lie.
+
+Surveying every place that says "outline" or "preview" changed what the work is.
+Eight of the nine derive the word from `isLessonReady` per lesson or per level —
+the stage badges, the per-lesson annotations, both library badges, and the lesson
+page's own heading and notice — and retire themselves. Exactly one is an
+unconditional claim about the whole track, `LearningPath`'s "Voice currently
+contains curriculum outlines.", and it is the only sentence a person has to
+rewrite. `app/learn/page.tsx` turns out to carry no voice-specific claim at all:
+its "written lessons and curriculum outlines" sentence is about both tracks and
+stays true while guitar stage seven has no lesson bodies (W19), and its voice card
+already counts what a guest can open rather than asserting a number. The tests on
+the derived eight are not padding — they are what makes leaving those surfaces
+alone safe, and they fail if a later edit swaps a derivation for a fixed word.
+
+Every assertion is an equality between rendered markup and what `isLessonReady`
+reports, never a match on the wording alone, so a sentence that drifts fails and a
+sentence that outlives its premise fails too. The badge checks run on both tracks
+because guitar carries stages of both kinds, and the set of files making a
+track-wide claim is pinned so a fourth surface cannot quietly acquire one. Proven
+by authoring one voice instruction record and wiring it in exactly as W1 will:
+three of the seven tests fail, and the decisive one names the lesson that is now
+ready and the file to edit.
+
+The two `StageTwoPractice` headings were wrong in both directions. "A chord
+accuracy cycle" and "Keep a light index-finger anchor" read wrongly on a voice
+lesson, where `instruction_diagram` and `step_diagram` are both authorable, and
+they were already wrong for guitar: seventeen of the nineteen authored panel
+assets carry their own `name` and every one of them rendered under the
+accuracy-cycle heading, because `decodeStageTwoAsset` dropped the field. It now
+decodes it, the authored heading wins, and the two fallbacks name what the
+renderer draws without naming an instrument. Four probes confirm each half.
+Still guitar-shaped in that component and out of scope here: the anchor caption's
+"loosen your hand", the timing checkpoint's "strums", the study's "A/D study",
+and `useStageTwoProgress("guitar")`, which W1 already records as the reason two
+asset kinds must not appear on a voice lesson.
+
+**The taxonomy is left as recorded, and the open half is for the owner.** Six of
+eight is already adjudicated in the vocal contract's
+`knownDivergences.classifiableVoiceTypes`, and the gap is safe rather than merely
+noted: both unreachable labels have a published reference band and a published
+passaggio zone, so a singer who knows their category is routed correctly and only
+the scan cannot tell them. Whether bass-baritone joins the classifier is a product
+decision and is not taken here. The six bands already tile the range with no gap,
+and a bass-baritone band of 42 to 66 overlaps bass at 40 to 64 and baritone at 45
+to 69, so adding it re-partitions occupied territory rather than filling a hole:
+every existing singer whose scan lands in that overlap is re-labelled on their
+next scan, from a category they were shown to one they were not. That cost against
+a more precise label is the owner's call. Countertenor is a separate question and
+probably not a classifier output at all, since the contract marks its zone as the
+figure that varies most between singers and its transition as a different event
+from the other seven.
+
+That decision is recorded as the register's fifteenth entry,
+`classifiableVoiceTypes` in `contracts/adjudications.ts`, which now holds fifteen
+with a tally of five `divergent`, five `unify`, three `recordedUpstream`, one
+`featureGap` and one `notComparable`. Its test asserts both unreachable labels
+still have a band and a zone, that the upstream record and the taxonomy agree
+about which six are reachable, and that the band figures the reason argues from
+have not moved; five probes confirm it fails when the reason goes stale, when a
+recorded value stops naming a label, when the escalation loses its owner, when the
+decision stops claiming to be recorded upstream, and when the routing check is
+made to read a key that does not exist. W17's prose above still describes the
+fourteen it found, because W23 may edit only its own section; the current counts
+are the ones in this paragraph.
 
 ### W24 — Shared glossary
 
@@ -916,14 +1187,90 @@ lifetime buyers are honoured without re-purchase.
 
 ### W28 — Keyword self-competition
 
-Six pairs of pages in this repository compete on one query each: effective
-practice against deliberate practice, practice schedule against daily duration,
-the intermediate routine against the schedule, the 30-day guide against the
-30-day plan builder at `/breakthrough`, the plateau guide against `/diagnose`,
-and two resources on clean tone. The sing repository has three clusters of its
-own. Across the two, a voice curriculum is published from a domain whose name
-says guitar, targeting the same intent as the sing rooms. Consolidate or
-differentiate deliberately.
+Done in both repositories, as six differentiations here and three there, with the
+cross-domain question proposed rather than taken.
+
+All six pairs named in the original statement of this item are real. Every route
+exists, every pair was read rather than inferred, and in each case the two pages
+were competing for one query. Two of the six, the 30-day guide against
+`/breakthrough` and the plateau guide against `/diagnose`, are a written guide
+against the tool that does the same job, which is a real pair of pages that had
+simply never said so. The remaining four needed the copy to move, and one of them
+needed more than that.
+
+The decisions live in `lib/query-ownership.ts`, written the way
+`contracts/adjudications.ts` records a cross-surface decision: each cluster names
+the query, the question each page now owns alone, the sentence the page prints so
+a reader arriving from search is told which one they landed on, and the phrase in
+its description that its sibling is not allowed to claim.
+`tests/query-ownership.test.ts` renders every page in the register and fails when
+a recorded scope line is not printed, when a page stops linking to the sibling it
+hands the other question to, when two descriptions become interchangeable, or
+when a page goes back to answering something it handed over. The sing repository
+carries the same pair of files under its own conventions.
+
+The three pages that each printed their own minute-by-minute plan for a
+ten-minute practice day were the clearest case. `/guitar-practice-schedule`,
+`/how-long-to-practice-guitar-each-day` and
+`/guitar-practice-routine-intermediate` all answered it, which is one question
+with three answers and no page owning it. The contents of a single session now
+belong to the duration page, the week belongs to the schedule, and the five-block
+structure belongs to the intermediate routine.
+
+One decision went the second-best way and is recorded as such. Two essays on one
+topic usually deserve consolidation, and
+`/how-to-practice-guitar-effectively` against `/deliberate-practice-guitar` is
+that shape: the effectiveness page restated the deliberate-practice definition in
+full and then linked to the page that defines it. Retiring a URL here means
+removing its entry from `GUIDES` in `lib/site.ts`, and that file was held by W24
+in the same working tree, so the pair was differentiated instead, on the feedback
+problem, which is a genuinely separate question: a player alone in a room cannot
+buy a second pair of ears. `preferredInstead` on that register entry records the
+consolidation and why it was not taken, so a later reader does not mistake the
+compromise for a preference.
+
+The three clusters in the sing repository were found by measuring rather than by
+assuming, comparing the title and description of every indexable page pairwise on
+content words and then reading the pages at the top of the list to check the
+overlap was competition and not shared vocabulary. They are the vocal range test,
+where `/voice` carried the store name "Suede Voice: Vocal Range Test" against
+`/range`'s "Free Vocal Range Test" while answering an install intent rather than a
+test intent; the famous-singer ranges, where the `/singers` chart and the
+`/atlas` book both opened on the same six words; and the practice tools, where the
+`/tools` hub enumerated the recorder and the spectrogram analyzer in its own title
+and description and so bid against two pages it links to. All three stayed two or
+three pages, because every page in them is a working room a visitor can use and
+consolidating would have retired a tool to fix a title.
+
+The cross-domain question is recorded in `CROSS_DOMAIN_PROPOSAL` with three
+options and a recommendation, and deliberately not acted on. It is a positioning
+decision about two products rather than a page edit, the two repositories have
+different owners, and the cheap-looking move is the expensive one. Nothing here
+moves or unpublishes the voice track, and the test asserts that: `/learn/voice`
+stays in the route registry, stays in the sitemap, and stays reachable, so the
+proposal cannot be read as permission by whoever opens the file next. The
+recommendation is to keep the curriculum here and stop bidding for singing
+queries with it, treating the voice track as something the readers already on this
+site can use, and to move it to sing.suedeai.ai only once that host has a
+curriculum surface to receive it.
+
+### What this does not establish
+
+Nothing here measures anything. Whether a differentiation recovers the clicks the
+split was costing is a question for Search Console over weeks, and the register
+records a decision rather than a result. The binding tests prove that each page
+says which question it answers and links to the page that answers the other one;
+they cannot prove a reader agrees with the distinction, and for the clean-tone
+pair, the weakest of the six, a reader might reasonably not.
+
+No redirect was added in either repository, because no page was retired. The
+machinery for a consolidation is in both registers and both tests, and it was
+exercised against a deliberately broken entry rather than left untested, but it
+guards nothing today.
+
+The 22 open guitar lessons, the access gate in `lib/learning/access.ts` and the
+`robots.index` that follows it were read and left alone. Nothing in this item
+changes what opens or what is indexable.
 
 ### W29 — Server-side enforcement of the free allowance
 
@@ -935,9 +1282,11 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W24 and W28 have no dependencies and can start immediately. W14 is done for
+W24 has no dependencies and can start immediately. W14 is done for
 the one contract it can cover and blocked on native access for the other two.
-W15, W17, W18, W21, W22 and W25 are done — W22 in the sing repository; W2 and W13 can now read their constants off
+W15, W17, W18, W21, W22, W23, W25 and W28 are done, and W8's measurement half is done in the
+sing repository while its three named modules stay self-reported — W22 in the
+sing repository; W2 and W13 can now read their constants off
 `contracts/adjudications.ts` instead of re-deriving them, and W2's new voice specs
 will be held to the typed vocabulary at import.
 
@@ -945,13 +1294,15 @@ W16 is the exception among the otherwise-unblocked items: it waits on the sing
 repository's version 2 reaching `main`, because the re-sync resolves the default
 branch. It is cheap once that lands and is a no-op before it.
 
-W3 is next and gates W1, W2, W19 and W20. W5, W6 and W4 are independent of
-W3 and can run in parallel; W5 retires the most modules per unit of work and W6
-must ship behind latency correction, which W13 has now done in the web scorer.
+W3 is next and gates W1, W2, W19 and W20. W4, W5 and W6 are done on the
+measurement side in the sing repository: the measurements and their tests exist,
+and what remains of each is the contract key and the module retirements its
+section names, fewer of the latter than first assumed.
 W7's measurement is done and retires nothing; what remains of it is a contract
 row and one module promise, both in files other work holds.
-W8 and W26 follow. W9 is last. W10, W11, W12, W27 and W29 are decided against or
-deferred.
+W8 and W26 follow. W9 is decided rather than pending: the gap is guarded in both
+repositories rather than closed, and no strain measurement was shipped. W10, W11,
+W12, W27 and W29 are decided against or deferred.
 
 ## Verification
 
