@@ -170,11 +170,14 @@ test('no XP, streak or achievement crosses the boundary', () => {
     }
 });
 
-test('the vendored copy is still the provisional one, and says so', () => {
-    // A marker that is only a comment is not a claim. scripts/sync-sing-progress.mjs
-    // reads this field to decide whether a 404 on sing's default branch is a
-    // tolerable provisional window or a contract withdrawn upstream.
-    assert.equal((contract as { provisional?: boolean }).provisional, true, 'if sing has published the real contract, re-sync and delete this assertion');
+test('the vendored copy is the published contract, not the placeholder', () => {
+    // This asserted `provisional: true` while sing had not published the shape
+    // yet, with a note to invert it on the first real sync. That sync has
+    // happened: the marker is gone, so the byte comparison in
+    // scripts/sync-sing-progress.mjs is now a real comparison rather than a
+    // tolerated 404. Keeping the old assertion would have meant a green test
+    // insisting the contract was still a guess.
+    assert.equal((contract as { provisional?: boolean }).provisional, undefined, 'the published contract carries no provisional marker');
     assert.equal(contract.contract, 'suede-progress-shape');
     assert.equal(contract.version, 1);
 });

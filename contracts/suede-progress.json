@@ -1,6 +1,5 @@
 {
   "contract": "suede-progress-shape",
-  "provisional": true,
   "version": 1,
   "reference": "JasonColapietro/sing is the reference surface for this shape: the record, its validators and its caps are implemented here and nowhere else, so the contract is generated rather than transcribed. The session-to-lesson mapping is deliberately not here — lesson identifiers are authored in JasonColapietro/suede-guitar-hub, which is the only side that can revalidate them, so that side owns the mapping and this side owns the shape.",
   "storage": {

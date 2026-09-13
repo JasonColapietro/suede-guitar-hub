@@ -68,10 +68,24 @@ export const GLOSSARY_CONTRACT = glossaryContract as {
   version: number;
   /** Set only while the real contract is not yet on sing's default branch. */
   provisional?: boolean;
-  terms: readonly GlossaryTerm[];
+  counts: { total: number; byDomain: Record<string, number>; byPublisher: Record<string, number> };
+  /**
+   * Sing groups its entries into reading-order sections, because its glossary
+   * page renders them under headings. This site renders one domain's worth in
+   * alphabetical order and links the rest out, so the sections carry no meaning
+   * here and are flattened away immediately.
+   *
+   * This repository read a flat `terms` array while the provisional copy was in
+   * place and the real contract publishes `sections`, so the first sync from
+   * sing's default branch threw on `undefined.filter`. Worth keeping in mind for
+   * the next vendored contract: a provisional placeholder is a guess at a shape,
+   * and the guess is exactly what the first real sync tests.
+   */
+  sections: readonly { heading: string; anchor: string; blurb: string; entries: readonly GlossaryTerm[] }[];
 };
 
-export const GLOSSARY_TERMS: readonly GlossaryTerm[] = GLOSSARY_CONTRACT.terms;
+export const GLOSSARY_TERMS: readonly GlossaryTerm[] =
+  GLOSSARY_CONTRACT.sections.flatMap((section) => section.entries);
 
 /** True while `contracts/glossary.json` is the placeholder rather than the vendored file. */
 export const GLOSSARY_IS_PROVISIONAL = GLOSSARY_CONTRACT.provisional === true;

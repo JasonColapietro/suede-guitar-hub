@@ -361,6 +361,16 @@ test("emits no schema.org term markup anywhere, for any term", () => {
   const offenders: string[] = [];
 
   for (const file of sourceFiles()) {
+    // A vendored contract is exempt, and only a vendored contract.
+    //
+    // The real `contracts/glossary.json` names the markup in a prose note
+    // explaining which site emits it — so the first sync from sing's default
+    // branch failed this guard on sing's own description of the rule the guard
+    // exists to enforce. That file cannot be edited here (it is byte-compared
+    // against sing on every pull request), and a JSON data file emits nothing:
+    // only this repository's own code can put markup on a page. Scoping the
+    // guard to code keeps it pointed at the thing it is actually preventing.
+    if (vendoredContracts.some((name) => file.pathname.endsWith(name))) continue;
     const text = readFileSync(file, "utf8");
     for (const token of banned) {
       if (text.includes(token)) offenders.push(`${file.pathname}: ${token}`);
@@ -435,6 +445,23 @@ function pageSource(relative: string): string {
 }
 
 /** Every authored source file outside `tests/`, which is where the guard lives. */
+/**
+ * Files this repository vendors verbatim from another repository.
+ *
+ * Exempt from the markup guard because their contents are another site's words,
+ * held byte-identical by `npm run contracts:check`, and because data files do
+ * not render. Deliberately a list of exact names rather than a directory or a
+ * pattern: a new hand-written file under `contracts/` must not inherit the
+ * exemption by sitting next to a vendored one.
+ */
+const vendoredContracts = [
+  "contracts/glossary.json",
+  "contracts/suede-vocal.json",
+  "contracts/suede-progress.json",
+  "contracts/learning.json",
+  "contracts/practice-tools.json",
+] as const;
+
 function sourceFiles(): URL[] {
   const found: URL[] = [];
   const roots = ["app", "components", "lib", "contracts", "scripts"];
