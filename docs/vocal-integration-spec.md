@@ -682,6 +682,12 @@ a reason long enough to be one. Five decisions came out `divergent`, four
 `unify`, two `recordedUpstream`, one `featureGap`, one `notComparable`, and one
 `unify` that is finished rather than assigned.
 
+**The register has grown since.** W23 added `classifiableVoiceTypes` as the
+fifteenth entry, taking `recordedUpstream` to three. The counts in
+`contracts/adjudications.ts` and its test are the authority — they are pinned
+there and a change to either fails the build, which is the point of pinning them
+rather than trusting this paragraph.
+
 The binding is the point. Each recorded value declares how it is held: `live` (a
 constant here, imported by the test), `contract` (a value in a vendored contract
 or this repository's lesson data, read at a named dotted path), or `observed`
@@ -705,7 +711,7 @@ fails on an import — while deliberately allowing the comment in
 `lib/audio/dsp.ts` that points at the register, which is the cross-reference
 working as intended.
 
-Nine of the fourteen carry a value that only a human has read. `OBSERVED_VALUE_COUNT`
+Nine entries carry a value that only a human has read. `OBSERVED_VALUE_COUNT`
 pins that at nine, so it becomes a number that falls as the vocal contract grows
 rather than a caveat nobody tracks. Every one of the nine also carries at least
 one bound value, so no entry is inert: if this repository's side of a
@@ -1023,9 +1029,8 @@ about which six are reachable, and that the band figures the reason argues from
 have not moved; five probes confirm it fails when the reason goes stale, when a
 recorded value stops naming a label, when the escalation loses its owner, when the
 decision stops claiming to be recorded upstream, and when the routing check is
-made to read a key that does not exist. W17's prose above still describes the
-fourteen it found, because W23 may edit only its own section; the current counts
-are the ones in this paragraph.
+made to read a key that does not exist. The W17 section above now points here for the
+current counts, and `contracts/adjudications.ts` pins them.
 
 ### W24 — Shared glossary
 
