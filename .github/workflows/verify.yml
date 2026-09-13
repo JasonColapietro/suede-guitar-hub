@@ -34,3 +34,8 @@ jobs:
       # byte comparison starts the moment it does, and a stale provisional copy
       # fails it. See the header of scripts/sync-sing-glossary.mjs.
       - run: node scripts/sync-sing-glossary.mjs --check
+      # The progress-shape contract, vendored on the same terms and provisional
+      # for the same reason. It is the shape half of the cross-application
+      # handoff; the mapping half lives here and is held to it by
+      # tests/sing-session-mapping.test.ts, which `npm test` above runs.
+      - run: node scripts/sync-sing-progress.mjs --check

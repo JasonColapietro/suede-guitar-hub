@@ -1,0 +1,111 @@
+{
+  "contract": "suede-progress-shape",
+  "provisional": true,
+  "version": 1,
+  "reference": "JasonColapietro/sing is the reference surface for this shape: the record, its validators and its caps are implemented here and nowhere else, so the contract is generated rather than transcribed. The session-to-lesson mapping is deliberately not here — lesson identifiers are authored in JasonColapietro/suede-guitar-hub, which is the only side that can revalidate them, so that side owns the mapping and this side owns the shape.",
+  "storage": {
+    "medium": "localStorage",
+    "key": "suede-sing:progress:v1",
+    "note": "An exported record is the stored record, serialized with two-space indentation by exportProgress(). There is no separate export envelope and no wrapper version field: the key's own suffix is the schema version."
+  },
+  "record": {
+    "fields": [
+      "achievements",
+      "range",
+      "rangeHistory",
+      "sessions",
+      "streak",
+      "xp"
+    ],
+    "identity": "A file is recognisably one of ours when it is an object with a finite xp and an array of sessions. Those two fields have been present since the first release; everything else can legitimately be missing from an old backup and is repaired on read."
+  },
+  "session": {
+    "activityTypes": [
+      "warmup",
+      "pitch",
+      "range",
+      "ear",
+      "breath",
+      "song",
+      "recording",
+      "tools",
+      "analyze"
+    ],
+    "warmupModes": [
+      "sing-along",
+      "call-response"
+    ],
+    "required": [
+      "date",
+      "day",
+      "durationSec",
+      "id",
+      "type",
+      "xp"
+    ],
+    "optional": [
+      "detail",
+      "mode",
+      "notes",
+      "score"
+    ],
+    "scoreScale": "score is a percentage from 0 to 100 and is absent for activities that score nothing. It is not a cents deviation and not a star count.",
+    "unscorable": "id, type and day are required because none of them can be guessed from the rest of a row: type selects the label and colour, day is what the streak and the calendar group by, and minting an id would let the same practice reappear as a duplicate on the next merge."
+  },
+  "range": {
+    "latest": {
+      "required": [],
+      "optional": [
+        "highMidi",
+        "lowMidi",
+        "testedAt",
+        "voiceType",
+        "voiceTypeLabel"
+      ]
+    },
+    "test": {
+      "required": [
+        "highMidi",
+        "lowMidi",
+        "testedAt"
+      ],
+      "optional": [
+        "voiceTypeLabel"
+      ]
+    },
+    "note": "rangeHistory is every test, oldest first, and range is the last of them. A session of type 'range' does not itself carry the measured span: the span lives in rangeHistory, matched to the session by day."
+  },
+  "caps": {
+    "maxSessions": 500,
+    "maxRangeHistory": 60,
+    "maxAchievements": 200,
+    "maxXp": 10000000,
+    "maxNoteKeys": 128,
+    "maxString": 400,
+    "note": "These are refusal boundaries at an API and trimming boundaries in a browser: a server must reject an over-cap payload rather than reshape a record the singer did not agree to, while a browser reading its own storage keeps what is still meaningful because those bytes are the only copy."
+  },
+  "portability": {
+    "sessions": {
+      "importable": true,
+      "because": "A session is an observation: an activity type, a day, a duration and sometimes a percentage. A consumer can record that it happened. What a session does not carry is a lesson identifier, so it cannot establish progress through a curriculum by itself — that is what the importing side's mapping has to decide."
+    },
+    "range": {
+      "importable": true,
+      "because": "A measured low and high MIDI note with a timestamp is the one part of this record that means the same thing in any application that knows what a voice is."
+    },
+    "achievements": {
+      "importable": false,
+      "because": "An achievement id names a rule defined only in this repository, and the ids are checked against nothing on the way in. Importing them would give the consumer a list of strings it cannot interpret and cannot verify."
+    },
+    "xp": {
+      "importable": false,
+      "definedIn": "contracts/practice-parity.json#progress.xpEarn",
+      "because": "XP is derived from duration with a floor, a ceiling and score bonuses, so it measures how long somebody practised and is not evidence about what they can do. GuitarHub's attempt ledger has no field for it: it could only land in an attempt's free-form details, where it would be a number nothing validates and something would eventually render as though it had been earned there."
+    },
+    "streak": {
+      "importable": false,
+      "definition": "current is the number of consecutive local calendar days ending at the most recent session day, best is the longest such run, and lastDay is the day key the count ends on. Local days, not UTC, and walked by the calendar rather than by subtracting 86,400,000 milliseconds.",
+      "because": "This is a decision rather than a missing field. GuitarHub argues in published copy that a streak measures attendance — it rises on a session that changed nothing and resets on a week off that changed a lot — and ships no streak counter on purpose. A contract that carried the number across would import a thing that repository has decided against, and the first surface that found the field would quietly reverse the decision. The definition is published anyway so that nobody needing a streak re-derives one differently, and the number is not."
+    }
+  }
+}
