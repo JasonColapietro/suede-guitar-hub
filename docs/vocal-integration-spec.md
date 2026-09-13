@@ -174,11 +174,48 @@ every onset is attributed to the previous note.
 
 ### W7 — Register mechanism
 
-Retires `v-l3-m1`. The H1−H2 discriminator, for which the iOS app already has a
-single-boundary implementation to match rather than invent. Resolve the taxonomy
-first: the lesson teaches three mechanisms, its own module promise says two, and
-the measurement is binary, so the number will not answer the lesson's question
-as currently written.
+**The measurement is done; the module is not retired and must not be.**
+
+`lib/audio/register-mechanism.ts` in the sing repository measures H1−H2, the
+amplitude difference between the first two harmonics of a voiced frame, in the
+analyser's own decibels, and places it on one boundary with an explicit
+abstention path. `lib/audio/register-mechanism.test.ts` covers the arithmetic,
+the gain invariance, every abstention and the latch, and every guard and
+threshold in the module was broken one at a time to confirm a test catches it.
+
+The claim that the iOS app already had a single-boundary implementation to match
+was false, and the note on the contract's `registerMechanism` row repeats it.
+`guitarhub-ios` contains no spectral analysis at all: its estimator at
+`GuitarHubCore/Sources/GuitarHubCore/Audio/YINPitchEstimator.swift` is
+time-domain autocorrelation over vDSP, and its only vocal surface,
+`GuitarHub/Practice/VocalRangeView.swift`, plots f0 and latches range extremes.
+There is no H1−H2, no open quotient and no register code anywhere in it. The
+boundary was therefore chosen here rather than matched, is exported as
+`M1_M2_BOUNDARY_DB` at 6 dB, and is unvalidated against any recording.
+
+The taxonomy resolves against the lesson rather than in its favour. H1−H2 reads
+open quotient, which separates the heavier laryngeal mechanism from the lighter
+one — M1 from M2, modal from falsetto. The pedagogical "chest" and "head" of
+`v-l3-m1` both sit inside M1 and differ in resonance, so no H1−H2 boundary can
+tell them apart and no smoothing will make it. Of the three things in conflict,
+the three-mechanism framing is the one that cannot be measured and the binary
+measurement is the one that is correct. The module promise of two is already the
+right shape and needs only to name the right two: `v-l3-m1`'s promise should
+become a chest-to-falsetto switch, the concept lesson may keep teaching three
+mechanisms as taught material, and the checkpoint may only be scored on the
+M1↔M2 crossing. Until that copy lands the module stays `self_reported`.
+
+What a follow-up must apply, all of it in files held by other work: in
+`contracts/suede-vocal.ts` and `contracts/suede-vocal.json`, the
+`registerMechanism` row becomes `measurable: "adaptable"` with
+`module: "lib/audio/register-mechanism.ts"` and a note saying that H1−H2 exists
+as a pure function against one unvalidated boundary but no surface computes it
+from a live take; and in `lib/learning/data/voice.json`, `v-l3-m1`'s promise is
+reworded to the two mechanisms the boundary can separate. Not `"yes"`: nothing
+in the app calls the function yet, and the row is named for a mechanism
+classification that a single boundary does not provide.
+
+Synthetic spectra establish nothing about real voices, microphones or rooms.
 
 ### W8 — Vowel and formant tracking
 
@@ -791,9 +828,11 @@ W16 is the exception among the otherwise-unblocked items: it waits on the sing
 repository's version 2 reaching `main`, because the re-sync resolves the default
 branch. It is cheap once that lands and is a no-op before it.
 
-W3 is next and gates W1, W2, W19 and W20. W5, W6, W4 and W7 are independent of
+W3 is next and gates W1, W2, W19 and W20. W5, W6 and W4 are independent of
 W3 and can run in parallel; W5 retires the most modules per unit of work and W6
 must ship behind latency correction, which W13 has now done in the web scorer.
+W7's measurement is done and retires nothing; what remains of it is a contract
+row and one module promise, both in files other work holds.
 W8 and W26 follow. W9 is last. W10, W11, W12, W27 and W29 are decided against or
 deferred.
 
