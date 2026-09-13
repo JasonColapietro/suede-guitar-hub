@@ -1,5 +1,5 @@
 import { allLessons, type TrackId } from "./curriculum.ts";
-import { guidedLessonIds } from "./instructions.ts";
+import { guidedLessonIds } from "./instruction-index.ts";
 
 export const lessonFilters = { guided: "Guided", songs: "Songs", microphone: "Mic exercises", previews: "Previews", all: "All topics" } as const;
 export type LessonFilter = keyof typeof lessonFilters;

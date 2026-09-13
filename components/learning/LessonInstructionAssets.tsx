@@ -4,7 +4,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { playReference } from "@/lib/audio/capture";
 import { chordFretRange } from "@/lib/audio/practice-selection";
 import { frequencyForMIDI, noteName } from "@/lib/audio/dsp";
-import { readingQuizResult, type InstructionAsset, type InstructionQuiz, type InstructionQuizItem, type ReadingQuizAttempt } from "@/lib/learning/instructions";
+import type { InstructionAsset } from "@/lib/learning/instruction-assets";
+import { readingQuizResult, type InstructionQuiz, type InstructionQuizItem, type ReadingQuizAttempt } from "@/lib/learning/reading-quiz";
 import styles from "./InstructionAssets.module.css";
 
 type ChordAsset = Extract<InstructionAsset, { kind: "chord" }>;

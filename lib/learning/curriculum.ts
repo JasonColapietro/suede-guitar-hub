@@ -51,11 +51,10 @@ export function lessonHref(track: TrackId, lessonId: string) { return `/learn/${
 /**
  * The comfort-and-safety line for each track.
  *
- * This lived inline in `LessonSession`, which only mounts for a lesson that is
- * "ready" — and no voice lesson is, because the voice track has no authored
- * lesson bodies yet. So the vocal line never rendered: a singer on a voice
- * lesson page was told to slide to their lowest and highest comfortable notes,
- * and to hold a twelve-second hiss, with no caution anywhere on the page. It
+ * This once lived only in `LessonSession`, which mounts for an open guided
+ * lesson. So a singer viewing a locked preview could be told to slide to their
+ * lowest and highest comfortable notes, and to hold a twelve-second hiss, with
+ * no caution anywhere on the page. It
  * matters more now that the first two voice stages are genuinely open rather
  * than paywalled previews.
  *
@@ -73,14 +72,11 @@ export const TRACK_SAFETY_NOTE = {
  *
  * `TRACK_SAFETY_NOTE` is the floor: it tells a singer to stay comfortable and
  * says that a pitch reading cannot assess vocal health. Two modules ask for
- * considerably more than comfort. `v-l5-m4` instructs a six-second sustain at
- * the top of the passaggio and calls the outcome a safe belt; `v-l7-m4` asks
- * for creak, growl and scream. Both are graded on the absence of strain, and
- * nothing is watching for it — because nothing can watch: no Suede surface
- * measures strain or pressed phonation, so "no strain" in either checkpoint is
- * the singer's own report and nothing else. A module that asks for the most
- * load therefore has to name the symptoms to stop on itself rather than rely on
- * a general line further up the page.
+ * considerably more than comfort. `v-l5-m4` instructs a six-second mixed-voice
+ * sustain near the top of the transition zone; `v-l7-m4` asks for creak, growl
+ * and scream. Nothing here measures strain or pressed phonation. A module that
+ * asks for the most load therefore has to name the symptoms to stop on itself
+ * rather than rely on a general line further up the page.
  *
  * The register is deliberately the same as the track note: name what to stop
  * on, and do not imply that anything here read the voice and found it safe.
@@ -90,7 +86,7 @@ export const TRACK_SAFETY_NOTE = {
  */
 export const MODULE_SAFETY_NOTE = {
   "v-l5-m4":
-    "A six-second hold at the top of your range is the heaviest thing this track asks for. Stop the hold the moment it stings, tightens, or turns breathy, and leave the note for another day if your voice is hoarse afterwards; nothing here can tell you whether a belt was safe.",
+    "A six-second mixed-voice hold near the top of your transition zone is the heaviest thing this track asks for. Stop the hold the moment it stings, tightens, or turns breathy, and leave the note for another day if your voice is hoarse afterwards; nothing here can tell you whether strain was absent or certify the attempt as safe.",
   "v-l7-m4":
-    "Creak, growl and scream carry a real risk of injury. Keep every attempt to a few seconds, stop at the first sign of pain, tightness, or a rough edge you did not choose, and stop for the day if your speaking voice is hoarse; nothing here can tell you whether an effect was safe.",
+    "Do not learn or imitate a new creak, growl, or scream from this app. Review only an effect already taught by a qualified teacher, at the dose they prescribed; otherwise use the observation-only path. Stop at pain, tightness, unexpected roughness, or a changed speaking voice. Nothing here can tell you whether an effect was safe.",
 } as const satisfies Record<string, string>;

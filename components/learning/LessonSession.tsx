@@ -9,7 +9,7 @@ import styles from "./Learning.module.css";
 import { TuningGuide } from "./TuningGuide";
 import type { PracticeResult } from "@/lib/audio/practice";
 import type { LessonInstructions } from "@/lib/learning/instructions";
-import { readingQuizResult, type ReadingQuizAttempt } from "@/lib/learning/instructions";
+import { readingQuizResult, type ReadingQuizAttempt } from "@/lib/learning/reading-quiz";
 import { LessonInstructionAssets, ReadingQuiz } from "./LessonInstructionAssets";
 import { StageTwoPractice } from "./StageTwoPractice";
 import { isStageTwoAsset } from "@/lib/learning/stage-two";

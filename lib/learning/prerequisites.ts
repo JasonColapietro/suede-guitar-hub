@@ -1,7 +1,7 @@
 /**
  * What `prerequisiteLessonIds` is for, and what keeps it true.
  *
- * It is authored on all 117 guitar instruction records and, before this, was
+ * It is authored on all 219 guitar and voice instruction records and, before this, was
  * referenced by no code whatsoever — not a component, not a route, not a test.
  * The spec's question was the right one: enforce it, or mark it documentation.
  *
@@ -10,9 +10,9 @@
  *
  * 1. It would close the content the free tier just opened. A visitor arriving
  *    with no progress — a guest on a deep link, a crawler, anyone who cleared
- *    site data — satisfies the prerequisites of exactly one lesson in 117. Under
- *    a gate, `g-l1-m1-01` would render and the other 116 would not, which makes
- *    twenty-two deliberately open and indexable lessons open and indexable in
+ *    site data — satisfies exactly one starting lesson per track. Under a gate,
+ *    those two entry lessons would render and the other 217 would not, which makes
+ *    forty-three deliberately open and indexable lessons open and indexable in
  *    name only. This is the decisive reason and it is asserted in the test,
  *    because the first version of this note claimed something weaker and wrong:
  *    that a free lesson already depends on a closed one. None does today. The
@@ -42,8 +42,11 @@
  * Every function here returns what is wrong rather than throwing, so the test
  * reports the whole list instead of the first item.
  */
-import { lessonPrerequisites } from "./instructions.ts";
-import { allLessons } from "./curriculum.ts";
+import { lessonPrerequisites } from "./instruction-index.ts";
+import { allLessons, type TrackId } from "./curriculum.ts";
+
+type PrerequisiteRecord = { id: string; prerequisiteLessonIds: readonly string[] };
+type CatalogPosition = { track: TrackId; index: number };
 
 /** Recorded in code so a future reader finds the decision, not just the data. */
 export const PREREQUISITE_POLICY = {
@@ -66,10 +69,12 @@ export function dependentsOf(lessonId: string): string[] {
   return lessonPrerequisites.filter(entry => entry.prerequisiteLessonIds.includes(lessonId)).map(entry => entry.id);
 }
 
-/** Catalog position per lesson id, across both guitar curricula in the order the
- * app itself walks them. This is the order `nextLessonId` advances through. */
-function catalogOrder(): Map<string, number> {
-  return new Map(allLessons("guitar").map((entry, index) => [entry.lesson.id, index]));
+/** Catalog position per lesson id, across both tracks in the order the app walks
+ * each one. This is the order `nextLessonId` advances through within a track. */
+function catalogOrder(): Map<string, CatalogPosition> {
+  return new Map((['guitar', 'voice'] as const).flatMap(track =>
+    allLessons(track).map((entry, index) => [entry.lesson.id, { track, index }] as const),
+  ));
 }
 
 /** A prerequisite naming a lesson that is not in the catalog at all. */
@@ -78,6 +83,27 @@ export function danglingPrerequisites(): { id: string; missing: string }[] {
   return lessonPrerequisites.flatMap(entry =>
     entry.prerequisiteLessonIds.filter(required => !order.has(required)).map(missing => ({ id: entry.id, missing })),
   );
+}
+
+/** A real lesson in the wrong track is still an invalid prerequisite: the app's
+ * next-lesson walk and progress stores never cross tracks. */
+export function crossTrackPrerequisites(records: readonly PrerequisiteRecord[] = lessonPrerequisites): {
+  id: string;
+  required: string;
+  track: TrackId;
+  requiredTrack: TrackId;
+}[] {
+  const order = catalogOrder();
+  return records.flatMap(entry => {
+    const here = order.get(entry.id);
+    if (!here) return [];
+    return entry.prerequisiteLessonIds.flatMap(required => {
+      const there = order.get(required);
+      return there && there.track !== here.track
+        ? [{ id: entry.id, required, track: here.track, requiredTrack: there.track }]
+        : [];
+    });
+  });
 }
 
 /** An instruction record for a lesson the catalog does not contain. */
@@ -96,7 +122,7 @@ export function prerequisiteOrderViolations(): { id: string; required: string }[
     if (here === undefined) continue;
     for (const required of entry.prerequisiteLessonIds) {
       const there = order.get(required);
-      if (there !== undefined && there >= here) violations.push({ id: entry.id, required });
+      if (there !== undefined && there.track === here.track && there.index >= here.index) violations.push({ id: entry.id, required });
     }
   }
   return violations;

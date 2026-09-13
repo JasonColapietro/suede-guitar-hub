@@ -697,9 +697,9 @@
         },
         {
           "id": "v-l5-m4",
-          "name": "Safe Belt, Not Shout",
-          "promise": "Sustain six seconds in mix at the top of your passaggio with no strain",
-          "skill": "Mix voice and safe belt",
+          "name": "Mix, Not Shout",
+          "promise": "Sustain six comfortable seconds in mix at the top of your transition zone",
+          "skill": "Comfortable mixed-voice coordination",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
@@ -723,7 +723,7 @@
               "title": "Checkpoint: Six-Second Mix Sustain",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Held, clean, no strain."
+              "summary": "Hold six comfortable seconds, then report effort and stop on any warning sign. The app does not verify strain."
             }
           ]
         },
@@ -1001,7 +1001,7 @@
               "title": "Checkpoint: Warm-Up Run and Health Check Passed",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "This module gates the effects module. It is not optional."
+              "summary": "Review this module before effect study. Completion is recorded, while access remains available."
             }
           ]
         },
@@ -1040,7 +1040,7 @@
         {
           "id": "v-l7-m3",
           "name": "Modes of Weight",
-          "promise": "Produce three production weights on cue with no strain",
+          "promise": "Produce three production weights on cue with an easy reset between them",
           "skill": "Weight and mode switching",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -1065,14 +1065,14 @@
               "title": "Checkpoint: Three Modes on Cue",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Called at random, no strain throughout."
+              "summary": "Called at random, with a return to easy neutral voice between attempts. Strain is not measured."
             }
           ]
         },
         {
           "id": "v-l7-m4",
           "name": "Effects, Carefully",
-          "promise": "Demonstrate two effects across three attempts with no strain",
+          "promise": "Demonstrate two effects across three brief attempts, stopping on any warning sign",
           "skill": "Creak, growl, slide, scream",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -1083,7 +1083,7 @@
               "title": "What a Growl Actually Is",
               "type": "concept",
               "minutes": 6,
-              "summary": "The physiology, and the specific ways it goes wrong. Locked until the health module is proved."
+              "summary": "The physiology, the specific ways it goes wrong, and why you should review the health module first."
             },
             {
               "id": "v-l7-m4-04",
@@ -1097,7 +1097,7 @@
               "title": "Checkpoint: Two Effects, Three Attempts",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "No strain on any attempt, or the checkpoint fails."
+              "summary": "Stop on pain, sudden hoarseness, loss of range, or a changed speaking voice. The app cannot certify a safe attempt."
             }
           ]
         },

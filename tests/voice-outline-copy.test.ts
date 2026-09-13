@@ -18,27 +18,17 @@ const { StageTwoPractice, PANEL_HEADING, ANCHOR_HEADING } = await import('../com
 const { default: LearnPage } = await import('../app/learn/page.tsx');
 
 /**
- * Three surfaces tell a visitor that the voice track is curriculum outlines, and
- * all three statements are true today. They stop being true the moment W1 lands
- * `lib/learning/data/voice-instruction.json`, because authoring one record flips
- * `isLessonReady` for that lesson. Deleting the copy now would ship a promise
- * this repository cannot keep; leaving it unguarded means shipping a lie the day
- * the data arrives, with nothing to notice.
+ * W1 gives all 102 voice lessons authored instruction. These checks bind the
+ * surfaces that used to call the track outlines-only to runtime readiness, so a
+ * later catalog or instruction change cannot quietly put the copy out of sync.
  *
- * So this file ties the copy to the fact it claims. Every assertion below is an
- * equality between what a surface renders and what `isLessonReady` actually
- * reports, never a match against the wording on its own: a sentence that drifts
- * fails, and a sentence that survives its own premise fails too.
+ * Every assertion below compares what a surface renders with what
+ * `isLessonReady` actually reports. The remaining broad "outlines" sentence on
+ * the learn index stays only because the guitar track still has an unwritten
+ * stage.
  *
- * The survey behind it matters, because it changed what the work is. Of the nine
- * places in `app` and `components` that say "outline" or "preview", eight derive
- * the word from readiness per lesson or per level and therefore retire
- * themselves. Exactly one is an unconditional claim about the whole track —
- * `LearningPath`'s "Voice currently contains curriculum outlines." — and it is
- * the only sentence someone has to go and rewrite. The tests for the derived
- * eight are not padding: they are what makes it safe to leave those surfaces
- * alone, and they fail if a later edit replaces a derivation with a hardcoded
- * word.
+ * The derived per-lesson and per-stage branches remain: if a future lesson loses
+ * its instruction, its own page can say so without mislabeling the whole track.
  */
 const VOICE_LESSONS = allLessons('voice');
 const READY_VOICE_LESSONS = VOICE_LESSONS.filter(entry => isLessonReady('voice', entry.lesson.id)).map(entry => entry.lesson.id);
@@ -55,15 +45,15 @@ const render = <P extends object>(component: FunctionComponent<P>, props: P) => 
 
 test('the premise the outline copy rests on is still the catalog', () => {
     assert.equal(VOICE_LESSONS.length, 102, 'the voice catalog changed size; the claims below are about all of it');
-    assert.deepEqual(READY_VOICE_LESSONS, [], 'a voice lesson is ready: W1 has landed and the outline copy is now false');
+    assert.deepEqual(READY_VOICE_LESSONS, VOICE_LESSONS.map(entry => entry.lesson.id), 'every native voice lesson must resolve to authored instruction');
     // Readiness on this track is instruction alone. No voice lesson carries a
     // practiceSpec, so "ready" and "guided" are the same fact here, which is why
     // the library's own filter is a sound proxy for it further down.
     assert.deepEqual(VOICE_LESSONS.filter(entry => entry.lesson.practiceSpec).map(entry => entry.lesson.id), []);
-    assert.deepEqual(VOICE_LESSONS.filter(entry => getLessonInstructions(entry.lesson.id)).map(entry => entry.lesson.id), []);
+    assert.deepEqual(VOICE_LESSONS.filter(entry => getLessonInstructions(entry.lesson.id)).map(entry => entry.lesson.id), READY_VOICE_LESSONS);
 });
 
-test('the track-wide voice outline claim is rendered exactly while voice is outlines-only', () => {
+test('the retired track-wide voice outline claim stays absent once W1 lands', () => {
     const voice = render(LearningPath, { track: 'voice' });
     assert.equal(
         voice.includes(TRACK_WIDE_CLAIM),
@@ -84,7 +74,7 @@ test('the stage badges on the learning path read their word off readiness rather
     ).length;
     const badges = (markup: string) => (markup.match(/Curriculum outlines/g) ?? []).length;
     assert.equal(badges(render(LearningPath, { track: 'voice' })), outlineStages('voice'), 'the voice badge has to follow readiness');
-    assert.equal(outlineStages('voice'), curricula.voice.levels.length, 'every voice stage is an outline today');
+    assert.equal(outlineStages('voice'), 0, 'every voice stage has guided instruction after W1');
     assert.equal(badges(render(LearningPath, { track: 'guitar' })), outlineStages('guitar'), 'and so does the guitar badge');
     // Guitar carries stages of both kinds, so this badge cannot be passing by
     // printing the same word everywhere or by never printing it.
@@ -109,7 +99,7 @@ test('the learn index counts what a guest can open instead of asserting a number
     const markup = render(LearnPage, {});
     const free = accessibleLessonIds('voice', guestLearningAccess).length;
     assert.ok(markup.includes(`${free} free guided lessons`), 'the voice card states the count it computes');
-    assert.equal(free, 0, 'no voice lesson is openable, which is what makes the outline wording true');
+    assert.equal(free, 21, 'the two free voice stages expose all of their guided lessons');
     // This sentence is about both tracks and stays true while any lesson
     // anywhere is an outline, so it is tied to that and not to voice alone.
     // Guitar stage seven has no lesson bodies either (W19).
@@ -135,9 +125,32 @@ test('no surface makes a track-wide claim about voice except the one that is mea
     walk('app/learn');
     assert.deepEqual(
         found.sort(),
-        ['components/learning/LearningPath.tsx', 'components/learning/LessonLibrary.tsx'],
+        ['components/learning/LessonLibrary.tsx'],
         'a new surface states what the voice track currently is. Either derive the word from isLessonReady like the other eight places do, or add it to this list and to the assertions above.',
     );
+});
+
+test('client learning surfaces do not import the full instruction corpus', () => {
+    const files = [
+        'components/learning/LearningPath.tsx',
+        'components/learning/LessonInstructionAssets.tsx',
+        'components/learning/LessonSession.tsx',
+        'components/learning/PracticeRoutine.tsx',
+        'components/learning/useLearningProgress.ts',
+        'lib/learning/access.ts',
+        'lib/learning/library.ts',
+        'lib/learning/progress.ts',
+        'lib/learning-sync/evidence.ts',
+    ];
+    const offenders = files.flatMap(path => readFileSync(path, 'utf8').split('\n')
+        .filter(line => line.includes('/instructions') && !/^(?:import|export) type/.test(line.trimStart()))
+        .map(line => `${path}: ${line.trim()}`));
+    assert.deepEqual(offenders, [], 'client-reachable code imported every authored lesson body; use the lightweight instruction index or reading-quiz module');
+});
+
+test('the Suede Sing companion handoff is outside the open-or-preview branch', () => {
+    const source = readFileSync('app/learn/[track]/[lessonId]/page.tsx', 'utf8');
+    assert.match(source, /<\/section>}\s*\{companion && <>\s*<div className=\{styles\.notice\}>/, 'an open guided voice lesson lost its companion handoff');
 });
 
 /**

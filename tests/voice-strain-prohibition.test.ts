@@ -373,11 +373,11 @@ test("the voice track's safety copy is rendered on the pages a singer reaches", 
   assert.match(TRACK_SAFETY_NOTE.voice, /cannot assess vocal health/i, "the voice note must not overstate the app");
 });
 
-test("the six-second belt sustain and the effects module carry their own caution", () => {
+test("the mixed-voice sustain and the effects module carry their own caution", () => {
   /**
    * `v-l5-m4` is the one the spec singles out, and it needs this whether or not
-   * a measurement ever lands: a six-second sustain at the top of the passaggio,
-   * on a free stage, graded on an absence of strain nothing is watching for.
+   * a measurement ever lands: a six-second mixed-voice sustain near the top of
+   * the transition zone, on a free stage, while nothing measures strain.
    * `v-l7-m4` asks for creak, growl and scream on the same terms.
    */
   for (const moduleId of ["v-l5-m4", "v-l7-m4"] as const) {

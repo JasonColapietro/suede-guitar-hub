@@ -1,5 +1,6 @@
 import type { TrackId } from "./models.ts";
-import { getLessonInstructions, parseReadingQuizAttempt, readingQuizResult, type ReadingQuizAttempt } from "./instructions.ts";
+import { getInstructionQuiz } from "./instruction-index.ts";
+import { parseReadingQuizAttempt, readingQuizResult, type ReadingQuizAttempt } from "./reading-quiz.ts";
 import { getLesson } from "./curriculum.ts";
 export type Assessment = "repeat" | "ready";
 export interface LessonRecord {
@@ -38,7 +39,7 @@ export function parseProgress(raw: string | null, track: TrackId, validLessonIds
       if (entry.source === "measured" && entry.completionMinimumBPM !== undefined && (entry.bpm === undefined || typeof entry.completionMinimumBPM !== "number" || !Number.isFinite(entry.completionMinimumBPM) || entry.completionMinimumBPM < 20 || entry.completionMinimumBPM > 300)) continue;
       if (entry.practiceSpecRevision !== undefined && (!Number.isInteger(entry.practiceSpecRevision) || entry.practiceSpecRevision < 1 || entry.practiceSpecRevision > 1_000_000)) continue;
       if (entry.source === "readingQuiz") {
-        const quiz = getLessonInstructions(id)?.quiz;
+        const quiz = getInstructionQuiz(id);
         const attempt = quiz ? parseReadingQuizAttempt(entry.readingQuizAttempt, id, quiz) : null;
         if (!quiz || !attempt) continue;
         const result = readingQuizResult(quiz, attempt);
@@ -48,7 +49,7 @@ export function parseProgress(raw: string | null, track: TrackId, validLessonIds
       clean.lessons[id] = {
         updatedAt: new Date(entry.updatedAt).toISOString(),
         practiceSeconds: entry.practiceSeconds,
-        assessment: getLessonInstructions(id)?.quiz || (requiredRevision !== undefined && (entry.source !== "measured" || entry.practiceSpecRevision !== requiredRevision || entry.score < authoredSpec!.passScore)) || (requiredBPM !== undefined && (entry.source !== "measured" || entry.bpm === undefined || entry.bpm < requiredBPM || entry.score < authoredSpec!.passScore)) || (entry.source === "measured" && entry.completionMinimumBPM !== undefined && entry.bpm < entry.completionMinimumBPM) ? "repeat" : entry.assessment,
+        assessment: getInstructionQuiz(id) || (requiredRevision !== undefined && (entry.source !== "measured" || entry.practiceSpecRevision !== requiredRevision || entry.score < authoredSpec!.passScore)) || (requiredBPM !== undefined && (entry.source !== "measured" || entry.bpm === undefined || entry.bpm < requiredBPM || entry.score < authoredSpec!.passScore)) || (entry.source === "measured" && entry.completionMinimumBPM !== undefined && entry.bpm < entry.completionMinimumBPM) ? "repeat" : entry.assessment,
         source: entry.source,
         score: entry.source === "measured" ? entry.score : null,
         ...(entry.source === "measured" && entry.bpm !== undefined ? { bpm: entry.bpm } : {}),
@@ -94,7 +95,7 @@ export function parseReadingQuizProgress(raw: string | null, track: TrackId): Re
     const seen = new Set<string>();
     for (const item of value.attempts) {
       if (!item || typeof item.lessonId !== "string" || !item.lessonId.startsWith(`${track[0]}-`)) continue;
-      const quiz = getLessonInstructions(item.lessonId)?.quiz;
+      const quiz = getInstructionQuiz(item.lessonId);
       const attempt = quiz ? parseReadingQuizAttempt(item, item.lessonId, quiz) : null;
       if (!attempt || seen.has(attempt.id)) continue;
       seen.add(attempt.id); clean.attempts.push(attempt);
@@ -111,7 +112,7 @@ export function withReadingQuizEvidence(progress: LearningProgress, reading: Rea
   const lessons = { ...progress.lessons };
   for (const [lessonId, attemptId] of Object.entries(reading.currentAttemptIds)) {
     const attempt = reading.attempts.find(item => item.id === attemptId && item.lessonId === lessonId);
-    const quiz = getLessonInstructions(lessonId)?.quiz;
+    const quiz = getInstructionQuiz(lessonId);
     if (!attempt || !quiz) continue;
     const result = readingQuizResult(quiz, attempt);
     const answeredAt = Object.values(attempt.answers).map(answer => answer.answeredAt).sort().at(-1);

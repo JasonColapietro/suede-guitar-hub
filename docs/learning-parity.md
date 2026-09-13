@@ -2,10 +2,13 @@
 
 The iOS `ContentLibrary.loadBundled` and `LessonInstructionLibrary.loadBundled`
 are the reference for curriculum order, guided content, song companions,
-exercise specifications and library search. The web vendors the five runtime
+exercise specifications and library search. The web vendors the seven runtime
 JSON resources byte-for-byte. It combines the song levels before `g-l5`, just as
 the native loader does. `access` and `stage` in older catalog records are
-optional descriptive metadata; the sampler remains the first module only.
+optional descriptive metadata; the sampler is still the first module while the
+catalog's first two stages are open through the free-level access rule.
+The sync also derives a small instruction index and an asset-only bundle for
+browser code, so client components do not import every lesson body.
 
 Regenerate the reference contract using the command documented in the native
 `contracts/README.md`. Then, from this web repository:
@@ -17,8 +20,9 @@ npm test
 ```
 
 Neither sync script runs in CI, and cannot: both read a local iOS checkout, and
-the workflow has only this repository. So `--check` for the five runtime
-resources and `contracts/learning.json` is a step a human has to remember, and a
+the workflow has only this repository. So `--check` for the seven runtime
+resources, `contracts/learning.json`, and the two native-derived browser files is
+a step a human has to remember, and a
 green CI run does not mean the vendored native files match iOS. The one vendored
 contract whose reference is a public git repository —
 `contracts/suede-vocal.json`, from `JasonColapietro/sing` — is checked on every
@@ -76,8 +80,9 @@ kind agrees with the proof basis `lib/learning/voice-proof.ts` records, so a
 self-reported module cannot carry a metric that claims a measurement.
 
 The explicit source path prevents stale sibling worktrees from silently becoming
-the reference. `--check` compares raw bytes for all five sources and the generated
-contract. Runtime follower tests assert catalog order, sampler boundary, every
+the reference. `--check` compares raw bytes for all seven sources and the generated
+contract, then regenerates and compares `instruction-index.json` and
+`instruction-assets.json`. Runtime follower tests assert catalog order, sampler boundary, every
 practice specification, every instruction's assets and quiz, and native search
 fixtures through the web's public accessors. Unknown authored asset kinds fail
 validation. A missing contract or empty fixture set fails the suite.
@@ -99,15 +104,17 @@ lessons never marks them complete or changes purchase entitlements. Popular-song
 companions use original preparation drills and link to the creator's full
 arrangement; external navigation does not log a song performance.
 
-Verification on 2026-09-08:
+Verification on 2026-09-13:
 
-- Combined repository tests: 812 passed, zero failed. Of these, 612 assertions
+- Combined repository tests: 1,129 passed, zero failed. Of these, 612 assertions
   cover the native parity contract, including 507 generated tempo cases.
 - ESLint and TypeScript completed without errors.
-- Next.js 16.3.3 production build completed using Turbopack; expanded lesson
-  routes were generated. Account integration changes are verified separately.
-- Byte comparison passed for all five runtime JSON files and the contract.
-- Non-vacuity: a temporary copy changed `tracks.guitar.lessonIds[0]` to
+- Next.js 16.3.3 production build completed using Turbopack; all 289 static pages,
+  including the expanded voice lesson routes, were generated. Account
+  integration changes are verified separately.
+- Byte comparison passed for all seven runtime JSON files and the contract; both
+  native-derived browser bundles also matched.
+- Earlier non-vacuity verification changed `tracks.guitar.lessonIds[0]` to
   `mutated-lesson-id`. The follower run reported exactly one failing catalog
   assertion and 611 passes. The unchanged canonical copy reported 612 passes.
   The mutation did not modify the committed source or contract.
