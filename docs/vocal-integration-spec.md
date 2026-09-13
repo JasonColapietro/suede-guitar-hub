@@ -254,6 +254,25 @@ cannot see any of it, including the tempo gate that stops a quarter-speed pass
 counting as mastery. The command is in the sing repository's
 `contracts/README.md`.
 
+This cannot be done yet, for a reason worth stating because it is easy to get
+wrong. The re-sync fetches the file from the GitHub contents API without a `ref`,
+which resolves to the default branch, and the sing repository's `main` still
+carries version 1 — v2 exists only on
+`claude/guitarhub-suede-voice-integration-9st9ur`. Running the documented command
+today therefore vendors v1 and changes nothing, while looking like the item was
+completed.
+
+So W16 depends on the sing change reaching `main`. Fetching with `?ref=` pinned
+at the unmerged branch would technically move the bytes and should not be done:
+the point of a vendored contract is that it tracks a published reference, and a
+copy taken from an in-flight branch is the silent-drift failure the contract was
+built to prevent.
+
+Once `main` carries v2, expect the native assertions to need updating rather than
+merely passing. `progress.xpThresholds` grew from 12 entries to every rung and
+each entry gained a `title`, so any native assertion that checks the rung count
+or destructures a rung will need to move with it.
+
 ### W17 — Adjudication register
 
 Fourteen constants express the same concept with two or three different values
@@ -433,8 +452,12 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W14, W15, W16, W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can
+W14, W15, W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can
 start immediately. W17 unblocks W2 and W13.
+
+W16 is the exception among the otherwise-unblocked items: it waits on the sing
+repository's version 2 reaching `main`, because the re-sync resolves the default
+branch. It is cheap once that lands and is a no-op before it.
 
 W3 is next and gates W1, W2, W19 and W20. W5, W6, W4 and W7 are independent of
 W3 and can run in parallel; W5 retires the most modules per unit of work and W6
