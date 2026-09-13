@@ -94,7 +94,6 @@ const JSON_LD = {
         "https://www.facebook.com/people/Suede-Labs-AI/61584534847516",
         "https://t.me/SUEDEAI",
         "https://linktr.ee/suedelabsai",
-        "https://www.crunchbase.com/organization/suede-labs-ai",
         "https://www.linkedin.com/company/suede-labs",
         "https://www.wikidata.org/wiki/Q141169484",
       ],
