@@ -16,6 +16,15 @@ node scripts/sync-native-learning.mjs --native=/absolute/path/to/guitarhub-ios -
 npm test
 ```
 
+Neither sync script runs in CI, and cannot: both read a local iOS checkout, and
+the workflow has only this repository. So `--check` for the five runtime
+resources and `contracts/learning.json` is a step a human has to remember, and a
+green CI run does not mean the vendored native files match iOS. The one vendored
+contract whose reference is a public git repository —
+`contracts/suede-vocal.json`, from `JasonColapietro/sing` — is checked on every
+pull request by `scripts/sync-sing-vocal.mjs --check`. Do not read that step's
+success as covering these files.
+
 The explicit source path prevents stale sibling worktrees from silently becoming
 the reference. `--check` compares raw bytes for all five sources and the generated
 contract. Runtime follower tests assert catalog order, sampler boundary, every

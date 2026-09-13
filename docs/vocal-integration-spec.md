@@ -224,12 +224,36 @@ adopt the other's half.
 
 ### W14 — Make contract drift fail CI
 
-`.github/workflows/verify.yml` runs `npm ci`, `npm test`, lint, build and
-`scripts/check-account-bundle.mjs`, and never runs either sync script with
-`--check`. The byte verification is documented in `docs/learning-parity.md` and
-`docs/practice-tools.md` and is not executed, so a vendored contract can go
-stale with no signal. Add the step behind a cached native checkout. This is the
-cheapest item here and it protects every other contract guarantee.
+**Done for one of three contracts; the other two cannot be done this way.**
+
+`.github/workflows/verify.yml` ran `npm ci`, `npm test`, lint, build and
+`scripts/check-account-bundle.mjs`, and never ran either sync script with
+`--check`. The byte verification was documented in `docs/learning-parity.md` and
+`docs/practice-tools.md` and executed by nothing, so a vendored contract could go
+stale with no signal at all.
+
+The original scope here said to add the step "behind a cached native checkout".
+That was optimistic: `sync-native-learning.mjs` and
+`sync-native-practice-tools.mjs` both take `--native=` and read a local iOS
+checkout, and the workflow has only this repository, so their `--check` genuinely
+cannot run in CI. Pretending otherwise would produce a step that passes without
+comparing anything, which is worse than no step.
+
+`contracts/suede-vocal.json` is different: its reference is a public git
+repository. `scripts/sync-sing-vocal.mjs` now vendors it, mirroring the two
+native scripts' shape and flags, and `--check` runs on every pull request.
+`npm run contracts:check` is the same check for a contributor. It reads the
+reference's default branch by default and accepts `--sing=` for a local checkout,
+so it works offline and can verify against an unmerged branch before it lands —
+while never *vendoring* from one, since a copy taken from a branch in flight is
+the drift the contract exists to prevent. A fetch failure is fatal rather than
+skipped: reporting "verified" when the reference was unreachable is the absence
+of a check wearing the result of one.
+
+Still open: native-sourced drift. Either the workflow gains access to an iOS
+checkout, or the native side publishes those contracts somewhere fetchable, or
+this stays a human step — in which case it should stay documented as one, which
+`docs/learning-parity.md` now says in as many words.
 
 ### W15 — Give this repository a contract builder
 
@@ -452,8 +476,9 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W14, W15, W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can
-start immediately. W17 unblocks W2 and W13.
+W15, W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can start
+immediately. W17 unblocks W2 and W13. W14 is done for the one contract it can
+cover and blocked on native access for the other two.
 
 W16 is the exception among the otherwise-unblocked items: it waits on the sing
 repository's version 2 reaching `main`, because the re-sync resolves the default

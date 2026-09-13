@@ -24,3 +24,8 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: node scripts/check-account-bundle.mjs
+      # Drift detection for the one vendored contract whose reference is a public
+      # git repository. The other two come from a local iOS checkout, so their
+      # `--check` cannot run here — see docs/learning-parity.md. Keep that
+      # asymmetry in mind before reading a green run as "all contracts verified".
+      - run: node scripts/sync-sing-vocal.mjs --check
