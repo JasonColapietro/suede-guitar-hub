@@ -139,12 +139,20 @@ test("real routine links recognize verified guitar access and preserve the lesso
 });
 
 test("guest, voice-only, disabled and unavailable account routine links remain previews", () => {
+  // A lesson in a PAID level. This used to default to g-l2-m1-01, which the
+  // catalog marks free — it only read as a preview because `canOpenModule`
+  // ignored `LearningLevel.access`. Now that the gate honours the data, the
+  // unentitled case has to be tested against a genuinely paid lesson.
+  const paidGuided = "g-l5-m1-01";
   for (const access of [guestLearningAccess, { ...paid, tracks: ["voice"] }, { ...paid, enabled: false }, { ...paid, status: "unavailable" }, { ...paid, status: "signedOut", accountId: null }] as LearningAccess[]) {
-    const markup = lessonLink(access);
+    const markup = lessonLink(access, paidGuided);
     assert.match(markup, /GuitarHub curriculum preview/);
     assert.doesNotMatch(markup, /Review GuitarHub instruction/);
   }
   assert.match(lessonLink(guestLearningAccess, "g-l1-m1-01"), /Review GuitarHub instruction/, "free guided sampler remains available");
+  // The routine's own A/D lesson sits in g-l2, which is declared free, so a
+  // guest following the routine now reaches the instruction instead of a wall.
+  assert.match(lessonLink(guestLearningAccess, "g-l2-m1-01"), /Review GuitarHub instruction/, "declared-free level is open to a guest");
 });
 
 test("a paid track cannot label an unimplemented advanced outline as instruction", () => {

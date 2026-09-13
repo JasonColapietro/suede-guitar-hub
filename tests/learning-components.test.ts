@@ -5,6 +5,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getInstructionAsset, getLessonInstructions } from '../lib/learning/instructions.ts';
 import { getLesson } from '../lib/learning/curriculum.ts';
+import { accessibleLessonIds, guestLearningAccess } from '../lib/learning/access.ts';
 import advanced from '../lib/learning/data/advanced-guitar-instruction.json' with { type: 'json' };
 register('./component-render-hooks.mjs', import.meta.url);
 const { ChordDiagram, LessonInstructionAssets } = await import('../components/learning/LessonInstructionAssets.tsx');
@@ -68,7 +69,13 @@ test('real library exposes native filter names, search label and honest preview/
   assert.match(markup, /All topics/);
   assert.match(markup, /117 results/);
   assert.match(markup, /Lesson preview/);
-  assert.equal((markup.match(/>Available<\/span>/g) ?? []).length, 3, "guest sampler only");
+  // Every lesson a guest can actually open is badged Available. That is the
+  // sampler plus every ready lesson in a level the catalog declares free — it
+  // was 3 while `canOpenModule` ignored `LearningLevel.access`. Derived from the
+  // catalog so the badge count cannot drift from the gate.
+  const guestOpens = accessibleLessonIds('guitar', guestLearningAccess).length;
+  assert.ok(guestOpens > 3, 'the free tier should be more than the sampler');
+  assert.equal((markup.match(/>Available<\/span>/g) ?? []).length, guestOpens, "guest free tier");
   assert.match(markup, /Available/);
   assert.match(markup, /Wonderwall/);
 });

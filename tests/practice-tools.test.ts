@@ -40,8 +40,22 @@ function harness(context = new ContextStub()) {
     context, timers,
     environment: { createContext: () => context as unknown as AudioContext, schedule: (callback: () => void, delayMs: number) => { const key = ++id; timers.set(key, { callback, delayMs }); return () => { timers.delete(key); }; } },
     tick() { const next = timers.entries().next().value; assert.ok(next, "a beat is scheduled"); const [key, timer] = next; timers.delete(key); context.currentTime += timer.delayMs / 1000; timer.callback(); },
+    /** A timer that fires late, which is what setTimeout is allowed to do. */
+    tickLate(overrunMs: number) { const next = timers.entries().next().value; assert.ok(next, "a beat is scheduled"); const [key, timer] = next; timers.delete(key); context.currentTime += (timer.delayMs + overrunMs) / 1000; timer.callback(); },
     nextDelay() { return timers.values().next().value?.delayMs; },
   };
+}
+
+/**
+ * Beat delays are now derived from the audio clock — `(nextBeatAt - currentTime)
+ * * 1000` — rather than being a restated constant, so they carry the ordinary
+ * floating-point error of accumulating an interval like 0.666... Compared with a
+ * tolerance well below anything audible; a real drift shows up as milliseconds,
+ * not as the last bit of a double.
+ */
+function assertDelay(actual: number | undefined, expected: number, message?: string) {
+  assert.ok(actual !== undefined, message ?? "a beat is scheduled");
+  assert.ok(Math.abs(actual - expected) < 1e-6, `${message ?? "delay"}: ${actual} !== ${expected}`);
 }
 
 test("native practice-tools contract is present, exercised and has no untracked divergences", () => {
@@ -93,12 +107,12 @@ test("metronome plays beat one immediately, accents each bar, and adopts continu
   const audio = await startMetronome(configuration.defaultBPM, beat => beats.push(beat), () => assert.fail("not interrupted"), controller.signal, h.environment);
   assert.deepEqual(beats, [0]);
   const originalDelay = h.nextDelay();
-  assert.equal(originalDelay, metronomeInterval(configuration.defaultBPM) * 1000);
+  assertDelay(originalDelay, metronomeInterval(configuration.defaultBPM) * 1000);
   for (let bpm = 100; bpm <= 120; bpm++) audio.setTempo(bpm);
   assert.equal(h.timers.size, 1, "slider motion must not restart or add timers");
-  assert.equal(h.nextDelay(), originalDelay);
+  assertDelay(h.nextDelay(), originalDelay!, "slider motion must not re-arm the pending beat");
   h.tick();
-  assert.equal(h.nextDelay(), 500);
+  assertDelay(h.nextDelay(), 500, "tempo is adopted on the next beat");
   for (let index = 0; index < 7; index++) h.tick();
   assert.deepEqual(beats, [0, 1, 2, 3, 0, 1, 2, 3, 0]);
   assert.equal(h.context.sources[0].startedAt, 0);
@@ -117,6 +131,65 @@ test("metronome plays beat one immediately, accents each bar, and adopts continu
   assert.ok(h.context.sources.every(source => source.stopped && source.disconnected));
   const restarted = harness(); const restartedAudio = await startMetronome(90, beat => assert.equal(beat, 0), () => {}, new AbortController().signal, restarted.environment);
   restartedAudio.stop();
+});
+
+/**
+ * The drift regression.
+ *
+ * Clicks used to start at `context.currentTime` and the next timer was armed a
+ * full interval from that moment, so a timer that fired 40 ms late moved every
+ * later beat 40 ms late too and the error accumulated without bound. Anchored to
+ * the audio clock, a late firing is absorbed: the beat still lands on the grid
+ * and the following delay is short by exactly the overrun.
+ */
+test("a late timer does not push the beat grid", async () => {
+  const h = harness();
+  const audio = await startMetronome(120, () => {}, () => assert.fail("not interrupted"), new AbortController().signal, h.environment);
+  try {
+    const interval = metronomeInterval(120); // 0.5s
+    assertDelay(h.nextDelay(), interval * 1000);
+
+    // Three beats, each delivered 40 ms late.
+    for (let index = 0; index < 3; index++) h.tickLate(40);
+
+    // A click delivered late cannot be played in the past, so it plays now. What
+    // must not happen is the lateness compounding: each beat is the SAME 40 ms
+    // late rather than 40, then 80, then 120. Under the old scheduler these were
+    // 0, 0.54, 1.08, 1.62 — visibly drifting.
+    const scheduled = h.context.sources.map(source => source.startedAt ?? 0);
+    assert.equal(scheduled.length, 4);
+    const lateness = scheduled.map((startedAt, index) => startedAt - index * interval);
+    assert.ok(Math.abs(lateness[0]) < 1e-6, "the first beat is on time");
+    for (const [index, late] of lateness.entries()) {
+      if (index === 0) continue;
+      assert.ok(
+        Math.abs(late - 0.04) < 1e-6,
+        `beat ${index} was ${late}s late; lateness must stay constant, not accumulate`,
+      );
+    }
+
+    // And the next delay is short by the overrun rather than a full interval,
+    // which is how the grid pulls itself back in line.
+    const remaining = h.nextDelay() ?? 0;
+    assert.ok(remaining < interval * 1000, `next delay ${remaining} did not absorb the overrun`);
+    assert.ok(remaining > 0);
+  } finally { audio.stop(); }
+});
+
+/**
+ * The other half: a tab suspended for a long time must not fire a burst of
+ * catch-up clicks for beats nobody was there to hear.
+ */
+test("a long suspension re-anchors instead of firing a burst", async () => {
+  const h = harness();
+  const audio = await startMetronome(120, () => {}, () => assert.fail("not interrupted"), new AbortController().signal, h.environment);
+  try {
+    h.tickLate(30_000); // half a minute in the background
+    // One click for the beat that actually fired, not sixty.
+    assert.equal(h.context.sources.length, 2);
+    // And the grid restarts from now, so the next beat is a whole interval away.
+    assertDelay(h.nextDelay(), metronomeInterval(120) * 1000, "grid re-anchored to now");
+  } finally { audio.stop(); }
 });
 
 test("cancel during pending audio activation closes the late context without a beat", async () => {

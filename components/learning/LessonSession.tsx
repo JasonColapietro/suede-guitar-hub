@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { PracticeCoach } from "@/components/practice/PracticeCoach";
-import { type Lesson, type LearningModule, type TrackId } from "@/lib/learning/curriculum";
+import { TRACK_SAFETY_NOTE, type Lesson, type LearningModule, type TrackId } from "@/lib/learning/curriculum";
 import { elapsedSeconds, type Assessment, type LessonRecord } from "@/lib/learning/progress";
 import { useLearningProgress, useReadingQuizProgress } from "./useLearningProgress";
 import styles from "./Learning.module.css";
@@ -122,7 +122,7 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
             <p className={`${styles.small} ${styles.muted}`}>This lesson currently contains an outline. Demonstration recordings, song arrangements, and a full written lesson are not included here yet.</p>
           </>}
           <h3>Ready for another step</h3><p>{instructions?.completion ?? module.promise}</p>{instructions && <><p className={styles.check}>{instructions.ifNotReady}</p><p className={styles.check}>What this check shows: {instructions.evidence}</p><p className={styles.check}>It does not assess: {instructions.limitation}</p></>}
-          <p className={`${styles.small} ${styles.muted}`}>{track === "voice" ? "Keep the range and volume comfortable. Stop if singing hurts or makes you hoarse; a pitch reading cannot assess vocal health." : "Keep your hand and shoulder relaxed. Stop and reset if you feel pain. Pitch feedback cannot judge tension, fingering, or buzzing."}</p>
+          <p className={`${styles.small} ${styles.muted}`}>{TRACK_SAFETY_NOTE[track]}</p>
         </section>
         {lesson.practiceSpec && (!needsTuning || tuningReady) && <PracticeCoach key={lesson.id} recentAttempts={(progress.measuredAttempts ?? []).filter(attempt => attempt.lessonId === lesson.id).map(attempt => ({ bpm: attempt.record.bpm ?? 0, score: attempt.record.score, disposition: "scored" as const, passed: attempt.record.assessment === "ready", specRevision: attempt.record.practiceSpecRevision }))} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} onUnscoredResult={(result, id) => saveUnscored(lesson.id, result, id)} />}
         {lesson.practiceSpec && needsTuning && !tuningReady && <div className={styles.notice}>Complete and confirm the free tuning check above to open the pitch exercise. You can use this tuner or your own.</div>}
