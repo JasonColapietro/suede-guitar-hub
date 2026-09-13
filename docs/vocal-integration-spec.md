@@ -232,8 +232,9 @@ millisecond path — a reported output latency in the forties plus input bufferi
 milliseconds, fails it outright.
 
 Only one direction of the exchange is done. `lib/audio/latency.ts` adopts the
-sing repository's module rather than inventing a second one: `outputLagSec` is its function, and the rule that a guide lag and a
-capture lag add rather than cancel is its `scoreLagSec`. What is new is the
+sing repository's module rather than inventing a second one: `outputLagSec` is
+its function, and the rule that a guide lag and a capture lag add rather than
+cancel is its `scoreLagSec`. What is new is the
 detector half. sing corrects an analyser window and a median filter over pitch
 frames; guitar practice scores onsets, and `OnsetDetector` names the centre of
 the frame whose energy rose, which lands one to two 128-sample hops *before* the
