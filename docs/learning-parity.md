@@ -25,6 +25,21 @@ contract whose reference is a public git repository —
 pull request by `scripts/sync-sing-vocal.mjs --check`. Do not read that step's
 success as covering these files.
 
+`contracts/web-practice.json` is the one contract here that points the other way.
+It is not vendored from anywhere: this repository is its reference surface, and
+the file is a generated record of the web detector band and the adaptive-tempo
+grid. `tests/web-practice-contract.test.ts` rebuilds it from the live constants
+in `lib/audio/dsp.ts` and `lib/audio/practice-tempo.ts` and byte-compares, so it
+needs no sync script and does run in CI. Regenerate it deliberately:
+
+```
+CONTRACT_WRITE=1 npm test
+```
+
+Read the diff before committing one. A changed value there is a changed promise
+to somebody practising — which notes a lesson may ask for, and how fast the app
+will push them.
+
 The explicit source path prevents stale sibling worktrees from silently becoming
 the reference. `--check` compares raw bytes for all five sources and the generated
 contract. Runtime follower tests assert catalog order, sampler boundary, every

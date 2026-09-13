@@ -1,7 +1,26 @@
+/** The detector band, the YIN threshold, the silence floor and the clarity floor.
+ *
+ * These were inline literals, which meant nothing could bind them: a lesson that
+ * says "play an open low E" had no way to ask whether the detector can even hear
+ * 82 Hz, and a change here would have shown up as a behaviour change with no
+ * failing test. They are the web half of the generated contract in
+ * `contracts/web-practice.ts`, so moving one now has to move the contract too. */
+export const DEFAULT_PITCH_BAND = { minimumFrequency: 60, maximumFrequency: 1400 } as const;
+/** YIN's cumulative-mean-normalized-difference acceptance threshold. */
+export const YIN_THRESHOLD = .15;
+/** RMS below this is silence, not a quiet note: report nothing rather than noise. */
+export const SILENCE_RMS = .012;
+/** Half the periodicity has to be real periodicity before a pitch is reported. */
+export const MINIMUM_CLARITY = .5;
+/** A refined lag may land slightly outside the band; these bound how far. */
+export const BAND_LOW_FACTOR = .9, BAND_HIGH_FACTOR = 1.1;
+/** An octave-error candidate is accepted if it is within this of the best lag. */
+export const OCTAVE_CANDIDATE_FACTOR = 1.2;
+
 /** Monophonic YIN (de Cheveigné & Kawahara), same band and threshold as iOS.
  * These are GuitarHub parameters, not undocumented competitor tolerances. */
 export function estimatePitch(samples: Float32Array, sampleRate: number, band?: { minimumFrequency: number; maximumFrequency: number }) {
-    const min = band?.minimumFrequency ?? 60, max = band?.maximumFrequency ?? 1400, threshold = .15;
+    const min = band?.minimumFrequency ?? DEFAULT_PITCH_BAND.minimumFrequency, max = band?.maximumFrequency ?? DEFAULT_PITCH_BAND.maximumFrequency, threshold = YIN_THRESHOLD;
     if (!Number.isFinite(min) || !Number.isFinite(max) || min <= 0 || max <= min) return null;
     if (!Number.isFinite(sampleRate) || sampleRate <= 0 || samples.some(x => !Number.isFinite(x)))
         return null;
@@ -12,7 +31,7 @@ export function estimatePitch(samples: Float32Array, sampleRate: number, band?: 
     let energy = 0;
     for (const x of samples)
         energy += x * x;
-    if (Math.sqrt(energy / samples.length) < .012)
+    if (Math.sqrt(energy / samples.length) < SILENCE_RMS)
         return null;
     const normalized = new Float64Array(maxLag + 1).fill(1);
     let sum = 0;
@@ -49,14 +68,14 @@ export function estimatePitch(samples: Float32Array, sampleRate: number, band?: 
                 if (normalized[lag] < normalized[local])
                     local = lag;
             }
-            if (normalized[local] <= Math.max(threshold, normalized[best] * 1.2)) {
+            if (normalized[local] <= Math.max(threshold, normalized[best] * OCTAVE_CANDIDATE_FACTOR)) {
                 chosen = local;
                 break;
             }
         }
     }
     const clarity = Math.max(0, Math.min(1, 1 - normalized[chosen]));
-    if (clarity <= .5)
+    if (clarity <= MINIMUM_CLARITY)
         return null;
     let refined = chosen;
     if (chosen > minLag && chosen < maxLag) {
@@ -66,7 +85,7 @@ export function estimatePitch(samples: Float32Array, sampleRate: number, band?: 
             refined += .5 * (a - c) / denominator;
     }
     const frequency = sampleRate / refined;
-    if (frequency < min * .9 || frequency > max * 1.1)
+    if (frequency < min * BAND_LOW_FACTOR || frequency > max * BAND_HIGH_FACTOR)
         return null;
     const note = noteForFrequency(frequency);
     return note ? { frequency, clarity, ...note } : null;

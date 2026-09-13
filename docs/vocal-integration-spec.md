@@ -257,18 +257,53 @@ this stays a human step — in which case it should stay documented as one, whic
 
 ### W15 — Give this repository a contract builder
 
-Several audio constants are inline literals that nothing binds: the lesson
+**Done.**
+
+Several audio constants were inline literals that nothing bound: the lesson
 detector band and threshold in `lib/audio/dsp.ts`, the clarity floor in the same
 file, and the adaptive-tempo ratios in `lib/audio/practice-tempo.ts`. The tempo
-grid matches the sing repository's 25–125 per cent in five per cent steps by
+grid matched the sing repository's 25–125 per cent in five per cent steps by
 coincidence, with no test that would notice if it stopped.
 
-Promote them to named exports, add a web-side `buildContract()`, and add a
-`node:test` regenerate-and-compare honouring `CONTRACT_WRITE`, serializing with
-`JSON.stringify(contract, null, 2)` plus a trailing newline and guarding a
-sorted key list. The sing repository's builder silently serialized `undefined`
-for two constants that were never exported, dropping both keys while every
-equality assertion passed, so walk the built object for undefined leaves.
+They are now named exports, `contracts/web-practice.ts` builds and serializes
+them, and `tests/web-practice-contract.test.ts` regenerates and byte-compares —
+honouring `CONTRACT_WRITE=1`, guarding a sorted `CONTRACT_KEYS` list so a new
+top-level key has to be declared in the same commit, and walking the built object
+for `undefined` leaves, because the sing repository's builder silently serialized
+`undefined` for two unexported constants and dropped both keys while every
+equality assertion passed.
+
+This is the first contract here that this repository *generates* rather than
+follows. `learning.json`, `practice-tools.json` and `suede-vocal.json` are
+vendored and the web app's job is to match them; `web-practice.json` is a record
+of what the web detector and tempo grid actually do, so the reference direction
+is inverted and the test compares the file against the code rather than the code
+against the file.
+
+Two things the work turned up, neither of which a pure equality check would have
+found:
+
+The published audible range cannot be derived from the tolerance factors. The
+band is `60`–`1400` Hz and a refined estimate is allowed to land within ten per
+cent outside it, so `minHz * 0.9` looks like the real floor — but the lag search
+is bounded by `minHz` itself, so a note below 60 Hz has no candidate period to
+find. `lowestAudibleMidi` is 35, not 33. The test plays a tone at the published
+floor and confirms the detector names it, then plays one two semitones below and
+confirms the detector never *confirms* that note; out of band it either reports
+nothing or reports something else, which is the whole reason a lesson has to
+respect the published floor. Low open E at MIDI 40 and the twelfth fret of the
+high E at 76 both sit comfortably inside, asserted explicitly.
+
+Only the grid's ceiling is checkable against the vocal contract from here. The
+full vocal practice grid lives in the sing repository's `practice-parity`
+contract, which this repository does not vendor; `suede-vocal.json` carries the
+warmup tempos, whose maximum is `1.25`. The test pins that against
+`TEMPO_MAXIMUM_RATIO`, so a learner practising guitar and voice in the same week
+cannot find one app willing to push to 125 per cent and the other stopping
+somewhere else. A separate test walks the recommender up from 25 per cent on
+perfect scores and down from 125 on failures and asserts every recommendation
+lands on a percentage the contract publishes, and that each walk settles on the
+published bound.
 
 ### W16 — Re-sync `practice-parity` v2 into `Suede-AI/suede-voice`
 
@@ -476,9 +511,9 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W15, W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can start
+W17, W18, W21, W22, W24, W25 and W28 have no dependencies and can start
 immediately. W17 unblocks W2 and W13. W14 is done for the one contract it can
-cover and blocked on native access for the other two.
+cover and blocked on native access for the other two. W15 is done.
 
 W16 is the exception among the otherwise-unblocked items: it waits on the sing
 repository's version 2 reaching `main`, because the re-sync resolves the default
