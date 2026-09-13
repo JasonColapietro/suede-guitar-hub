@@ -1080,7 +1080,7 @@ chapter throws rather than producing a dead link on a lesson page. Bodies are
 deliberately absent from the contract, and a test on the producing side fails if
 one ever arrives.
 
-The gate is the part that would have been easy to ship wrong. Nineteen of the
+The gate is the part that would have been easy to ship wrong. Twenty of the
 book's 23 chapters and 24 of the atlas's 27 are behind Suede Sing Pro, verified
 against Stripe at `/api/book`, while voice levels one and two are free here. Most
 free lessons therefore cite paid reading, which is allowed because it is the
