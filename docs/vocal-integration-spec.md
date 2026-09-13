@@ -293,6 +293,13 @@ The twelve-second hiss target is not a rung on the sustain ladder, which runs
 10, 20, 30 and 45 seconds; twelve clears the first mark at ten. It was reframed
 rather than moved because raising a free level's bar is a product decision.
 
+Stars are two scales rather than one drifted number: the sing repository grades
+its practice rooms on three stars at percentage floors and its songbook on five
+linear stars plus a letter. Both are real and neither is wrong, so a consumer
+asserting against "stars" has to say which. This one is already recorded in that
+contract's `knownDivergences` and needs no further adjudication — it is listed
+here so it is not mistaken for an omission.
+
 ### W18 — Type `proofMetric`
 
 Replace `string?` in `lib/learning/models.ts` with a union wired into
