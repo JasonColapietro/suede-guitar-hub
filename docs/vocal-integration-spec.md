@@ -83,12 +83,48 @@ retire named self-reports and move the pin in
 
 ### W3 — Native authors voice instructions and regenerates the contract
 
+**Still blocked, but the blocker is now three specific things rather than "native
+owns it".** The iOS repository was read directly to establish them.
+
 Everything in the content phase depends on this. `contracts/learning.json`
 declares `reference.surface: "ios"`, and `tests/learning-parity.test.ts` asserts
 `browseLessons(track, "guided")` deep-equals `tracks.voice.guidedLessonIds`,
 currently empty. Authoring web-side lesson bodies without a regenerated contract
 fails that test, and hand-editing the vendored file removes the only guarantee
-that makes it worth vendoring. Native has no voice instruction library either.
+that makes it worth vendoring.
+
+What the native repository actually contains, counted rather than assumed:
+`tracks.guitar` has 117 guided lessons of 135 and `tracks.voice` has **0 of 102**,
+so the voice catalogue exists there and its instruction library does not. The
+`instructions` block holds 117 records, all guitar. `voice.json` is present in
+`GuitarHubCore/Sources/GuitarHubCore/Resources/`; there is no voice instruction
+file beside it.
+
+The three blockers:
+
+**It needs a Swift source change, not only data.**
+`LessonInstructionLibrary.loadBundled()` in
+`GuitarHubCore/Sources/GuitarHubCore/Content/LessonInstruction.swift` names its
+three files literally — `beginner-guitar-instruction` and then a hardcoded array
+of `song-guitar-instruction` and `advanced-guitar-instruction`. It does not glob a
+directory and is not keyed by track, so dropping a `voice-instruction.json` into
+Resources loads nothing. One line has to change, and `ContentError.missingResource`
+means a typo is a thrown error rather than a quiet skip.
+
+**The generator needs a Swift toolchain.** `contracts/learning.json` is produced
+only by `CONTRACT_WRITE=1 swift test --package-path GuitarHubCore --filter
+LearningParityContractTests`, and `LearningParityContractTests` compares both the
+built contract and its canonical bytes — so a hand-edited file fails on any
+machine that can run the suite. That is the guarantee working as designed, and it
+means the regeneration cannot be faked from a Linux checkout with no `swift`
+binary. Whoever does this needs Xcode or a Swift toolchain.
+
+**Then the authoring itself.** Each guitar instruction record carries a setup, an
+ordered set of steps each with a look check and a listen check, mistake recovery
+pairs, completion criteria, practice segments, a completion and a not-ready
+sentence, an evidence line, a stated limitation, demo assets and sometimes a quiz.
+That is the shape 102 voice lessons need, and it is content work by someone who
+teaches singing, not a mechanical translation of the guitar records.
 
 Regenerate in the native repository, then from this web root:
 
@@ -99,6 +135,14 @@ npm test
 ```
 
 Done when `tracks.voice.guidedLessonIds` is non-empty and `--check` passes.
+
+**What is ready for the day it lands.** W23 added a test that fails when the
+outline copy becomes false, so the three surfaces saying the voice track is
+outlines will announce themselves rather than shipping a lie. W17 settled W2's
+tolerance at 50 cents. W18 made `proofMetric` a closed union validated at import,
+so a new voice lesson cannot invent an unmeasurable proof. W24 defines the
+vocabulary those lessons will use. None of that needed native, which is why it was
+done first.
 
 ### W1 — Author `lib/learning/data/voice-instruction.json`
 
