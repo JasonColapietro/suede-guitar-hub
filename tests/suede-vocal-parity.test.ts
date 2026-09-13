@@ -52,7 +52,11 @@ const SELF_REPORTED_MODULE_COUNT = 19;
 
 test("the vendored contract is the shape this repo expects", () => {
   assert.equal(contract.contract, "suede-vocal");
-  assert.equal(contract.version, 1);
+  // Version 2 added the `editorial` section — the chapter, song and reference
+  // identifiers the voice track cites through `lib/learning/voice-editorial.ts`.
+  // Pinned here as well as there so a vendored copy predating it fails the
+  // parity suite rather than the citation suite, where the error is less clear.
+  assert.equal(contract.version, 2);
   assert.equal(contract.reference.repo, "JasonColapietro/sing");
   assert.ok(Object.keys(measurements).length > 10, "measurement section is vacuous");
 });

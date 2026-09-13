@@ -5,6 +5,8 @@ import { allLessons, getLesson, isTrackId, isFreeModule, isModuleAvailable, less
 import { getLessonInstructions } from "@/lib/learning/instructions";
 import { canOpenModule, isLessonReady } from "@/lib/learning/access";
 import { singCompanionForLesson } from "@/lib/learning/voice-proof";
+import { voiceEditorialForLesson } from "@/lib/learning/voice-editorial";
+import { LessonEditorialPanel } from "@/components/learning/LessonEditorial";
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
 import { LessonSession } from "@/components/learning/LessonSession";
 import styles from "@/components/learning/Learning.module.css";
@@ -36,6 +38,11 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   // lesson bodies yet, so without this the only thing a singer could press on
   // a voice page was a link to the guitar sampler.
   const companion = track === "voice" ? singCompanionForLesson(lesson.id) : undefined;
+  // And what to read and what to sing. The voice track named no repertoire at
+  // all, and taught registers, the passaggio and belt safety with no reading
+  // behind any of them, while Sing has all of it written. Resolved through the
+  // contract so a renamed chapter fails a test rather than rotting here.
+  const editorial = track === "voice" ? voiceEditorialForLesson(lesson.id) : undefined;
   const next = lessons[index + 1];
   return <>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><Link href={`/learn/${track}`}>{trackNames[track]}</Link><span aria-hidden="true">/</span><span>{module.name}</span></nav>
@@ -60,6 +67,10 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
         ? <a className={styles.primary} href={companion.href}>{companion.label}</a>
         : null}<Link className={styles.secondary} href={lessonHref("guitar", allLessons("guitar")[0].lesson.id)}>Try the free guitar sampler</Link></div>
     </section>}
+    {/* Outside the available/outline branches on purpose: every voice lesson
+        takes the outline branch today, which is exactly where a singer is left
+        with nothing to read and no song to sing. */}
+    <LessonEditorialPanel editorial={editorial} />
     <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, access) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
   </>;
 }

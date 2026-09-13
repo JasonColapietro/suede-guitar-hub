@@ -753,17 +753,134 @@ source for one term is self-harm. Expect roughly 50 terms rather than 31.
 
 ### W25 — Reuse the editorial content
 
-The sing repository holds 72,394 words of atlas across 27 chapters, 31,738 words
-of book across 23, 636 singer records with written technique paragraphs, and 24
-popular songs with key and range. The voice track names no repertoire at all. A
-module-by-module mapping already exists: range and voice type to the atlas band
-table, breath to the breath chapter, registers to the registers chapter, belt
-safety to the safety-rail chapter, vocal health to stamina and health.
+Done, in both directions, with one product decision proposed rather than taken.
 
-It runs both ways. This repository's four-stage method states an exit test per
-stage, has a named-blocker diagnostic at `/diagnose`, and argues explicitly
-against streak counters. The sing repository's twelve-week programme has none of
-those, and its progress page sells streaks.
+Every figure in the original statement of this item checks out against the code.
+The sing repository's `ATLAS_WORDS` is 72,394 across 27 chapters, `BOOK_WORDS` is
+31,738 across 23, `SINGERS` holds 636 records and every one of them carries a
+non-null `technique` paragraph, and `POP_SONGS` holds 24 songs each with a key
+and a cited range. Three things about the mapping needed correcting before it
+could be built, and all three were the same kind of error: a target named
+loosely enough to sound settled.
+
+The atlas band table is not an atlas chapter. `content/atlas/03-voice-types-in-the-wild.md`
+deliberately refuses to print the grid, on the argument that range and voice type
+are different measurements and that opening with a tidy table undercuts the
+argument before it is made. The grid lives at `/atlas/vocal-range-by-voice-type`,
+a separate free page built from the same `REFERENCE_BANDS` this contract already
+publishes under `taxonomy`. A citation sent at the chapter would land a reader on
+a page that declines to answer them, so the contract publishes the table as a
+reference page under its own key and the curriculum cites that.
+
+The belt-safety target is an atlas chapter while the other three are book
+chapters. Breath is `content/book/04-breath.md`, registers is `02-registers.md`
+and vocal health is `06-stamina-and-health.md`; the safety rail is
+`content/atlas/06-the-safety-rail.md`, inside the atlas's borrower's-method part.
+The two shelves have separate slug spaces and separate routes, so the distinction
+is load-bearing rather than pedantic, and the citation type carries the shelf.
+
+"The voice track names no repertoire at all" is true of the curriculum and not
+quite true of the repository. `lib/learning/voice-proof.ts` already deep-links
+three songbook slugs — `amazing-grace`, `amazing-grace-full` and `deep-river` —
+as companion rooms for the three song modules. Those are public-domain melodies
+in sing's scored songbook, which is a different catalogue from the 24 popular
+songs: the songbook is singable with live pitch feedback, and the popular-song
+catalogue is editorial pages about key and range with no audio and no melody
+data. A module needs both, and they must not be linked through the same
+parameter; `?song=` belongs to the songbook only.
+
+The direction of reference is one-way and it is the sing repository outward. One
+site is the source for a piece of writing and the other cites it, because two
+sites publishing the same paragraph is two sites competing to be the place that
+paragraph lives — the same reasoning that sent the `DefinedTerm` markup to one
+side in W24. So no chapter prose is copied here. What is authored here is only
+the reason a module sends a singer to a chapter, which is curricular and belongs
+to the curriculum; the chapter's title, its own abstract, its Pro gate and its
+URL all come out of the contract at read time.
+
+The mechanism follows `voice-proof.ts` exactly, for the reason that file exists.
+`contracts/suede-vocal.ts` in the sing repository gained an `editorial` section
+at version 2: every chapter of both books with its slug, order, part, abstract,
+word count, Pro gate and resolved path, the popular-song catalogue with key,
+cited range, span in semitones and a difficulty derived by `popDifficulty` rather
+than authored, the band-grid reference page, and a count of the singer library.
+`lib/learning/voice-editorial.ts` here cites into it, and a renamed or withdrawn
+chapter throws rather than producing a dead link on a lesson page. Bodies are
+deliberately absent from the contract, and a test on the producing side fails if
+one ever arrives.
+
+The gate is the part that would have been easy to ship wrong. Nineteen of the
+book's 23 chapters and 24 of the atlas's 27 are behind Suede Sing Pro, verified
+against Stripe at `/api/book`, while voice levels one and two are free here. Most
+free lessons therefore cite paid reading, which is allowed because it is the
+right reading, and has to be disclosed before the click rather than discovered at
+the paywall. `gate` carries that disclosure, derived from the contract's `free`
+flag, and the test asserts both outcomes occur so the branch is never untested.
+
+Repertoire is resolved from a requirement rather than from a list of slugs. A
+module states how wide a span it is ready for and how hard a song it will
+tolerate, and the catalogue is filtered against the contract's published ranges.
+Hand-picking three slugs would go stale the first time the catalogue moved and
+could name a song whose range contradicted the module that named it. The filter
+is exported separately from the three songs a lesson shows, because sorting
+narrowest-first and taking three means the span ceiling almost never binds on the
+shortlist: a test reading only the shortlist passed with the ceiling deleted.
+
+The vendored `contracts/suede-vocal.json` here is **provisional**. It was taken
+from a local checkout with `--sing=`, and the `--check` in CI resolves the sing
+repository's default branch, so the check fails until the sing side merges. That
+is the correct failure and not a reason to weaken the check. The sequencing
+consequence is the same one W16 already carries, and the two now wait on the same
+merge.
+
+```sh
+node scripts/sync-sing-vocal.mjs --check --sing=/path/to/sing   # passes today
+node scripts/sync-sing-vocal.mjs --check                        # fails until sing merges
+```
+
+In the other direction, the exit test is adopted and the streak is proposed. The
+sing repository's twelve-week programme had no completion signal other than the
+calendar running out, so `lib/programme-exit-tests.ts` there now states, for each
+of the six practice fortnights, one condition a recording can settle, the
+measurement that settles it, the room the evidence comes from, the named blocker
+to look for when it does not pass, and what passing still does not prove. Every
+measurement is held against the same contract's registry and must be reported
+`measurable: "yes"`, so an exit test cannot come to rest on something that app
+does not measure. The phase list is derived from the book's own contents rather
+than listed, so a new fortnight cannot ship without a condition. The condition
+renders above the Pro gate on each chapter page: the chapter is the paid thing,
+and the way to tell a fortnight is finished is not.
+
+Two halves of the reverse direction are deferred, each for a stated reason.
+
+The streak is untouched. Removing it or demoting it is a decision about an
+engagement surface, it is part of `lib/progress-shape.ts`, which is the synced
+shape a native app reads, and three achievements — `streak-3`, `streak-7` and
+`streak-30` — are keyed to it. The proposal is to keep the counter and stop
+selling it: drop it from the progress page's own description, which currently
+leads with "XP, streaks, achievements", and put the phase exit tests where it
+sits. That is a product call and wants a human, so it is written down rather than
+taken.
+
+The named-blocker diagnostic is deferred on scope and on W28. Each exit test now
+names its own blocker, which is the useful half and is where a singer actually
+needs it. A standalone diagnostic in the sing repository would be a new
+indexable page targeting the same intent as this repository's `/diagnose`, which
+is exactly the cross-domain self-competition W28 exists to settle. Building it
+before that decision would add a seventh pair to the six this repository already
+has. It wants the `/diagnose` question graph rewritten for voice blockers, which
+is editorial work of the same order as a book chapter, and it should follow W28.
+
+What this does not establish. No chapter was read for accuracy; the citations
+assert that a chapter exists under the slug the curriculum names, not that its
+contents suit the module. The song requirements are judgments about span and
+difficulty and are not claims that a particular voice can sing a particular song:
+the key and the range are the figures publishers and fans circulate, they describe
+the original recording, and nothing here measures a singer against them. The
+exit tests rest on measurements the sing repository reports as implemented, which
+is a claim about code and not about acoustic accuracy in a real room. And the
+vendored contract is verified only against a local checkout, so nothing here
+establishes that the two repositories agree on `main`.
 
 ### W26 — Cross-application vocal progress
 
@@ -818,9 +935,9 @@ to mistake for a security finding later.
 
 ## Sequencing
 
-W24, W25 and W28 have no dependencies and can start immediately. W14 is done for
+W24 and W28 have no dependencies and can start immediately. W14 is done for
 the one contract it can cover and blocked on native access for the other two.
-W15, W17, W18, W21 and W22 are done — W22 in the sing repository; W2 and W13 can now read their constants off
+W15, W17, W18, W21, W22 and W25 are done — W22 in the sing repository; W2 and W13 can now read their constants off
 `contracts/adjudications.ts` instead of re-deriving them, and W2's new voice specs
 will be held to the typed vocabulary at import.
 
