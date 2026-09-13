@@ -204,11 +204,13 @@ export type SingSessionOutcome =
   | "ambiguousLesson"
   | "noCorrespondingLesson"
   | "evidenceMissing"
+  | "ambiguousEvidence"
   | "identityUnassigned"
   | "lessonNotAllowed"
   | "unreadable";
 
 export const SING_SESSION_OUTCOMES = [
+  "ambiguousEvidence",
   "ambiguousLesson",
   "evidenceMissing",
   "identityUnassigned",
@@ -227,6 +229,40 @@ export interface SingImport {
 }
 
 const MAX_PRACTICE_SECONDS = 86_400;
+
+/**
+ * How close a range test must sit to a session to be that session's result.
+ *
+ * The join used to compare `testedAt.slice(0, 10)` against `session.day`, which
+ * was wrong twice. `day` is a local calendar date and an ISO prefix is a UTC one,
+ * so a scan either side of midnight failed to match the sitting it belonged to;
+ * and `.find` took the first test sharing a day, so a singer who scanned twice in
+ * one day had the first scan's range attached to both sessions. Comparing the two
+ * timestamps as instants removes the midnight problem entirely — there is no date
+ * string left to disagree about — and requiring exactly one candidate inside the
+ * window turns the second scan from a silent wrong answer into a counted one.
+ *
+ * Twelve hours is deliberately generous: sing repairs a session with no time to
+ * local noon on its day, so a real pair can legitimately sit half a day apart.
+ */
+export const RANGE_JOIN_WINDOW_SEC = 12 * 60 * 60;
+
+/**
+ * Whether a range test is fit to be stored as provenance.
+ *
+ * `parseLearningAttempt` bounds `details` as JSON and does not look inside it, so
+ * without this a tampered or truncated export could land `lowMidi: -999` in the
+ * ledger as an imported measurement. A record that fails here is reported as
+ * unreadable rather than stored: an unusable measurement is not evidence.
+ */
+function isUsableRangeTest(test: SingRangeTest | undefined): test is SingRangeTest {
+  if (!test) return false;
+  if (typeof test.testedAt !== "string" || !Number.isFinite(Date.parse(test.testedAt))) return false;
+  for (const midi of [test.lowMidi, test.highMidi]) {
+    if (!Number.isInteger(midi) || midi < 0 || midi > 127) return false;
+  }
+  return test.lowMidi <= test.highMidi;
+}
 
 function isActivityType(value: string): value is SingActivityType {
   return Object.hasOwn(SING_SESSION_MAPPING, value);
@@ -278,10 +314,19 @@ export function importSingSessions(input: {
     if (!attemptId) { count("identityUnassigned"); continue; }
 
     // The one mapped type is a range scan, and the scan's measurement is not in
-    // the session. Matching by day is the only join the two records offer, and a
-    // session with no matching test is a scan whose result was never stored.
-    const rangeTest = input.rangeTests.find((test) => test.testedAt.slice(0, 10) === session.day);
-    if (!rangeTest) { count("evidenceMissing"); continue; }
+    // the session, so the two records have to be joined. Candidates are the tests
+    // whose instant sits inside the window; a session with none is a scan whose
+    // result was never stored, and a session with two cannot be attributed to
+    // either without guessing.
+    const sessionAt = createdAt.getTime();
+    const candidates = input.rangeTests.filter(
+      (test) =>
+        isUsableRangeTest(test) &&
+        Math.abs(Date.parse(test.testedAt) - sessionAt) <= RANGE_JOIN_WINDOW_SEC * 1000,
+    );
+    if (candidates.length === 0) { count("evidenceMissing"); continue; }
+    if (candidates.length > 1) { count("ambiguousEvidence"); continue; }
+    const [rangeTest] = candidates;
 
     if (input.allowedLessons.get(mapping.lessonId) !== track) { count("lessonNotAllowed"); continue; }
 

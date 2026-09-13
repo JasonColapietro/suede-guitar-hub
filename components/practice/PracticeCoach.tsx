@@ -248,7 +248,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscore
             // so only the capture path is compensated for: the guide term belongs to
             // an audible metronome, and the time a cue takes to be drawn, composited
             // and seen is not something this repository measures.
-            scoreLag.current = practiceScoreLagSec({ captureLagSeconds: captureLagSec(audio.context) });
+            scoreLag.current = practiceScoreLagSec({ captureLagSeconds: captureLagSec(audio.context, audio.inputTrack) });
             active.current = true;
             // A quiet calibration interval precedes the visible bar count-in.
             let awaitingCalibration = track === 'guitar' && !microphoneFree;

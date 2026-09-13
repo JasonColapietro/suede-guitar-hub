@@ -93,6 +93,7 @@ test('one of nine maps, and the other eight are counted rather than dropped', ()
     assert.equal(result.total, contract.session.activityTypes.length);
     assert.equal(result.attempts.length, 1);
     assert.deepEqual(result.counts, {
+        ambiguousEvidence: 0,
         ambiguousLesson: 4,
         evidenceMissing: 0,
         identityUnassigned: 0,
@@ -176,4 +177,54 @@ test('the vendored copy is still the provisional one, and says so', () => {
     assert.equal((contract as { provisional?: boolean }).provisional, true, 'if sing has published the real contract, re-sync and delete this assertion');
     assert.equal(contract.contract, 'suede-progress-shape');
     assert.equal(contract.version, 1);
+});
+
+test('two scans near one session are counted, not silently resolved to the first', () => {
+    // The join took the first range test sharing a calendar day, so a singer who
+    // scanned twice in a day had the first scan's range attached to both sessions
+    // — a wrong measurement stored as provenance, with nothing to say so.
+    const first: SingRangeTest = { lowMidi: 48, highMidi: 72, testedAt: '2026-01-04T08:00:00.000Z' };
+    const second: SingRangeTest = { lowMidi: 45, highMidi: 79, testedAt: '2026-01-04T10:00:00.000Z' };
+    const result = run([session({ type: 'range' })], { rangeTests: [first, second] });
+    assert.equal(result.counts.ambiguousEvidence, 1);
+    assert.equal(result.counts.imported, 0);
+    assert.deepEqual(result.attempts, []);
+});
+
+test('a scan the far side of midnight still joins its session', () => {
+    // `session.day` is a local calendar date and an ISO prefix is a UTC one, so
+    // comparing the two strings missed a real pair either side of midnight.
+    // Comparing instants leaves no date string to disagree about.
+    const test: SingRangeTest = { lowMidi: 48, highMidi: 72, testedAt: '2026-01-05T01:30:00.000Z' };
+    const result = run([session({ type: 'range', day: '2026-01-04', date: '2026-01-04T23:30:00.000Z' })], { rangeTests: [test] });
+    assert.equal(result.counts.imported, 1);
+    assert.equal(result.counts.evidenceMissing, 0);
+});
+
+test('a scan far from every session is absent evidence rather than a loose join', () => {
+    const test: SingRangeTest = { lowMidi: 48, highMidi: 72, testedAt: '2026-01-04T09:00:00.000Z' };
+    const result = run([session({ type: 'range', date: '2026-01-06T09:00:00.000Z', day: '2026-01-06' })], { rangeTests: [test] });
+    assert.equal(result.counts.evidenceMissing, 1);
+    assert.equal(result.counts.imported, 0);
+});
+
+test('a corrupt range measurement is unreadable, never stored as provenance', () => {
+    // parseLearningAttempt bounds `details` as JSON and does not look inside it,
+    // so without validation a tampered export could land lowMidi -999 in the
+    // ledger as an imported measurement.
+    for (const bad of [
+        { lowMidi: -999, highMidi: 999, testedAt: '2026-01-04T09:00:00.000Z' },
+        { lowMidi: 72, highMidi: 48, testedAt: '2026-01-04T09:00:00.000Z' },
+        { lowMidi: 48.5, highMidi: 72, testedAt: '2026-01-04T09:00:00.000Z' },
+        { lowMidi: 48, highMidi: 72, testedAt: 'not a timestamp' },
+    ] as SingRangeTest[]) {
+        const result = run([session({ type: 'range' })], { rangeTests: [bad] });
+        assert.equal(result.counts.imported, 0, `${JSON.stringify(bad)} must not import`);
+        assert.equal(result.attempts.length, 0);
+        // Absent rather than wrong: an unusable measurement is not evidence, so it
+        // reads as evidence missing rather than as a readable record.
+        assert.equal(result.counts.evidenceMissing, 1);
+    }
+    // And the good one still works, so the guard is not rejecting everything.
+    assert.equal(run([session({ type: 'range' })], { rangeTests: [RANGE_TEST] }).counts.imported, 1);
 });

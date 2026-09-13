@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { MAXIMUM_SCORE_LAG_SEC, ONSET_REPORT_TOLERANCE_SEC, captureLagSec, outputLagSec, practiceScoreLagSec } from '../lib/audio/latency.ts';
 import { RHYTHM_WINDOW_BEATS, scorePractice, type Observation, type PracticeSpec } from '../lib/audio/practice.ts';
 import { guitarPractice } from '../lib/audio/guitar-practice.ts';
@@ -147,4 +148,36 @@ test('compensating the scoring window is not licence to widen the staleness gate
     // ceiling is well under it so that nobody can read one as the other.
     assert.equal(guitarPractice.maximumAge, .45, 'the staleness gate is native-owned and unchanged here');
     assert.ok(MAXIMUM_SCORE_LAG_SEC < guitarPractice.maximumAge, 'the two numbers are separate and must not meet');
+});
+
+test('the capture path hands its track to the compensation that wants it', () => {
+    // captureLagSec has always preferred the track's reported latency, and the
+    // only caller passed the context alone — so every scored run fell back to
+    // baseLatency, which describes the graph and output path rather than the
+    // microphone and driver delay that shifts a captured attack late. The
+    // function was right and the call site was wrong, which no test of the
+    // function could catch.
+    //
+    // Asserted against the source rather than by driving the component, because
+    // reaching this line needs getUserMedia and an AudioWorklet. A source check is
+    // weaker than a behavioural one and is recorded as such: it proves the
+    // argument is passed, not that the value is correct at runtime.
+    const capture = readFileSync('lib/audio/capture.ts', 'utf8');
+    assert.match(capture, /inputTrack\?: MediaStreamTrack \| null/, 'Capture must carry the track');
+    assert.match(capture, /inputTrack: stream\.getAudioTracks\(\)\[0\] \?\? null/, 'startCapture must populate it');
+
+    const coach = readFileSync('components/practice/PracticeCoach.tsx', 'utf8');
+    assert.match(
+        coach,
+        /captureLagSec\(audio\.context,\s*audio\.inputTrack\)/,
+        'the scored run must compensate for the input path it actually opened, not for the output path',
+    );
+    assert.doesNotMatch(coach, /captureLagSec\(audio\.context\)/, 'the context-only call is the bug');
+});
+
+test('the rehearsal path has no track, and that is the honest answer there', () => {
+    // startRhythmPractice never opens a microphone, so there is no input path to
+    // compensate for and `inputTrack` is absent rather than invented.
+    const playback = readFileSync('lib/audio/practice-playback.ts', 'utf8');
+    assert.doesNotMatch(playback, /inputTrack/, 'a path with no microphone must not claim an input latency');
 });
