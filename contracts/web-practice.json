@@ -15,6 +15,13 @@
     "lowestAudibleMidi": 35,
     "highestAudibleMidi": 89
   },
+  "rhythmScoring": {
+    "windowBeats": 0.5,
+    "maximumScoreLagSeconds": 0.25,
+    "onsetReportToleranceSeconds": 0.006,
+    "compensatesReportedAudioPath": true,
+    "compensatesVisualCuePath": false
+  },
   "adaptiveTempo": {
     "minimumRatio": 0.25,
     "maximumRatio": 1.25,

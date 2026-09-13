@@ -28,6 +28,8 @@ import {
   SILENCE_RMS,
   YIN_THRESHOLD,
 } from "../lib/audio/dsp.ts";
+import { MAXIMUM_SCORE_LAG_SEC, ONSET_REPORT_TOLERANCE_SEC } from "../lib/audio/latency.ts";
+import { RHYTHM_WINDOW_BEATS } from "../lib/audio/practice.ts";
 import {
   TEMPO_ADVANCE_SCORE,
   TEMPO_BPM_MATCH_EPSILON,
@@ -51,6 +53,7 @@ export const CONTRACT_KEYS = [
   "adaptiveTempo",
   "contract",
   "detector",
+  "rhythmScoring",
   "version",
 ] as const;
 
@@ -90,6 +93,28 @@ export function buildContract() {
        * can be detected, and a test that assumed it did caught this. */
       lowestAudibleMidi: Math.ceil(69 + 12 * Math.log2(DEFAULT_PITCH_BAND.minimumFrequency / 440)),
       highestAudibleMidi: Math.floor(69 + 12 * Math.log2(DEFAULT_PITCH_BAND.maximumFrequency / 440)),
+    },
+    rhythmScoring: {
+      /** Half a beat either side of the target, and the credit falls off linearly
+       * across it. This is the number that makes latency worth correcting: an
+       * uncompensated timeline shifts every attack toward the edge of this
+       * window, so the bias spends a learner's score rather than averaging out. */
+      windowBeats: RHYTHM_WINDOW_BEATS,
+      /** The ceiling on how far a reported platform delay may move the scored
+       * timeline. Published because it bounds how much of a learner's result is
+       * the correction rather than the performance, and because it is the number
+       * somebody will otherwise confuse with the frame-staleness gate — which is
+       * a different promise about a different thing and is native-owned. */
+      maximumScoreLagSeconds: MAXIMUM_SCORE_LAG_SEC,
+      /** The bound on the onset detector's own timestamp error. It is early
+       * rather than late and is left uncorrected; see lib/audio/latency.ts. */
+      onsetReportToleranceSeconds: ONSET_REPORT_TOLERANCE_SEC,
+      /** Compensation is applied to what the platform reports about itself. The
+       * visual cue path — a cue drawn on a later animation frame, composited,
+       * and then seen — is not compensated, because nothing in this repository
+       * measures it and a guessed constant there would move every score. */
+      compensatesReportedAudioPath: true,
+      compensatesVisualCuePath: false,
     },
     adaptiveTempo: {
       minimumRatio: TEMPO_MINIMUM_RATIO,

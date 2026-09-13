@@ -1,3 +1,4 @@
+import { MAXIMUM_SCORE_LAG_SEC } from './latency.ts';
 export interface PracticeTarget {
     id: string;
     beat: number;
@@ -39,11 +40,30 @@ export interface Observation {
 export function validSpec(spec: PracticeSpec) {
     return (spec.revision === undefined || (Number.isInteger(spec.revision) && spec.revision >= 1 && spec.revision <= 1_000_000)) && Number.isFinite(spec.bpm) && spec.bpm > 0 && spec.bpm <= 400 && (spec.completionMinimumBPM === undefined || (Number.isFinite(spec.completionMinimumBPM) && spec.completionMinimumBPM >= 20 && spec.completionMinimumBPM <= 300)) && Number.isInteger(spec.countInBeats) && spec.countInBeats >= 0 && spec.countInBeats <= 16 && Number.isFinite(spec.toleranceCents) && spec.toleranceCents > 0 && Number.isFinite(spec.passScore) && spec.passScore >= 0 && spec.passScore <= 100 && spec.targets.length > 0 && spec.targets.every((t, i) => Number.isFinite(t.beat) && t.beat >= 0 && (i === 0 || t.beat > spec.targets[i - 1].beat) && (spec.mode !== 'pitchSequence' || (Number.isInteger(t.midi) && t.midi! >= 0 && t.midi! <= 127)));
 }
-export function scorePractice(spec: PracticeSpec, observations: Observation[], activeSeconds = 0): PracticeResult {
+/** Half a beat either side of the target is the rhythm scoring window, and the
+ * distance inside it is what the credit is proportional to. It was an inline
+ * literal in two places, which meant a lesson asking "how close is close enough"
+ * had nothing to bind and a change here would have moved every score with no
+ * failing test. It is serialized by `contracts/web-practice.ts`. */
+export const RHYTHM_WINDOW_BEATS = .5;
+/** Score a performance, moving captured attacks back by the platform's own
+ * reported delay before they meet the beat grid.
+ *
+ * `scoreLagSeconds` comes from `practiceScoreLagSec` in `lib/audio/latency.ts`:
+ * the guide is heard after it is scheduled and an attack is timestamped after it
+ * was played, so a timeline compared with the grid as captured is biased late,
+ * and a learner perfectly in time loses credit for it. The default is zero so
+ * that a caller with nothing to report is exactly as it was rather than quietly
+ * compensated by a guess; the live practice surface supplies the measured value.
+ * Only rhythm timing uses it. Pitch sequences are graded on interval and order
+ * and would gain nothing but a chance for a shifted time to fall outside the
+ * filter that keeps an observation usable at all. */
+export function scorePractice(spec: PracticeSpec, observations: Observation[], activeSeconds = 0, scoreLagSeconds = 0): PracticeResult {
     const practiceSeconds = Number.isFinite(activeSeconds) ? Math.max(0, Math.min(86400, Math.floor(activeSeconds))) : 0;
     const abstain: PracticeResult = { bpm: spec.bpm, completionMinimumBPM: spec.completionMinimumBPM, practiceSpecRevision: spec.revision, practiceSeconds, score: null, disposition: 'insufficientSignal', passed: null, matchedTargets: 0, targetCount: spec.targets.length, noteScore: null, rhythmScore: null };
     if (!validSpec(spec))
         return abstain;
+    const lag = Number.isFinite(scoreLagSeconds) ? Math.min(MAXIMUM_SCORE_LAG_SEC, Math.max(0, scoreLagSeconds)) : 0;
     const usable = observations.filter(o => Number.isFinite(o.time) && o.time >= 0 && Number.isFinite(o.confidence) && o.confidence >= .6 && (spec.mode !== 'pitchSequence' || (Number.isInteger(o.midi) && Number.isFinite(o.cents ?? 0)))).sort((a, b) => a.time - b.time);
     if (usable.length < Math.max(1, Math.ceil(spec.targets.length * .5)))
         return abstain;
@@ -69,17 +89,17 @@ export function scorePractice(spec: PracticeSpec, observations: Observation[], a
             }
         }
         else {
-            let chosen = -1, error = .5;
+            let chosen = -1, error = RHYTHM_WINDOW_BEATS;
             for (let i = cursor; i < usable.length; i++) {
-                const e = Math.abs(usable[i].time * spec.bpm / 60 - target.beat);
-                if (e <= .5 && (chosen < 0 || e < error)) {
+                const e = Math.abs((usable[i].time - lag) * spec.bpm / 60 - target.beat);
+                if (e <= RHYTHM_WINDOW_BEATS && (chosen < 0 || e < error)) {
                     chosen = i;
                     error = e;
                 }
             }
             if (chosen >= 0) {
                 cursor = chosen + 1;
-                credit += Math.max(0, 1 - error / .5);
+                credit += Math.max(0, 1 - error / RHYTHM_WINDOW_BEATS);
                 matched++;
             }
         }

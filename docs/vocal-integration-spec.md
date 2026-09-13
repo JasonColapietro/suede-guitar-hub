@@ -212,22 +212,82 @@ that will not move.
 
 ### W13 — Latency compensation
 
-There is none in this repository beyond `latencyHint: "interactive"`. No
-output-latency or analyser-lag correction exists, while rhythm mode scores
-attack timing inside a half-beat window, so every scored attempt is biased late.
-Fixing it changes scored output and the rhythm and tuner fixtures in
-`contracts/practice-tools.json` are native-generated, so native must move with
-it.
+**Done in the web scorer; the native scorer has to make the same correction
+before the two surfaces agree about a timeline again.**
 
-The two repositories are complementary rather than duplicated here. This one has
-audio-session claiming and lifecycle binding that the sing repository lacks; the
-sing repository has the context and latency modules this one lacks. Each should
-adopt the other's half.
+There was none in this repository beyond `latencyHint: "interactive"`, while
+rhythm mode scores attack timing inside half a beat of the target. Nothing in the
+chain is instantaneous: a guide is heard after it is scheduled, and an attack is
+timestamped when the audio graph renders the block it arrived in rather than when
+it reached the microphone. Both delays push a captured attack later, so the error
+is a bias rather than jitter and does not average out over an exercise.
 
-W17's `frameStaleness` entry settles the one constant this work would otherwise
-have had to decide on its own: the 0.45-second reading age may be tightened and
-must not be widened, and it is not a budget to spend on analyser lag. The rhythm
-window and the staleness gate are separate numbers.
+The size of it is arithmetic once it is written down, and
+`tests/audio-latency.test.ts` states it: credit falls off linearly across the
+half-beat window, so a path of `lag` seconds costs every target
+`lag / (0.5 beats)` of its credit. At 100 beats per minute an unremarkable 80
+millisecond path — a reported output latency in the forties plus input buffering
+— turns a performance that was in time into 73 out of 100, which fails an
+80-point checkpoint. Bluetooth output, which routinely reports 150 to 300
+milliseconds, fails it outright.
+
+Only one direction of the exchange is done. `lib/audio/latency.ts` adopts the
+sing repository's module rather than inventing a second one: `outputLagSec` is its function, and the rule that a guide lag and a
+capture lag add rather than cancel is its `scoreLagSec`. What is new is the
+detector half. sing corrects an analyser window and a median filter over pitch
+frames; guitar practice scores onsets, and `OnsetDetector` names the centre of
+the frame whose energy rose, which lands one to two 128-sample hops *before* the
+attack. Measured against synthesized plucks that is 2.7 milliseconds early at
+48 kHz and at most 5.6 at 44.1 kHz — the opposite sign from the platform path and
+an order of magnitude smaller — so it is bounded by
+`ONSET_REPORT_TOLERANCE_SEC` and a test rather than compensated for.
+
+`scorePractice` now takes a fourth argument, `scoreLagSeconds`, and moves rhythm
+observations back by it before they meet the beat grid. It defaults to zero, so a
+caller with nothing to report behaves exactly as it did rather than being
+compensated by a guess, and it is clamped by `MAXIMUM_SCORE_LAG_SEC` (0.25
+seconds), past which a claimed latency is likelier a broken report than a path
+and shifting a timeline would stop correcting a bias and start inventing a
+performance. `RHYTHM_WINDOW_BEATS` is now a name instead of an inline `.5` in two
+places, and both constants are serialized into `contracts/web-practice.json`
+under `rhythmScoring`; the regeneration added keys and changed no existing value.
+
+The other direction is still open: sing has no equivalent of this repository's
+`claimAudioSession` and lifecycle binding, so two of its surfaces can still hold
+a microphone at once. Porting that is a change to sing's audio modules and was
+left alone here rather than done halfway.
+
+`PracticeCoach` reads the capture path's reported length when capture opens and
+passes it in. The scored run is guided by the on-screen cue rather than by a
+click, so only the capture term applies there, and the published contract says so
+in `compensatesVisualCuePath: false`: the time a cue takes to be drawn,
+composited and seen is real and is not compensated, because nothing here measures
+it and a guessed constant would move every score.
+
+No fixture was invalidated. `contracts/practice-tools.json` is native-generated
+and carries metronome, click-synthesis, tuner and tempo fixtures but no rhythm
+*scoring* fixtures, so nothing in it had to change and nothing in it was touched.
+What native owes is not a regeneration but the same correction: `AdaptiveDifficulty`
+and the native rhythm scorer have to subtract the iOS output and input path — the
+values `AVAudioSession` reports as `outputLatency` and `inputLatency` — from
+their own observation times before comparing with the grid, and they have to use
+the same half-beat window and the same 0.25-second ceiling. Until they do, the
+same performance scores differently on the two surfaces, and the web number is
+the correct one.
+
+W17's `frameStaleness` entry settled the one constant this work would otherwise
+have had to decide on its own, and it is honoured literally: `guitarPractice.maximumAge`
+is still 0.45 and is native-owned, `MAXIMUM_SCORE_LAG_SEC` is well under it, and
+a test asserts both so that compensating the scoring window cannot be read as
+relaxing the staleness gate.
+
+What the tests do not establish: they are unit tests over synthetic observations
+and a synthesized pluck. They establish that the scorer is biased late when handed
+a delayed timeline and unbiased when told the delay, and they bound the detector's
+own timestamp error for a signal whose attacks are exactly known. They establish
+nothing about real-device output latency, microphone accuracy, or timing on
+physical hardware; no measurement in this repository has touched a guitar. The
+bias is corrected arithmetically, not measured away.
 
 ### W14 — Make contract drift fail CI
 
@@ -732,8 +792,9 @@ branch. It is cheap once that lands and is a no-op before it.
 
 W3 is next and gates W1, W2, W19 and W20. W5, W6, W4 and W7 are independent of
 W3 and can run in parallel; W5 retires the most modules per unit of work and W6
-must ship behind latency correction. W8, W13 and W26 follow. W9 is last. W10,
-W11, W12, W27 and W29 are decided against or deferred.
+must ship behind latency correction, which W13 has now done in the web scorer.
+W8 and W26 follow. W9 is last. W10, W11, W12, W27 and W29 are decided against or
+deferred.
 
 ## Verification
 
