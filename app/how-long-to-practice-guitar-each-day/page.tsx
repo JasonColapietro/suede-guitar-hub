@@ -152,6 +152,17 @@ export default function HowLongToPracticePage() {
           practice often.
         </p>
 
+        <p>
+          This page is about one session: how long it stays useful, and what
+          belongs in ten, twenty-five or sixty minutes. It is the page that sizes
+          a session and fills it. How those sessions are arranged across a week,
+          which one you defend and what you cut when the week goes wrong, is{" "}
+          <Link href="/guitar-practice-schedule">
+            the practice schedule
+          </Link>
+          &apos;s question rather than this one.
+        </p>
+
         <h2>The limit is concentration, not fingers</h2>
 
         <p>

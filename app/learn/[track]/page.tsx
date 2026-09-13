@@ -49,5 +49,5 @@ export async function generateMetadata({ params }: { params: Promise<{ track: st
 export default async function TrackPage({ params }: { params: Promise<{ track: string }> }) {
   const { track } = await params;
   if (!isTrackId(track)) notFound();
-  return <><nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><span>{trackNames[track]}</span></nav><LearningPath track={track} /></>;
+  return <><nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><span>{trackNames[track]}</span></nav><p className={styles.small}>New to the vocabulary? <Link href="/glossary">The glossary</Link> defines every word this curriculum uses, in one sentence each.</p><LearningPath track={track} /></>;
 }

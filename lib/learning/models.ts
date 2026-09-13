@@ -1,3 +1,6 @@
+import { isProofMetric, type ProofMetric } from "./proof-metrics.ts";
+export type { ProofMetric } from "./proof-metrics.ts";
+
 export type TrackId = "guitar" | "voice";
 export type LessonType = "concept" | "exercise" | "song" | "checkpoint";
 export interface PracticeSpec {
@@ -23,7 +26,7 @@ export interface LearningModule {
   name: string;
   promise: string;
   skill?: string;
-  proofMetric?: string;
+  proofMetric?: ProofMetric;
   lessonsTotal?: number;
   sampleLessonsShown?: number;
   lessons: Lesson[];
@@ -110,7 +113,12 @@ export function validateCurriculum(value: unknown, track: TrackId): Curriculum {
       const learningModule = record(entry, "module");
       unique(learningModule.id);
       for (const key of ["name", "promise"]) string(learningModule[key], key);
-      for (const key of ["skill", "proofMetric"]) if (learningModule[key] !== undefined) string(learningModule[key], key);
+      if (learningModule.skill !== undefined) string(learningModule.skill, "skill");
+      // A closed vocabulary rather than "a non-empty string": the string check is
+      // what let a module declare a measurement nothing performs. See
+      // lib/learning/proof-metrics.ts.
+      if (learningModule.proofMetric !== undefined && !isProofMetric(learningModule.proofMetric))
+        throw new Error(`Unknown proofMetric: ${JSON.stringify(learningModule.proofMetric)}`);
       if (learningModule.lessonsTotal !== undefined) number(learningModule.lessonsTotal, 1, 1000, "lesson total");
       if (learningModule.sampleLessonsShown !== undefined) number(learningModule.sampleLessonsShown, 1, 1000, "sample lessons");
       array(learningModule.lessons, "lessons");

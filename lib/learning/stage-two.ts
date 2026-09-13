@@ -7,8 +7,8 @@ export interface ChordStudy {
   demoEvents: { beat: number; midiLowToHigh: number[]; durationBeats: number; perStringStrumOffsetBeats: number }[];
 }
 export type StageTwoAsset =
-  | { id: string; kind: "panels"; panels: { number: number; label: string; action: string }[] }
-  | { id: string; kind: "anchor"; sequence: { number: number; chord: string | null; action: string }[]; suggestedSeconds: number; textAlternative: string }
+  | { id: string; kind: "panels"; title?: string; panels: { number: number; label: string; action: string }[] }
+  | { id: string; kind: "anchor"; title?: string; sequence: { number: number; chord: string | null; action: string }[]; suggestedSeconds: number; textAlternative: string }
   | { id: string; kind: "manualChanges"; durationSeconds: 60; defaultStartingChord: "A" | "D"; countRule: string; earlyReadinessCount: number; longerTermGoalCount: number }
   | { id: string; kind: "barGuide"; bpm: number; beats: { beatInBar: number; action: string }[]; textAlternative: string }
   | { id: string; kind: "study"; study: ChordStudy }
@@ -19,6 +19,13 @@ const stageKinds = new Set(["panels", "anchor", "manualChanges", "barGuide", "st
 export function isStageTwoAsset(asset: { kind: string }): asset is StageTwoAsset { return stageKinds.has(asset.kind); }
 function object(value: unknown): Record<string, unknown> { if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("Invalid instructional asset"); return value as Record<string, unknown>; }
 function text(value: unknown): string { if (typeof value !== "string" || !value.trim()) throw new Error("Missing instructional text"); return value; }
+/** The authored `name` on a diagram asset, where the author wrote one.
+ *
+ * It had been dropped on the floor, so every panel asset rendered under one
+ * hardcoded guitar heading however it was authored. A heading the author wrote
+ * is the only way this renderer can name an asset without assuming the
+ * instrument, which is why it is decoded rather than ignored. */
+function optionalText(value: unknown): string | undefined { return value === undefined || value === null ? undefined : text(value); }
 function numeric(value: unknown, min: number, max: number): number { if (typeof value !== "number" || !Number.isFinite(value) || value < min || value > max) throw new Error("Invalid instructional number"); return value; }
 function integer(value: unknown, min: number, max: number): number { const number = numeric(value, min, max); if (!Number.isInteger(number)) throw new Error("Expected an integer"); return number; }
 function list(value: unknown): unknown[] { if (!Array.isArray(value) || value.length === 0) throw new Error("Missing instructional list"); return value; }
@@ -41,8 +48,8 @@ export function decodeChordStudy(value: unknown): ChordStudy {
 
 export function decodeStageTwoAsset(id: string, raw: Record<string, unknown>): StageTwoAsset | null {
   switch (raw.kind) {
-    case "instruction_diagram": return { id, kind: "panels", panels: list(raw.panels).map(value => { const panel = object(value); return { number: integer(panel.number, 1, 20), label: text(panel.label), action: text(panel.action) }; }) };
-    case "step_diagram": return { id, kind: "anchor", sequence: list(raw.sequence).map(value => { const step = object(value); return { number: integer(step.number, 1, 20), chord: step.chord === null ? null : text(step.chord), action: text(step.action) }; }), suggestedSeconds: numeric(raw.suggestedSeconds, 1, 3600), textAlternative: text(raw.textAlternative) };
+    case "instruction_diagram": return { id, kind: "panels", title: optionalText(raw.name), panels: list(raw.panels).map(value => { const panel = object(value); return { number: integer(panel.number, 1, 20), label: text(panel.label), action: text(panel.action) }; }) };
+    case "step_diagram": return { id, kind: "anchor", title: optionalText(raw.name), sequence: list(raw.sequence).map(value => { const step = object(value); return { number: integer(step.number, 1, 20), chord: step.chord === null ? null : text(step.chord), action: text(step.action) }; }), suggestedSeconds: numeric(raw.suggestedSeconds, 1, 3600), textAlternative: text(raw.textAlternative) };
     case "manual_timed_exercise": { const chord = raw.defaultStartingChord; if (chord !== "A" && chord !== "D") throw new Error("Invalid starting chord"); return { id, kind: "manualChanges", durationSeconds: integer(raw.durationSeconds, 60, 60) as 60, defaultStartingChord: chord, countRule: text(raw.countRule), earlyReadinessCount: integer(raw.earlyReadinessCount, 1, 1000), longerTermGoalCount: integer(raw.longerTermGoalCount, 1, 1000) }; }
     case "rhythm_diagram_and_demo": return { id, kind: "barGuide", bpm: numeric(raw.suggestedBPM, 20, 240), beats: list(raw.beatCells).map(value => { const beat = object(value); return { beatInBar: integer(beat.beatInBar, 1, 4), action: text(beat.action) }; }), textAlternative: text(raw.textAlternative) };
     case "original_chord_study": return { id, kind: "study", study: decodeChordStudy(raw) };

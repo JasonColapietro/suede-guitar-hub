@@ -6,7 +6,7 @@ import { GUIDES, OG_IMAGE, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 const CANONICAL = "https://guitarhub.org/deliberate-practice-guitar";
 
 const DESCRIPTION =
-  "Deliberate practice on guitar means one target you cannot hit yet, a difficulty where you keep missing, and honest feedback on every attempt.";
+  "How to judge your own playing with no teacher in the room: one target you cannot hit yet, a difficulty where you keep missing, and a verdict on every attempt.";
 
 export const metadata: Metadata = {
   title: "Deliberate Practice on Guitar | GuitarHub",
@@ -126,6 +126,18 @@ export default function DeliberatePracticeGuitarPage() {
           material you already own. Deliberate practice is what you do with
           material you do not. Both belong in a week at the instrument, but only
           one of them is built to move what is currently out of reach.
+        </p>
+
+        <p>
+          This page is about the part of practice you cannot supply by deciding
+          to: an honest verdict on each attempt when nobody else is listening.
+          The target, the tempo and the order of the session are a separate
+          problem, and{" "}
+          <Link href="/how-to-practice-guitar-effectively">
+            how to practice guitar effectively
+          </Link>{" "}
+          is the page that solves it. Read that one for the shape of the hour.
+          Read this one for how to tell whether the hour worked.
         </p>
 
         <h2>Playing and practicing feel similar and are not</h2>
@@ -260,11 +272,15 @@ export default function DeliberatePracticeGuitarPage() {
         </p>
 
         <p>
-          Finding it is mechanical. Take the passage, drop the tempo until you
-          can play it correctly twice in a row, then step up until it breaks.
-          The speed just under the break is where the work happens. The{" "}
-          <Link href="/tempo">tempo ladder builder</Link> does that arithmetic
-          for you, but a metronome and a pencil do it just as well.
+          Finding it is mechanical, and the arithmetic of climbing back up from
+          it belongs to the session rather than to this page: the tempo work is
+          laid out in{" "}
+          <Link href="/how-to-practice-guitar-effectively">
+            how to practice guitar effectively
+          </Link>
+          . What matters here is that the edge is a place you have to locate by
+          ear before any of it starts, because a tempo you chose for being
+          comfortable is not a tempo that tells you anything.
         </p>
 
         <p>

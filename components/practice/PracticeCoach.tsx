@@ -7,6 +7,7 @@ import { guitarPractice, guitarCountIn, FreshPitchGate, GuitarRearticulationGate
 import { ActivePracticeClock, scorePractice, transportAt, validSpec, type Observation, type PracticeResult, type PracticeSpec } from '@/lib/audio/practice';
 import styles from './PracticeCoach.module.css';
 import { recommendPracticeTempo, type TempoAttempt } from '@/lib/audio/practice-tempo';
+import { captureLagSec, practiceScoreLagSec } from '@/lib/audio/latency';
 import { practiceSelection, targetMap, rhythmCueAt } from '@/lib/audio/practice-selection';
 type Phase = 'ready' | 'requesting' | 'counting' | 'running' | 'paused' | 'help' | 'result' | 'reference';
 export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscoredResult, recentAttempts = [] }: {
@@ -39,6 +40,9 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscore
     const guitarGate = useRef(new FreshPitchGate()), guitarRelease = useRef(new GuitarRearticulationGate());
     const guitarStableMIDI = useRef<number | null>(null);
     const acceptedPitch = useRef<number | null>(null), acceptedAudioTime = useRef(-Infinity);
+    // Read when capture opens, because scoring happens after the context has been
+    // closed and a closed context reports nothing about its own latency.
+    const scoreLag = useRef(0);
     const live = useRef({ mode, loop, speed, onComplete, onUnscoredResult });
     useEffect(() => { live.current = { mode, loop, speed, onComplete, onUnscoredResult }; }, [mode, loop, speed, onComplete, onUnscoredResult]);
     function stopCapture() { activeClock.current.pause(capture.current?.context.currentTime ?? 0); active.current = false; generation.current++; abort.current?.abort(); capture.current?.stop(); capture.current = null; cancelAnimationFrame(animation.current); fresh.current = null; guitarGate.current.reset(); }
@@ -66,7 +70,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscore
             setPhase('ready');
             return;
         }
-        const scored = scorePractice({ ...spec, bpm: spec.bpm * live.current.speed / 100 }, observations.current, activeClock.current.elapsed(0));
+        const scored = scorePractice({ ...spec, bpm: spec.bpm * live.current.speed / 100 }, observations.current, activeClock.current.elapsed(0), scoreLag.current);
         resultId.current = crypto.randomUUID();
         setResultSaved(false);
         setResult(scored);
@@ -240,6 +244,11 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscore
                 return;
             }
             capture.current = audio;
+            // The scored run is guided by the on-screen cue rather than by a click,
+            // so only the capture path is compensated for: the guide term belongs to
+            // an audible metronome, and the time a cue takes to be drawn, composited
+            // and seen is not something this repository measures.
+            scoreLag.current = practiceScoreLagSec({ captureLagSeconds: captureLagSec(audio.context, audio.inputTrack) });
             active.current = true;
             // A quiet calibration interval precedes the visible bar count-in.
             let awaitingCalibration = track === 'guitar' && !microphoneFree;

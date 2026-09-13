@@ -273,6 +273,22 @@ export const HUBS: readonly SiteEntry[] = [
     blurb: "The written guides, grouped by what you are trying to fix.",
     lastModified: "2026-08-29",
   },
+  /**
+   * The shared vocabulary of the two instruments. Free and indexable like the
+   * rest of this group: the words are the cheapest thing on the site to give
+   * away, and the voice curriculum was shipping `passaggio`, `twang` and
+   * `pressed phonation` to beginners with no definition anywhere.
+   *
+   * The entries are vendored from the sing repository and only the guitar senses
+   * are defined here; see `lib/glossary.ts` for why one site per term.
+   */
+  {
+    href: "/glossary",
+    title: "Guitar and voice glossary",
+    blurb:
+      "What the words mean, one sentence each: the guitar vocabulary defined here, and every voice and music term linked to its definition in Suede Sing.",
+    lastModified: "2026-09-13",
+  },
   {
     href: "/faq",
     title: "FAQ",
@@ -377,6 +393,17 @@ export const STRUMLY = {
   sing: "https://sing.suedeai.ai",
   singRange: "https://sing.suedeai.ai/range",
   singWarmups: "https://sing.suedeai.ai/warmups",
+  /**
+   * Sing's glossary, and the definitional source for every voice and music term
+   * in the shared vocabulary. `/glossary` here renders the guitar senses and
+   * links every other word to an anchor on this page rather than restating it,
+   * because two sites competing to define one word is self-harm.
+   *
+   * Named here rather than at each use for the reason at the top of this file,
+   * and because the anchor is appended by `definitionHref` in `lib/glossary.ts`:
+   * one constant, one slug function, no hand-written fragment.
+   */
+  singGlossary: "https://sing.suedeai.ai/glossary",
 } as const;
 
 /** True for a route on guitarhub.org itself, which should use `next/link`. */

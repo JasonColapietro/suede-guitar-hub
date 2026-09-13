@@ -666,7 +666,7 @@
         {
           "id": "v-l5-m3",
           "name": "Twang and Ring",
-          "promise": "Get louder with no pressed-phonation flag",
+          "promise": "Carry further by adding ring, and watch your own ring-band share rise from take to take",
           "skill": "Resonance over force",
           "proofMetric": "ring_ratio_delta",
           "lessonsTotal": 7,
@@ -677,14 +677,14 @@
               "title": "Louder by Resonance, Not by Force",
               "type": "concept",
               "minutes": 4,
-              "summary": "Where carrying power actually comes from."
+              "summary": "Where carrying power actually comes from, and why pressed phonation is the costly way to fake it."
             },
             {
               "id": "v-l5-m3-04",
               "title": "Ring Without Pressing",
               "type": "exercise",
               "minutes": 6,
-              "summary": "Volume up, effort flat. The meter tells you which one moved."
+              "summary": "More carrying power without more push. Ring is a change of resonance, not a change of effort."
             },
             {
               "id": "v-l5-m3-07",
@@ -706,7 +706,7 @@
           "lessons": [
             {
               "id": "v-l5-m4-01",
-              "title": "The Difference You Can Hear and Measure",
+              "title": "The Difference You Can Hear",
               "type": "concept",
               "minutes": 4,
               "summary": "Belt and shout sound similar for about two seconds. Then one of them stops."

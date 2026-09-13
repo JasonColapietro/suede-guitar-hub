@@ -132,6 +132,16 @@ export default function IntermediatePracticeRoutinePage() {
           or was never the real one.
         </p>
 
+        <p>
+          This page is about what a session contains once you are past the
+          beginner stage, in five blocks with separate jobs. It is not a weekly
+          plan:{" "}
+          <Link href="/guitar-practice-schedule">the practice schedule</Link>{" "}
+          decides which days these sessions land on and which one you defend when
+          the week goes wrong, and this page decides what happens inside one of
+          them.
+        </p>
+
         <h2>Why the intermediate stall is a structure problem</h2>
 
         <p>
@@ -426,7 +436,13 @@ export default function IntermediatePracticeRoutinePage() {
 
         <p>
           Do not run all five blocks at two minutes each. A two-minute repair
-          block is not practice, it is a checklist you ticked.
+          block is not practice, it is a checklist you ticked. What follows is
+          which of these five blocks survives a short day, not a general ten
+          minute session: that one is on{" "}
+          <Link href="/how-long-to-practice-guitar-each-day">
+            how long to practice each day
+          </Link>
+          .
         </p>
 
         <p>A ten-minute day is a repair day:</p>

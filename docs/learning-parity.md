@@ -16,6 +16,65 @@ node scripts/sync-native-learning.mjs --native=/absolute/path/to/guitarhub-ios -
 npm test
 ```
 
+Neither sync script runs in CI, and cannot: both read a local iOS checkout, and
+the workflow has only this repository. So `--check` for the five runtime
+resources and `contracts/learning.json` is a step a human has to remember, and a
+green CI run does not mean the vendored native files match iOS. The one vendored
+contract whose reference is a public git repository —
+`contracts/suede-vocal.json`, from `JasonColapietro/sing` — is checked on every
+pull request by `scripts/sync-sing-vocal.mjs --check`. Do not read that step's
+success as covering these files.
+
+`contracts/web-practice.json` is the one contract here that points the other way.
+It is not vendored from anywhere: this repository is its reference surface, and
+the file is a generated record of the web detector band and the adaptive-tempo
+grid. `tests/web-practice-contract.test.ts` rebuilds it from the live constants
+in `lib/audio/dsp.ts` and `lib/audio/practice-tempo.ts` and byte-compares, so it
+needs no sync script and does run in CI. Regenerate it deliberately:
+
+```
+CONTRACT_WRITE=1 npm test
+```
+
+Read the diff before committing one. A changed value there is a changed promise
+to somebody practising — which notes a lesson may ask for, and how fast the app
+will push them.
+
+`contracts/adjudications.ts` is neither vendored nor generated. It records the
+fourteen constants that express one concept with different values across Suede's
+surfaces, each with a decision: unify and name the surface that has to move, or
+keep both and say why. `tests/adjudications.test.ts` binds every recorded value
+to its source — a live constant here, or a dotted path into a contract — so a
+number that moves without its entry moving fails the build. Values that live only
+in the sing repository are marked as observed and counted, because nothing here
+can check them.
+
+The register restates contract numbers on purpose, which the rule in
+`docs/practice-tools.md` forbids for a configuration. The difference is that
+nothing reads the register at runtime: its test asserts the restatement is still
+true, and a second test fails if any file outside `tests/` imports it. Do not
+import it from application code.
+
+`prerequisiteLessonIds` is ordering documentation, not an access gate. The
+decision and the reasons are in `lib/learning/prerequisites.ts`; what decides
+whether a learner may open something is `canOpenModule` in
+`lib/learning/access.ts`, and a test fails if the prerequisite graph is ever
+mentioned in that file or in `curriculum.ts`. The graph is still enforced, as a
+consistency oracle: `nextLessonId` walks catalog array order and ignores the
+graph, so the authored order checks the implicit one, and reordering a module's
+lessons past a prerequisite fails `tests/learning-prerequisites.test.ts`.
+
+`proofMetric` is a closed union, not a string. The vocabulary and each value's
+kind live in `lib/learning/proof-metrics.ts`, and `validateCurriculum` rejects
+anything outside it — so because `lib/learning/curriculum.ts` validates all three
+curricula at import, a value that is not in the union stops the app from booting
+rather than failing quietly. Authoring a module with a new metric means adding it
+there first, with its kind, which is the point: the field used to accept any
+non-empty string, and that is how the voice track came to promise measurements no
+Suede surface performs. `tests/learning-proof-metrics.test.ts` also asserts the
+kind agrees with the proof basis `lib/learning/voice-proof.ts` records, so a
+self-reported module cannot carry a metric that claims a measurement.
+
 The explicit source path prevents stale sibling worktrees from silently becoming
 the reference. `--check` compares raw bytes for all five sources and the generated
 contract. Runtime follower tests assert catalog order, sampler boundary, every

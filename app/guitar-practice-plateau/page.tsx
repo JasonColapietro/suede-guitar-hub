@@ -105,6 +105,16 @@ export default function GuitarPracticePlateauPage() {
           week.
         </p>
 
+        <p>
+          This is the written account of the six causes, so you can read them and
+          recognise your own. It does not rank them for you. The{" "}
+          <Link href="/diagnose">practice plateau diagnostic</Link> asks nine
+          questions about your last few sessions, scores five blockers against
+          their own maximums, and returns the one your answers point at hardest,
+          which is the part a page of prose cannot do. Read here to understand the
+          causes. Go there to find out which one is yours.
+        </p>
+
         <h2>A plateau is a repetition problem, not a volume problem</h2>
 
         <p>

@@ -24,3 +24,18 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: node scripts/check-account-bundle.mjs
+      # Drift detection for the one vendored contract whose reference is a public
+      # git repository. The other two come from a local iOS checkout, so their
+      # `--check` cannot run here — see docs/learning-parity.md. Keep that
+      # asymmetry in mind before reading a green run as "all contracts verified".
+      - run: node scripts/sync-sing-vocal.mjs --check
+      # The glossary contract, vendored the same way. While sing's default branch
+      # has not published it, this reports the provisional state and passes; the
+      # byte comparison starts the moment it does, and a stale provisional copy
+      # fails it. See the header of scripts/sync-sing-glossary.mjs.
+      - run: node scripts/sync-sing-glossary.mjs --check
+      # The progress-shape contract, vendored on the same terms and provisional
+      # for the same reason. It is the shape half of the cross-application
+      # handoff; the mapping half lives here and is held to it by
+      # tests/sing-session-mapping.test.ts, which `npm test` above runs.
+      - run: node scripts/sync-sing-progress.mjs --check

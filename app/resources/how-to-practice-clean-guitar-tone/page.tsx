@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
 import { OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
 
@@ -105,6 +106,18 @@ export default function CleanGuitarTonePage() {
           Vaughan and Larry Carlton. This version is about what to do in the
           next seven sessions, even if your rig is only a guitar and a small
           interface.
+        </p>
+
+        <p>
+          This is the general protocol: seven days on a phrase you choose, on
+          whatever rig you already own. It is not a study of a particular record.
+          If you arrived looking for what one performance does with a clean
+          sound, the companion guide to{" "}
+          <Link href="/resources/jeff-buckley-hallelujah-guitar-tone">
+            Jeff Buckley&apos;s Hallelujah
+          </Link>{" "}
+          is a close reading of that recording and ends in a test of its own.
+          This page gives you the protocol. That page gives you the example.
         </p>
 
         <h2>Set one clean baseline</h2>

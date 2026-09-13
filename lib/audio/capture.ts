@@ -11,6 +11,16 @@ export function claimAudioSession(interrupt: () => void) {
 export interface Capture {
     context: AudioContext;
     stop: () => void;
+    /**
+     * The microphone track, when there is one.
+     *
+     * Exposed for `captureLagSec`, which prefers the track's reported `latency`
+     * over `AudioContext.baseLatency`. Without it the compensation fell back to
+     * baseLatency every time — and baseLatency describes the graph and output
+     * path, not the microphone and driver delay that actually shifts a captured
+     * attack late. Absent on the rehearsal path, which never opens a mic.
+     */
+    inputTrack?: MediaStreamTrack | null;
 }
 export async function startCapture(onSamples: (samples: Float32Array, time: number, sampleRate: number) => void, onInterrupted: () => void, signal: AbortSignal): Promise<Capture> {
     if (signal.aborted)
@@ -66,7 +76,7 @@ export async function startCapture(onSamples: (samples: Float32Array, time: numb
             onInterrupted(); };
         stream.getAudioTracks().forEach(t => { t.onended = () => { if (!stopped)
             onInterrupted(); }; });
-        return { context, stop };
+        return { context, stop, inputTrack: stream.getAudioTracks()[0] ?? null };
     }
     catch (error) {
         stop();
