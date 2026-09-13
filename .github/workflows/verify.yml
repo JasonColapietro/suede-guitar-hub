@@ -29,3 +29,8 @@ jobs:
       # `--check` cannot run here — see docs/learning-parity.md. Keep that
       # asymmetry in mind before reading a green run as "all contracts verified".
       - run: node scripts/sync-sing-vocal.mjs --check
+      # The glossary contract, vendored the same way. While sing's default branch
+      # has not published it, this reports the provisional state and passes; the
+      # byte comparison starts the moment it does, and a stale provisional copy
+      # fails it. See the header of scripts/sync-sing-glossary.mjs.
+      - run: node scripts/sync-sing-glossary.mjs --check
