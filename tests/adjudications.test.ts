@@ -263,7 +263,7 @@ test('the voice taxonomy gap is six of eight, and both unreachable labels can st
 
     const answer = entry.resolves?.find(item => item.item === 'W23');
     assert.ok(answer, 'W23 reads its taxonomy answer off the register');
-    assert.ok(/repository owner/.test(answer.answer), 'an escalated decision has to say who it is escalated to');
-    assert.ok(/bass-baritone/i.test(answer.answer), 'and name the question that is open');
+    assert.ok(/repository owner/.test(answer.answer), 'the decision must retain its product authority');
+    assert.ok(/bass-baritone/i.test(answer.answer), 'the decision must name the reference-only category');
     assert.equal(entry.pendingOn, undefined, 'the owner is a person, not a surface that has to move a value');
 });

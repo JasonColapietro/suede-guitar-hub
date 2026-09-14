@@ -25,8 +25,9 @@
  * attempt is `source: "legacy"`, `kind: "legacy"`, `disposition: "imported"`, and
  * `parseLearningAttempt` forces `assessment: "repeat"` for every legacy attempt,
  * so no import can mark a lesson ready no matter what it claims. That is not a
- * limitation to work around; it is the only reason this mapping can ship before
- * the product question below is answered.
+ * limitation to work around. The delegated product decision of 2026-09-14 is
+ * history-only: future completion credit requires new lesson-specific evidence,
+ * not a reinterpretation of these legacy records.
  *
  * ## Why most types map to nothing
  *
@@ -46,6 +47,9 @@ import {
   type LearningAttempt,
   type LearningTrack,
 } from "../learning-account/contracts.ts";
+
+/** Legacy imports preserve practice history, never completion or rewards. */
+export const SING_IMPORT_COMPLETION_POLICY = "historyOnly" as const;
 
 /** The activity types sing publishes, as this repository reads them. Kept as a
  * type rather than a runtime list: the runtime list is the vendored contract's,

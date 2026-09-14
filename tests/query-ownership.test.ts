@@ -200,23 +200,12 @@ test("a consolidated URL keeps answering through a permanent redirect", async ()
   }
 });
 
-test("the cross-domain proposal is recorded, argued, and not enacted", () => {
-  assert.equal(CROSS_DOMAIN_PROPOSAL.decidedBy, null, "nobody has settled this yet");
-  assert.ok(CROSS_DOMAIN_PROPOSAL.options.length >= 3, "a proposal with one option is a decision");
-  for (const option of CROSS_DOMAIN_PROPOSAL.options) {
-    assert.ok(option.upside.length > 40, `${option.name} needs a real upside`);
-    assert.ok(option.downside.length > 40, `${option.name} needs a real downside`);
-  }
-  assert.match(
-    CROSS_DOMAIN_PROPOSAL.recommendation,
-    /option/,
-    "the recommendation must name which option it recommends",
-  );
+test("the decided discovery phase keeps canonical lesson access on GuitarHub", () => {
+  assert.equal(CROSS_DOMAIN_PROPOSAL.phase, "discovery");
+  assert.equal(CROSS_DOMAIN_PROPOSAL.redirectsEnabled, false);
 
-  // The proposal discusses moving the voice curriculum. Until a human settles
-  // it, the voice track stays exactly where it is: registered, published and
-  // reachable. This is the assertion that stops the proposal being read as
-  // permission.
+  // Discovery moves first. The actual learner URLs stay published until the
+  // receiving lesson bodies, access and progress transfer are verified.
   const voice = LEARN.find((entry) => entry.href === "/learn/voice");
   assert.ok(voice, "/learn/voice must stay in the route registry");
   assert.ok(
