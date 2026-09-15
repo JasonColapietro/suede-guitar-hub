@@ -128,7 +128,7 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   training. Its structured learning path: ${STRUMLY.path}
 - Strumly guides — the written rights and gear explainers that used to live on
   this domain: ${STRUMLY.guides}
-- Suede Social — guitar community, real rigs and public Rig Cards:
+- Suede AI Social — guitar community, real rigs and public Rig Cards:
   ${STRUMLY.social}
 - Suede Labs — the studio behind both: ${STRUMLY.suedeLabs}
 

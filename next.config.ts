@@ -22,7 +22,7 @@ const SECURITY_HEADERS = [
   { key: "X-Frame-Options", value: "DENY" },
 ] as const;
 
-// guitarhub.org served the Suede Social app before it became the lessons site.
+// guitarhub.org served the Suede AI Social app before it became the lessons site.
 // Google still holds those URLs (checked 2026-09-08: /discover, /articles and
 // /article/h9-vs-volante were indexed under this host and answered 404 here),
 // and the same pages are live on social.suedeai.ai, so send them home
