@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - Preserve the current GuitarHub visual system and original-copy/legal boundaries in `BUILD-BRIEF.md`.
-- Leave Strumly and Suede Social repositories untouched.
+- Leave Strumly and Suede AI Social repositories untouched.
 - Do not claim native community, active mentors, tuition, or measured outcomes that do not exist.
 - Do not collect or upload raw audio/video in this release.
 - Keep plan state browser-local under a versioned key.
@@ -142,7 +142,7 @@ Expected: all tests pass and the production build exits 0.
 
 - [x] **Step 1: Update the public journey**
 
-Add a “Build your 30-day plan” hero action, replace the generic phase copy with the evidence loop, explain the 8–12 player founding-room format as planned cohort operations, and link community language to Suede Social without claiming a native forum.
+Add a “Build your 30-day plan” hero action, replace the generic phase copy with the evidence loop, explain the 8–12 player founding-room format as planned cohort operations, and link community language to Suede AI Social without claiming a native forum.
 
 - [x] **Step 2: Update metadata**
 

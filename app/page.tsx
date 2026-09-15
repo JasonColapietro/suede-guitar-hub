@@ -126,7 +126,7 @@ const FAQS = [
   },
   {
     q: "Is the community already live inside GuitarHub?",
-    a: "No native GuitarHub forum is being claimed. Suede Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
+    a: "No native GuitarHub forum is being claimed. Suede AI Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
   },
   {
     q: "Does GuitarHub upload my playing?",

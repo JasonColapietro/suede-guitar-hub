@@ -6,7 +6,7 @@
 
 ## Product decision
 
-GuitarHub will be the orchestration and accountability layer around the existing Suede guitar estate. Strumly remains the practice engine and lesson library. Suede Social remains the broad community. GuitarHub owns the goal, the 30-day sequence, evidence checkpoints, crew expectations, mentor-review contract, and the next prescribed action.
+GuitarHub will be the orchestration and accountability layer around the existing Suede guitar estate. Strumly remains the practice engine and lesson library. Suede AI Social remains the broad community. GuitarHub owns the goal, the 30-day sequence, evidence checkpoints, crew expectations, mentor-review contract, and the next prescribed action.
 
 The first release is a founding-cohort pilot, not a broad learning-management system. It must be useful before admission: a visitor can generate a four-week plan, launch the correct Strumly resources, and track work locally. Admission adds the human layer described on the site: a small crew, weekly studio, checkpoint review, and final showcase.
 
@@ -21,7 +21,7 @@ The audience is an advanced beginner or intermediate guitarist who already consu
 3. The plan is stored in the browser only. The learner can mark actions complete without creating an account.
 4. Every week ends with evidence, not watch time: a short performance attempt, a self-rating, and one question for feedback.
 5. The learner applies to the founding room with the existing name, email, experience, and goal fields. Schedule and accountability preferences remain browser-local in this release rather than expanding third-party email data.
-6. Accepted members are placed into an 8–12 person goal/timezone crew. Operational crew delivery may use Suede Social and live calls during the pilot; the public site must not imply that a native GuitarHub forum already exists.
+6. Accepted members are placed into an 8–12 person goal/timezone crew. Operational crew delivery may use Suede AI Social and live calls during the pilot; the public site must not imply that a native GuitarHub forum already exists.
 
 ## Better-than-competitor loop
 
@@ -82,7 +82,7 @@ The plan workspace uses quieter cream panels and one dark indigo evidence card p
 - Invalid or incomplete profiles keep the learner in the builder and identify the missing field.
 - Corrupt or unknown local state is discarded and the builder starts clean.
 - Application delivery errors keep the completed fields available and point to `info@suedeai.ai`.
-- External Strumly and Suede Social links identify that they open another Suede surface.
+- External Strumly and Suede AI Social links identify that they open another Suede surface.
 
 ## Verification
 

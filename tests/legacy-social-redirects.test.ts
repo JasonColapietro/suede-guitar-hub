@@ -5,7 +5,7 @@ import nextConfig, { LEGACY_SOCIAL_ORIGIN, LEGACY_SOCIAL_REDIRECTS } from "../ne
 
 const LIVE_ROUTES = ["/", "/learn", "/learn/guitar", "/guides", "/practice", "/breakthrough", "/method", "/about"];
 
-test("the stale Suede Social URLs Google indexed under guitarhub.org redirect permanently to their live twins", async () => {
+test("the stale Suede AI Social URLs Google indexed under guitarhub.org redirect permanently to their live twins", async () => {
   const redirects = await nextConfig.redirects?.();
   assert.ok(redirects, "next.config must declare redirects()");
   assert.deepEqual(redirects, [...LEGACY_SOCIAL_REDIRECTS]);

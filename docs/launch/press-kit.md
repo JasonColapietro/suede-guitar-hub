@@ -27,7 +27,7 @@ estimate. We would rather answer a question than issue a correction.
 | Launched | Site live at guitarhub.org |
 | Price | Nothing on the site is paid. No payment is taken anywhere. |
 | Account required | None. There is no login, and no accounts exist. |
-| Sibling products | Strumly (AI guitar coach), Suede Social (guitar community) |
+| Sibling products | Strumly (AI guitar coach), Suede AI Social (guitar community) |
 | Current status | Free tools and guides are live. The founding room is an open application under review. |
 | Contact | info@suedeai.ai |
 
@@ -180,7 +180,7 @@ have seen made about products in this category and cannot make about this one.
 - **Not a replacement for a teacher.** The site's own position is that the loop
   makes lessons more useful, because you arrive with a recording and a specific
   question.
-- **Not a community platform.** GuitarHub has no forum of its own. Suede Social
+- **Not a community platform.** GuitarHub has no forum of its own. Suede AI Social
   carries the wider conversation.
 
 ---
@@ -247,11 +247,11 @@ Fraunces for display and italic accents. Inter for body text.
 ## Related Suede surfaces
 
 - **Strumly**, the AI guitar coach, guides index: https://strumly.suedeai.ai/guides
-- **Suede Social**, the guitar community: https://social.suedeai.ai
+- **Suede AI Social**, the guitar community: https://social.suedeai.ai
 - **Suede Labs**, the studio behind all three: https://suedeai.ai
 
 The relationship in one line: GuitarHub orchestrates the practice, Strumly
-powers the tools, and Suede Social carries the wider conversation.
+powers the tools, and Suede AI Social carries the wider conversation.
 
 ---
 
