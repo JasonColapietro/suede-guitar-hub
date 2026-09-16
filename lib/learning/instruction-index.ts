@@ -16,6 +16,11 @@ export function getInstructionQuiz(lessonId: string): InstructionQuiz | undefine
   return quiz ? validateInstructionQuiz(quiz as InstructionQuiz) : undefined;
 }
 
+/** Derived from the authored criteria without shipping lesson prose to client surfaces. */
+export function hasInstructionSelfCheck(lessonId: string): boolean {
+  return lessons.get(lessonId)?.hasSelfCheckCriteria === true;
+}
+
 export function hasInstructionQuiz(lessonId: string): boolean {
   return !!lessons.get(lessonId)?.quiz;
 }
