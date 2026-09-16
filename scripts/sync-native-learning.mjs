@@ -29,6 +29,7 @@ const indexBytes = Buffer.from(`${JSON.stringify({
   lessons: instructionLessons.map(lesson => ({
     id: lesson.id,
     prerequisiteLessonIds: lesson.prerequisiteLessonIds,
+    hasSelfCheckCriteria: lesson.selfAssessment.criteria.length > 0 && lesson.selfAssessment.criteria.every(criterion => criterion.trim().length > 0),
     ...(lesson.quiz ? { quiz: lesson.quiz } : {}),
   })),
 }, null, 2)}\n`);

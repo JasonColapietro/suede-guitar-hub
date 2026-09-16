@@ -32,7 +32,7 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
   const needsStudy = stageAssets.some(asset => asset.kind === "study");
   const needsTuning = track === "guitar" && ["g-l1-m1-02", "g-l1-m1-04"].includes(lesson.id);
   const completionMinimumBPM = lesson.practiceSpec?.completionMinimumBPM;
-  const requiresMeasuredCompletion = completionMinimumBPM !== undefined || lesson.practiceSpec?.revision !== undefined;
+  const requiresMeasuredCompletion = !!lesson.practiceSpec;
   const criteriaReady = !instructions || instructions.criteria.every(item => checkedCriteria.includes(item));
   const canMarkReady = !requiresMeasuredCompletion && criteriaReady && (!needsTuning || tuningReady) && (!needsManual || manualEvidence.ready) && (!needsStudy || studyEvidence.ready) && (!instructions?.quiz || currentReadingResult?.passed === true);
   const recordedPracticeSeconds = lessonPracticeSeconds(0, needsManual ? manualEvidence : noStageTwoEvidence, needsStudy ? studyEvidence : noStageTwoEvidence);
