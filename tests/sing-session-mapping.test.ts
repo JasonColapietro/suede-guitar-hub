@@ -137,8 +137,8 @@ test('a lesson outside the caller allowance is counted, not thrown', () => {
 });
 
 test('an imported attempt can never mark a lesson ready', () => {
-    // This is what lets the mapping ship while the product question is open. The
-    // transport forces every legacy attempt to "repeat", so a singer's history
+    // The decided policy is history-only. The transport forces every legacy
+    // attempt to "repeat", so a singer's history
     // arriving here cannot complete a single authored lesson no matter how it is
     // described on the way in.
     const [attempt] = run([session({ type: 'range' })]).attempts;

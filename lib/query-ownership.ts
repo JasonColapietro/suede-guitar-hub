@@ -270,49 +270,28 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
 ];
 
 /**
- * The cross-domain question, recorded as a proposal and deliberately not acted
- * on. This one is a positioning decision about two products rather than a page
- * edit, and the two repositories have different owners, so it is written down
- * with its tradeoffs for a human to settle.
- *
- * Nothing here moves or unpublishes the voice track.
- * `tests/query-ownership.test.ts` asserts that: `/learn/voice` is still in the
- * route registry, still in the sitemap, and still reachable, so the proposal
- * cannot be quietly enacted by whoever reads it next.
+ * Decided on 2026-09-14 under Jason's delegated product authority.
+ * The export name is retained for existing consumers. This is now a decision:
+ * Sing owns discovery/catalog; GuitarHub remains the canonical lesson renderer.
+ * No learner URL, identity, entitlement or progress record moves in this phase.
  */
 export const CROSS_DOMAIN_PROPOSAL = {
-  question:
-    "Should a seven-level voice curriculum keep being published from guitarhub.org while sing.suedeai.ai publishes the rooms that implement it?",
-  /** Where the two surfaces currently stand. Observed, not decided. */
-  state: [
-    "guitarhub.org publishes /learn/voice and its lessons, which teach breath, onset, range and steady tone.",
-    "sing.suedeai.ai publishes /range, /warmups, /breath, /studio and /ear-training, which are the exercises those lessons describe.",
-    "The guitar site links out to the sing rooms through STRUMLY.sing and through contracts/suede-vocal.json, and the sing site does not link back.",
-  ],
-  options: [
-    {
-      name: "Leave it where it is",
-      upside:
-        "Nothing moves, no redirect risk, and the voice track keeps the domain authority the guitar pages built. A singer who finds it gets a real curriculum.",
-      downside:
-        "The domain name argues against the content on every impression, which costs click-through that no on-page work recovers, and the two surfaces go on competing for singing-practice intent from different hosts.",
-    },
-    {
-      name: "Move the curriculum to sing.suedeai.ai and redirect",
-      upside:
-        "One host owns singing intent, the lessons sit next to the rooms that implement them, and the name stops contradicting the page.",
-      downside:
-        "It is the most expensive option and the riskiest: over a hundred lesson URLs, a redirect map, the access gate in lib/learning/access.ts and the indexability that follows it, and a vendored contract in the other direction. Voice would arrive on a host with no curriculum surface and would have to be rebuilt there before anything could be redirected into it.",
-    },
-    {
-      name: "Keep the curriculum here and give sing the intent",
-      upside:
-        "Cheapest honest split: the guitar site keeps teaching voice to the readers it already has but stops bidding for singing queries, and sing owns the rooms and the search intent for them.",
-      downside:
-        "Requires deciding what the voice track is for if it is not for search, and the answer is probably the existing learners rather than new ones. Wasted work if the curriculum later moves anyway.",
-    },
+  question: "Where should the voice curriculum live?",
+  decidedBy: "Jason Colapietro (delegated decision)",
+  decisionDate: "2026-09-14",
+  phase: "discovery",
+  catalogRepository: "JasonColapietro/sing",
+  discoveryUrl: "https://sing.suedeai.ai/learn",
+  temporaryLessonHost: "https://guitarhub.org/learn/voice",
+  eventualLessonHost: "https://sing.suedeai.ai",
+  redirectsEnabled: false,
+  requiredEvidence: [
+    "lessonBodies", "identity", "entitlements", "progress",
+    "urlParity", "vocalReview", "deviceAudio",
   ],
   recommendation:
-    "The third option, as a holding position, and the second as the eventual one. The voice track earns its place for readers who are already here and cannot win singing queries from a domain called guitarhub, so the cheap move is to stop trying: keep the lessons indexable and stop tuning them toward the same queries the sing rooms want. Moving them is right and is a project rather than a pass, and it should not start until sing has a curriculum surface of its own to receive them.",
-  decidedBy: null,
+    "Sing owns the voice catalog and curriculum discovery. Keep all complete lessons, " +
+    "existing lifetime access and progress on GuitarHub until the receiving lesson bodies, " +
+    "identity, entitlement and progress transfer are verified. Redirect only after URL parity, " +
+    "vocal review and real-device audio evidence are also complete.",
 } as const;

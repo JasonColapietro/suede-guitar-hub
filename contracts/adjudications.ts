@@ -69,6 +69,9 @@ export type Decision =
 
 export interface Adjudication {
   id: string;
+  /** Product decisions delegated by Jason; absent for purely technical entries. */
+  decidedBy?: string;
+  decisionDate?: string;
   concept: string;
   decision: Decision;
   surfaces: readonly SurfaceValue[];
@@ -136,6 +139,8 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
   },
   {
     id: "classifiableVoiceTypes",
+    decidedBy: "Jason Colapietro (delegated decision)",
+    decisionDate: "2026-09-14",
     concept: "How many voice categories a classified result can name",
     decision: "recordedUpstream",
     surfaces: [
@@ -149,25 +154,22 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
       "and nothing downstream breaks; what they cannot do is be told the category by a scan. This " +
       "repository is the consumer rather than a party to the disagreement — it holds no third value " +
       "and routes on whatever label arrives — which is why both values are recorded on one surface, " +
-      "as starScales does. Whether bass-baritone should join the classifier is a product decision " +
-      "and is deliberately not taken here: the six bands already tile the range without a gap, and a " +
+      "as starScales does. The delegated product decision is to retain six automatic labels: a " +
       "bass-baritone band of 42 to 66 overlaps bass at 40 to 64 and baritone at 45 to 69, so adding " +
-      "it re-partitions occupied territory instead of filling a hole. Every existing singer whose " +
-      "scan lands in that overlap would be re-labelled on their next scan, from a category they were " +
-      "shown to one they were not, which is a cost to weigh against a more precise label and not a " +
-      "consistency fix to apply. Countertenor is a separate question and probably not a classifier " +
+      "it re-partitions occupied territory instead of filling a hole. Some existing singers could " +
+      "be re-labelled on their next scan without demonstrated accuracy gains. Bass-baritone stays " +
+      "a reference category until a validated classifier supports the distinction. Countertenor " +
+      "likewise stays a reference category, not a classifier " +
       "output at all: the contract marks its zone as the one figure that varies most from singer to " +
-      "singer, and its transition is a different event from the other seven. The weighing belongs to " +
-      "the repository owner; until it is made, the recorded divergence is the resolution and nothing " +
-      "here may widen the classifier on its own.",
+      "singer, and its transition is a different event from the other seven. The recorded divergence " +
+      "is intentional; consumer consistency is not permission to widen the classifier.",
     resolves: [
       {
         item: "W23",
         answer:
           "The taxonomy is settled by leaving it settled. The classifier stays at six, " +
-          "knownDivergences.classifiableVoiceTypes is the resolution, and the open question — " +
-          "bass-baritone joining the classifier, which re-labels existing singers — is escalated to " +
-          "the repository owner rather than implemented. The test keeps that position honest: it " +
+          "knownDivergences.classifiableVoiceTypes is the resolution. The repository owner delegated " +
+          "the decision to keep bass-baritone reference-only until validated. The test keeps that position honest: it " +
           "asserts both unreachable labels still have a reference band and a passaggio zone, so the " +
           "gap stays safe to route around, and it fails if the classifier or the published set moves " +
           "without this entry being rewritten.",
