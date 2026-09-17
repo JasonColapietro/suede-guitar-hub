@@ -32,6 +32,14 @@ export const LEGACY_SOCIAL_REDIRECTS = [
   { source: "/discover", destination: `${LEGACY_SOCIAL_ORIGIN}/discover`, permanent: true },
   { source: "/articles", destination: `${LEGACY_SOCIAL_ORIGIN}/articles`, permanent: true },
   { source: "/article/:slug*", destination: `${LEGACY_SOCIAL_ORIGIN}/article/:slug*`, permanent: true },
+  // Checked 2026-09-16: Search Console also files /author/johnny, a
+  // /forum/off-topic thread and /social/roasts under "Not found (404)".
+  // Suede Social already folds /social/* onto its root paths, so land there directly.
+  { source: "/author/:slug*", destination: `${LEGACY_SOCIAL_ORIGIN}/author/:slug*`, permanent: true },
+  { source: "/forum", destination: `${LEGACY_SOCIAL_ORIGIN}/forum`, permanent: true },
+  { source: "/forum/:slug*", destination: `${LEGACY_SOCIAL_ORIGIN}/forum/:slug*`, permanent: true },
+  { source: "/social", destination: `${LEGACY_SOCIAL_ORIGIN}/`, permanent: true },
+  { source: "/social/:slug*", destination: `${LEGACY_SOCIAL_ORIGIN}/:slug*`, permanent: true },
 ] as const;
 
 const nextConfig: NextConfig = {

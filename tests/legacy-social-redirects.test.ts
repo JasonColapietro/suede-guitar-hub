@@ -14,7 +14,16 @@ test("the stale Suede AI Social URLs Google indexed under guitarhub.org redirect
     assert.ok(redirect.destination.startsWith(`${LEGACY_SOCIAL_ORIGIN}/`), `${redirect.source} must land on social.suedeai.ai`);
   }
   const sources = redirects.map((redirect) => redirect.source);
-  assert.deepEqual(sources, ["/discover", "/articles", "/article/:slug*"]);
+  assert.deepEqual(sources, [
+    "/discover",
+    "/articles",
+    "/article/:slug*",
+    "/author/:slug*",
+    "/forum",
+    "/forum/:slug*",
+    "/social",
+    "/social/:slug*",
+  ]);
 });
 
 test("no live GuitarHub route is shadowed by a legacy redirect", async () => {
