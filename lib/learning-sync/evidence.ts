@@ -13,7 +13,7 @@ const ordered = (attempts: readonly LearningAttempt[]) => [...attempts].sort((a,
 export function mergeAccountReading(local: ReadingQuizProgress, cloud: readonly LearningAttempt[]): ReadingQuizProgress {
   const attempts = new Map(local.attempts.map(attempt => [attempt.id, structuredClone(attempt)]));
   for (const event of ordered(cloud)) {
-    if (event.track !== local.track || event.kind !== "reading" || event.source === "legacy") continue;
+    if (event.track !== local.track || event.kind !== "reading" || event.source !== "selfReported" || event.disposition !== "reflection") continue;
     const quiz = getInstructionQuiz(event.lessonId);
     const incoming = quiz ? parseReadingQuizAttempt(event.details.readingQuizAttempt, event.lessonId, quiz) : null;
     if (!incoming) continue;
@@ -42,6 +42,7 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
       !["practiceScore", "readingQuizAttempt", "chordChangeAttempt", "studyPracticeAttempt"].some(key => Object.hasOwn(attempt.details, key)) &&
       allowsGuidedSelfCheck(local.track, attempt.lessonId);
     const spec = getLesson(local.track, attempt.lessonId)?.lesson.practiceSpec;
+    const revisionMatches = (attempt.exerciseRevision ?? null) === (spec?.revision ?? null);
     const measured = attempt.source === "measured" && attempt.disposition === "scored";
     const scoreEvidence = attempt.details.practiceScore;
     const evidence = scoreEvidence && typeof scoreEvidence === "object" && !Array.isArray(scoreEvidence) ? scoreEvidence as Record<string, unknown> : {};
@@ -51,7 +52,7 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
     const record: LessonRecord = {
       updatedAt: attempt.createdAt, practiceSeconds: Math.floor(attempt.practiceSeconds ?? 0),
       source: measured ? "measured" : "selfReported", score: measured ? attempt.score : null,
-      assessment: measured ? completeTargets && completeDuration && spec && attempt.score !== null && attempt.score >= spec.passScore ? "ready" : "repeat" : selfChecked ? attempt.assessment : "repeat",
+      assessment: measured ? completeTargets && completeDuration && revisionMatches && spec && attempt.score !== null && attempt.score >= spec.passScore ? "ready" : "repeat" : selfChecked ? attempt.assessment : "repeat",
       ...(measured && attempt.bpm !== null ? { bpm: attempt.bpm } : {}),
       ...(measured && attempt.exerciseRevision !== null ? { practiceSpecRevision: attempt.exerciseRevision } : {}),
     };
