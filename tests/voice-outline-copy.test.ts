@@ -23,9 +23,8 @@ const { default: LearnPage } = await import('../app/learn/page.tsx');
  * later catalog or instruction change cannot quietly put the copy out of sync.
  *
  * Every assertion below compares what a surface renders with what
- * `isLessonReady` actually reports. The remaining broad "outlines" sentence on
- * the learn index stays only because the guitar track still has an unwritten
- * stage.
+ * `isLessonReady` actually reports. The learn index's broad "outlines" sentence
+ * disappears once every stage has authored instruction.
  *
  * The derived per-lesson and per-stage branches remain: if a future lesson loses
  * its instruction, its own page can say so without mislabeling the whole track.
@@ -76,9 +75,7 @@ test('the stage badges on the learning path read their word off readiness rather
     assert.equal(badges(render(LearningPath, { track: 'voice' })), outlineStages('voice'), 'the voice badge has to follow readiness');
     assert.equal(outlineStages('voice'), 0, 'every voice stage has guided instruction after W1');
     assert.equal(badges(render(LearningPath, { track: 'guitar' })), outlineStages('guitar'), 'and so does the guitar badge');
-    // Guitar carries stages of both kinds, so this badge cannot be passing by
-    // printing the same word everywhere or by never printing it.
-    assert.ok(outlineStages('guitar') > 0 && outlineStages('guitar') < curricula.guitar.levels.length);
+    assert.equal(outlineStages('guitar'), 0, 'the final guitar stage now has complete instruction');
 });
 
 test('the lesson library retires its own voice sentence when a guided voice lesson appears', () => {
@@ -102,10 +99,10 @@ test('the learn index counts what a guest can open instead of asserting a number
     assert.equal(free, 21, 'the two free voice stages expose all of their guided lessons');
     // This sentence is about both tracks and stays true while any lesson
     // anywhere is an outline, so it is tied to that and not to voice alone.
-    // Guitar stage seven has no lesson bodies either (W19).
     const everythingWritten = (['guitar', 'voice'] as const).every(track => allLessons(track).every(entry => isLessonReady(track, entry.lesson.id)));
     assert.equal(markup.includes(LEARN_PAGE_CLAIM), !everythingWritten, 'the sentence promises outlines exist; it has to go when none do');
-    assert.equal(everythingWritten, false);
+    assert.equal(everythingWritten, true);
+    assert.ok(markup.includes('Written lessons give each session a focus.'), 'the completed catalog is described as written lessons');
 });
 
 test('no surface makes a track-wide claim about voice except the one that is meant to', () => {

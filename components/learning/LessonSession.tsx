@@ -14,8 +14,13 @@ import { LessonInstructionAssets, ReadingQuiz } from "./LessonInstructionAssets"
 import { StageTwoPractice } from "./StageTwoPractice";
 import { isStageTwoAsset } from "@/lib/learning/stage-two";
 import { lessonPracticeSeconds, noStageTwoEvidence } from "@/lib/learning/stage-two-evidence";
+import { VocalMaterial } from "./VocalMaterial";
+import type { VocalModuleMaterial } from "@/lib/learning/vocal-material";
+import { useLearningAccess } from "./LearningAccessProvider";
+import { hasVerifiedTrackAccess } from "@/lib/learning/access";
 export type { LessonInstructions } from "@/lib/learning/instructions";
-export function LessonSession({ track, lesson, module, instructions }: { track: TrackId; lesson: Lesson; module: LearningModule; instructions?: LessonInstructions }) {
+export function LessonSession({ track, lesson, module, instructions, vocalMaterial }: { track: TrackId; lesson: Lesson; module: LearningModule; instructions?: LessonInstructions; vocalMaterial?: VocalModuleMaterial }) {
+  const access = useLearningAccess();
   const { progress, save, saveUnscored } = useLearningProgress(track);
   const reading = useReadingQuizProgress(track, lesson.id, instructions?.quiz);
   const currentReadingResult = instructions?.quiz && reading.currentAttempt ? readingQuizResult(instructions.quiz, reading.currentAttempt) : null;
@@ -32,7 +37,7 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
   const needsStudy = stageAssets.some(asset => asset.kind === "study");
   const needsTuning = track === "guitar" && ["g-l1-m1-02", "g-l1-m1-04"].includes(lesson.id);
   const completionMinimumBPM = lesson.practiceSpec?.completionMinimumBPM;
-  const requiresMeasuredCompletion = completionMinimumBPM !== undefined || lesson.practiceSpec?.revision !== undefined;
+  const requiresMeasuredCompletion = !!lesson.practiceSpec;
   const criteriaReady = !instructions || instructions.criteria.every(item => checkedCriteria.includes(item));
   const canMarkReady = !requiresMeasuredCompletion && criteriaReady && (!needsTuning || tuningReady) && (!needsManual || manualEvidence.ready) && (!needsStudy || studyEvidence.ready) && (!instructions?.quiz || currentReadingResult?.passed === true);
   const recordedPracticeSeconds = lessonPracticeSeconds(0, needsManual ? manualEvidence : noStageTwoEvidence, needsStudy ? studyEvidence : noStageTwoEvidence);
@@ -128,6 +133,7 @@ export function LessonSession({ track, lesson, module, instructions }: { track: 
               voice track once already by living in only one of them. */}
           {MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE] && <p className={`${styles.small} ${styles.muted}`}>{MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE]}</p>}
         </section>
+        {track === "voice" && vocalMaterial && <VocalMaterial lessonId={lesson.id} material={vocalMaterial} accountId={access.accountId} libraryHref={hasVerifiedTrackAccess("voice", access) ? "/learn/voice/materials" : undefined} />}
         {lesson.practiceSpec && (!needsTuning || tuningReady) && <PracticeCoach key={lesson.id} recentAttempts={(progress.measuredAttempts ?? []).filter(attempt => attempt.lessonId === lesson.id).map(attempt => ({ bpm: attempt.record.bpm ?? 0, score: attempt.record.score, disposition: "scored" as const, passed: attempt.record.assessment === "ready", specRevision: attempt.record.practiceSpecRevision }))} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} onUnscoredResult={(result, id) => saveUnscored(lesson.id, result, id)} />}
         {lesson.practiceSpec && needsTuning && !tuningReady && <div className={styles.notice}>Complete and confirm the free tuning check above to open the pitch exercise. You can use this tuner or your own.</div>}
         {!lesson.practiceSpec && <div className={styles.notice}>{instructions?.quiz ? "This lesson checks written notation. A reading result is separate from playing ability, microphone feedback, and your own observations." : "This lesson uses your own assessment. Pitch, timing, tone quality, and technique are not scored here."}</div>}

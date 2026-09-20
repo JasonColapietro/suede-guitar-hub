@@ -265,14 +265,14 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
     concept: "A twelve-second hiss against a ten, twenty, thirty, forty-five second ladder",
     decision: "divergent",
     surfaces: [
-      { surface: "guitarHubWeb", value: 12, source: "lib/learning/data/voice.json v-l1-m3 promise", binding: "contract" },
+      { surface: "guitarHubWeb", value: 12, source: "lib/learning/data/voice.json v-l1-m3-02 title and summary", binding: "contract" },
       { surface: "sing", value: [10, 20, 30], source: VOCAL, path: ["breath.sustain.starsSec.one", "breath.sustain.starsSec.two", "breath.sustain.starsSec.three"], binding: "contract" },
     ],
     reason:
       "Twelve is not a rung, and moving it to twenty to make it one would raise the bar on a free " +
-      "level, which is a product decision and not a consistency fix. It stays, and the lesson prose " +
-      "carries the reconciliation instead: the checkpoint says twelve seconds held even clears the " +
-      "room's first mark at ten, so a singer reading one surface is not surprised by the other. The " +
+      "level, which is a product decision and not a consistency fix. It stays as an optional, " +
+      "self-observed practice goal, and the lesson prose carries the reconciliation instead: twelve " +
+      "seconds held even clears the room's first mark at ten, so a singer reading one surface is not surprised by the other. The " +
       "test asserts the prose keeps naming that rung, because this entry is only safe while it does.",
   },
   {

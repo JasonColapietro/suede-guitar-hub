@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { accessibleLessonIds, accountHistoryKey, canOpenModule, guestLearningAccess, isLessonReady, type LearningAccess } from "../lib/learning/access.ts";
+import { accessibleLessonIds, accountHistoryKey, canOpenModule, guestLearningAccess, hasVerifiedTrackAccess, isLessonReady, type LearningAccess } from "../lib/learning/access.ts";
 import { allLessons, availableLessons, curricula, isFreeModule, isModuleAvailable } from "../lib/learning/curriculum.ts";
 
 const accountId = "b52d7c76-cacb-4af7-891c-d056ba8f48aa";
@@ -43,7 +43,7 @@ test("a guest opens the declared-free levels and the sampler, and nothing more",
 
   // A verified grant opens the whole owned track.
   assert.deepEqual(accessibleLessonIds("guitar", owned), allLessons("guitar").filter(entry => isLessonReady("guitar", entry.lesson.id)).map(entry => entry.lesson.id));
-  assert.equal(accessibleLessonIds("guitar", owned).length, 117);
+  assert.equal(accessibleLessonIds("guitar", owned).length, 135);
   assert.equal(canOpenModule("guitar", "invented-module", owned), false);
 });
 
@@ -69,9 +69,18 @@ test("no module in a free level is paywalled", () => {
 test("readiness follows authored content rather than entitlement", () => {
   assert.equal(isLessonReady("guitar", "g-l1-m1-02"), true);
   assert.equal(isLessonReady("voice", "v-l1-m1-01"), true);
-  assert.equal(isLessonReady("guitar", "g-l7-m1-01"), false);
+  assert.equal(isLessonReady("guitar", "g-l7-m1-01"), true);
   assert.equal(isLessonReady("guitar", "missing"), false);
   assert.equal(accessibleLessonIds("voice", { ...owned, tracks: ["voice"] }).length, 102);
+});
+
+test("the full practice library requires an exact verified track grant", () => {
+  assert.equal(hasVerifiedTrackAccess("guitar", owned), true);
+  assert.equal(hasVerifiedTrackAccess("voice", owned), false);
+  assert.equal(hasVerifiedTrackAccess("voice", { ...owned, tracks: ["voice"] }), true);
+  assert.equal(hasVerifiedTrackAccess("voice", { ...owned, tracks: ["voice"], status: "unavailable" }), false);
+  assert.equal(hasVerifiedTrackAccess("voice", { ...owned, tracks: ["voice"], accountId: null }), false);
+  assert.equal(hasVerifiedTrackAccess("voice", guestLearningAccess), false);
 });
 
 test("history remains isolated on sign-in, sign-out and account switch without rewriting guest keys", () => {

@@ -110,6 +110,7 @@ function SingleStringRiff({ asset }: { asset: Extract<InstructionAsset, { kind: 
 }
 
 export function LessonInstructionAssets({ assets, startCollapsed = false }: { assets: InstructionAsset[]; startCollapsed?: boolean }) {
+  if (assets.length === 0) return null;
   return <details className={styles.references} open={!startCollapsed}><summary>Lesson references · sounds and diagrams</summary><div className={styles.assetList}>{assets.map(asset => {
     if (asset.kind === "riff") return <SingleStringRiff key={asset.id} asset={asset} />;
     if (asset.kind === "strings") return <StringReferences key={asset.id} asset={asset} />;
