@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  APP_STORE,
   GUIDES,
   LEGAL,
   RESOURCES,
@@ -33,6 +34,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   // list, so without this line the one free reference page on the site would be
   // reachable from the XML sitemap and nowhere else.
   { href: "/glossary", label: "Guitar and voice glossary" },
+  { href: APP_STORE.ios, label: "GuitarHub for iPhone" },
   ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },
   { href: STRUMLY.path, label: "Strumly learning path" },

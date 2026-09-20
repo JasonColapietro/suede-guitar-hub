@@ -344,6 +344,19 @@ export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
 ];
 
 /**
+ * The GuitarHub iOS app on the App Store. Live since 2026-09-14 as
+ * "GuitarHub: Guitar Lessons" (Apple ID 6806770875, bundle org.guitarhub.app);
+ * the product page returned 200 when checked on 2026-09-19. `appId` feeds the
+ * Smart App Banner meta tag in `app/layout.tsx`; `ios` is the only App Store
+ * URL this site links to, so the hero, footer and structured data agree.
+ */
+export const APP_STORE = {
+  appId: "6806770875",
+  ios: "https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875",
+  name: "GuitarHub: Guitar Lessons",
+} as const;
+
+/**
  * Verified external links. Every URL below returned 200 when checked on
  * 2026-08-29. `https://strumly.suedeai.ai/practice` is a 404 and is
  * deliberately absent — do not add it.
