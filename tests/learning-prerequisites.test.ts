@@ -128,11 +128,11 @@ test('the policy says documentation, and the access gate stays the access gate',
 });
 
 test('voice safety copy recommends the health module without claiming an access gate', () => {
-    const health = voiceCurriculum.levels.flatMap(level => level.modules)
-        .find(module => module.id === 'v-l7-m1');
-    assert.ok(health, 'the vocal-health module is missing');
-    const checkpoint = health.lessons.find(lesson => lesson.id === 'v-l7-m1-08');
-    assert.ok(checkpoint, 'the vocal-health checkpoint is missing');
-    assert.match(checkpoint.summary, /review/i);
-    assert.doesNotMatch(checkpoint.summary, /\bgate|lock(?:ed)?\b/i, 'prerequisites are advice, not access control');
+    const effects = voiceCurriculum.levels.flatMap(level => level.modules)
+        .find(module => module.id === 'v-l7-m4');
+    assert.ok(effects, 'the vocal-effects module is missing');
+    const concept = effects.lessons.find(lesson => lesson.id === 'v-l7-m4-01');
+    assert.ok(concept, 'the vocal-effects safety lesson is missing');
+    assert.match(concept.summary, /review the health module/i);
+    assert.doesNotMatch(concept.summary, /\bgate|lock(?:ed)?\b/i, 'prerequisites are advice, not access control');
 });

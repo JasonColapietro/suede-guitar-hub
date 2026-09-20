@@ -14,13 +14,17 @@ export const guestLearningAccess: LearningAccess = {
   enabled: false, accountId: null, tracks: [], status: "disabled",
 };
 
+export function hasVerifiedTrackAccess(track: TrackId, access: LearningAccess): boolean {
+  return access.enabled && access.status === "verified" && access.accountId !== null && access.tracks.includes(track);
+}
+
 export function canOpenModule(track: TrackId, moduleId: string, access: LearningAccess): boolean {
   // A grant cannot open an invented module, even when a track is owned.
   if (!allLessons(track).some(entry => entry.module.id === moduleId)) return false;
   // The sampler, anything the catalog declares free, or a verified grant.
   return isModuleAvailable(track, moduleId)
     || isFreeModule(track, moduleId)
-    || (access.enabled && access.status === "verified" && access.accountId !== null && access.tracks.includes(track));
+    || hasVerifiedTrackAccess(track, access);
 }
 
 export function accessibleLessonIds(track: TrackId, access: LearningAccess): string[] {

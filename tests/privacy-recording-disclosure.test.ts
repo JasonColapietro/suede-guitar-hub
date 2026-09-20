@@ -26,6 +26,26 @@ test("privacy policy describes optional local lesson recordings without contradi
   );
 });
 
+test("privacy policy distinguishes browser voice takes from iOS recordings", () => {
+  const disclosure = policy.match(
+    /<p>When you choose to record a take in a voice lesson[\s\S]*?<\/p>/i,
+  )?.[0];
+  assert.ok(disclosure, "the browser recorder needs its own point-of-use disclosure");
+  assert.match(disclosure, /guitarhub\.org/i);
+  assert.match(disclosure, /one optional recording[^.]+for that lesson/i);
+  assert.match(disclosure, /up to (?:two minutes|120 seconds)/i);
+  assert.match(disclosure, /IndexedDB/i);
+  assert.match(disclosure, /current signed-in account or guest scope/i);
+  assert.match(disclosure, /replaces the previous browser take/i);
+  assert.match(disclosure, /never uploaded or synced/i);
+  assert.match(disclosure, /does not score your singing or complete the lesson/i);
+  assert.match(disclosure, /delete/i);
+  assert.match(disclosure, /confirming the deletion/i);
+  assert.match(disclosure, /cannot access or recover/i);
+  assert.match(policy, /optional iOS lesson recordings are excluded from device backups/i);
+  assert.match(policy, /optional website takes remain only in that browser’s site data/i);
+});
+
 test("privacy policy keeps optional account processing conditional and bounded", () => {
   assert.match(policy, /available only when GuitarHub[^.]+enabled its account service/i);
   assert.match(policy, /signing in alone does not start practice sync/i);

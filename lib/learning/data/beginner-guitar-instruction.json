@@ -6319,7 +6319,7 @@
         },
         {
           "title": "Resolve to A",
-          "action": "Use only box notes for four slow beats over an A drone and end on a root.",
+          "action": "Play A at string 6 fret 5 first and listen to its sound. Then count four slow beats, choose only notes from the written box map, and end on an A root at string 6 fret 5, string 4 fret 7, or string 1 fret 5. Repeat from that root. An external A drone is optional; the tonic-first, counted solo version is the complete exercise here.",
           "lookCheck": "A root is a musical destination, not a score.",
           "listenCheck": "Ending on A sounds settled."
         }
@@ -6387,7 +6387,7 @@
         {
           "title": "Read exact route",
           "action": "Ascend 6:5–8, 5:5–7, 4:5–7, 3:5–7, 2:5–8, 1:5–8; descend in reverse.",
-          "lookCheck": "There are 23 targets; high string 1 fret 5 is the turn.",
+          "lookCheck": "There are 23 targets; high string 1 fret 8 is the turn. Play that highest note once before descending.",
           "listenCheck": "Listen for every fret before crossing strings."
         },
         {
@@ -6644,14 +6644,14 @@
       "steps": [
         {
           "title": "Prepare passes",
-          "action": "Choose 40–80 BPM and keep the 23-note route visible for both passes.",
+          "action": "Choose 40–80 BPM and use this exact 23-note route (string:fret): 6:5, 6:8, 5:5, 5:7, 4:5, 4:7, 3:5, 3:7, 2:5, 2:8, 1:5, 1:8, 1:5, 2:8, 2:5, 3:7, 3:5, 4:7, 4:5, 5:7, 5:5, 6:8, 6:5. Turn at string 1 fret 8 without repeating that top note. Start with a downstroke and alternate throughout; keep this route visible for both passes.",
           "lookCheck": "This does not claim memory or clean technique.",
           "listenCheck": "Hear the turn-around before starting."
         },
         {
           "title": "Run pass one",
-          "action": "Play up and down, then note missed slot, crossing, or noise. Rest before pass two.",
-          "lookCheck": "If using Play, record pitch and BPM separately.",
+          "action": "Play up and down, then note a missed note, crossing, or noise in the guided-practice reflection. Rest before pass two. This checkpoint is self-checked. For an optional measured attempt, return to Box One, Up and Down in this module and choose Practice and play there; keep its pitch score and BPM separate from your technique observations.",
+          "lookCheck": "A score from Box One, Up and Down is optional evidence; this checkpoint has no microphone test of its own.",
           "listenCheck": "Listen for buzz and uneven accents."
         },
         {
@@ -7023,13 +7023,13 @@
       "steps": [
         {
           "title": "Choose honest tempo",
-          "action": "Set 60–100 BPM from ladder results and keep 16-note cell visible.",
+          "action": "Use string 1 frets 5–7–8–7 four times: 16 notes, two notes per beat, starting down-up-down-up. Choose a sustainable 60–100 BPM from your ladder results; write the cell and count before playing.",
           "lookCheck": "100 BPM is not an automatic technique claim.",
           "listenCheck": "Hear grouping before starting."
         },
         {
           "title": "Make two passes",
-          "action": "Play two passes with rest; record score/BPM or exact stopping point.",
+          "action": "Play two passes with rest. Note your chosen BPM and any stopping point in the guided-practice reflection. This checkpoint is self-checked. For an optional measured attempt, return to Metronome Ladder, Sixty to One Hundred in this module and choose Practice and play there.",
           "lookCheck": "The route is fixed but outcome is self-reported.",
           "listenCheck": "Listen for even volume and relaxed wrist."
         },
@@ -7057,7 +7057,7 @@
         },
         {
           "observation": "Score incomplete.",
-          "recovery": "Review route and input, then use Practice."
+          "recovery": "Review the written 5–7–8–7 cell. If you used a measured attempt, reopen Metronome Ladder, Sixty to One Hundred and retry in its Practice mode. This checkpoint itself does not produce a microphone score."
         }
       ],
       "practiceSegments": [
