@@ -29,8 +29,8 @@ test('real riff component renders every authored reference button and accessible
   assert.match(markup, /Hear slot 7, string 6, fret 5, A2/);
   assert.match(markup, /Original GuitarHub exercise/);
 });
-test('all thirty-six advanced guides render their real supported diagrams and pitch references', () => {
-  assert.equal(advanced.lessons.length, 36);
+test('all fifty-four advanced guides render their real supported diagrams and pitch references', () => {
+  assert.equal(advanced.lessons.length, 54);
   for (const lesson of advanced.lessons) {
     const instruction = getLessonInstructions(lesson.id);
     assert.ok(instruction, lesson.id);
@@ -67,7 +67,7 @@ test('real library exposes native filter names, search label and honest preview/
   assert.match(markup, /Song, artist, chord or skill/);
   assert.match(markup, /Mic exercises/);
   assert.match(markup, /All topics/);
-  assert.match(markup, /117 results/);
+  assert.match(markup, /135 results/);
   assert.match(markup, /Lesson preview/);
   // Every lesson a guest can actually open is badged Available. That is the
   // sampler plus every ready lesson in a level the catalog declares free — it

@@ -38,7 +38,7 @@ test('no union member is dead', () => {
     const used = new Set(everyProofMetric().map(entry => entry.metric));
     const dead = PROOF_METRICS.filter(metric => !used.has(metric));
     assert.deepEqual(dead, [], 'the union lists a value nothing uses; a vocabulary that outlives its data drifts back into being a free string');
-    assert.equal(PROOF_METRICS.length, 21);
+    assert.equal(PROOF_METRICS.length, 20);
 });
 
 test('validateCurriculum rejects an unknown metric and accepts a known one', () => {
@@ -92,18 +92,19 @@ test('the tracks carry a metric; the song catalogue does not', () => {
     assert.deepEqual(songModules.filter(entry => entry.proofMetric !== undefined), []);
 });
 
-test('the two values that name no measurable quantity are the two recorded as such', () => {
-    const unspecified = PROOF_METRICS.filter(metric => proofMetricKind(metric) === 'unspecified');
-    assert.deepEqual(unspecified, ['composite'], 'if a second unnamed quantity appears, the scope note in proof-metrics.ts is no longer true');
-    const carriers = everyProofMetric().filter(entry => entry.metric === 'composite');
-    assert.deepEqual(carriers.map(entry => entry.id), ['g-l7-m6'], 'composite sits on the three-song set in stage seven, which has no lesson bodies yet (W19) and can be given a real metric when it is authored');
-    assert.ok(PROOF_METRICS.includes('three_pass_pitch_slots_at_90_bpm'), 'the other flagged value: a tempo inside a metric name, which belongs in the practice specification');
+test('the final three-song set uses its authored self-assessment rather than an unspecified score', () => {
+    assert.equal(isProofMetric('composite'), false);
+    const set = everyProofMetric().filter(entry => entry.id === 'g-l7-m6');
+    assert.equal(set.length, 1);
+    assert.equal(set[0].metric, 'self_reported');
+    assert.equal(claimsMeasurement('self_reported'), false);
+    assert.ok(PROOF_METRICS.includes('three_pass_pitch_slots_at_90_bpm'));
 });
 
 test('the kinds partition the vocabulary the way the registry says', () => {
     const tally: Record<string, number> = {};
     for (const metric of PROOF_METRICS) tally[proofMetricKind(metric)] = (tally[proofMetricKind(metric)] ?? 0) + 1;
-    assert.deepEqual(tally, { measured: 15, selfReported: 3, mixed: 2, unspecified: 1 });
+    assert.deepEqual(tally, { measured: 15, selfReported: 3, mixed: 2 });
     // `mixed` asserts a measurement for its measured half, which is why it is not
     // a third category for the purposes of the honesty check above.
     assert.equal(claimsMeasurement('attack_timing_score_and_manual_study'), true);
@@ -134,13 +135,12 @@ test('the native authoring recommendations still disagree with the catalog, and 
         assert.ok(isProofMetric(entry.proofMetric), `${entry.id} recommends ${entry.proofMetric}, which is outside the shared vocabulary`);
 });
 
-test('the tracks share two metrics and the rest are their own', () => {
+test('the tracks share pitch and self-assessment metrics', () => {
     const forFile = (file: string) => new Set(everyProofMetric().filter(entry => entry.file === `${DATA}/${file}` && entry.hasLessons).map(entry => entry.metric));
     const guitar = forFile('guitar.json'), voice = forFile('voice.json');
     const shared = [...guitar].filter(metric => voice.has(metric)).sort();
-    assert.deepEqual(shared, ['accuracy_pct', 'cents_deviation'], 'the two quantities both an instrument and a voice can be judged on');
-    // The spec said the guitar track uses five values the voice track does not.
-    // It uses ten. Counted here so the document cannot drift back.
-    assert.equal([...guitar].filter(metric => !voice.has(metric)).length, 10);
-    assert.equal([...voice].filter(metric => !guitar.has(metric)).length, 6);
+    assert.deepEqual(shared, ['accuracy_pct', 'cents_deviation', 'self_reported'], 'both tracks preserve measured pitch and explicit self-assessment');
+    // Keep the complete vocabulary partition explicit as the catalog grows.
+    assert.equal([...guitar].filter(metric => !voice.has(metric)).length, 9);
+    assert.equal([...voice].filter(metric => !guitar.has(metric)).length, 5);
 });

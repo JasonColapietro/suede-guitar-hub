@@ -12,9 +12,9 @@ import { canOpenModule, guestLearningAccess } from '../lib/learning/access.ts';
 import voiceCurriculum from '../lib/learning/data/voice.json' with { type: 'json' };
 
 test('the graph covers every instruction record', () => {
-    assert.equal(PREREQUISITE_RECORD_COUNT, 219);
+    assert.equal(PREREQUISITE_RECORD_COUNT, 237);
     const withoutField = lessonPrerequisites.filter(entry => !Array.isArray(entry.prerequisiteLessonIds));
-    assert.deepEqual(withoutField, [], 'the field is authored on all 219 records, so it is required and not optional');
+    assert.deepEqual(withoutField, [], 'the field is authored on all 237 records, so it is required and not optional');
 });
 
 test('every prerequisite names a lesson that exists', () => {
@@ -51,7 +51,7 @@ test('there is exactly one place to start per track', () => {
 
 test('the graph is a chain with deliberate joins, not a flat list', () => {
     const multiple = lessonPrerequisites.filter(entry => entry.prerequisiteLessonIds.length > 1);
-    assert.equal(multiple.length, 10, 'ten lessons require more than one predecessor; a change to that count is a pedagogical change worth seeing');
+    assert.equal(multiple.length, 15, 'fifteen lessons require more than one predecessor; a change to that count is a pedagogical change worth seeing');
     // A checkpoint drawing on two earlier lessons is the shape that makes this
     // graph worth authoring rather than inferring from array order.
     assert.deepEqual(prerequisitesFor('g-l1-m3-04'), ['g-l1-m3-01', 'g-l1-m3-02']);
@@ -59,12 +59,12 @@ test('the graph is a chain with deliberate joins, not a flat list', () => {
     assert.deepEqual(prerequisitesFor('not-a-lesson'), [], 'an unknown lesson has no prerequisites rather than throwing');
 });
 
-test('a gate would close 217 of 219 lessons to a visitor with no progress', () => {
+test('a gate would close 235 of 237 lessons to a visitor with no progress', () => {
     // The decisive reason the graph is not an access gate. A guest on a deep
     // link, a crawler, or anyone who cleared site data arrives with nothing
     // completed, and under a gate only one lesson per track renders.
     const unsatisfied = lessonPrerequisites.filter(entry => entry.prerequisiteLessonIds.length > 0);
-    assert.equal(unsatisfied.length, 217);
+    assert.equal(unsatisfied.length, 235);
     assert.equal(PREREQUISITE_RECORD_COUNT - unsatisfied.length, 2, 'exactly one lesson per track would survive');
 
     // Twenty-two lessons are deliberately open to a guest. Almost all of them

@@ -15,11 +15,10 @@
  * — so a module cannot claim a measured basis while carrying a self-reported
  * metric, in either track.
  *
- * Scope note. This types the vocabulary in use; it does not redesign it. Two
- * values are worth a reader's attention and neither is this file's to fix:
- * `composite` names no quantity at all, and `three_pass_pitch_slots_at_90_bpm`
- * carries a tempo inside a metric name. Both are recorded below and asserted in
- * the test, so they are visible rather than lost in a list of twenty-one.
+ * Scope note. This types the vocabulary in use; it does not redesign it. One
+ * value remains worth a reader's attention: `three_pass_pitch_slots_at_90_bpm`
+ * carries a tempo inside a metric name. The final set uses `self_reported`,
+ * matching its authored listening criteria rather than an unspecified score.
  */
 
 /** Who judges, and on what. */
@@ -29,9 +28,7 @@ export type ProofMetricKind =
   /** The learner judges and reports. Honest, and not a measurement. */
   | "selfReported"
   /** One metric name covering both a reading and a learner's own check. */
-  | "mixed"
-  /** Names no quantity, so nothing can be checked against it as written. */
-  | "unspecified";
+  | "mixed";
 
 /**
  * Every value that appears on a module anywhere in the tracked learning data,
@@ -48,8 +45,6 @@ export const PROOF_METRIC_KIND = {
   attack_timing_score_and_manual_study: "mixed",
   /** Signed distance from the target pitch. Read by the detector. */
   cents_deviation: "measured",
-  /** Names no quantity. See the scope note above. */
-  composite: "unspecified",
   /** Unbroken run length. Read by the scorer. */
   continuity: "measured",
   /** Events landing inside a timing window. Read by the scorer. */

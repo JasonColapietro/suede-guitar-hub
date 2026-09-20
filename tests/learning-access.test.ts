@@ -43,7 +43,7 @@ test("a guest opens the declared-free levels and the sampler, and nothing more",
 
   // A verified grant opens the whole owned track.
   assert.deepEqual(accessibleLessonIds("guitar", owned), allLessons("guitar").filter(entry => isLessonReady("guitar", entry.lesson.id)).map(entry => entry.lesson.id));
-  assert.equal(accessibleLessonIds("guitar", owned).length, 117);
+  assert.equal(accessibleLessonIds("guitar", owned).length, 135);
   assert.equal(canOpenModule("guitar", "invented-module", owned), false);
 });
 
@@ -69,7 +69,7 @@ test("no module in a free level is paywalled", () => {
 test("readiness follows authored content rather than entitlement", () => {
   assert.equal(isLessonReady("guitar", "g-l1-m1-02"), true);
   assert.equal(isLessonReady("voice", "v-l1-m1-01"), true);
-  assert.equal(isLessonReady("guitar", "g-l7-m1-01"), false);
+  assert.equal(isLessonReady("guitar", "g-l7-m1-01"), true);
   assert.equal(isLessonReady("guitar", "missing"), false);
   assert.equal(accessibleLessonIds("voice", { ...owned, tracks: ["voice"] }).length, 102);
 });
