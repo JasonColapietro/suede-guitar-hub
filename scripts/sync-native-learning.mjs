@@ -24,12 +24,17 @@ const instructionLibraries = await Promise.all(instructionNames.map(async name =
   return JSON.parse(await readFile(source, 'utf8'));
 }));
 const instructionLessons = instructionLibraries.flatMap(library => library.lessons);
+const instructionAssets = Object.assign({}, ...instructionLibraries.map(library => library.demoAssets));
 const indexBytes = Buffer.from(`${JSON.stringify({
   schemaVersion: 1,
   lessons: instructionLessons.map(lesson => ({
     id: lesson.id,
     prerequisiteLessonIds: lesson.prerequisiteLessonIds,
     hasSelfCheckCriteria: lesson.selfAssessment.criteria.length > 0 && lesson.selfAssessment.criteria.every(criterion => criterion.trim().length > 0),
+    ...(() => {
+      const stageEvidenceAssetIds = lesson.demoAssetIds.filter(id => ["manual_timed_exercise", "original_chord_study"].includes(instructionAssets[id]?.kind));
+      return stageEvidenceAssetIds.length > 0 ? { stageEvidenceAssetIds } : {};
+    })(),
     ...(lesson.quiz ? { quiz: lesson.quiz } : {}),
   })),
 }, null, 2)}\n`);
@@ -42,7 +47,7 @@ process.stdout.write(`${check ? 'Verified' : 'Synced'} ${indexDestination}\n`);
 // Keep that browser payload separate and derive it from the same native source.
 const assetBytes = Buffer.from(`${JSON.stringify({
   schemaVersion: 1,
-  demoAssets: Object.assign({}, ...instructionLibraries.map(library => library.demoAssets)),
+  demoAssets: instructionAssets,
 }, null, 2)}\n`);
 const assetDestination = 'lib/learning/data/instruction-assets.json';
 if (check) assert.deepEqual(await readFile(assetDestination), assetBytes, `${assetDestination}: stale native-derived assets`);

@@ -228,28 +228,40 @@
       "prerequisiteLessonIds": [
         "g-l2-m3-01"
       ],
-      "hasSelfCheckCriteria": true
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-manual-change-counter"
+      ]
     },
     {
       "id": "g-l2-m3-06",
       "prerequisiteLessonIds": [
         "g-l2-m3-02"
       ],
-      "hasSelfCheckCriteria": true
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-manual-change-counter"
+      ]
     },
     {
       "id": "g-l2-m2-01",
       "prerequisiteLessonIds": [
         "g-l2-m3-02"
       ],
-      "hasSelfCheckCriteria": true
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-first-light-study"
+      ]
     },
     {
       "id": "g-l2-m2-04",
       "prerequisiteLessonIds": [
         "g-l2-m2-01"
       ],
-      "hasSelfCheckCriteria": true
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-first-light-study"
+      ]
     },
     {
       "id": "g-l2-m2-06",

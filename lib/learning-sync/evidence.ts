@@ -1,9 +1,11 @@
 import type { LearningAttempt } from "../learning-account/contracts.ts";
 import { allLessons, getLesson } from "../learning/curriculum.ts";
 import { allowsGuidedSelfCheck } from "../learning/self-check.ts";
-import { getInstructionQuiz } from "../learning/instruction-index.ts";
+import { getInstructionQuiz, getInstructionStageEvidenceAssetIds } from "../learning/instruction-index.ts";
+import { getInstructionAsset } from "../learning/instruction-assets.ts";
 import { parseReadingQuizAttempt } from "../learning/reading-quiz.ts";
 import { parseProgress, parseReadingQuizProgress, withLessonRecord, withReadingQuizEvidence, type LearningProgress, type LessonRecord, type ReadingQuizProgress } from "../learning/progress.ts";
+import { manualPracticeEvidence, studyPracticeEvidence } from "../learning/stage-two-evidence.ts";
 import { parseStageTwoHistory, type StageTwoHistory } from "../learning/stage-two.ts";
 
 export const syncLessonMap = new Map((["guitar", "voice"] as const).flatMap(track => allLessons(track).map(({ lesson }) => [lesson.id, track] as const)));
@@ -31,17 +33,31 @@ export function mergeAccountReading(local: ReadingQuizProgress, cloud: readonly 
 /** Cloud transport validation never establishes lesson completion. Re-run current curriculum rules. */
 export function mergeAccountProgress(local: LearningProgress, reading: ReadingQuizProgress, cloud: readonly LearningAttempt[]): LearningProgress {
   let progress = local;
+  let stageTwo: StageTwoHistory = { version: 1, track: local.track, changes: [], studies: [] };
   for (const attempt of ordered(cloud)) {
+    stageTwo = mergeAccountStageTwo(stageTwo, [attempt]);
     if (attempt.track !== local.track || attempt.kind === "reading" || attempt.source === "legacy" || attempt.disposition === "insufficientSignal") continue;
     // Raw manual/study events remain evidence in their own history; only a saved lesson reflection is a lesson record.
     if (attempt.source !== "measured" && attempt.details.localSource !== "selfReported" && attempt.disposition !== "manualOverride") continue;
+    const lesson = getLesson(local.track, attempt.lessonId)?.lesson;
+    const requiredStageEvidence = getInstructionStageEvidenceAssetIds(attempt.lessonId).map(getInstructionAsset).every(asset => {
+      if (asset.kind === "manualChanges") {
+        const latest = stageTwo.changes.filter(item => item.lessonId === attempt.lessonId).at(-1);
+        return manualPracticeEvidence(latest, lesson?.type === "checkpoint", asset.earlyReadinessCount).ready;
+      }
+      if (asset.kind === "study") {
+        const latest = stageTwo.studies.filter(item => item.lessonId === attempt.lessonId && item.studyId === asset.study.id).at(-1);
+        return studyPracticeEvidence(latest, asset.study).ready;
+      }
+      return true;
+    });
     const reflectionLabel = attempt.details.reflectionType;
     const selfChecked = attempt.kind === "study" && attempt.source === "selfReported" &&
       attempt.disposition === "reflection" && attempt.details.localSource === "selfReported" &&
       (reflectionLabel === undefined || reflectionLabel === "concept" || reflectionLabel === "guidedSelfCheck") &&
       !["practiceScore", "readingQuizAttempt", "chordChangeAttempt", "studyPracticeAttempt"].some(key => Object.hasOwn(attempt.details, key)) &&
-      allowsGuidedSelfCheck(local.track, attempt.lessonId);
-    const spec = getLesson(local.track, attempt.lessonId)?.lesson.practiceSpec;
+      allowsGuidedSelfCheck(local.track, attempt.lessonId) && requiredStageEvidence;
+    const spec = lesson?.practiceSpec;
     const revisionMatches = (attempt.exerciseRevision ?? null) === (spec?.revision ?? null);
     const measured = attempt.source === "measured" && attempt.disposition === "scored";
     const scoreEvidence = attempt.details.practiceScore;

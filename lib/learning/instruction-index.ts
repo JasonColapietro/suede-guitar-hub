@@ -24,3 +24,9 @@ export function hasInstructionSelfCheck(lessonId: string): boolean {
 export function hasInstructionQuiz(lessonId: string): boolean {
   return !!lessons.get(lessonId)?.quiz;
 }
+
+/** IDs for authored practice assets that LessonSession requires before a
+ * guided reflection can mark the lesson ready. */
+export function getInstructionStageEvidenceAssetIds(lessonId: string): readonly string[] {
+  return lessons.get(lessonId)?.stageEvidenceAssetIds ?? [];
+}
