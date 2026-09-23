@@ -17,12 +17,16 @@ function contract() {
     return JSON.parse(readFileSync(file, 'utf8'));
 }
 
-test('the Sing catalog describes the exact lessons GuitarHub renders, including access and outcomes', () => {
+test('the Sing catalog carries every lesson GuitarHub used to render, under the same IDs', () => {
     const data = contract();
     assert.equal(data.contract, 'suede-voice-curriculum');
     assert.equal(data.version, 1);
     assert.equal(data.ownership.catalogRepository, 'JasonColapietro/sing');
-    assert.deepEqual(data.curriculum, voice);
+    // Titles and access diverge on purpose: Sing retitled the unmeasured
+    // checkpoints as self-checks and made every stage free. voice.json stays as
+    // the native learning contract's copy, so only the identities must agree.
+    const ids = (curriculum: typeof voice) => curriculum.levels.map(level => [level.id, level.modules.map(module => [module.id, module.lessons.map(lesson => lesson.id)])]);
+    assert.deepEqual(ids(data.curriculum), ids(voice));
     assert.equal(voice.levels.length, 7);
     assert.equal(voice.levels.reduce((count, level) => count + level.modules.length, 0), 34);
     const lessons = voice.levels.flatMap(level => level.modules.flatMap(module => module.lessons));
@@ -65,21 +69,36 @@ test('history-only policy preserves a valid scan without accepting its asserted 
     }
 });
 
-test('discovery ownership does not redirect lessons or claim a completed migration', async () => {
+test('every voice lesson URL redirects permanently to its twin on Sing, and no open evidence is claimed done', async () => {
     const data = contract();
+    const urls = JSON.parse(readFileSync('contracts/suede-voice-lesson-urls.json', 'utf8'));
     assert.equal(CROSS_DOMAIN_PROPOSAL.decidedBy, data.ownership.decidedBy);
-    assert.equal(Reflect.get(CROSS_DOMAIN_PROPOSAL, 'phase'), 'discovery');
-    assert.equal(data.ownership.lessonBaseUrl, 'https://guitarhub.org/learn/voice');
-    assert.equal(data.migration.redirectsEnabled, false);
+    assert.equal(Reflect.get(CROSS_DOMAIN_PROPOSAL, 'phase'), 'hosted');
+    assert.equal(data.migration.phase, 'hosted');
+    assert.equal(data.migration.redirectsEnabled, true);
+    assert.equal(data.ownership.lessonBaseUrl, `${urls.origin}${urls.course}`);
     assert.deepEqual(Reflect.get(CROSS_DOMAIN_PROPOSAL, 'requiredEvidence'), data.migration.requiredEvidence);
-    for (const redirect of await nextConfig.redirects!()) {
-        assert.ok(
-            redirect.source !== '/learn/voice' && !redirect.source.startsWith('/learn/voice/'),
-            'no voice redirect sources before migration evidence',
-        );
-        assert.ok(!redirect.destination.startsWith('https://sing.suedeai.ai/learn'), 'no voice redirects before migration evidence');
+    assert.match(data.migration.resolution.vocalReview, /^Open\./);
+    assert.match(data.migration.resolution.deviceAudio, /^Open\./);
+
+    const redirects = (await nextConfig.redirects!()) ?? [];
+    const bySource = new Map(redirects.map(redirect => [redirect.source, redirect]));
+    const lessons = voice.levels.flatMap(level => level.modules.flatMap(module => module.lessons));
+    for (const lesson of lessons) {
+        const redirect = bySource.get(`/learn/voice/${lesson.id}`);
+        assert.ok(redirect, `${lesson.id} has no redirect`);
+        assert.equal(redirect.destination, `${urls.origin}${urls.lessons[lesson.id]}`);
+        assert.equal(redirect.permanent, true);
     }
+    for (const source of ['/learn/voice', '/learn/voice/materials', '/learn/voice/:rest*']) {
+        assert.equal(bySource.get(source)?.destination, `${urls.origin}${urls.course}`, source);
+    }
+    // The catch-all comes after every lesson, or it would swallow them.
+    const sources = redirects.map(redirect => redirect.source);
+    assert.equal(sources.indexOf('/learn/voice/:rest*'), sources.length - 1);
+    assert.ok(!redirects.some(redirect => redirect.source.startsWith('/learn/guitar')), 'the guitar path stays here');
 });
+
 
 test('curriculum vendor command compares bytes, rejects stale or absent references, and never tolerates a 404', () => {
     const script = resolve('scripts/sync-sing-curriculum.mjs');

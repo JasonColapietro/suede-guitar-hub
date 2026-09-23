@@ -270,28 +270,34 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
 ];
 
 /**
- * Decided on 2026-09-14 under Jason's delegated product authority.
- * The export name is retained for existing consumers. This is now a decision:
- * Sing owns discovery/catalog; GuitarHub remains the canonical lesson renderer.
- * No learner URL, identity, entitlement or progress record moves in this phase.
+ * Decided on 2026-09-14 under Jason's delegated product authority, and moved on
+ * on 2026-09-23 by Jason's own decision: Sing hosts the voice lessons as well as
+ * the catalog, every stage is free there, and GuitarHub redirects
+ * /learn/voice/** to them (lib/voice-redirects.ts). The export name is retained
+ * for existing consumers.
+ *
+ * What happened to each piece of required evidence is recorded in the vendored
+ * contract's `migration.resolution`. Two items are still open there: a
+ * qualified vocal review and the physical-microphone checks. Lesson attempts
+ * already in this site's ledger stay here and are not imported by Sing.
  */
 export const CROSS_DOMAIN_PROPOSAL = {
   question: "Where should the voice curriculum live?",
   decidedBy: "Jason Colapietro (delegated decision)",
   decisionDate: "2026-09-14",
-  phase: "discovery",
+  hostingDecisionDate: "2026-09-23",
+  phase: "hosted",
   catalogRepository: "JasonColapietro/sing",
   discoveryUrl: "https://sing.suedeai.ai/learn",
-  temporaryLessonHost: "https://guitarhub.org/learn/voice",
-  eventualLessonHost: "https://sing.suedeai.ai",
-  redirectsEnabled: false,
+  lessonHost: "https://sing.suedeai.ai/learn/voice",
+  previousLessonHost: "https://guitarhub.org/learn/voice",
+  redirectsEnabled: true,
   requiredEvidence: [
     "lessonBodies", "identity", "entitlements", "progress",
     "urlParity", "vocalReview", "deviceAudio",
   ],
   recommendation:
-    "Sing owns the voice catalog and curriculum discovery. Keep all complete lessons, " +
-    "existing lifetime access and progress on GuitarHub until the receiving lesson bodies, " +
-    "identity, entitlement and progress transfer are verified. Redirect only after URL parity, " +
-    "vocal review and real-device audio evidence are also complete.",
+    "Sing owns the voice catalog and hosts the lessons, all free. GuitarHub redirects every " +
+    "/learn/voice URL to its Sing twin and keeps its guitar curriculum. Lesson attempts already " +
+    "recorded here are not migrated.",
 } as const;

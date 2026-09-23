@@ -200,17 +200,16 @@ test("a consolidated URL keeps answering through a permanent redirect", async ()
   }
 });
 
-test("the decided discovery phase keeps canonical lesson access on GuitarHub", () => {
-  assert.equal(CROSS_DOMAIN_PROPOSAL.phase, "discovery");
-  assert.equal(CROSS_DOMAIN_PROPOSAL.redirectsEnabled, false);
+test("the voice lessons moved to Sing, and nothing here still publishes them", () => {
+  assert.equal(CROSS_DOMAIN_PROPOSAL.phase, "hosted");
+  assert.equal(CROSS_DOMAIN_PROPOSAL.redirectsEnabled, true);
 
-  // Discovery moves first. The actual learner URLs stay published until the
-  // receiving lesson bodies, access and progress transfer are verified.
-  const voice = LEARN.find((entry) => entry.href === "/learn/voice");
-  assert.ok(voice, "/learn/voice must stay in the route registry");
+  // /learn/voice redirects to Sing, so listing it here would advertise a
+  // redirect as a page.
+  assert.ok(!LEARN.some((entry) => entry.href.startsWith("/learn/voice")), "/learn/voice left the route registry");
   assert.ok(
-    SITEMAP_ENTRIES.some((entry) => entry.href === "/learn/voice"),
-    "/learn/voice must stay in the sitemap",
+    !SITEMAP_ENTRIES.some((entry) => entry.href.startsWith("/learn/voice")),
+    "/learn/voice left the sitemap",
   );
-  assert.equal(`${SITE_URL}/learn/voice`, "https://guitarhub.org/learn/voice");
+  assert.equal(CROSS_DOMAIN_PROPOSAL.previousLessonHost, `${SITE_URL}/learn/voice`);
 });

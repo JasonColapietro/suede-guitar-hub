@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
 import SiteFooter from "@/components/SiteFooter";
 import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 
 /**
  * Written out from the registry, never typed. The heading below sat on a
@@ -227,7 +228,7 @@ export default function Home() {
                 >
                   Start learning guitar <span aria-hidden>→</span>
                 </Link>
-                <Link href="/learn/voice" className="inline-flex min-h-11 items-center rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream hover:bg-white/5">Explore voice lessons</Link>
+                <a href={SING_VOICE_COURSE} className="inline-flex min-h-11 items-center rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream hover:bg-white/5">Voice lessons on Suede Sing</a>
               </div>
               <p className="mt-5 text-sm text-white/80">Three opening lessons free. No account needed. Later modules are currently web previews.</p>
               <p className="mt-3 text-sm text-white/80">

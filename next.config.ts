@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { VOICE_REDIRECTS } from "./lib/voice-redirects.ts";
 
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
@@ -48,7 +49,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: { "/*": ["./lib/learning-account/AppleRootCA-G3.pem"] },
   poweredByHeader: false,
   async redirects() {
-    return [...LEGACY_SOCIAL_REDIRECTS];
+    return [...LEGACY_SOCIAL_REDIRECTS, ...VOICE_REDIRECTS];
   },
   async headers() {
     return [

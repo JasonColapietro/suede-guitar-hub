@@ -5,7 +5,9 @@ import { isTrackId, trackNames } from "@/lib/learning/curriculum";
 import { LearningPath } from "@/components/learning/LearningPath";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
-export function generateStaticParams() { return [{ track: "guitar" }, { track: "voice" }]; }
+// Voice is not served here: /learn/voice redirects to the course on Suede Sing
+// (lib/voice-redirects.ts), so only the guitar path is generated.
+export function generateStaticParams() { return [{ track: "guitar" }]; }
 
 /**
  * The `openGraph` and `twitter` blocks carry this track's own title, copy and

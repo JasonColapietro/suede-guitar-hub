@@ -14,7 +14,8 @@ import { LessonSession } from "@/components/learning/LessonSession";
 import { vocalMaterialForModule } from "@/lib/learning/vocal-material";
 import styles from "@/components/learning/Learning.module.css";
 type Params = { track: string; lessonId: string };
-export function generateStaticParams() { return (["guitar", "voice"] as const).flatMap(track => allLessons(track).map(({ lesson }) => ({ track, lessonId: lesson.id }))); }
+// Voice lessons redirect to Suede Sing (lib/voice-redirects.ts); only guitar is generated.
+export function generateStaticParams() { return allLessons("guitar").map(({ lesson }) => ({ track: "guitar", lessonId: lesson.id })); }
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { track, lessonId } = await params;
   if (!isTrackId(track)) return {};

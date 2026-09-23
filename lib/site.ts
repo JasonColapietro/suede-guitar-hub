@@ -305,15 +305,16 @@ export const HUBS: readonly SiteEntry[] = [
  * outside the sitemap while `/privacy` and `/terms` were listed.
  *
  * The two track pages are served by the dynamic `app/learn/[track]/page.tsx`
- * segment, whose `generateStaticParams` returns exactly `guitar` and `voice`.
- * Adding a third track means adding it in both places.
+ * segment, whose `generateStaticParams` returns exactly `guitar`. The voice
+ * path moved to Suede Sing on 2026-09-23 and /learn/voice redirects there
+ * (lib/voice-redirects.ts). Adding a track means adding it in both places.
  */
 export const LEARN: readonly SiteEntry[] = [
   {
     href: "/learn",
     title: "Learning paths",
     blurb:
-      "Pick guitar or voice and follow the lessons in order, with your place kept in this browser.",
+      "Follow the guitar lessons in order, with your place kept in this browser. Voice lessons now live on Suede Sing.",
     lastModified: "2026-09-04",
   },
   {
@@ -321,13 +322,6 @@ export const LEARN: readonly SiteEntry[] = [
     title: "Beginner guitar lessons, step by step",
     blurb:
       "The guitar curriculum from the first foundations: a free opening module, guided practice, and browser-local progress.",
-    lastModified: "2026-09-04",
-  },
-  {
-    href: "/learn/voice",
-    title: "Learn voice step by step",
-    blurb:
-      "The voice curriculum from an easy breath to a steady tone, with a free opening module and browser-local progress.",
     lastModified: "2026-09-04",
   },
 ];

@@ -8,12 +8,15 @@ const LIVE_ROUTES = ["/", "/learn", "/learn/guitar", "/guides", "/practice", "/b
 test("the stale Suede AI Social URLs Google indexed under guitarhub.org redirect permanently to their live twins", async () => {
   const redirects = await nextConfig.redirects?.();
   assert.ok(redirects, "next.config must declare redirects()");
-  assert.deepEqual(redirects, [...LEGACY_SOCIAL_REDIRECTS]);
-  for (const redirect of redirects) {
+  // The legacy social redirects come first; the voice redirects after them are
+  // tested in voice-curriculum-ownership.test.ts.
+  const social = redirects.slice(0, LEGACY_SOCIAL_REDIRECTS.length);
+  assert.deepEqual(social, [...LEGACY_SOCIAL_REDIRECTS]);
+  for (const redirect of social) {
     assert.equal(redirect.permanent, true, `${redirect.source} must be a 308, not a temporary redirect`);
     assert.ok(redirect.destination.startsWith(`${LEGACY_SOCIAL_ORIGIN}/`), `${redirect.source} must land on social.suedeai.ai`);
   }
-  const sources = redirects.map((redirect) => redirect.source);
+  const sources = social.map((redirect) => redirect.source);
   assert.deepEqual(sources, [
     "/discover",
     "/articles",
