@@ -155,11 +155,11 @@ test("guest, voice-only, disabled and unavailable account routine links remain p
   assert.match(lessonLink(guestLearningAccess, "g-l2-m1-01"), /Review GuitarHub instruction/, "declared-free level is open to a guest");
 });
 
-test("a paid track cannot label an unimplemented advanced outline as instruction", () => {
+test("a paid track opens complete advanced instruction and rejects unknown lessons", () => {
   assert.match(lessonLink(paid, "g-l5-m1-01"), /Review GuitarHub instruction/,
     "the newly authored barre lesson is now guided");
   const markup = lessonLink(paid, "g-l7-m1-01");
-  assert.match(markup, /GuitarHub curriculum preview/);
-  assert.doesNotMatch(markup, /Review GuitarHub instruction/);
+  assert.match(markup, /Review GuitarHub instruction/);
+  assert.doesNotMatch(markup, /GuitarHub curriculum preview/);
   assert.equal(lessonLink(paid, "not-a-lesson"), "");
 });

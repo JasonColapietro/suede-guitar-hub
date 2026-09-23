@@ -11,6 +11,7 @@ import { lessonGlossary } from "@/lib/learning/jargon";
 import { LessonGlossary } from "@/components/learning/LessonGlossary";
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
 import { LessonSession } from "@/components/learning/LessonSession";
+import { vocalMaterialForModule } from "@/lib/learning/vocal-material";
 import styles from "@/components/learning/Learning.module.css";
 type Params = { track: string; lessonId: string };
 export function generateStaticParams() { return (["guitar", "voice"] as const).flatMap(track => allLessons(track).map(({ lesson }) => ({ track, lessonId: lesson.id }))); }
@@ -43,13 +44,14 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   // What to read and what to sing. Resolved through the contract so a renamed
   // chapter fails a test rather than rotting here.
   const editorial = track === "voice" ? voiceEditorialForLesson(lesson.id) : undefined;
+  const vocalMaterial = track === "voice" ? vocalMaterialForModule(module.id) : undefined;
   const moduleSafety = MODULE_SAFETY_NOTE[module.id as keyof typeof MODULE_SAFETY_NOTE] as string | undefined;
   const next = lessons[index + 1];
   return <>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><Link href={`/learn/${track}`}>{trackNames[track]}</Link><span aria-hidden="true">/</span><span>{module.name}</span></nav>
     <div className={styles.hero}><p className={styles.small}>{level.stage ? `Stage ${level.stage} · ` : ""}{module.name}{ready ? ` · ${lesson.minutes} min` : ""}</p><h1>{lesson.title}</h1>{available ? <p>{lesson.summary}</p> : <span className={styles.badge}>{ready ? "Lesson preview" : "Curriculum outline"}</span>}</div>
     {available && <div className={styles.actions}><a className={styles.secondary} href="#practice-session">Go to practice timer</a></div>}
-    {available ? <LessonSession key={`${access.accountId ?? "guest"}:${lesson.id}`} track={track} lesson={lesson} module={module} instructions={getLessonInstructions(lesson.id)} /> : <section className={styles.panel}>
+    {available ? <LessonSession key={`${access.accountId ?? "guest"}:${lesson.id}`} track={track} lesson={lesson} module={module} instructions={getLessonInstructions(lesson.id)} vocalMaterial={vocalMaterial} /> : <section className={styles.panel}>
       <h2>Inside this lesson</h2><p>{lesson.summary}</p><h3>Practice goal</h3><p>{module.promise}</p>
       <div className={styles.notice}>{!ready
         ? "This topic is a curriculum outline. A complete guided lesson and completion check are not available yet."

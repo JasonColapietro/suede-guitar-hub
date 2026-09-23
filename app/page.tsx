@@ -3,7 +3,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
 import SiteFooter from "@/components/SiteFooter";
-import { STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 
 /**
  * Written out from the registry, never typed. The heading below sat on a
@@ -126,7 +126,7 @@ const FAQS = [
   },
   {
     q: "Is the community already live inside GuitarHub?",
-    a: "No native GuitarHub forum is being claimed. Suede Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
+    a: "No native GuitarHub forum is being claimed. Suede AI Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
   },
   {
     q: "Does GuitarHub upload my playing?",
@@ -230,6 +230,15 @@ export default function Home() {
                 <Link href="/learn/voice" className="inline-flex min-h-11 items-center rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream hover:bg-white/5">Explore voice lessons</Link>
               </div>
               <p className="mt-5 text-sm text-white/80">Three opening lessons free. No account needed. Later modules are currently web previews.</p>
+              <p className="mt-3 text-sm text-white/80">
+                Also on iPhone:{" "}
+                <a
+                  href={APP_STORE.ios}
+                  className="font-semibold text-peach underline-offset-4 hover:underline"
+                >
+                  GuitarHub on the App Store <span aria-hidden>↗</span>
+                </a>
+              </p>
             </Reveal>
             <Reveal delay={3}>
               <Link

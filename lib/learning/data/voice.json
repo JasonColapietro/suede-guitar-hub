@@ -14,7 +14,7 @@
         {
           "id": "v-l1-m1",
           "name": "Set Up Your Space",
-          "promise": "Set your room and device up so the range finder reads your voice cleanly",
+          "promise": "compared a quiet recording with my initial room setup and could hear my voice clearly.",
           "skill": "Room setup and clean input",
           "proofMetric": "phonation_sec",
           "lessonsTotal": 4,
@@ -25,7 +25,7 @@
               "title": "Why Loud Playback Ruins Pitch",
               "type": "concept",
               "minutes": 3,
-              "summary": "Device volume above half bleeds into the mic and ruins pitch detection. It reads as a broken app."
+              "summary": "Reference sound can enter the microphone along with your voice. Compare your setup with playback stopped."
             },
             {
               "id": "v-l1-m1-02",
@@ -36,17 +36,17 @@
             },
             {
               "id": "v-l1-m1-04",
-              "title": "Checkpoint: Ten Seconds Clean",
+              "title": "Self-Check: A Clear Recording",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "The range finder tracks your voice cleanly, with nothing else playing."
+              "summary": "compared a quiet recording with my initial room setup and could hear my voice clearly. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l1-m2",
           "name": "Your Range",
-          "promise": "Complete a full range scan without pushing into strain at either end",
+          "promise": "tried a comfortable low and high note without forcing either end and noted the pitches I could repeat.",
           "skill": "Range scan and voice type",
           "proofMetric": "range_midi_span",
           "lessonsTotal": 4,
@@ -68,17 +68,17 @@
             },
             {
               "id": "v-l1-m2-04",
-              "title": "Checkpoint: Range Scan Complete",
+              "title": "Self-Check: Comfortable Range",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "An estimated voice type and both ends of your range, to fit every later exercise to."
+              "summary": "tried a comfortable low and high note without forcing either end and noted the pitches I could repeat. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l1-m3",
           "name": "Breathe Low",
-          "promise": "Sustain a twelve-second even hiss on one breath",
+          "promise": "counted an even hiss, kept my shoulders quiet, and released before running out of comfortable breath.",
           "skill": "Low breath and rib expansion",
           "proofMetric": "sustain_sec",
           "lessonsTotal": 4,
@@ -96,14 +96,14 @@
               "title": "Hiss for Twelve",
               "type": "exercise",
               "minutes": 4,
-              "summary": "Evenness first, duration second. The breath room times the hiss and reads how even you keep it."
+              "summary": "Twelve seconds is an optional practice goal that clears the first mark at ten; duration is your own observation, not an automatic pass."
             },
             {
               "id": "v-l1-m3-04",
-              "title": "Checkpoint: Twelve Seconds, Even",
+              "title": "Self-Check: An Even Hiss",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "The hiss is timed, and its steadiness is read from loudness. Twelve seconds held even clears the room's first mark at ten."
+              "summary": "counted an even hiss, kept my shoulders quiet, and released before running out of comfortable breath. This is a listening and reflection check."
             }
           ]
         }
@@ -121,7 +121,7 @@
         {
           "id": "v-l2-m1",
           "name": "Straw and Lip Trill",
-          "promise": "Hold an unbroken lip trill for eight seconds",
+          "promise": "tried the straw or lip-trill pattern gently, with an easy breath and a full rest between attempts.",
           "skill": "Semi-occluded warm-up",
           "proofMetric": "sustain_sec",
           "lessonsTotal": 6,
@@ -132,7 +132,7 @@
               "title": "Back Pressure Does the Work",
               "type": "concept",
               "minutes": 3,
-              "summary": "Why a straw or a lip trill makes singing easier and safer than singing does."
+              "summary": "Explore how a straw or lip trill changes the feeling of a gentle sound; comfort is your cue to continue."
             },
             {
               "id": "v-l2-m1-03",
@@ -143,17 +143,17 @@
             },
             {
               "id": "v-l2-m1-06",
-              "title": "Checkpoint: Eight Seconds Unbroken",
+              "title": "Self-Check: An Easy Straw Pattern",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "The warm-up you will use every session for the next year."
+              "summary": "tried the straw or lip-trill pattern gently, with an easy breath and a full rest between attempts. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l2-m2",
           "name": "Land the Note",
-          "promise": "Match five pitches, each within twenty-five cents",
+          "promise": "heard the five-note scale reference, sang the pattern from silence, and compared each entry by ear.",
           "skill": "Onset and pitch matching",
           "proofMetric": "cents_deviation",
           "lessonsTotal": 6,
@@ -164,7 +164,7 @@
               "title": "Onset Without the Click",
               "type": "concept",
               "minutes": 3,
-              "summary": "Balanced onset versus a glottal attack, heard side by side."
+              "summary": "Compare an easy onset with a previous attempt; the synthesized reference supplies pitch, not a demonstration of vocal technique."
             },
             {
               "id": "v-l2-m2-03",
@@ -175,17 +175,17 @@
             },
             {
               "id": "v-l2-m2-06",
-              "title": "Checkpoint: Five Pitches, Twenty-Five Cents",
+              "title": "Self-Check: Match the Five-Note Pattern",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "Inside a third of your tonic. This is the activation milestone."
+              "summary": "heard the five-note scale reference, sang the pattern from silence, and compared each entry by ear. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l2-m3",
           "name": "Hold It",
-          "promise": "Sustain a pitch for twelve seconds with under twenty cents of drift",
+          "promise": "matched the sustained reference, released comfortably, and listened for a steady center on repeated short holds.",
           "skill": "Sustained tone",
           "proofMetric": "cents_deviation",
           "lessonsTotal": 6,
@@ -196,28 +196,28 @@
               "title": "Steady Is a Skill, Not a Talent",
               "type": "concept",
               "minutes": 3,
-              "summary": "Drift is a breath problem before it is a pitch problem."
+              "summary": "Listen for drift on a short, comfortable hold and change one thing at a time."
             },
             {
               "id": "v-l2-m3-04",
               "title": "One Note Per Bar",
               "type": "song",
               "minutes": 5,
-              "summary": "A song built on long notes, taken slowly."
+              "summary": "Use the supplied sustained reference for short holds, resting between them."
             },
             {
               "id": "v-l2-m3-06",
-              "title": "Checkpoint: Twelve Seconds Under Twenty Cents",
+              "title": "Self-Check: A Steady Short Hold",
               "type": "checkpoint",
               "minutes": 4,
-              "summary": "Measured across the whole hold, not the average."
+              "summary": "matched the sustained reference, released comfortably, and listened for a steady center on repeated short holds. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l2-m4",
           "name": "First Song, One Register",
-          "promise": "Sing a full song in one register, in your key, without stopping",
+          "promise": "rehearsed the supplied Amazing Grace phrase and study arrangement in a key that felt comfortable.",
           "skill": "First repertoire",
           "proofMetric": "accuracy_pct",
           "lessonsTotal": 6,
@@ -232,17 +232,17 @@
             },
             {
               "id": "v-l2-m4-04",
-              "title": "Octave-Range Song",
+              "title": "Amazing Grace: Phrase to Study",
               "type": "song",
               "minutes": 6,
-              "summary": "Sixty to one hundred and twenty seconds, inside an octave, in a key that fits your scan."
+              "summary": "Rehearse the supplied Amazing Grace phrase and study arrangement. Choose a comfortable key before singing."
             },
             {
               "id": "v-l2-m4-06",
-              "title": "Checkpoint: Full Song, One Register",
+              "title": "Self-Check: Your Amazing Grace Study",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "End to end, no stops, assists off."
+              "summary": "rehearsed the supplied Amazing Grace phrase and study arrangement in a key that felt comfortable. This is a listening and reflection check."
             }
           ]
         }
@@ -260,7 +260,7 @@
         {
           "id": "v-l3-m1",
           "name": "Chest, Head, Falsetto",
-          "promise": "Produce the same pitch in two mechanisms on cue",
+          "promise": "compared two easy productions of the same pitch and could describe the audible difference.",
           "skill": "Register identification",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -268,7 +268,7 @@
           "lessons": [
             {
               "id": "v-l3-m1-01",
-              "title": "Three Mechanisms, One Instrument",
+              "title": "Registers: Different Ways to Make a Sound",
               "type": "concept",
               "minutes": 4,
               "summary": "What actually changes inside, and what each one is for."
@@ -292,7 +292,7 @@
         {
           "id": "v-l3-m2",
           "name": "The Siren",
-          "promise": "Siren an octave up and down on three vowels with no crack",
+          "promise": "followed a comfortable portion of the siren up and down and listened for continuity on each vowel.",
           "skill": "Register blending",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -324,7 +324,7 @@
         {
           "id": "v-l3-m3",
           "name": "Vowels That Work",
-          "promise": "Sing one phrase on five vowels with consistent tone",
+          "promise": "sang the same short pattern on five vowels and compared the resulting tone by ear.",
           "skill": "Vowel shapes and placement",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -355,8 +355,8 @@
         },
         {
           "id": "v-l3-m4",
-          "name": "Tenth Song",
-          "promise": "Sing a song spanning a tenth across both registers with no break",
+          "name": "Wider Phrases",
+          "promise": "rehearsed the supplied Deep River phrase in a comfortable key and marked where my voice changed.",
           "skill": "Two-register repertoire",
           "proofMetric": "accuracy_pct",
           "lessonsTotal": 7,
@@ -364,31 +364,31 @@
           "lessons": [
             {
               "id": "v-l3-m4-01",
-              "title": "A Tenth Is Two Registers",
+              "title": "A Wider Phrase, One Comfortable Key",
               "type": "concept",
               "minutes": 4,
               "summary": "Why this song needs the siren you just built."
             },
             {
               "id": "v-l3-m4-04",
-              "title": "Tenth-Span Song",
+              "title": "Deep River: A Wider Phrase",
               "type": "song",
               "minutes": 6,
               "summary": "Pick a key so the register change lands where yours is."
             },
             {
               "id": "v-l3-m4-07",
-              "title": "Checkpoint: Both Registers, No Break",
+              "title": "Self-Check: A Connected Wider Phrase",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Full song, assists off."
+              "summary": "rehearsed the supplied Deep River phrase in a comfortable key and marked where my voice changed. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l3-m5",
           "name": "Fix the Wobble",
-          "promise": "Sharpen your consonants until every word carries at speed",
+          "promise": "compared a relaxed baseline with a later take and described one audible change without forcing a rough sound.",
           "skill": "Breathiness, nasality, tension",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -431,7 +431,7 @@
         {
           "id": "v-l4-m1",
           "name": "In Tune, All the Way",
-          "promise": "Sing a whole song within twenty cents mean deviation",
+          "promise": "compared my Amazing Grace study with the note reference and identified one pitch to revisit by ear.",
           "skill": "Sustained intonation",
           "proofMetric": "cents_deviation",
           "lessonsTotal": 7,
@@ -439,31 +439,31 @@
           "lessons": [
             {
               "id": "v-l4-m1-01",
-              "title": "Twenty Cents Is the Line",
+              "title": "Hear the Pitch Before You Sing",
               "type": "concept",
               "minutes": 4,
-              "summary": "Where audible sharpness begins, demonstrated rather than asserted."
+              "summary": "Compare your note with the synthesized reference and listen for whether your next attempt settles closer."
             },
             {
               "id": "v-l4-m1-03",
               "title": "Drift Correction",
               "type": "exercise",
               "minutes": 6,
-              "summary": "Long notes with the pitch trace visible, then hidden."
+              "summary": "Hear the sustained reference, sing from silence, then compare another fresh attempt by ear."
             },
             {
               "id": "v-l4-m1-07",
-              "title": "Checkpoint: Whole Song Within Twenty Cents",
+              "title": "Self-Check: Intonation by Listening",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Mean deviation across every sung note."
+              "summary": "compared my Amazing Grace study with the note reference and identified one pitch to revisit by ear. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l4-m2",
           "name": "On the Beat",
-          "promise": "Return four bars at ninety percent timing accuracy",
+          "promise": "counted and clapped the displayed rhythm before singing it, then reviewed where my entries aligned by ear.",
           "skill": "Rhythm and syncopation",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -485,17 +485,17 @@
             },
             {
               "id": "v-l4-m2-07",
-              "title": "Checkpoint: Four Bars Back, Ninety Percent",
+              "title": "Self-Check: Count, Clap, Sing",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Checked against a click by ear. Onset timing is not scored anywhere yet."
+              "summary": "counted and clapped the displayed rhythm before singing it, then reviewed where my entries aligned by ear. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l4-m3",
           "name": "Say It Clearly",
-          "promise": "Hit the clarity threshold on a lyric-dense verse",
+          "promise": "spoke and sang the displayed lyric slowly enough for each word to remain understandable on playback.",
           "skill": "Diction as a scored axis",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -517,17 +517,17 @@
             },
             {
               "id": "v-l4-m3-07",
-              "title": "Checkpoint: Lyric-Dense Verse",
+              "title": "Self-Check: Clear Words in a Phrase",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Consonant clarity scored independently of pitch."
+              "summary": "spoke and sang the displayed lyric slowly enough for each word to remain understandable on playback. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l4-m4",
           "name": "Grace and Grit",
-          "promise": "Deliver three named articulations on cue in one phrase",
+          "promise": "used one supplied phrase to compare connected, detached, and gently accented attacks by ear.",
           "skill": "Grace notes, staccato, accent",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -559,7 +559,7 @@
         {
           "id": "v-l4-m5",
           "name": "Louder, Softer",
-          "promise": "Produce four distinct dynamic levels on one sustained note",
+          "promise": "compared comfortable quieter and fuller versions of one short phrase without pushing the volume.",
           "skill": "Dynamics without pushing",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -602,7 +602,7 @@
         {
           "id": "v-l5-m1",
           "name": "Your Passaggio, By Name",
-          "promise": "Find where your voice changes gear, and sing across it on cue",
+          "promise": "listened for my own transition during a small comfortable slide and noted where it became less easy.",
           "skill": "Locating your own transition zone",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -634,7 +634,7 @@
         {
           "id": "v-l5-m2",
           "name": "Vowel Modification Through the Break",
-          "promise": "Cross from primo to secondo on three vowels with no register break",
+          "promise": "compared three vowels on a comfortable fifth slide and noted which small adjustment helped continuity.",
           "skill": "Vowel modification",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -666,7 +666,7 @@
         {
           "id": "v-l5-m3",
           "name": "Twang and Ring",
-          "promise": "Carry further by adding ring, and watch your own ring-band share rise from take to take",
+          "promise": "compared two easy tones on the same pitch and described a change in brightness by ear.",
           "skill": "Resonance over force",
           "proofMetric": "ring_ratio_delta",
           "lessonsTotal": 7,
@@ -688,17 +688,17 @@
             },
             {
               "id": "v-l5-m3-07",
-              "title": "Checkpoint: Louder, Not Harder",
+              "title": "Self-Check: Brightness Without Pushing",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Level rises, throat stays free."
+              "summary": "compared two easy tones on the same pitch and described a change in brightness by ear. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l5-m4",
           "name": "Mix, Not Shout",
-          "promise": "Sustain six comfortable seconds in mix at the top of your transition zone",
+          "promise": "tried the supplied short pattern gently, returned to an easy baseline, and noted my own effort.",
           "skill": "Comfortable mixed-voice coordination",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -713,24 +713,24 @@
             },
             {
               "id": "v-l5-m4-04",
-              "title": "Mix-Voice Chorus",
+              "title": "An Easy Pattern Through Your Transition",
               "type": "song",
               "minutes": 6,
               "summary": "A chorus that sits exactly in your zone — pick the key that puts it there."
             },
             {
               "id": "v-l5-m4-07",
-              "title": "Checkpoint: Six-Second Mix Sustain",
+              "title": "Self-Check: Easy Tone and Effort",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Hold six comfortable seconds, then report effort and stop on any warning sign. The app does not verify strain."
+              "summary": "tried the supplied short pattern gently, returned to an easy baseline, and noted my own effort. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l5-m5",
           "name": "Four Bars, Yours",
-          "promise": "Improvise four bars in key over a loop",
+          "promise": "used notes from the supplied pattern to invent a short answer with a clear beginning and ending.",
           "skill": "Four-bar improvisation",
           "proofMetric": "self_reported",
           "lessonsTotal": 7,
@@ -752,10 +752,10 @@
             },
             {
               "id": "v-l5-m5-07",
-              "title": "Checkpoint: Four Bars, In Key",
+              "title": "Self-Check: Your Answering Phrase",
               "type": "checkpoint",
               "minutes": 5,
-              "summary": "Over the loop, no stop."
+              "summary": "used notes from the supplied pattern to invent a short answer with a clear beginning and ending. This is a listening and reflection check."
             }
           ]
         }
@@ -773,7 +773,7 @@
         {
           "id": "v-l6-m1",
           "name": "Three-Note Runs",
-          "promise": "Sing a clean three-note turnaround at ninety BPM",
+          "promise": "isolated the existing agility pattern slowly and connected its notes without rushing by my own listening judgment.",
           "skill": "Melodic agility",
           "proofMetric": "accuracy_pct",
           "lessonsTotal": 8,
@@ -791,21 +791,21 @@
               "title": "Turnaround, Slow to Fast",
               "type": "exercise",
               "minutes": 6,
-              "summary": "Tempo ladder with pitch accuracy gating each step."
+              "summary": "Rehearse slowly and move on only when you can hear separate, repeatable notes."
             },
             {
               "id": "v-l6-m1-08",
-              "title": "Checkpoint: Clean at Ninety",
+              "title": "Self-Check: A Clear Agility Pattern",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Every note landing, not smeared."
+              "summary": "isolated the existing agility pattern slowly and connected its notes without rushing by my own listening judgment. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l6-m2",
           "name": "Four-Note Turnarounds and Melisma",
-          "promise": "Sing a four-note run at one hundred BPM with ninety percent pitch accuracy",
+          "promise": "sang the supplied four-note descent on one syllable, then listened for four separate pitch centers.",
           "skill": "Melisma",
           "proofMetric": "accuracy_pct",
           "lessonsTotal": 8,
@@ -827,17 +827,17 @@
             },
             {
               "id": "v-l6-m2-08",
-              "title": "Checkpoint: Four Notes at One Hundred",
+              "title": "Self-Check: Four Notes on One Syllable",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Pitch accuracy measured per note."
+              "summary": "sang the supplied four-note descent on one syllable, then listened for four separate pitch centers. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l6-m3",
           "name": "Vibrato On Demand",
-          "promise": "Switch from straight tone to an even vibrato on cue, and back",
+          "promise": "compared straight tone with naturally occurring vibrato, without shaking the jaw or manufacturing a wobble.",
           "skill": "Vibrato control",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -869,7 +869,7 @@
         {
           "id": "v-l6-m4",
           "name": "Scoops, Falls, Bends, Slides",
-          "promise": "Deliver four named ornaments inside one phrase",
+          "promise": "named and compared small pitch gestures in one comfortable phrase, using the written reference as an anchor.",
           "skill": "Ornament vocabulary",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -887,7 +887,7 @@
               "title": "Ornament on Cue",
               "type": "exercise",
               "minutes": 7,
-              "summary": "The app calls the ornament one beat ahead."
+              "summary": "Choose and say the ornament yourself before the next phrase; there is no automatic spoken cue."
             },
             {
               "id": "v-l6-m4-08",
@@ -901,7 +901,7 @@
         {
           "id": "v-l6-m5",
           "name": "Blues and Pentatonic Lines",
-          "promise": "Improvise eight bars over a loop",
+          "promise": "used the supplied minor and pentatonic patterns to make my own short answering phrases.",
           "skill": "Eight-bar improvisation",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -923,17 +923,17 @@
             },
             {
               "id": "v-l6-m5-08",
-              "title": "Checkpoint: Eight Bars Improvised",
+              "title": "Self-Check: Your Improvised Phrases",
               "type": "checkpoint",
               "minutes": 7,
-              "summary": "Rung two of the ladder."
+              "summary": "used the supplied minor and pentatonic patterns to make my own short answering phrases. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l6-m6",
-          "name": "Twelfth Song",
-          "promise": "Sing a twelfth-span song with ornaments intact and no break",
+          "name": "Phrase and Ornament Study",
+          "promise": "rehearsed the supplied phrase and study arrangement in a comfortable key, isolating one ornament before adding it.",
           "skill": "Extended-range repertoire",
           "proofMetric": "accuracy_pct",
           "lessonsTotal": 8,
@@ -941,24 +941,24 @@
           "lessons": [
             {
               "id": "v-l6-m6-01",
-              "title": "A Twelfth With Ornaments Intact",
+              "title": "Range and Ornaments in a Short Phrase",
               "type": "concept",
               "minutes": 4,
               "summary": "Range and agility at the same time, which is the actual difficulty."
             },
             {
               "id": "v-l6-m6-05",
-              "title": "Twelfth-Span Song",
+              "title": "Phrase and Ornament Study",
               "type": "song",
               "minutes": 8,
-              "summary": "In a key that fits your measured range, melisma written in."
+              "summary": "Choose a comfortable key for the supplied phrase, then add one familiar small ornament and compare by ear."
             },
             {
               "id": "v-l6-m6-08",
-              "title": "Checkpoint: Full Song, Ornaments Intact",
+              "title": "Self-Check: Your Ornamented Study",
               "type": "checkpoint",
               "minutes": 7,
-              "summary": "No break, no dropped ornaments."
+              "summary": "rehearsed the supplied phrase and study arrangement in a comfortable key, isolating one ornament before adding it. This is a listening and reflection check."
             }
           ]
         }
@@ -976,7 +976,7 @@
         {
           "id": "v-l7-m1",
           "name": "Look After It",
-          "promise": "Build and run your own warm-up and pass the vocal health check",
+          "promise": "assembled a short warm-up with rests and wrote the warning signs that would make me stop.",
           "skill": "Vocal health",
           "proofMetric": "cycle_dose",
           "lessonsTotal": 8,
@@ -998,17 +998,17 @@
             },
             {
               "id": "v-l7-m1-08",
-              "title": "Checkpoint: Warm-Up Run and Health Check Passed",
+              "title": "Self-Check: Warm-Up and Stop Plan",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Review this module before effect study. Completion is recorded, while access remains available."
+              "summary": "assembled a short warm-up with rests and wrote the warning signs that would make me stop. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l7-m2",
           "name": "Style Rooms",
-          "promise": "Sing one song in two contrasting styles",
+          "promise": "compared two stylistic choices in the same supplied phrase and could explain what I changed.",
           "skill": "Genre choices",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -1040,7 +1040,7 @@
         {
           "id": "v-l7-m3",
           "name": "Modes of Weight",
-          "promise": "Produce three production weights on cue with an easy reset between them",
+          "promise": "compared comfortable production choices in one short phrase and returned to an easy neutral sound.",
           "skill": "Weight and mode switching",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -1072,7 +1072,7 @@
         {
           "id": "v-l7-m4",
           "name": "Effects, Carefully",
-          "promise": "Demonstrate two effects across three brief attempts, stopping on any warning sign",
+          "promise": "read the safety material and wrote a stop plan; I did not attempt to learn a new vocal effect from an app.",
           "skill": "Creak, growl, slide, scream",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -1087,24 +1087,24 @@
             },
             {
               "id": "v-l7-m4-04",
-              "title": "Creak and Slide, Monitored",
+              "title": "Effects: Listening and a Stop Plan",
               "type": "exercise",
               "minutes": 7,
               "summary": "Short bursts, with a hard stop the moment it tightens."
             },
             {
               "id": "v-l7-m4-08",
-              "title": "Checkpoint: Two Effects, Three Attempts",
+              "title": "Self-Check: Your Effects Stop Plan",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Stop on pain, sudden hoarseness, loss of range, or a changed speaking voice. The app cannot certify a safe attempt."
+              "summary": "read the safety material and wrote a stop plan; I did not attempt to learn a new vocal effect from an app. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l7-m5",
           "name": "Higher and Lower",
-          "promise": "Add a clean semitone at either end of your measured range",
+          "promise": "compared comfortable notes with an earlier baseline and recorded my observation without forcing an extension.",
           "skill": "Range extension",
           "proofMetric": "range_midi_span",
           "lessonsTotal": 8,
@@ -1122,21 +1122,21 @@
               "title": "Semitone at a Time",
               "type": "exercise",
               "minutes": 7,
-              "summary": "Extend, hold, rescan. The range scan re-runs at the end."
+              "summary": "Extend, hold, rescan. Open the range tool yourself when you want to compare another comfortable scan."
             },
             {
               "id": "v-l7-m5-08",
-              "title": "Checkpoint: One Semitone, Held Clean",
+              "title": "Self-Check: Compare Your Comfortable Range",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Re-measured, not self-reported."
+              "summary": "compared comfortable notes with an earlier baseline and recorded my observation without forcing an extension. This is a listening and reflection check."
             }
           ]
         },
         {
           "id": "v-l7-m6",
           "name": "The Room",
-          "promise": "Perform a two-octave song with a harmony line held against the lead",
+          "promise": "rehearsed the supplied study arrangement and compared microphone distance or phrasing on separate takes.",
           "skill": "Performance and harmony",
           "proofMetric": "self_reported",
           "lessonsTotal": 8,
@@ -1151,17 +1151,17 @@
             },
             {
               "id": "v-l7-m6-05",
-              "title": "Harmony Against the Lead",
+              "title": "Microphone and Phrase Rehearsal",
               "type": "song",
               "minutes": 9,
-              "summary": "Hold your part while the lead plays. The hardest thing in this track."
+              "summary": "Rehearse the supplied melody first. This native study supplies one line, not simultaneous lead and harmony parts."
             },
             {
               "id": "v-l7-m6-08",
-              "title": "Checkpoint: Two Octaves Plus a Held Harmony",
+              "title": "Self-Check: Your Performance Study",
               "type": "checkpoint",
               "minutes": 10,
-              "summary": "Performed end to end. Compare it to where you were at Stage 2."
+              "summary": "rehearsed the supplied study arrangement and compared microphone distance or phrasing on separate takes. This is a listening and reflection check."
             }
           ]
         }

@@ -2202,7 +2202,7 @@
               "title": "The Groove Is the Mute",
               "type": "concept",
               "minutes": 5,
-              "summary": "In funk the muted strokes carry the rhythm, not the chords."
+              "summary": "Coordinate pitched chord hits and quieter scratches on a continuous sixteenth grid."
             },
             {
               "id": "g-l7-m1-03",
@@ -2216,7 +2216,7 @@
               "title": "Checkpoint: Thirty-Two Bars, One Chord",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Groove held, no tempo drift, dynamics intact."
+              "summary": "Self-review thirty-two complete bars for the written hit/scratch grid, steady pulse and dynamic contrast."
             }
           ]
         },
@@ -2248,7 +2248,7 @@
               "title": "Checkpoint: Twelve Bars, Three Positions",
               "type": "checkpoint",
               "minutes": 7,
-              "summary": "Rung three of the ladder."
+              "summary": "Improvise one complete twelve-bar A-blues chorus with actual accompaniment and three observed hand regions."
             }
           ]
         },
@@ -2273,14 +2273,14 @@
               "title": "Two-Five-One Comping",
               "type": "song",
               "minutes": 7,
-              "summary": "The progression that runs most of the jazz repertoire."
+              "summary": "Play a complete original thirty-two-bar AABA study using seventh-chord shells and ii–V–I movement."
             },
             {
               "id": "g-l7-m3-08",
               "title": "Checkpoint: A Standard Form From Memory",
               "type": "checkpoint",
               "minutes": 7,
-              "summary": "Chart hidden, changes held."
+              "summary": "Close the chart yourself and self-review the complete original form from memory."
             }
           ]
         },
@@ -2298,7 +2298,7 @@
               "title": "Colour Beyond the Seventh",
               "type": "concept",
               "minutes": 5,
-              "summary": "Which extensions belong on which chords, and why."
+              "summary": "Compare selected extensions and one altered dominant against the chord identity and actual melody."
             },
             {
               "id": "g-l7-m4-03",
@@ -2312,7 +2312,7 @@
               "title": "Checkpoint: Reharmonised and Played",
               "type": "checkpoint",
               "minutes": 7,
-              "summary": "Your substitutions, in time, over the original melody."
+              "summary": "Choose a written substitution and perform it under the unchanged original melody supplied by a helper or your own recording."
             }
           ]
         },
@@ -2337,14 +2337,14 @@
               "title": "Clean to Dirty Inside a Song",
               "type": "exercise",
               "minutes": 7,
-              "summary": "Switching without a gap and without a volume jump."
+              "summary": "Rehearse clean/driven changes on your actual equipment at two fixed boundaries in an original rhythm study."
             },
             {
               "id": "g-l7-m5-08",
               "title": "Checkpoint: Two Tones, One Song",
               "type": "checkpoint",
               "minutes": 6,
-              "summary": "Switched on the bar line, level matched."
+              "summary": "Self-review both real tone changes at their bar lines and compare perceived levels by ear."
             }
           ]
         },
@@ -2353,7 +2353,7 @@
           "name": "Your Set",
           "promise": "Play an unbroken three-song set, start to finish",
           "skill": "Performance and sequencing",
-          "proofMetric": "composite",
+          "proofMetric": "self_reported",
           "lessonsTotal": 8,
           "sampleLessonsShown": 3,
           "lessons": [
@@ -2362,21 +2362,21 @@
               "title": "Sequencing Three Songs",
               "type": "concept",
               "minutes": 5,
-              "summary": "Key, tempo, and energy order. Why the second song is the hardest."
+              "summary": "Plan three complete pieces by key, pulse and texture, with two fixed transition bars."
             },
             {
               "id": "g-l7-m6-05",
               "title": "Set Rehearsal, Full Takes",
               "type": "song",
               "minutes": 9,
-              "summary": "Full takes only. No restarts, no section practice."
+              "summary": "Play complete takes with planned transitions, then do focused repairs between takes."
             },
             {
               "id": "g-l7-m6-08",
               "title": "Checkpoint: Three-Song Set, Unbroken",
               "type": "checkpoint",
               "minutes": 10,
-              "summary": "Played end to end. Compare it to where you were at Stage 2."
+              "summary": "Play the complete three-piece set in one attempt; compare earlier work only when an actual baseline exists."
             }
           ]
         }

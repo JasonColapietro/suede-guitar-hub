@@ -16,6 +16,17 @@ export function getInstructionQuiz(lessonId: string): InstructionQuiz | undefine
   return quiz ? validateInstructionQuiz(quiz as InstructionQuiz) : undefined;
 }
 
+/** Derived from the authored criteria without shipping lesson prose to client surfaces. */
+export function hasInstructionSelfCheck(lessonId: string): boolean {
+  return lessons.get(lessonId)?.hasSelfCheckCriteria === true;
+}
+
 export function hasInstructionQuiz(lessonId: string): boolean {
   return !!lessons.get(lessonId)?.quiz;
+}
+
+/** IDs for authored practice assets that LessonSession requires before a
+ * guided reflection can mark the lesson ready. */
+export function getInstructionStageEvidenceAssetIds(lessonId: string): readonly string[] {
+  return lessons.get(lessonId)?.stageEvidenceAssetIds ?? [];
 }

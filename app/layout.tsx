@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { APP_STORE } from "@/lib/site";
 import JsClassMarker from "@/components/JsClassMarker";
 import "./globals.css";
 
@@ -36,6 +37,10 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: { canonical: "https://guitarhub.org" },
+  // Renders <meta name="apple-itunes-app">: Safari on iOS shows the Smart App
+  // Banner above every page, which is the one install path that needs no
+  // App Store search at all.
+  itunes: { appId: APP_STORE.appId },
   robots: {
     index: true,
     follow: true,
@@ -97,6 +102,30 @@ const JSON_LD = {
         "https://www.linkedin.com/company/suede-labs",
         "https://www.wikidata.org/wiki/Q141169484",
       ],
+    },
+    {
+      // The native iOS app. `name` is the exact App Store listing title —
+      // Google cross-checks SoftwareApplication schema against the store, so
+      // the store wins over the division name, which rides in alternateName.
+      "@type": "SoftwareApplication",
+      "@id": "https://guitarhub.org/#ios-app",
+      name: APP_STORE.name,
+      alternateName: ["GuitarHub", "GuitarHub by Suede AI"],
+      description:
+        "Guided beginner guitar lessons with a free daily practice routine, chord-change drills, tuner, metronome and vocal range finder.",
+      applicationCategory: "MusicApplication",
+      operatingSystem: "iOS",
+      url: APP_STORE.ios,
+      installUrl: APP_STORE.ios,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+      isPartOf: { "@id": "https://guitarhub.org/#website" },
+      publisher: { "@id": SUEDE_ORG_ID },
+      author: { "@id": JASON_PERSON_ID },
     },
     {
       "@type": "Person",

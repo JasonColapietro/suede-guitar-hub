@@ -164,7 +164,7 @@ test('pitch tolerance is 35 on every authored spec, which is the value W2 must n
 test('the twelve-second hiss keeps naming the ladder rung it clears', () => {
     const voice = readFileSync('lib/learning/data/voice.json', 'utf8');
     const voiceData = JSON.parse(voice) as unknown;
-    const found: { id: string; promise: string; lessons: { summary: string }[] }[] = [];
+    const found: { id: string; lessons: { id: string; title: string; summary: string }[] }[] = [];
     const walk = (node: unknown) => {
         if (Array.isArray(node)) { node.forEach(walk); return; }
         if (!node || typeof node !== 'object') return;
@@ -174,7 +174,11 @@ test('the twelve-second hiss keeps naming the ladder rung it clears', () => {
     };
     walk(voiceData);
     assert.equal(found.length, 1, 'v-l1-m3 is the module this adjudication is about');
-    assert.match(found[0].promise, /twelve-second/, 'the register records twelve; the promise has to still say it');
+    const exercise = found[0].lessons.find(lesson => lesson.id === 'v-l1-m3-02');
+    assert.ok(exercise, 'the authored twelve-second exercise is missing');
+    assert.match(exercise.title, /twelve/i, 'the exercise the register records must still name twelve');
+    assert.match(exercise.summary, /optional practice goal/i, 'twelve seconds is practice guidance rather than an automatic measurement');
+    assert.match(exercise.summary, /not an automatic pass/i, 'the optional duration must not imply automatic assessment');
 
     const ladder = byId('hissTargetVersusSustainLadder').surfaces.find(value => value.surface === 'sing')!.value as readonly number[];
     const [first] = ladder;
@@ -185,9 +189,16 @@ test('the twelve-second hiss keeps naming the ladder rung it clears', () => {
     // assertion fails and the sentence has to be rewritten.
     assert.equal(first, 10, 'the checkpoint sentence names ten; a different first rung makes that sentence false');
     assert.ok(
-        found[0].lessons.some(lesson => lesson.summary.includes('first mark at ten')),
-        'the checkpoint must keep naming the rung twelve seconds clears; without that sentence this entry is an unreconciled difference, not a recorded one',
+        exercise.summary.includes('first mark at ten'),
+        'the exercise must keep naming the rung twelve seconds clears; without that sentence this entry is an unreconciled difference, not a recorded one',
     );
+
+    const instructions = JSON.parse(readFileSync('lib/learning/data/voice-instruction.json', 'utf8')) as { lessons: { id: string; steps: { action: string }[] }[] };
+    const checkpoint = instructions.lessons.find(lesson => lesson.id === 'v-l1-m3-04');
+    assert.ok(checkpoint, 'the authored hiss self-check is missing');
+    const actions = checkpoint.steps.map(step => step.action).join(' ');
+    assert.match(actions, /first mark at ten/i, 'the self-check must carry the same cross-surface reconciliation');
+    assert.match(actions, /not an automatic pass/i, 'the self-check must keep duration self-observed');
 });
 
 test('the accidental unification is done, not merely decided', () => {

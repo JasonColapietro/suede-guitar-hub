@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { curricula } from "@/lib/learning/curriculum";
-import { accessibleLessonIds, guestLearningAccess } from "@/lib/learning/access";
+import { allLessons, curricula } from "@/lib/learning/curriculum";
+import { accessibleLessonIds, guestLearningAccess, isLessonReady } from "@/lib/learning/access";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 
@@ -40,6 +40,7 @@ export const metadata: Metadata = {
   },
 };
 export default function LearnPage() {
+  const hasOutlines = (["guitar", "voice"] as const).some(track => allLessons(track).some(entry => !isLessonReady(track, entry.lesson.id)));
   return <>
     <div className={styles.hero}><h1>A little practice.<br />A new thing you can do.</h1><p>Pick your instrument. Follow the lessons in order, spend a few minutes with each exercise, and come back to the parts that need another try.</p></div>
     <div className={styles.tracks}>
@@ -58,6 +59,6 @@ export default function LearnPage() {
     </div>
     <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Start an A/D practice routine</Link></div>
     <div className={styles.notice}>Start without an account. The first two stages of each track are free; later guided lessons are previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
-    <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>Written lessons and curriculum outlines give each session a focus. Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
+    <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>{hasOutlines ? "Written lessons and curriculum outlines give each session a focus." : "Written lessons give each session a focus."} Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
   </>;
 }

@@ -3,49 +3,57 @@
   "lessons": [
     {
       "id": "g-l1-m1-01",
-      "prerequisiteLessonIds": []
+      "prerequisiteLessonIds": [],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m1-02",
       "prerequisiteLessonIds": [
         "g-l1-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m1-04",
       "prerequisiteLessonIds": [
         "g-l1-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m2-01",
       "prerequisiteLessonIds": [
         "g-l1-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m2-02",
       "prerequisiteLessonIds": [
         "g-l1-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m2-04",
       "prerequisiteLessonIds": [
         "g-l1-m2-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m3-01",
       "prerequisiteLessonIds": [
         "g-l1-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m3-02",
       "prerequisiteLessonIds": [
         "g-l1-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l1-m3-04",
@@ -53,6 +61,7 @@
         "g-l1-m3-01",
         "g-l1-m3-02"
       ],
+      "hasSelfCheckCriteria": true,
       "quiz": {
         "scoring": "Earn one point for each question answered correctly on the first try. There are ten questions and no time bonus. Eight correct answers meets this checkpoint.",
         "passingCorrectCount": 8,
@@ -190,48 +199,68 @@
       "id": "g-l2-m1-01",
       "prerequisiteLessonIds": [
         "g-l1-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m1-03",
       "prerequisiteLessonIds": [
         "g-l2-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m1-06",
       "prerequisiteLessonIds": [
         "g-l2-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m3-01",
       "prerequisiteLessonIds": [
         "g-l2-m1-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m3-02",
       "prerequisiteLessonIds": [
         "g-l2-m3-01"
+      ],
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-manual-change-counter"
       ]
     },
     {
       "id": "g-l2-m3-06",
       "prerequisiteLessonIds": [
         "g-l2-m3-02"
+      ],
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-manual-change-counter"
       ]
     },
     {
       "id": "g-l2-m2-01",
       "prerequisiteLessonIds": [
         "g-l2-m3-02"
+      ],
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-first-light-study"
       ]
     },
     {
       "id": "g-l2-m2-04",
       "prerequisiteLessonIds": [
         "g-l2-m2-01"
+      ],
+      "hasSelfCheckCriteria": true,
+      "stageEvidenceAssetIds": [
+        "stage2-first-light-study"
       ]
     },
     {
@@ -239,1219 +268,1553 @@
       "prerequisiteLessonIds": [
         "g-l2-m2-01",
         "g-l2-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m4-01",
       "prerequisiteLessonIds": [
         "g-l2-m2-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m4-03",
       "prerequisiteLessonIds": [
         "g-l2-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l2-m4-06",
       "prerequisiteLessonIds": [
         "g-l2-m4-01",
         "g-l2-m4-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m1-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m1-03",
       "prerequisiteLessonIds": [
         "g-l3-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m1-07",
       "prerequisiteLessonIds": [
         "g-l3-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m2-01",
       "prerequisiteLessonIds": [
         "g-l3-m1-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m2-04",
       "prerequisiteLessonIds": [
         "g-l3-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m2-07",
       "prerequisiteLessonIds": [
         "g-l3-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m3-01",
       "prerequisiteLessonIds": [
         "g-l3-m2-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m3-02",
       "prerequisiteLessonIds": [
         "g-l3-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m3-07",
       "prerequisiteLessonIds": [
         "g-l3-m3-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m4-01",
       "prerequisiteLessonIds": [
         "g-l3-m3-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m4-03",
       "prerequisiteLessonIds": [
         "g-l3-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m4-07",
       "prerequisiteLessonIds": [
         "g-l3-m4-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m5-01",
       "prerequisiteLessonIds": [
         "g-l3-m4-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m5-04",
       "prerequisiteLessonIds": [
         "g-l3-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l3-m5-07",
       "prerequisiteLessonIds": [
         "g-l3-m5-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m1-01",
       "prerequisiteLessonIds": [
         "g-l3-m5-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m1-02",
       "prerequisiteLessonIds": [
         "g-l4-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m1-07",
       "prerequisiteLessonIds": [
         "g-l4-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m2-01",
       "prerequisiteLessonIds": [
         "g-l4-m1-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m2-03",
       "prerequisiteLessonIds": [
         "g-l4-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m2-07",
       "prerequisiteLessonIds": [
         "g-l4-m2-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m3-01",
       "prerequisiteLessonIds": [
         "g-l4-m2-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m3-02",
       "prerequisiteLessonIds": [
         "g-l4-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m3-07",
       "prerequisiteLessonIds": [
         "g-l4-m3-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m4-01",
       "prerequisiteLessonIds": [
         "g-l4-m3-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m4-04",
       "prerequisiteLessonIds": [
         "g-l4-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m4-07",
       "prerequisiteLessonIds": [
         "g-l4-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m5-01",
       "prerequisiteLessonIds": [
         "g-l4-m4-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m5-03",
       "prerequisiteLessonIds": [
         "g-l4-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l4-m5-07",
       "prerequisiteLessonIds": [
         "g-l4-m5-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m1-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m1-02",
       "prerequisiteLessonIds": [
         "g-songs-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m1-03",
       "prerequisiteLessonIds": [
         "g-songs-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m1-04",
       "prerequisiteLessonIds": [
         "g-songs-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m1-05",
       "prerequisiteLessonIds": [
         "g-songs-m1-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m2-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m2-02",
       "prerequisiteLessonIds": [
         "g-songs-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m2-03",
       "prerequisiteLessonIds": [
         "g-songs-m2-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m2-04",
       "prerequisiteLessonIds": [
         "g-songs-m2-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m2-05",
       "prerequisiteLessonIds": [
         "g-songs-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m3-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m3-02",
       "prerequisiteLessonIds": [
         "g-songs-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m3-03",
       "prerequisiteLessonIds": [
         "g-songs-m3-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m3-04",
       "prerequisiteLessonIds": [
         "g-songs-m3-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m3-05",
       "prerequisiteLessonIds": [
         "g-songs-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m4-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m4-02",
       "prerequisiteLessonIds": [
         "g-songs-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m4-03",
       "prerequisiteLessonIds": [
         "g-songs-m4-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m4-04",
       "prerequisiteLessonIds": [
         "g-songs-m4-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m4-05",
       "prerequisiteLessonIds": [
         "g-songs-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m5-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m5-02",
       "prerequisiteLessonIds": [
         "g-songs-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m5-03",
       "prerequisiteLessonIds": [
         "g-songs-m5-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m5-04",
       "prerequisiteLessonIds": [
         "g-songs-m5-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m5-05",
       "prerequisiteLessonIds": [
         "g-songs-m5-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m6-01",
       "prerequisiteLessonIds": [
         "g-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m6-02",
       "prerequisiteLessonIds": [
         "g-songs-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m6-03",
       "prerequisiteLessonIds": [
         "g-songs-m6-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m6-04",
       "prerequisiteLessonIds": [
         "g-songs-m6-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-songs-m6-05",
       "prerequisiteLessonIds": [
         "g-songs-m6-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m1-01",
       "prerequisiteLessonIds": [
         "g-l4-m5-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m1-02",
       "prerequisiteLessonIds": [
         "g-l5-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m1-07",
       "prerequisiteLessonIds": [
         "g-l5-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m2-01",
       "prerequisiteLessonIds": [
         "g-l5-m1-07",
         "g-l4-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m2-04",
       "prerequisiteLessonIds": [
         "g-l5-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m2-07",
       "prerequisiteLessonIds": [
         "g-l5-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m3-01",
       "prerequisiteLessonIds": [
         "g-l5-m2-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m3-03",
       "prerequisiteLessonIds": [
         "g-l5-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m3-07",
       "prerequisiteLessonIds": [
         "g-l5-m3-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m4-01",
       "prerequisiteLessonIds": [
         "g-l5-m3-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m4-03",
       "prerequisiteLessonIds": [
         "g-l5-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m4-07",
       "prerequisiteLessonIds": [
         "g-l5-m4-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m5-01",
       "prerequisiteLessonIds": [
         "g-l5-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m5-02",
       "prerequisiteLessonIds": [
         "g-l5-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m5-07",
       "prerequisiteLessonIds": [
         "g-l5-m5-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m6-01",
       "prerequisiteLessonIds": [
         "g-l5-m1-07",
         "g-l5-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m6-03",
       "prerequisiteLessonIds": [
         "g-l5-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l5-m6-07",
       "prerequisiteLessonIds": [
         "g-l5-m6-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m1-01",
       "prerequisiteLessonIds": [
         "g-l5-m1-07",
         "g-l5-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m1-02",
       "prerequisiteLessonIds": [
         "g-l6-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m1-08",
       "prerequisiteLessonIds": [
         "g-l6-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m2-01",
       "prerequisiteLessonIds": [
         "g-l6-m1-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m2-05",
       "prerequisiteLessonIds": [
         "g-l6-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m2-08",
       "prerequisiteLessonIds": [
         "g-l6-m2-05",
         "g-l5-m6-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m3-01",
       "prerequisiteLessonIds": [
         "g-l6-m1-01",
         "g-l5-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m3-03",
       "prerequisiteLessonIds": [
         "g-l6-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m3-08",
       "prerequisiteLessonIds": [
         "g-l6-m3-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m4-01",
       "prerequisiteLessonIds": [
         "g-l6-m3-01",
         "g-l5-m4-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m4-04",
       "prerequisiteLessonIds": [
         "g-l6-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m4-08",
       "prerequisiteLessonIds": [
         "g-l6-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m5-01",
       "prerequisiteLessonIds": [
         "g-l6-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m5-03",
       "prerequisiteLessonIds": [
         "g-l6-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m5-08",
       "prerequisiteLessonIds": [
         "g-l6-m5-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m6-01",
       "prerequisiteLessonIds": [
         "g-l4-m4-07",
         "g-l5-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m6-05",
       "prerequisiteLessonIds": [
         "g-l6-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "g-l6-m6-08",
       "prerequisiteLessonIds": [
         "g-l6-m6-05"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m1-01",
+      "prerequisiteLessonIds": [
+        "g-l6-m6-08"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m1-03",
+      "prerequisiteLessonIds": [
+        "g-l7-m1-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m1-08",
+      "prerequisiteLessonIds": [
+        "g-l7-m1-03"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m2-01",
+      "prerequisiteLessonIds": [
+        "g-l6-m3-08",
+        "g-l5-m4-07"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m2-04",
+      "prerequisiteLessonIds": [
+        "g-l7-m2-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m2-08",
+      "prerequisiteLessonIds": [
+        "g-l7-m2-04",
+        "g-l5-m3-07"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m3-01",
+      "prerequisiteLessonIds": [
+        "g-l6-m2-08",
+        "g-l5-m6-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m3-04",
+      "prerequisiteLessonIds": [
+        "g-l7-m3-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m3-08",
+      "prerequisiteLessonIds": [
+        "g-l7-m3-04"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m4-01",
+      "prerequisiteLessonIds": [
+        "g-l7-m3-01",
+        "g-l6-m4-08"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m4-03",
+      "prerequisiteLessonIds": [
+        "g-l7-m4-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m4-08",
+      "prerequisiteLessonIds": [
+        "g-l7-m4-03"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m5-01",
+      "prerequisiteLessonIds": [
+        "g-l6-m2-05"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m5-04",
+      "prerequisiteLessonIds": [
+        "g-l7-m5-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m5-08",
+      "prerequisiteLessonIds": [
+        "g-l7-m5-04"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m6-01",
+      "prerequisiteLessonIds": [
+        "g-l6-m2-05",
+        "g-l7-m3-08",
+        "g-l6-m6-08"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m6-05",
+      "prerequisiteLessonIds": [
+        "g-l7-m6-01"
+      ],
+      "hasSelfCheckCriteria": true
+    },
+    {
+      "id": "g-l7-m6-08",
+      "prerequisiteLessonIds": [
+        "g-l7-m6-05"
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m1-01",
-      "prerequisiteLessonIds": []
+      "prerequisiteLessonIds": [],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m1-02",
       "prerequisiteLessonIds": [
         "v-l1-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m1-04",
       "prerequisiteLessonIds": [
         "v-l1-m1-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m2-01",
       "prerequisiteLessonIds": [
         "v-l1-m1-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m2-02",
       "prerequisiteLessonIds": [
         "v-l1-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m2-04",
       "prerequisiteLessonIds": [
         "v-l1-m2-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m3-01",
       "prerequisiteLessonIds": [
         "v-l1-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m3-02",
       "prerequisiteLessonIds": [
         "v-l1-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l1-m3-04",
       "prerequisiteLessonIds": [
         "v-l1-m3-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m1-01",
       "prerequisiteLessonIds": [
         "v-l1-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m1-03",
       "prerequisiteLessonIds": [
         "v-l2-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m1-06",
       "prerequisiteLessonIds": [
         "v-l2-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m2-01",
       "prerequisiteLessonIds": [
         "v-l2-m1-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m2-03",
       "prerequisiteLessonIds": [
         "v-l2-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m2-06",
       "prerequisiteLessonIds": [
         "v-l2-m2-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m3-01",
       "prerequisiteLessonIds": [
         "v-l2-m2-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m3-04",
       "prerequisiteLessonIds": [
         "v-l2-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m3-06",
       "prerequisiteLessonIds": [
         "v-l2-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m4-01",
       "prerequisiteLessonIds": [
         "v-l2-m3-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m4-04",
       "prerequisiteLessonIds": [
         "v-l2-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l2-m4-06",
       "prerequisiteLessonIds": [
         "v-l2-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m1-01",
       "prerequisiteLessonIds": [
         "v-l2-m4-06"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m1-03",
       "prerequisiteLessonIds": [
         "v-l3-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m1-07",
       "prerequisiteLessonIds": [
         "v-l3-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m2-01",
       "prerequisiteLessonIds": [
         "v-l3-m1-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m2-02",
       "prerequisiteLessonIds": [
         "v-l3-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m2-07",
       "prerequisiteLessonIds": [
         "v-l3-m2-02"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m3-01",
       "prerequisiteLessonIds": [
         "v-l3-m2-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m3-04",
       "prerequisiteLessonIds": [
         "v-l3-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m3-07",
       "prerequisiteLessonIds": [
         "v-l3-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m4-01",
       "prerequisiteLessonIds": [
         "v-l3-m3-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m4-04",
       "prerequisiteLessonIds": [
         "v-l3-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m4-07",
       "prerequisiteLessonIds": [
         "v-l3-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m5-01",
       "prerequisiteLessonIds": [
         "v-l3-m4-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m5-03",
       "prerequisiteLessonIds": [
         "v-l3-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l3-m5-07",
       "prerequisiteLessonIds": [
         "v-l3-m5-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m1-01",
       "prerequisiteLessonIds": [
         "v-l3-m5-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m1-03",
       "prerequisiteLessonIds": [
         "v-l4-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m1-07",
       "prerequisiteLessonIds": [
         "v-l4-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m2-01",
       "prerequisiteLessonIds": [
         "v-l4-m1-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m2-03",
       "prerequisiteLessonIds": [
         "v-l4-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m2-07",
       "prerequisiteLessonIds": [
         "v-l4-m2-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m3-01",
       "prerequisiteLessonIds": [
         "v-l4-m2-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m3-04",
       "prerequisiteLessonIds": [
         "v-l4-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m3-07",
       "prerequisiteLessonIds": [
         "v-l4-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m4-01",
       "prerequisiteLessonIds": [
         "v-l4-m3-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m4-03",
       "prerequisiteLessonIds": [
         "v-l4-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m4-07",
       "prerequisiteLessonIds": [
         "v-l4-m4-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m5-01",
       "prerequisiteLessonIds": [
         "v-l4-m4-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m5-04",
       "prerequisiteLessonIds": [
         "v-l4-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l4-m5-07",
       "prerequisiteLessonIds": [
         "v-l4-m5-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m1-01",
       "prerequisiteLessonIds": [
         "v-l4-m5-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m1-03",
       "prerequisiteLessonIds": [
         "v-l5-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m1-07",
       "prerequisiteLessonIds": [
         "v-l5-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m2-01",
       "prerequisiteLessonIds": [
         "v-l5-m1-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m2-03",
       "prerequisiteLessonIds": [
         "v-l5-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m2-07",
       "prerequisiteLessonIds": [
         "v-l5-m2-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m3-01",
       "prerequisiteLessonIds": [
         "v-l5-m2-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m3-04",
       "prerequisiteLessonIds": [
         "v-l5-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m3-07",
       "prerequisiteLessonIds": [
         "v-l5-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m4-01",
       "prerequisiteLessonIds": [
         "v-l5-m3-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m4-04",
       "prerequisiteLessonIds": [
         "v-l5-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m4-07",
       "prerequisiteLessonIds": [
         "v-l5-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m5-01",
       "prerequisiteLessonIds": [
         "v-l5-m4-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m5-03",
       "prerequisiteLessonIds": [
         "v-l5-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l5-m5-07",
       "prerequisiteLessonIds": [
         "v-l5-m5-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m1-01",
       "prerequisiteLessonIds": [
         "v-l5-m5-07"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m1-03",
       "prerequisiteLessonIds": [
         "v-l6-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m1-08",
       "prerequisiteLessonIds": [
         "v-l6-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m2-01",
       "prerequisiteLessonIds": [
         "v-l6-m1-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m2-04",
       "prerequisiteLessonIds": [
         "v-l6-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m2-08",
       "prerequisiteLessonIds": [
         "v-l6-m2-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m3-01",
       "prerequisiteLessonIds": [
         "v-l6-m2-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m3-03",
       "prerequisiteLessonIds": [
         "v-l6-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m3-08",
       "prerequisiteLessonIds": [
         "v-l6-m3-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m4-01",
       "prerequisiteLessonIds": [
         "v-l6-m3-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m4-04",
       "prerequisiteLessonIds": [
         "v-l6-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m4-08",
       "prerequisiteLessonIds": [
         "v-l6-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m5-01",
       "prerequisiteLessonIds": [
         "v-l6-m4-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m5-04",
       "prerequisiteLessonIds": [
         "v-l6-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m5-08",
       "prerequisiteLessonIds": [
         "v-l6-m5-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m6-01",
       "prerequisiteLessonIds": [
         "v-l6-m5-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m6-05",
       "prerequisiteLessonIds": [
         "v-l6-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l6-m6-08",
       "prerequisiteLessonIds": [
         "v-l6-m6-05"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m1-01",
       "prerequisiteLessonIds": [
         "v-l6-m6-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m1-03",
       "prerequisiteLessonIds": [
         "v-l7-m1-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m1-08",
       "prerequisiteLessonIds": [
         "v-l7-m1-03"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m2-01",
       "prerequisiteLessonIds": [
         "v-l7-m1-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m2-05",
       "prerequisiteLessonIds": [
         "v-l7-m2-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m2-08",
       "prerequisiteLessonIds": [
         "v-l7-m2-05"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m3-01",
       "prerequisiteLessonIds": [
         "v-l7-m2-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m3-04",
       "prerequisiteLessonIds": [
         "v-l7-m3-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m3-08",
       "prerequisiteLessonIds": [
         "v-l7-m3-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m4-01",
       "prerequisiteLessonIds": [
         "v-l7-m3-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m4-04",
       "prerequisiteLessonIds": [
         "v-l7-m4-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m4-08",
       "prerequisiteLessonIds": [
         "v-l7-m4-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m5-01",
       "prerequisiteLessonIds": [
         "v-l7-m4-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m5-04",
       "prerequisiteLessonIds": [
         "v-l7-m5-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m5-08",
       "prerequisiteLessonIds": [
         "v-l7-m5-04"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m6-01",
       "prerequisiteLessonIds": [
         "v-l7-m5-08"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m6-05",
       "prerequisiteLessonIds": [
         "v-l7-m6-01"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     },
     {
       "id": "v-l7-m6-08",
       "prerequisiteLessonIds": [
         "v-l7-m6-05"
-      ]
+      ],
+      "hasSelfCheckCriteria": true
     }
   ]
 }

@@ -37,7 +37,7 @@ export function parseProgress(raw: string | null, track: TrackId, validLessonIds
       if (entry.source === "measured" && (typeof entry.score !== "number" || !Number.isFinite(entry.score) || entry.score < 0 || entry.score > 100)) continue;
       if (entry.source === "measured" && entry.bpm !== undefined && (typeof entry.bpm !== "number" || !Number.isFinite(entry.bpm) || entry.bpm <= 0 || entry.bpm > 400)) continue;
       if (entry.source === "measured" && entry.completionMinimumBPM !== undefined && (entry.bpm === undefined || typeof entry.completionMinimumBPM !== "number" || !Number.isFinite(entry.completionMinimumBPM) || entry.completionMinimumBPM < 20 || entry.completionMinimumBPM > 300)) continue;
-      if (entry.practiceSpecRevision !== undefined && (!Number.isInteger(entry.practiceSpecRevision) || entry.practiceSpecRevision < 1 || entry.practiceSpecRevision > 1_000_000)) continue;
+      if (entry.practiceSpecRevision != null && (!Number.isInteger(entry.practiceSpecRevision) || entry.practiceSpecRevision < 1 || entry.practiceSpecRevision > 1_000_000)) continue;
       if (entry.source === "readingQuiz") {
         const quiz = getInstructionQuiz(id);
         const attempt = quiz ? parseReadingQuizAttempt(entry.readingQuizAttempt, id, quiz) : null;
@@ -49,12 +49,12 @@ export function parseProgress(raw: string | null, track: TrackId, validLessonIds
       clean.lessons[id] = {
         updatedAt: new Date(entry.updatedAt).toISOString(),
         practiceSeconds: entry.practiceSeconds,
-        assessment: getInstructionQuiz(id) || (requiredRevision !== undefined && (entry.source !== "measured" || entry.practiceSpecRevision !== requiredRevision || entry.score < authoredSpec!.passScore)) || (requiredBPM !== undefined && (entry.source !== "measured" || entry.bpm === undefined || entry.bpm < requiredBPM || entry.score < authoredSpec!.passScore)) || (entry.source === "measured" && entry.completionMinimumBPM !== undefined && entry.bpm < entry.completionMinimumBPM) ? "repeat" : entry.assessment,
+        assessment: getInstructionQuiz(id) || (authoredSpec && (entry.source !== "measured" || entry.score < authoredSpec.passScore || (entry.practiceSpecRevision ?? null) !== (requiredRevision ?? null))) || (requiredBPM !== undefined && (entry.source !== "measured" || entry.bpm === undefined || entry.bpm < requiredBPM || entry.score < authoredSpec!.passScore)) || (entry.source === "measured" && entry.completionMinimumBPM !== undefined && entry.bpm < entry.completionMinimumBPM) ? "repeat" : entry.assessment,
         source: entry.source,
         score: entry.source === "measured" ? entry.score : null,
         ...(entry.source === "measured" && entry.bpm !== undefined ? { bpm: entry.bpm } : {}),
         ...(entry.source === "measured" && entry.completionMinimumBPM !== undefined ? { completionMinimumBPM: entry.completionMinimumBPM } : {}),
-        ...(entry.source === "measured" && entry.practiceSpecRevision !== undefined ? { practiceSpecRevision: entry.practiceSpecRevision } : {}),
+        ...(entry.source === "measured" && entry.practiceSpecRevision != null ? { practiceSpecRevision: entry.practiceSpecRevision } : {}),
       };
     }
     if (Array.isArray(value.measuredAttempts)) {

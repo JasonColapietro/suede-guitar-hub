@@ -6,14 +6,14 @@ import { completedCount, nextLessonId } from "@/lib/learning/progress";
 import { useLearningProgress } from "./useLearningProgress";
 import styles from "./Learning.module.css";
 import { LessonLibrary } from "./LessonLibrary";
-import { accessibleLessonIds, canOpenModule, isLessonReady } from "@/lib/learning/access";
+import { accessibleLessonIds, canOpenModule, hasVerifiedTrackAccess, isLessonReady } from "@/lib/learning/access";
 import { useLearningAccess } from "./LearningAccessProvider";
 const lessonTypes = { concept: "Learn", exercise: "Practice", song: "Song", checkpoint: "Checkpoint" };
 export function LearningPath({ track }: { track: TrackId }) {
   const { progress } = useLearningProgress(track);
   const curriculum = curricula[track];
   const access = useLearningAccess();
-  const ownsTrack = access.status === "verified" && access.tracks.includes(track);
+  const ownsTrack = hasVerifiedTrackAccess(track, access);
   const ids = accessibleLessonIds(track, access);
   const completed = completedCount(ids, progress);
   const nextId = nextLessonId(ids, progress);
@@ -28,6 +28,7 @@ export function LearningPath({ track }: { track: TrackId }) {
     <p className={`${styles.small} ${styles.muted}`}>{access.accountId ? "Your progress is saved in this browser for your signed-in account. Earlier guest progress is kept separately." : "Your progress is saved in this browser."} Each saved result identifies its evidence: your own assessment, a visual reading check, or a microphone exercise. You can revisit any available lesson.</p>
     <div className={styles.notice}>{access.status === "unavailable" ? "We could not verify account access. The free stages remain available; your saved history is kept." : ownsTrack ? "Your account has Complete Lifetime access. Open any guided lesson or microphone exercise. Topics without instruction remain curriculum outlines." : access.enabled ? "The first two stages of this track are free. Sign in to check access from an account-linked iOS lifetime purchase." : "The first two stages are free. Other guided lessons are previews while purchase access is being connected on the web."}{access.enabled && <> <Link href="/account">View account</Link></>}</div>
     {track === "guitar" && <section className={styles.continue} aria-label="Daily guitar practice"><div><h2>Your first A/D routine</h2><p>Seven familiar blocks, 21 suggested minutes. Prepare with instruction, then tune, work on shapes, change chords, and play songs.</p></div><Link className={styles.primary} href="/learn/guitar/routine">Open practice routine</Link></section>}
+    {track === "voice" && ownsTrack && <section className={styles.continue} aria-label="Complete voice practice library"><div><h2>All 70 studies and 26 readings</h2><p>Browse the full lifetime library without adding every exercise to each lesson card.</p></div><Link className={styles.primary} href="/learn/voice/materials">Open practice library</Link></section>}
     <LessonLibrary track={track} />
     {curriculum.levels.map((level, levelIndex) => <details className={styles.level} key={level.id} open={levelIndex === 0}>
       <summary><span className={styles.stage} aria-hidden="true">{level.stage ?? "♪"}</span><div><h2>{level.name}</h2><p className={styles.muted}>{level.subtitle}</p><span className={styles.badge}>{level.modules.length} modules</span><span className={styles.badge}>{level.modules.some(module => module.lessons.some(lesson => isLessonReady(track, lesson.id))) ? (level.access === "free" ? "Free guided lessons" : ownsTrack ? "Lifetime access" : "Lesson previews") : "Curriculum outlines"}</span></div></summary>

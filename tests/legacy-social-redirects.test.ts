@@ -5,7 +5,7 @@ import nextConfig, { LEGACY_SOCIAL_ORIGIN, LEGACY_SOCIAL_REDIRECTS } from "../ne
 
 const LIVE_ROUTES = ["/", "/learn", "/learn/guitar", "/guides", "/practice", "/breakthrough", "/method", "/about"];
 
-test("the stale Suede Social URLs Google indexed under guitarhub.org redirect permanently to their live twins", async () => {
+test("the stale Suede AI Social URLs Google indexed under guitarhub.org redirect permanently to their live twins", async () => {
   const redirects = await nextConfig.redirects?.();
   assert.ok(redirects, "next.config must declare redirects()");
   assert.deepEqual(redirects, [...LEGACY_SOCIAL_REDIRECTS]);
@@ -14,7 +14,16 @@ test("the stale Suede Social URLs Google indexed under guitarhub.org redirect pe
     assert.ok(redirect.destination.startsWith(`${LEGACY_SOCIAL_ORIGIN}/`), `${redirect.source} must land on social.suedeai.ai`);
   }
   const sources = redirects.map((redirect) => redirect.source);
-  assert.deepEqual(sources, ["/discover", "/articles", "/article/:slug*"]);
+  assert.deepEqual(sources, [
+    "/discover",
+    "/articles",
+    "/article/:slug*",
+    "/author/:slug*",
+    "/forum",
+    "/forum/:slug*",
+    "/social",
+    "/social/:slug*",
+  ]);
 });
 
 test("no live GuitarHub route is shadowed by a legacy redirect", async () => {

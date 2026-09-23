@@ -231,7 +231,7 @@ const FAQS: readonly Faq[] = [
     id: "how-it-relates-to-strumly",
     group: "strumly-and-teachers",
     q: "How does GuitarHub relate to Strumly and Suede Labs?",
-    a: "All three are Suede Labs, a studio founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub orchestrates the practice, Strumly powers the tools, and Suede Social carries the wider conversation. In practice the planner here decides what you work on this week and sends you to Strumly for the thing that does it, rather than rebuilding a second, worse copy of a tool that already exists. GuitarHub has no forum of its own and is not claiming one.",
+    a: "All three are Suede Labs, a studio founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub orchestrates the practice, Strumly powers the tools, and Suede AI Social carries the wider conversation. In practice the planner here decides what you work on this week and sends you to Strumly for the thing that does it, rather than rebuilding a second, worse copy of a tool that already exists. GuitarHub has no forum of its own and is not claiming one.",
   },
   {
     id: "does-it-replace-a-teacher",
@@ -541,7 +541,7 @@ export default function FaqPage() {
                   href={STRUMLY.social}
                   className="inline-flex min-h-11 items-center gap-1 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-indigo-deep ring-1 ring-ink/5 motion-safe:transition hover:bg-cream"
                 >
-                  Suede Social <span aria-hidden>↗</span>
+                  Suede AI Social <span aria-hidden>↗</span>
                 </a>
               </li>
               <li>

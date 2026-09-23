@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  APP_STORE,
   GUIDES,
   LEGAL,
   RESOURCES,
@@ -33,12 +34,13 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   // list, so without this line the one free reference page on the site would be
   // reachable from the XML sitemap and nowhere else.
   { href: "/glossary", label: "Guitar and voice glossary" },
+  { href: APP_STORE.ios, label: "GuitarHub for iPhone" },
   ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },
   { href: STRUMLY.path, label: "Strumly learning path" },
   { href: STRUMLY.rig, label: "Strumly rig board" },
   { href: STRUMLY.sing, label: "Suede Sing" },
-  { href: STRUMLY.social, label: "Suede Social" },
+  { href: STRUMLY.social, label: "Suede AI Social" },
   { href: STRUMLY.suedeLabs, label: "Suede Labs" },
 ];
 
@@ -113,7 +115,7 @@ export default function SiteFooter() {
                 ink/60 measures 4.54:1. Same for the bottom row below. */}
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink/60">
               GuitarHub brings lessons and practice together. Explore more guitar
-              tools with Strumly and the wider conversation on Suede Social.
+              tools with Strumly and the wider conversation on Suede AI Social.
             </p>
           </div>
         </div>

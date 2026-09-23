@@ -31,7 +31,7 @@ gap below closes when the branch deploys — which is why Step 0 is a deploy and
   running a build from before the sitemap was rewritten.
 - The live home page emits **no `og:image`**, so a link pasted today unfurls as a bare text
   card. Same cause: the deployed build predates the card.
-- Every Strumly, Suede Social, and Suede Labs URL used in these drafts returns 200.
+- Every Strumly, Suede AI Social, and Suede Labs URL used in these drafts returns 200.
 
 **Live as of 2026-08-30 00:22 UTC — the deploy blocker is cleared**
 
