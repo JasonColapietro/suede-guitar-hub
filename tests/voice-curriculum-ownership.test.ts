@@ -69,7 +69,7 @@ test('history-only policy preserves a valid scan without accepting its asserted 
     }
 });
 
-test('every voice lesson URL redirects permanently to its twin on Sing, and no open evidence is claimed done', async () => {
+test('every voice lesson URL redirects permanently to its twin on Sing, and the release checks are attributed', async () => {
     const data = contract();
     const urls = JSON.parse(readFileSync('contracts/suede-voice-lesson-urls.json', 'utf8'));
     assert.equal(CROSS_DOMAIN_PROPOSAL.decidedBy, data.ownership.decidedBy);
@@ -78,8 +78,12 @@ test('every voice lesson URL redirects permanently to its twin on Sing, and no o
     assert.equal(data.migration.redirectsEnabled, true);
     assert.equal(data.ownership.lessonBaseUrl, `${urls.origin}${urls.course}`);
     assert.deepEqual(Reflect.get(CROSS_DOMAIN_PROPOSAL, 'requiredEvidence'), data.migration.requiredEvidence);
-    assert.match(data.migration.resolution.vocalReview, /^Open\./);
-    assert.match(data.migration.resolution.deviceAudio, /^Open\./);
+    // Recorded as the owner reported them, dated, with the evidence outside
+    // both repositories stated rather than implied.
+    for (const item of [data.migration.resolution.vocalReview, data.migration.resolution.deviceAudio]) {
+        assert.match(item, /^Done, reported by the owner on \d{4}-\d{2}-\d{2}:/);
+        assert.match(item, /not stored in this repository/);
+    }
 
     const redirects = (await nextConfig.redirects!()) ?? [];
     const bySource = new Map(redirects.map(redirect => [redirect.source, redirect]));

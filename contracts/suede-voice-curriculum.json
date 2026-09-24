@@ -41,8 +41,8 @@
       "entitlements": "Resolved by the 2026-09-23 decision: every stage is free on sing, so no GuitarHub lifetime purchaser loses access.",
       "progress": "Not imported. GuitarHub's lesson attempts stay in GuitarHub. sing shows practice counts derived from its own room sessions and records no lesson completion.",
       "urlParity": "Every GuitarHub lesson URL has a sing destination in contracts/suede-voice-lesson-urls.json.",
-      "vocalReview": "Open. Qualified vocal-pedagogy and clinical-safety review of the advanced belt, weight, range-extension and effects lessons has not happened.",
-      "deviceAudio": "Open. Physical-microphone checks from GuitarHub's audio release checklist have not been run."
+      "vocalReview": "Done, reported by the owner on 2026-09-24: qualified vocal-pedagogy and clinical-safety review of the advanced belt, weight, range-extension and effects lessons. The review record is not stored in this repository.",
+      "deviceAudio": "Done, reported by the owner on 2026-09-24: the physical-microphone checks from GuitarHub's audio release checklist. The results are not stored in this repository."
     }
   },
   "curriculum": {

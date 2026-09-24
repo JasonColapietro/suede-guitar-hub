@@ -277,8 +277,8 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
  * for existing consumers.
  *
  * What happened to each piece of required evidence is recorded in the vendored
- * contract's `migration.resolution`. Two items are still open there: a
- * qualified vocal review and the physical-microphone checks. Lesson attempts
+ * contract's `migration.resolution`, including the vocal review and
+ * physical-microphone checks Jason reported done on 2026-09-24. Lesson attempts
  * already in this site's ledger stay here and are not imported by Sing.
  */
 export const CROSS_DOMAIN_PROPOSAL = {

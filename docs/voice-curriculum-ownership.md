@@ -21,9 +21,11 @@ catalog, with every stage free there. This site no longer serves them:
   them; it shows practice counts derived from its own room sessions.
 
 What happened to each piece of evidence the 2026-09-14 plan required is recorded
-in the vendored contract's `migration.resolution`. Two items remain open: a
-qualified vocal-pedagogy and clinical-safety review of the advanced lessons, and
-the real-device audio checks in [audio-release-checklist.md](audio-release-checklist.md).
+in the vendored contract's `migration.resolution`. The qualified vocal-pedagogy
+and clinical-safety review of the advanced lessons, and the real-device audio
+checks in [audio-release-checklist.md](audio-release-checklist.md), are recorded
+as done on Jason's report of 2026-09-24; their records are not stored in either
+repository.
 
 ## 2026-09-14: decisions that still apply
 
