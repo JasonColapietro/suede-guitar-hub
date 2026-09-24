@@ -241,8 +241,8 @@ export const VOICE_MODULE_PROOF: Record<string, VoiceModuleProof> = {
   },
   "v-l6-m3": {
     basis: selfReported(
-      "vibratoRateHz",
-      "That the singer switched from straight tone to vibrato on cue. No surface analyses vibrato rate, so the five-to-seven hertz figure is a target to listen for, not a measured result.",
+      "vibratoOnCue",
+      "That the singer switched from straight tone to vibrato on cue. Sing's vibrato drill reads a held note's rate and width, but nothing times the switch itself, so the change on cue is judged by ear and recording.",
     ),
     companion: { room: "analyze" },
   },

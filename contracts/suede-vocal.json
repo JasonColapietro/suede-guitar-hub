@@ -1,6 +1,6 @@
 {
   "contract": "suede-vocal",
-  "version": 2,
+  "version": 7,
   "reference": {
     "repo": "JasonColapietro/sing",
     "modules": [
@@ -9,6 +9,9 @@
       "lib/singers-core.ts",
       "lib/audio/notes.ts",
       "lib/audio/pitch.ts",
+      "lib/audio/use-pitch.ts",
+      "lib/audio/latency.ts",
+      "lib/audio/breath-detect.ts",
       "components/warmups/exercises.ts",
       "components/warmups/routines.ts",
       "components/breath/routines.ts",
@@ -27,7 +30,23 @@
     "sungToleranceCents": 50,
     "monophonic": true,
     "accidentalGlyph": "#",
-    "labelFormat": "scientific"
+    "labelFormat": "scientific",
+    "engine": {
+      "method": "nsdf",
+      "lowpassHz": 4000,
+      "silenceRms": 0.01,
+      "trimThreshold": 0.2,
+      "minWindowSamples": 128,
+      "peakTolerance": 0.9,
+      "subrangeFloorHz": 40,
+      "subrangeSearchRatio": 0.03,
+      "subrangeMargin": 0.02,
+      "subrangeMinClarity": 0.8,
+      "frameSamples": 4096,
+      "clarityThreshold": 0.75,
+      "medianWindow": 4,
+      "smoothing": "true-median"
+    }
   },
   "taxonomy": {
     "voiceKinds": [
@@ -228,6 +247,29 @@
       "module": "components/breath/sustain-test.tsx",
       "note": "1 minus the coefficient of variation of RMS. This is a LOUDNESS measure. It is not airflow and it is not pitch."
     },
+    "inhaleDetected": {
+      "measurable": "yes",
+      "unit": "event",
+      "module": "lib/audio/breath-detect.ts",
+      "note": "The mic heard an audible inhale: unvoiced, noise-like sound concentrated above 1 kHz, rising out of the room's own adaptive noise floor and falling back (or giving way to a note) within 0.25-2.5 s. Voiced sound never counts. It says a breath was heard and NOTHING about it: not depth, airflow, support, lung capacity or the diaphragm. Quiet nasal breaths and some mics are not heard, and every drill that waits on a breath offers to start without it, so a lesson must not make passing depend on one being heard. A hiss of about a second sounds the same and is heard as one. A breath run straight into a longer hiss is split off where the hiss steps up in level or brightness, so the sustain test's hiss hold still opens the gate; a hiss no louder or brighter than the breath cannot be split, and the fallback covers it. Measured on synthetic breaths: 72 of 72 heard in a quiet room, all at 6 dB over a fan, and no false inhales in 389 s of fans, hum, silence and vowels.",
+      "evidence": [
+        "lib/audio/breath-detect.ts",
+        "lib/audio/breath-detect.test.ts",
+        "lib/audio/use-breath-detect.ts",
+        "e2e/breath-gate.mjs"
+      ]
+    },
+    "inhaleSeconds": {
+      "measurable": "yes",
+      "unit": "seconds",
+      "module": "lib/audio/breath-detect.ts",
+      "note": "How long that breath was heard for, first to last breath-like frame; synthetic breaths read 0.05-0.17 s short. The length of a sound, not a volume of air. Reported beside the sustain hold it opened and in breathe-and-sing's status line.",
+      "evidence": [
+        "lib/audio/breath-detect.ts",
+        "lib/audio/breath-detect.test.ts",
+        "e2e/breath-gate.mjs"
+      ]
+    },
     "phonationSeconds": {
       "measurable": "yes",
       "unit": "seconds",
@@ -289,10 +331,23 @@
       "note": "The latency model needed to do this honestly exists, but there is no onset detector and no timing-error number."
     },
     "vibratoRateHz": {
-      "measurable": "no",
+      "measurable": "yes",
       "unit": "hertz",
+      "module": "lib/audio/vibrato.ts analyzeVibrato",
+      "note": "Rate of the periodic modulation of a held note's f0 contour, from the autocorrelation of the detrended contour after a 0.25 s onset skip, reported with its peak-to-peak extent in cents (the live drill corrects the extent for the pitch tracker's 85 ms analysis frame, and still reads somewhat narrow). Shown after every hold of the warmups vibrato drills against a 5-7 Hz target band. It describes the contour only: nothing here says the vibrato is healthy or sounds good, and a wobble from any source (an unsteady breath, a moving microphone) measures the same.",
+      "evidence": [
+        "lib/audio/vibrato.ts",
+        "lib/audio/vibrato.test.ts",
+        "components/warmups/vibrato-feedback.ts",
+        "components/warmups/vibrato-feedback.test.ts",
+        "e2e/vibrato-drill.mjs"
+      ]
+    },
+    "vibratoOnCue": {
+      "measurable": "no",
+      "unit": null,
       "module": null,
-      "note": "No analysis of the f0 contour's periodicity. The data to build it is captured; zero code exists."
+      "note": "Nothing times when vibrato starts or stops against an instruction. vibratoRateHz reads one held note's rate and width; switching from straight tone to vibrato on a cue is a self-check."
     },
     "strainOrPressedPhonation": {
       "measurable": "no",
@@ -348,10 +403,19 @@
     },
     "pitch-steadiness-in-breath-room": {
       "claimedAs": "the breath room watching how steady the pitch stays",
-      "reality": "The sustain test reads frame volume only and never reads f0. No cents drift is measured in the breath room at all.",
+      "reality": "The sustain test times and scores the hold from frame volume only and never reads f0. The breath gate before it listens for an inhale and uses periodicity only to rule voiced sound out. No cents drift is measured in the breath room at all.",
       "useInstead": [
         "sustainSeconds",
         "loudnessSteadiness"
+      ]
+    },
+    "breath-support-from-inhale": {
+      "claimedAs": "breath support, lung capacity, breath depth or diaphragm engagement read from the inhale",
+      "reality": "The inhale detector hears that a breath happened and for how long. A gasp and a quiet sip are the same event to it, and a quiet one may not be heard at all. Nothing measures how much air was taken or how it is managed.",
+      "useInstead": [
+        "inhaleDetected",
+        "inhaleSeconds",
+        "sustainSeconds"
       ]
     },
     "personal-passaggio-from-range-scan": {
@@ -367,9 +431,11 @@
       "useInstead": []
     },
     "vibrato-rate-on-cue": {
-      "claimedAs": "vibrato rate in hertz",
-      "reality": "No vibrato analysis exists.",
-      "useInstead": []
+      "claimedAs": "vibrato switched on at a cue and judged by its rate in hertz",
+      "reality": "The rate and width of a held note's vibrato are measured (vibratoRateHz), but nothing times the switch on a cue, and a rate describes the wobble; it is not a pass for it.",
+      "useInstead": [
+        "vibratoRateHz"
+      ]
     },
     "held-harmony-against-a-lead": {
       "claimedAs": "a harmony line measured against a simultaneous lead",
@@ -396,7 +462,31 @@
       "attemptEstimateSec": 25,
       "steadinessMetric": "loudness_cv",
       "measuresPitchDrift": false,
-      "acceptsUnvoicedHiss": true
+      "acceptsUnvoicedHiss": true,
+      "breathGate": {
+        "defaultOn": true,
+        "fallbackAfterSec": 8,
+        "reportsInhaleSeconds": true
+      }
+    },
+    "cue": {
+      "usesMicrophone": true,
+      "gatedOnInhale": true,
+      "fallbackAfterSec": 8,
+      "repChoices": [
+        4,
+        6,
+        8
+      ],
+      "holdSec": 4,
+      "breathEstimateSec": 3,
+      "exampleSeconds": 28
+    },
+    "inhale": {
+      "minSec": 0.25,
+      "maxSec": 2.5,
+      "voicedNeverCounts": true,
+      "measuresSupport": false
     },
     "box": {
       "phases": [
@@ -456,11 +546,16 @@
             "cap": 8
           },
           {
+            "drill": "cue",
+            "reps": 4,
+            "holdSec": 4
+          },
+          {
             "drill": "sustain",
             "attempts": 2
           }
         ],
-        "seconds": 345.5,
+        "seconds": 377.5,
         "needsMic": true
       },
       {
@@ -503,6 +598,7 @@
         "noteDur": 0.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -527,6 +623,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -547,6 +644,7 @@
         "noteDur": 0.55,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             7,
@@ -567,6 +665,7 @@
         "noteDur": 0.7,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -587,6 +686,7 @@
         "noteDur": 3.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0
@@ -603,6 +703,7 @@
         "noteDur": 0.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -625,6 +726,7 @@
         "noteDur": 0.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -649,6 +751,7 @@
         "noteDur": 0.9,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -670,6 +773,7 @@
         "noteDur": 0.75,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -688,6 +792,7 @@
         "noteDur": 1.2,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -709,6 +814,7 @@
         "noteDur": 0.65,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -729,6 +835,7 @@
         "noteDur": 0.42,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -751,6 +858,7 @@
         "noteDur": 0.46,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -775,6 +883,7 @@
         "noteDur": 0.3,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -803,6 +912,7 @@
         "noteDur": 1,
         "glide": false,
         "ladder": "down",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             12,
@@ -822,6 +932,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "down",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             7,
@@ -842,6 +953,7 @@
         "noteDur": 0.3,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -882,6 +994,7 @@
         "noteDur": 0.25,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -910,6 +1023,7 @@
         "noteDur": 0.3,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -938,6 +1052,7 @@
         "noteDur": 0.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             12,
@@ -960,6 +1075,7 @@
         "noteDur": 0.25,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -992,6 +1108,7 @@
         "noteDur": 0.3,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             12,
@@ -1013,6 +1130,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1033,6 +1151,7 @@
         "noteDur": 0.7,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1054,6 +1173,7 @@
         "noteDur": 0.8,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1072,6 +1192,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1092,6 +1213,7 @@
         "noteDur": 0.6,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1113,6 +1235,7 @@
         "noteDur": 1,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             4,
@@ -1130,6 +1253,7 @@
         "noteDur": 2.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0
@@ -1139,6 +1263,162 @@
         "patternSeconds": 2.5
       },
       {
+        "id": "vibrato-hold",
+        "title": "Vibrato hold",
+        "tier": "intermediate",
+        "free": true,
+        "noteDur": 4.5,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0
+          ]
+        ],
+        "segmentCount": 1,
+        "patternSeconds": 4.5
+      },
+      {
+        "id": "vibrato-float-high",
+        "title": "Vibrato on the fourth",
+        "tier": "intermediate",
+        "free": true,
+        "noteDur": 4.5,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            5
+          ]
+        ],
+        "segmentCount": 1,
+        "patternSeconds": 4.5
+      },
+      {
+        "id": "quiet-hum-descent",
+        "title": "Quiet hum descent",
+        "tier": "beginner",
+        "free": true,
+        "noteDur": 0.8,
+        "glide": false,
+        "ladder": "down",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            4,
+            2,
+            0
+          ]
+        ],
+        "segmentCount": 3,
+        "patternSeconds": 2.56
+      },
+      {
+        "id": "soft-trill-slide",
+        "title": "Soft lip-trill slide",
+        "tier": "beginner",
+        "free": true,
+        "noteDur": 1,
+        "glide": true,
+        "ladder": "down",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            4,
+            0
+          ]
+        ],
+        "segmentCount": 1,
+        "patternSeconds": 2
+      },
+      {
+        "id": "fry-onset",
+        "title": "Creak to tone",
+        "tier": "beginner",
+        "free": true,
+        "noteDur": 2.5,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 1.5,
+        "steps": [
+          [
+            0
+          ]
+        ],
+        "segmentCount": 1,
+        "patternSeconds": 4
+      },
+      {
+        "id": "high-arpeggio-tenth",
+        "title": "Arpeggio to the tenth",
+        "tier": "advanced",
+        "free": true,
+        "noteDur": 0.45,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0,
+            4,
+            7,
+            12,
+            16,
+            12,
+            7,
+            4,
+            0
+          ]
+        ],
+        "segmentCount": 9,
+        "patternSeconds": 4.69
+      },
+      {
+        "id": "high-siren-tenth",
+        "title": "Siren to the tenth",
+        "tier": "advanced",
+        "free": true,
+        "noteDur": 1.3,
+        "glide": true,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0,
+            16
+          ],
+          [
+            16,
+            0
+          ]
+        ],
+        "segmentCount": 2,
+        "patternSeconds": 5.28
+      },
+      {
+        "id": "high-float-descent",
+        "title": "Top-down float",
+        "tier": "advanced",
+        "free": true,
+        "noteDur": 0.6,
+        "glide": false,
+        "ladder": "down",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            16,
+            12,
+            7,
+            4,
+            0
+          ]
+        ],
+        "segmentCount": 5,
+        "patternSeconds": 3.32
+      },
+      {
         "id": "belt-hey-thirds",
         "title": "Hey on falling thirds",
         "tier": "intermediate",
@@ -1146,6 +1426,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             4,
@@ -1165,6 +1446,7 @@
         "noteDur": 3,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0
@@ -1181,6 +1463,7 @@
         "noteDur": 0.55,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1201,6 +1484,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             12,
@@ -1220,6 +1504,7 @@
         "noteDur": 0.45,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1240,6 +1525,7 @@
         "noteDur": 0.4,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1259,6 +1545,7 @@
         "noteDur": 2,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1276,6 +1563,7 @@
         "noteDur": 0.5,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             7,
@@ -1296,6 +1584,7 @@
         "noteDur": 1,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1317,6 +1606,7 @@
         "noteDur": 0.7,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             7,
@@ -1335,6 +1625,7 @@
         "noteDur": 0.55,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             7,
@@ -1355,6 +1646,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1375,6 +1667,7 @@
         "noteDur": 0.6,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1395,6 +1688,7 @@
         "noteDur": 0.8,
         "glide": true,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             0,
@@ -1416,6 +1710,7 @@
         "noteDur": 3,
         "glide": false,
         "ladder": "up",
+        "unscoredLeadSec": 0,
         "steps": [
           [
             7
@@ -1423,6 +1718,103 @@
         ],
         "segmentCount": 1,
         "patternSeconds": 3
+      },
+      {
+        "id": "mix-ng-slide",
+        "title": "Ng slide through the break",
+        "tier": "intermediate",
+        "free": false,
+        "noteDur": 1.2,
+        "glide": true,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0,
+            12
+          ],
+          [
+            12,
+            0
+          ]
+        ],
+        "segmentCount": 2,
+        "patternSeconds": 4.88
+      },
+      {
+        "id": "mix-mum-octave",
+        "title": "Mum octave",
+        "tier": "intermediate",
+        "free": false,
+        "noteDur": 0.45,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0,
+            4,
+            7,
+            12,
+            7,
+            4,
+            0
+          ]
+        ],
+        "segmentCount": 7,
+        "patternSeconds": 3.63
+      },
+      {
+        "id": "mix-nay-fifth-octave",
+        "title": "Nay fifth to octave",
+        "tier": "intermediate",
+        "free": false,
+        "noteDur": 0.55,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0,
+            7,
+            0,
+            12,
+            0
+          ]
+        ],
+        "segmentCount": 5,
+        "patternSeconds": 3.07
+      },
+      {
+        "id": "mix-goo-scale",
+        "title": "Goo octave scale",
+        "tier": "intermediate",
+        "free": false,
+        "noteDur": 0.32,
+        "glide": false,
+        "ladder": "up",
+        "unscoredLeadSec": 0,
+        "steps": [
+          [
+            0,
+            2,
+            4,
+            5,
+            7,
+            9,
+            11,
+            12,
+            11,
+            9,
+            7,
+            5,
+            4,
+            2,
+            0
+          ]
+        ],
+        "segmentCount": 15,
+        "patternSeconds": 5.92
       }
     ],
     "packs": [
@@ -1451,6 +1843,16 @@
           "head-loo-arpeggio",
           "head-fifth-siren",
           "head-float-hold"
+        ]
+      },
+      {
+        "id": "mix",
+        "name": "Mix builder",
+        "exerciseIds": [
+          "mix-ng-slide",
+          "mix-mum-octave",
+          "mix-nay-fifth-octave",
+          "mix-goo-scale"
         ]
       }
     ],
@@ -1690,6 +2092,97 @@
         "allStepsFree": true
       },
       {
+        "id": "recovery",
+        "name": "Easy recovery",
+        "pro": false,
+        "steps": [
+          {
+            "exerciseId": "morning-hum",
+            "reps": 6
+          },
+          {
+            "exerciseId": "quiet-hum-descent",
+            "reps": 6
+          },
+          {
+            "exerciseId": "soft-trill-slide",
+            "reps": 6
+          },
+          {
+            "exerciseId": "fry-onset",
+            "reps": 6
+          },
+          {
+            "exerciseId": "morning-sustain",
+            "reps": 4
+          }
+        ],
+        "seconds": 171.34,
+        "allStepsFree": true
+      },
+      {
+        "id": "vibrato",
+        "name": "Vibrato",
+        "pro": false,
+        "steps": [
+          {
+            "exerciseId": "lip-trill-scale",
+            "reps": 6
+          },
+          {
+            "exerciseId": "hoo-four-note",
+            "reps": 6
+          },
+          {
+            "exerciseId": "vibrato-hold",
+            "reps": 6
+          },
+          {
+            "exerciseId": "vibrato-float-high",
+            "reps": 5
+          },
+          {
+            "exerciseId": "descending-five",
+            "reps": 5
+          }
+        ],
+        "seconds": 204.88,
+        "allStepsFree": true
+      },
+      {
+        "id": "high-notes",
+        "name": "High notes",
+        "pro": false,
+        "steps": [
+          {
+            "exerciseId": "lip-trill-scale",
+            "reps": 6
+          },
+          {
+            "exerciseId": "octave-siren",
+            "reps": 5
+          },
+          {
+            "exerciseId": "high-arpeggio-tenth",
+            "reps": 8
+          },
+          {
+            "exerciseId": "high-siren-tenth",
+            "reps": 5
+          },
+          {
+            "exerciseId": "high-float-descent",
+            "reps": 6
+          },
+          {
+            "exerciseId": "descending-five",
+            "reps": 5
+          }
+        ],
+        "seconds": 249.96,
+        "allStepsFree": true
+      },
+      {
         "id": "belt-prep",
         "name": "Belt prep",
         "pro": true,
@@ -1765,6 +2258,31 @@
           }
         ],
         "seconds": 332.57,
+        "allStepsFree": false
+      },
+      {
+        "id": "mix",
+        "name": "Mix builder",
+        "pro": true,
+        "steps": [
+          {
+            "exerciseId": "mix-ng-slide",
+            "reps": 8
+          },
+          {
+            "exerciseId": "mix-mum-octave",
+            "reps": 8
+          },
+          {
+            "exerciseId": "mix-nay-fifth-octave",
+            "reps": 8
+          },
+          {
+            "exerciseId": "mix-goo-scale",
+            "reps": 8
+          }
+        ],
+        "seconds": 223.1,
         "allStepsFree": false
       }
     ]
@@ -2916,15 +3434,30 @@
         "path": "/warmups",
         "params": [
           "exercise",
-          "routine"
+          "routine",
+          "step"
         ]
       },
       "breath": {
         "path": "/breath",
         "params": [
           "drill",
-          "routine"
-        ]
+          "routine",
+          "step"
+        ],
+        "values": {
+          "drill": [
+            "sustain",
+            "cue",
+            "box",
+            "farinelli"
+          ],
+          "routine": [
+            "quick",
+            "daily",
+            "builder"
+          ]
+        }
       },
       "earTraining": {
         "path": "/ear-training",
@@ -2967,8 +3500,58 @@
       "singers": {
         "path": "/singers",
         "params": []
+      },
+      "programs": {
+        "path": "/programs",
+        "params": [
+          "program"
+        ]
       }
-    }
+    },
+    "programs": [
+      {
+        "id": "recovery-week",
+        "name": "Recovery week",
+        "weeks": 1,
+        "pro": false,
+        "freeWeeks": 0
+      },
+      {
+        "id": "foundations-2w",
+        "name": "Foundations in 2 weeks",
+        "weeks": 2,
+        "pro": false,
+        "freeWeeks": 0
+      },
+      {
+        "id": "vibrato-3w",
+        "name": "Vibrato in 3 weeks",
+        "weeks": 3,
+        "pro": false,
+        "freeWeeks": 0
+      },
+      {
+        "id": "high-notes-6w",
+        "name": "High notes in 6 weeks",
+        "weeks": 6,
+        "pro": false,
+        "freeWeeks": 0
+      },
+      {
+        "id": "mix-4w",
+        "name": "Mix in 4 weeks",
+        "weeks": 4,
+        "pro": true,
+        "freeWeeks": 1
+      },
+      {
+        "id": "measured-voice-12w",
+        "name": "The Measured Voice: 12 weeks",
+        "weeks": 12,
+        "pro": true,
+        "freeWeeks": 1
+      }
+    ]
   },
   "rules": {
     "voiceTypeIsEstimate": "A range scan shows which conventional band overlaps a result. It cannot diagnose or permanently classify a voice, and no lesson may present the label as settled.",
@@ -2976,6 +3559,7 @@
     "rangeScanOutputs": "A range scan yields lowMidi, highMidi and an estimated voice type label. It yields nothing else, and in particular no passaggio and no register boundary.",
     "workingRangeIsTrimmed": "The scan records extremes reached by pushing. A usable working range trims the edges; the scan and the working range are different numbers and a curriculum must not call the scan 'the one you can use'.",
     "sustainIsLoudnessNotPitch": "Sustain steadiness is the coefficient of variation of loudness. The breath room never reads f0.",
+    "inhaleIsHeardNotMeasured": "The breath room's mic hears the inhale and nothing more. Copy may say the mic heard the breath; it may never say it measured support, lung capacity, breath depth or the diaphragm, and no pass or fail may depend on a breath being heard, because every gated drill offers to start without detection.",
     "freeExerciseGate": "A warmup is free if and only if it is in EXERCISES. Pro packs are gated by array membership, not by a flag, so a free surface must never deep-link a pack exercise."
   },
   "knownDivergences": {
