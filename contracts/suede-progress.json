@@ -1,7 +1,7 @@
 {
   "contract": "suede-progress-shape",
   "version": 1,
-  "reference": "JasonColapietro/sing is the reference surface for this shape: the record, its validators and its caps are implemented here and nowhere else, so the contract is generated rather than transcribed. The session-to-lesson mapping is deliberately not here — lesson identifiers are authored in JasonColapietro/suede-guitar-hub, which is the only side that can revalidate them, so that side owns the mapping and this side owns the shape.",
+  "reference": "JasonColapietro/sing is the reference surface for this shape: the record, its validators and its caps are implemented here and nowhere else, so the contract is generated rather than transcribed. Since 2026-09-23 this repository also authors the voice-lesson identifiers (contracts/suede-voice-curriculum.json) and hosts the lessons; GuitarHub redirects its old voice-lesson URLs here (contracts/suede-voice-lesson-urls.json). The record still carries no lesson identifier: sing derives a lesson's practice from its module's room sessions and records no lesson completion.",
   "storage": {
     "medium": "localStorage",
     "key": "suede-sing:progress:v1",
@@ -86,7 +86,7 @@
   "portability": {
     "sessions": {
       "importable": true,
-      "because": "A session is an observation: an activity type, a day, a duration and sometimes a percentage. A consumer can record that it happened. What a session does not carry is a lesson identifier, so it cannot establish progress through a curriculum by itself — that is what the importing side's mapping has to decide."
+      "because": "A session is an observation: an activity type, a day, a duration and sometimes a percentage. A consumer can record that it happened. What a session does not carry is a lesson identifier, so it cannot establish progress through a curriculum by itself. sing's own lesson pages count matching sessions as practice, never as completion, and an importer must not do more with them."
     },
     "range": {
       "importable": true,

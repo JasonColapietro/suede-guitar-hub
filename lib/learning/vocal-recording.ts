@@ -61,3 +61,19 @@ async function request<T>(mode: IDBTransactionMode, ownerScope: string, lessonId
 export async function loadVocalTake(ownerScope: string, lessonId: string) { return request<StoredVocalTake>("readonly", ownerScope, lessonId); }
 export async function saveVocalTake(take: StoredVocalTake) { await request("readwrite", take.ownerScope, take.lessonId, take); }
 export async function deleteVocalTake(ownerScope: string, lessonId: string) { await request("readwrite", ownerScope, lessonId); }
+
+/**
+ * Every take saved under one owner scope. The voice lessons moved to Suede Sing,
+ * which cannot read this origin's IndexedDB, so the saved-takes page lists them
+ * here where they can still be played and deleted.
+ */
+export async function listVocalTakes(ownerScope: string): Promise<StoredVocalTake[]> {
+  const db = await database();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(storeName, "readonly");
+    const operation = transaction.objectStore(storeName).getAll(IDBKeyRange.bound([ownerScope, ""], [ownerScope, "\uffff"]));
+    transaction.oncomplete = () => { db.close(); resolve((operation.result as StoredVocalTake[]) ?? []); };
+    transaction.onerror = () => { db.close(); reject(transaction.error ?? new Error("Saved takes could not be read.")); };
+    transaction.onabort = () => { db.close(); reject(transaction.error ?? new Error("Saved takes could not be read.")); };
+  });
+}

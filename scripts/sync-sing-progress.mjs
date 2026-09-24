@@ -10,13 +10,12 @@
  * record at all, so a shape declared here would be a transcription, and a
  * transcription cannot fail when the original moves.
  *
- * What this repository owns instead is the mapping — see
- * `lib/learning-sync/sing-sessions.ts`, which says what a session of each
- * activity type counts as against the voice curriculum, and for eight of the
- * nine types says, with reasons, that it counts as nothing. That split is not
- * tidiness: lesson identifiers are authored here and are meaningless in sing, so
- * this is the only side that could notice a mapping going stale when a lesson is
- * renamed.
+ * This repository also keeps `lib/learning-sync/sing-sessions.ts`, which says
+ * what a session of each activity type counts as against the voice curriculum
+ * in this site's attempt ledger. Since 2026-09-23 the voice lessons and their
+ * identifiers belong to sing, which hosts them and publishes
+ * `contracts/suede-voice-curriculum.json`; this site redirects /learn/voice to
+ * them. The mapping stays for the history already in the ledger.
  *
  * Usage:
  *   node scripts/sync-sing-progress.mjs             # fetch and write

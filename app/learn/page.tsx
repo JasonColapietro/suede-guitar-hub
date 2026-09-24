@@ -4,6 +4,7 @@ import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { accessibleLessonIds, guestLearningAccess, isLessonReady } from "@/lib/learning/access";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
+import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 
 const CANONICAL = `${SITE_URL}/learn`;
 const TITLE = "Learn Guitar and Voice Online: Free First Lessons | GuitarHub";
@@ -53,12 +54,16 @@ export default function LearnPage() {
         {/* What a guest can actually open, not the size of the sampler. These
             read "3 free starter lessons" while the two levels the catalog marks
             free held twenty-one. */}
-        <p className={styles.small}>{accessibleLessonIds(track, guestLearningAccess).length} free {track === "guitar" ? "lessons" : "guided lessons"} · {curricula[track].levels.filter(level => level.access === "free").length} free stages of {curricula[track].levels.length} in the path</p>
-        <Link className={styles.primary} href={`/learn/${track}`}>Explore {track}</Link>
+        {track === "guitar"
+          ? <p className={styles.small}>{accessibleLessonIds(track, guestLearningAccess).length} free lessons · {curricula[track].levels.filter(level => level.access === "free").length} free stages of {curricula[track].levels.length} in the path</p>
+          : <p className={styles.small}>Moved to Suede Sing, where all seven stages are free. Your <Link href="/learn/voice/recordings">saved voice takes</Link> and the lifetime <Link href="/learn/voice/materials">voice practice library</Link> stay here.</p>}
+        {track === "guitar"
+          ? <Link className={styles.primary} href="/learn/guitar">Explore guitar</Link>
+          : <a className={styles.primary} href={SING_VOICE_COURSE}>Voice lessons on Suede Sing</a>}
       </section>)}
     </div>
     <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Start an A/D practice routine</Link></div>
-    <div className={styles.notice}>Start without an account. The first two stages of each track are free; later guided lessons are previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
+    <div className={styles.notice}>Start without an account. The first two guitar stages are free; later guided lessons are previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
     <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>{hasOutlines ? "Written lessons and curriculum outlines give each session a focus." : "Written lessons give each session a focus."} Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
   </>;
 }

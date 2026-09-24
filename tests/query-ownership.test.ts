@@ -200,28 +200,16 @@ test("a consolidated URL keeps answering through a permanent redirect", async ()
   }
 });
 
-test("the cross-domain proposal is recorded, argued, and not enacted", () => {
-  assert.equal(CROSS_DOMAIN_PROPOSAL.decidedBy, null, "nobody has settled this yet");
-  assert.ok(CROSS_DOMAIN_PROPOSAL.options.length >= 3, "a proposal with one option is a decision");
-  for (const option of CROSS_DOMAIN_PROPOSAL.options) {
-    assert.ok(option.upside.length > 40, `${option.name} needs a real upside`);
-    assert.ok(option.downside.length > 40, `${option.name} needs a real downside`);
-  }
-  assert.match(
-    CROSS_DOMAIN_PROPOSAL.recommendation,
-    /option/,
-    "the recommendation must name which option it recommends",
-  );
+test("the voice lessons moved to Sing, and nothing here still publishes them", () => {
+  assert.equal(CROSS_DOMAIN_PROPOSAL.phase, "hosted");
+  assert.equal(CROSS_DOMAIN_PROPOSAL.redirectsEnabled, true);
 
-  // The proposal discusses moving the voice curriculum. Until a human settles
-  // it, the voice track stays exactly where it is: registered, published and
-  // reachable. This is the assertion that stops the proposal being read as
-  // permission.
-  const voice = LEARN.find((entry) => entry.href === "/learn/voice");
-  assert.ok(voice, "/learn/voice must stay in the route registry");
+  // /learn/voice redirects to Sing, so listing it here would advertise a
+  // redirect as a page.
+  assert.ok(!LEARN.some((entry) => entry.href.startsWith("/learn/voice")), "/learn/voice left the route registry");
   assert.ok(
-    SITEMAP_ENTRIES.some((entry) => entry.href === "/learn/voice"),
-    "/learn/voice must stay in the sitemap",
+    !SITEMAP_ENTRIES.some((entry) => entry.href.startsWith("/learn/voice")),
+    "/learn/voice left the sitemap",
   );
-  assert.equal(`${SITE_URL}/learn/voice`, "https://guitarhub.org/learn/voice");
+  assert.equal(CROSS_DOMAIN_PROPOSAL.previousLessonHost, `${SITE_URL}/learn/voice`);
 });

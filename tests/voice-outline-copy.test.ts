@@ -94,9 +94,10 @@ test('the lesson library retires its own voice sentence when a guided voice less
 
 test('the learn index counts what a guest can open instead of asserting a number', () => {
     const markup = render(LearnPage, {});
-    const free = accessibleLessonIds('voice', guestLearningAccess).length;
-    assert.ok(markup.includes(`${free} free guided lessons`), 'the voice card states the count it computes');
-    assert.equal(free, 21, 'the two free voice stages expose all of their guided lessons');
+    const free = accessibleLessonIds('guitar', guestLearningAccess).length;
+    assert.ok(markup.includes(`${free} free lessons`), 'the guitar card states the count it computes');
+    // The voice card no longer counts anything here: the lessons moved to Sing.
+    assert.ok(markup.includes('Voice lessons on Suede Sing'), 'the voice card sends a singer to Sing');
     // This sentence is about both tracks and stays true while any lesson
     // anywhere is an outline, so it is tied to that and not to voice alone.
     const everythingWritten = (['guitar', 'voice'] as const).every(track => allLessons(track).every(entry => isLessonReady(track, entry.lesson.id)));

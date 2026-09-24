@@ -39,3 +39,7 @@ jobs:
       # handoff; the mapping half lives here and is held to it by
       # tests/sing-session-mapping.test.ts, which `npm test` above runs.
       - run: node scripts/sync-sing-progress.mjs --check
+      # Strict from its first publication: merge the publishing Sing PR first.
+      - run: node scripts/sync-sing-curriculum.mjs --check
+      # The voice redirects are built from this file; a stale copy is a redirect to a moved page.
+      - run: node scripts/sync-sing-lesson-urls.mjs --check

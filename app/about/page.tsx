@@ -3,6 +3,7 @@ import Link from "next/link";
 import Article from "@/components/Article";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { GUIDES, LEARN, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
@@ -109,10 +110,11 @@ export default function AboutPage() {
           <Link href="/learn/guitar">guitar path</Link> starts at the first
           foundations, how to hold the instrument, tune it, and get one clean
           note, and works up through chords, reading, rhythm and the whole
-          neck. The <Link href="/learn/voice">voice path</Link> does the same
-          for singers. The opening module of each is free. Your place is kept
-          in this browser. Later modules are currently previews while purchase
-          access is being connected.
+          neck. The opening module is free, and your place is kept in this
+          browser. Later modules are currently previews while purchase access
+          is being connected. The voice lessons that used to live here moved to{" "}
+          <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of them are
+          free.
         </p>
 
         <p>
@@ -174,7 +176,9 @@ export default function AboutPage() {
         <p>
           <strong>A voice path</strong>, built the same way: from the room you
           sing in and a steady tone, through registers and the break, to
-          agility and a sound of your own.
+          agility and a sound of your own. It now lives on{" "}
+          <a href={SING_VOICE_COURSE}>Suede Sing</a>, next to the rooms that
+          measure it.
         </p>
 
         <p>
