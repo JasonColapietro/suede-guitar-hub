@@ -56,7 +56,7 @@ export default function LearnPage() {
             free held twenty-one. */}
         {track === "guitar"
           ? <p className={styles.small}>{accessibleLessonIds(track, guestLearningAccess).length} free lessons · {curricula[track].levels.filter(level => level.access === "free").length} free stages of {curricula[track].levels.length} in the path</p>
-          : <p className={styles.small}>Moved to Suede Sing, where all seven stages are free.</p>}
+          : <p className={styles.small}>Moved to Suede Sing, where all seven stages are free. Your <Link href="/learn/voice/recordings">saved voice takes</Link> and the lifetime <Link href="/learn/voice/materials">voice practice library</Link> stay here.</p>}
         {track === "guitar"
           ? <Link className={styles.primary} href="/learn/guitar">Explore guitar</Link>
           : <a className={styles.primary} href={SING_VOICE_COURSE}>Voice lessons on Suede Sing</a>}

@@ -8,10 +8,15 @@
  * `scripts/sync-sing-lesson-urls.mjs --check` here, instead of leaving a
  * redirect that lands on a 404.
  *
- * Order matters: Next applies the first match, so each lesson comes before
- * the catch-all that sends anything else under the prefix to the course page.
+ * Two paths under /learn/voice stay on this site on purpose, so there is no
+ * catch-all: /learn/voice/materials, the practice library Complete Lifetime
+ * buyers paid for, which Sing has no equivalent of; and /learn/voice/recordings,
+ * where takes saved in this origin's IndexedDB can still be played or deleted.
  */
 import urls from "../contracts/suede-voice-lesson-urls.json" with { type: "json" };
+
+/** Kept on this origin; see above. */
+export const VOICE_PATHS_KEPT_HERE = ["/learn/voice/materials", "/learn/voice/recordings"] as const;
 
 export const SING_VOICE_COURSE = `${urls.origin}${urls.course}`;
 
@@ -22,11 +27,9 @@ export function voiceLessonUrlOnSing(lessonId: string): string | undefined {
 
 export const VOICE_REDIRECTS = [
   { source: "/learn/voice", destination: SING_VOICE_COURSE, permanent: true },
-  { source: "/learn/voice/materials", destination: SING_VOICE_COURSE, permanent: true },
   ...Object.entries(urls.lessons as Record<string, string>).map(([id, path]) => ({
     source: `/learn/voice/${id}`,
     destination: `${urls.origin}${path}`,
     permanent: true,
   })),
-  { source: "/learn/voice/:rest*", destination: SING_VOICE_COURSE, permanent: true },
 ] as const;

@@ -10,6 +10,7 @@ import { ADJUDICATIONS } from '../contracts/adjudications.ts';
 import { CROSS_DOMAIN_PROPOSAL } from '../lib/query-ownership.ts';
 import * as sessions from '../lib/learning-sync/sing-sessions.ts';
 import nextConfig from '../next.config.ts';
+import { VOICE_PATHS_KEPT_HERE } from '../lib/voice-redirects.ts';
 
 const file = 'contracts/suede-voice-curriculum.json';
 function contract() {
@@ -94,12 +95,17 @@ test('every voice lesson URL redirects permanently to its twin on Sing, and the 
         assert.equal(redirect.destination, `${urls.origin}${urls.lessons[lesson.id]}`);
         assert.equal(redirect.permanent, true);
     }
-    for (const source of ['/learn/voice', '/learn/voice/materials', '/learn/voice/:rest*']) {
-        assert.equal(bySource.get(source)?.destination, `${urls.origin}${urls.course}`, source);
+    assert.equal(bySource.get('/learn/voice')?.destination, `${urls.origin}${urls.course}`);
+    // The lifetime practice library and the saved-takes page stay on this
+    // origin: Sing has no equivalent library, and cannot read this origin's
+    // IndexedDB. Nothing may redirect them, including a catch-all.
+    for (const kept of VOICE_PATHS_KEPT_HERE) {
+        assert.ok(existsSync(`app${kept}/page.tsx`), `${kept} must keep its page`);
+        for (const redirect of redirects.filter(r => r.source.startsWith('/learn/voice/'))) {
+            assert.notEqual(redirect.source, kept);
+            assert.ok(!redirect.source.includes(':'), `${redirect.source} is a pattern and could swallow ${kept}`);
+        }
     }
-    // The catch-all comes after every lesson, or it would swallow them.
-    const sources = redirects.map(redirect => redirect.source);
-    assert.equal(sources.indexOf('/learn/voice/:rest*'), sources.length - 1);
     assert.ok(!redirects.some(redirect => redirect.source.startsWith('/learn/guitar')), 'the guitar path stays here');
 });
 
