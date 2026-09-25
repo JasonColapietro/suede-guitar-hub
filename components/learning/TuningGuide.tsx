@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { startCapture, playReference, type Capture } from "@/lib/audio/capture";
+import { startCapture, playReference, hasWebAudio, type Capture } from "@/lib/audio/capture";
 import { bindPracticeLifecycle, confirmTuningPreparation, estimateTuningPitch, tunerInputError, tuningConfiguration, tuningReading } from "@/lib/audio/practice-tools";
 import authored from "@/lib/learning/data/beginner-guitar-instruction.json";
 import styles from "./Learning.module.css";
@@ -70,7 +70,7 @@ export function TuningGuide({ onReadyChange }: { onReadyChange?: (ready: boolean
     stopResources(); setReading(null);
     setConfirmed(false); setRechecked(false); onReadyChange?.(false);
     if (document.hidden) { setMessage("Return to this tab before starting the tuner."); return; }
-    if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia || !window.AudioContext) {
+    if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia || !hasWebAudio()) {
       setPhase("error"); setMessage("Microphone tuning needs a secure HTTPS page and a browser with microphone and Web Audio support. You can use your own tuner and the targets below."); return;
     }
     if (performance.now() < quietUntil.current) { setMessage("Wait a moment for the reference sound to fade, then start the tuner."); return; }

@@ -1,3 +1,18 @@
+# 2026-09-25: Mobile exercise fix, Advanced Lab, simpler site
+
+## Shipped
+- **Exercises on mobile:** the first microphone lesson (Six Open Strings) hid the exercise behind a seven-checkbox tuning form, so on a phone it looked like it never loaded. The exercise now sits directly under the lesson title; tuning is an optional fold-out.
+- **iPhone audio:** `lib/audio/capture.ts` now starts the audio context and the microphone request in the same tap, re-wakes the context after the mic opens, falls back to `webkitAudioContext` and to a ScriptProcessor when AudioWorklet is missing (older iOS, in-app browsers), and treats iOS "interrupted" blips as recoverable (`watchAudioState`, 1.5 s grace) instead of stopping the exercise.
+- **No pointless checkboxes:** lesson self-check boxes are gone. "You're ready when" is a list to read; a lesson is marked done with one button, or by real evidence (passing Play check, reading check, saved count/study).
+- **Advanced Lab** (`/advanced`, free): 23 scored drills across 8 skill areas (technique, theory, rhythm & timing, ear training, fretboard, improvisation, repertoire, tone). All music original. Best results saved per browser.
+- **Find your level** (`/start`) and a level picker in the homepage hero: new to guitar → stage 1, open chords → stage 3, advanced → Advanced Lab.
+- **Lesson path:** stages fold up, the current stage opens, stage chips jump anywhere, search is folded away. Mobile height went from about 42,000px to about 6,300px.
+- **Nav:** Lessons, Advanced, Practice, Tools, Guides, plus one button (Find your level). Method is reachable from Guides and the footer.
+
+## Next steps for Jason
+- Test one mic exercise on a real iPhone in Safari and inside the TikTok/Instagram in-app browser.
+- Decide whether Stages 3 to 7 should open on the web; advanced players arriving from the level picker still see previews there.
+
 # GuitarHub Breakthrough Room handoff
 
 **Date:** 2026-08-27  

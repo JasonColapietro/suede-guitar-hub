@@ -1,4 +1,4 @@
-import { claimAudioSession } from "@/lib/audio/capture";
+import { claimAudioSession, createAudioContext, watchAudioState } from "@/lib/audio/capture";
 import { vocalStudyTimeline, type VocalStudy } from "@/lib/learning/vocal-material";
 
 export type VocalReferencePlayback = { stop: () => void; durationSeconds: number };
@@ -8,7 +8,7 @@ type ReferenceEnvironment = {
 };
 
 const browserEnvironment: ReferenceEnvironment = {
-  createContext: () => new AudioContext({ latencyHint: "interactive" }),
+  createContext: () => createAudioContext({ latencyHint: "interactive" }),
   schedule: (callback, delayMs) => {
     const timer = window.setTimeout(callback, delayMs);
     return () => window.clearTimeout(timer);
@@ -60,7 +60,7 @@ export async function startVocalReference(study: VocalStudy, transpose: number, 
     };
     for (let beat = 0; beat < study.countInBeats; beat++) scheduleTone(beat === 0 ? 81 : 76, beat === 0 ? 81 : 76, origin + beat * beatSeconds, Math.min(0.035, beatSeconds / 3), 0.08);
     for (const note of timeline) scheduleTone(note.midi, note.glideEndMidi, origin + note.startSeconds, note.durationSeconds, 0.16);
-    context.onstatechange = () => { if (!stopped && context.state !== "running") { stop(); onInterrupted(); } };
+    watchAudioState(context, () => { if (!stopped) { stop(); onInterrupted(); } });
     cancelEnd = environment.schedule(stop, (durationSeconds + 0.1) * 1000);
     return { stop, durationSeconds };
   } catch (error) { stop(); throw error; }

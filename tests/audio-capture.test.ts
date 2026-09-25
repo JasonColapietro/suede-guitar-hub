@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { claimAudioSession, playReference, startCapture } from '../lib/audio/capture.ts';
+import { claimAudioSession, playReference, startCapture, watchAudioState } from '../lib/audio/capture.ts';
 
 function deferred<T>() {
   let resolve!: (value: T) => void;
@@ -127,4 +127,24 @@ test('reference playback reports cancellation separately from a completed fade i
     controllers.forEach(controller => controller.abort());
     for (const [name, descriptor] of originals) { if (descriptor) Object.defineProperty(globalThis, name, descriptor); else Reflect.deleteProperty(globalThis, name); }
   }
+});
+
+test('a brief iOS interruption resumes instead of stopping, while a lasting one or a closed context stops', async () => {
+  const make = () => ({ state: 'running' as string, resumed: 0, onstatechange: null as (() => void) | null, async resume() { this.resumed++; } });
+  const brief = make(); let briefLost = 0;
+  watchAudioState(brief as unknown as AudioContext, () => briefLost++, 20);
+  brief.state = 'interrupted'; brief.onstatechange?.();
+  assert.equal(brief.resumed, 1, 'an interruption asks the context to resume');
+  brief.state = 'running'; brief.onstatechange?.();
+  await new Promise(done => setTimeout(done, 40));
+  assert.equal(briefLost, 0, 'recovering inside the grace period is not a loss');
+  const lasting = make(); let lastingLost = 0;
+  watchAudioState(lasting as unknown as AudioContext, () => lastingLost++, 20);
+  lasting.state = 'suspended'; lasting.onstatechange?.();
+  await new Promise(done => setTimeout(done, 40));
+  assert.equal(lastingLost, 1);
+  const closed = make(); let closedLost = 0;
+  watchAudioState(closed as unknown as AudioContext, () => closedLost++, 20);
+  closed.state = 'closed'; closed.onstatechange?.();
+  assert.equal(closedLost, 1);
 });

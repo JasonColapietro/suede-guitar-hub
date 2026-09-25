@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { startVocalReference, type VocalReferencePlayback } from "@/lib/audio/vocal-reference";
+import { hasWebAudio } from "@/lib/audio/capture";
 import { midiNoteName, vocalStudyTimeline, type VocalLibraryMaterial, type VocalModuleMaterial, type VocalStudy } from "@/lib/learning/vocal-material";
 import { VocalRecorder } from "./VocalRecorder";
 import styles from "./VocalMaterial.module.css";
@@ -25,7 +26,7 @@ function Study({ study }: { study: VocalStudy }) {
   }, [study.id]);
   async function play() {
     stop();
-    if (document.hidden || !window.AudioContext) { setMessage("Return to this page in a browser with Web Audio before starting the reference."); return; }
+    if (document.hidden || !hasWebAudio()) { setMessage("Return to this page in a browser with Web Audio before starting the reference."); return; }
     const controller = new AbortController(); request.current = controller; setPlaying(true); setMessage("Starting synthesized pitch reference. The microphone is off.");
     try {
       const active = await startVocalReference(study, transpose, speed, () => { setPlaying(false); setMessage("Reference stopped because another GuitarHub audio tool started."); }, controller.signal);

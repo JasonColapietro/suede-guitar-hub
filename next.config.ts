@@ -58,6 +58,9 @@ const nextConfig: NextConfig = {
       { source: "/learn/:path*", headers: [
         { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
       ] },
+      { source: "/advanced/:path*", headers: [
+        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
+      ] },
       { source: "/practice", headers: [
         { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
       ] },

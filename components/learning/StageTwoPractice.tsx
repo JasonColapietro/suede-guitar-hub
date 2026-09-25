@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { claimAudioSession } from "@/lib/audio/capture";
+import { claimAudioSession, createAudioContext, watchAudioState } from "@/lib/audio/capture";
 import { isFullStudyTake, manualChangeRate, manualMinuteResult, studyPosition, studySoundEvents, type ChordStudy, type ManualChangeAttempt, type StageTwoAsset, type StudyAttempt } from "@/lib/learning/stage-two";
 import { manualPracticeEvidence, noStageTwoEvidence, studyPracticeEvidence, type StageTwoEvidence } from "@/lib/learning/stage-two-evidence";
 import { useStageTwoProgress } from "./useLearningProgress";
@@ -128,7 +128,7 @@ function StudyPlayer({ lessonId, study, history, record, onEvidenceChange }: { l
     setPosition(studyPosition(study, 0, bpm, restartBar, lastBar));
     let active: StudyRun | null = null;
     try {
-      const context = new AudioContext({ latencyHint: "interactive" });
+      const context = createAudioContext({ latencyHint: "interactive" });
       active = { context, startedAt: null, firstBar: restartBar, lastBar, bpm, mode, release: () => {}, nodes: [] };
       run.current = active;
       active.release = claimAudioSession(() => pause("Another audio activity interrupted the study. Resume when you are ready."));
@@ -145,7 +145,7 @@ function StudyPlayer({ lessonId, study, history, record, onEvidenceChange }: { l
         oscillator.start(start); oscillator.stop(end); oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
         active.nodes.push(oscillator);
       }
-      context.onstatechange = () => { if (run.current === active && context.state !== "running") pause("Sound was interrupted. Resume from this bar when you are ready."); };
+      watchAudioState(context, () => { if (run.current === active) pause("Sound was interrupted. Resume from this bar when you are ready."); });
       setPhase("playing");
       const tick = () => {
         if (!active || run.current !== active || active.startedAt === null) return;

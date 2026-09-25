@@ -3,6 +3,9 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
 import SiteFooter from "@/components/SiteFooter";
+import SiteNav from "@/components/SiteNav";
+import LevelPicker from "@/components/LevelPicker";
+import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 
@@ -16,29 +19,7 @@ const TOOL_COUNT = (() => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 })();
 
-// Keep navigation labels aligned with SiteNav; Tools jumps to the homepage section.
-const NAV_LINKS = [
-  { href: "/learn", label: "Learn" },
-  { href: "/practice", label: "Practice" },
-  { href: "/method", label: "Method" },
-  { href: "#tools", label: "Tools" },
-  { href: "/guides", label: "Guides" },
-] as const;
 
-const PILLARS = [
-  {
-    title: "Learn the movement",
-    body: "Start with your instrument in tune and your hands comfortable. Follow the written steps and diagrams, then check what you understand.",
-  },
-  {
-    title: "Practice at your pace",
-    body: "Repeat a short section, slow the tempo, listen to a reference, and return to a shape that needs more time.",
-  },
-  {
-    title: "Come back to your place",
-    body: "Save your practice in this browser and continue from an available lesson. Your own reflections stay separate from reading checks and microphone results.",
-  },
-] as const;
 
 const PHASES = [
   {
@@ -164,25 +145,7 @@ function ApplyButton({
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur">
-        {/* Match the compact two-row phone header in SiteNav. */}
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-2 sm:px-6 sm:py-3 lg:gap-x-6 lg:py-4">
-          <a href="#top" className="inline-flex min-h-11 items-center whitespace-nowrap font-display text-xl font-semibold tracking-wide text-indigo-deep sm:text-2xl">
-            GUITARHUB
-          </a>
-          <nav
-            aria-label="Primary"
-            className="order-last flex w-full flex-wrap items-center justify-between gap-x-2 text-sm font-medium text-ink/70 sm:justify-start sm:gap-x-6 lg:order-none lg:w-auto lg:gap-x-8"
-          >
-            {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="inline-flex min-h-11 items-center transition hover:text-indigo-deep">
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <Link href="/learn/guitar" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-3 py-2.5 text-xs font-semibold text-cream transition hover:bg-indigo-mid sm:px-4 sm:text-sm lg:px-5">Start learning</Link>
-        </div>
-      </header>
+      <SiteNav />
 
       <main id="top">
         {/* Hero */}
@@ -205,95 +168,69 @@ export default function Home() {
             <div className="relative">
             <Reveal>
               <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-soft">
-                Guitar lessons · practice · progress
+                Beginner to advanced
               </span>
             </Reveal>
             <Reveal delay={1}>
               <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight text-cream md:text-6xl">
-                Pick up your guitar.{" "}
-                <em className="font-display italic text-peach">Start with one note.</em>
+                From your first chord{" "}
+                <em className="font-display italic text-peach">to playing what you hear.</em>
               </h1>
             </Reveal>
             <Reveal delay={2}>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-                Get comfortable, tune up, and learn your first sounds.
-                Follow the lesson, try it yourself, and come back where you left off.
+                Lessons in order, a coach that listens through your microphone,
+                and scored drills for players who are already good. Tell us where you are.
               </p>
             </Reveal>
             <Reveal delay={3}>
-              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link
-                  href="/learn/guitar"
-                  className="inline-flex items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
-                >
-                  Start learning guitar <span aria-hidden>→</span>
-                </Link>
-                <a href={SING_VOICE_COURSE} className="inline-flex min-h-11 items-center rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream hover:bg-white/5">Voice lessons on Suede Sing</a>
+              <div className="mx-auto mt-10 max-w-4xl">
+                <LevelPicker tone="dark" />
               </div>
-              <p className="mt-5 text-sm text-white/80">Three opening lessons free. No account needed. Later modules are currently web previews.</p>
-              <p className="mt-3 text-sm text-white/80">
-                Also on iPhone:{" "}
-                <a
-                  href={APP_STORE.ios}
-                  className="font-semibold text-peach underline-offset-4 hover:underline"
-                >
-                  GuitarHub on the App Store <span aria-hidden>↗</span>
-                </a>
+              <p className="mt-6 text-sm text-white/80">
+                Stages 1 and 2 and the Advanced Lab are free. No account needed.{" "}
+                <a href={SING_VOICE_COURSE} className="font-semibold text-peach underline-offset-4 hover:underline">Voice lessons on Suede Sing</a>
+                {" · "}
+                <a href={APP_STORE.ios} className="font-semibold text-peach underline-offset-4 hover:underline">GuitarHub for iPhone <span aria-hidden>↗</span></a>
               </p>
-            </Reveal>
-            <Reveal delay={3}>
-              <Link
-                href="/learn/guitar"
-                className="mx-auto mt-16 grid max-w-3xl gap-px overflow-hidden rounded-3xl bg-white/15 text-left ring-1 ring-white/20 sm:grid-cols-4"
-              >
-                {[
-                  ["01", "Get comfortable"],
-                  ["02", "Tune up"],
-                  ["03", "Try one note"],
-                  ["04", "Repeat & review"],
-                ].map(([number, label]) => (
-                  <span key={number} className="bg-indigo-deep/70 p-6">
-                    <span className="text-xs font-semibold tracking-widest text-violet-soft">{number}</span>
-                    <span className="mt-2 block font-display text-xl text-cream">{label}</span>
-                  </span>
-                ))}
-              </Link>
             </Reveal>
             </div>
           </div>
         </section>
 
-        {/* Problem narrative */}
-        <section className="mx-auto max-w-4xl px-6 py-24 text-center">
+        {/* Advanced Lab */}
+        <section id="advanced" className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
-            <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-              A little practice.{" "}
-              <em className="font-display italic">A clearer next step.</em>
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">Advanced Lab · free</p>
+            <h2 className="mx-auto mt-3 max-w-3xl text-center text-4xl leading-snug text-indigo-deep md:text-5xl">
+              Already good?{" "}
+              <em className="font-display italic">Get clean at tempo.</em>
             </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              Learn one action, give your hands time to find it, and return to it
-              tomorrow. The opening lessons guide your preparation before asking
-              you to play. You can pause, revisit, and practice without chasing a perfect score.
+            <p className="mx-auto mt-5 max-w-2xl text-center text-lg text-ink/70">
+              {DRILLS.length} scored drills across the {SKILL_AREAS.length} skill areas a complete player needs. Practice mode waits for every note; Play mode scores the whole pass and tells you when to push the tempo.
             </p>
           </Reveal>
-          <div className="strings-divider mx-auto mt-16 h-10 max-w-xs" aria-hidden />
+          <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {SKILL_AREAS.map((area, i) => (
+              <li key={area.id}>
+                <Reveal delay={(i % 3) as 0 | 1 | 2}>
+                  <Link href={`/advanced#${area.id}`} className="block h-full rounded-3xl bg-white p-6 shadow-sm ring-1 ring-ink/5 transition hover:ring-violet">
+                    <span className="font-display text-xl text-indigo-deep">{area.name}</span>
+                    <span className="mt-2 block text-sm leading-relaxed text-ink/65">{area.blurb}</span>
+                  </Link>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 text-center">
+            <Link href="/advanced" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid">
+              Open the Advanced Lab <span aria-hidden>→</span>
+            </Link>
+          </div>
         </section>
 
-        {/* Pillars / program */}
+        {/* Founding room program */}
         <section id="program" className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="grid gap-6 md:grid-cols-3">
-            {PILLARS.map((pillar, i) => (
-              <Reveal key={pillar.title} delay={(i % 3) as 0 | 1 | 2}>
-                <div className="h-full rounded-3xl bg-white p-8 shadow-sm ring-1 ring-ink/5">
-                  <h3 className="font-display text-2xl text-indigo-deep">{pillar.title}</h3>
-                  <p className="mt-4 text-ink/70">{pillar.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
           <div className="mt-24">
             <Reveal>
               <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">

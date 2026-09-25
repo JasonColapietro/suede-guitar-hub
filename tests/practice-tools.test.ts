@@ -210,7 +210,8 @@ test("failed audio start cannot report a beat and interruptions stop sources and
   assert.equal(failed.context.closed, 1);
   const running = harness(); let interrupted = 0;
   const audio = await startMetronome(90, () => {}, () => interrupted++, new AbortController().signal, running.environment);
-  running.context.state = "suspended"; running.context.onstatechange?.();
+  // A lost (closed) output stops at once; brief iOS interruptions are covered by watchAudioState's own test.
+  running.context.state = "closed"; running.context.onstatechange?.();
   assert.equal(interrupted, 1); assert.equal(running.timers.size, 0); assert.equal(running.context.closed, 1);
   audio.stop();
   const lost = harness(); let outputLost = 0;

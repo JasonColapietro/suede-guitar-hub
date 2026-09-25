@@ -322,7 +322,21 @@ export const LEARN: readonly SiteEntry[] = [
     title: "Beginner guitar lessons, step by step",
     blurb:
       "The guitar curriculum from the first foundations: a free opening module, guided practice, and browser-local progress.",
-    lastModified: "2026-09-04",
+    lastModified: "2026-09-25",
+  },
+  {
+    href: "/start",
+    title: "Find your level",
+    blurb:
+      "Three questions of self-recognition: new to guitar, comfortable with open chords, or already advanced. Each one opens at the right place.",
+    lastModified: "2026-09-25",
+  },
+  {
+    href: "/advanced",
+    title: "Advanced Lab",
+    blurb:
+      "Free scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone.",
+    lastModified: "2026-09-25",
   },
 ];
 

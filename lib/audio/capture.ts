@@ -1,5 +1,43 @@
 // Capture in fixed blocks on the audio rendering thread. Samples stay in this
 // browser, never enter a request, and are released when the session stops.
+
+/**
+ * The browser's AudioContext constructor, including the prefixed one older
+ * iPhones and some in-app browsers (TikTok, Instagram) still expose.
+ */
+export function audioContextClass(): typeof AudioContext | undefined {
+    const scope = globalThis as unknown as { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext; window?: { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext } };
+    return scope.AudioContext ?? scope.window?.AudioContext ?? scope.webkitAudioContext ?? scope.window?.webkitAudioContext;
+}
+export function hasWebAudio() { return audioContextClass() !== undefined; }
+export function createAudioContext(options?: AudioContextOptions): AudioContext {
+    const Context = audioContextClass();
+    if (!Context) throw new Error('This browser does not support Web Audio.');
+    try { return new Context(options); } catch { return new Context(); }
+}
+/**
+ * Watch a context for a real loss of audio, not a blip.
+ *
+ * iOS Safari moves a running context to "interrupted" (and sometimes
+ * "suspended") for a moment whenever the audio session changes: opening the
+ * microphone, a notification sound, the ringer switch, a Bluetooth route
+ * change. Treating every non-running state as fatal stopped exercises the
+ * instant they started on iPhone. A closed context is lost at once; anything
+ * else is resumed and only counted as lost when it stays down.
+ */
+export function watchAudioState(context: AudioContext, onLost: () => void, graceMs = 1500) {
+    let timer: ReturnType<typeof setTimeout> | null = null, done = false;
+    const clear = () => { if (timer !== null) { clearTimeout(timer); timer = null; } };
+    context.onstatechange = () => {
+        if (done) return;
+        const state = context.state as string;
+        if (state === 'running') { clear(); return; }
+        if (state === 'closed') { clear(); done = true; onLost(); return; }
+        void context.resume().catch(() => { });
+        if (timer === null) timer = setTimeout(() => { timer = null; if (!done && (context.state as string) !== 'running') { done = true; onLost(); } }, graceMs);
+    };
+    return () => { done = true; clear(); context.onstatechange = null; };
+}
 let interruptCurrentAudio: (() => void) | null = null;
 export function claimAudioSession(interrupt: () => void) {
     const previous = interruptCurrentAudio;
@@ -25,19 +63,24 @@ export interface Capture {
 export async function startCapture(onSamples: (samples: Float32Array, time: number, sampleRate: number) => void, onInterrupted: () => void, signal: AbortSignal): Promise<Capture> {
     if (signal.aborted)
         throw new Error('Microphone setup was cancelled.');
-    if (!navigator.mediaDevices?.getUserMedia || !window.AudioContext)
+    if (!navigator.mediaDevices?.getUserMedia || !hasWebAudio())
         throw new Error('Microphone practice needs a secure browser with Web Audio. You can still practice without scoring.');
-    const context = new AudioContext({ latencyHint: 'interactive' });
-    let stream: MediaStream | null = null, source: MediaStreamAudioSourceNode | null = null, worklet: AudioWorkletNode | null = null;
+    const context = createAudioContext({ latencyHint: 'interactive' });
+    let stream: MediaStream | null = null, source: MediaStreamAudioSourceNode | null = null, worklet: AudioWorkletNode | null = null, processor: ScriptProcessorNode | null = null;
     let stopped = false;
-    let releaseSession = () => {};
+    let releaseSession = () => {}, unwatch = () => {};
     const stop = () => {
         if (stopped)
             return;
         stopped = true;
+        unwatch();
         if (worklet) {
             worklet.port.onmessage = null;
             worklet.disconnect();
+        }
+        if (processor) {
+            processor.onaudioprocess = null;
+            processor.disconnect();
         }
         source?.disconnect();
         stream?.getTracks().forEach(t => t.stop());
@@ -49,31 +92,63 @@ export async function startCapture(onSamples: (samples: Float32Array, time: numb
     signal.addEventListener('abort', stop, { once: true });
     releaseSession = claimAudioSession(() => { stop(); onInterrupted(); });
     try {
-        await context.resume();
-        if (signal.aborted || stopped)
-            throw new Error('Microphone setup was cancelled.');
-        stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+        // Start both inside the tap that called us. iOS only lets a context
+        // start and a microphone prompt open while that gesture is live, so
+        // awaiting one before asking for the other lost the gesture and left
+        // the exercise sitting on "Get ready" with no audio flowing.
+        const resuming = context.resume().catch(() => { });
+        const requesting = navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+        await resuming;
+        stream = await requesting;
         if (signal.aborted || stopped) {
             stream.getTracks().forEach(t => t.stop());
             throw new Error('Microphone setup was cancelled.');
         }
-        await context.audioWorklet.addModule('/audio/guitarhub-capture.worklet.js');
+        // Opening the microphone switches the iOS audio session, which parks a
+        // running context. Wake it again before wiring the graph.
+        if ((context.state as string) !== 'running')
+            await context.resume().catch(() => { });
         if (signal.aborted || stopped)
             throw new Error('Microphone setup was cancelled.');
         source = context.createMediaStreamSource(stream);
-        worklet = new AudioWorkletNode(context, 'guitarhub-capture');
-        worklet.port.onmessage = (event: MessageEvent<{
-            samples: Float32Array;
-            time: number;
-        }>) => {
-            if (!stopped)
-                onSamples(event.data.samples, event.data.time, context.sampleRate);
-        };
-        // Processor outputs silence; connecting keeps capture active without mic monitoring.
-        source.connect(worklet);
-        worklet.connect(context.destination);
-        context.onstatechange = () => { if (!stopped && context.state !== 'running')
-            onInterrupted(); };
+        const deliver = (samples: Float32Array, time: number) => { if (!stopped) onSamples(samples, time, context.sampleRate); };
+        let workletReady = false;
+        if (context.audioWorklet && typeof AudioWorkletNode !== 'undefined') {
+            try {
+                await context.audioWorklet.addModule('/audio/guitarhub-capture.worklet.js');
+                workletReady = true;
+            }
+            catch {
+                workletReady = false;
+            }
+        }
+        if (signal.aborted || stopped)
+            throw new Error('Microphone setup was cancelled.');
+        if (workletReady) {
+            worklet = new AudioWorkletNode(context, 'guitarhub-capture');
+            worklet.port.onmessage = (event: MessageEvent<{
+                samples: Float32Array;
+                time: number;
+            }>) => deliver(event.data.samples, event.data.time);
+            // Processor outputs silence; connecting keeps capture active without mic monitoring.
+            source.connect(worklet);
+            worklet.connect(context.destination);
+        }
+        else {
+            // Older iPhones and in-app browsers without AudioWorklet: the same
+            // 4096-sample blocks from the main thread.
+            processor = context.createScriptProcessor(4096, 1, 1);
+            processor.onaudioprocess = event => {
+                const input = event.inputBuffer.getChannelData(0);
+                const samples = new Float32Array(input.length);
+                samples.set(input);
+                event.outputBuffer.getChannelData(0).fill(0);
+                deliver(samples, Math.max(0, context.currentTime - input.length / context.sampleRate));
+            };
+            source.connect(processor);
+            processor.connect(context.destination);
+        }
+        unwatch = watchAudioState(context, () => { if (!stopped) onInterrupted(); });
         stream.getAudioTracks().forEach(t => { t.onended = () => { if (!stopped)
             onInterrupted(); }; });
         return { context, stop, inputTrack: stream.getAudioTracks()[0] ?? null };
@@ -88,7 +163,7 @@ export async function playReference(frequency: number, externalSignal: AbortSign
     const controller = new AbortController(), signal = controller.signal;
     const cancel = () => controller.abort();
     externalSignal.addEventListener('abort', cancel, { once: true });
-    const context = new AudioContext(), oscillator = context.createOscillator(), gain = context.createGain();
+    const context = createAudioContext(), oscillator = context.createOscillator(), gain = context.createGain();
     let closed = false;
     const stop = () => { if (closed)
         return; closed = true; oscillator.disconnect(); gain.disconnect(); void context.close().catch(() => { }); };

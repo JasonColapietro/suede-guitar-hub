@@ -7,9 +7,9 @@ import Link from "next/link";
  */
 
 const NAV_LINKS = [
-  { href: "/learn", label: "Learn" },
+  { href: "/learn/guitar", label: "Lessons" },
+  { href: "/advanced", label: "Advanced" },
   { href: "/practice", label: "Practice" },
-  { href: "/method", label: "Method" },
   { href: "/tools", label: "Tools" },
   { href: "/guides", label: "Guides" },
 ] as const;
@@ -41,10 +41,10 @@ export default function SiteNav() {
         </nav>
 
         <Link
-          href="/learn/guitar"
+          href="/start"
           className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-3 py-2.5 text-xs font-semibold text-cream transition hover:bg-indigo-mid sm:px-4 sm:text-sm lg:px-5"
         >
-          Start learning
+          Find your level
         </Link>
       </div>
     </header>

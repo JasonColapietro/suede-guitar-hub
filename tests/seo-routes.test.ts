@@ -339,16 +339,20 @@ test("renders every declared FAQ question as a visible heading", () => {
 });
 
 test("routes the homepage primary navigation through the crawlable hubs", () => {
-  const source = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+  // The homepage now renders the shared SiteNav, so one list serves every page.
+  const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+  assert.match(home, /<SiteNav \/>/, "the homepage must render the shared primary navigation");
+  const source = readFileSync(new URL("../components/SiteNav.tsx", import.meta.url), "utf8");
   const navLinks = source.match(/const NAV_LINKS = \[[\s\S]*?\n\] as const;/)?.[0];
 
-  assert.ok(navLinks, "app/page.tsx must define its primary navigation links");
-  assert.match(navLinks, /href: "\/method", label: "Method"/);
-  assert.match(navLinks, /href: "\/tools"|href: "#tools"/);
+  assert.ok(navLinks, "components/SiteNav.tsx must define its primary navigation links");
+  assert.match(navLinks, /href: "\/learn\/guitar"/);
+  assert.match(navLinks, /href: "\/advanced"/);
+  assert.match(navLinks, /href: "\/tools"/);
   assert.match(
     navLinks,
     /href: "\/guides", label: "Guides"/,
-    "the homepage Guides link must reach the guides hub, not bypass it for one article",
+    "the Guides link must reach the guides hub (which lists /method), not bypass it for one article",
   );
 });
 

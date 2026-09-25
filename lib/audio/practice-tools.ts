@@ -1,5 +1,5 @@
 import contract from "../../contracts/practice-tools.json" with { type: "json" };
-import { claimAudioSession, type Capture } from "./capture.ts";
+import { claimAudioSession, createAudioContext, watchAudioState, type Capture } from "./capture.ts";
 import { estimatePitch, noteForFrequency } from "./dsp.ts";
 
 export const metronomeConfiguration = contract.metronome;
@@ -52,7 +52,7 @@ type MetronomeEnvironment = {
   schedule: (callback: () => void, delayMs: number) => () => void;
 };
 const browserEnvironment: MetronomeEnvironment = {
-  createContext: () => new AudioContext({ latencyHint: "interactive" }),
+  createContext: () => createAudioContext({ latencyHint: "interactive" }),
   schedule: (callback, delayMs) => { const timer = window.setTimeout(callback, delayMs); return () => window.clearTimeout(timer); },
 };
 export interface MetronomePlayback extends Capture { setTempo: (bpm: number) => void }
@@ -80,6 +80,7 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
   try {
     await context.resume();
     if (stopped || signal.aborted) throw new Error("Metronome start was cancelled.");
+    if (context.state !== "running") await context.resume().catch(() => {});
     if (context.state !== "running") throw new Error("Audio playback did not start.");
     const clickBuffer = (frequency: number) => {
       const buffer = context.createBuffer(1, Math.floor(context.sampleRate * metronomeConfiguration.clickSeconds), context.sampleRate);
@@ -133,7 +134,7 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
         onInterrupted();
       }
     };
-    context.onstatechange = () => { if (!stopped && context.state !== "running") { stop(); onInterrupted(); } };
+    watchAudioState(context, () => { if (!stopped) { stop(); onInterrupted(); } });
     playBeat(true);
     return { context, stop, setTempo: value => { bpm = metronomeBPM(value); } };
   } catch (error) { stop(); throw error; }

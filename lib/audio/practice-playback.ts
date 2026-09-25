@@ -1,4 +1,4 @@
-import { claimAudioSession, type Capture } from './capture';
+import { claimAudioSession, createAudioContext, watchAudioState, type Capture } from './capture';
 import { rhythmClickPlan } from './guitar-practice';
 
 export interface RhythmPlayback extends Capture {
@@ -8,12 +8,13 @@ export interface RhythmPlayback extends Capture {
 /** An audio clock and optional clicks for rehearsal. Never requests a mic. */
 export async function startRhythmPractice(onInterrupted: () => void, signal: AbortSignal): Promise<RhythmPlayback> {
     if (signal.aborted) throw new Error('Practice setup was cancelled.');
-    const context = new AudioContext({ latencyHint: 'interactive' });
+    const context = createAudioContext({ latencyHint: 'interactive' });
     const nodes = new Map<OscillatorNode, GainNode>();
-    let stopped = false, release = () => {};
+    let stopped = false, release = () => {}, unwatch = () => {};
     const stop = () => {
         if (stopped) return;
         stopped = true;
+        unwatch();
         context.onstatechange = null;
         for (const [node, gain] of nodes) { node.onended = null; node.disconnect(); gain.disconnect(); try { node.stop(); } catch {} }
         nodes.clear();
@@ -26,7 +27,7 @@ export async function startRhythmPractice(onInterrupted: () => void, signal: Abo
     try {
         await context.resume();
         if (stopped || signal.aborted) throw new Error('Practice setup was cancelled.');
-        context.onstatechange = () => { if (!stopped && context.state !== 'running') { stop(); onInterrupted(); } };
+        unwatch = watchAudioState(context, () => { if (!stopped) { stop(); onInterrupted(); } });
         return { context, stop, schedule(start, bpm, countIn, duration) {
             if (stopped) return;
             const clicks = rhythmClickPlan(bpm, countIn, duration);
