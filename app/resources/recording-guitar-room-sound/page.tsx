@@ -71,6 +71,7 @@ export default function RecordingGuitarRoomSoundPage() {
       />
 
       <Article
+        guideHref="/resources/recording-guitar-room-sound"
         eyebrow="Print the Quiet field guide"
         title={
           <>

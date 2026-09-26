@@ -115,6 +115,7 @@ export default function MethodPage() {
       />
 
       <Article
+        guideHref="/method"
         eyebrow="The GuitarHub method"
         title={
           <>

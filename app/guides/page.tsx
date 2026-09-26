@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { FieldGuideShelf } from "@/components/FieldGuides";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import {
   GUIDES,
@@ -440,6 +441,8 @@ export default function GuidesPage() {
             ))}
           </ul>
         </section>
+
+        <FieldGuideShelf intro="Every guide on this page is also a PDF you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
 
         {GROUPS.map((group) => (
           <section

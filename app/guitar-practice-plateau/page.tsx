@@ -80,6 +80,7 @@ export default function GuitarPracticePlateauPage() {
       />
 
       <Article
+        guideHref="/guitar-practice-plateau"
         title={
           <>
             Why guitar practice plateaus,{" "}

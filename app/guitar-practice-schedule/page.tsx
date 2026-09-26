@@ -79,6 +79,7 @@ export default function GuitarPracticeSchedulePage() {
       />
 
       <Article
+        guideHref="/guitar-practice-schedule"
         title={
           <>
             A guitar practice schedule that{" "}

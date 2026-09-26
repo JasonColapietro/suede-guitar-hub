@@ -86,6 +86,7 @@ export default function HowToMemorizeSongsOnGuitarPage() {
       />
 
       <Article
+        guideHref="/how-to-memorize-songs-on-guitar"
         title={
           <>
             How to memorize a song on{" "}

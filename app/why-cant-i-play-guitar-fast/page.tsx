@@ -94,6 +94,7 @@ export default function WhyCantIPlayGuitarFastPage() {
       />
 
       <Article
+        guideHref="/why-cant-i-play-guitar-fast"
         eyebrow="GuitarHub guide"
         title={
           <>

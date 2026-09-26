@@ -72,6 +72,7 @@ export default function HallelujahGuitarTonePage() {
       />
 
       <Article
+        guideHref="/resources/jeff-buckley-hallelujah-guitar-tone"
         eyebrow="Print the Quiet field guide"
         title={
           <>

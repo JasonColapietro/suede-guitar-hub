@@ -108,6 +108,7 @@ export default function HowToPracticeGuitarEffectivelyPage() {
       />
 
       <Article
+        guideHref="/how-to-practice-guitar-effectively"
         title={
           <>
             How to practice guitar{" "}

@@ -75,6 +75,7 @@ export default function NamA2OpenTonePage() {
       />
 
       <Article
+        guideHref="/resources/nam-a2-open-tone-format"
         eyebrow="GuitarHub editorial"
         title={
           <>

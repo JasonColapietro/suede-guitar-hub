@@ -125,6 +125,7 @@ export default function HowLongToPracticePage() {
       />
 
       <Article
+        guideHref="/how-long-to-practice-guitar-each-day"
         eyebrow="GuitarHub guide"
         title={
           <>
