@@ -109,6 +109,48 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
     audience:
       "Players who can say how often they practised but cannot show whether the passage, transition, or song they chose is actually moving.",
   },
+  "/tools/chord-detector": {
+    purpose:
+      "Strum one chord into your microphone. It shows the chord the sounding notes fit best, with a confidence, the closest alternatives and the pitch classes it heard.",
+    audience:
+      "Players working out a chord by ear, or checking that a shape they found really spells the chord they think it does.",
+  },
+  "/tools/intonation-checker": {
+    purpose:
+      "Play each string's 12th-fret harmonic, or the open string, then the fretted 12th-fret note. It shows the difference in cents and which way to move the saddle.",
+    audience:
+      "Players whose guitar is in tune open but sounds out of tune higher up the neck, especially after a string gauge change or a new setup.",
+  },
+  "/tools/pedal-lab": {
+    purpose:
+      "Play the built-in riff or your own guitar through a pedalboard you build: add, remove, bypass and reorder pedals ahead of an amp and cab, and hear each change as you make it. Presets match the tone course recipes.",
+    audience:
+      "Players who have read about pedals and pedal order and have never heard the differences side by side.",
+  },
+  "/tools/slow-downer": {
+    purpose:
+      "Open a song from your own device and play it at 25 to 125 per cent speed, with the pitch kept or, in tape mode, allowed to drop. Mark an A–B loop on the waveform, and let the speed-up loop add a few per cent after each pass.",
+    audience:
+      "Players learning a solo or riff by ear from a recording that is too fast to hear clearly.",
+  },
+  "/tools/speed-trainer": {
+    purpose:
+      "You give it a clean starting tempo, a target, a step size and the bars per step. The click climbs by itself within one session and lands exactly on the target, with climb, climb-and-reset and burst modes.",
+    audience:
+      "Players who can play a passage cleanly at one tempo and keep stopping to nudge the metronome up.",
+  },
+  "/tools/fretboard": {
+    purpose:
+      "Choose a root, a scale, mode or arpeggio, and a tuning, and every note it uses appears on the neck, labelled by note name or degree, one position at a time if you like. Tap a note to hear it, or switch to the quiz and find notes without the map.",
+    audience:
+      "Players who know a few shapes and lose track of the notes and intervals once they leave them.",
+  },
+  "/tools/eq-ear-trainer": {
+    purpose:
+      "A guitar loop or pink noise plays through one hidden EQ boost or cut. You switch between flat and EQ, name the band, then hear the answer with a note on what that band does to a guitar.",
+    audience:
+      "Players who turn tone knobs by trial and error and want to hear what 250 Hz, 800 Hz or 3 kHz actually sound like.",
+  },
 };
 
 /**
@@ -156,7 +198,50 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
     sentence: "I finished the session and need to know whether the work is moving.",
     stage: "Prove and correct. It carries the evidence into the next diagnosis.",
   },
+  {
+    href: "/tools/chord-detector",
+    sentence: "I found a shape that sounds right, and I do not know what chord it is.",
+    stage: "While learning a song. It names the chord you are holding as you work the song out.",
+  },
+  {
+    href: "/tools/intonation-checker",
+    sentence: "My guitar is in tune on the open strings, and chords up the neck still sound sour.",
+    stage: "Before practice, as setup. It checks each string before you touch a saddle.",
+  },
+  {
+    href: "/tools/pedal-lab",
+    sentence: "I do not know what a compressor actually changes, or whether my fuzz goes before the wah.",
+    stage: "Away from the instrument, or with it plugged in. It lets you hear what each effect family and each order does.",
+  },
+  {
+    href: "/tools/slow-downer",
+    sentence: "I cannot hear the solo clearly enough at full speed to learn it.",
+    stage: "Isolate. It slows one passage down and repeats it until you can play it.",
+  },
+  {
+    href: "/tools/speed-trainer",
+    sentence: "I can play it clean at 80, and I keep stopping to move the metronome up.",
+    stage: "Isolate, inside one session. The tempo ladder plans across days; this runs the climb today.",
+  },
+  {
+    href: "/tools/fretboard",
+    sentence: "I know the pentatonic box, and I cannot say which note I am on or where the next position starts.",
+    stage: "Away from the guitar or before practice. It maps the neck and tests note recall.",
+  },
+  {
+    href: "/tools/eq-ear-trainer",
+    sentence: "My tone sounds wrong in the mix, and I cannot tell whether it needs less mud, less honk or less fizz.",
+    stage: "Away from the amp. It trains your ear to name frequency bands.",
+  },
 ];
+
+/**
+ * The pro tools live under `/tools/`; everything else is a practice planner or
+ * the tuner. Split by path rather than by a second list, so a tool is in
+ * exactly one group without anyone maintaining the grouping.
+ */
+const PRO_TOOLS = TOOLS.filter((tool) => tool.href.startsWith("/tools/"));
+const PRACTICE_TOOLS = TOOLS.filter((tool) => !tool.href.startsWith("/tools/"));
 
 const ROUTING_ROWS = ROUTING.flatMap((row) => {
   const tool = TOOLS.find((entry) => entry.href === row.href);
@@ -174,21 +259,28 @@ const COMMON = [
   },
   {
     title: "Runs in your browser",
-    body: "Plans, diagnoses, ladders, and summaries are computed on the page. The tuner processes microphone sound on your device; it does not upload audio.",
+    body: "Plans, diagnoses, ladders, and summaries are computed on the page. The tools that listen, the tuner, chord detector, intonation checker and the pedal lab's live input, process microphone sound on your device and do not upload it. A song you open in the slow-downer is played from your device and never sent anywhere.",
   },
   {
     title: "Stores no data on a server",
-    body: "Plans and logs stay in this browser's local storage. Tuner readings and metronome playback are temporary and stop when you leave. These standalone tools do not upload practice history.",
+    body: "Plans, logs, settings and quiz scores stay in this browser's local storage. Readings, audio files and playback are temporary and stop when you leave. These standalone tools do not upload practice history.",
   },
 ];
 
 const LIMITS = [
-  "The tuner listens only after you start it and allow microphone access. It detects one note at a time; it does not verify complete chords or award a lesson score.",
-  "The metronome and synthesized reference tones do not need microphone permission. Starting another audio tool stops the current one, and hiding or leaving the page stops playback and listening.",
+  "The tuner, chord detector, intonation checker and the pedal lab's live input listen only after you start them and allow microphone access. The tuner and intonation checker read one note at a time, and none of them awards a lesson score.",
+  "The metronome, speed trainer, fretboard sounds, EQ ear trainer, slow-downer and the pedal lab's built-in riffs do not need microphone permission. Starting another audio tool stops the current one, and hiding or leaving the page stops playback and listening.",
   "State does not follow you between devices or browsers. No account carries it. A plan built on your laptop is not on your phone.",
   "Clearing your browser data deletes what you entered, and it cannot be restored from here.",
   "They need JavaScript. The results are computed on the page rather than fetched, so the tools produce no results without it.",
-  "Planning tools depend on your own answers. The tuner reports pitch; it cannot assess your posture, complete chord fingering, or overall playing technique.",
+  "Planning tools depend on your own answers. The listening tools report pitch and pitch classes; they cannot assess your posture, which strings you fretted, or overall playing technique.",
+  "The chord detector estimates the chord the sounding notes fit. It cannot tell voicings apart, and it confuses chords that share notes, such as Am7 and C6.",
+  "The intonation checker compares pitch only. It does not measure neck relief or action, and it cannot rescue a worn string.",
+  "The pedal lab's effects and amp are teaching approximations of each family, not models of any product. Its live input adds a little delay, needs headphones, and records nothing.",
+  "The slow-downer does not separate the guitar from the mix, and it only opens files already on your device. How clean a very slow setting sounds depends on your browser.",
+  "The speed trainer does not listen to you, so it cannot tell whether a tempo was clean. Tempo changes land on bar lines rather than ramping smoothly.",
+  "The fretboard explorer shows where notes are, not how to finger them, and its quiz checks the fret you tap, not what you play.",
+  "The EQ ear trainer works on one peaking band at a time on a synthesised loop, and it cannot hear what your speakers leave out.",
 ];
 
 /**
@@ -205,15 +297,15 @@ const FAQS = [
   },
   {
     q: "Do I need an account?",
-    a: "No. These tools work without signing in. Learning accounts, where available, are separate and are not required for the tuner, metronome, or planning tools.",
+    a: "No. These tools work without signing in. Learning accounts, where available, are separate and are not required for the tuner, metronome, pro tools, or planning tools.",
   },
   {
     q: "Where does what I type go?",
-    a: "Plans and logs stay in this browser's local storage. Tuner readings are temporary; microphone samples are processed on your device and are not uploaded or saved. The standalone tools do not send your practice entries to a server.",
+    a: "Plans, logs and settings stay in this browser's local storage. Readings from the listening tools are temporary; microphone samples are processed on your device and are not uploaded or saved. A song opened in the slow-downer is read from your device and never sent anywhere. The standalone tools do not send your practice entries to a server.",
   },
   {
     q: "Which tool should I open first?",
-    a: "Use the tuner and metronome when your guitar is in hand. If you cannot name what stopped working, start with the practice plateau diagnostic. If you know the goal but need a month, use the 30-day planner; if you know today's target and time, build the session. Log what happened afterwards.",
+    a: "Use the tuner and metronome when your guitar is in hand. If you cannot name what stopped working, start with the practice plateau diagnostic. If you know the goal but need a month, use the 30-day planner; if you know today's target and time, build the session. Log what happened afterwards. The pro tools are for a specific job: learning a recording, pushing a tempo, mapping the neck, checking a setup, or hearing what a pedal or an EQ band does.",
   },
   {
     q: "Can I use them without JavaScript?",
@@ -427,9 +519,10 @@ export default function ToolsPage() {
               The last one is a claim you can check rather than trust. There is
               no analytics script and no third-party tracker on this site, which
               the page source will tell you faster than we can. Nothing here
-              records audio, accepts an upload, or listens to you play. When a
-              tool tells you to record a baseline, it means on your phone, kept
-              by you.
+              records audio or accepts an upload. The tools that listen do so
+              only after you press start and allow the microphone, and they
+              analyse the sound on your device. When a tool tells you to record
+              a baseline, it means on your phone, kept by you.
             </p>
             {/* A pill rather than a link inside that sentence: an inline
                 prose link renders about 22px tall, which is not a tap target
@@ -453,13 +546,41 @@ export default function ToolsPage() {
           </p>
 
           <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {TOOLS.map((tool) => (
+            {PRACTICE_TOOLS.map((tool) => (
               <li key={tool.href}>
                 <ToolCard tool={tool} />
               </li>
             ))}
           </ul>
         </section>
+
+        {PRO_TOOLS.length > 0 ? (
+          <section id="pro-tools" className="mx-auto max-w-6xl scroll-mt-32 px-6 pb-20">
+            <>
+              <h2 className="max-w-3xl text-4xl leading-snug text-indigo-deep md:text-5xl">
+                Pro tools.{" "}
+                <em className="font-display italic">For one specific job.</em>
+              </h2>
+              <p className="mt-5 max-w-2xl text-lg text-ink/70">
+                Learning a part from a recording, pushing a tempo, mapping the
+                neck, checking a setup, and hearing what a pedal or an EQ band
+                actually does. The tone course uses the last two throughout.
+              </p>
+              <p className="mt-6">
+                <Link href="/tone" className={LINK_PILL}>
+                  The guitar tone course <span aria-hidden>→</span>
+                </Link>
+              </p>
+              <ul className="mt-10 grid gap-6 md:grid-cols-2">
+                {PRO_TOOLS.map((tool) => (
+                  <li key={tool.href}>
+                    <ToolCard tool={tool} />
+                  </li>
+                ))}
+              </ul>
+            </>
+          </section>
+        ) : null}
 
         {ROUTING_ROWS.length > 0 ? (
           <section className="bg-cream-soft px-6 py-20">

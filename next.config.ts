@@ -9,11 +9,22 @@ const CONTENT_SECURITY_POLICY = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "img-src 'self' data: blob:",
+  // The song slow-downer plays a file the visitor opens from their own device
+  // through a blob: object URL. Nothing is fetched; without this, default-src
+  // blocks the local file from playing.
+  "media-src 'self' blob:",
   "object-src 'none'",
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "upgrade-insecure-requests",
 ].join("; ");
+
+/** Pro tools that can open the microphone (or a live instrument input). */
+export const MICROPHONE_TOOLS = [
+  "/tools/chord-detector",
+  "/tools/intonation-checker",
+  "/tools/pedal-lab",
+] as const;
 
 const SECURITY_HEADERS = [
   { key: "Content-Security-Policy", value: CONTENT_SECURITY_POLICY },
@@ -64,6 +75,11 @@ const nextConfig: NextConfig = {
       { source: "/practice", headers: [
         { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
       ] },
+      // The pro tools that listen: named one by one rather than `/tools/:path*`,
+      // so the tools hub and the tools that never listen keep the denial.
+      ...MICROPHONE_TOOLS.map(source => ({ source, headers: [
+        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
+      ] })),
     ];
   },
 };

@@ -9,6 +9,7 @@ import Link from "next/link";
 const NAV_LINKS = [
   { href: "/learn/guitar", label: "Lessons" },
   { href: "/advanced", label: "Advanced" },
+  { href: "/tone", label: "Tone" },
   { href: "/practice", label: "Practice" },
   { href: "/tools", label: "Tools" },
   { href: "/guides", label: "Guides" },

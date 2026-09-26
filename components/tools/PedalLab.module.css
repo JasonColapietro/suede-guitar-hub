@@ -1,0 +1,48 @@
+/* Pedal lab: the board, the pedal cards and the chain line. Shared controls
+   come from Tools.module.css. */
+
+.warning { margin: 1rem 0; padding: .9rem 1.1rem; border-radius: 1rem; border: 1px solid #e2b98c; background: #fff4e6; color: #5b3409; }
+.warning p { margin: .25rem 0; line-height: 1.55; }
+
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 0; list-style: none; padding: 0; margin: 0 0 1rem; font-size: .9rem; font-weight: 650; }
+.chain li { display: inline-flex; align-items: center; }
+.chain li + li::before { content: "→" / ""; margin: 0 .4rem; color: #6d28d9; }
+.block { display: inline-flex; align-items: center; padding: .3rem .7rem; border-radius: 999px; background: #251152; color: #f7f3ee; }
+.block[data-on=false] { background: #e8e0f3; color: #51367d; }
+.off { font-weight: 500; }
+
+.addRow { display: flex; flex-wrap: wrap; align-items: end; gap: .6rem; margin: .75rem 0; }
+.addRow > label { flex: 1 1 180px; }
+
+.board { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 1rem; counter-reset: pedal; }
+.pedal { border: 1px solid rgba(37,17,82,.18); border-top: 6px solid #6d28d9; border-radius: 1.1rem; background: #fff; padding: 1rem; min-width: 0; display: flex; flex-direction: column; gap: .5rem; }
+.pedal[data-family=dynamics] { border-top-color: #2f6b3a; }
+.pedal[data-family=filter] { border-top-color: #8a4a0c; }
+.pedal[data-family=gain] { border-top-color: #8a1c1c; }
+.pedal[data-family=modulation] { border-top-color: #1f5f8a; }
+.pedal[data-family=time] { border-top-color: #6d28d9; }
+.pedal[data-on=false] { background: #f7f3ee; }
+.pedal[data-on=false] .knobs { opacity: .7; }
+.pedal p { margin: 0; }
+
+.pedalHead { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.pedalHead h3 { margin: 0; display: flex; align-items: center; gap: .5rem; font-size: 1.05rem; }
+.position { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: #f1ebf8; color: #51367d; font-size: .8rem; }
+
+.footswitch { min-width: 5.2rem; }
+.led { width: .65rem; height: .65rem; border-radius: 50%; background: #c9bfd6; }
+.footswitch[aria-pressed=true] .led { background: #d23b3b; box-shadow: 0 0 6px rgba(210,59,59,.7); }
+
+.knobs { display: grid; gap: .25rem .9rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.knobLabel { display: flex; justify-content: space-between; gap: .5rem; }
+
+.pedalActions { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: .5rem; }
+.pedalActions .remove { margin-left: auto; }
+
+@media (max-width: 480px) {
+  .pedalActions > * { flex: 1 1 auto; }
+  .pedalActions .remove { margin-left: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .led { transition: background-color .12s ease; }
+}

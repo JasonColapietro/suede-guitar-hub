@@ -1,0 +1,19 @@
+/* Speed trainer: beat lights, plan preview and the options that are specific to it. */
+
+.beats { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: 1rem 0; }
+.beats span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid #b9a9cc; background: #fff; color: #51367d; font-weight: 700; font-variant-numeric: tabular-nums; transition: background-color .06s linear, transform .06s linear; }
+.beats span[data-accent=true] { border-color: #6d28d9; }
+.beats span[data-active=true] { background: #6d28d9; border-color: #6d28d9; color: #fff; transform: scale(1.08); }
+.beats span[data-active=true][data-accent=true] { background: #251152; border-color: #251152; }
+
+.position { text-align: center; font-weight: 700; margin: .5rem 0; min-height: 1.5rem; }
+.stages { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 0; padding: 0; list-style: none; }
+.stages li { padding: .2rem .55rem; border-radius: 999px; background: #ede5f8; color: #51367d; font-size: .8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stages li[data-current=true] { background: #251152; color: #f7f3ee; }
+
+.check { display: flex; align-items: center; gap: .6rem; min-height: 44px; font-weight: 650; cursor: pointer; }
+.check input { width: 22px; height: 22px; accent-color: #6d28d9; flex: none; }
+.fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.fieldset:disabled { opacity: .7; }
+
+@media (prefers-reduced-motion: reduce) { .beats span { transition: none; } .beats span[data-active=true] { transform: none; } }

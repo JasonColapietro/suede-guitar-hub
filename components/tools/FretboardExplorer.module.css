@@ -1,0 +1,52 @@
+/* Fretboard explorer: the SVG neck, its dots, and the quiz readout. */
+
+.board { display: block; margin: .5rem 0; padding-bottom: .25rem; }
+.board svg { display: block; }
+.wood { fill: #f1e6d2; }
+.fret { stroke: #b3a38f; stroke-width: 2; }
+.nut { stroke: #251152; stroke-width: 6; }
+.string { stroke: #7a6a8e; }
+.inlay { fill: #d8c9b1; }
+.fretNumber { fill: #62576f; font-size: 11px; font-weight: 650; text-anchor: middle; }
+.window { fill: rgba(109, 40, 217, .08); stroke: rgba(109, 40, 217, .35); stroke-dasharray: 4 3; }
+
+.dot { cursor: pointer; outline: none; }
+.dot .hit { fill: transparent; }
+.dot .disc { fill: #251152; stroke: #fffaf2; stroke-width: 2; }
+.dot[data-root=true] .disc { fill: #6d28d9; }
+.dot[data-dim=true] { opacity: .28; }
+.dot text { fill: #f7f3ee; font-size: 12px; font-weight: 700; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.dot .ring { fill: none; stroke: transparent; stroke-width: 3; }
+.dot:hover .disc { stroke: #6d28d9; }
+.dot:focus-visible .ring { stroke: #6d28d9; }
+.dot:focus-visible .hit { fill: rgba(109, 40, 217, .1); }
+
+/* Quiz cells: every fret is a target. */
+.cell { cursor: pointer; outline: none; }
+.cell .hit { fill: transparent; }
+.cell:hover .hit { fill: rgba(109, 40, 217, .08); }
+.cell:focus-visible .hit { fill: rgba(109, 40, 217, .14); stroke: #6d28d9; stroke-width: 3; }
+.cell[aria-disabled=true] { cursor: default; }
+.cell .mark { stroke: #fffaf2; stroke-width: 2; }
+.cell[data-state=right] .mark { fill: #2f6b3a; }
+.cell[data-state=wrong] .mark { fill: #8a1c1c; }
+.cell[data-state=answer] .mark { fill: #6d28d9; }
+.cell text { fill: #fff; font-size: 12px; font-weight: 700; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+
+.question { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .35rem .75rem; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: .6rem; margin: .9rem 0; }
+.stats div { border: 1px solid rgba(37, 17, 82, .12); border-radius: .9rem; padding: .6rem .75rem; background: #fff; }
+.stats dt { font-size: .75rem; font-weight: 700; color: #62576f; text-transform: uppercase; letter-spacing: .06em; }
+.stats dd { margin: .15rem 0 0; font: 550 1.4rem/1.2 var(--font-display); color: #251152; font-variant-numeric: tabular-nums; }
+
+.roots { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; max-width: 420px; }
+.roots button { min-height: 44px; min-width: 0; padding: .3rem; border-radius: .75rem; border: 1px solid #b9a9cc; background: #fff; color: #251152; font: inherit; font-weight: 700; cursor: pointer; }
+.roots button[aria-pressed=true] { background: #251152; border-color: #251152; color: #f7f3ee; }
+.check { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; font-weight: 650; color: #3b2d52; cursor: pointer; }
+.check input { width: 20px; height: 20px; accent-color: #6d28d9; }
+
+.notes { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: .5rem 0 0; list-style: none; }
+.notes li { display: grid; justify-items: center; min-width: 64px; padding: .45rem .6rem; border-radius: .8rem; background: #fff; border: 1px solid rgba(37, 17, 82, .12); }
+.notes strong { font: 550 1.25rem/1.2 var(--font-display); }
+.notes span { font-size: .75rem; color: #62576f; text-align: center; }
+.feedback { font-weight: 650; }

@@ -1,3 +1,28 @@
+# 2026-09-26: Pro tools and the tone course
+
+## Shipped
+- **Seven pro tools under `/tools/`**, all free, with no account and nothing uploaded. They are ordinary `TOOLS` registry entries, so the sitemap, footer, homepage grid, `/tools` (now split into practice tools and pro tools) and `llms.txt` pick them up.
+  - `/tools/slow-downer`: open a local file (read in the browser through a `blob:` URL), 25–125% speed with pitch kept or tape mode, a waveform, an A–B loop, and a speed-up loop.
+  - `/tools/chord-detector`: microphone, FFT chroma matched against 12 chord qualities, smoothed over about 0.5 s. It reports the closest fit, not a verdict.
+  - `/tools/intonation-checker`: compares the 12th-fret harmonic (or the open string) with the fretted 12th and says which way to move the saddle.
+  - `/tools/fretboard`: scales, modes and arpeggios in 9 tunings, note or degree labels, position windows, tap-to-hear, and a find-the-note quiz.
+  - `/tools/speed-trainer`: an auto-ramping metronome (climb, climb and reset, burst) on a lookahead scheduler.
+  - `/tools/pedal-lab`: a Web Audio pedalboard with 12 reorderable pedals, an amp and cab, a demo riff or live input, and 8 presets deep-linkable with `?preset=`.
+  - `/tools/eq-ear-trainer`: find the boosted or cut band in 4 levels, on a guitar loop or pink noise, with a safety limiter.
+- **Tone course at `/tone`**: 35 lessons in 7 modules (pickups, amps, pedals, signal chain, power, recording, tone recipes). Content is typed data in `lib/tone/modules/*.ts`. Every lesson has an exercise and a check. Each recipe links to its pedal lab preset. Progress is kept in this browser (`guitarhub.tone.v1`); a lesson counts as passed on a perfect check or as marked read by the learner. "Tone" is added to the site nav.
+- **Headers**: `microphone=(self)` only on the three listening tools (`MICROPHONE_TOOLS` in `next.config.ts`), and the CSP gains `media-src 'self' blob:` for local files.
+- **Copy**: the `/tools` privacy and limits copy and the privacy policy now cover the listening tools and local audio files.
+
+## Verification
+- `npm test`: 1310/1310, up from 1205. New suites cover each tool's pure logic (FFT against DFT, synthesized chords, YIN intonation runs, ramp plans, EQ questions, preset validity, IR and curves), the course data (a no-brand-name tripwire, recipe↔preset links), progress rules, server rendering of the hub and a lesson, and the microphone headers.
+- `npm run lint`, `tsc --noEmit` and `npm run build` pass. The build generates all 35 lesson pages statically.
+- Headless Chromium at 390 and 1280px across every new page: no console errors, no horizontal overflow, no tap target under 40px. I drove each tool: file playback at 70% with pitch kept and an A–B loop; chord and intonation capture on a fake microphone; the scale playback; the ramp moving from count-in to step 1; the pedal lab starting, reordering and loading a preset; EQ rounds scoring right and wrong; and the lesson check marking answers.
+
+## Not verified, next steps for Jason
+- Nothing has been heard on real speakers, and the listening tools have not met a real guitar. Before announcing, try the pedal lab presets, the EQ trainer's low bands, the chord detector on common open chords (Am7/C6-type confusions are expected and stated), and the intonation checker against a strobe or pedal tuner.
+- Pitch-preserving slow-down quality is the browser's own and is weaker at very slow speeds; the page says so.
+- Only the `/tone` hub is in the sitemap, the same arrangement as `/advanced` and its drills. Decide whether the 35 lesson URLs should be listed too; the sitemap test would need literal ids in `generateStaticParams` or a registry change.
+
 # 2026-09-25: Mobile exercise fix, Advanced Lab, simpler site
 
 ## Shipped

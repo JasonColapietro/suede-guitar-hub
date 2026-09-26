@@ -1,4 +1,5 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
+import { TONE_LESSONS, TONE_MODULES } from "@/lib/tone/course";
 import {
   GUIDES,
   RESOURCES,
@@ -86,6 +87,14 @@ counter, and reports "${NO_EVIDENCE_LABEL}" for any focus with fewer than
 ${spellOut(MIN_TREND_POINTS)} sessions rather than drawing a direction through two points. Its
 export writes a plain JSON file you keep; there is no copy on a server to
 export from.
+
+## Tone course
+
+A free course on guitar tone at ${SITE_URL}/tone: ${TONE_LESSONS.length} lessons in
+${spellOut(TONE_MODULES.length)} modules (${TONE_MODULES.map((part) => part.title).join(", ")}).
+Each lesson ends with a hands-on exercise and a short check. Recipe lessons
+link to a matching preset in the pedal lab, so the sound can be heard in the
+browser. Progress is kept in the reader's browser; there is no account.
 
 ## Written guides
 

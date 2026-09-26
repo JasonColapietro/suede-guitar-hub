@@ -73,7 +73,7 @@ export const ABOUT: SiteEntry = {
 };
 
 export const LEGAL: readonly SiteEntry[] = [
-  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-09-04" },
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-09-26" },
   { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-09-04" },
 ];
 
@@ -125,6 +125,62 @@ export const TOOLS: readonly SiteEntry[] = [
     blurb:
       "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
     lastModified: "2026-08-30",
+  },
+  /**
+   * The pro tools. They live under `/tools/` because they are instruments
+   * rather than planners, but they are ordinary registry entries: the sitemap,
+   * the footer, the homepage grid, `/tools` and `llms.txt` pick them up from
+   * here like any other tool. Three of them can open the microphone; see the
+   * per-route Permissions-Policy overrides in `next.config.ts`.
+   */
+  {
+    href: "/tools/slow-downer",
+    title: "Song slow-downer",
+    blurb:
+      "Open a song from your device, slow it down without changing the pitch, and loop the bar you are learning.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/tools/chord-detector",
+    title: "Chord detector",
+    blurb:
+      "Strum a chord and see which chord the notes you played most likely spell, with the pitch classes it heard.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/tools/intonation-checker",
+    title: "Intonation checker",
+    blurb:
+      "Compare each string's 12th-fret harmonic with the fretted note and find out which way to move the saddle.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/tools/fretboard",
+    title: "Fretboard explorer",
+    blurb:
+      "Map any scale, mode or arpeggio across the neck in any tuning, with note names, intervals and a find-the-note quiz.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/tools/speed-trainer",
+    title: "Speed trainer",
+    blurb:
+      "A metronome that climbs from your clean tempo to your target by itself, a few BPM every few bars.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/tools/pedal-lab",
+    title: "Pedal lab",
+    blurb:
+      "Build a pedalboard in the browser, reorder it, and hear what compression, gain, modulation, delay and reverb each change.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/tools/eq-ear-trainer",
+    title: "EQ ear trainer",
+    blurb:
+      "Hear a boost or cut on a guitar part and name the frequency band, so tone knobs stop being guesswork.",
+    lastModified: "2026-09-26",
   },
 ];
 
@@ -337,6 +393,18 @@ export const LEARN: readonly SiteEntry[] = [
     blurb:
       "Free scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone.",
     lastModified: "2026-09-25",
+  },
+  /**
+   * The tone course. One hub page here; its lessons are served by
+   * `app/tone/[lessonId]/page.tsx` from `lib/tone/course.ts` and are linked
+   * from the hub, the same arrangement as the Advanced Lab and its drills.
+   */
+  {
+    href: "/tone",
+    title: "Guitar tone course",
+    blurb:
+      "A free course on where tone comes from: pickups, amps, pedals, signal chain, power, recording and tone recipes you can build.",
+    lastModified: "2026-09-26",
   },
 ];
 

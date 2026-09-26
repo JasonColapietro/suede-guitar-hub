@@ -1,0 +1,27 @@
+/* Chord detector: confidence bar, alternatives, chroma bars and history strip. */
+.confidence { margin: .6rem 0 0; }
+
+.alternatives { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
+.alternatives li { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem .9rem; padding: .55rem .8rem; border-radius: .8rem; background: #f3edf9; }
+.alternatives strong { font: 550 1.25rem/1.2 var(--font-display); min-width: 4.5rem; }
+.alternatives span { font-size: .88rem; color: #51367d; }
+.alternatives span:last-child { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.chroma { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; align-items: end; margin: .4rem 0 .5rem; }
+.chromaColumn { display: grid; gap: .3rem; justify-items: center; min-width: 0; }
+.chromaTrack { position: relative; display: block; width: 100%; height: 120px; border-radius: 6px; background: #efe8f7; overflow: hidden; }
+.chromaTrack > span { position: absolute; left: 0; right: 0; bottom: 0; background: #b9a9cc; transition: height .1s linear; }
+.chromaColumn[data-tone=true] .chromaTrack > span { background: #6d28d9; }
+.chromaName { font-size: .72rem; font-weight: 700; color: #51367d; white-space: nowrap; }
+.chromaColumn[data-tone=true] .chromaName { color: #251152; }
+
+.history { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+.history li { display: grid; justify-items: center; min-width: 3.6rem; padding: .4rem .65rem; border-radius: .8rem; border: 1px solid rgba(37,17,82,.15); background: #fff; }
+.history li:first-child { border-color: #6d28d9; background: #f3edf9; }
+.history strong { font: 550 1.1rem/1.2 var(--font-display); }
+.history span { font-size: .75rem; color: #62576f; font-variant-numeric: tabular-nums; }
+
+.notes { list-style: disc; padding-left: 1.2rem; display: grid; gap: .45rem; line-height: 1.6; }
+
+@media (max-width: 420px) { .chromaName { font-size: .62rem; } .chromaTrack { height: 96px; } }
+@media (prefers-reduced-motion: reduce) { .chromaTrack > span { transition: none; } }
