@@ -7,6 +7,14 @@ import { frequencyForMIDI, noteName } from "@/lib/audio/dsp";
 import type { InstructionAsset } from "@/lib/learning/instruction-assets";
 import { readingQuizResult, type InstructionQuiz, type InstructionQuizItem, type ReadingQuizAttempt } from "@/lib/learning/reading-quiz";
 import styles from "./InstructionAssets.module.css";
+import { TabPlayer, type TabTimeline } from "@/components/interactive/TabPlayer";
+
+/** Four bars of a written rhythm, as a tap-along timeline. */
+function rhythmTimeline(asset: RhythmAsset): TabTimeline {
+  const bar = asset.meter.numerator;
+  const targets = Array.from({ length: 4 }, (_, repeat) => asset.eventBeats.map(beat => repeat * bar + beat)).flat().map((beat, index) => ({ id: `t${index}`, beat, cue: "↓" }));
+  return { mode: "rhythm", bpm: asset.bpm, beatsPerBar: bar, targets };
+}
 
 type ChordAsset = Extract<InstructionAsset, { kind: "chord" }>;
 type RhythmAsset = Extract<InstructionAsset, { kind: "rhythm" }>;
@@ -97,26 +105,26 @@ export function TabDiagram({ string = 1, fret = 0 }: { string?: number; fret?: n
 }
 
 export function BeatDiagram({ asset }: { asset: RhythmAsset }) {
-  return <figure className={styles.beats}><figcaption>{asset.meter.numerator}/{asset.meter.denominator} · read the written beats</figcaption><div role="img" aria-label={`${asset.eventBeats.length} quarter-note slashes on beats ${asset.eventBeats.map(beat => beat + 1).join(", ")}.`} className={styles.beatBar}>{Array.from({ length: asset.meter.numerator }, (_, beat) => <span key={beat} aria-hidden="true"><small>{beat + 1}</small><strong>{asset.eventBeats.includes(beat) ? "╱" : "—"}</strong></span>)}</div><p className={styles.caption}>One stroke for each slash. Say the beat numbers evenly. This reading diagram does not measure your timing.</p></figure>;
+  return <figure className={styles.beats}><figcaption>{asset.meter.numerator}/{asset.meter.denominator} · read the written beats</figcaption><div role="img" aria-label={`${asset.eventBeats.length} quarter-note slashes on beats ${asset.eventBeats.map(beat => beat + 1).join(", ")}.`} className={styles.beatBar}>{Array.from({ length: asset.meter.numerator }, (_, beat) => <span key={beat} aria-hidden="true"><small>{beat + 1}</small><strong>{asset.eventBeats.includes(beat) ? "╱" : "—"}</strong></span>)}</div><p className={styles.caption}>One stroke for each slash. Say the beat numbers evenly.</p></figure>;
 }
 
 function SetupDiagram() {
   return <section className={styles.asset}><h3>Support the guitar. Free your fretting hand.</h3><div className={styles.setup}><div><strong>Body and thigh</strong><p>Rest the guitar body on your thigh and lightly against your torso.</p></div><div><strong>Picking forearm</strong><p>Let your forearm rest over the body edge without clamping your shoulder.</p></div><div><strong>Pick grip</strong><p>Meet the thumb pad with the side of a gently curled index finger. Leave a small pick tip showing.</p></div></div><p className={styles.caption}>Your fretting hand should be able to move without carrying the guitar.</p></section>;
 }
 
-function SingleStringRiff({ asset }: { asset: Extract<InstructionAsset, { kind: "riff" }> }) {
-  const sound = useReferenceSound();
-  return <section className={styles.asset}><h3>{asset.title}</h3><p className={styles.caption}>{asset.provenance}</p><pre className={styles.riffTab}>{asset.tabText}</pre><div className={styles.actions}>{asset.frets.map((fret, index) => <button className={styles.button} type="button" key={index} disabled={sound.playing} onClick={() => void sound.play(asset.midi[index])} aria-label={`Hear slot ${index + 1}, string ${asset.stringNumber}, fret ${fret}, ${noteName(asset.midi[index])}`}>{index + 1}. {fret === 0 ? "Open" : `Fret ${fret}`} · {noteName(asset.midi[index])}</button>)}</div><p>{asset.instruction}</p><SoundNote {...sound} /></section>;
+function SingleStringRiff({ asset, player = true }: { asset: Extract<InstructionAsset, { kind: "riff" }>; player?: boolean }) {
+  if (!player) return <section className={styles.asset}><h3>{asset.title}</h3><p className={styles.caption}>{asset.provenance}</p><pre className={styles.riffTab}>{asset.tabText}</pre><p>{asset.instruction}</p><p className={styles.caption}>Play it back in the exercise above.</p></section>;
+  return <section className={styles.asset}><h3>{asset.title}</h3><p className={styles.caption}>{asset.provenance}</p><TabPlayer title="Hear the riff" timeline={{ mode: "pitchSequence", bpm: 70, targets: asset.frets.map((fret, index) => ({ id: `r${index}`, beat: index, midi: asset.midi[index], guitarString: asset.stringNumber, fret })) }} /><p>{asset.instruction}</p><details><summary className={styles.caption}>Plain-text tab</summary><pre className={styles.riffTab}>{asset.tabText}</pre></details></section>;
 }
 
-export function LessonInstructionAssets({ assets, startCollapsed = false }: { assets: InstructionAsset[]; startCollapsed?: boolean }) {
+export function LessonInstructionAssets({ assets, startCollapsed = false, riffPlayer = true }: { assets: InstructionAsset[]; startCollapsed?: boolean; /** Off when the lesson exercise already has a tab player. */ riffPlayer?: boolean }) {
   if (assets.length === 0) return null;
   return <details className={styles.references} open={!startCollapsed}><summary>Lesson references · sounds and diagrams</summary><div className={styles.assetList}>{assets.map(asset => {
-    if (asset.kind === "riff") return <SingleStringRiff key={asset.id} asset={asset} />;
+    if (asset.kind === "riff") return <SingleStringRiff key={asset.id} asset={asset} player={riffPlayer} />;
     if (asset.kind === "strings") return <StringReferences key={asset.id} asset={asset} />;
     if (asset.kind === "pitchComparison") return <PitchComparison key={asset.id} asset={asset} />;
     if (asset.kind === "chord") return <ChordReference key={asset.id} asset={asset} />;
-    if (asset.kind === "rhythm") return <section key={asset.id} className={styles.asset}><BeatDiagram asset={asset} /></section>;
+    if (asset.kind === "rhythm") return <section key={asset.id} className={styles.asset}><BeatDiagram asset={asset} /><TabPlayer timeline={rhythmTimeline(asset)} title="Hear it, then tap along" /></section>;
     if (asset.id === "notation-legend") return <section key={asset.id} className={styles.asset}><TabDiagram /><p className={styles.caption}>In a chord box, X and O sit above the strings; dots show fretting fingers. Compare the chord and beat diagrams below.</p></section>;
     if (asset.id === "support-and-pick") return <SetupDiagram key={asset.id} />;
     if (asset.id === "tuner-directions") return <section key={asset.id} className={styles.asset}><h3>Tuning direction · string 5, A2</h3><div className={styles.setup}><div><strong>Below target</strong><p>Pitch is low. Make a small adjustment that raises it.</p></div><div><strong>In tune</strong><p>Check the string number and octave, then recheck your note.</p></div><div><strong>Above target</strong><p>Pitch is high. Make a small adjustment that lowers it.</p></div></div><p className={styles.caption}>Peg layouts differ. Follow the pitch change rather than a fixed clockwise direction.</p></section>;

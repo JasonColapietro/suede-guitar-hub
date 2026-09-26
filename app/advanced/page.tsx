@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LabIndex } from "@/components/advanced/LabIndex";
+import { PracticeStats } from "@/components/interactive/PracticeStats";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import learning from "@/components/learning/Learning.module.css";
@@ -27,6 +28,7 @@ export default function AdvancedLab() {
         <Link className={learning.secondary} href="/learn/guitar#stage-6">Stage 6 and 7 lessons</Link>
       </div>
       <p className={learning.small}>The coach listens through your microphone, so a quiet room works best. Nothing is recorded or uploaded, and results stay in this browser.</p>
+      <PracticeStats editable />
     </header>
     <LabIndex />
   </>;

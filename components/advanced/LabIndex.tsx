@@ -3,6 +3,8 @@ import Link from "next/link";
 import { drillHref, drillsForArea, SKILL_AREAS } from "@/lib/advanced/drills";
 import { useDrillProgress } from "./useDrillProgress";
 import styles from "./Advanced.module.css";
+import { StarRating } from "@/components/interactive/PracticeStats";
+import { starsForResult } from "@/lib/learning/rewards";
 
 /** Every drill, grouped by skill area, with this browser's saved results. */
 export function LabIndex() {
@@ -24,7 +26,7 @@ export function LabIndex() {
               <p>{drill.summary}</p>
               <span className={styles.meta}>
                 <span className={styles.tier} data-tier={drill.tier}>{drill.tier}</span>
-                {cleared ? <span className={styles.cleared}>✓ Cleared at {best.bpm} BPM</span> : best ? <span>Best {best.score}% at {best.bpm} BPM</span> : <span>{drill.spec.mode === "rhythm" ? "Timing" : "Pitch"} · goal {goal} BPM · {drill.minutes} min</span>}
+                {best ? <><StarRating stars={starsForResult(best, goal)} /><span>{cleared ? `Cleared at ${best.bpm} BPM` : `Best ${best.score}% at ${best.bpm} BPM`}</span></> : <span>{drill.spec.mode === "rhythm" ? "Timing" : "Pitch"} · goal {goal} BPM · {drill.minutes} min</span>}
               </span>
             </Link>
           </li>;

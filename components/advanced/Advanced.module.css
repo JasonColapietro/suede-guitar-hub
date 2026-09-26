@@ -32,6 +32,8 @@
 .session { display: grid; gap: 1rem; }
 .goal { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .5rem; background: #251152; color: #f7f3ee; border-radius: 1.1rem; padding: 1rem 1.2rem; }
 .goal .label { color: #c4b5fd; }
+.goal [role=img] span:not([class]) { color: #f5c451; }
+.goal [role=img] span[class] { color: rgba(255,255,255,.25); }
 .goal strong { font-size: .95rem; }
 .saved { background: #e4ebdf; color: #304c2c; padding: .9rem 1rem; border-radius: .75rem; line-height: 1.6; }
 .why { max-width: 70ch; margin: 2rem 0 1rem; }

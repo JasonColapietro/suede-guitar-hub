@@ -2,6 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { PracticeCoach } from "@/components/practice/PracticeCoach";
+import { TabPlayer } from "@/components/interactive/TabPlayer";
+import { StepCards } from "@/components/interactive/StepCards";
+import { PracticeStats, StarRating, usePracticeLog } from "@/components/interactive/PracticeStats";
+import { bestLessonStars, starsForResult } from "@/lib/learning/rewards";
 import { MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE, type Lesson, type LearningModule, type TrackId } from "@/lib/learning/curriculum";
 import { elapsedSeconds, type Assessment, type LessonRecord } from "@/lib/learning/progress";
 import { useLearningProgress, useReadingQuizProgress } from "./useLearningProgress";
@@ -22,6 +26,7 @@ export type { LessonInstructions } from "@/lib/learning/instructions";
 export function LessonSession({ track, lesson, module, instructions, vocalMaterial }: { track: TrackId; lesson: Lesson; module: LearningModule; instructions?: LessonInstructions; vocalMaterial?: VocalModuleMaterial }) {
   const access = useLearningAccess();
   const { progress, save, saveUnscored } = useLearningProgress(track);
+  const practiceLog = usePracticeLog();
   const reading = useReadingQuizProgress(track, lesson.id, instructions?.quiz);
   const currentReadingResult = instructions?.quiz && reading.currentAttempt ? readingQuizResult(instructions.quiz, reading.currentAttempt) : null;
   const [running, setRunning] = useState(false);
@@ -80,6 +85,7 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
   }
   function persist(record: LessonRecord, attemptId?: string, result?: PracticeResult) {
     const persisted = save(lesson.id, record, attemptId, result);
+    practiceLog.record(Math.max(30, record.practiceSeconds));
     setMessage(persisted ? "Saved in this browser." : "Saved for this open page only. Browser storage is unavailable, so this attempt may be lost when you close or reload the page.");
   }
   function saveAssessment(assessment: Assessment) {
@@ -109,15 +115,18 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
         entirely by a notice until a seven-box tuning form was ticked, so on a
         phone it looked like the exercise never loaded. */}
     {needsTuning && <details className={styles.panel}><summary className={styles.foldTitle}>Tune up first (optional)</summary><TuningGuide key={lesson.id} /></details>}
-    {coach && <section className={styles.exercise} aria-label="Exercise"><h2 className={styles.sectionTitle}>The exercise</h2><p className={styles.small}>Start in <strong>Practice</strong>: the coach waits for each note. Switch to <strong>Play</strong> for the full check at tempo.{requiresMeasuredCompletion ? ` Passing Play${completionMinimumBPM !== undefined ? ` at ${completionMinimumBPM} BPM` : ""} completes this lesson.` : ""}</p>{coach}</section>}
+    {coach && lesson.practiceSpec && <section className={styles.exercise} aria-label="Exercise"><h2 className={styles.sectionTitle}>The exercise</h2>
+      <p className={styles.small}><strong>1. Hear it.</strong> Play it back, loop the hard part, slow it down.</p>
+      <TabPlayer key={lesson.id} bestKey={lesson.practiceSpec.mode === "rhythm" ? `lesson:${lesson.id}` : undefined} timeline={lesson.practiceSpec} title={lesson.practiceSpec.mode === "rhythm" ? "The rhythm" : "The notes"} />
+      <p className={styles.small} style={{ marginTop: "1.25rem" }}><strong>2. Play it.</strong> Practice waits for each note. Play scores the full pass at tempo.{requiresMeasuredCompletion ? ` Passing Play${completionMinimumBPM !== undefined ? ` at ${completionMinimumBPM} BPM` : ""} completes this lesson.` : ""}</p>{coach}</section>}
     <div className={styles.lessonGrid}>
       <div>
         <section className={styles.panel}>
           <h2>{instructions ? "How to do it" : "Lesson outline"}</h2>
           {instructions ? <>
             <ul className={styles.steps}>{instructions.setup.map(step => <li key={step}>{step}</li>)}</ul>
-            <LessonInstructionAssets assets={instructions.assets.filter(asset => !isStageTwoAsset(asset))} startCollapsed={lesson.type === "checkpoint"} />
-            <ol className={styles.steps}>{instructions.steps.map(step => <li key={step.title}><strong>{step.title}</strong>{step.body}<p className={styles.check}>Look: {step.lookCheck}</p><p className={styles.check}>Listen: {step.listenCheck}</p></li>)}</ol>
+            <LessonInstructionAssets assets={instructions.assets.filter(asset => !isStageTwoAsset(asset))} startCollapsed={lesson.type === "checkpoint"} riffPlayer={!lesson.practiceSpec} />
+            <StepCards steps={instructions.steps} />
             {stageAssets.length > 0 && <StageTwoPractice lessonId={lesson.id} assets={stageAssets} checkpoint={lesson.type === "checkpoint"} onManualEvidenceChange={setManualEvidence} onStudyEvidenceChange={setStudyEvidence} />}
             <details className={styles.fold}><summary className={styles.foldTitle}>Practice plan · {instructions.practiceSegments.length} short blocks</summary><ol className={styles.practiceSegments}>{instructions.practiceSegments.map(segment => <li key={segment.instruction}><strong>{segment.seconds} sec</strong><span>{segment.instruction}</span></li>)}</ol></details>
             {instructions.quiz && <ReadingQuiz key={lesson.id} quiz={instructions.quiz} assets={instructions.assets} attempts={reading.attempts} currentAttempt={reading.currentAttempt} onStart={() => recordReadingAttempt(reading.start())} onAnswer={(questionId, optionIndex) => recordReadingAttempt(reading.answer(questionId, optionIndex))} storageWarning={reading.storageWarning} />}
@@ -139,6 +148,7 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
       <aside>
         <section id="practice-session" className={styles.panel} aria-label="Finish this lesson">
           <h2>{done ? "Lesson done ✓" : "Finish this lesson"}</h2>
+          {lesson.practiceSpec && bestLessonStars(progress.measuredAttempts ?? [], lesson.id) > 0 && <p className={styles.small}><StarRating stars={bestLessonStars(progress.measuredAttempts ?? [], lesson.id)} label="best saved result" /> Best saved result. Three stars is a pass{completionMinimumBPM !== undefined ? ` at ${completionMinimumBPM} BPM` : ""}.</p>}
           <p className={styles.small}>{instructions?.completion ?? module.promise}</p>
           {requiresMeasuredCompletion
             ? <p className={styles.small}>{done ? "Your passing Play check is saved." : `Pass the Play check${completionMinimumBPM !== undefined ? ` at ${completionMinimumBPM} BPM or faster` : ""} in the exercise above. It saves automatically when you press Save.`}</p>
@@ -157,10 +167,11 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
             {(needsManual || needsStudy) && recordedPracticeSeconds > 0 && <p className={styles.small}>Your saved exercise already records {Math.floor(recordedPracticeSeconds / 60)} min {recordedPracticeSeconds % 60} sec, which is what gets saved.</p>}
           </details>
           {message && <p className={styles.saved} role="status">{message}</p>}
+          <PracticeStats editable />
           {instructions && <p className={`${styles.small} ${styles.muted}`}>What this shows: {instructions.evidence} It does not assess: {instructions.limitation}</p>}
           {!lesson.practiceSpec && !instructions?.quiz && <p className={`${styles.small} ${styles.muted}`}>Your own call. Pitch, timing and tone are not scored in this lesson.</p>}
         </section>
-        {previous && <section className={styles.panel}><h2>Last saved</h2><p>{previous.assessment === "ready" ? "Done" : "Marked to revisit"}</p><p className={styles.small}>{previous.source === "measured" ? `Microphone result: ${previous.score}%${previous.bpm !== undefined ? ` at ${Math.round(previous.bpm)} BPM` : " on this exercise"}.` : previous.source === "readingQuiz" ? "Reading check saved. No microphone score." : "Self-reported. No automatic score."}</p>{previous.completionMinimumBPM !== undefined && previous.bpm !== undefined && previous.bpm < previous.completionMinimumBPM && <p className={styles.small}>Practice score saved. This checkpoint requires at least {previous.completionMinimumBPM} BPM.</p>}</section>}
+        {previous && <section className={styles.panel}><h2>Last saved</h2><p>{previous.assessment === "ready" ? "Done" : "Marked to revisit"}{previous.source === "measured" && previous.score !== null && <> · <StarRating stars={starsForResult({ score: previous.score, passed: previous.assessment === "ready", bpm: previous.bpm ?? 0 }, previous.completionMinimumBPM)} /></>}</p><p className={styles.small}>{previous.source === "measured" ? `Microphone result: ${previous.score}%${previous.bpm !== undefined ? ` at ${Math.round(previous.bpm)} BPM` : " on this exercise"}.` : previous.source === "readingQuiz" ? "Reading check saved. No microphone score." : "Self-reported. No automatic score."}</p>{previous.completionMinimumBPM !== undefined && previous.bpm !== undefined && previous.bpm < previous.completionMinimumBPM && <p className={styles.small}>Practice score saved. This checkpoint requires at least {previous.completionMinimumBPM} BPM.</p>}</section>}
         {(progress.measuredAttempts?.filter(attempt => attempt.lessonId === lesson.id).length ?? 0) > 0 && <details className={styles.panel}><summary className={styles.foldTitle}>Saved microphone attempts</summary><ol className={styles.steps}>{progress.measuredAttempts!.filter(attempt => attempt.lessonId === lesson.id).slice().reverse().map(attempt => <li key={attempt.id}>{attempt.record.score}%{attempt.record.bpm !== undefined ? ` at ${attempt.record.bpm} BPM` : ""}<p className={styles.small}>{new Date(attempt.record.updatedAt).toLocaleString()}{lesson.practiceSpec?.revision !== undefined && attempt.record.practiceSpecRevision !== lesson.practiceSpec.revision ? " · Earlier exercise revision; retained as practice evidence" : ""}</p></li>)}</ol></details>}
         <Link className={styles.secondary} href={`/learn/${track}`}>Back to all lessons</Link>
       </aside>

@@ -6,6 +6,8 @@ import { startRhythmPractice, type RhythmPlayback } from '@/lib/audio/practice-p
 import { guitarPractice, guitarCountIn, FreshPitchGate, GuitarRearticulationGate, RhythmObservationWindow } from '@/lib/audio/guitar-practice';
 import { ActivePracticeClock, scorePractice, transportAt, validSpec, type Observation, type PracticeResult, type PracticeSpec } from '@/lib/audio/practice';
 import styles from './PracticeCoach.module.css';
+import { StarRating } from '@/components/interactive/PracticeStats';
+import { starsForResult } from '@/lib/learning/rewards';
 import { recommendPracticeTempo, type TempoAttempt } from '@/lib/audio/practice-tempo';
 import { captureLagSec, practiceScoreLagSec } from '@/lib/audio/latency';
 import { practiceSelection, targetMap, rhythmCueAt } from '@/lib/audio/practice-selection';
@@ -392,6 +394,7 @@ export function PracticeCoach({ spec: authoredSpec, track, onComplete, onUnscore
     <p role="status" className={styles.status}>{phase === 'counting' ? `Count in: ${count}. ${message}` : message || (phase === 'running' ? (track === 'guitar' && spec.mode === 'rhythm' && mode === 'practice' ? 'Microphone off · follow the pulse.' : 'Listening — keep playing.') : phase === 'requesting' ? (track === 'guitar' && spec.mode === 'rhythm' && mode === 'practice' ? 'Preparing the practice pulse…' : 'Waiting for microphone permission…') : 'Tune first. Audio stays on this device.')}</p>
     {phase === 'result' && result && <div className={styles.result}>
       <h3>{result.score === null ? 'No reliable result' : `${result.noteScore !== null ? 'Pitch' : 'Timing'}: ${result.score}%`}</h3>
+      {result.score !== null && <p><StarRating stars={starsForResult(result, authoredSpec.completionMinimumBPM)} label={result.passed ? 'passed' : 'not yet passed'} /></p>}
       <p>{result.score === null ? 'The signal was too limited to grade. Check your setup and try again.' : `${result.matchedTargets} of ${result.targetCount} targets matched at ${Math.round(result.bpm)} BPM. ${result.passed ? 'You can continue or repeat for consistency.' : result.completionMinimumBPM !== undefined && result.bpm < result.completionMinimumBPM ? `This score is practice evidence. To pass this checkpoint, play at least ${result.completionMinimumBPM} BPM with the required accuracy.` : 'Repeat a smaller section in Practice, then try the full check again.'}`}</p>
       {result.disposition === 'scored' && onComplete && <button disabled={resultSaved} onClick={() => {
         const id = resultId.current;
