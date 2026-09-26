@@ -9,6 +9,8 @@ const CONTENT_SECURITY_POLICY = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "img-src 'self' data: blob:",
+  // The song slow-downer plays a file the visitor picks, from a blob: URL.
+  "media-src 'self' blob:",
   "object-src 'none'",
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",

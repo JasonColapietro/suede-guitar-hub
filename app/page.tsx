@@ -5,6 +5,7 @@ import ApplyForm from "@/components/ApplyForm";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import LevelPicker from "@/components/LevelPicker";
+import ToneTeaser from "@/components/tone/ToneTeaser";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
@@ -228,6 +229,9 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        {/* Tone course and free field guides */}
+        <ToneTeaser />
 
         {/* Founding room program */}
         <section id="program" className="mx-auto max-w-6xl px-6 pb-24">

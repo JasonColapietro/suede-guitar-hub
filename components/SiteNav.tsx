@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/learn/guitar", label: "Lessons" },
   { href: "/advanced", label: "Advanced" },
   { href: "/practice", label: "Practice" },
+  { href: "/tone", label: "Tone" },
   { href: "/tools", label: "Tools" },
   { href: "/guides", label: "Guides" },
 ] as const;

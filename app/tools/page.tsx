@@ -109,6 +109,30 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
     audience:
       "Players who can say how often they practised but cannot show whether the passage, transition, or song they chose is actually moving.",
   },
+  "/pedal-lab": {
+    purpose:
+      "A synthesized guitar riff runs through six pedal families, an amp and a speaker cabinet. You switch pedals on, reorder them and turn the knobs, and it explains in plain words what your chosen order is doing to the sound.",
+    audience:
+      "Players building their first pedalboard, and anyone who has heard that pedal order matters and wants to hear why before buying anything.",
+  },
+  "/eq-ear-trainer": {
+    purpose:
+      "It boosts one frequency band on a guitar riff. You flip between flat and boosted, name the band, and it tells you what that band is called in players' language, keeping score and your best streak.",
+    audience:
+      "Players who turn amp knobs until something sounds less wrong, and anyone who records and wants to fix a muddy or harsh guitar faster.",
+  },
+  "/slow-down": {
+    purpose:
+      "You load a song file from your device. It plays at 25 to 150 percent speed without changing pitch, loops any section, and can raise the speed a step after every few passes until you reach the target.",
+    audience:
+      "Players learning a solo or fast passage by ear, who need to hear it slowly and repeat two bars fifty times without touching the mouse.",
+  },
+  "/fretboard": {
+    purpose:
+      "You pick a key, a scale, mode or arpeggio, and a tuning. It shows every position up to the 15th fret as notes or scale degrees, plays any fret you tap, and quizzes you on note names.",
+    audience:
+      "Players stuck in one pentatonic box, and anyone who knows shapes but cannot say which note they are playing.",
+  },
 };
 
 /**
@@ -155,6 +179,25 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
     href: "/log",
     sentence: "I finished the session and need to know whether the work is moving.",
     stage: "Prove and correct. It carries the evidence into the next diagnosis.",
+  },  {
+    href: "/slow-down",
+    sentence: "I am learning a part by ear and it goes past too fast to hear.",
+    stage: "Isolate. Slow it, loop it, then climb back to tempo.",
+  },
+  {
+    href: "/fretboard",
+    sentence: "I only know one scale shape and get lost outside it.",
+    stage: "Prescribe. Map the neck before soloing across it.",
+  },
+  {
+    href: "/pedal-lab",
+    sentence: "My tone is not right and I do not know which part of the rig to blame.",
+    stage: "Diagnose the sound. Hear each pedal and the order it sits in.",
+  },
+  {
+    href: "/eq-ear-trainer",
+    sentence: "I cannot tell whether my tone needs less mud or more bite.",
+    stage: "Train the ear that every other tone decision depends on.",
   },
 ];
 

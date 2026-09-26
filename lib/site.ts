@@ -1,3 +1,5 @@
+import { TONE_LESSONS, toneHref } from "./tone/course.ts";
+
 /**
  * The single route registry for guitarhub.org.
  *
@@ -125,6 +127,34 @@ export const TOOLS: readonly SiteEntry[] = [
     blurb:
       "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
     lastModified: "2026-08-30",
+  },
+  {
+    href: "/pedal-lab",
+    title: "Pedal Lab",
+    blurb:
+      "Switch on six pedal families, reorder them into an amp and speaker, and hear what every choice does to the sound.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/eq-ear-trainer",
+    title: "EQ ear trainer",
+    blurb:
+      "Hear one band boosted on a guitar riff and name it, until mud, honk and bite are sounds you recognize instantly.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/slow-down",
+    title: "Song slow-downer and looper",
+    blurb:
+      "Slow a song from your device without changing pitch, loop the hard bars, and climb back to tempo with the speed trainer.",
+    lastModified: "2026-09-26",
+  },
+  {
+    href: "/fretboard",
+    title: "Fretboard explorer",
+    blurb:
+      "Any scale, mode or arpeggio across the whole neck in five tunings, with tap-to-hear notes and a note-naming quiz.",
+    lastModified: "2026-09-26",
   },
 ];
 
@@ -261,6 +291,13 @@ export const RESOURCES: readonly SiteEntry[] = [
  */
 export const HUBS: readonly SiteEntry[] = [
   {
+    href: "/tone",
+    title: "The Tone course",
+    blurb:
+      "Free lessons on hands, pickups, amps, pedals, pedal order, power, EQ and recording, with tools to hear each idea and free PDF guides.",
+    lastModified: "2026-09-26",
+  },
+  {
     href: "/tools",
     title: "Free practice tools",
     blurb:
@@ -340,11 +377,23 @@ export const LEARN: readonly SiteEntry[] = [
   },
 ];
 
+/**
+ * The Tone course lessons, read from the course data so a lesson added there is
+ * registered, footered and sitemapped without a second edit.
+ */
+export const TONE: readonly SiteEntry[] = TONE_LESSONS.map((lesson) => ({
+  href: toneHref(lesson.slug),
+  title: lesson.title,
+  blurb: lesson.description,
+  lastModified: lesson.lastModified,
+}));
+
 export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
   HOME,
   ...LEARN,
   ...HUBS,
   ...TOOLS,
+  ...TONE,
   ...GUIDES,
   ...RESOURCES,
   ABOUT,

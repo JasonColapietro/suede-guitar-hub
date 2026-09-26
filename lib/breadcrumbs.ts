@@ -28,9 +28,11 @@ export type Crumb = {
  * form and rebuilding the absolute one in `breadcrumbList` keeps `item` from
  * being handed an origin twice.
  */
-export function crumbTrail(name: string, href: string): readonly Crumb[] {
+export function crumbTrail(name: string, href: string, parent?: Crumb): readonly Crumb[] {
   return [
     { name: SITE_NAME, href: "/" },
+    // A page one level down, such as a lesson inside a course, names its hub.
+    ...(parent ? [{ name: parent.name, href: relative(parent.href) }] : []),
     { name, href: relative(href) },
   ];
 }

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import GuideShelf from "@/components/tone/GuideShelf";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import {
   GUIDES,
@@ -407,6 +408,20 @@ export default function GuidesPage() {
             ))}
           </ul>
         </nav>
+
+        <section id="free-pdfs" className="mx-auto max-w-6xl scroll-mt-28 px-6 pt-16">
+          <div className="rounded-[2rem] bg-cream-soft px-6 py-14 md:px-12">
+            <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-violet">Free printable PDFs</p>
+            <h2 className="mt-3 text-center text-3xl text-indigo-deep md:text-4xl">
+              Four field guides.{" "}<em className="font-display italic">Keep them by the amp.</em>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-ink/70">
+              Tone, pedalboards, amp settings and the fretboard. No email and no account. For the full lessons behind them, see the{" "}
+              <Link href="/tone" className="underline underline-offset-4">Tone course</Link>.
+            </p>
+            <div className="mt-12"><GuideShelf /></div>
+          </div>
+        </section>
 
         <section
           id="which-one"

@@ -1,3 +1,16 @@
+# 2026-09-26: Tone course, four pro tools, free PDF field guides
+
+## Shipped
+- **Tone course** (`/tone`, `/tone/[slug]`): nine illustrated lessons on hands, pickups, amps, pedals, signal chain, power and noise, EQ, recording, and tone recipes. Each lesson opens with a curiosity hook, has a myth-vs-truth box, a "try it now" link into a tool, and a free PDF to go with it. Content lives in `lib/tone/course.ts`.
+- **New tools** (in `TOOLS`, so the homepage, /tools, footer and sitemap pick them up): Pedal Lab (`/pedal-lab`), EQ Ear Trainer (`/eq-ear-trainer`), Song Slow-Downer and Looper with speed trainer (`/slow-down`), Fretboard Explorer (`/fretboard`). All synthesize sound or read a local file; no microphone, nothing uploaded.
+- **Free PDF field guides** in `public/guides/`: Tone Field Manual, Pedalboard Blueprint, Amp Recipes, Fretboard Atlas. Rebuild with `node scripts/build-field-guides.mjs` (needs Chrome/Chromium). The book covers on the site (`components/tone/BookCover.tsx`) are illustrations only and do not depict the PDF pages.
+- **Bait placement:** an illustrated "Why does your guitar sound worse than the record?" section with the book shelf on the homepage, a PDF shelf on `/guides`, "Tone" in the main nav, and a Tone course column in the footer.
+- CSP gained `media-src 'self' blob:` so the slow-downer can play a file the visitor picks.
+
+## Next steps for Jason
+- Try the Pedal Lab and EQ trainer on a phone with headphones; speakers barely reproduce the lowest bands.
+- If you want real photography or AI imagery for the lesson cards, swap `ToneArt` for images; the SVGs are placeholders that already ship.
+
 # 2026-09-25: Mobile exercise fix, Advanced Lab, simpler site
 
 ## Shipped

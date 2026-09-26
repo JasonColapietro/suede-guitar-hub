@@ -5,6 +5,7 @@ import {
   LEGAL,
   RESOURCES,
   STRUMLY,
+  TONE,
   TOOLS,
   isInternalHref,
   type SiteEntry,
@@ -64,7 +65,7 @@ function InternalColumn({
   heading: string;
   entries: readonly SiteEntry[];
 }) {
-  const labelId = `footer-${heading.toLowerCase()}`;
+  const labelId = `footer-${heading.toLowerCase().replace(/\s+/g, "-")}`;
   return (
     <div>
       <p id={labelId} className={COLUMN_HEADING}>
@@ -87,8 +88,9 @@ export default function SiteFooter() {
   return (
     <footer className="border-t border-ink/5 bg-cream">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <InternalColumn heading="Tools" entries={TOOLS} />
+          <InternalColumn heading="Tone course" entries={TONE} />
           <InternalColumn heading="Guides" entries={GUIDES} />
           <InternalColumn heading="Resources" entries={RESOURCES} />
           <div>
