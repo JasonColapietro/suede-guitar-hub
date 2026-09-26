@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { FieldGuideDownload } from "@/components/FieldGuides";
 import type { Crumb } from "@/lib/breadcrumbs";
 import { isInternalHref } from "@/lib/site";
 
@@ -51,6 +52,11 @@ export type ArticleProps = {
    */
   crumbs?: readonly Crumb[];
   showPracticeCallToAction?: boolean;
+  /**
+   * This page's own route. When a Field Guide PDF is made from it
+   * (lib/field-guides.ts), a download card appears under the hero.
+   */
+  guideHref?: string;
 };
 
 const PROSE = [
@@ -118,6 +124,7 @@ export default function Article({
   relatedTitle = "Where to go next",
   showPracticeCallToAction = true,
   crumbs,
+  guideHref,
 }: ArticleProps) {
   return (
     <>
@@ -144,11 +151,13 @@ export default function Article({
             </div>
           </section>
 
+          {guideHref ? <FieldGuideDownload href={guideHref} /> : null}
+
           <div className={PROSE}>{children}</div>
         </article>
 
         {related && related.length > 0 ? (
-          <section className="mx-auto max-w-4xl px-6 pb-20">
+          <section data-print="hide" className="mx-auto max-w-4xl px-6 pb-20">
             <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
               {relatedTitle}
             </h2>
@@ -162,7 +171,7 @@ export default function Article({
           </section>
         ) : null}
 
-        {showPracticeCallToAction ? <section className="px-3 pb-3">
+        {showPracticeCallToAction ? <section data-print="hide" className="px-3 pb-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center md:py-24">
             <h2 className="mx-auto max-w-2xl text-4xl text-cream md:text-5xl">
               Put this to work{" "}

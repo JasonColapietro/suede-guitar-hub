@@ -109,6 +109,7 @@ export default function DeliberatePracticeGuitarPage() {
       />
 
       <Article
+        guideHref="/deliberate-practice-guitar"
         title={
           <>
             Deliberate practice,{" "}

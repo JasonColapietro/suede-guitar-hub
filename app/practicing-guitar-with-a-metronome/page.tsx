@@ -113,6 +113,7 @@ export default function MetronomePage() {
       />
 
       <Article
+        guideHref="/practicing-guitar-with-a-metronome"
         eyebrow="Timing and tempo"
         title={
           <>

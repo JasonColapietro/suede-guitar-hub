@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FieldGuideShelf } from "@/components/FieldGuides";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
@@ -228,6 +229,13 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        <FieldGuideShelf
+          title="Grab a field guide"
+          intro="Every practice guide as a free PDF, from the method to clean tone. Pick the problem you have this week and keep the guide on your phone or the music stand."
+          hrefs={["/guitar-practice-plateau", "/why-cant-i-play-guitar-fast", "/how-to-memorize-songs-on-guitar", "/resources/how-to-practice-clean-guitar-tone", "/guitar-practice-routine-intermediate"]}
+          moreHref="/guides#field-guides"
+        />
 
         {/* Founding room program */}
         <section id="program" className="mx-auto max-w-6xl px-6 pb-24">

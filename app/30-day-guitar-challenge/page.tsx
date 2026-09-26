@@ -106,6 +106,7 @@ export default function ThirtyDayGuitarChallengePage() {
       />
 
       <Article
+        guideHref="/30-day-guitar-challenge"
         title={
           <>
             The 30-day guitar challenge{" "}

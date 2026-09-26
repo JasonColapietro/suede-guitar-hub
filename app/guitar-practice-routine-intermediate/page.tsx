@@ -107,6 +107,7 @@ export default function IntermediatePracticeRoutinePage() {
       />
 
       <Article
+        guideHref="/guitar-practice-routine-intermediate"
         title={
           <>
             An intermediate guitar practice routine{" "}

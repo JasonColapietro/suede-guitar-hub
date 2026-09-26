@@ -72,6 +72,7 @@ export default function CleanGuitarTonePage() {
       />
 
       <Article
+        guideHref="/resources/how-to-practice-clean-guitar-tone"
         eyebrow="Print the Quiet field guide"
         title={
           <>
