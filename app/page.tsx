@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FieldGuideShelf } from "@/components/FieldGuides";
+import { BookShelf } from "@/components/BookShelf";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
@@ -366,6 +367,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <BookShelf />
 
         {/* Insights */}
         <section id="insights" className="mx-auto max-w-6xl px-6 pb-24">
