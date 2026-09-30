@@ -4,6 +4,7 @@ import Article from "@/components/Article";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { GUIDES, LEARN, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
@@ -21,6 +22,7 @@ const DESCRIPTION =
   "GuitarHub is the Suede Labs guitar lessons site: a step-by-step curriculum, a practice method and free browser tools. Who built it and how it fits with Strumly.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/about"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

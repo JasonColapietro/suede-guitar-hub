@@ -6,12 +6,14 @@ import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import learning from "@/components/learning/Learning.module.css";
 import styles from "@/components/advanced/Advanced.module.css";
+import { keywordsFor } from "@/lib/keywords";
 
 const url = `${SITE_URL}/advanced`;
 const title = "Advanced Guitar Drills with Live Feedback | GuitarHub Advanced Lab";
 const description = `${DRILLS.length} free scored drills for experienced guitarists: legato, sweeps, bends, modes, guide tones, syncopated sixteenths, ear training, fretboard, improvisation, etudes and tone.`;
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/advanced"),
   title, description, alternates: { canonical: url },
   openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
   twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },

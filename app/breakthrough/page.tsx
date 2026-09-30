@@ -4,6 +4,7 @@ import BreakthroughPlanner from "@/components/BreakthroughPlanner";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { OG_IMAGE } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/breakthrough";
 
@@ -18,6 +19,7 @@ const DESCRIPTION =
  * `og:url` as the home page.
  */
 export const metadata: Metadata = {
+  keywords: keywordsFor("/breakthrough"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
 import { OG_IMAGE, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/print-the-quiet`;
 const PUBLISHED = "2026-08-31";
@@ -9,6 +10,7 @@ const DESCRIPTION =
   "Three practical GuitarHub guides on clean tone, Jeff Buckley's Hallelujah and room sound, adapted from Jason Colapietro's Print the Quiet essays.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/resources/print-the-quiet"),
   title: TITLE,
   description: DESCRIPTION,
   authors: [{ name: "Jason Colapietro", url: "https://suedeai.ai/founder" }],

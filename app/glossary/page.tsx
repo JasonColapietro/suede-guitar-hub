@@ -13,6 +13,7 @@ import {
   type GlossaryTerm,
 } from "@/lib/glossary";
 import { HUBS, OG_IMAGE, STRUMLY } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 /**
  * The shared vocabulary, rendered from `contracts/glossary.json`.
@@ -43,6 +44,7 @@ const DESCRIPTION =
   "The guitar vocabulary defined in one sentence each, and every voice and music term linked to its definition in Suede Sing. Free, with the page where each word is used.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/glossary"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

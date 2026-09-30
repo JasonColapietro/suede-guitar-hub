@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { keywordsFor } from "@/lib/keywords";
 
 const description = "How GuitarHub handles microphone input, local learning progress, optional account sync, App Store purchases, and messages you send us.";
 export const metadata: Metadata = {
+  keywords: keywordsFor("/privacy"),
   title: "Privacy Policy | GuitarHub",
   description,
   alternates: { canonical: "https://guitarhub.org/privacy" },

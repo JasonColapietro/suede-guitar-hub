@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { APP_STORE } from "@/lib/site";
 import JsClassMarker from "@/components/JsClassMarker";
+import { keywordsFor } from "@/lib/keywords";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -16,6 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/"),
   metadataBase: new URL("https://guitarhub.org"),
   icons: {
     icon: [

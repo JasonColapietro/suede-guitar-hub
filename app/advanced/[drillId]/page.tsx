@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { DrillSession } from "@/components/advanced/DrillSession";
 import { DRILLS, drillHref, getDrill, skillArea } from "@/lib/advanced/drills";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { drillKeywords } from "@/lib/keywords";
 import learning from "@/components/learning/Learning.module.css";
 import styles from "@/components/advanced/Advanced.module.css";
 
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const title = `${drill.title}: ${skillArea(drill.area).name} Drill | GuitarHub Advanced Lab`;
   return {
     title, description: drill.summary, alternates: { canonical: url },
+    keywords: drillKeywords(drill.title, skillArea(drill.area).name),
     openGraph: { title, description: drill.summary, url, siteName: "GuitarHub", type: "article", images: [OG_IMAGE] },
     twitter: { card: "summary_large_image", title, description: drill.summary, images: [OG_IMAGE.url] },
   };

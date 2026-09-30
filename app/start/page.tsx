@@ -3,11 +3,13 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import LevelPicker from "@/components/LevelPicker";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const url = `${SITE_URL}/start`;
 const title = "Find Your Guitar Level | GuitarHub";
 const description = "New to guitar, comfortable with open chords, or already advanced? Pick the one that sounds like you and start at the right lesson.";
 export const metadata: Metadata = {
+  keywords: keywordsFor("/start"),
   title, description, alternates: { canonical: url },
   openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
   twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },

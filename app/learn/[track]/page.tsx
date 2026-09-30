@@ -4,6 +4,7 @@ import Link from "next/link";
 import { isTrackId, trackNames } from "@/lib/learning/curriculum";
 import { LearningPath } from "@/components/learning/LearningPath";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { trackKeywords } from "@/lib/keywords";
 import styles from "@/components/learning/Learning.module.css";
 import { FieldGuideShelf } from "@/components/FieldGuides";
 // Voice is not served here: /learn/voice redirects to the course on Suede Sing
@@ -35,6 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ track: st
   return {
     title,
     description,
+    keywords: trackKeywords(track),
     alternates: { canonical },
     openGraph: {
       title,

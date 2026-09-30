@@ -51,10 +51,18 @@ test("keeps the adaptations human-first and free of em dashes", () => {
       /—/,
       `${href} should use punctuation that survives the house copy pass`,
     );
+    // Keywords are allowed only as the bounded, centrally reviewed list in
+    // lib/keywords.ts (5-12 terms, see tests/meta-keywords.test.ts), never as
+    // an inline, hand-stuffed array on the page.
     assert.doesNotMatch(
       source,
-      /keywords\s*:/,
-      `${href} should not ship a keyword-stuffing metadata field`,
+      /keywords\s*:\s*\[/,
+      `${href} should not ship an inline keyword-stuffing metadata field`,
+    );
+    assert.match(
+      source,
+      new RegExp(`keywords: keywordsFor\\("${href}"\\)`),
+      `${href} should take its keywords from lib/keywords.ts`,
     );
   }
 });

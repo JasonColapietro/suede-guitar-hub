@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
 import { OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
+import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/recording-guitar-room-sound`;
 const PUBLISHED = "2026-08-31";
@@ -9,6 +10,7 @@ const DESCRIPTION =
   "A practical guitar room-sound experiment comparing close, distant and simulated ambience while keeping the performance and playback level controlled.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/resources/recording-guitar-room-sound"),
   title: TITLE,
   description: DESCRIPTION,
   authors: [{ name: "Jason Colapietro", url: "https://suedeai.ai/founder" }],
@@ -53,6 +55,7 @@ const JSON_LD = {
   "@id": `${CANONICAL}#article`,
   headline: TITLE,
   description: DESCRIPTION,
+  keywords: keywordsText("/resources/recording-guitar-room-sound"),
   image: `${SITE_URL}/opengraph-image`,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,

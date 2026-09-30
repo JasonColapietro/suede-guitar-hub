@@ -4,6 +4,7 @@ import SessionBuilder from "@/components/SessionBuilder";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/session`;
 const PUBLISHED = "2026-08-29";
@@ -13,6 +14,7 @@ const DESCRIPTION =
   "Enter the minutes you actually have and the one thing you are fixing. Get a practice session split into timed blocks that add up to exactly that length.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/session"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

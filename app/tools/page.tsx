@@ -4,6 +4,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { keywordsFor } from "@/lib/keywords";
 import {
   GUIDES,
   OG_IMAGE,
@@ -28,6 +29,7 @@ const DESCRIPTION =
   "The free guitar practice tools on GuitarHub in one place: what each one is for, who it helps, and why they run in your browser with no account.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/tools"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

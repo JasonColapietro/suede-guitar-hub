@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/faq`;
 
@@ -20,6 +21,7 @@ const DESCRIPTION =
   "Straight answers about GuitarHub: what it is and is not, whether it is free, whether you need an account, where your data lives, and what the room is.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/faq"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {
