@@ -4,8 +4,10 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import TempoLadder from "@/components/TempoLadder";
 import { GUIDES, OG_IMAGE, STRUMLY, TOOLS } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/tempo"),
   title: "Tempo Ladder Builder | GuitarHub",
   description:
     "Turn one stuck passage into a tempo ladder: a proven starting speed, capped steps, hold rungs, a back-off session, and a target you can record.",

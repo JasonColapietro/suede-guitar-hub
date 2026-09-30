@@ -5,8 +5,10 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { DIAGNOSTIC_BLOCKERS, DIAGNOSTIC_QUESTIONS } from "@/lib/diagnose";
 import { OG_IMAGE } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/diagnose"),
   title: "Practice Plateau Diagnostic | GuitarHub",
   description:
     "Answer nine questions about how you actually practice guitar and find the one habit holding your progress. Free, no account, stays in your browser.",

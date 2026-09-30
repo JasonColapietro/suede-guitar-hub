@@ -4,6 +4,7 @@ import Readiness from "@/components/Readiness";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/readiness`;
 const PUBLISHED = "2026-08-29";
@@ -13,6 +14,7 @@ const DESCRIPTION =
   "Score a guitar song against ten checks that decide whether it survives outside practice conditions, then get the single highest-leverage thing to fix.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/readiness"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

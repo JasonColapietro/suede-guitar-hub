@@ -5,6 +5,7 @@ import { accessibleLessonIds, guestLearningAccess, isLessonReady } from "@/lib/l
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/learn`;
 const TITLE = "Learn Guitar and Voice Online: Free First Lessons | GuitarHub";
@@ -22,6 +23,7 @@ const DESCRIPTION =
  * lib/site.ts.
  */
 export const metadata: Metadata = {
+  keywords: keywordsFor("/learn"),
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: CANONICAL },

@@ -7,6 +7,7 @@ import { Metronome } from "@/components/practice/Metronome";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import learningStyles from "@/components/learning/Learning.module.css";
 import styles from "@/components/practice/PracticeTools.module.css";
+import { keywordsFor } from "@/lib/keywords";
 
 const title = "Free Guitar Tuner and Metronome | GuitarHub";
 const description = "Tune your guitar one string at a time, hear standard tuning references, and practice with a steady four-beat metronome. Free in your browser, with no account.";
@@ -18,6 +19,7 @@ const application = {
   isAccessibleForFree: true, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 export const metadata: Metadata = {
+  keywords: keywordsFor("/practice"),
   title, description, alternates: { canonical: url },
   openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
   twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },

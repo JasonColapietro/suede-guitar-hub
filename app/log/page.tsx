@@ -4,6 +4,7 @@ import PracticeLog from "@/components/PracticeLog";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/log`;
 const PUBLISHED = "2026-08-29";
@@ -13,6 +14,7 @@ const DESCRIPTION =
   "Log one line per guitar session — the date, the focus, and the tempo or pass rate you hit — then see what actually moved. No streaks, no account, no upload.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/log"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

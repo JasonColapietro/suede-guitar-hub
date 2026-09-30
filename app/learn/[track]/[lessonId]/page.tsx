@@ -13,6 +13,7 @@ import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
 import { LessonSession } from "@/components/learning/LessonSession";
 import { vocalMaterialForModule } from "@/lib/learning/vocal-material";
 import styles from "@/components/learning/Learning.module.css";
+import { lessonKeywords } from "@/lib/keywords";
 type Params = { track: string; lessonId: string };
 // Voice lessons redirect to Suede Sing (lib/voice-redirects.ts); only guitar is generated.
 export function generateStaticParams() { return allLessons("guitar").map(({ lesson }) => ({ track: "guitar", lessonId: lesson.id })); }
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!isTrackId(track)) return {};
   const entry = getLesson(track, lessonId);
   if (!entry) return {};
-  return { title: `${entry.lesson.title} | GuitarHub ${trackNames[track]}`, description: entry.lesson.summary, alternates: { canonical: lessonHref(track, lessonId) }, // Indexable when a visitor can actually read it: ready, and either the
+  return { title: `${entry.lesson.title} | GuitarHub ${trackNames[track]}`, description: entry.lesson.summary, keywords: lessonKeywords(track, entry.lesson.title, entry.module.name), alternates: { canonical: lessonHref(track, lessonId) }, // Indexable when a visitor can actually read it: ready, and either the
   // sampler or a level the catalog declares free. Keyed to isModuleAvailable
   // alone, twenty-one readable guitar lessons were noindex.
   robots: { index: isLessonReady(track, lessonId) && (isModuleAvailable(track, entry.module.id) || isFreeModule(track, entry.module.id)), follow: true } };

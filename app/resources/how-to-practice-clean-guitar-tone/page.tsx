@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
 import { OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
+import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/how-to-practice-clean-guitar-tone`;
 const PUBLISHED = "2026-08-31";
@@ -10,6 +11,7 @@ const DESCRIPTION =
   "A seven-day clean guitar tone test for attack, muting, dynamics and edge of breakup, using matched recordings instead of preset collecting.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/resources/how-to-practice-clean-guitar-tone"),
   title: TITLE,
   description: DESCRIPTION,
   authors: [{ name: "Jason Colapietro", url: "https://suedeai.ai/founder" }],
@@ -54,6 +56,7 @@ const JSON_LD = {
   "@id": `${CANONICAL}#article`,
   headline: TITLE,
   description: DESCRIPTION,
+  keywords: keywordsText("/resources/how-to-practice-clean-guitar-tone"),
   image: `${SITE_URL}/opengraph-image`,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
 import { OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
+import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/nam-a2-open-tone-format`;
 const PUBLISHED = "2026-08-31";
@@ -10,6 +11,7 @@ const DESCRIPTION =
   "NAM A2 makes neural amp captures more efficient and portable. See what Full and Lite mean, where compatibility breaks, and why provenance matters.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/resources/nam-a2-open-tone-format"),
   title: TITLE,
   description: DESCRIPTION,
   authors: [{ name: "Jason Colapietro", url: "https://suedeai.ai/founder" }],
@@ -57,6 +59,7 @@ const JSON_LD = {
   "@id": `${CANONICAL}#article`,
   headline: TITLE,
   description: DESCRIPTION,
+  keywords: keywordsText("/resources/nam-a2-open-tone-format"),
   image: `${SITE_URL}/opengraph-image`,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,

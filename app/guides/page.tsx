@@ -6,6 +6,7 @@ import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { FieldGuideShelf } from "@/components/FieldGuides";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { keywordsFor } from "@/lib/keywords";
 import {
   GUIDES,
   OG_IMAGE,
@@ -28,6 +29,7 @@ const DESCRIPTION =
   "Every GuitarHub practice guide in one place, grouped by the problem it solves: learning the method, diagnosing a plateau, building the week, raising a ceiling.";
 
 export const metadata: Metadata = {
+  keywords: keywordsFor("/guides"),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: {

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { keywordsFor } from "@/lib/keywords";
 
 const description = "Terms for using GuitarHub’s learning tools, lesson content, App Store access, and support.";
 export const metadata: Metadata = {
+  keywords: keywordsFor("/terms"),
   title: "Terms of Use | GuitarHub",
   description,
   alternates: { canonical: "https://guitarhub.org/terms" },
