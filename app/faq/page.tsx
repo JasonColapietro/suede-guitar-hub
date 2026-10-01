@@ -135,7 +135,7 @@ const FAQS: readonly Faq[] = [
     id: "what-guitarhub-is-not",
     group: "what-it-is",
     q: "What is GuitarHub not?",
-    a: "It is not a video course, a lesson library, a streak tracker, a teacher marketplace, or an app you download. There are no lesson videos here, no installer, no mentors on call, and no live chat. The tools and the written guides are the whole of what this site does today, and the founding room is an application under review rather than a service already running.",
+    a: "It is not a video course, a lesson library, a streak tracker, or a teacher marketplace. There are no lesson videos here, no mentors on call, and no live chat. The website requires no download; GuitarHub: Guitar Lessons is also available for iPhone on the App Store. The tools and the written guides are the whole of what this site does today, and the founding room is an application under review rather than a service already running.",
   },
   {
     id: "what-are-the-tools",
