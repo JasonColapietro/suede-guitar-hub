@@ -81,14 +81,14 @@ const JSON_LD = {
     {
       "@type": "Organization",
       "@id": SUEDE_ORG_ID,
-      // Must be the canonical "Suede Labs AI". The music-facing rule that used
+      // Must be the canonical "Suede AI". The music-facing rule that used
       // to sit here does not survive the shared @id: this node carries the same
       // @id as the one suedeai.ai publishes, and nodes sharing an @id are the
       // same resource whose properties merge, so a second `name` is a
       // conflicting label on one entity rather than a softer display name for
       // this surface. The short forms keep working as alternateName.
-      name: "Suede Labs AI",
-      alternateName: ["Suede Labs", "Suede AI", "Suede"],
+      name: "Suede AI",
+      alternateName: ["Suede Labs", "Suede"],
       url: "https://suedeai.ai",
       logo: "https://suedeai.ai/suede-ai-logo-transparent.png",
       founder: { "@id": JASON_PERSON_ID },

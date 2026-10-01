@@ -99,8 +99,8 @@ or a hometown, because we have not published any.
 **Name and pronunciation notes.** "Colapietro" is the surname. "Johnny Suede"
 is a publishing name for the same person, not a separate contributor and not a
 company. On music-facing surfaces the company is written **Suede Labs**, without
-a trailing "AI"; "Suede Labs AI", "Suede AI", and "Suede" all refer to the same
-organization elsewhere in the estate.
+a trailing "AI"; elsewhere in the estate the company name is "Suede AI", and
+"Suede" refers to the same organization.
 
 ---
 
