@@ -253,9 +253,9 @@ export default function AboutPage() {
             played through, not filmed. There are no lesson videos here.
           </li>
           <li>
-            <strong>Not a download, yet.</strong> GuitarHub runs in the browser.
-            There is no installer today, and progress does not follow you to
-            another device.
+            <strong>No download required for the website.</strong> GuitarHub runs in the browser.
+            GuitarHub: Guitar Lessons is also available for iPhone on the App Store.
+            Progress does not follow you to another device.
           </li>
           <li>
             <strong>Not an account system.</strong> There is no sign-up, no
