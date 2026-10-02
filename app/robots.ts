@@ -51,7 +51,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       })),
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: [`${SITE_URL}/sitemap.xml`, "https://guitarhub.org/ai-instructions-sitemap.xml"],
     host: SITE_URL,
   };
 }
