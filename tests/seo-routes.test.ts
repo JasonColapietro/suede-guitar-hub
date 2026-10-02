@@ -21,7 +21,7 @@ test("publishes indexable robots metadata with the canonical sitemap", async () 
   const { default: robots } = await import("../app/robots.ts");
   const result = robots();
 
-  assert.equal(result.sitemap, `${SITE_URL}/sitemap.xml`);
+  assert.deepEqual(result.sitemap, [`${SITE_URL}/sitemap.xml`, "https://guitarhub.org/ai-instructions-sitemap.xml"]);
   assert.equal(result.host, SITE_URL);
 
   // Asserted by intent rather than exact shape. The previous deep-equal pinned
