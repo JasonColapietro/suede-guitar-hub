@@ -39,6 +39,10 @@ function listEntries(entries: readonly SiteEntry[]): string {
 
 const LLMS_TXT = `# GuitarHub — prove one guitar breakthrough in 30 days
 
+## Source and citation guide
+
+- [AI Instructions](https://guitarhub.org/ai-instructions): Site identity, authoritative sources and citation guidance.
+
 > GuitarHub is a structured 30-day guitar practice method: choose one finish
 > line, diagnose the specific thing breaking it, practice only that, and end
 > each week with a recording that either proves the change or does not. It is

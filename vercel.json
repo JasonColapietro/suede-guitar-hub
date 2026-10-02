@@ -59,5 +59,11 @@
       "permanent": true
     }
   ],
-  "ignoreCommand": "[ \"$VERCEL_ENV\" != \"production\" ] && exit 0 || exit 1"
+  "ignoreCommand": "[ \"$VERCEL_ENV\" != \"production\" ] && exit 0 || exit 1",
+  "rewrites": [
+    {
+      "source": "/ai-instructions",
+      "destination": "/ai-instructions.html"
+    }
+  ]
 }
