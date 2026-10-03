@@ -8,6 +8,9 @@ import {
   SITE_URL as REGISTRY_SITE_URL,
 } from "../lib/site.ts";
 import { breadcrumbList, crumbTrail } from "../lib/breadcrumbs.ts";
+import { DRILLS, drillHref } from "../lib/advanced/drills.ts";
+import { allLessons, lessonHref } from "../lib/learning/curriculum.ts";
+import { canOpenModule, guestLearningAccess, isLessonReady } from "../lib/learning/access.ts";
 
 const SITE_URL = "https://guitarhub.org";
 
@@ -185,6 +188,18 @@ test("publishes every canonical indexable page in the sitemap", async () => {
         params,
         `${url} is served by a dynamic segment, so app${path} needs generateStaticParams`,
       );
+      // Catalog-backed detail routes generate their params from the catalog,
+      // not string literals. Check both the generator and the requested ID.
+      if (path.startsWith("/advanced/")) {
+        assert.match(params, /DRILLS\.map/);
+        assert.ok(DRILLS.some((drill) => drillHref(drill.id) === path));
+        continue;
+      }
+      if (path.startsWith("/learn/guitar/")) {
+        assert.match(params, /allLessons\("guitar"\)\.map/);
+        assert.ok(allLessons("guitar").some(({ lesson }) => lessonHref("guitar", lesson.id) === path));
+        continue;
+      }
       for (const value of route.dynamic) {
         assert.ok(
           params.includes(`"${value}"`),
@@ -212,7 +227,11 @@ test("publishes every canonical indexable page in the sitemap", async () => {
   assert.equal(urls[0], SITE_URL, "the home page must be the first entry");
 
   for (const entry of entries) {
-    assert.ok(
+    // The catalogs have no editorial modification dates. Omit lastModified
+    // there rather than claiming that every deployment updates the content.
+    if (entry.url.includes("/learn/guitar/") || entry.url.includes("/advanced/")) {
+      assert.equal(entry.lastModified, undefined);
+    } else assert.ok(
       entry.lastModified instanceof Date &&
         !Number.isNaN(entry.lastModified.getTime()),
       `${entry.url} must carry a real lastModified date`,
@@ -223,6 +242,26 @@ test("publishes every canonical indexable page in the sitemap", async () => {
     );
     assert.ok(entry.changeFrequency, `${entry.url} must carry a changeFrequency`);
   }
+});
+
+test("discovers public lessons and drills without advertising gated or private routes", async () => {
+  const { default: sitemap } = await import("../app/sitemap.ts");
+  const urls = new Set(sitemap().map((entry) => entry.url));
+
+  for (const { lesson, module } of allLessons("guitar")) {
+    const publicLesson = isLessonReady("guitar", lesson.id)
+      && canOpenModule("guitar", module.id, guestLearningAccess);
+    assert.equal(urls.has(`${SITE_URL}${lessonHref("guitar", lesson.id)}`), publicLesson,
+      `${lesson.id} must be listed exactly when a guest can read the complete lesson`);
+  }
+  for (const drill of DRILLS) {
+    assert.ok(urls.has(`${SITE_URL}${drillHref(drill.id)}`), `${drill.id} is a public drill`);
+  }
+  for (const path of ["/account", "/learn/voice", "/learn/voice/materials", "/learn/voice/recordings"]) {
+    assert.equal(urls.has(`${SITE_URL}${path}`), false, `${path} must stay out of the sitemap`);
+  }
+  assert.ok(![...urls].some((url) => url.startsWith(`${SITE_URL}/learn/voice/`)),
+    "voice lessons redirect to Suede Sing and must not be advertised here");
 });
 
 /**
