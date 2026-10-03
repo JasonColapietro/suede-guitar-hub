@@ -102,7 +102,7 @@ export default function AboutPage() {
             About <em className="font-display italic text-peach">GuitarHub.</em>
           </>
         }
-        dek="The guitar lessons site from Suede Labs: who built it, what it teaches, what it does not do, and what happens to anything you type into it."
+        dek="The guitar lessons site from Suede Labs: meet the founder, explore the lessons and practice method, and learn how your practice data stays private."
         updated={UPDATED}
         related={RELATED}
         relatedTitle="Start with one of these"
