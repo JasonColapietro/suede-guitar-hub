@@ -18,7 +18,7 @@ const TITLE = "GuitarHub FAQ: The Method, the Tools, and the Founding Room";
 // is actually deciding — cost, account, data, the room — rather than
 // describing the page as "everything you need to know".
 const DESCRIPTION =
-  "Straight answers about GuitarHub: what it is and is not, whether it is free, whether you need an account, where your data lives, and what the room is.";
+  "Straight answers about GuitarHub: its practice method and tools, whether it is free, whether you need an account, where your data lives, and what the room is.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/faq"),
@@ -77,7 +77,7 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
     id: "what-it-is",
     title: "What GuitarHub is",
     intro:
-      "The site described plainly, including the parts that are not built. If you read one section, read this one.",
+      "Explore the lessons, practice method, and browser tools, then choose where to begin.",
   },
   {
     id: "cost-and-data",
@@ -89,19 +89,19 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
     id: "who-its-for",
     title: "Who it is for",
     intro:
-      "A method that suits everyone suits nobody. This one has an audience, and a group whose time it would waste.",
+      "Find a starting point for your experience, goals, and practice schedule.",
   },
   {
     id: "the-founding-room",
     title: "The founding room",
     intro:
-      "The part of this site most likely to be misread, so these answers are blunt about what exists today and what is only an intention.",
+      "Apply for the founding room and learn how the personal review process works.",
   },
   {
     id: "strumly-and-teachers",
     title: "Strumly, Suede Labs, and teachers",
     intro:
-      "GuitarHub is one of three Suede Labs surfaces, and it is not a substitute for the person who teaches you.",
+      "Bring GuitarHub, Strumly, and your teacher into a focused weekly practice routine.",
   },
 ];
 
@@ -134,14 +134,14 @@ const FAQS: readonly Faq[] = [
   {
     id: "what-guitarhub-is-not",
     group: "what-it-is",
-    q: "What is GuitarHub not?",
-    a: "It is not a video course, a lesson library, a streak tracker, or a teacher marketplace. There are no lesson videos here, no mentors on call, and no live chat. The website requires no download; GuitarHub: Guitar Lessons is also available for iPhone on the App Store. The tools and the written guides are the whole of what this site does today, and the founding room is an application under review rather than a service already running.",
+    q: "How can I use GuitarHub?",
+    a: "Use the written guides and browser tools to structure your practice. Open the website directly, or find GuitarHub: Guitar Lessons on the iPhone App Store. Applications for the founding room are reviewed personally.",
   },
   {
     id: "what-are-the-tools",
     group: "what-it-is",
     q: "What are the tools, exactly?",
-    a: `The tools are ${TOOL_SENTENCE}. Each one runs entirely in the browser you are reading this in, needs no account, and carries a button that clears what it stored. None of them is a metronome or a tuner: those already exist inside Strumly, and a second, worse copy here would help nobody.`,
+    a: `The tools are ${TOOL_SENTENCE}. Each one runs entirely in the browser you are reading this in, needs no account, and carries a button that clears what it stored. Use Strumly alongside your plan for its metronome and tuner.`,
   },
   {
     id: "is-this-an-ai-product",
@@ -198,8 +198,8 @@ const FAQS: readonly Faq[] = [
   {
     id: "who-is-it-not-for",
     group: "who-its-for",
-    q: "Who is GuitarHub not for?",
-    a: "Complete beginners, mostly. The method assumes you can already play something badly enough to record it, and someone still learning to fret a first chord needs material rather than a way to audit material. It is also the wrong site for anyone who wants new songs and new lessons, which it deliberately does not have. It is the wrong site for anyone who wants a graded course with a certificate at the end. No work here is graded and no certificate is issued.",
+    q: "Where should a beginner start?",
+    a: "Start with the guitar path for foundations: holding the instrument, tuning, and playing a clean note. Once you have a passage to work on, use the practice method to set a goal, record a baseline, and compare your progress.",
   },
   {
     id: "how-much-time",
@@ -213,19 +213,19 @@ const FAQS: readonly Faq[] = [
     id: "what-is-the-founding-room",
     group: "the-founding-room",
     q: "What is the founding room?",
-    a: "An application, and it is being reviewed. That is the honest description. The alternative reading, a cohort you can join today, is not true. The intent is a small room of 8 to 12 players assembled around one rule: every check-in has to change the next practice. Members would be matched by goal and by a schedule that actually works, corrections would stay private, and progress proof would be shared only when a player chooses to share it. Those are design commitments, not a description of something already running.",
+    a: "Applications are open and reviewed personally. The intent is a small room of 8 to 12 players assembled around one rule: every check-in has to change the next practice. Members would be matched by goal and by a schedule that actually works, corrections would stay private, and progress proof would be shared only when a player chooses to share it. We will share the confirmed schedule, review capacity, and price before asking you to commit.",
   },
   {
     id: "can-i-join-today",
     group: "the-founding-room",
     q: "Can I join the founding room today?",
-    a: "No. There is no cohort in session, no start date published, and no schedule set. What exists today is a form on the home page and a person reading what arrives in it. Schedule, review capacity, and what membership would involve will be stated before anyone is asked to commit to anything.",
+    a: "Apply today through the home-page form. Applications receive personal review. We will confirm the cohort schedule, review capacity, and price before asking you to commit.",
   },
   {
     id: "what-happens-after-i-apply",
     group: "the-founding-room",
     q: "What happens after I apply?",
-    a: "The form sends four things: your name, your email address, a line about your playing experience, and one sentence naming the change you want to prove in thirty days. It arrives as an email at info@suedeai.ai and it is read by a person. There is no automated sequence, no drip campaign, and no card requested at any point. If the room is not a fit for the change you named, that is the answer you get.",
+    a: "The form sends four things: your name, your email address, a line about your playing experience, and one sentence naming the change you want to prove in thirty days. It arrives as an email at info@suedeai.ai and it is read by a person. There is no automated sequence, no drip campaign, and no card requested at any point. You receive a personal response about your goal and the next step.",
   },
 
   // Strumly, Suede Labs, and teachers
@@ -233,13 +233,13 @@ const FAQS: readonly Faq[] = [
     id: "how-it-relates-to-strumly",
     group: "strumly-and-teachers",
     q: "How does GuitarHub relate to Strumly and Suede Labs?",
-    a: "All three are Suede Labs, a studio founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub orchestrates the practice, Strumly powers the tools, and Suede AI Social carries the wider conversation. In practice the planner here decides what you work on this week and sends you to Strumly for the thing that does it, rather than rebuilding a second, worse copy of a tool that already exists. GuitarHub has no forum of its own and is not claiming one.",
+    a: "GuitarHub, Strumly, and Suede AI Social are part of Suede Labs, founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub structures your practice, Strumly provides complementary tools, and Suede AI Social connects the wider conversation.",
   },
   {
     id: "does-it-replace-a-teacher",
     group: "strumly-and-teachers",
-    q: "Does this replace a teacher?",
-    a: "No, and it is not trying to. A good teacher can do the isolate stage for you in about a minute, which is most of what you are paying them for. This is a structure for the other six days, and it tends to make a lesson worth more. You arrive with a recording and a specific question instead of a general report that you have been practising.",
+    q: "How can I use this alongside a teacher?",
+    a: "Use GuitarHub to structure practice between lessons. Bring your teacher a baseline recording, a recent attempt, and a specific question. Their feedback gives you a focused correction to practice during the week.",
   },
 ];
 

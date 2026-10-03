@@ -131,11 +131,11 @@ const RULES = [
   },
 ];
 
-const LIMITS = [
-  "There is no metronome here. Use the one you already practice with.",
-  "Nothing is recorded or listened to. The pass conditions are yours to judge honestly.",
+const PRACTICE_STEPS = [
+  "Use the ladder alongside your preferred metronome.",
+  "Assess each pass against the listed conditions. Your practice stays private; this tool uses no microphone or recordings.",
   "A ladder covers one passage. Build a separate one for each part that is holding a song back.",
-  "The builder refuses gaps too wide for one ladder and hands back a nearer target instead of pretending.",
+  "For larger tempo goals, the builder gives you a reachable next target to complete first.",
 ];
 
 const LINK_PILL =
@@ -215,10 +215,10 @@ export default function TempoPage() {
 
         <section className="mx-auto max-w-4xl px-6 py-20">
           <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-            What this does not do.
+            Put your ladder to work.
           </h2>
           <ul className="mt-8 space-y-4">
-            {LIMITS.map((limit) => (
+            {PRACTICE_STEPS.map((limit) => (
               <li
                 key={limit}
                 className="rounded-2xl bg-white p-6 text-ink/75 ring-1 ring-ink/5"
@@ -299,10 +299,9 @@ export default function TempoPage() {
               </em>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              The builder can tell you the next tempo. It cannot tell you that
-              your left hand is late because your right hand is early. The
-              founding room is being assembled for that part: a small crew, a
-              weekly recording, and one correction that changes the next session.
+              The builder gives you the next tempo. Apply to the founding room
+              for a small practice crew built around a weekly recording and
+              focused feedback that guides your next session.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
