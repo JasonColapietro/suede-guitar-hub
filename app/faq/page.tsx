@@ -213,7 +213,7 @@ const FAQS: readonly Faq[] = [
     id: "what-is-the-founding-room",
     group: "the-founding-room",
     q: "What is the founding room?",
-    a: "An application, and it is being reviewed. That is the honest description. The alternative reading, a cohort you can join today, is not true. The intent is a small room of 8 to 12 players assembled around one rule: every check-in has to change the next practice. Members would be matched by goal and by a schedule that actually works, corrections would stay private, and progress proof would be shared only when a player chooses to share it. Those are design commitments, not a description of something already running.",
+    a: "Applications are open and reviewed personally. The intent is a small room of 8 to 12 players assembled around one rule: every check-in has to change the next practice. Members would be matched by goal and by a schedule that actually works, corrections would stay private, and progress proof would be shared only when a player chooses to share it. We will share the confirmed schedule, review capacity, and price before asking you to commit.",
   },
   {
     id: "can-i-join-today",
@@ -225,7 +225,7 @@ const FAQS: readonly Faq[] = [
     id: "what-happens-after-i-apply",
     group: "the-founding-room",
     q: "What happens after I apply?",
-    a: "The form sends four things: your name, your email address, a line about your playing experience, and one sentence naming the change you want to prove in thirty days. It arrives as an email at info@suedeai.ai and it is read by a person. There is no automated sequence, no drip campaign, and no card requested at any point. If the room is not a fit for the change you named, that is the answer you get.",
+    a: "The form sends four things: your name, your email address, a line about your playing experience, and one sentence naming the change you want to prove in thirty days. It arrives as an email at info@suedeai.ai and it is read by a person. There is no automated sequence, no drip campaign, and no card requested at any point. You receive a personal response about your goal and the next step.",
   },
 
   // Strumly, Suede Labs, and teachers

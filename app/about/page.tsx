@@ -240,57 +240,14 @@ export default function AboutPage() {
           <strong>An application to a founding room</strong>, described below.
         </p>
 
-        <h2>What GuitarHub is not</h2>
-
+        <h2>Make each practice count</h2>
         <p>
-          The category is full of things GuitarHub is not, so here they are,
-          plainly.
+          Start with the opening module of a path and the free browser tools.
+          Use the practice loop to choose one goal, capture a baseline on your
+          phone, and bring a recording and a specific question to your next
+          lesson. Apply for the founding room for a personal response about
+          your playing goals.
         </p>
-
-        <ul>
-          <li>
-            <strong>Not a video course.</strong> The lessons are written and
-            played through, not filmed. There are no lesson videos here.
-          </li>
-          <li>
-            <strong>No download required for the website.</strong> GuitarHub runs in the browser.
-            GuitarHub: Guitar Lessons is also available for iPhone on the App Store.
-            Progress does not follow you to another device.
-          </li>
-          <li>
-            <strong>Not an account system.</strong> There is no sign-up, no
-            login, and no password. The site has no accounts.
-          </li>
-          <li>
-            <strong>Not a streak tracker.</strong> A kept streak and a changed
-            performance are different things, and only one of them is the point.
-          </li>
-          <li>
-            <strong>Not a model trained on your playing.</strong> This site does
-            not upload, store, or listen to audio. GuitarHub teaches and
-            prescribes practice. It does not ingest performances.
-          </li>
-          <li>
-            <strong>Not a running cohort, yet.</strong> The founding room is an
-            open application under review. No schedule, no review capacity, and
-            no price has been set.
-          </li>
-          <li>
-            <strong>Not a teacher marketplace.</strong> There are no mentors on
-            call, no booking, and no live chat.
-          </li>
-          <li>
-            <strong>Not a replacement for a teacher.</strong> A good teacher can
-            do the isolate stage for you in about a minute. The lessons and the
-            loop are a structure for the other six days, and they make a lesson
-            worth more. You arrive with a recording and a specific question.
-          </li>
-          <li>
-            <strong>Not a free trial.</strong> The opening module of each path
-            is free, and the free tools are not a sample of a paid product. No
-            payment is taken anywhere on this site and no card is collected.
-          </li>
-        </ul>
 
         <h2>How this fits with Strumly and Suede AI Social</h2>
 
@@ -322,12 +279,11 @@ export default function AboutPage() {
           rules.
         </p>
 
-        <h2>What the founding room actually is</h2>
+        <h2>Apply for the founding room</h2>
 
         <p>
-          It is an application, and it is being reviewed. That is the honest
-          description, and the reason to state it that carefully is that the
-          alternative reading, a cohort you can join today, is not true.
+          Applications for the founding room are open and reviewed personally.
+          Tell us what you want to improve and what your practice week looks like.
         </p>
 
         <p>
@@ -335,8 +291,8 @@ export default function AboutPage() {
           rule: a check-in has to change the next practice. Members would be
           matched by goal and by a schedule that works in a real week,
           corrections would stay private, and progress proof would be shared
-          only when a player chooses to share it. Those are the design
-          commitments. They are not a description of something already running.
+          only when a player chooses to share it. The founding-room design puts focused practice and personal feedback
+          at the center.
         </p>
 
         <p>
@@ -344,9 +300,7 @@ export default function AboutPage() {
           about your playing experience, and one sentence naming the change you
           want to prove in thirty days. It arrives as an email at
           info@suedeai.ai and it is read personally. It takes no payment, asks
-          for no card, and creates no commitment on either side. If the room is
-          not a fit for what you named, the honest answer is the one you will
-          get.
+          for no card, and creates no commitment on either side. You will receive a personal response about your goal and the next step.
         </p>
 
         <p>
