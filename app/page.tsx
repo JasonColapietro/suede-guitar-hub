@@ -340,10 +340,9 @@ export default function Home() {
           </Reveal>
           <Reveal delay={1}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              The public planner does not call a checked box mastery. The proof is a
-              baseline and final recording, a visible rubric, and the correction that
-              changed the attempt. Cohort evidence will appear here only with player
-              consent and honest completion denominators.
+              Track your progress with a baseline recording, a final recording,
+              and a clear rubric. Use each correction to improve the next attempt
+              and hear how your playing changes.
             </p>
           </Reveal>
           <Reveal delay={2}>
