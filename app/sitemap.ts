@@ -1,4 +1,7 @@
 import type { MetadataRoute } from "next";
+import { DRILLS, drillHref } from "@/lib/advanced/drills";
+import { accessibleLessonIds, guestLearningAccess } from "@/lib/learning/access";
+import { lessonHref } from "@/lib/learning/curriculum";
 import {
   ABOUT,
   GUIDES,
@@ -13,8 +16,8 @@ import {
 } from "@/lib/site";
 
 /**
- * Built from the route registry in `lib/site.ts` instead of a hand-kept list,
- * so a page added there is published here without a second edit.
+ * Built from the route registry and the public lesson/drill catalogs, so new
+ * public content is discovered without a second hand-kept list.
  *
  * Every href emitted below was confirmed to have a rendering `page.tsx` under
  * `app/` before being listed. A sitemap that advertises a 404 is worse than one
@@ -58,7 +61,7 @@ function absolute(href: string): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return GROUPS.flatMap(({ entries, priority, changeFrequency }) =>
+  const pages = GROUPS.flatMap(({ entries, priority, changeFrequency }) =>
     entries.map((entry) => ({
       url: absolute(entry.href),
       lastModified: new Date(`${entry.lastModified}T00:00:00.000Z`),
@@ -66,4 +69,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority,
     })),
   );
+  // Use the same readiness and guest-access checks as the lesson page. Paid
+  // previews, curriculum outlines and the voice routes moved to Sing stay out.
+  const learningPaths = [
+    ...accessibleLessonIds("guitar", guestLearningAccess).map((id) => lessonHref("guitar", id)),
+    ...DRILLS.map((drill) => drillHref(drill.id)),
+  ];
+  return [
+    ...pages,
+    ...learningPaths.map((path): SitemapEntry => ({
+      url: absolute(path),
+      changeFrequency: "monthly",
+      priority: 0.8,
+      // These catalogs have no verified per-page modification dates.
+    })),
+  ];
 }
