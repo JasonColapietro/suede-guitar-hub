@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Libre_Franklin } from "next/font/google";
 import { APP_STORE } from "@/lib/site";
 import JsClassMarker from "@/components/JsClassMarker";
 import { keywordsFor } from "@/lib/keywords";
@@ -11,9 +11,12 @@ const fraunces = Fraunces({
   variable: "--font-fraunces",
 });
 
-const inter = Inter({
+/* Body and UI face. Libre Franklin is the open revival of Franklin Gothic, the
+   American gothic of mid-century amp panels, gear catalogs and gig posters, and
+   the classic partner for an old-style serif like Fraunces. */
+const libreFranklin = Libre_Franklin({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-libre-franklin",
 });
 
 export const metadata: Metadata = {
@@ -151,7 +154,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${libreFranklin.variable}`}>
       <body>
         <script
           type="application/ld+json"
