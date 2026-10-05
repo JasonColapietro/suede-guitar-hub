@@ -30,9 +30,7 @@ export function createEmailAuthHandlers(deps: {
       if (!client) throw new AccountHTTPError(503, "account_service_unavailable");
       return await operation(request, client);
     } catch (error) {
-      const response = accountErrorResponse(error);
-      if (response.status === 429) response.headers.set("Retry-After", "60");
-      return response;
+      return accountErrorResponse(error);
     }
   };
   return {

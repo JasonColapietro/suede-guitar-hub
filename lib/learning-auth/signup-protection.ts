@@ -2,9 +2,10 @@ import { createHmac } from "node:crypto";
 import { isIP } from "node:net";
 import { AccountHTTPError } from "./http.ts";
 
-export type RateResult = { success: boolean; reason?: string };
+export type RateResult = { success: boolean; reason?: string; reset?: number };
 /** No raw email/IP is stored by this guard. Redis keys are keyed digests. */
 export function createSignupProtection(deps: {
+  now?(): number;
   configuration(): { salt: string; vercel: boolean } | null;
   checkBot(): Promise<{ isBot: boolean }>;
   limit(bucket: "send-ip" | "send-email" | "verify-ip" | "verify-email", identity: string): Promise<RateResult>;
@@ -21,7 +22,11 @@ export function createSignupProtection(deps: {
     for (const [kind, value] of [["ip",ip],["email",email]] as const) {
       const result = await deps.limit(`${action}-${kind}`, digest(`${kind}:${value}`));
       if (result.reason === "timeout") throw new AccountHTTPError(503, "account_service_unavailable");
-      if (!result.success) throw new AccountHTTPError(429, "try_again_later");
+      if (!result.success) {
+        if (!Number.isFinite(result.reset)) throw new AccountHTTPError(503, "account_service_unavailable");
+        const wait = Math.max(1, Math.ceil((result.reset! - (deps.now?.() ?? Date.now())) / 1000));
+        throw new AccountHTTPError(429, "try_again_later", wait);
+      }
     }
   };
 }

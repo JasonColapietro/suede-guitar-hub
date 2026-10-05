@@ -28,7 +28,7 @@ This draft is default off. No production settings, credentials, users, grants, p
 
 The publishable-only requirement is verified by configuration tests, provider API architecture, and credential-free browser fixtures. Actual hosted OTP delivery still needs a designated test user and approved preview configuration. The public key does not bypass RLS. Existing backend mutations independently require the service-role key. Free activation does not grant paid tracks.
 
-BotID is explicitly `basic`; no Deep Analysis or paid provider tier is enabled. Server checks reject bots, non-human results, bypasses and unavailable configuration. Redis outages and timeout-as-success responses fail closed. Send limits: 5 per IP per hour and 1 per normalized email per minute. Verify limits: 10 per IP and email per 10 minutes. Keys contain HMAC digests, never raw email/IP. No analytics or persistent in-process fallback.
+Both browser routes and server validation share one explicitly `basic` BotID policy; no Deep Analysis or paid provider tier is enabled. Server checks reject bots, non-human results, bypasses and unavailable configuration. Redis outages and timeout-as-success responses fail closed. Send limits: 5 per IP per hour and 1 per normalized email per minute. Verify limits: 10 per IP and email per 10 minutes. Redis reset timestamps determine the response `Retry-After` and UI countdown, including hour-long IP limits. Keys contain HMAC digests, never raw email/IP. No analytics or persistent in-process fallback.
 
 Copying an existing broad Redis token would add GuitarHub deployment access to unrelated Redis data even though this code uses a prefix. A prefix is not an ACL. Confirm the database display name, token capabilities, quota/billing impact, and support for a narrower credential before approval. No token was copied or provisioned here.
 
@@ -54,7 +54,7 @@ This request is not ready for approval until the Redis resource/ACL and existing
 
 Synthetic emails: `new@example.test`, `free@example.test`, `paid@example.test`; code `123456`. `delivery@example.test` and `rate@example.test` simulate provider failures. Production auth handlers, account UI, library, download routes, PDF bytes and sign-out are unchanged. Production guard behavior is independently unit tested; fixture success does not prove real Supabase/BotID/Redis/Apple access.
 
-Evidence from this task: 1,227 tests; TypeScript, ESLint, production build (212 static pages), account/PDF bundle checks and five contract checks pass. New free account downloaded all 30 current/legacy URLs as PDF; after logout GET/HEAD with Range/old ETag returned 303/no bytes/no-store. Synthetic existing-free account sees paid lesson preview; paid fixture opens it; logout restores preview. Email/rate/invalid-code recovery retained the selected guide and fit 320px; free library fits 390px. Authenticated paid fixtures are not real grants or purchase validation.
+Evidence from this task: 1,230 tests; TypeScript, ESLint, production build (212 static pages), account/PDF bundle checks and five contract checks pass. New free account downloaded all 30 current/legacy URLs as PDF; after logout GET/HEAD with Range/old ETag returned 303/no bytes/no-store. Synthetic existing-free account sees paid lesson preview; paid fixture opens it; logout restores preview. Email/rate/invalid-code recovery retained the selected guide and fit 320px; free library fits 390px. Authenticated paid fixtures are not real grants or purchase validation.
 
 ## Framework patch
 

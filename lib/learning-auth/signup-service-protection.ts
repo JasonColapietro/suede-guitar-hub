@@ -1,3 +1,4 @@
+import { emailBotOptions } from "./botid-policy";
 import { checkBotId } from "botid/server";
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
@@ -11,7 +12,7 @@ export const protectEmailAuth = createSignupProtection({
       ? { salt, vercel: process.env.VERCEL === "1" } : null;
   },
   checkBot: async () => {
-    const result = await checkBotId({ advancedOptions: { checkLevel: "basic" }, developmentOptions: { isDevelopment: false } });
+    const result = await checkBotId(emailBotOptions);
     return { isBot: result.isBot || !result.isHuman || result.bypassed };
   },
   limit: async (bucket, identity) => {

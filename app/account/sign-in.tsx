@@ -31,7 +31,7 @@ export default function AccountSignIn({ destination = "/account", signupEnabled 
         body: JSON.stringify(verify ? { email, code, next: destination } : { email }),
       });
       if (response.status === 429) {
-        const retry = Math.min(3600, Math.max(60, Number(response.headers.get("retry-after")) || 60));
+        const retry = Math.min(3600, Math.max(1, Number(response.headers.get("retry-after")) || 60));
         setRetryAt(Date.now() + retry * 1000); setRateLimited(true);
         setMessage("Too many attempts. Please wait before trying again."); return;
       }

@@ -38,3 +38,10 @@ test('verify is rate protected and rejected before provider when blocked', async
   assert.equal((await h.handlers.verify(request({email:'new@example.test',code:'123456'}))).status,429);
   assert.deepEqual(h.calls,[{action:'verify',email:'new@example.test'}]);
 });
+
+test('auth responses retain a distributed limiter hour-long retry window', async () => {
+ const h=setup(null,new AccountHTTPError(429,'try_again_later',3600));
+ const response=await h.handlers.send(request({email:'new@example.test'}));
+ assert.equal(response.status,429);assert.equal(response.headers.get('retry-after'),'3600');
+ assert.deepEqual(await response.json(),{error:'try_again_later'});
+});

@@ -24,3 +24,13 @@ test('signup guard fails closed on missing configuration, Redis failure, and fai
   const outage=createSignupProtection({configuration,checkBot:async()=>({isBot:false}),limit:async()=>{throw new Error('offline');}});
   await assert.rejects(()=>outage(request(),'verify','new@example.test'),/offline/);
 });
+
+test('Redis reset controls the actual retry window for IP and email limits', async () => {
+  const now=Date.now();
+  for(const [action,delay] of [['send',3600],['verify',600]] as const) {
+    const protect=createSignupProtection({configuration,checkBot:async()=>({isBot:false}),limit:async()=>({success:false,reset:now+delay*1000}),now:()=>now});
+    await assert.rejects(()=>protect(request(),action,'new@example.test'),(error:unknown)=>{
+      assert.equal((error as {retryAfterSeconds:number}).retryAfterSeconds,delay); return true;
+    });
+  }
+});
