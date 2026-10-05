@@ -13,7 +13,7 @@ import { mkdir, readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { FIELD_GUIDES, fieldGuideCover, fieldGuidePdf } from "../../lib/field-guides.ts";
+import { FIELD_GUIDES, fieldGuideCover, fieldGuideFilename } from "../../lib/field-guides.ts";
 import { SITE_URL } from "../../lib/site.ts";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -50,7 +50,7 @@ const PRINT_CSS = `
   .fg-colophon { margin: 2.5rem auto 0; max-width: 42rem; padding: 1.25rem 1.5rem 0; border-top: 1px solid rgba(28,18,51,.15); font-size: 12px; color: rgba(28,18,51,.7); }
 `;
 
-await mkdir(join(ROOT, "public/field-guides"), { recursive: true });
+await mkdir(join(ROOT, "private/field-guides"), { recursive: true });
 const { chromium } = loadPlaywright();
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1000, height: 1400 } });
@@ -90,7 +90,7 @@ for (const guide of FIELD_GUIDES.filter((g) => !only.size || only.has(g.slug))) 
   );
   await page.evaluate(() => Promise.all([...document.images].map((img) => (img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; })))));
   await page.emulateMedia({ media: "print" });
-  const out = join(ROOT, "public", fieldGuidePdf(guide));
+  const out = join(ROOT, "private/field-guides", fieldGuideFilename(guide));
   await page.pdf({ path: out, printBackground: true, preferCSSPageSize: true });
   console.log(`pdf ${issue} ${guide.slug}`);
 }

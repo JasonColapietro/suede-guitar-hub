@@ -68,7 +68,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
           mixed-voice sustain and the effects module both need explicit stop
           symptoms because nothing here measures vocal strain. */}
       {moduleSafety && <p className={styles.small}>{moduleSafety}</p>}
-      <div className={styles.actions}>{ready && access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "View account access" : "Sign in to check access"}</Link>}<Link className={styles.secondary} href={lessonHref(track, lessons[0].lesson.id)}>Try a free {track} lesson</Link></div>
+      <div className={styles.actions}>{ready && access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "View account access" : "Sign in to check access"}</Link>}<Link className={styles.secondary} href={lessonHref(track, lessons[0].lesson.id)}>Try a free {track} lesson</Link>{track === "guitar" && <Link className={styles.secondary} href="/advanced">Practice a free Advanced Lab drill</Link>}</div>
     </section>}
     {companion && <>
       <div className={styles.notice}>{companion.measured

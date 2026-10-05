@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import test from "node:test";
 
-import { FIELD_GUIDES, fieldGuideCover, fieldGuidePdf } from "../lib/field-guides.ts";
+import { FIELD_GUIDES, fieldGuideCover, fieldGuidePdf, fieldGuideFilename } from "../lib/field-guides.ts";
 import { GUIDES, RESOURCES } from "../lib/site.ts";
 
 const publicFile = (path: string) => new URL(`../public${path}`, import.meta.url);
@@ -24,7 +24,8 @@ test("issue numbers, slugs and hrefs are unique", () => {
 test("every field guide ships its cover and its PDF", () => {
   for (const guide of FIELD_GUIDES) {
     const cover = publicFile(fieldGuideCover(guide));
-    const pdf = publicFile(fieldGuidePdf(guide));
+    const pdf = new URL(`../private/field-guides/${fieldGuideFilename(guide)}`, import.meta.url);
+    assert.equal(existsSync(publicFile(`/field-guides/${fieldGuideFilename(guide)}`)), false, "PDF must not be a public static asset");
     assert.ok(existsSync(cover), `missing cover ${fieldGuideCover(guide)}; run scripts/field-guide-art/render-covers.mjs`);
     assert.ok(existsSync(pdf), `missing PDF ${fieldGuidePdf(guide)}; run scripts/field-guide-art/build-pdfs.mjs`);
     assert.equal(readFileSync(pdf).subarray(0, 5).toString(), "%PDF-", `${fieldGuidePdf(guide)} is not a PDF`);

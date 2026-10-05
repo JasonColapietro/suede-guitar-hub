@@ -2,8 +2,10 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { safeAccountDestination } from "@/lib/learning-auth/config";
+import { fieldGuideForDownload } from "@/lib/field-guides";
 
-export default function AccountSignIn() {
+export default function AccountSignIn({ destination = "/account" }: { destination?: string }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -17,10 +19,17 @@ export default function AccountSignIn() {
     try {
       const response = await fetch(sent ? "/auth/email/verify" : "/auth/email/send", {
         method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sent ? { email, code } : { email }),
+        body: JSON.stringify(sent ? { email, code, next: destination } : { email }),
       });
       if (!response.ok) throw new Error("sign_in_failed");
-      if (sent) { router.replace("/account"); router.refresh(); return; }
+      if (sent) {
+        const result = await response.json();
+        const next = safeAccountDestination(typeof result.destination === "string" ? result.destination : null);
+        // Render the selected guide after verification. Never hand a file URL to the RSC router.
+        router.replace(fieldGuideForDownload(next) ? `/account?next=${encodeURIComponent(next)}` : next);
+        router.refresh();
+        return;
+      }
       setSent(true);
       setMessage("If this email matches an existing Suede account, check your inbox for a sign-in code.");
     } catch { setMessage(sent ? "The code could not be verified. Check the email and code, then try again." : "Sign-in is unavailable right now. Your local lessons and practice are still available."); }
