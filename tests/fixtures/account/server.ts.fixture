@@ -1,0 +1,29 @@
+/** SYNTHETIC PROVIDER. Copied only into a disposable test tree by prepare-account-fixture.mjs. */
+import { cookies } from 'next/headers';
+const ids = {free:'11111111-1111-4111-8111-111111111111',paid:'22222222-2222-4222-8222-222222222222'};
+export async function accountServerClient() {
+  const store=await cookies();
+  return {auth:{
+    signInWithOtp: async ({email,options}:{email:string;options:{shouldCreateUser:boolean}}) => {
+      if(email==='delivery@example.test') return {error:{status:503}};
+      if(email==='rate@example.test') return {error:{status:429}};
+      if(!['new@example.test','free@example.test','paid@example.test'].includes(email)) return {error:{status:400,code:'user_not_found'}};
+      if(email==='new@example.test' && !options.shouldCreateUser) return {error:{status:400,code:'user_not_found'}};
+      store.set('fixture-code-email',email,{httpOnly:true,sameSite:'lax',path:'/'});
+      return {error:null};
+    },
+    verifyOtp: async ({email,token}:{email:string;token:string}) => {
+      if(token!=='123456' || store.get('fixture-code-email')?.value!==email) return {error:{status:401}};
+      store.delete('fixture-code-email'); store.set('fixture-account',email,{httpOnly:true,sameSite:'lax',path:'/'}); return {error:null};
+    },
+    getUser: async () => {
+      const email=store.get('fixture-account')?.value;
+      return {data:{user:email && ['new@example.test','free@example.test','paid@example.test'].includes(email) ? {id:email==='paid@example.test'?ids.paid:ids.free,email,is_anonymous:false}:null},error:null};
+    },
+    signOut: async () => {store.delete('fixture-account');return {error:null};},
+  }};
+}
+export async function resolveAccount(_request?: Request) {
+  const client=await accountServerClient(); const result=await client.auth.getUser();
+  return result.data.user ? {client,user:result.data.user}:null;
+}

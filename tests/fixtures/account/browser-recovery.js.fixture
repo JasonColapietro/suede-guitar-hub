@@ -1,0 +1,21 @@
+async page => {
+ const base='http://localhost:3420';const results=[];
+ for(const [email,text] of [['delivery@example.test','We could not send a code right now.'],['rate@example.test','Too many attempts.']]) {
+  await page.goto(base+'/account?next=%2Faccount%2Fdownloads%2Fguitarhub-field-guide-01-the-method.pdf');
+  await page.getByLabel('Email address',{exact:true}).fill(email);
+  await page.getByRole('button',{name:'Send an email code',exact:true}).click();
+  await page.getByRole('status').filter({hasText:text}).waitFor();
+  results.push({email,recovery:await page.getByRole('status').innerText(),retainedGuide:await page.getByRole('heading',{name:'The Method',exact:true}).isVisible()});
+ }
+ await page.goto(base+'/account');
+ await page.getByLabel('Email address',{exact:true}).fill('free@example.test');
+ await page.getByRole('button',{name:'Send an email code',exact:true}).click();
+ await page.getByLabel('Email code',{exact:true}).fill('000000');
+ await page.getByRole('button',{name:'Verify and continue',exact:true}).click();
+ await page.getByRole('status').filter({hasText:'The code could not be verified.'}).waitFor();
+ const failedVerify=await page.getByRole('status').innerText();
+ await page.setViewportSize({width:320,height:800});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Recovery overflow at320');
+ await page.screenshot({path:'output/playwright/signup-recovery-320.png',fullPage:true});
+ return {delivery:results,failedVerify,narrowOverflow:false};
+}

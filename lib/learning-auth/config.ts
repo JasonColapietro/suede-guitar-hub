@@ -4,7 +4,7 @@ export function accountConfiguration(): PublicAccountConfiguration | null {
   if (process.env.GUITARHUB_ACCOUNTS_ENABLED !== "true") return null;
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !publishableKey?.trim() || !process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY?.trim()) return null;
+  if (!url || !publishableKey?.trim()) return null;
   try {
     const parsed = new URL(url);
     if (parsed.origin !== "https://drzuelosizfllruocmly.supabase.co" || parsed.username || parsed.password || parsed.pathname !== "/" || parsed.search || parsed.hash) return null;

@@ -1,0 +1,3 @@
+/** Synthetic external protection adapter; real guard is independently unit tested. */
+export const freeSignupEnabled=()=>true;
+export async function protectEmailAuth() {}
