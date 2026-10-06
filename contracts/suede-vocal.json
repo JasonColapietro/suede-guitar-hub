@@ -3042,12 +3042,12 @@
           "year": 2022,
           "genre": "Pop",
           "key": "E major",
-          "lowMidi": 52,
-          "highMidi": 73,
-          "rangeLabel": "E3–C#5",
-          "spanSemitones": 21,
-          "difficulty": "Medium",
-          "sourceNote": "Musicnotes original-key arrangement, E3–C#5 in E major",
+          "lowMidi": 49,
+          "highMidi": 71,
+          "rangeLabel": "C#3–B4",
+          "spanSemitones": 22,
+          "difficulty": "Hard",
+          "sourceNote": "Musicnotes leadsheet MN0264734, written vocal range C#3–B4 in E major",
           "path": "/can-you-sing/anti-hero"
         },
         {
