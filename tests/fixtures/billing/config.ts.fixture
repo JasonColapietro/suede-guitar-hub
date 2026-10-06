@@ -1,0 +1,4 @@
+/** Local synthetic providers only. Never deploy. */
+export type BillingConfiguration={secretKey:string;webhookSecret:string;accountId:string;priceId:string;productId:string;livemode:boolean;origin:string};
+export function billingConfiguration():BillingConfiguration {return {secretKey:'sk_test_synthetic_only',webhookSecret:'whsec_synthetic_only',accountId:'acct_fixture',priceId:'price_test',productId:'prod_test',livemode:false,origin:'http://localhost:3421'};}
+export const checkoutEnabled=()=>true;

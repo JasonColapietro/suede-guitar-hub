@@ -1,0 +1,45 @@
+async page => {
+ const base='http://localhost:3421',lesson='/learn/guitar/g-l3-m1-01';
+ const check=(value,message)=>{if(!value)throw Error(message);};
+ const results=[];
+ await page.context().clearCookies();
+ await page.route('https://checkout.stripe.com/**',route=>route.fulfill({contentType:'text/html',body:`<!doctype html><title>Synthetic checkout — no charge</title><h1>Synthetic Checkout</h1><p>No real payment provider is contacted.</p><a href="${base}/account/upgrade?checkout=cancelled">Cancel checkout</a><a href="${base}/account/complete?session_id=${new URL(route.request().url()).pathname.split('/').pop()}">Return to GuitarHub</a>`}));
+ async function login(email,next){await page.goto(base+'/account?next='+encodeURIComponent(next));await page.getByLabel('Email address',{exact:true}).fill(email);await page.getByRole('button',{name:'Send an email code',exact:true}).click();await page.getByLabel('Email code',{exact:true}).fill('123456');await page.getByRole('button',{name:'Verify and continue',exact:true}).click();await page.waitForURL(base+next);}
+ async function logout(){await page.goto(base+'/account');await page.getByRole('button',{name:'Sign out on this device',exact:true}).click();await page.getByLabel('Email address',{exact:true}).waitFor();}
+ async function mutate(session,state){const r=await page.request.post(base+'/fixture/payment',{data:{session,state}});check(r.ok(),'fixture state');}
+ async function event(type,id,paymentId){const payload=JSON.stringify({id:'evt_synthetic',object:'event',type,livemode:false,data:{object:{id,payment_intent:paymentId}}});
+  const signature=await page.evaluate(async body=>{const t=Math.floor(Date.now()/1000);const e=new TextEncoder();const key=await crypto.subtle.importKey('raw',e.encode('whsec_synthetic_only'),{name:'HMAC',hash:'SHA-256'},false,['sign']);const mac=await crypto.subtle.sign('HMAC',key,e.encode(t+'.'+body));return 't='+t+',v1='+Array.from(new Uint8Array(mac)).map(x=>x.toString(16).padStart(2,'0')).join('');},payload);
+  const r=await page.request.post(base+'/api/billing/webhook',{data:payload,headers:{'content-type':'application/json','stripe-signature':signature}});check(r.status()===200,'signed fixture webhook '+r.status());
+ }
+ await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/account/upgrade');
+ await page.getByRole('link',{name:'Create your free account or sign in to continue',exact:true}).click();
+ await page.getByLabel('Email address',{exact:true}).fill('new@example.test');await page.getByRole('button',{name:'Send an email code',exact:true}).click();await page.getByLabel('Email code',{exact:true}).fill('123456');await page.getByRole('button',{name:'Verify and continue',exact:true}).click();await page.waitForURL(base+'/account/upgrade');
+ check((await page.locator('main').innerText()).includes('$79 USD'),'approved price');
+ await page.screenshot({path:'output/playwright/billing-upgrade-desktop.png',fullPage:true});
+ await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).click();await page.waitForURL('https://checkout.stripe.com/**');
+ const session=new URL(page.url()).pathname.split('/').pop();
+ await page.getByRole('link',{name:'Cancel checkout',exact:true}).click();await page.waitForURL(base+'/account/upgrade?checkout=cancelled');
+ await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).click();await page.waitForURL('https://checkout.stripe.com/**');check(page.url().endsWith(session),'cancel/retry must reuse session');
+ await page.getByRole('link',{name:'Return to GuitarHub',exact:true}).click();await page.getByText('Your payment is still processing.',{exact:false}).waitFor();
+ await mutate(session,'paid');await event('checkout.session.completed',session);await event('checkout.session.completed',session);
+ await page.getByRole('button',{name:'Check purchase status',exact:true}).click();await page.getByText('Your Complete Lifetime access is ready.',{exact:true}).waitFor();
+ let ledger=await (await page.request.get(base+'/fixture/payment')).json();check(ledger.creates===1&&ledger.orders.length===1,'idempotent checkout and webhook');
+ const paymentId=ledger.orders[0].paymentIntentId;
+ await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===0,'paid lesson remains locked');
+ for(const width of [390,320]){await page.setViewportSize({width,height:844});check(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'paid mobile overflow');await page.screenshot({path:`output/playwright/billing-paid-${width}.png`,fullPage:true});}
+ await page.goto(base+'/account/upgrade');check(await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).count()===0,'existing owner must not buy twice');
+ await logout();await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===1,'logout paid leak');
+ await login('free@example.test','/account/complete?session_id='+session);await page.getByText('Your Complete Lifetime access is ready.',{exact:true}).waitFor();
+ await mutate(session,'disputed');await event('charge.dispute.created','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===1,'dispute did not revoke');
+ await page.goto(base+'/account/upgrade');await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).click();await page.getByText('This purchase is under review.',{exact:false}).waitFor();
+ await mutate(session,'won');await event('charge.dispute.closed','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===0,'won dispute did not restore');
+ await mutate(session,'refunded');await event('charge.refunded','ch_fixture',paymentId);await page.goto(base+'/account/complete?session_id='+session);await page.getByText('This purchase was refunded.',{exact:false}).waitFor();
+ await page.goto(base+'/account');const href=await page.locator('a[href^="/account/downloads/"]').first().getAttribute('href');check(href,'free PDF library missing');
+ const pdf=await page.request.get(base+href);check(pdf.status()===200&&(await pdf.body()).subarray(0,5).toString()==='%PDF-','refunded user free PDF failed');
+ await page.screenshot({path:'output/playwright/billing-refunded-account-mobile.png',fullPage:true});
+ await logout();const denied=await page.request.get(base+href,{maxRedirects:0,headers:{Range:'bytes=0-100'}});check(denied.status()===303,'logout PDF bypass');
+ await login('paid@example.test','/account/complete?session_id='+session);check(!(await page.locator('main').innerText()).includes('access is ready'),'foreign owner purchase leak');
+ const foreign=await page.request.post(base+'/api/billing/restore',{headers:{origin:base},data:{sessionId:session}});check(foreign.status()===404,'foreign owner restore');
+ ledger=await (await page.request.get(base+'/fixture/payment')).json();check(ledger.orders[0].state==='refunded'&&ledger.creates===1,'final ledger');
+ results.push({newFreeReturn:true,price7900:true,cancelRetryOneSession:true,unpaidDenied:true,paidOpened:true,duplicateWebhookSafe:true,logoutDenied:true,restoreAfterLogin:true,disputeRevoked:true,wonRestored:true,refundRevoked:true,freePDFAfterRefund:true,foreignRestoreDenied:true,mobileWidths:[390,320],syntheticOnly:true});return results;
+}

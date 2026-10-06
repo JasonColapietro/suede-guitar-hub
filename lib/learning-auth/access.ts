@@ -1,3 +1,4 @@
+import { getWebLifetimeAccess } from "../learning-billing/runtime";
 import { cache } from "react";
 import type { LearningTrack } from "../learning-account/contracts";
 import { accountConfiguration } from "./config";
@@ -20,7 +21,7 @@ export const getVerifiedLearningAccess = cache(async (): Promise<VerifiedLearnin
     const account = await resolveAccount();
     if (!account) return { enabled: true, accountId: null, tracks: [], status: "signedOut" };
     accountId = account.user.id;
-    const access = await reconcileLearningAccess({ listPurchases: listAccountPurchases, verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase }, accountId);
+    const access = await reconcileLearningAccess({ listPurchases: listAccountPurchases, verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase, webAccess: getWebLifetimeAccess }, accountId);
     return { enabled: true, accountId, tracks: access.tracks, status: "verified" };
   } catch { return { enabled: true, accountId, tracks: [], status: "unavailable" }; }
 });

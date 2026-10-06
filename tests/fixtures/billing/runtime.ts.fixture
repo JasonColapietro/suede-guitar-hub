@@ -1,0 +1,31 @@
+/** Synthetic provider and persistence adapters. Production engine and evidence verifier remain unchanged. */
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {randomUUID} from 'node:crypto';
+import Stripe from 'stripe';
+import {billingConfiguration} from './config';
+import {createBillingEngine,type BillingProvider} from './engine';
+import type {OrderStore,WebOrder} from './orders';
+import type {CheckoutEvidence} from './evidence';
+import type {LearningTrack,StoreEnvironment} from '../learning-account/contracts';
+type State={orders:WebOrder[];payments:Record<string,'pending'|'paid'|'disputed'|'won'|'refunded'>;creates:number};
+const file=process.cwd()+'/.fixture-billing.json';
+function read():State{return existsSync(file)?JSON.parse(readFileSync(file,'utf8')):{orders:[],payments:{},creates:0};}
+function save(s:State){writeFileSync(file,JSON.stringify(s));}
+export function fixtureState(session?:string,state?:State['payments'][string]){const s=read();if(session&&state){s.payments[session]=state;save(s);}return s;}
+const store:OrderStore={
+ async reserve(accountId,livemode,priceId,productId){const s=read();let order=s.orders.find(o=>o.accountId===accountId&&o.livemode===livemode&&['pending','paid','disputed'].includes(o.state));if(!order){order={id:randomUUID(),accountId,livemode,priceId,productId,sessionId:null,paymentIntentId:null,state:'pending',revision:0};s.orders.push(order);save(s);}return order;},
+ async findById(id){return read().orders.find(o=>o.id===id)??null;},async findBySession(id){return read().orders.find(o=>o.sessionId===id)??null;},async findByPayment(id){return read().orders.find(o=>o.paymentIntentId===id)??null;},
+ async list(id,live){return read().orders.filter(o=>o.accountId===id&&o.livemode===live&&['pending','paid','disputed'].includes(o.state));},async history(id,live){return read().orders.filter(o=>o.accountId===id&&o.livemode===live);},
+ async bind(order,id){const s=read();const row=s.orders.find(o=>o.id===order.id)!;if(row.sessionId&&row.sessionId!==id)throw Error('conflict');row.sessionId=id;save(s);return row;},
+ async record(order,state,payment){const s=read();const row=s.orders.find(o=>o.id===order.id)!;if(row.state!=='refunded'){row.state=state;row.paymentIntentId=payment;}save(s);return row;},
+};
+const provider:BillingProvider={
+ async validateOffer(){},
+ async create(order){const s=read();const id='cs_test_'+order.id.replaceAll('-','');s.creates++;s.payments[id]='pending';save(s);return{id,url:'https://checkout.stripe.com/c/pay/'+id};},
+ async retrieve(id){const s=read();const order=s.orders.find(o=>o.sessionId===id);if(!order)throw Error('fixture order missing');const state=s.payments[id]??'pending';
+ const evidence:CheckoutEvidence={id,livemode:false,mode:'payment',orderId:order.id,accountId:order.accountId,clientReference:order.accountId,status:state==='pending'?'open':'complete',paymentStatus:state==='pending'?'unpaid':'paid',currency:'usd',amount:7900,lines:[{priceId:'price_test',productId:'prod_test',quantity:1,amount:7900,currency:'usd'}],payment:state==='pending'?null:{id:'pi_'+order.id.replaceAll('-',''),status:'succeeded',currency:'usd',amount:7900,received:7900,chargePaid:true,amountRefunded:state==='refunded'?7900:0,disputed:state==='disputed'||state==='won',disputes:state==='disputed'?['needs_response']:state==='won'?['won']:[]}};
+ return {evidence,url:state==='pending'?'https://checkout.stripe.com/c/pay/'+id:null};},
+};
+export function billingRuntime(){const config=billingConfiguration();return{config,stripe:new Stripe(config.secretKey),engine:createBillingEngine({store,provider,livemode:false,priceId:config.priceId,productId:config.productId})};}
+export async function getWebLifetimeAccess(id:string):Promise<{tracks:LearningTrack[];environment:StoreEnvironment}>{return{tracks:await billingRuntime().engine.access(id)?['guitar','voice']:[],environment:'Sandbox'};}
+export async function webPurchaseHistory(id:string){return store.history(id,false);}

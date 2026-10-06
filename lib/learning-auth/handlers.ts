@@ -20,6 +20,7 @@ export type LearningHandlerDependencies = {
     verifyNotification(signed: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null>;
   }>;
   environment(): StoreEnvironment;
+  webAccess?(accountId: string): Promise<{ tracks: LearningTrack[]; environment: StoreEnvironment } | null>;
   allowedLessons: ReadonlyMap<string, LearningTrack>;
 };
 
@@ -28,8 +29,18 @@ function bodyOwner(body: Record<string, unknown>, accountId: string): void {
 }
 
 /** Shared by the API and server-rendered access decision; never caches provider state. */
-export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependencies, "environment" | "listPurchases" | "verifier" | "recordPurchase">, accountId: string) {
-  const environment = deps.environment();
+export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependencies, "environment" | "listPurchases" | "verifier" | "recordPurchase" | "webAccess">, accountId: string) {
+  let alternative: { tracks: LearningTrack[]; environment: StoreEnvironment } | null = null;
+  let alternativeError: unknown = null;
+  try {
+    alternative = await deps.webAccess?.(accountId) ?? null;
+    if (alternative?.tracks.includes("guitar") && alternative.tracks.includes("voice")) return { accountId, ...alternative };
+  } catch (error) { alternativeError = error; }
+  // Each purchase source independently proves access. A Stripe outage must not
+  // invalidate a freshly verified Apple lifetime purchase (or vice versa).
+  let environment: StoreEnvironment;
+  try { environment = deps.environment(); }
+  catch (error) { if (!alternative) throw error; environment = alternative.environment; }
   const rows = await deps.listPurchases(accountId, environment);
   const tracks = new Set<LearningTrack>();
   if (rows.length) {
@@ -41,6 +52,7 @@ export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependen
       lifetimeTracks(recorded, environment).forEach((track) => tracks.add(track));
     }
   }
+  if (!tracks.size && alternativeError) throw alternativeError;
   return { accountId, tracks: [...tracks], environment };
 }
 
@@ -127,7 +139,11 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const purchase = await (await deps.verifier()).verifyPurchase(body.signedTransaction, { accountId, appAccountToken: binding.appAccountToken });
       if (purchase.accountId !== accountId || purchase.appAccountToken !== binding.appAccountToken || purchase.environment !== environment) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountId, purchase);
-      return accountJSON({ accountId, tracks: lifetimeTracks(recorded, environment), environment });
+      const tracks = lifetimeTracks(recorded, environment);
+      if (tracks.length) return accountJSON({ accountId, tracks, environment });
+      // A revoked Apple receipt must not erase independently verified web
+      // ownership in the native purchase/restore response.
+      return accountJSON(await reconcileLearningAccess(deps, accountId));
     }),
     notification: route(async (request) => {
       const body = await boundedAccountBody(request, 70_000);
