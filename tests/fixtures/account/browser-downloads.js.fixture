@@ -12,7 +12,7 @@ async page => {
  await page.screenshot({path:'output/playwright/signup-free-mobile.png',fullPage:true});
  await page.getByRole('button',{name:'Sign out on this device',exact:true}).click(); await page.getByLabel('Email address',{exact:true}).waitFor();
  const blocked=[];
- for(const path of [urls[0],urls[0].replace('/account/downloads/','/field-guides/')]) for(const method of ['GET','HEAD']) {
+ for(const path of urls.flatMap(url=>[url,url.replace('/account/downloads/','/field-guides/')])) for(const method of ['GET','HEAD']) {
   const r=await page.request.fetch(base+path,{method,maxRedirects:0,headers:{'If-None-Match':'"old-public-etag"',Range:'bytes=0-99'}});
   if(r.status()!==303 || (await r.body()).length!==0 || !r.headers()['cache-control'].includes('no-store'))throw Error('Post-logout cache bypass '+path);
   blocked.push({path,method,status:r.status(),location:r.headers().location});
