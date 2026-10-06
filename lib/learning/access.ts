@@ -1,4 +1,4 @@
-import { allLessons, isFreeModule, isModuleAvailable, type TrackId } from "./curriculum.ts";
+import { allLessons, type TrackId } from "./curriculum.ts";
 import { accountUUID } from "../learning-account/contracts.ts";
 import { isGuidedLesson } from "./instruction-index.ts";
 
@@ -21,10 +21,9 @@ export function hasVerifiedTrackAccess(track: TrackId, access: LearningAccess): 
 export function canOpenModule(track: TrackId, moduleId: string, access: LearningAccess): boolean {
   // A grant cannot open an invented module, even when a track is owned.
   if (!allLessons(track).some(entry => entry.module.id === moduleId)) return false;
-  // The sampler, anything the catalog declares free, or a verified grant.
-  return isModuleAvailable(track, moduleId)
-    || isFreeModule(track, moduleId)
-    || hasVerifiedTrackAccess(track, access);
+  // Web lessons require a verified purchase, including legacy free levels and samplers.
+  // Catalog labels remain shared with iOS; they do not authorize web access.
+  return hasVerifiedTrackAccess(track, access);
 }
 
 export function accessibleLessonIds(track: TrackId, access: LearningAccess): string[] {

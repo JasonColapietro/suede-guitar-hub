@@ -55,7 +55,7 @@ export const HOME: SiteEntry = {
   href: "/",
   title: "GuitarHub",
   blurb:
-    "Start with free guitar lessons, tuning preparation, and guided practice, then continue from your saved place.",
+    "Explore guitar lessons, tuning preparation, and guided practice, then continue from your saved place.",
   lastModified: "2026-09-04",
 };
 
@@ -321,7 +321,7 @@ export const LEARN: readonly SiteEntry[] = [
     href: "/learn/guitar",
     title: "Beginner guitar lessons, step by step",
     blurb:
-      "The guitar curriculum from the first foundations: a free opening module, guided practice, and browser-local progress.",
+      "The guitar curriculum from the first foundations: lifetime lesson access, guided practice, and browser-local progress.",
     lastModified: "2026-09-25",
   },
   {

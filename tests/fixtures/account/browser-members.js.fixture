@@ -8,7 +8,7 @@ async page => {
   await page.getByLabel('Email code',{exact:true}).fill('123456');
   await page.getByRole('button',{name:'Verify and continue',exact:true}).click();
   await page.waitForURL(base+paid);
-  const preview=await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count();
+  const preview=await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count();
   if(preview !== (email.startsWith('free')?1:0)) throw Error('Entitlement boundary failed '+email);
   if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
   await page.screenshot({path:'output/playwright/signup-'+email.split('@')[0]+'-lesson-mobile.png',fullPage:true});
@@ -18,6 +18,6 @@ async page => {
   await page.getByLabel('Email address',{exact:true}).waitFor();
  }
  await page.goto(base+paid);
- if(!(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).isVisible()))throw Error('Paid logout leaked lesson');
+ if(!(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).isVisible()))throw Error('Paid logout leaked lesson');
  return {states:results,paidLogoutPreview:true};
 }

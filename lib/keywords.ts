@@ -22,9 +22,9 @@ export const ROUTE_KEYWORDS = {
   "/": [
     "beginner guitar lessons",
     "guitar lessons online",
-    "free guitar lessons",
+    "guided guitar lessons",
     "learn guitar online free",
-    "free online guitar lessons",
+    "online guitar lessons",
     "learn guitar",
     "how to practice guitar",
     "guitar practice routine",
@@ -35,7 +35,7 @@ export const ROUTE_KEYWORDS = {
     "learn guitar online",
     "learn guitar online free",
     "beginner guitar lessons",
-    "free guitar lessons",
+    "guided guitar lessons",
     "guitar lessons online",
     "learn guitar free",
     "learn guitar and singing",
@@ -45,8 +45,8 @@ export const ROUTE_KEYWORDS = {
   "/learn/guitar": [
     "beginner guitar lessons",
     "guitar lessons for beginners",
-    "free guitar lessons",
-    "free online guitar lessons",
+    "guided guitar lessons",
+    "online guitar lessons",
     "learn guitar online free",
     "guitar beginner course",
     "how to play guitar for beginners",
@@ -329,7 +329,7 @@ export const ROUTE_KEYWORDS = {
   "/faq": [
     "guitarhub",
     "guitarhub faq",
-    "free guitar lessons",
+    "guided guitar lessons",
     "learn guitar online free",
     "guitar lessons online",
     "guitar practice app",
@@ -340,7 +340,7 @@ export const ROUTE_KEYWORDS = {
     "about guitarhub",
     "suede ai",
     "guitar lessons online",
-    "free guitar lessons",
+    "guided guitar lessons",
     "learn guitar",
   ],
   "/privacy": [
@@ -399,7 +399,7 @@ export function trackKeywords(track: "guitar" | "voice"): string[] {
 export function lessonKeywords(track: "guitar" | "voice", lessonTitle: string, moduleName: string): string[] {
   const base =
     track === "guitar"
-      ? ["beginner guitar lessons", "free guitar lessons", "guitar lessons online", "learn guitar online", "guitarhub"]
+      ? ["beginner guitar lessons", "guided guitar lessons", "guitar lessons online", "learn guitar online", "guitarhub"]
       : ["free voice lessons", "vocal training", "vocal exercises", "guitarhub"];
   const kind = track === "guitar" ? "guitar lesson" : "voice lesson";
   return finish([lessonTitle, `${moduleName} ${kind}`, ...base]);

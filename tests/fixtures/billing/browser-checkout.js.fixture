@@ -25,14 +25,14 @@ async page => {
  await page.getByRole('button',{name:'Check purchase status',exact:true}).click();await page.getByText('Your Complete Lifetime access is ready.',{exact:true}).waitFor();
  let ledger=await (await page.request.get(base+'/fixture/payment')).json();check(ledger.creates===1&&ledger.orders.length===1,'idempotent checkout and webhook');
  const paymentId=ledger.orders[0].paymentIntentId;
- await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===0,'paid lesson remains locked');
+ await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===0,'paid lesson remains locked');
  for(const width of [390,320]){await page.setViewportSize({width,height:844});check(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'paid mobile overflow');await page.screenshot({path:`output/playwright/billing-paid-${width}.png`,fullPage:true});}
  await page.goto(base+'/account/upgrade');check(await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).count()===0,'existing owner must not buy twice');
- await logout();await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===1,'logout paid leak');
+ await logout();await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===1,'logout paid leak');
  await login('free@example.test','/account/complete?session_id='+session);await page.getByText('Your Complete Lifetime access is ready.',{exact:true}).waitFor();
- await mutate(session,'disputed');await event('charge.dispute.created','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===1,'dispute did not revoke');
+ await mutate(session,'disputed');await event('charge.dispute.created','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===1,'dispute did not revoke');
  await page.goto(base+'/account/upgrade');await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).click();await page.getByText('This purchase is under review.',{exact:false}).waitFor();
- await mutate(session,'won');await event('charge.dispute.closed','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Inside this lesson',exact:true}).count()===0,'won dispute did not restore');
+ await mutate(session,'won');await event('charge.dispute.closed','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===0,'won dispute did not restore');
  await mutate(session,'refunded');await event('charge.refunded','ch_fixture',paymentId);await page.goto(base+'/account/complete?session_id='+session);await page.getByText('This purchase was refunded.',{exact:false}).waitFor();
  await page.goto(base+'/account');const href=await page.locator('a[href^="/account/downloads/"]').first().getAttribute('href');check(href,'free PDF library missing');
  const pdf=await page.request.get(base+href);check(pdf.status()===200&&(await pdf.body()).subarray(0,5).toString()==='%PDF-','refunded user free PDF failed');
