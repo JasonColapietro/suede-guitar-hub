@@ -112,7 +112,7 @@ export default function AboutPage() {
           <Link href="/learn/guitar">guitar path</Link> starts at the first
           foundations, how to hold the instrument, tune it, and get one clean
           note, and works up through chords, reading, rhythm and the whole
-          neck. The opening module is free, and your place is kept in this
+          neck. Lessons require lifetime access, and your place is kept in this
           browser. Later modules are currently previews while purchase access
           is being connected. The voice lessons that used to live here moved to{" "}
           <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of them are

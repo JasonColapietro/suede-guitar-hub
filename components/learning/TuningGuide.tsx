@@ -2,10 +2,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { startCapture, playReference, hasWebAudio, type Capture } from "@/lib/audio/capture";
 import { bindPracticeLifecycle, confirmTuningPreparation, estimateTuningPitch, tunerInputError, tuningConfiguration, tuningReading } from "@/lib/audio/practice-tools";
-import authored from "@/lib/learning/data/beginner-guitar-instruction.json";
+
 import styles from "./Learning.module.css";
 
-const strings = tuningConfiguration.targets.map(target => ({ ...target, name: authored.demoAssets["six-open-strings"].strings.find(string => string.string === target.string)!.name }));
+const strings = tuningConfiguration.targets.map(target => ({ ...target, name: target.string === 6 ? "Low E" : target.string === 1 ? "High E" : target.note.slice(0, -1) }));
 type Phase = "idle" | "requesting" | "listening" | "reference" | "error";
 type Reading = NonNullable<ReturnType<typeof tuningReading>>;
 

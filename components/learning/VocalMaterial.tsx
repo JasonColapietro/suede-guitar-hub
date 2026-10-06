@@ -4,7 +4,7 @@ import { Fragment, useEffect, useId, useRef, useState, type ReactNode } from "re
 import Link from "next/link";
 import { startVocalReference, type VocalReferencePlayback } from "@/lib/audio/vocal-reference";
 import { hasWebAudio } from "@/lib/audio/capture";
-import { midiNoteName, vocalStudyTimeline, type VocalLibraryMaterial, type VocalModuleMaterial, type VocalStudy } from "@/lib/learning/vocal-material";
+import { midiNoteName, vocalStudyTimeline, type VocalLibraryMaterial, type VocalModuleMaterial, type VocalStudy } from "@/lib/learning/vocal-playback";
 import { VocalRecorder } from "./VocalRecorder";
 import styles from "./VocalMaterial.module.css";
 
