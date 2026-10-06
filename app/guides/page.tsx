@@ -444,7 +444,7 @@ export default function GuidesPage() {
           </ul>
         </section>
 
-        <FieldGuideShelf intro="Every guide on this page is also a PDF you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
+        <FieldGuideShelf intro="Every guide on this page is also a PDF you can keep on your phone or print for the music stand. Sign in with a free account to download. No paid plan needed." />
 
         {GROUPS.map((group) => (
           <section

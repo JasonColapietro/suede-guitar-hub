@@ -175,3 +175,15 @@ test("UTF-8 sized history pages preserve every record and advance only across re
   assert.ok(pages > 1);
   assert.deepEqual(received, rows.map(row => row.body.id));
 });
+
+test("email verification preserves a safe selected download and rejects an external return", async () => {
+  const client: EmailAuthClient = { auth: {
+    signInWithOtp: async () => ({ error: null }), verifyOtp: async () => ({ error: null }),
+    getUser: async () => ({ data: { user: { id } }, error: null }), signOut: async () => ({ error: null }),
+  } };
+  const handler = createEmailAuthHandlers({ enabled: () => true, client: async () => client });
+  for (const [next, expected] of [["/account/downloads/guitarhub-field-guide-01-the-method.pdf", "/account/downloads/guitarhub-field-guide-01-the-method.pdf"], ["https://evil.example", "/account"]]) {
+    const response = await handler.verify(request({ email: "fixture@example.test", code: "123456", next }));
+    assert.equal((await response.json()).destination, expected);
+  }
+});

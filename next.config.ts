@@ -46,7 +46,11 @@ export const LEGACY_SOCIAL_REDIRECTS = [
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
   // Apple verification uses the checked-in public trust anchor at runtime.
-  outputFileTracingIncludes: { "/*": ["./lib/learning-account/AppleRootCA-G3.pem"] },
+  outputFileTracingIncludes: {
+    "/*": ["./lib/learning-account/AppleRootCA-G3.pem"],
+    "/account/downloads/*": ["./private/field-guides/*.pdf"],
+    "/field-guides/*": ["./private/field-guides/*.pdf"],
+  },
   poweredByHeader: false,
   async redirects() {
     return [...LEGACY_SOCIAL_REDIRECTS, ...VOICE_REDIRECTS];

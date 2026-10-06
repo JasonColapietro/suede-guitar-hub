@@ -1,5 +1,5 @@
 import { accountUUID } from "../learning-account/contracts.ts";
-import { isSameOriginMutation } from "./config.ts";
+import { isSameOriginMutation, safeAccountDestination } from "./config.ts";
 import { AccountHTTPError, accountErrorResponse, accountJSON, boundedAccountBody } from "./http.ts";
 
 export type EmailAuthClient = { auth: {
@@ -43,7 +43,7 @@ export function createEmailAuthHandlers(deps: { enabled(): boolean; client(): Pr
           const current = await client.auth.getUser();
           if (!current.error && current.data.user && !current.data.user.is_anonymous) {
             accountUUID(current.data.user.id);
-            return accountJSON({ signedIn: true, destination: "/account" });
+            return accountJSON({ signedIn: true, destination: safeAccountDestination(typeof body.next === "string" ? body.next : null) });
           }
         }
       } catch { /* Provider response details never enter the response. */ }

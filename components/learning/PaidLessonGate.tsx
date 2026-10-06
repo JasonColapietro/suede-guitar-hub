@@ -31,6 +31,7 @@ export function PaidLessonGate({ track, lesson, access, ready }: {
         {access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "Check purchase access" : "Sign in to unlock"}</Link>}
         {!access.enabled && <a className={styles.primary} href={APP_STORE.ios}>Continue in GuitarHub for iPhone</a>}
         <Link className={styles.secondary} href="/practice">Use the free practice tools</Link>
+        {track === "guitar" && <Link className={styles.secondary} href="/advanced">Practice a free Advanced Lab drill</Link>}
       </div>
     </section>
   </>;

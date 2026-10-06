@@ -56,8 +56,16 @@ export function fieldGuideCover(guide: FieldGuide): string {
   return `/field-guides/covers/${guide.slug}.webp`;
 }
 
+export function fieldGuideFilename(guide: FieldGuide): string {
+  return `guitarhub-field-guide-${String(guide.issue).padStart(2, "0")}-${guide.slug}.pdf`;
+}
+
 export function fieldGuidePdf(guide: FieldGuide): string {
-  return `/field-guides/guitarhub-field-guide-${String(guide.issue).padStart(2, "0")}-${guide.slug}.pdf`;
+  return `/account/downloads/${fieldGuideFilename(guide)}`;
+}
+
+export function fieldGuideForDownload(destination: string): FieldGuide | undefined {
+  return FIELD_GUIDES.find((guide) => fieldGuidePdf(guide) === destination);
 }
 
 export function fieldGuideForHref(href: string): FieldGuide | undefined {
