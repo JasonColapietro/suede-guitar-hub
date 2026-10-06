@@ -1,5 +1,5 @@
 import { claimAudioSession, createAudioContext, watchAudioState } from "@/lib/audio/capture";
-import { vocalStudyTimeline, type VocalStudy } from "@/lib/learning/vocal-material";
+import { vocalStudyTimeline, type VocalStudy } from "@/lib/learning/vocal-playback";
 
 export type VocalReferencePlayback = { stop: () => void; durationSeconds: number };
 type ReferenceEnvironment = {

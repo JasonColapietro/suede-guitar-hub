@@ -245,7 +245,7 @@ test("makes every glossary word a lesson uses reachable from that lesson", () =>
   // position: between the end of the branching section and the lesson nav.
   const lessonPage = pageSource("app/learn/[track]/[lessonId]/page.tsx");
   const afterBranches = lessonPage.slice(
-    lessonPage.indexOf("</section>}"),
+    lessonPage.indexOf("<LessonSession"),
     lessonPage.indexOf("styles.lessonNavigation"),
   );
   assert.ok(

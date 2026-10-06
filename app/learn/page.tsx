@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
-import { accessibleLessonIds, guestLearningAccess, isLessonReady } from "@/lib/learning/access";
+import { isLessonReady } from "@/lib/learning/access";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/learn`;
-const TITLE = "Learn Guitar and Voice Online: Free First Lessons | GuitarHub";
+const TITLE = "Learn Guitar and Voice Online | GuitarHub";
 const DESCRIPTION =
-  "Follow GuitarHub’s guitar and voice learning paths. Start with free foundation lessons, build a practice habit, and save your progress in this browser.";
+  "Follow GuitarHub’s guitar and voice learning paths. Explore the guitar curriculum, unlock lessons with lifetime access, and build a practice habit.";
 
 /**
  * The `openGraph` and `twitter` blocks are the point of this object, not
@@ -53,11 +53,8 @@ export default function LearnPage() {
         </svg>
         <h2>{track === "guitar" ? "Guitar" : "Voice"}</h2>
         <p>{track === "guitar" ? "From your first clean note to open chords, a steady strum, and a song you can finish." : "From an easy breath to a steady tone, comfortable pitch matching, and your first song."}</p>
-        {/* What a guest can actually open, not the size of the sampler. These
-            read "3 free starter lessons" while the two levels the catalog marks
-            free held twenty-one. */}
         {track === "guitar"
-          ? <p className={styles.small}>{accessibleLessonIds(track, guestLearningAccess).length} free lessons · {curricula[track].levels.filter(level => level.access === "free").length} free stages of {curricula[track].levels.length} in the path</p>
+          ? <p className={styles.small}>{allLessons(track).length} lessons · {curricula[track].levels.filter(level => level.stage).length} stages · Lifetime access required</p>
           : <p className={styles.small}>Moved to Suede Sing, where all seven stages are free. Your <Link href="/learn/voice/recordings">saved voice takes</Link> and the lifetime <Link href="/learn/voice/materials">voice practice library</Link> stay here.</p>}
         {track === "guitar"
           ? <Link className={styles.primary} href="/learn/guitar">Explore guitar</Link>
@@ -65,7 +62,7 @@ export default function LearnPage() {
       </section>)}
     </div>
     <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Start an A/D practice routine</Link></div>
-    <div className={styles.notice}>Start without an account. The first two guitar stages are free; later guided lessons are previews. Your web progress stays in this browser and does not sync with the iOS app.</div>
+    <div className={styles.notice}>Guitar lessons require verified lifetime access. The tuner, metronome, and practice routine are free. Your web progress stays in this browser and does not sync with the iOS app.</div>
     <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>{hasOutlines ? "Written lessons and curriculum outlines give each session a focus." : "Written lessons give each session a focus."} Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
   </>;
 }
