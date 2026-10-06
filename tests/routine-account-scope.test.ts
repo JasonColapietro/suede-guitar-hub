@@ -149,10 +149,10 @@ test("guest, voice-only, disabled and unavailable account routine links remain p
     assert.match(markup, /GuitarHub curriculum preview/);
     assert.doesNotMatch(markup, /Review GuitarHub instruction/);
   }
-  assert.match(lessonLink(guestLearningAccess, "g-l1-m1-01"), /Review GuitarHub instruction/, "free guided sampler remains available");
+  assert.match(lessonLink(guestLearningAccess, "g-l1-m1-01"), /GuitarHub curriculum preview/, "sampler requires a purchase");
   // The routine's own A/D lesson sits in g-l2, which is declared free, so a
   // guest following the routine now reaches the instruction instead of a wall.
-  assert.match(lessonLink(guestLearningAccess, "g-l2-m1-01"), /Review GuitarHub instruction/, "declared-free level is open to a guest");
+  assert.match(lessonLink(guestLearningAccess, "g-l2-m1-01"), /GuitarHub curriculum preview/, "legacy free level requires a purchase");
 });
 
 test("a paid track opens complete advanced instruction and rejects unknown lessons", () => {

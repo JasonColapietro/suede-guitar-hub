@@ -76,8 +76,8 @@ test('a gate would close 235 of 237 lessons to a visitor with no progress', () =
         return moduleId !== undefined && canOpenModule('guitar', moduleId, guestLearningAccess);
     };
     const open = lessonPrerequisites.filter(entry => openToGuest(entry.id));
-    assert.ok(open.length > 1, 'the free tier is more than one lesson');
-    assert.equal(open.filter(entry => entry.prerequisiteLessonIds.length === 0).length, 1, 'and only one of them needs nothing first');
+    assert.equal(open.length, 0, 'guests need a purchase, irrespective of prerequisite history');
+    assert.equal(open.filter(entry => entry.prerequisiteLessonIds.length === 0).length, 0);
 });
 
 test('the cross-level risk is latent, not present', () => {

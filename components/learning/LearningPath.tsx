@@ -56,7 +56,7 @@ export function LearningPath({ track }: { track: TrackId }) {
     <div className={styles.hero}><h1>{track === "guitar" ? "Guitar lessons, stage by stage." : "Find your voice. Give it a little room."}</h1><p>{track === "guitar" ? `${curriculum.levels.filter(level => level.stage).length} stages, from your first clean note to a set of your own. Start at the top, jump to your level, or pick up where you left off.` : "Build comfortable habits first. Work on breath, pitch, and songs in a range that feels easy today."}</p></div>
 
     {next && <section className={styles.continue} aria-label="Continue learning">
-      <div><p className={styles.small}>{completed === ids.length ? (ownsTrack ? "Available lessons complete" : "Free lessons complete") : completed > 0 ? "Pick up where you left off" : "Start here"}</p><h2>{next.lesson.title}</h2><p>{next.level.stage ? `Stage ${next.level.stage} · ` : ""}{next.lesson.minutes} min · {completed} of {ids.length} {ownsTrack ? "available" : "free"} lessons done</p><progress className={styles.progress} aria-label="Lessons done" value={completed} max={ids.length} /><div style={{ marginTop: ".9rem" }}><PracticeStats tone="dark" /></div></div>
+      <div><p className={styles.small}>{completed === ids.length ? "Available lessons complete" : completed > 0 ? "Pick up where you left off" : "Start here"}</p><h2>{next.lesson.title}</h2><p>{next.level.stage ? `Stage ${next.level.stage} · ` : ""}{next.lesson.minutes} min · {completed} of {ids.length} available lessons done</p><progress className={styles.progress} aria-label="Lessons done" value={completed} max={ids.length} /><div style={{ marginTop: ".9rem" }}><PracticeStats tone="dark" /></div></div>
       <Link className={styles.primary} href={lessonHref(track, next.lesson.id)}>{completed === ids.length ? "Review" : completed > 0 ? "Continue" : "Start first lesson"}</Link>
     </section>}
 
@@ -65,7 +65,7 @@ export function LearningPath({ track }: { track: TrackId }) {
       <Link href="/advanced">Advanced Lab →</Link>
     </nav>}
 
-    <p className={`${styles.small} ${styles.muted}`}>{access.status === "unavailable" ? "We could not verify account access. The free stages stay open and your history is kept." : ownsTrack ? "Complete Lifetime access: every guided lesson is open." : "Stages 1 and 2 are free. Later lessons show a preview on the web."} Progress saves in this browser.{access.enabled && <> <Link href="/account">Account</Link></>}</p>
+    <p className={`${styles.small} ${styles.muted}`}>{access.status === "unavailable" ? "We could not verify purchase access. Lessons remain locked and your history is kept." : ownsTrack ? "Verified lifetime access: every guided lesson in this track is open." : "Every lesson requires verified lifetime access. Browse the curriculum below."} Progress saves in this browser.{access.enabled && <> <Link href="/account">Account</Link></>}</p>
 
     {curriculum.levels.map(level => {
       const lessonIds = level.modules.flatMap(module => module.lessons.map(lesson => lesson.id));
@@ -73,7 +73,7 @@ export function LearningPath({ track }: { track: TrackId }) {
       const open = level.modules.some(module => canOpenModule(track, module.id, access));
       const who = level.stage ? levelForStage(level.stage) : undefined;
       return <details className={styles.level} key={level.id} id={level.stage ? `stage-${level.stage}` : level.id} open={level.id === currentStageId}>
-        <summary><span className={styles.stage} aria-hidden="true">{level.stage ?? "♪"}</span><div><h2>{level.name}</h2><p className={styles.muted}>{level.subtitle}</p><span className={styles.stageMeta}><span>{lessonIds.length} lessons</span>{doneHere > 0 && <span>{doneHere} done</span>}<span>{open ? (level.access === "free" ? "Free" : "Open") : "Preview"}</span>{who && <span>{who.label}</span>}</span></div></summary>
+        <summary><span className={styles.stage} aria-hidden="true">{level.stage ?? "♪"}</span><div><h2>{level.name}</h2><p className={styles.muted}>{level.subtitle}</p><span className={styles.stageMeta}><span>{lessonIds.length} lessons</span>{doneHere > 0 && <span>{doneHere} done</span>}<span>{open ? "Open" : "Lifetime access"}</span>{who && <span>{who.label}</span>}</span></div></summary>
         {level.modules.map((module) => { const available = canOpenModule(track, module.id, access); return <section className={styles.module} key={module.id} aria-labelledby={module.id}>
           <header className={styles.moduleHeader}><h3 id={module.id}>{module.name}</h3><p>{module.promise}</p>{!available && <span className={styles.badge}>Preview</span>}</header>
           <ol className={styles.lessons}>{module.lessons.map((lesson, index) => {
