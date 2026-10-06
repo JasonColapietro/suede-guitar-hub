@@ -284,3 +284,25 @@ body {
     transition: none;
   }
 }
+
+/* Account, download and checkout actions share the lesson tools' button style. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 16px;
+  border: 1px solid var(--color-indigo-deep);
+  border-radius: 999px;
+  background: var(--color-indigo-deep);
+  color: var(--color-cream);
+  font: inherit;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button:hover:not(:disabled) { background: var(--color-indigo-mid); }
+.button:focus-visible { outline: 3px solid var(--color-violet); outline-offset: 3px; }
+.button:disabled { opacity: .5; cursor: default; }

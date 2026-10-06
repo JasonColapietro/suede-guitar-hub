@@ -1,3 +1,4 @@
+import { getWebLifetimeAccess } from "../learning-billing/runtime";
 import { allLessons } from "../learning/curriculum";
 import type { LearningTrack } from "../learning-account/contracts";
 import { accountConfiguration } from "./config";
@@ -16,5 +17,5 @@ export const learningHandlers = createLearningHandlers({
   },
   getBinding: getAccountBinding, listAttempts: listAccountAttempts, listPurchases: listAccountPurchases, findPurchaseOwner,
   appendAttempts: appendAccountAttempts, clearHistory: clearAccountHistory, recordPurchase: recordVerifiedPurchase,
-  verifier: appleLearningVerifier, environment: purchaseEnvironment, allowedLessons,
+  verifier: appleLearningVerifier, environment: purchaseEnvironment, webAccess: getWebLifetimeAccess, allowedLessons,
 });

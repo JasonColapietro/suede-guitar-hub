@@ -70,3 +70,9 @@ The new site routes do not emit ETags/Last-Modified/304 or cacheable PDF respons
 - No merge, deploy, paid purchase, paid entitlement grant, production account creation, real email, or microphone recording.
 
 Task-local logs: `tests.log`, `pdf-red.log`, `return-red.log`, `pdf-green.log`, `typecheck.log`, `lint.log`, `build.log`, `bundle.log`, `contract-sync.log`, browser snapshots, and `output/playwright/`. These are not committed because they include machine-specific paths.
+
+## Follow-up implementation — 2026-10-06
+
+The table above records the initial audit. Stacked drafts now implement protected free signup/recovery and the separately approved $79 USD one-time Complete Lifetime checkout. Credential-free browser fixtures cover new/existing free accounts, paid access, cancel/return, restore, refunds/disputes, logout, mobile layouts and the actual free PDF responses. See [free signup activation](../account/free-signup-activation.md) and [web checkout activation/evidence](../account/web-checkout-activation.md). These close the missing account and purchase paths in code; production remains inactive pending scoped provider/database approval and actual sandbox acceptance.
+
+The largest remaining retention gap is continuity across the web's browser-local plans/progress and the account/native cloud record. Local plan/resume flows work, but account sync activation and shipped native interoperability remain unverified. Unifying the planning tools and lesson progress into a single cross-device next-practice flow is a separate proposed product change, not silently included in this checkout draft. Public source-history/PDF limitations above still apply.

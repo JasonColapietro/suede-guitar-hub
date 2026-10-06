@@ -187,3 +187,9 @@ test("email verification preserves a safe selected download and rejects an exter
     assert.equal((await response.json()).destination, expected);
   }
 });
+
+test("restoring a revoked Apple receipt preserves independently verified web access", async () => {
+ const h=harness({recordPurchase:async()=>({...purchase,revokedAt:purchase.signedAt}),webAccess:async()=>({tracks:["guitar","voice"],environment:"Production"})});
+ const response=await h.handlers.purchase(request({accountId:id,signedTransaction:"fixture"}));
+ assert.equal(response.status,200);assert.deepEqual((await response.json()).tracks,["guitar","voice"]);
+});

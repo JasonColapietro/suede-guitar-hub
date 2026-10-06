@@ -1,3 +1,4 @@
+import { checkoutEnabled } from "@/lib/learning-billing/config";
 import Link from "next/link";
 import type { LearningAccess } from "@/lib/learning/access";
 import { lessonHref, trackNames, getLesson, MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE, type Lesson, type TrackId } from "@/lib/learning/curriculum";
@@ -28,6 +29,7 @@ export function PaidLessonGate({ track, lesson, access, ready }: {
       <p className={styles.small}>{TRACK_SAFETY_NOTE[track]}</p>
       {moduleSafety && <p className={styles.small}>{moduleSafety}</p>}
       <div className={styles.actions}>
+        {ready && checkoutEnabled() && <Link className={styles.primary} href="/account/upgrade">Unlock Complete Lifetime</Link>}
         {access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "Check purchase access" : "Sign in to unlock"}</Link>}
         {!access.enabled && <a className={styles.primary} href={APP_STORE.ios}>Continue in GuitarHub for iPhone</a>}
         <Link className={styles.secondary} href="/practice">Use the free practice tools</Link>
