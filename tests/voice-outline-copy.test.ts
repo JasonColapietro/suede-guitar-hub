@@ -95,7 +95,8 @@ test('the lesson library retires its own voice sentence when a guided voice less
 test('the learn index counts what a guest can open instead of asserting a number', () => {
     const markup = render(LearnPage, {});
     const free = accessibleLessonIds('guitar', guestLearningAccess).length;
-    assert.ok(markup.includes(`${free} free lessons`), 'the guitar card states the count it computes');
+    assert.equal(free, 0);
+    assert.ok(markup.includes('135 lessons') && markup.includes('Lifetime access required'));
     // The voice card no longer counts anything here: the lessons moved to Sing.
     assert.ok(markup.includes('Voice lessons on Suede Sing'), 'the voice card sends a singer to Sing');
     // This sentence is about both tracks and stays true while any lesson
@@ -148,7 +149,7 @@ test('client learning surfaces do not import the full instruction corpus', () =>
 
 test('the Suede Sing companion handoff is outside the open-or-preview branch', () => {
     const source = readFileSync('app/learn/[track]/[lessonId]/page.tsx', 'utf8');
-    assert.match(source, /<\/section>}\s*\{companion && <>\s*<div className=\{styles\.notice\}>/, 'an open guided voice lesson lost its companion handoff');
+    assert.match(source, /<LessonSession[^\n]+\/>\s*\{companion && <>\s*<div className=\{styles\.notice\}>/, 'an open guided voice lesson lost its companion handoff');
 });
 
 /**

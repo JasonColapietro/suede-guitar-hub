@@ -364,7 +364,7 @@ test("the voice track's safety copy is rendered on the pages a singer reaches", 
   // `LessonSession`, which no voice lesson mounts, so for the whole voice track
   // it rendered nowhere at all. A constant with no reader is the same as no
   // constant.
-  const lessonPage = readFileSync("app/learn/[track]/[lessonId]/page.tsx", "utf8");
+  const lessonPage = readFileSync("components/learning/PaidLessonGate.tsx", "utf8");
   assert.match(lessonPage, /TRACK_SAFETY_NOTE\[track\]/, "the outline branch no longer renders the track safety note");
   const session = readFileSync("components/learning/LessonSession.tsx", "utf8");
   assert.match(session, /TRACK_SAFETY_NOTE\[track\]/, "the full lesson no longer renders the track safety note");
@@ -404,7 +404,7 @@ test("the mixed-voice sustain and the effects module carry their own caution", (
     );
   }
 
-  const lessonPage = readFileSync("app/learn/[track]/[lessonId]/page.tsx", "utf8");
+  const lessonPage = readFileSync("components/learning/PaidLessonGate.tsx", "utf8");
   assert.match(lessonPage, /MODULE_SAFETY_NOTE/, "the lesson page no longer renders the module caution");
   const session = readFileSync("components/learning/LessonSession.tsx", "utf8");
   assert.match(session, /MODULE_SAFETY_NOTE/, "the full lesson no longer renders the module caution");
