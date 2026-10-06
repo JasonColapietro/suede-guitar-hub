@@ -1,6 +1,12 @@
 -- PROPOSAL ONLY. Apply only after scoped database/credential approval.
 -- New GuitarHub objects only; existing Apple ledger and shared auth policies unchanged.
 begin;
+-- Activation/password assignment is a separate secure user action. No inherited roles.
+create role guitarhub_billing nologin nosuperuser nocreatedb nocreaterole noinherit noreplication nobypassrls connection limit 4;
+alter role guitarhub_billing set statement_timeout = '5s';
+alter role guitarhub_billing set lock_timeout = '3s';
+grant connect on database postgres to guitarhub_billing;
+grant usage on schema public to guitarhub_billing;
 create table public.guitarhub_web_orders (
  id uuid primary key default gen_random_uuid(),
  account_id uuid not null references auth.users(id) on delete cascade,
@@ -17,7 +23,10 @@ create table public.guitarhub_web_orders (
 );
 alter table public.guitarhub_web_orders enable row level security;
 revoke all on public.guitarhub_web_orders from public, anon, authenticated;
-grant select, insert, update on public.guitarhub_web_orders to service_role;
+grant select, insert, update on public.guitarhub_web_orders to guitarhub_billing;
+create policy guitarhub_billing_select on public.guitarhub_web_orders for select to guitarhub_billing using (true);
+create policy guitarhub_billing_insert on public.guitarhub_web_orders for insert to guitarhub_billing with check (true);
+create policy guitarhub_billing_update on public.guitarhub_web_orders for update to guitarhub_billing using (true) with check (true);
 create index guitarhub_web_orders_account on public.guitarhub_web_orders(account_id,livemode);
 create unique index guitarhub_web_orders_active on public.guitarhub_web_orders(account_id,livemode) where state in ('pending','paid','disputed');
 
@@ -66,7 +75,34 @@ end;$$;
 revoke all on function public.guitarhub_reserve_web_order(uuid,boolean,text,text) from public,anon,authenticated;
 revoke all on function public.guitarhub_bind_web_order(uuid,uuid,text) from public,anon,authenticated;
 revoke all on function public.guitarhub_record_web_order(uuid,text,text,text,timestamptz,integer) from public,anon,authenticated;
-grant execute on function public.guitarhub_reserve_web_order(uuid,boolean,text,text) to service_role;
-grant execute on function public.guitarhub_bind_web_order(uuid,uuid,text) to service_role;
-grant execute on function public.guitarhub_record_web_order(uuid,text,text,text,timestamptz,integer) to service_role;
+grant execute on function public.guitarhub_reserve_web_order(uuid,boolean,text,text) to guitarhub_billing;
+grant execute on function public.guitarhub_bind_web_order(uuid,uuid,text) to guitarhub_billing;
+grant execute on function public.guitarhub_record_web_order(uuid,text,text,text,timestamptz,integer) to guitarhub_billing;
+-- NOINHERIT does not remove PUBLIC privileges. Abort the entire proposal if
+-- existing shared privileges expose unrelated application data or privileged RPCs.
+do $$
+begin
+ if exists (
+  select 1 from pg_class c join pg_namespace n on n.oid=c.relnamespace
+  where n.nspname not in ('pg_catalog','information_schema') and n.nspname not like 'pg_toast%'
+   and c.relkind in ('r','p','v','m','f') and c.oid<>'public.guitarhub_web_orders'::regclass
+   and has_schema_privilege('guitarhub_billing',n.oid,'USAGE')
+   and (has_table_privilege('guitarhub_billing',c.oid,'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')
+    or has_any_column_privilege('guitarhub_billing',c.oid,'SELECT,INSERT,UPDATE,REFERENCES'))
+ ) or exists (
+  select 1 from pg_class c join pg_namespace n on n.oid=c.relnamespace
+  where c.relkind='S' and n.nspname not in ('pg_catalog','information_schema')
+   and has_schema_privilege('guitarhub_billing',n.oid,'USAGE')
+   and case when c.relkind='S' then has_sequence_privilege('guitarhub_billing',c.oid,'USAGE,SELECT,UPDATE') else false end
+ ) or exists (
+  select 1 from pg_namespace n where n.nspname not in ('pg_catalog','information_schema')
+   and n.nspname not like 'pg_temp_%' and n.nspname not like 'pg_toast%'
+   and has_schema_privilege('guitarhub_billing',n.oid,'CREATE')
+ ) or exists (
+  select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+  where n.nspname not in ('pg_catalog','information_schema') and p.prosecdef
+   and has_schema_privilege('guitarhub_billing',n.oid,'USAGE')
+   and has_function_privilege('guitarhub_billing',p.oid,'EXECUTE')
+ ) then raise exception 'guitarhub_billing_unexpected_shared_privileges';end if;
+end;$$;
 commit;

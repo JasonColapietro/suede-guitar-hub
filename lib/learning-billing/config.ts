@@ -1,3 +1,4 @@
+import { billingDatabaseConfiguration } from './database-config.ts';
 export type BillingConfiguration={secretKey:string;webhookSecret:string;accountId:string;priceId:string;productId:string;livemode:boolean;origin:string};
 export function billingConfiguration():BillingConfiguration|null {
  if(process.env.GUITARHUB_WEB_BILLING_ENABLED!=='true')return null;
@@ -8,7 +9,7 @@ export function billingConfiguration():BillingConfiguration|null {
  const priceId=process.env.GUITARHUB_STRIPE_LIFETIME_PRICE_ID;
  const productId=process.env.GUITARHUB_STRIPE_LIFETIME_PRODUCT_ID;
  const origin=process.env.GUITARHUB_CHECKOUT_ORIGIN;
- if(!['test','live'].includes(mode??'')||!secretKey||!webhookSecret?.startsWith('whsec_')||!accountId?.startsWith('acct_')||!priceId?.startsWith('price_')||!productId?.startsWith('prod_')||!origin||!process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY)return null;
+ if(!['test','live'].includes(mode??'')||!secretKey||!webhookSecret?.startsWith('whsec_')||!accountId?.startsWith('acct_')||!priceId?.startsWith('price_')||!productId?.startsWith('prod_')||!origin||!billingDatabaseConfiguration())return null;
  if(!secretKey.startsWith(`rk_${mode}_`) && !secretKey.startsWith(`sk_${mode}_`))return null;
  if(process.env.VERCEL_ENV==='production' && (mode!=='live'||origin!=='https://guitarhub.org'||accountId!=='acct_1SHG7dRdcsaZ58FL'))return null;
  // Preview/development must never charge real money.
