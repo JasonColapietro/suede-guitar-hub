@@ -102,7 +102,7 @@ const SONG_LESSONS = [
 const FAQS = [
   {
     q: "Who is GuitarHub for?",
-    a: "New guitarists can begin with the free opening lessons. Returning players can revisit the foundations and use the practice tools. The wider curriculum is visible as a preview while web access is being connected.",
+    a: "New guitarists can explore the lesson curriculum. Lessons require verified lifetime access. Returning players can use the free practice tools and Advanced Lab. Web purchase verification is being connected; lifetime lessons are available in the iPhone app.",
   },
   {
     q: "Can I use the planner without joining?",
@@ -190,7 +190,7 @@ export default function Home() {
                 <LevelPicker tone="dark" />
               </div>
               <p className="mt-6 text-sm text-white/80">
-                Stages 1 and 2 and the Advanced Lab are free. No account needed.{" "}
+                Lessons require lifetime access. The Advanced Lab and practice tools are free.{" "}
                 <a href={SING_VOICE_COURSE} className="font-semibold text-peach underline-offset-4 hover:underline">Voice lessons on Suede Sing</a>
                 {" · "}
                 <a href={APP_STORE.ios} className="font-semibold text-peach underline-offset-4 hover:underline">GuitarHub for iPhone <span aria-hidden>↗</span></a>
