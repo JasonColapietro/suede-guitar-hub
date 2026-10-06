@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import { register } from 'node:module';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { guestLearningAccess, type LearningAccess } from '../lib/learning/access.ts';
+import { createFieldGuideDownload } from '../lib/field-guide-downloads.ts';
+import { FIELD_GUIDES, fieldGuideFilename, fieldGuidePdf } from '../lib/field-guides.ts';
+import { allLessons } from '../lib/learning/curriculum.ts';
+import { isLessonReady } from '../lib/learning/access.ts';
 import { getLessonInstructions } from '../lib/learning/instructions.ts';
 register('./component-render-hooks.mjs', import.meta.url);
 register('./lesson-gate-hooks.mjs', import.meta.url);
@@ -38,4 +42,27 @@ test('verified purchase opens former samplers; loss of entitlement relocks the s
   globals.__lessonGateAccess = { ...owner, tracks: [] };
   const revoked = await LessonPage({ params });
   assert.equal(revoked.type.name, 'PaidLessonGate');
+});
+
+// Account identity permits free PDFs, never purchase-gated lesson payloads.
+test('the same verified free member downloads every PDF while every ready guitar lesson stays locked', async () => {
+  globals.__lessonGateAccess = { ...owner, tracks: [] };
+  const download = createFieldGuideDownload({ enabled: () => true,
+    resolveAccount: async () => ({ user: { id: owner.accountId } }),
+    readPdf: async () => new TextEncoder().encode('%PDF-free-member-fixture'),
+  });
+  for (const guide of FIELD_GUIDES) {
+    const response = await download(new Request('https://guitarhub.org' + fieldGuidePdf(guide)), fieldGuideFilename(guide));
+    assert.equal(response.status, 200);
+    assert.match(await response.text(), /^%PDF-/);
+    assert.equal(response.headers.get('cache-control'), 'private, no-store');
+  }
+  const ready = allLessons('guitar').filter(({lesson}) => isLessonReady('guitar', lesson.id));
+  assert.equal(ready.length, 135);
+  for (const {lesson} of ready) {
+    const page = await LessonPage({params: Promise.resolve({track:'guitar',lessonId:lesson.id})});
+    assert.equal(page.type.name, 'PaidLessonGate', lesson.id);
+    assert.equal(page.props.instructions, undefined, lesson.id);
+    assert.equal(page.props.vocalMaterial, undefined, lesson.id);
+  }
 });

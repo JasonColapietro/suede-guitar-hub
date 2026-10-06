@@ -95,8 +95,8 @@ export async function listAccountAttempts(accountId: string, cursor: string) {
   return (result.data ?? []).map((row) => ({ sequence: row.sequence as string, body: row.body as unknown }));
 }
 
-export async function listAccountPurchases(accountId: string, environment: StoreEnvironment) {
-  const result = await accountBackend().from("guitarhub_apple_purchases").select("transaction_id,original_transaction_id,app_account_token")
+export async function listAccountPurchases(accountId: string, environment: StoreEnvironment, db = accountBackend()) {
+  const result = await db.from("guitarhub_apple_purchases").select("transaction_id,original_transaction_id,app_account_token")
     .eq("account_id", accountUUID(accountId)).eq("environment", environment).limit(21);
   checkDatabaseError(result.error);
   if (!result.data || result.data.length > 20) throw new AccountHTTPError(503, "account_service_unavailable");

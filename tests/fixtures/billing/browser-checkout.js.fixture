@@ -2,6 +2,19 @@ async page => {
  const base='http://localhost:3421',lesson='/learn/guitar/g-l3-m1-01';
  const check=(value,message)=>{if(!value)throw Error(message);};
  const results=[];
+ async function lessonBoundary(locked){
+  for(const id of ['g-l1-m1-01','g-l2-m1-01','g-l3-m1-01']){
+   await page.goto(base+'/learn/guitar/'+id);
+   check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===(locked?1:0),'lesson purchase boundary '+id);
+   check(await page.locator('summary').filter({hasText:'Practice plan'}).count()===(locked?0:1),'authored lesson content boundary '+id);
+  }
+ }
+ async function freeLibrary(){
+  await page.goto(base+'/account');const links=await page.locator('a[href^="/account/downloads/"]').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('href')));
+  check(links.length===15,'all free PDFs visible');
+  for(const href of links){for(const path of [href,href.replace('/account/downloads/','/field-guides/')]){const response=await page.request.get(base+path);check(response.status()===200&&(await response.body()).subarray(0,5).toString()==='%PDF-','free member direct PDF '+path);check(response.headers()['cache-control']==='private, no-store','PDF cache protection');}}
+ }
+
  await page.context().clearCookies();
  await page.route('https://checkout.stripe.com/**',route=>route.fulfill({contentType:'text/html',body:`<!doctype html><title>Synthetic checkout — no charge</title><h1>Synthetic Checkout</h1><p>No real payment provider is contacted.</p><a href="${base}/account/upgrade?checkout=cancelled">Cancel checkout</a><a href="${base}/account/complete?session_id=${new URL(route.request().url()).pathname.split('/').pop()}">Return to GuitarHub</a>`}));
  async function login(email,next){await page.goto(base+'/account?next='+encodeURIComponent(next));await page.getByLabel('Email address',{exact:true}).fill(email);await page.getByRole('button',{name:'Send an email code',exact:true}).click();await page.getByLabel('Email code',{exact:true}).fill('123456');await page.getByRole('button',{name:'Verify and continue',exact:true}).click();await page.waitForURL(base+next);}
@@ -15,6 +28,7 @@ async page => {
  await page.getByRole('link',{name:'Create your free account or sign in to continue',exact:true}).click();
  await page.getByLabel('Email address',{exact:true}).fill('new@example.test');await page.getByRole('button',{name:'Send an email code',exact:true}).click();await page.getByLabel('Email code',{exact:true}).fill('123456');await page.getByRole('button',{name:'Verify and continue',exact:true}).click();await page.waitForURL(base+'/account/upgrade');
  check((await page.locator('main').innerText()).includes('$79 USD'),'approved price');
+ await lessonBoundary(true);await freeLibrary();await page.goto(base+'/account/upgrade');
  await page.screenshot({path:'output/playwright/billing-upgrade-desktop.png',fullPage:true});
  await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).click();await page.waitForURL('https://checkout.stripe.com/**');
  const session=new URL(page.url()).pathname.split('/').pop();
@@ -25,15 +39,17 @@ async page => {
  await page.getByRole('button',{name:'Check purchase status',exact:true}).click();await page.getByText('Your Complete Lifetime access is ready.',{exact:true}).waitFor();
  let ledger=await (await page.request.get(base+'/fixture/payment')).json();check(ledger.creates===1&&ledger.orders.length===1,'idempotent checkout and webhook');
  const paymentId=ledger.orders[0].paymentIntentId;
+ await lessonBoundary(false);
  await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===0,'paid lesson remains locked');
  for(const width of [390,320]){await page.setViewportSize({width,height:844});check(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'paid mobile overflow');await page.screenshot({path:`output/playwright/billing-paid-${width}.png`,fullPage:true});}
  await page.goto(base+'/account/upgrade');check(await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).count()===0,'existing owner must not buy twice');
- await logout();await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===1,'logout paid leak');
+ await logout();await lessonBoundary(true);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===1,'logout paid leak');
  await login('free@example.test','/account/complete?session_id='+session);await page.getByText('Your Complete Lifetime access is ready.',{exact:true}).waitFor();
- await mutate(session,'disputed');await event('charge.dispute.created','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===1,'dispute did not revoke');
+ await mutate(session,'disputed');await event('charge.dispute.created','dp_fixture',paymentId);await lessonBoundary(true);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===1,'dispute did not revoke');
  await page.goto(base+'/account/upgrade');await page.getByRole('button',{name:'Unlock Complete Lifetime — $79',exact:true}).click();await page.getByText('This purchase is under review.',{exact:false}).waitFor();
- await mutate(session,'won');await event('charge.dispute.closed','dp_fixture',paymentId);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===0,'won dispute did not restore');
+ await mutate(session,'won');await event('charge.dispute.closed','dp_fixture',paymentId);await lessonBoundary(false);await page.goto(base+lesson);check(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count()===0,'won dispute did not restore');
  await mutate(session,'refunded');await event('charge.refunded','ch_fixture',paymentId);await page.goto(base+'/account/complete?session_id='+session);await page.getByText('This purchase was refunded.',{exact:false}).waitFor();
+ await lessonBoundary(true);await freeLibrary();
  await page.goto(base+'/account');const href=await page.locator('a[href^="/account/downloads/"]').first().getAttribute('href');check(href,'free PDF library missing');
  const pdf=await page.request.get(base+href);check(pdf.status()===200&&(await pdf.body()).subarray(0,5).toString()==='%PDF-','refunded user free PDF failed');
  await page.screenshot({path:'output/playwright/billing-refunded-account-mobile.png',fullPage:true});
@@ -41,5 +57,5 @@ async page => {
  await login('paid@example.test','/account/complete?session_id='+session);check(!(await page.locator('main').innerText()).includes('access is ready'),'foreign owner purchase leak');
  const foreign=await page.request.post(base+'/api/billing/restore',{headers:{origin:base},data:{sessionId:session}});check(foreign.status()===404,'foreign owner restore');
  ledger=await (await page.request.get(base+'/fixture/payment')).json();check(ledger.orders[0].state==='refunded'&&ledger.creates===1,'final ledger');
- results.push({newFreeReturn:true,price7900:true,cancelRetryOneSession:true,unpaidDenied:true,paidOpened:true,duplicateWebhookSafe:true,logoutDenied:true,restoreAfterLogin:true,disputeRevoked:true,wonRestored:true,refundRevoked:true,freePDFAfterRefund:true,foreignRestoreDenied:true,mobileWidths:[390,320],syntheticOnly:true});return results;
+ results.push({all15FreePDFsBothPaths:true,formerFreeLessonsPurchaseOnly:true,newFreeReturn:true,price7900:true,cancelRetryOneSession:true,unpaidDenied:true,paidOpened:true,duplicateWebhookSafe:true,logoutDenied:true,restoreAfterLogin:true,disputeRevoked:true,wonRestored:true,refundRevoked:true,freePDFAfterRefund:true,foreignRestoreDenied:true,mobileWidths:[390,320],syntheticOnly:true});return results;
 }

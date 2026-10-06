@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {billingConfiguration,checkoutEnabled} from '../lib/learning-billing/config.ts';
 test('billing configuration separates sales pause from existing access and refuses live preview or test production',()=>{
- const values={GUITARHUB_WEB_BILLING_ENABLED:'true',GUITARHUB_WEB_CHECKOUT_ENABLED:'true',GUITARHUB_STRIPE_MODE:'test',GUITARHUB_STRIPE_SECRET_KEY:'rk_test_fixture',GUITARHUB_STRIPE_WEBHOOK_SECRET:'whsec_fixture',GUITARHUB_STRIPE_ACCOUNT_ID:'acct_fixture',GUITARHUB_STRIPE_LIFETIME_PRICE_ID:'price_fixture',GUITARHUB_STRIPE_LIFETIME_PRODUCT_ID:'prod_fixture',GUITARHUB_CHECKOUT_ORIGIN:'https://preview.example.test',GUITARHUB_SUPABASE_SERVICE_ROLE_KEY:'fixture-only',VERCEL_ENV:'preview'};
+ const values={GUITARHUB_WEB_BILLING_ENABLED:'true',GUITARHUB_WEB_CHECKOUT_ENABLED:'true',GUITARHUB_STRIPE_MODE:'test',GUITARHUB_STRIPE_SECRET_KEY:'rk_test_fixture',GUITARHUB_STRIPE_WEBHOOK_SECRET:'whsec_fixture',GUITARHUB_STRIPE_ACCOUNT_ID:'acct_fixture',GUITARHUB_STRIPE_LIFETIME_PRICE_ID:'price_fixture',GUITARHUB_STRIPE_LIFETIME_PRODUCT_ID:'prod_fixture',GUITARHUB_CHECKOUT_ORIGIN:'https://preview.example.test',GUITARHUB_BILLING_DATABASE_URL:'postgresql://guitarhub_billing.drzuelosizfllruocmly:fixture-only@aws-0-us-west-1.pooler.supabase.com:6543/postgres',VERCEL_ENV:'preview'};
  const old=Object.fromEntries(Object.keys(values).map(key=>[key,process.env[key]]));
  try {Object.assign(process.env,values);assert.equal(billingConfiguration()?.livemode,false);assert.equal(checkoutEnabled(),true);
  process.env.GUITARHUB_WEB_CHECKOUT_ENABLED='false';assert.ok(billingConfiguration());assert.equal(checkoutEnabled(),false);

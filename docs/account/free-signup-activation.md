@@ -26,7 +26,7 @@ This draft is default off. No production settings, credentials, users, grants, p
 | `GUITARHUB_SUPABASE_SERVICE_ROLE_KEY` | **no** | Existing cloud sync/Apple ledger backend only; omitted for free signup/PDF activation |
 | `GUITARHUB_APPLE_ENVIRONMENT`, `GUITARHUB_APPLE_ISSUER_ID`, `GUITARHUB_APPLE_KEY_ID`, `GUITARHUB_APPLE_SIGNING_KEY` | **no** | Existing Apple purchase verification only; separate activation |
 
-The publishable-only requirement is verified by configuration tests, provider API architecture, and credential-free browser fixtures. Actual hosted OTP delivery still needs a designated test user and approved preview configuration. The public key does not bypass RLS. Existing backend mutations independently require the service-role key. Free activation does not grant paid tracks.
+The publishable-only requirement is verified by configuration tests, provider API architecture, and credential-free browser fixtures. Actual hosted OTP delivery still needs a designated test user and approved hosted configuration. The public key does not bypass RLS. Existing backend mutations independently require the service-role key. Free activation does not grant paid tracks.
 
 Both browser routes and server validation share one explicitly `basic` BotID policy; no Deep Analysis or paid provider tier is enabled. Server checks reject bots, non-human results, bypasses and unavailable configuration. Redis outages and timeout-as-success responses fail closed. Send limits: 5 per IP per hour and 1 per normalized email per minute. Verify limits: 10 per IP and email per 10 minutes. Redis reset timestamps determine the response `Retry-After` and UI countdown, including hour-long IP limits. Keys contain HMAC digests, never raw email/IP. No analytics or persistent in-process fallback.
 
@@ -34,7 +34,7 @@ Copying an existing broad Redis token would add GuitarHub deployment access to u
 
 ## Proposed scoped activation request (after remaining inventory and preview review)
 
-Allow the **GuitarHub Vercel project only** to use the existing shared Supabase public URL/publishable key for verified email-code accounts, and an explicitly identified Redis resource with a GuitarHub-only rate-limit credential plus a dedicated HMAC salt. Enable BotID Basic only. Add values through the secure deployment secret flow, initially preview-only, then enable the two flags only after the acceptance checks. No shared service-role key, Apple/Stripe secret, global Supabase auth change, shared Redis broad token, or paid product activation is part of this free-account request.
+Allow the **GuitarHub Vercel project only** to use the existing shared Supabase public URL/publishable key for verified email-code accounts, and an explicitly identified Redis resource with a GuitarHub-only rate-limit credential plus a dedicated HMAC salt. Enable BotID Basic only. Add values through the secure deployment secret flow, for the user-authorized live rollout, then enable the two flags only after the applicable nonpayment acceptance checks. No shared service-role key, Apple/Stripe secret, global Supabase auth change, shared Redis broad token, or paid product activation is part of this free-account request.
 
 This request is not ready for approval until the Redis resource/ACL and existing email settings are verified. If existing email settings lack code delivery or signup permission, return the exact proposed global change and affected Suede apps for a separate decision. Do not silently modify shared settings.
 

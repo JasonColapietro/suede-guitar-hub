@@ -21,7 +21,7 @@ export const getVerifiedLearningAccess = cache(async (): Promise<VerifiedLearnin
     const account = await resolveAccount();
     if (!account) return { enabled: true, accountId: null, tracks: [], status: "signedOut" };
     accountId = account.user.id;
-    const access = await reconcileLearningAccess({ listPurchases: listAccountPurchases, verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase, webAccess: getWebLifetimeAccess }, accountId);
+    const access = await reconcileLearningAccess({ listPurchases: (id, environment) => listAccountPurchases(id, environment, account.client), verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase, webAccess: getWebLifetimeAccess }, accountId);
     return { enabled: true, accountId, tracks: access.tracks, status: "verified" };
   } catch { return { enabled: true, accountId, tracks: [], status: "unavailable" }; }
 });
