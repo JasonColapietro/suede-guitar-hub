@@ -29,8 +29,8 @@ test("accounts stay disabled until configured deliberately", () => {
     delete process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
     assert.equal(accountConfiguration(), null);
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = "test-public-key";
-    assert.equal(accountConfiguration(), null);
-    process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY = "synthetic-test-only-service-key";
+    delete process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY;
+    // Free identity and PDFs must not require administrative database credentials.
     assert.equal(accountConfiguration()?.url, "https://drzuelosizfllruocmly.supabase.co");
     for (const url of ["http://project.supabase.co", "https://user:password@project.supabase.co", "https://drzuelosizfllruocmly.supabase.co/path", "https://other-project.supabase.co", "invalid"]) {
       process.env.NEXT_PUBLIC_SUPABASE_URL = url;

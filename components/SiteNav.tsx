@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/practice", label: "Practice" },
   { href: "/tools", label: "Tools" },
   { href: "/guides", label: "Guides" },
+  { href: "/account", label: "Account" },
 ] as const;
 
 export default function SiteNav() {

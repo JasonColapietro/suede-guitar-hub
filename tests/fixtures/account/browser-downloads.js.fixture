@@ -1,0 +1,21 @@
+async page => {
+ const base='http://localhost:3420'; const urls=await page.locator('a[href^="/account/downloads/"]').evaluateAll(links=>[...new Set(links.map(a=>a.getAttribute('href')))]);
+ if(urls.length!==15) throw Error('Missing library PDFs');
+ const evidence=[];
+ for(const url of urls) for(const path of [url,url.replace('/account/downloads/','/field-guides/')]) {
+  const r=await page.request.get(base+path);const bytes=await r.body();
+  if(r.status()!==200||bytes.subarray(0,5).toString()!=='%PDF-'||!r.headers()['cache-control'].includes('no-store'))throw Error('Free account download failed '+path);
+  evidence.push({path,status:r.status(),bytes:bytes.length});
+ }
+ await page.setViewportSize({width:390,height:844});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
+ await page.screenshot({path:'output/playwright/signup-free-mobile.png',fullPage:true});
+ await page.getByRole('button',{name:'Sign out on this device',exact:true}).click(); await page.getByLabel('Email address',{exact:true}).waitFor();
+ const blocked=[];
+ for(const path of [urls[0],urls[0].replace('/account/downloads/','/field-guides/')]) for(const method of ['GET','HEAD']) {
+  const r=await page.request.fetch(base+path,{method,maxRedirects:0,headers:{'If-None-Match':'"old-public-etag"',Range:'bytes=0-99'}});
+  if(r.status()!==303 || (await r.body()).length!==0 || !r.headers()['cache-control'].includes('no-store'))throw Error('Post-logout cache bypass '+path);
+  blocked.push({path,method,status:r.status(),location:r.headers().location});
+ }
+ return {freeAccountDownloads:evidence,logoutDenied:blocked,mobileOverflow:false};
+}

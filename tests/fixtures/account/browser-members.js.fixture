@@ -1,0 +1,23 @@
+async page => {
+ const base='http://localhost:3420'; const paid='/learn/guitar/g-l3-m1-01';
+ const results=[];
+ for(const email of ['free@example.test','paid@example.test']) {
+  await page.goto(base+'/account?next='+encodeURIComponent(paid));
+  await page.getByLabel('Email address',{exact:true}).fill(email);
+  await page.getByRole('button',{name:'Send an email code',exact:true}).click();
+  await page.getByLabel('Email code',{exact:true}).fill('123456');
+  await page.getByRole('button',{name:'Verify and continue',exact:true}).click();
+  await page.waitForURL(base+paid);
+  const preview=await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).count();
+  if(preview !== (email.startsWith('free')?1:0)) throw Error('Entitlement boundary failed '+email);
+  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile overflow');
+  await page.screenshot({path:'output/playwright/signup-'+email.split('@')[0]+'-lesson-mobile.png',fullPage:true});
+  results.push({email,lesson:paid,preview:!!preview,url:page.url()});
+  await page.goto(base+'/account');
+  await page.getByRole('button',{name:'Sign out on this device',exact:true}).click();
+  await page.getByLabel('Email address',{exact:true}).waitFor();
+ }
+ await page.goto(base+paid);
+ if(!(await page.getByRole('heading',{name:'Unlock the full lesson',exact:true}).isVisible()))throw Error('Paid logout leaked lesson');
+ return {states:results,paidLogoutPreview:true};
+}

@@ -3,7 +3,8 @@ import { isSameOriginMutation } from "./config.ts";
 export class AccountHTTPError extends Error {
   readonly status: number;
   readonly code: string;
-  constructor(status: number, code: string) { super(code); this.status = status; this.code = code; }
+  readonly retryAfterSeconds?: number;
+  constructor(status: number, code: string, retryAfterSeconds?: number) { super(code); this.status = status; this.code = code; this.retryAfterSeconds = retryAfterSeconds; }
 }
 
 export function accountJSON(body: unknown, status = 200) {
@@ -45,7 +46,11 @@ export async function boundedAccountBody(request: Request, maximumBytes = 524_28
 }
 
 export function accountErrorResponse(error: unknown): Response {
-  if (error instanceof AccountHTTPError) return accountJSON({ error: error.code }, error.status);
+  if (error instanceof AccountHTTPError) {
+    const response = accountJSON({ error: error.code }, error.status);
+    if (error.status === 429) response.headers.set("Retry-After", String(Math.max(1, Math.ceil(error.retryAfterSeconds ?? 60))));
+    return response;
+  }
   const code = typeof error === "object" && error !== null && "code" in error ? String(error.code) : "";
   const conflicts = ["purchase_owner_conflict", "purchase_event_conflict", "attempt_identity_conflict", "sync_epoch_changed", "ownership_recovery_required", "account_changed"];
   const invalid = ["invalid_uuid", "invalid_attempt", "invalid_attempt_details", "invalid_evidence", "invalid_purchase", "invalid_signed_purchase", "invalid_notification", "purchase_not_supported", "purchase_identity_mismatch", "apple_verification_failed"];

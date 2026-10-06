@@ -1,0 +1,8 @@
+/** Synthetic entitlement snapshot; never copied into a real deployment. */
+import { resolveAccount } from './server';
+import type { LearningTrack } from '../learning-account/contracts';
+export type VerifiedLearningAccess = { enabled:boolean; accountId:string|null; tracks:LearningTrack[]; status:'disabled'|'signedOut'|'verified'|'unavailable' };
+export async function getVerifiedLearningAccess(): Promise<VerifiedLearningAccess> {
+ const account=await resolveAccount();
+ return {enabled:true,accountId:account?.user.id??null,tracks:account?.user.email==='paid@example.test'?['guitar','voice']:[],status:account?'verified':'signedOut'};
+}
