@@ -41,6 +41,7 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
   const [loop, setLoop] = useState<Loop>(null);
   const [marking, setMarking] = useState<null | "a" | "b">(null);
   const [playing, setPlaying] = useState(false);
+  const [starting, setStarting] = useState(false);
   const [countIn, setCountIn] = useState(0);
   const [current, setCurrent] = useState(-1);
   const [position, setPosition] = useState<number | null>(null);
@@ -53,10 +54,13 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
   const run = useRef<{ voice: Awaited<ReturnType<ReturnType<typeof useGuitarVoice>["get"]>>; generation: number; t0: number; spb: number; startBeat: number; endBeat: number; passes: number; targetTimes: number[]; taps: number[]; range: [number, number]; loop: boolean; mode: Mode } | null>(null);
   const generation = useRef(0);
   const frame = useRef(0);
+  const flashTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scroller = useRef<HTMLDivElement | null>(null);
 
   const minGap = useMemo(() => targets.slice(1).reduce((gap, target, index) => Math.min(gap, target.beat - targets[index].beat), Infinity), [targets]);
-  const pxPerBeat = Math.min(110, Math.max(rhythm ? 44 : 50, (rhythm ? 34 : 34) / (Number.isFinite(minGap) ? minGap : 1)));
+  const beatGap = Number.isFinite(minGap) && minGap > 0 ? minGap : 1;
+  // Keep rhythm cues and touch targets separate, even for sixteenth notes.
+  const pxPerBeat = rhythm ? Math.max(56, 56 / beatGap) : Math.min(110, Math.max(50, 34 / beatGap));
   const lastBeat = targets.at(-1)?.beat ?? 0;
   const totalBeats = Math.max(beatsPerBar, (Math.floor(lastBeat / beatsPerBar + 1e-9) + 1) * beatsPerBar);
   const width = LEFT + totalBeats * pxPerBeat + 24;
@@ -68,11 +72,17 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
     cancelAnimationFrame(frame.current);
     run.current = null;
     close();
-    setPlaying(false); setCountIn(0); setPosition(null); setCurrent(-1);
+    setStarting(false); setPlaying(false); setCountIn(0); setPosition(null); setCurrent(-1);
+    if (flashTimer.current !== null) clearTimeout(flashTimer.current);
+    setFlash(false);
     if (!keepMarks) { setLoop(null); setMarking(null); }
   }, [close]);
-  useEffect(() => () => { generation.current++; cancelAnimationFrame(frame.current); }, []);
-  useEffect(() => { if (interrupted) { cancelAnimationFrame(frame.current); run.current = null; setPlaying(false); setCountIn(0); setPosition(null); } }, [interrupted]);
+  useEffect(() => () => {
+    generation.current++;
+    cancelAnimationFrame(frame.current);
+    if (flashTimer.current !== null) clearTimeout(flashTimer.current);
+  }, []);
+  useEffect(() => { if (interrupted) stop(); }, [interrupted, stop]);
 
   function sound(voice: Awaited<ReturnType<typeof get>>, target: PracticeTarget, at: number, level = .8) {
     if (target.midi != null) { voice.pluck(target.midi, at, level); return; }
@@ -91,12 +101,18 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
   }
 
   async function play() {
-    if (playing) { stop(); return; }
+    if (playing || starting) { stop(); return; }
+    if (document.hidden || targets.length === 0) return;
+    setStarting(true);
     setResult(null); setNewBest(false);
     const id = ++generation.current;
     let voice: Awaited<ReturnType<typeof get>>;
-    try { voice = await get(); } catch { return; }
-    if (id !== generation.current) return;
+    try { voice = await get(); } catch {
+      if (id === generation.current) setStarting(false);
+      return;
+    }
+    if (id !== generation.current || document.hidden) return;
+    setStarting(false);
     const range: [number, number] = loop ? [Math.min(loop.a, loop.b), Math.max(loop.a, loop.b)] : [0, targets.length - 1];
     const spb = 60 / (timeline.bpm * speed / 100);
     const startBeat = loop ? targets[range[0]].beat : 0;
@@ -146,13 +162,18 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
   }
 
   async function tapNote(index: number) {
+    if (playing || starting || document.hidden) return;
     if (marking) {
       if (marking === "a") { setLoop({ a: index, b: index }); setMarking("b"); }
       else { setLoop(previous => ({ a: previous?.a ?? index, b: index })); setMarking(null); }
       return;
     }
-    if (playing) return;
-    try { const voice = await get(); sound(voice, targets[index], voice.context.currentTime + .02); } catch {}
+    const id = generation.current;
+    try {
+      const voice = await get();
+      if (id !== generation.current || document.hidden) return;
+      sound(voice, targets[index], voice.context.currentTime + .02);
+    } catch {}
   }
 
   function tap() {
@@ -161,7 +182,9 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
     // Read the audio clock at the moment of the tap, minus the output delay
     // the listener hears, so a tap on the heard click scores as on time.
     active.taps.push(active.voice.context.currentTime - active.voice.outputLatency);
-    setFlash(true); window.setTimeout(() => setFlash(false), 90);
+    setFlash(true);
+    if (flashTimer.current !== null) clearTimeout(flashTimer.current);
+    flashTimer.current = setTimeout(() => setFlash(false), 90);
   }
 
   const inLoop = (index: number) => !loop || (index >= Math.min(loop.a, loop.b) && index <= Math.max(loop.a, loop.b));
@@ -175,8 +198,8 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
   return <section className={styles.panel} aria-label={title}>
     <div className={styles.head}>
       <div><p className={styles.eyebrow}>{rhythm ? "Rhythm" : "Tab"} player</p><h3>{title}</h3></div>
-      {allowTap && <div className={styles.tabs} role="tablist" aria-label="Player mode">
-        {(["listen", "tap"] as const).map(value => <button key={value} role="tab" type="button" aria-selected={mode === value} disabled={playing} onClick={() => { setMode(value); setResult(null); }}>{value === "listen" ? "Listen" : "Tap along"}</button>)}
+      {allowTap && <div className={styles.tabs} role="group" aria-label="Player mode">
+        {(["listen", "tap"] as const).map(value => <button key={value} type="button" aria-pressed={mode === value} disabled={playing || starting} onClick={() => { setMode(value); setResult(null); }}>{value === "listen" ? "Listen" : "Tap along"}</button>)}
       </div>}
     </div>
 
@@ -193,15 +216,15 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
       </div>
     </div>
 
-    {mode === "tap" && <button type="button" className={styles.pad} data-flash={flash} disabled={!playing} onPointerDown={event => { event.preventDefault(); tap(); }} onKeyDown={event => { if (event.key === " " || event.key === "Enter") { event.preventDefault(); tap(); } }}>{playing ? (countIn ? `Get ready… ${countIn}` : "Tap here on every hit") : "Press Start, then tap here on every hit"}</button>}
+    {mode === "tap" && <button type="button" className={styles.pad} data-flash={flash} disabled={!playing} onPointerDown={event => { event.preventDefault(); tap(); }} onKeyDown={event => { if (event.key === " " || event.key === "Enter") { event.preventDefault(); if (!event.repeat) tap(); } }} onClick={event => { if (event.detail === 0) tap(); }}>{playing ? (countIn ? `Get ready… ${countIn}` : "Tap here on every hit") : "Press Start, then tap here on every hit"}</button>}
 
     <div className={styles.row}>
-      <button type="button" className={`${styles.button} ${styles.primary}`} onClick={() => void play()}>{playing ? "Stop" : mode === "tap" ? "Start tap-along" : loop ? "Play loop" : "Play it for me"}</button>
+      <button type="button" className={`${styles.button} ${styles.primary}`} onClick={() => void play()}>{starting ? "Cancel audio start" : playing ? "Stop" : mode === "tap" ? "Start tap-along" : loop ? "Play loop" : "Play it for me"}</button>
       <label className={styles.caption} style={{ display: "flex", alignItems: "center", gap: 6 }}>Speed
-        <select className={styles.select} value={speed} disabled={playing} onChange={event => setSpeed(Number(event.target.value))} aria-label="Playback speed">{SPEEDS.map(value => <option key={value} value={value}>{value}% · {Math.round(timeline.bpm * value / 100)} BPM</option>)}</select>
+        <select className={styles.select} value={speed} disabled={playing || starting} onChange={event => setSpeed(Number(event.target.value))} aria-label="Playback speed">{SPEEDS.map(value => <option key={value} value={value}>{value}% · {Math.round(timeline.bpm * value / 100)} BPM</option>)}</select>
       </label>
-      {mode === "listen" && <button type="button" className={styles.button} aria-pressed={click} onClick={() => setClick(value => !value)} disabled={playing}>Click {click ? "on" : "off"}</button>}
-      {mode === "listen" && <button type="button" className={styles.button} aria-pressed={marking !== null} disabled={playing} onClick={() => { if (loop || marking) { setLoop(null); setMarking(null); } else setMarking("a"); }}>{marking === "a" ? "Tap the first note…" : marking === "b" ? "Tap the last note…" : loop ? `Loop ${Math.min(loop.a, loop.b) + 1}–${Math.max(loop.a, loop.b) + 1} · clear` : "Loop a section"}</button>}
+      {mode === "listen" && <button type="button" className={styles.button} aria-pressed={click} onClick={() => setClick(value => !value)} disabled={playing || starting}>Click {click ? "on" : "off"}</button>}
+      {mode === "listen" && <button type="button" className={styles.button} aria-pressed={marking !== null} disabled={playing || starting} onClick={() => { if (loop || marking) { setLoop(null); setMarking(null); } else setMarking("a"); }}>{marking === "a" ? "Tap the first note…" : marking === "b" ? "Tap the last note…" : loop ? `Loop ${Math.min(loop.a, loop.b) + 1}–${Math.max(loop.a, loop.b) + 1} · clear` : "Loop a section"}</button>}
     </div>
 
     {result && <div aria-live="polite">
