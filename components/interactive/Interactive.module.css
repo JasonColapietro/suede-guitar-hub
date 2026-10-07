@@ -16,7 +16,7 @@
 /* Mode tabs */
 .tabs { display: flex; gap: 4px; padding: 4px; background: #f1ebf8; border-radius: 999px; width: fit-content; max-width: 100%; overflow-x: auto; }
 .tabs button { min-height: 40px; padding: 6px 14px; border: 0; border-radius: 999px; background: transparent; color: #51367d; font: inherit; font-weight: 650; cursor: pointer; white-space: nowrap; }
-.tabs button[aria-selected=true] { background: #251152; color: #f7f3ee; }
+.tabs button[aria-pressed=true] { background: #251152; color: #f7f3ee; }
 
 /* Tab staff */
 .staffScroll { overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; border-radius: 14px; background: #faf7f2; border: 1px solid #e6dcec; scroll-behavior: smooth; }
@@ -34,9 +34,9 @@
 .note[data-result=good] { background: #9cc49a; border-color: #5e8e5b; color: #173a16; }
 .note[data-result=early], .note[data-result=late] { background: #f0c27b; border-color: #b27a23; color: #3d2505; }
 .note[data-result=missed] { background: #fff; border-color: #c43d3d; color: #c43d3d; border-style: dashed; }
-.slash { position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; background: none; border: 0; cursor: pointer; color: #251152; font: inherit; padding: 4px; }
+.slash { box-sizing: border-box; width: 52px; min-height: 44px; position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; background: none; border: 0; cursor: pointer; color: #251152; font: inherit; padding: 4px; }
 .slash strong { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #3b1f7e; display: grid; place-items: center; font-size: 15px; background: #fff; }
-.slash small { font-size: 11px; font-weight: 700; color: #62576f; white-space: nowrap; }
+.slash small { max-width: 44px; overflow: hidden; text-overflow: ellipsis; font-size: 11px; font-weight: 700; color: #62576f; white-space: nowrap; }
 .slash[data-now=true] strong { background: #6d28d9; border-color: #6d28d9; color: #fff; transform: scale(1.15); }
 .slash[data-inloop=false] { opacity: .35; }
 .slash[data-mark=A] strong, .slash[data-mark=B] strong { box-shadow: 0 0 0 3px #f5e2cf; }

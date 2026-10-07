@@ -107,7 +107,7 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
     }
     persist({ updatedAt: new Date().toISOString(), practiceSeconds: result.practiceSeconds, assessment: result.passed ? "ready" : "repeat", source: "measured", score: result.score, bpm: result.bpm, completionMinimumBPM: result.completionMinimumBPM, practiceSpecRevision: result.practiceSpecRevision }, attemptId, result);
   }
-  const coach = lesson.practiceSpec && <PracticeCoach key={lesson.id} recentAttempts={(progress.measuredAttempts ?? []).filter(attempt => attempt.lessonId === lesson.id).map(attempt => ({ bpm: attempt.record.bpm ?? 0, score: attempt.record.score, disposition: "scored" as const, passed: attempt.record.assessment === "ready", specRevision: attempt.record.practiceSpecRevision }))} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} onUnscoredResult={(result, id) => saveUnscored(lesson.id, result, id)} />;
+  const coach = lesson.practiceSpec && <PracticeCoach key={`coach:${lesson.id}`} recentAttempts={(progress.measuredAttempts ?? []).filter(attempt => attempt.lessonId === lesson.id).map(attempt => ({ bpm: attempt.record.bpm ?? 0, score: attempt.record.score, disposition: "scored" as const, passed: attempt.record.assessment === "ready", specRevision: attempt.record.practiceSpecRevision }))} spec={lesson.practiceSpec} track={track} onComplete={measuredResult} onUnscoredResult={(result, id) => saveUnscored(lesson.id, result, id)} />;
   const done = previous?.assessment === "ready";
   return <>
     {/* The exercise comes first. It used to sit under several screens of
@@ -117,7 +117,7 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
     {needsTuning && <details className={styles.panel}><summary className={styles.foldTitle}>Tune up first (optional)</summary><TuningGuide key={lesson.id} /></details>}
     {coach && lesson.practiceSpec && <section className={styles.exercise} aria-label="Exercise"><h2 className={styles.sectionTitle}>The exercise</h2>
       <p className={styles.small}><strong>1. Hear it.</strong> Play it back, loop the hard part, slow it down.</p>
-      <TabPlayer key={lesson.id} bestKey={lesson.practiceSpec.mode === "rhythm" ? `lesson:${lesson.id}` : undefined} timeline={lesson.practiceSpec} title={lesson.practiceSpec.mode === "rhythm" ? "The rhythm" : "The notes"} />
+      <TabPlayer key={`player:${lesson.id}`} bestKey={lesson.practiceSpec.mode === "rhythm" ? `lesson:${lesson.id}` : undefined} timeline={lesson.practiceSpec} title={lesson.practiceSpec.mode === "rhythm" ? "The rhythm" : "The notes"} />
       <p className={styles.small} style={{ marginTop: "1.25rem" }}><strong>2. Play it.</strong> Practice waits for each note. Play scores the full pass at tempo.{requiresMeasuredCompletion ? ` Passing Play${completionMinimumBPM !== undefined ? ` at ${completionMinimumBPM} BPM` : ""} completes this lesson.` : ""}</p>{coach}</section>}
     <div className={styles.lessonGrid}>
       <div>

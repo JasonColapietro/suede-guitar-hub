@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState, type FormEvent } from "react";
 import {
   LOG_METRICS,
   LOG_STORAGE_KEY,
-  MAX_ENTRIES,
   MAX_FOCUS_LENGTH,
   MAX_NOTE_LENGTH,
   MIN_TREND_POINTS,
@@ -12,7 +11,6 @@ import {
   exportFileName,
   importLog,
   knownFocuses,
-  mergeLog,
   metricSpec,
   recentFirst,
   removeEntry,
@@ -27,6 +25,7 @@ import {
   type LogMetric,
   type TrendVerdict,
 } from "@/lib/log";
+import { reduceLogState } from "@/lib/log-state";
 
 /**
  * The Practice Evidence Log.
@@ -135,7 +134,13 @@ function formatDate(iso: string): string {
 export default function PracticeLog() {
   const [hydrated, setHydrated] = useState(false);
   const [today, setToday] = useState("");
-  const [entries, setEntries] = useState<LogEntry[]>([]);
+  const [{ entries, importReceipt }, dispatchLog] = useReducer(reduceLogState, {
+    entries: [],
+    importReceipt: null,
+  });
+  function setEntries(next: LogEntry[]) {
+    dispatchLog({ type: "replace", entries: next });
+  }
   const [draft, setDraft] = useState<Draft>(() => emptyDraft(""));
   const [editingId, setEditingId] = useState<string | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
@@ -154,7 +159,7 @@ export default function PracticeLog() {
     setToday(stamp);
     setDraft(emptyDraft(stamp));
     const restored = readStored();
-    if (restored) setEntries(restored);
+    if (restored) dispatchLog({ type: "replace", entries: restored });
     setHydrated(true);
   }, []);
 
@@ -176,6 +181,10 @@ export default function PracticeLog() {
     }
     writeStored(entries);
   }, [entries, hydrated]);
+
+  useEffect(() => {
+    if (importReceipt) setNotice(importReceipt.message);
+  }, [importReceipt]);
 
   // Runs after React has committed, which is when the element exists.
   // `requestAnimationFrame` would not do: it never fires in a hidden tab, so
@@ -323,27 +332,10 @@ export default function PracticeLog() {
       return;
     }
 
-    const { entries: incoming, truncated } = parsed.value;
-    const merged = mergeLog(entries, incoming);
-    setEntries(merged.entries);
+    // Dispatch the parsed file instead of merging a snapshot captured before
+    // file.text(): sessions can be added or edited while that read is pending.
+    dispatchLog({ type: "import", imported: parsed.value });
     setError(null);
-    setNotice(
-      `Added ${merged.added} ${merged.added === 1 ? "session" : "sessions"}` +
-        (merged.skipped > 0
-          ? `, and skipped ${merged.skipped} already in this browser`
-          : "") +
-        (merged.dropped > 0
-          ? `. This log is full at ${MAX_ENTRIES} sessions, so ${merged.dropped} could not be added — export it and clear it to keep going.`
-          : ".") +
-        // Said out loud rather than folded into the added count: the file held
-        // more sessions than were read, and a player who is not told that will
-        // believe the whole file came across.
-        (truncated > 0
-          ? ` That file held more than ${MAX_ENTRIES} readable sessions, so its ${truncated} oldest ${
-              truncated === 1 ? "was" : "were"
-            } not read — the most recent ${MAX_ENTRIES} are the ones that were.`
-          : ""),
-    );
     setFocusTarget(SUMMARY_ID);
   }
 
