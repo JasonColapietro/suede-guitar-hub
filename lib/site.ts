@@ -55,8 +55,8 @@ export const HOME: SiteEntry = {
   href: "/",
   title: "GuitarHub",
   blurb:
-    "Explore guitar lessons, tuning preparation, and guided practice, then continue from your saved place.",
-  lastModified: "2026-09-04",
+    "Guitar lessons with lifetime access, plus free practice routines and advanced drills from Suede AI.",
+  lastModified: "2026-10-08",
 };
 
 /**
@@ -315,14 +315,20 @@ export const LEARN: readonly SiteEntry[] = [
     title: "Learning paths",
     blurb:
       "Follow the guitar lessons in order, with your place kept in this browser. Voice lessons now live on Suede Sing.",
-    lastModified: "2026-09-04",
+    lastModified: "2026-10-08",
   },
   {
     href: "/learn/guitar",
     title: "Beginner guitar lessons, step by step",
     blurb:
       "The guitar curriculum from the first foundations: lifetime lesson access, guided practice, and browser-local progress.",
-    lastModified: "2026-09-25",
+    lastModified: "2026-10-08",
+  },
+  {
+    href: "/learn/guitar/routine",
+    title: "A-to-D chord practice routine",
+    blurb: "A free beginner routine for A and D chord changes, with seven timed blocks, editable durations, and local practice history.",
+    lastModified: "2026-10-08",
   },
   {
     href: "/start",

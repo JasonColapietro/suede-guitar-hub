@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
-  title: "GuitarHub: Guitar Lessons Online, One Step at a Time",
+  title: "Guitar Lessons & Practice Tools | GuitarHub by Suede AI",
   description:
-    "Explore guitar lessons, tuning preparation, and guided practice. Save progress in your browser and explore guitar and voice learning paths.",
+    "Explore guitar lessons with lifetime access, plus free practice routines and advanced drills. GuitarHub by Suede AI keeps web progress in your browser.",
   openGraph: {
-    title: "GuitarHub: Guitar Lessons Online, One Step at a Time",
+    title: "Guitar Lessons & Practice Tools | GuitarHub by Suede AI",
     description:
-      "Get comfortable, tune up, and practice your first sounds. Lessons require lifetime access, with progress saved in your browser.",
+      "Explore guitar lessons with lifetime access, plus free practice routines and advanced drills. GuitarHub by Suede AI keeps web progress in your browser.",
     url: "https://guitarhub.org",
     siteName: "GuitarHub",
     type: "website",
@@ -73,7 +73,7 @@ const JSON_LD = {
       url: "https://guitarhub.org",
       name: "GuitarHub",
       description:
-        "Guitar and voice learning paths, guided practice, and browser tools from Suede Labs.",
+        "Guitar lessons, practice routines, and advanced drills from Suede AI.",
       inLanguage: "en-US",
       publisher: { "@id": SUEDE_ORG_ID },
       author: { "@id": JASON_PERSON_ID },

@@ -175,14 +175,14 @@ export default function Home() {
             </Reveal>
             <Reveal delay={1}>
               <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight text-cream md:text-6xl">
-                From your first chord{" "}
-                <em className="font-display italic text-peach">to playing what you hear.</em>
+                Guitar lessons and practice.{" "}
+                <em className="font-display italic text-peach">One step at a time.</em>
               </h1>
             </Reveal>
             <Reveal delay={2}>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-                Lessons in order, a coach that listens through your microphone,
-                and scored drills for players who are already good. Tell us where you are.
+                Explore step-by-step guitar lessons, practice chord changes, and work
+                through advanced drills with GuitarHub by Suede AI. Choose your level to begin.
               </p>
             </Reveal>
             <Reveal delay={3}>
@@ -191,6 +191,8 @@ export default function Home() {
               </div>
               <p className="mt-6 text-sm text-white/80">
                 Lessons require lifetime access. The Advanced Lab and practice tools are free.{" "}
+                <Link href="/learn/guitar/routine" className="font-semibold text-peach underline-offset-4 hover:underline">Try the A-to-D chord practice routine</Link>
+                {" · "}
                 <a href={SING_VOICE_COURSE} className="font-semibold text-peach underline-offset-4 hover:underline">Voice lessons on Suede Sing</a>
                 {" · "}
                 <a href={APP_STORE.ios} className="font-semibold text-peach underline-offset-4 hover:underline">GuitarHub for iPhone <span aria-hidden>↗</span></a>

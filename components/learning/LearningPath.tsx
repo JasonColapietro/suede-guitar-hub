@@ -53,7 +53,9 @@ export function LearningPath({ track }: { track: TrackId }) {
 
   return <>
     <nav className={styles.trackSwitch} aria-label="Learning track"><Link href="/learn/guitar" aria-current={track === "guitar" ? "page" : undefined}>{trackNames.guitar}</Link><a href={SING_VOICE_COURSE}>{trackNames.voice} on Suede Sing</a></nav>
-    <div className={styles.hero}><h1>{track === "guitar" ? "Guitar lessons, stage by stage." : "Find your voice. Give it a little room."}</h1><p>{track === "guitar" ? `${curriculum.levels.filter(level => level.stage).length} stages, from your first clean note to a set of your own. Start at the top, jump to your level, or pick up where you left off.` : "Build comfortable habits first. Work on breath, pitch, and songs in a range that feels easy today."}</p></div>
+    <div className={styles.hero}><h1>{track === "guitar" ? "Beginner guitar lessons, step by step." : "Find your voice. Give it a little room."}</h1><p>{track === "guitar" ? `${curriculum.levels.filter(level => level.stage).length} stages, starting with first notes, open chords, strumming, and songs. Browse the curriculum, then continue into later stages as your playing develops.` : "Build comfortable habits first. Work on breath, pitch, and songs in a range that feels easy today."}</p></div>
+
+    {track === "guitar" && <p className={styles.small}>Already know A and D? <Link href="/learn/guitar/routine">Practice A-to-D chord changes with the free routine</Link>, or <Link href="/session">build a practice session around your available time</Link>.</p>}
 
     {next && <section className={styles.continue} aria-label="Continue learning">
       <div><p className={styles.small}>{completed === ids.length ? "Available lessons complete" : completed > 0 ? "Pick up where you left off" : "Start here"}</p><h2>{next.lesson.title}</h2><p>{next.level.stage ? `Stage ${next.level.stage} · ` : ""}{next.lesson.minutes} min · {completed} of {ids.length} available lessons done</p><progress className={styles.progress} aria-label="Lessons done" value={completed} max={ids.length} /><div style={{ marginTop: ".9rem" }}><PracticeStats tone="dark" /></div></div>

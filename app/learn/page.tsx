@@ -8,9 +8,9 @@ import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/learn`;
-const TITLE = "Learn Guitar and Voice Online | GuitarHub";
+const TITLE = "Guitar Curriculum & Voice Learning Paths | GuitarHub";
 const DESCRIPTION =
-  "Follow GuitarHub’s guitar and voice learning paths. Explore the guitar curriculum, unlock lessons with lifetime access, and build a practice habit.";
+  "Browse the GuitarHub guitar curriculum with lifetime lesson access, try free chord practice, or follow the voice learning path on Suede Sing.";
 
 /**
  * The `openGraph` and `twitter` blocks are the point of this object, not
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 export default function LearnPage() {
   const hasOutlines = (["guitar", "voice"] as const).some(track => allLessons(track).some(entry => !isLessonReady(track, entry.lesson.id)));
   return <>
-    <div className={styles.hero}><h1>A little practice.<br />A new thing you can do.</h1><p>Pick your instrument. Follow the lessons in order, spend a few minutes with each exercise, and come back to the parts that need another try.</p></div>
+    <div className={styles.hero}><h1>Choose your guitar or voice learning path.</h1><p>Explore the guitar curriculum here or continue to voice lessons on Suede Sing. Guitar lessons require lifetime access; the A-to-D chord practice routine is free.</p></div>
     <div className={styles.tracks}>
       {(["guitar", "voice"] as const).map((track) => <section className={styles.track} key={track}>
         <svg className={styles.instrument} viewBox="0 0 400 80" aria-hidden="true">
@@ -61,7 +61,7 @@ export default function LearnPage() {
           : <a className={styles.primary} href={SING_VOICE_COURSE}>Voice lessons on Suede Sing</a>}
       </section>)}
     </div>
-    <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Start an A/D practice routine</Link></div>
+    <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Practice A-to-D chord changes</Link></div>
     <div className={styles.notice}>Guitar lessons require verified lifetime access. The tuner, metronome, and practice routine are free. Your web progress stays in this browser and does not sync with the iOS app.</div>
     <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>{hasOutlines ? "Written lessons and curriculum outlines give each session a focus." : "Written lessons give each session a focus."} Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
   </>;
