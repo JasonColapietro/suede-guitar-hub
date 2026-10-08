@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ track: st
       : "Free Voice Lessons & Vocal Training | GuitarHub";
   const description =
     track === "guitar"
-      ? "Follow the GuitarHub guitar curriculum from the first foundations. Lifetime lesson access, guided practice, and browser-local progress."
+      ? "Explore beginner guitar lessons on first notes, open chords, strumming, and songs. Lessons require lifetime access; web progress stays in your browser."
       : "Practice 21 free guided voice lessons from GuitarHub's 102-lesson voice curriculum, with breath, pitch, registers, songs, and Suede Sing exercises.";
   return {
     title,

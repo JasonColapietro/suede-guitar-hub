@@ -229,7 +229,7 @@ test("publishes every canonical indexable page in the sitemap", async () => {
   for (const entry of entries) {
     // The catalogs have no editorial modification dates. Omit lastModified
     // there rather than claiming that every deployment updates the content.
-    if (entry.url.includes("/learn/guitar/") || entry.url.includes("/advanced/")) {
+    if (!SITEMAP_ENTRIES.some((page) => `${SITE_URL}${page.href === "/" ? "" : page.href}` === entry.url)) {
       assert.equal(entry.lastModified, undefined);
     } else assert.ok(
       entry.lastModified instanceof Date &&
@@ -247,6 +247,9 @@ test("publishes every canonical indexable page in the sitemap", async () => {
 test("discovers public lessons and drills without advertising gated or private routes", async () => {
   const { default: sitemap } = await import("../app/sitemap.ts");
   const urls = new Set(sitemap().map((entry) => entry.url));
+
+  assert.ok(urls.has(`${SITE_URL}/learn/guitar/routine`),
+    "the public routine remains discoverable even though its URL is beneath /learn/guitar/");
 
   for (const { lesson, module } of allLessons("guitar")) {
     const publicLesson = isLessonReady("guitar", lesson.id)
