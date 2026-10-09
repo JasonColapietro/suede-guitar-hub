@@ -41,7 +41,7 @@ const PUBLISHED = ENTRY?.lastModified ?? "2026-09-13";
 
 const TITLE = "Guitar and Voice Glossary: Every Term in One Sentence";
 const DESCRIPTION =
-  "The guitar vocabulary defined in one sentence each, and every voice and music term linked to its definition in Suede Sing. Free, with the page where each word is used.";
+  "The guitar vocabulary defined in one sentence each, and each voice and music term linked to its Suede Sing definition. Free, with the page where each word is used.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/glossary"),
