@@ -109,7 +109,7 @@ const JSON_LD = {
       // The native iOS app. `name` is the exact App Store listing title —
       // Google cross-checks SoftwareApplication schema against the store, so
       // the store wins over the division name, which rides in alternateName.
-      "@type": "SoftwareApplication",
+      "@type": "MobileApplication",
       "@id": "https://guitarhub.org/#ios-app",
       name: APP_STORE.name,
       alternateName: ["GuitarHub", "GuitarHub by Suede AI"],
@@ -134,7 +134,16 @@ const JSON_LD = {
       "@id": JASON_PERSON_ID,
       name: "Jason Colapietro",
       alternateName: ["Johnny Suede"],
-      jobTitle: "Founder and CEO of Suede Labs",
+      jobTitle: ["Founder and CEO, Suede AI", "Fractional Forward-Deployed Engineer"],
+      knowsAbout: [
+        "AI integration",
+        "Forward-deployed engineering",
+        "AI agents",
+        "Search engine optimization",
+        "Generative engine optimization",
+        "Answer engine optimization",
+        "Digital PR",
+      ],
       url: "https://suedeai.ai/founder",
       worksFor: { "@id": SUEDE_ORG_ID },
       sameAs: [

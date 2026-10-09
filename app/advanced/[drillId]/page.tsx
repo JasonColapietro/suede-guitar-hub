@@ -16,7 +16,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const drill = getDrill((await params).drillId);
   if (!drill) return {};
   const url = `${SITE_URL}${drillHref(drill.id)}`;
-  const title = `${drill.title}: ${skillArea(drill.area).name} Drill | GuitarHub Advanced Lab`;
+  const full = `${drill.title} | GuitarHub Advanced Lab`;
+  // Keep the title inside the ~60 character SERP window.
+  const title = full.length <= 60 ? full : `${drill.title} | GuitarHub`;
   return {
     title, description: drill.summary, alternates: { canonical: url },
     keywords: drillKeywords(drill.title, skillArea(drill.area).name),
