@@ -207,6 +207,34 @@ export const GUIDES: readonly SiteEntry[] = [
       "Testing against the click instead of playing along with it, and what that exposes about your time.",
     lastModified: "2026-08-29",
   },
+  {
+    href: "/beginner-guitar-practice-routine",
+    title: "A beginner practice routine for 90 days",
+    blurb:
+      "Twenty minutes a day in five blocks, three 30-day phases, and a recording on days 1, 30, 60 and 90.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-change-chords-faster",
+    title: "How to change chords faster",
+    blurb:
+      "Anchor fingers, guide fingers, shape moves and one-minute changes, with exact fingerings for the common open-chord pairs.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-strumming",
+    title: "How to practice strumming",
+    blurb:
+      "A hand that never stops, counted eighths, five patterns in order, and a click on beats 2 and 4.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-play-barre-chords",
+    title: "Barre chords and the F chord",
+    blurb:
+      "Leverage instead of grip strength, a four-step path to a full F, and the E and A shapes up the neck.",
+    lastModified: "2026-10-10",
+  },
 ];
 
 /**
