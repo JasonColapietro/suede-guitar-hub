@@ -267,6 +267,37 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
       "recording its page for no gain, since the general protocol cannot answer a query about one " +
       "record. The overlap was in the framing, so the framing is what changed.",
   },
+  {
+    id: "scalesVersusImprovisation",
+    query: "how to practice guitar scales",
+    decision: "differentiate",
+    pages: [
+      {
+        href: "/how-to-practice-guitar-scales",
+        question: "How do I practice a scale so the shape plays like music?",
+        scopeLine:
+          "This page is about the scale itself: how to practice a shape so it plays like music instead of an exercise.",
+        descriptionMark: "sequences",
+        handedOver: ["call and response"],
+      },
+      {
+        href: "/how-to-practice-guitar-improvisation",
+        question: "How do I practice making up phrases over chords?",
+        scopeLine:
+          "This page is about making up phrases over chords: what to practice so that improvising stops sounding like a scale played in order.",
+        descriptionMark: "call and response",
+        handedOver: ["groups of three"],
+      },
+    ],
+    reason:
+      "Both guides were written in the same batch and both promise to make scales sound like " +
+      "music, which is the half-a-query overlap this register exists to settle before it ships. " +
+      "The questions are genuinely different: one is about the shape under the fingers (sequences, " +
+      "intervals, a drone, chord tones inside the position), the other is about choosing notes in " +
+      "time over chord changes (constraints, phrases that answer each other, landing notes). The " +
+      "scale page keeps the exercise vocabulary and hands phrase-answering to the improvisation " +
+      "page; the improvisation page leaves sequence drills to the scale page.",
+  },
 ];
 
 /**

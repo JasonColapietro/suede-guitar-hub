@@ -233,6 +233,76 @@ export const GUIDES: readonly SiteEntry[] = [
       "Testing against the click instead of playing along with it, and what that exposes about your time.",
     lastModified: "2026-08-29",
   },
+  {
+    href: "/beginner-guitar-practice-routine",
+    title: "A beginner practice routine for 90 days",
+    blurb:
+      "Twenty minutes a day in five blocks, three 30-day phases, and a recording on days 1, 30, 60 and 90.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-change-chords-faster",
+    title: "How to change chords faster",
+    blurb:
+      "Anchor fingers, guide fingers, shape moves and one-minute changes, with exact fingerings for the common open-chord pairs.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/guitar-finger-pain",
+    title: "Sore fingertips and hand pain",
+    blurb:
+      "How calluses form, how to press lighter, the setup fixes that help, and the pain signals that mean stop.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/record-guitar-practice-on-phone",
+    title: "Record your practice on a phone",
+    blurb:
+      "Phone placement, levels, a day 1 versus day 30 comparison, and the five things to listen for in every take.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/learn-guitar-fretboard-notes",
+    title: "Learn the fretboard notes and CAGED",
+    blurb:
+      "The musical alphabet, strings 6 and 5, octave shapes, and the five CAGED shapes that connect the whole neck.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-strumming",
+    title: "How to practice strumming",
+    blurb:
+      "A hand that never stops, counted eighths, five patterns in order, and a click on beats 2 and 4.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-play-barre-chords",
+    title: "Barre chords and the F chord",
+    blurb:
+      "Leverage instead of grip strength, a four-step path to a full F, and the E and A shapes up the neck.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-guitar-improvisation",
+    title: "How to practice improvising",
+    blurb:
+      "Constraint drills, phrases that answer each other, and landing on chord tones over a 12-bar blues in A.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/coming-back-to-guitar",
+    title: "Coming back to guitar after years away",
+    blurb:
+      "A 30-day restart: set up the guitar, rebuild your fingertips, record a fresh baseline, and finish one song.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-guitar-scales",
+    title: "Practicing scales so they become music",
+    blurb:
+      "One shape learned cold, then sequences, thirds, a drone, rhythm and chord tones, in a 15-minute daily plan.",
+    lastModified: "2026-10-10",
+  },
 ];
 
 /**
