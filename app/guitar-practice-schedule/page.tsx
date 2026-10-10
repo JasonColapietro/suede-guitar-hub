@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/guitar-practice-schedule`;
@@ -48,7 +48,6 @@ const RELATED = RELATED_HREFS.flatMap((href) =>
 // Same @ids as app/layout.tsx, so this Article attaches to the Organization
 // and Person nodes already declared there instead of minting duplicates.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -66,7 +65,7 @@ const JSON_LD = {
       datePublished: PUBLISHED,
       dateModified: PUBLISHED,
       inLanguage: "en-US",
-      author: { "@id": JASON_PERSON_ID },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
       mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
     },

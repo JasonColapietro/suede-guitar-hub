@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
-import { OG_IMAGE, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
+import { ARTICLE_AUTHOR, OG_IMAGE, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/print-the-quiet`;
@@ -49,7 +49,7 @@ const JSON_LD = {
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
   inLanguage: "en-US",
-  author: { "@id": "https://suedeai.ai/founder#person" },
+  author: ARTICLE_AUTHOR,
   publisher: { "@id": "https://suedeai.ai/#organization" },
   hasPart: FIELD_GUIDES.map((guide, index) => ({
     "@type": "Article",

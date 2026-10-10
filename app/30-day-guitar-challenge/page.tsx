@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, STRUMLY } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/30-day-guitar-challenge";
@@ -57,7 +57,6 @@ const FAQS = [
 // Same @ids as app/layout.tsx, so the Article attaches to the existing
 // Organization and Person nodes instead of minting duplicates.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -75,7 +74,7 @@ const JSON_LD = {
       datePublished: "2026-08-29",
       dateModified: "2026-08-29",
       inLanguage: "en-US",
-      author: { "@id": JASON_PERSON_ID },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
       mainEntityOfPage: CANONICAL,
     },

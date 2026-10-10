@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import Article from "@/components/Article";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 import {
+  ARTICLE_AUTHOR,
   GUIDES,
   OG_IMAGE,
   SITE_URL,
@@ -85,7 +86,6 @@ const FAQS = [
 // redefined: the Organization and Person nodes are already declared once in the
 // root layout, which renders on this page too.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -103,7 +103,7 @@ const JSON_LD = {
       datePublished: PUBLISHED,
       dateModified: PUBLISHED,
       inLanguage: "en-US",
-      author: { "@id": JASON_PERSON_ID },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
       mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
     },

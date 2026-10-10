@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
-import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/why-cant-i-play-guitar-fast`;
@@ -37,7 +37,6 @@ export const metadata: Metadata = {
 // these @ids. Referenced rather than restated, so the site keeps one entity per
 // @id instead of minting a duplicate author on every guide.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 // One Article node. No FAQPage: every heading here is a statement, and a
 // FAQPage whose Q&A does not appear verbatim in the visible text is a
@@ -56,7 +55,7 @@ const JSON_LD = {
   dateModified: PUBLISHED,
   inLanguage: "en-US",
   mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
-  author: { "@id": JASON_PERSON_ID },
+  author: ARTICLE_AUTHOR,
   publisher: { "@id": SUEDE_ORG_ID },
 };
 

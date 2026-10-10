@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PracticeRoutine } from "@/components/learning/PracticeRoutine";
+import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 
@@ -27,4 +28,11 @@ export const metadata: Metadata = {
     images: [OG_IMAGE.url],
   },
 };
-export default function RoutinePage() { return <PracticeRoutine />; }
+// The visible trail is rendered inside PracticeRoutine (a client component);
+// its structured twin is emitted here, with the same two crumbs.
+export default function RoutinePage() {
+  return <>
+    <BreadcrumbJsonLd crumbs={[{ name: "Guitar learning path", href: "/learn/guitar" }, { name: "Daily practice", href: "/learn/guitar/routine" }]} />
+    <PracticeRoutine />
+  </>;
+}

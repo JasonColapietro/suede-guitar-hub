@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/how-to-practice-guitar-effectively";
@@ -87,7 +87,7 @@ const JSON_LD = {
       url: CANONICAL,
       mainEntityOfPage: CANONICAL,
       isPartOf: { "@id": "https://guitarhub.org/#website" },
-      author: { "@id": "https://suedeai.ai/founder#person" },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": "https://suedeai.ai/#organization" },
     },
     {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LabIndex } from "@/components/advanced/LabIndex";
 import { PracticeStats } from "@/components/interactive/PracticeStats";
-import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
+import { DRILLS, SKILL_AREAS, drillHref, drillsForArea } from "@/lib/advanced/drills";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import learning from "@/components/learning/Learning.module.css";
 import styles from "@/components/advanced/Advanced.module.css";
@@ -19,8 +19,31 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
 };
 
+/**
+ * The drills as an `ItemList`, in the order the page lists them (grouped by
+ * skill area, as LabIndex renders them), so the count and order match what a
+ * crawler finds in the markup.
+ */
+const ORDERED = SKILL_AREAS.flatMap((area) => drillsForArea(area.id));
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${url}#drills`,
+  name: "GuitarHub Advanced Lab drills",
+  url,
+  numberOfItems: ORDERED.length,
+  itemListOrder: "https://schema.org/ItemListOrderAscending",
+  itemListElement: ORDERED.map((drill, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: `${SITE_URL}${drillHref(drill.id)}`,
+    name: drill.title,
+  })),
+};
+
 export default function AdvancedLab() {
   return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
     <header className={learning.hero}>
       <p className={styles.eyebrow}>Advanced Lab · free</p>
       <h1>Past the basics.<br />Now make it clean at tempo.</h1>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, TOOLS, STRUMLY } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/guitar-practice-routine-intermediate";
@@ -32,7 +32,6 @@ export const metadata: Metadata = {
 // These @ids match the Organization and Person nodes defined in app/layout.tsx.
 // Referencing rather than redefining keeps one entity per node across the site.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 /**
  * Rendered verbatim in the Q&A section below AND emitted as the FAQPage node.
@@ -75,7 +74,7 @@ const JSON_LD = {
       dateModified: "2026-08-29",
       inLanguage: "en-US",
       mainEntityOfPage: CANONICAL,
-      author: { "@id": JASON_PERSON_ID },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
     },
     {

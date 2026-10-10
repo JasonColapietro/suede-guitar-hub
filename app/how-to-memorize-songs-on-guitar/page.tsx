@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/how-to-memorize-songs-on-guitar`;
@@ -53,7 +53,6 @@ const RELATED: readonly SiteEntry[] = [
 // redefined: the Organization and Person nodes are already declared once in the
 // root layout, which renders on this page too.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -74,7 +73,7 @@ const JSON_LD = {
       url: CANONICAL,
       mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
       isPartOf: { "@id": "https://guitarhub.org/#website" },
-      author: { "@id": JASON_PERSON_ID },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
     },
   ],

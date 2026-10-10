@@ -5,11 +5,13 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { FieldGuideShelf } from "@/components/FieldGuides";
+import { FIELD_GUIDES } from "@/lib/field-guides";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import {
   GUIDES,
   OG_IMAGE,
+  RESOURCES,
   SITE_URL,
   STRUMLY,
   TOOLS,
@@ -206,6 +208,17 @@ const GROUPS = buildGroups();
 const ORDERED: readonly SiteEntry[] = GROUPS.flatMap((group) => group.entries);
 
 /**
+ * The /resources articles this page also links, through the Field Guide shelf
+ * ("Read online" under each cover), in shelf order. They are not in the guide
+ * groups, so without this the ItemList omitted pages the page visibly lists.
+ */
+const SHELF_RESOURCES: readonly SiteEntry[] = FIELD_GUIDES.flatMap((guide) => {
+  const entry = RESOURCES.find((resource) => resource.href === guide.href);
+  return entry ? [entry] : [];
+});
+const LISTED: readonly SiteEntry[] = [...ORDERED, ...SHELF_RESOURCES];
+
+/**
  * The router at the top of the page: a situation, and the one page to open.
  *
  * Rows point at tools as well as guides, because half of these situations are
@@ -300,9 +313,9 @@ const JSON_LD = {
       name: "GuitarHub practice guides",
       // Built from the same array the page renders, so the count and the order
       // cannot drift from what a crawler actually finds in the markup.
-      numberOfItems: ORDERED.length,
+      numberOfItems: LISTED.length,
       itemListOrder: "https://schema.org/ItemListOrderAscending",
-      itemListElement: ORDERED.map((guide, index) => ({
+      itemListElement: LISTED.map((guide, index) => ({
         "@type": "ListItem",
         position: index + 1,
         url: `${SITE_URL}${guide.href}`,

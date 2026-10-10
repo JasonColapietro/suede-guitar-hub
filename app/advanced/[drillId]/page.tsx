@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DrillSession } from "@/components/advanced/DrillSession";
+import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { DRILLS, drillHref, getDrill, skillArea } from "@/lib/advanced/drills";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
 import { drillKeywords } from "@/lib/keywords";
@@ -34,6 +35,11 @@ export default async function DrillPage({ params }: { params: Promise<Params> })
   const index = DRILLS.findIndex(item => item.id === drill.id);
   const previous = DRILLS[index - 1], next = DRILLS[index + 1];
   return <>
+    <BreadcrumbJsonLd crumbs={[
+      { name: "Advanced Lab", href: "/advanced" },
+      { name: area.name, href: `/advanced#${area.id}` },
+      { name: drill.title, href: drillHref(drill.id) },
+    ]} />
     <nav className={learning.breadcrumbs} aria-label="Breadcrumb"><Link href="/advanced">Advanced Lab</Link><span aria-hidden="true">/</span><Link href={`/advanced#${area.id}`}>{area.name}</Link></nav>
     <header className={styles.drillHead}>
       <p className={styles.eyebrow}>{area.name} · {drill.tier} · {drill.minutes} min</p>

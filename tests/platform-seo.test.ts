@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
-import { BACKGROUND_COLOR, SITE_URL, THEME_COLOR } from "../lib/site.ts";
+import { ARTICLE_AUTHOR, BACKGROUND_COLOR, SITE_URL, THEME_COLOR } from "../lib/site.ts";
+import { breadcrumbJsonLd } from "../lib/breadcrumbs.ts";
 import { FIELD_GUIDES, fieldGuidePdf } from "../lib/field-guides.ts";
 
 function read(path: string): string {
@@ -121,4 +122,46 @@ test("the footer does not prefetch its links", () => {
   for (const link of footer.match(/<Link[^>]*href=\{(entry|link)\.href\}[^>]*>/g) ?? []) {
     assert.match(link, /prefetch=\{false\}/);
   }
+});
+
+test("every indexable visible breadcrumb ships BreadcrumbList structured data", () => {
+  const compactTrail = /aria-label="Breadcrumb"/;
+  for (const { route, source } of pageSources()) {
+    if (!compactTrail.test(source) || isNoindex(source)) continue;
+    assert.match(source, /<BreadcrumbJsonLd crumbs=/, `${route} renders a breadcrumb trail without BreadcrumbList`);
+  }
+  // /learn/guitar/routine renders its trail inside PracticeRoutine.
+  assert.match(read("components/learning/PracticeRoutine.tsx"), compactTrail);
+  assert.match(read("app/learn/guitar/routine/page.tsx"), /<BreadcrumbJsonLd crumbs=/);
+
+  const list = breadcrumbJsonLd([
+    { name: "Advanced Lab", href: "/advanced" },
+    { name: "Technique", href: "/advanced#technique" },
+    { name: "Legato", href: "/advanced/legato" },
+  ]);
+  assert.equal(list["@context"], "https://schema.org");
+  assert.equal(list["@type"], "BreadcrumbList");
+  assert.equal(list["@id"], `${SITE_URL}/advanced/legato#breadcrumb`);
+  assert.deepEqual(
+    list.itemListElement.map((item) => [item.position, item.item]),
+    [[1, `${SITE_URL}/advanced`], [2, `${SITE_URL}/advanced#technique`], [3, `${SITE_URL}/advanced/legato`]],
+  );
+});
+
+test("Article nodes name their author inline", () => {
+  assert.equal(ARTICLE_AUTHOR["@type"], "Person");
+  assert.equal(ARTICLE_AUTHOR["@id"], "https://suedeai.ai/founder#person");
+  assert.ok(ARTICLE_AUTHOR.name && ARTICLE_AUTHOR.url);
+  const articles = pageSources().filter(({ source }) => source.includes('"@type": "Article"'));
+  assert.ok(articles.length > 0);
+  for (const { route, source } of articles) {
+    assert.match(source, /author: ARTICLE_AUTHOR,/, `${route} must inline the author`);
+  }
+});
+
+test("hubs list what they show: drills on /advanced, shelf resources on /guides", () => {
+  assert.match(read("app/advanced/page.tsx"), /"@type": "ItemList"[\s\S]*drillHref/);
+  const guides = read("app/guides/page.tsx");
+  assert.match(guides, /itemListElement: LISTED\.map/);
+  assert.match(guides, /const LISTED[^=]*= \[\.\.\.ORDERED, \.\.\.SHELF_RESOURCES\]/);
 });

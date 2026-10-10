@@ -48,6 +48,20 @@ export const OG_IMAGE = {
   alt: "GuitarHub: prove one guitar breakthrough in 30 days.",
 } as const;
 
+/**
+ * The author on every guide's `Article` node. The `@id` is the estate's
+ * canonical Person, defined in full in app/layout.tsx; `name` and `url` are
+ * inlined beside it because Google's Article guidelines ask for the author's
+ * name on the node itself, and a bare `@id` reference left validators that do
+ * not resolve the graph reporting an author with no name.
+ */
+export const ARTICLE_AUTHOR = {
+  "@type": "Person",
+  "@id": "https://suedeai.ai/founder#person",
+  name: "Jason Colapietro",
+  url: "https://suedeai.ai/founder",
+} as const;
+
 export type SiteEntry = {
   /** Route path, always root-relative and without a trailing slash. */
   href: string;

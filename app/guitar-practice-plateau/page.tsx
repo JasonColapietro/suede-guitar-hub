@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, STRUMLY, TOOLS } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/guitar-practice-plateau";
@@ -36,7 +36,6 @@ export const metadata: Metadata = {
 // these @ids. Referencing them rather than restating them keeps one entity per
 // @id across the site instead of minting a duplicate author on every guide.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 // One Article node. No FAQPage: the headings on this page are statements, not
 // questions, and a FAQPage whose Q&A does not appear verbatim in the visible
@@ -56,7 +55,7 @@ const JSON_LD = {
   dateModified: PUBLISHED,
   inLanguage: "en-US",
   mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
-  author: { "@id": JASON_PERSON_ID },
+  author: ARTICLE_AUTHOR,
   publisher: { "@id": SUEDE_ORG_ID },
 };
 

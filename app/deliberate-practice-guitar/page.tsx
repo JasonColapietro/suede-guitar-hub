@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
-import { GUIDES, OG_IMAGE, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
+import { ARTICLE_AUTHOR, GUIDES, OG_IMAGE, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/deliberate-practice-guitar";
@@ -31,7 +31,6 @@ export const metadata: Metadata = {
 // existing Suede Labs Organization and founder Person rather than minting
 // duplicate entities for the same two things.
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
-const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
 /**
  * Rendered twice: once as the visible "Common questions" section, once as the
@@ -74,7 +73,7 @@ const JSON_LD = {
       dateModified: "2026-08-29",
       inLanguage: "en-US",
       isAccessibleForFree: true,
-      author: { "@id": JASON_PERSON_ID },
+      author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
       mainEntityOfPage: CANONICAL,
     },
