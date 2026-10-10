@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LabIndex } from "@/components/advanced/LabIndex";
 import { PracticeStats } from "@/components/interactive/PracticeStats";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
-import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 import learning from "@/components/learning/Learning.module.css";
 import styles from "@/components/advanced/Advanced.module.css";
 import { keywordsFor } from "@/lib/keywords";
@@ -15,8 +15,8 @@ const description = `${DRILLS.length} free scored drills for experienced guitari
 export const metadata: Metadata = {
   keywords: keywordsFor("/advanced"),
   title, description, alternates: { canonical: url },
-  openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
-  twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
+  openGraph: { title, description, url, siteName: "GuitarHub", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function AdvancedLab() {

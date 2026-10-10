@@ -12,7 +12,7 @@ import {
   usageHref,
   type GlossaryTerm,
 } from "@/lib/glossary";
-import { HUBS, OG_IMAGE, STRUMLY } from "@/lib/site";
+import { HUBS, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 /**
@@ -53,10 +53,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };

@@ -4,7 +4,6 @@ import Diagnostic from "@/components/Diagnostic";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import { DIAGNOSTIC_BLOCKERS, DIAGNOSTIC_QUESTIONS } from "@/lib/diagnose";
-import { OG_IMAGE } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 export const metadata: Metadata = {
@@ -19,10 +18,8 @@ export const metadata: Metadata = {
     url: "https://guitarhub.org/diagnose",
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: "https://guitarhub.org/diagnose" },
 };

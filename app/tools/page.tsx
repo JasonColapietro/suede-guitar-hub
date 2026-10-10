@@ -7,7 +7,6 @@ import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import {
   GUIDES,
-  OG_IMAGE,
   SITE_URL,
   STRUMLY,
   TOOLS,
@@ -42,10 +41,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -251,7 +248,7 @@ const JSON_LD = {
       url: CANONICAL,
       name: TITLE,
       description: DESCRIPTION,
-      image: OG_IMAGE.url,
+      image: `${CANONICAL}/opengraph-image`,
       inLanguage: "en-US",
       isPartOf: { "@id": WEBSITE_ID },
       publisher: { "@id": SUEDE_ORG_ID },

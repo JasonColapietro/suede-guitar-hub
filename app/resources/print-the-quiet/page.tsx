@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
-import { OG_IMAGE, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
+import { RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/print-the-quiet`;
@@ -21,13 +21,11 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE.url],
   },
 };
 

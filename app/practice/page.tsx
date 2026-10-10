@@ -4,7 +4,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { TuningGuide } from "@/components/learning/TuningGuide";
 import { Metronome } from "@/components/practice/Metronome";
-import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 import learningStyles from "@/components/learning/Learning.module.css";
 import styles from "@/components/practice/PracticeTools.module.css";
 import { keywordsFor } from "@/lib/keywords";
@@ -21,8 +21,8 @@ const application = {
 export const metadata: Metadata = {
   keywords: keywordsFor("/practice"),
   title, description, alternates: { canonical: url },
-  openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
-  twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
+  openGraph: { title, description, url, siteName: "GuitarHub", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function PracticePage() {

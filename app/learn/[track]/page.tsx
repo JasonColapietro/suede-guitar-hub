@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { isTrackId, trackNames } from "@/lib/learning/curriculum";
 import { LearningPath } from "@/components/learning/LearningPath";
-import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 import { trackKeywords } from "@/lib/keywords";
 import styles from "@/components/learning/Learning.module.css";
 import { FieldGuideShelf } from "@/components/FieldGuides";
@@ -17,9 +17,9 @@ export function generateStaticParams() { return [{ track: "guitar" }]; }
  * guitar path — the destination of the site-wide "Start learning" link —
  * previewed as the home page.
  *
- * `images` is required alongside them: a page-level `openGraph` key replaces
- * the layout's resolved object wholesale, and a block without `images` ships no
- * `og:image` at all. See OG_IMAGE in lib/site.ts.
+ * They deliberately carry no `images` key: the colocated opengraph-image.tsx
+ * and twitter-image.tsx supply this track's own card, and Next attaches a
+ * colocated card only when the page leaves `images` unset.
  */
 export async function generateMetadata({ params }: { params: Promise<{ track: string }> }): Promise<Metadata> {
   const { track } = await params;
@@ -44,13 +44,11 @@ export async function generateMetadata({ params }: { params: Promise<{ track: st
       url: canonical,
       siteName: "GuitarHub",
       type: "website",
-      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [OG_IMAGE.url],
     },
   };
 }

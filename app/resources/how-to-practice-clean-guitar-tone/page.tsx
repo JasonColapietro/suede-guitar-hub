@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
-import { OG_IMAGE, SITE_URL, STRUMLY } from "@/lib/site";
+import { SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/how-to-practice-clean-guitar-tone`;
@@ -25,13 +25,11 @@ export const metadata: Metadata = {
     publishedTime: `${PUBLISHED}T00:00:00.000Z`,
     modifiedTime: `${PUBLISHED}T00:00:00.000Z`,
     authors: ["Jason Colapietro"],
-    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE.url],
   },
 };
 
@@ -57,7 +55,7 @@ const JSON_LD = {
   headline: TITLE,
   description: DESCRIPTION,
   keywords: keywordsText("/resources/how-to-practice-clean-guitar-tone"),
-  image: `${SITE_URL}/opengraph-image`,
+  image: `${CANONICAL}/opengraph-image`,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
   inLanguage: "en-US",

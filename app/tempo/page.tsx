@@ -3,7 +3,7 @@ import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import TempoLadder from "@/components/TempoLadder";
-import { GUIDES, OG_IMAGE, STRUMLY, TOOLS } from "@/lib/site";
+import { GUIDES, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 export const metadata: Metadata = {
@@ -18,10 +18,8 @@ export const metadata: Metadata = {
     url: "https://guitarhub.org/tempo",
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: "https://guitarhub.org/tempo" },
 };
