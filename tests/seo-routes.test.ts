@@ -417,12 +417,19 @@ test("adds browser-facing security headers without blocking indexable pages", as
     /noindex|nofollow/,
     "security policy must not add crawl directives",
   );
-  assert.match(headers.get("Permissions-Policy") ?? "", /microphone=\(\)/);
-  const learning = rules.find((rule) => rule.source === "/learn/:path*");
-  assert.ok(learning, "learning routes must permit consented microphone practice");
-  assert.ok(rules.indexOf(learning) > rules.indexOf(sitewide), "learning policy must override the sitewide default");
-  const learningHeaders = new Map(learning.headers.map(({ key, value }) => [key, value]));
-  assert.equal(learningHeaders.get("Permissions-Policy"), "camera=(), geolocation=(), microphone=(self)");
+  // The microphone must be allowed on every route, not only the ones that use
+  // it. A Permissions-Policy is fixed for the life of the document, and
+  // client-side navigation keeps the document the visitor landed on, so `/`
+  // sending microphone=() made "Start tuner" on /practice fail with
+  // NotAllowedError for anyone who arrived through the home page.
+  const policy = "camera=(), geolocation=(), microphone=(self)";
+  assert.equal(headers.get("Permissions-Policy"), policy);
+  for (const rule of rules) {
+    for (const { key, value } of rule.headers) {
+      if (key.toLowerCase() !== "permissions-policy") continue;
+      assert.equal(value, policy, `${rule.source} must not narrow the sitewide microphone policy`);
+    }
+  }
 });
 
 test("gives every registered tool a full tools-hub card and routing row", () => {

@@ -43,12 +43,13 @@ test("actual practice page is discoverable, accessible as a document, and honest
   assert.ok(TOOLS.some(tool => tool.href === "/practice"));
   assert.match(renderToStaticMarkup(createElement(SiteNav)), /href="\/practice"[^>]*>Practice/);
 });
-test("the standalone route overrides only microphone permission while general site pages retain denial", async () => {
+test("every route allows consented microphone use so client-side navigation into the tuner works", async () => {
   const { default: config } = await import("../next.config.ts");
   const rules = await config.headers!();
   const general = rules.find(rule => rule.source === "/:path*")!;
-  const practice = rules.find(rule => rule.source === "/practice");
-  assert.ok(practice); assert.ok(rules.indexOf(practice) > rules.indexOf(general));
-  assert.equal(general.headers.find(header => header.key === "Permissions-Policy")?.value, "camera=(), geolocation=(), microphone=()");
-  assert.equal(practice.headers.find(header => header.key === "Permissions-Policy")?.value, "camera=(), geolocation=(), microphone=(self)");
+  // One sitewide policy: a page reached by client-side navigation keeps the
+  // policy of the document the visitor landed on, so a per-route override for
+  // /practice never applied to visitors arriving from / or /tools.
+  assert.equal(general.headers.find(header => header.key === "Permissions-Policy")?.value, "camera=(), geolocation=(), microphone=(self)");
+  assert.ok(!rules.some(rule => rule !== general && rule.headers.some(header => header.key === "Permissions-Policy" && header.value !== "camera=(), geolocation=(), microphone=(self)")));
 });

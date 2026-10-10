@@ -17,7 +17,12 @@ const CONTENT_SECURITY_POLICY = [
 
 const SECURITY_HEADERS = [
   { key: "Content-Security-Policy", value: CONTENT_SECURITY_POLICY },
-  { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=()" },
+  // microphone=(self) on every route, not only the pages that use it. The
+  // policy is fixed when a document loads and client-side navigation keeps the
+  // first document, so a visitor who landed on / or /tools and then clicked
+  // through to /practice, /learn or /advanced inherited microphone=() and the
+  // tuner failed with NotAllowedError. Each tool still asks for consent.
+  { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -54,16 +59,6 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: [...SECURITY_HEADERS] },
-      // Learning exercises and the standalone tuner can request consented microphone access.
-      { source: "/learn/:path*", headers: [
-        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
-      ] },
-      { source: "/advanced/:path*", headers: [
-        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
-      ] },
-      { source: "/practice", headers: [
-        { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=(self)" },
-      ] },
     ];
   },
 };
