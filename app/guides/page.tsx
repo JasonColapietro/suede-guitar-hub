@@ -156,6 +156,59 @@ const CLUSTERS: readonly Cluster[] = [
       "/how-to-memorize-songs-on-guitar",
     ],
   },
+  {
+    id: "first-year",
+    kicker: "First year",
+    title: "Beginner foundations, and the way back in",
+    intro: (
+      <>
+        The first months of guitar, step by step: a daily routine for the
+        first 90 days, the fingertip stage everyone goes through, faster chord
+        changes, a strumming hand that keeps time, and the F chord. Returning
+        players start with the restart guide, which runs the same foundations
+        in a 30-day loop.
+      </>
+    ),
+    hrefs: [
+      "/beginner-guitar-practice-routine",
+      "/guitar-finger-pain",
+      "/how-to-change-chords-faster",
+      "/how-to-practice-strumming",
+      "/how-to-play-barre-chords",
+      "/coming-back-to-guitar",
+    ],
+  },
+  {
+    id: "the-neck",
+    kicker: "The neck",
+    title: "Fretboard, scales and improvising",
+    intro: (
+      <>
+        From knowing where the notes are to making music with them: the
+        fretboard and the CAGED map, scales practiced as music, then
+        improvising over chords. Each guide links into the Advanced Lab drills
+        that check your notes through the microphone.
+      </>
+    ),
+    hrefs: [
+      "/learn-guitar-fretboard-notes",
+      "/how-to-practice-guitar-scales",
+      "/how-to-practice-guitar-improvisation",
+    ],
+  },
+  {
+    id: "evidence",
+    kicker: "Evidence",
+    title: "Hearing your own playing",
+    intro: (
+      <>
+        Every loop on this site starts and ends with a recording. This is how
+        to make one on the phone you already own, and how to compare two takes
+        so a month of practice shows up as something you can hear.
+      </>
+    ),
+    hrefs: ["/record-guitar-practice-on-phone"],
+  },
 ];
 
 /** Renders only when a registry guide belongs to none of the groups above. */
@@ -246,6 +299,18 @@ const ROUTER_ROWS: readonly { when: string; href: string }[] = [
   {
     when: "You want a month with an actual finish line",
     href: "/30-day-guitar-challenge",
+  },
+  {
+    when: "You are in your first three months of guitar",
+    href: "/beginner-guitar-practice-routine",
+  },
+  {
+    when: "Your fingertips hurt after ten minutes",
+    href: "/guitar-finger-pain",
+  },
+  {
+    when: "You are picking the guitar back up after years away",
+    href: "/coming-back-to-guitar",
   },
 ];
 
@@ -444,7 +509,7 @@ export default function GuidesPage() {
           </ul>
         </section>
 
-        <FieldGuideShelf intro="Every guide on this page is also a PDF you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
+        <FieldGuideShelf intro="The guides on this shelf are also PDFs you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
 
         {GROUPS.map((group) => (
           <section
