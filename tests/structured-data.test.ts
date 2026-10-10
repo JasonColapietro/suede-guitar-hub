@@ -4,7 +4,7 @@ import test from "node:test";
 
 import { GUITAR_COURSE_ID, SUEDE_ORG_ID, guitarCourseJsonLd, isoMinutes, jsonLdText } from "../lib/course-schema.ts";
 import { curricula, allLessons } from "../lib/learning/curriculum.ts";
-import { APP_STORE, TOOLS } from "../lib/site.ts";
+import { APP_STORE, LIFETIME, TOOLS } from "../lib/site.ts";
 
 const read = (relative: string) => readFileSync(new URL(`../${relative}`, import.meta.url), "utf8");
 
@@ -58,12 +58,12 @@ test("the guitar Course is built from the curriculum the page renders", () => {
     assert.equal(section.timeRequired, isoMinutes(levelMinutes));
   });
 
-  // The offer points at the App Store listing and states only what is known:
-  // the first module is free there, the rest is one lifetime purchase, and the
-  // price lives in the App Store, not in this repository.
-  assert.deepEqual(course.offers, [{ "@type": "Offer", category: "Partially Free", url: APP_STORE.ios, availability: "https://schema.org/InStock" }]);
+  // The offer points at the App Store listing: the first module is free there,
+  // and the rest is one lifetime purchase of 79.00 USD on the US storefront.
+  assert.deepEqual(course.offers, [{ "@type": "Offer", category: "Partially Free", price: "79.00", priceCurrency: "USD", url: APP_STORE.ios, availability: "https://schema.org/InStock" }]);
+  assert.equal(course.offers[0].price, LIFETIME.schemaPrice);
   const text = JSON.stringify(course);
-  for (const invented of ["price", "aggregateRating", "review", "totalHistoricalEnrollment", "instructor", "educationalCredentialAwarded"]) {
+  for (const invented of ["aggregateRating", "review", "totalHistoricalEnrollment", "instructor", "educationalCredentialAwarded"]) {
     assert.ok(!text.includes(`"${invented}"`), `the Course must not assert ${invented}`);
   }
 });

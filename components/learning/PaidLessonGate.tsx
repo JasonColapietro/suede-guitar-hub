@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { LearningAccess } from "@/lib/learning/access";
 import { lessonHref, trackNames, getLesson, MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE, type Lesson, type TrackId } from "@/lib/learning/curriculum";
-import { APP_STORE } from "@/lib/site";
+import { APP_STORE, LIFETIME } from "@/lib/site";
 import styles from "./Learning.module.css";
 
 /** Rendered on the server before any lesson instructions or session props are loaded. */
@@ -16,6 +16,7 @@ export function PaidLessonGate({ track, lesson, access, ready }: {
     <section className={styles.panel} aria-labelledby="lesson-access-title">
       <h2 id="lesson-access-title">Unlock the full lesson</h2>
       <p>GuitarHub lessons require verified lifetime access for this learning track.</p>
+      <p>Lifetime access is {LIFETIME.oneTime} in {APP_STORE.name} for iPhone. Start the first module free in the app, then one purchase opens the full guitar and voice curriculum.</p>
       <p className={styles.notice}>{!ready
         ? "This topic is a curriculum outline. A complete guided lesson is not available yet."
         : access.status === "unavailable"
@@ -29,7 +30,7 @@ export function PaidLessonGate({ track, lesson, access, ready }: {
       {moduleSafety && <p className={styles.small}>{moduleSafety}</p>}
       <div className={styles.actions}>
         {access.enabled && <Link className={styles.primary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "Check purchase access" : "Sign in to unlock"}</Link>}
-        {!access.enabled && <a className={styles.primary} href={APP_STORE.ios}>Continue in GuitarHub for iPhone</a>}
+        {!access.enabled && <a className={styles.primary} href={APP_STORE.ios}>{LIFETIME.cta}</a>}
         <Link className={styles.secondary} href="/practice">Use the free practice tools</Link>
       </div>
     </section>

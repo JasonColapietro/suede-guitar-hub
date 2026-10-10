@@ -2,6 +2,7 @@ import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
 import {
   APP_STORE,
   GUIDES,
+  LIFETIME,
   RESOURCES,
   SITE_URL,
   STRUMLY,
@@ -123,8 +124,11 @@ Applying is a form on the site. It takes no payment and creates no commitment.
 
 - The guided curriculum is 105 lessons in seven stages plus 30 song
   companions. Lessons listen through the microphone and check the result.
-- Lifetime lesson access is a one-time purchase in GuitarHub for iPhone
-  (${APP_STORE.ios}). The App Store shows the price before purchase.
+- Lifetime lesson access costs ${LIFETIME.display} ${LIFETIME.currency}, one time, in the US
+  App Store: the in-app purchase "${LIFETIME.name}" in GuitarHub for iPhone
+  (${APP_STORE.ios}). Other storefronts charge their local price. The first
+  module is free in the app; lifetime access opens the full guitar and voice
+  curriculum.
 - The free tools, the Advanced Lab, the A-to-D chord routine, the field guides
   and the glossary need no purchase and no account.
 - Practice is measured by evidence (recordings, clean tempos, logged

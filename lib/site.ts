@@ -475,6 +475,37 @@ export const APP_STORE = {
 } as const;
 
 /**
+ * The lifetime lesson price: the single source for every price on the site.
+ *
+ * Lifetime access is the App Store in-app purchase "Complete Lifetime"
+ * (`GUITARHUB_LIFETIME_PRODUCT_ID` in `lib/learning-account/contracts.ts`),
+ * bought in GuitarHub for iPhone. It costs $79.00 USD, one time, on the US
+ * storefront (verified on the live App Store listing 2026-10-10); each other
+ * storefront charges its own local price. The first module is free in the app,
+ * and lifetime access opens the full guitar and voice curriculum there.
+ *
+ * Web checkout is not live, so every price on the site sends the buyer to
+ * `APP_STORE.ios`. Change the price here and the homepage, /learn,
+ * /learn/guitar, the lesson gate, /start, /faq, /about, llms.txt and the
+ * Course offer all follow.
+ */
+const LIFETIME_PRICE = 79;
+
+export const LIFETIME = {
+  name: "Complete Lifetime",
+  price: LIFETIME_PRICE,
+  currency: "USD",
+  /** `"$79"`, for prose. */
+  display: `$${LIFETIME_PRICE}`,
+  /** `"79.00"`, the schema.org `Offer.price` form. */
+  schemaPrice: LIFETIME_PRICE.toFixed(2),
+  /** `"$79 one time"`. */
+  oneTime: `$${LIFETIME_PRICE} one time`,
+  /** The label on every lifetime purchase button. */
+  cta: `Get lifetime access on iPhone — $${LIFETIME_PRICE} one time`,
+} as const;
+
+/**
  * Verified external links. Every URL below returned 200 when checked on
  * 2026-08-29. `https://strumly.suedeai.ai/practice` is a 404 and is
  * deliberately absent — do not add it.

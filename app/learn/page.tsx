@@ -4,7 +4,7 @@ import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { isLessonReady } from "@/lib/learning/access";
 import { defaultRoutineSeconds } from "@/lib/learning/routine";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
-import { APP_STORE, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
+import { APP_STORE, LIFETIME, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import { keywordsFor } from "@/lib/keywords";
@@ -20,7 +20,7 @@ const STAGES = curricula.guitar.levels.filter(level => level.stage);
 
 const TITLE = "Learn Guitar: Lesson Path, Free Routine & Advanced Lab | GuitarHub";
 const DESCRIPTION =
-  `The ${STAGE_LESSONS}-lesson GuitarHub guitar curriculum in ${spellOut(STAGES.length)} stages with lifetime access, plus the free A-to-D chord routine, the free Advanced Lab and voice lessons on Suede Sing.`;
+  `The ${STAGE_LESSONS}-lesson GuitarHub guitar curriculum in ${spellOut(STAGES.length)} stages with ${LIFETIME.display} lifetime access, plus the free A-to-D chord routine, the free Advanced Lab and voice lessons on Suede Sing.`;
 
 /**
  * The `openGraph` and `twitter` blocks are the point of this object, not
@@ -86,9 +86,9 @@ export default function LearnPage() {
     </div>
 
     <section aria-labelledby="curriculum-title" className="rounded-[1.75rem] bg-indigo-deep p-6 text-cream sm:p-10">
-      <p className="text-xs font-semibold uppercase tracking-widest text-violet-pale">Guitar curriculum · lifetime access</p>
+      <p className="text-xs font-semibold uppercase tracking-widest text-violet-pale">Guitar curriculum · {LIFETIME.display} lifetime access</p>
       <h2 id="curriculum-title" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">From your first clean note to songs you can play for anyone.</h2>
-      <p className={`${styles.small} mt-3 text-white/80`}>{STAGE_LESSONS} lessons in {spellOut(STAGES.length)} stages · {SONG_COMPANIONS} song companions · Lifetime access</p>
+      <p className={`${styles.small} mt-3 text-white/80`}>{STAGE_LESSONS} lessons in {spellOut(STAGES.length)} stages · {SONG_COMPANIONS} song companions · Lifetime access {LIFETIME.oneTime}</p>
       <ol className="mt-8 grid gap-3 sm:grid-cols-2">
         {STAGES.map(stage => <li key={stage.id} className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
           <span className="text-xs font-semibold uppercase tracking-widest text-violet-pale">Stage {stage.stage}</span>
@@ -96,9 +96,9 @@ export default function LearnPage() {
           <span className="mt-1 block text-sm leading-relaxed text-white/75">{stage.subtitle}.</span>
         </li>)}
       </ol>
-      <p className="mt-8 max-w-3xl leading-relaxed text-white/85">Every stage pairs written instruction with practice you can check: chord diagrams, timed change counts, studies to play through and, where a lesson has one, a microphone exercise that listens to your attempt. The {SONG_COMPANIONS} song companions sit beside the stages with original studies for recognizable songs. Unlock every lesson with lifetime access, a one-time purchase in <a href={APP_STORE.ios} className="underline underline-offset-4">{APP_STORE.name}</a> for iPhone; the App Store shows the price before you confirm.</p>
+      <p className="mt-8 max-w-3xl leading-relaxed text-white/85">Every stage pairs written instruction with practice you can check: chord diagrams, timed change counts, studies to play through and, where a lesson has one, a microphone exercise that listens to your attempt. The {SONG_COMPANIONS} song companions sit beside the stages with original studies for recognizable songs. Start the first module free in <a href={APP_STORE.ios} className="underline underline-offset-4">{APP_STORE.name}</a> for iPhone, then unlock every lesson with lifetime access for {LIFETIME.oneTime}.</p>
       <div className={styles.actions}>
-        <a className={styles.primary} href={APP_STORE.ios}>Get lifetime access on iPhone</a>
+        <a className={styles.primary} href={APP_STORE.ios}>{LIFETIME.cta}</a>
         <Link className="inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 font-semibold text-cream ring-1 ring-white/40 hover:bg-white/10" href="/learn/guitar">Explore the guitar path</Link>
       </div>
     </section>
