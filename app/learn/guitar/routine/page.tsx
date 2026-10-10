@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE.url],
+    images: [OG_IMAGE],
   },
 };
 export default function RoutinePage() { return <PracticeRoutine />; }
