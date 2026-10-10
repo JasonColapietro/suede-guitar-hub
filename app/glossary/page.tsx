@@ -73,7 +73,7 @@ const JSON_LD = {
       url: CANONICAL,
       name: TITLE,
       description: DESCRIPTION,
-      inLanguage: "en",
+      inLanguage: "en-US",
       isPartOf: { "@id": "https://guitarhub.org/#website" },
     },
     breadcrumbList(CANONICAL, CRUMBS),

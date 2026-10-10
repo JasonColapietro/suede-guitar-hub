@@ -51,6 +51,8 @@ const JSON_LD = {
   publisher: { "@id": "https://suedeai.ai/#organization" },
   hasPart: FIELD_GUIDES.map((guide, index) => ({
     "@type": "Article",
+    // The @id each guide's own page gives its Article node.
+    "@id": `${SITE_URL}${guide.href}#article`,
     position: index + 1,
     name: guide.title,
     url: `${SITE_URL}${guide.href}`,

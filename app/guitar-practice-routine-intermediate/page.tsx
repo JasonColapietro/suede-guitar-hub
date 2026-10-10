@@ -70,7 +70,7 @@ const JSON_LD = {
       datePublished: "2026-08-29",
       dateModified: "2026-08-29",
       inLanguage: "en-US",
-      mainEntityOfPage: CANONICAL,
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
       author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
     },

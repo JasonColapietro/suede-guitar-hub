@@ -233,11 +233,13 @@ const ITEMLIST_ID = `${CANONICAL}#tools`;
  * The ItemList is built from `TOOLS`, so it can never drift from the cards
  * rendered below it — the failure mode structured data usually dies of.
  *
- * Each item carries the `<url>#tool` @id that the tool's own page already mints
- * for its `SoftwareApplication` node, so the entity is referenced rather than
- * duplicated. The name, url, and description are repeated here anyway: an @id
- * only unifies nodes that a crawler has actually fetched, so a tool page not
- * yet crawled still resolves to a complete, self-sufficient node from this one.
+ * Each item points at the `<url>#tool` @id that the tool's own page mints for
+ * its `SoftwareApplication` node, and restates nothing about it. Nodes that
+ * share an @id are one resource whose properties merge, so a second name or
+ * description written here ("Practice plateau diagnostic" beside the tool
+ * page's "Practice Plateau Diagnostic") was a conflicting label on one entity.
+ * The tool page is the single source for its node; the list carries position,
+ * the page URL and the reference.
  */
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -269,32 +271,8 @@ const JSON_LD = {
       itemListElement: TOOLS.map((tool, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: tool.title,
-        item: {
-          "@type": "SoftwareApplication",
-          "@id": `${SITE_URL}${tool.href}#tool`,
-          name: tool.title,
-          url: `${SITE_URL}${tool.href}`,
-          description: TOOL_DETAILS[tool.href]?.purpose ?? tool.blurb,
-          applicationCategory: "EducationalApplication",
-          applicationSubCategory: "Guitar practice tool",
-          operatingSystem: "Web",
-          browserRequirements:
-            "Requires JavaScript. No account, and no data is uploaded.",
-          isAccessibleForFree: true,
-          // Genuinely free: there is no payment step, no card, and no gate
-          // anywhere in any of these tools.
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-            availability: "https://schema.org/InStock",
-          },
-          inLanguage: "en-US",
-          isPartOf: { "@id": WEBSITE_ID },
-          publisher: { "@id": SUEDE_ORG_ID },
-          author: { "@id": JASON_PERSON_ID },
-        },
+        url: `${SITE_URL}${tool.href}`,
+        item: { "@id": `${SITE_URL}${tool.href}#tool` },
       })),
     },
     {

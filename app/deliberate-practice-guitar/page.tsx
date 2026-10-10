@@ -72,7 +72,7 @@ const JSON_LD = {
       isAccessibleForFree: true,
       author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
-      mainEntityOfPage: CANONICAL,
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
     },
     {
       "@type": "FAQPage",
