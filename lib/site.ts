@@ -411,7 +411,7 @@ export const HUBS: readonly SiteEntry[] = [
  * the /advanced hub and of every /advanced/<drill> sitemap entry. Bump it in
  * the same commit as a drill edit.
  */
-export const ADVANCED_LAB_LAST_MODIFIED = "2026-09-25";
+export const ADVANCED_LAB_LAST_MODIFIED = "2026-10-10";
 
 export const LEARN: readonly SiteEntry[] = [
   {
