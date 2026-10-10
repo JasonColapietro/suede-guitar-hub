@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { APP_STORE, GUIDES, LEARN, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, GUIDES, LEARN, LIFETIME, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { DRILLS } from "@/lib/advanced/drills";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
@@ -122,8 +122,8 @@ export default function AboutPage() {
           <Link href="/learn/guitar">guitar path</Link> starts at the first
           foundations, how to hold the instrument, tune it, and get one clean
           note, and works up through chords, reading, rhythm and the whole
-          neck. The guided lessons open with lifetime access, a one-time
-          purchase in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone,
+          neck. The guided lessons open with lifetime access,{" "}
+          {LIFETIME.oneTime} in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone,
           and your place on the web is kept in this browser. The voice lessons
           moved to <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of
           them are free. Pricing, access and data questions are answered in{" "}

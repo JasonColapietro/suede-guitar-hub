@@ -11,13 +11,13 @@
  *   that level's own minutes.
  * - `offers.category` is "Partially Free": the listing opens the first module
  *   of each track at no charge and sells the rest as one lifetime purchase.
- *   The price is set per region by the App Store and is not in this
- *   repository, so no `price` is published.
+ * - `offers.price` and `priceCurrency` are that lifetime purchase on the US
+ *   App Store, read from `LIFETIME` in `lib/site.ts` (79.00 USD, one time).
  *
  * Nothing here asserts ratings, enrollment, instructors or credentials.
  */
 import { curricula, trackNames } from "./learning/curriculum.ts";
-import { APP_STORE, SITE_URL } from "./site.ts";
+import { APP_STORE, LIFETIME, SITE_URL } from "./site.ts";
 
 export const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 export const WEBSITE_ID = `${SITE_URL}/#website`;
@@ -76,6 +76,8 @@ export function guitarCourseJsonLd() {
       {
         "@type": "Offer",
         category: "Partially Free",
+        price: LIFETIME.schemaPrice,
+        priceCurrency: LIFETIME.currency,
         url: APP_STORE.ios,
         availability: "https://schema.org/InStock",
       },

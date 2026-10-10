@@ -5,7 +5,7 @@ import { isTrackId, trackNames } from "@/lib/learning/curriculum";
 import { LearningPath } from "@/components/learning/LearningPath";
 import { learningPathOutline } from "@/lib/learning/path-outline";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
-import { APP_STORE, SITE_URL } from "@/lib/site";
+import { APP_STORE, LIFETIME, SITE_URL } from "@/lib/site";
 import { trackKeywords } from "@/lib/keywords";
 import styles from "@/components/learning/Learning.module.css";
 import { FieldGuideShelf } from "@/components/FieldGuides";
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ track: st
       : "Free Voice Lessons & Vocal Training | GuitarHub";
   const description =
     track === "guitar"
-      ? "Beginner guitar lessons from first notes to open chords, strumming, and songs. Unlock every lesson with lifetime access in GuitarHub for iPhone."
+      ? `Beginner guitar lessons from first notes to open chords, strumming, and songs. Unlock every lesson with ${LIFETIME.display} lifetime access in GuitarHub for iPhone.`
       : "Practice 21 free guided voice lessons from GuitarHub's 102-lesson voice curriculum, with breath, pitch, registers, songs, and Suede Sing exercises.";
   return {
     title,
@@ -62,5 +62,5 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
   // The guitar path is the course: a Course node built from the curriculum
   // this page renders (lib/course-schema.ts).
   const course = track === "guitar" ? guitarCourseJsonLd() : null;
-  return <>{course && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(course) }} />}<BreadcrumbJsonLd crumbs={[{ name: "Learning paths", href: "/learn" }, { name: trackNames[track], href: `/learn/${track}` }]} /><nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><span>{trackNames[track]}</span></nav><div className={styles.notice}><p>Every guided lesson opens with lifetime access, a one-time purchase in {APP_STORE.name} for iPhone. The App Store shows the price before you confirm, and Restore Purchases brings your access back on a new iPhone. Questions about pricing, access or your data are answered in <Link href="/faq">the GuitarHub FAQ</Link>.</p><div className={styles.actions}><a className={styles.primary} href={APP_STORE.ios}>Get lifetime access on iPhone</a><Link className={styles.secondary} href="/faq#how-to-get-lifetime-access">How lifetime access works</Link></div></div><p className={styles.small}>New to the vocabulary? <Link href="/glossary">The glossary</Link> defines every word this curriculum uses, in one sentence each.</p><LearningPath outline={learningPathOutline(track)} singCourseHref={SING_VOICE_COURSE} /><FieldGuideShelf id="lesson-field-guides" title="Take a field guide with you" intro="Free PDFs to keep beside the lessons. Download one, put it on the music stand, and come back to the next lesson." hrefs={["/method", "/how-to-practice-guitar-effectively", "/practicing-guitar-with-a-metronome", "/how-to-memorize-songs-on-guitar", "/guitar-practice-plateau", "/resources/how-to-practice-clean-guitar-tone"]} moreHref="/guides#field-guides" /></>;
+  return <>{course && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(course) }} />}<BreadcrumbJsonLd crumbs={[{ name: "Learning paths", href: "/learn" }, { name: trackNames[track], href: `/learn/${track}` }]} /><nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><span>{trackNames[track]}</span></nav><div className={styles.notice}><p>Every guided lesson opens with lifetime access: {LIFETIME.oneTime} in {APP_STORE.name} for iPhone, with the first module free in the app. Restore Purchases brings your access back on a new iPhone. Questions about pricing, access or your data are answered in <Link href="/faq">the GuitarHub FAQ</Link>.</p><div className={styles.actions}><a className={styles.primary} href={APP_STORE.ios}>{LIFETIME.cta}</a><Link className={styles.secondary} href="/faq#how-to-get-lifetime-access">How lifetime access works</Link></div></div><p className={styles.small}>New to the vocabulary? <Link href="/glossary">The glossary</Link> defines every word this curriculum uses, in one sentence each.</p><LearningPath outline={learningPathOutline(track)} singCourseHref={SING_VOICE_COURSE} /><FieldGuideShelf id="lesson-field-guides" title="Take a field guide with you" intro="Free PDFs to keep beside the lessons. Download one, put it on the music stand, and come back to the next lesson." hrefs={["/method", "/how-to-practice-guitar-effectively", "/practicing-guitar-with-a-metronome", "/how-to-memorize-songs-on-guitar", "/guitar-practice-plateau", "/resources/how-to-practice-clean-guitar-tone"]} moreHref="/guides#field-guides" /></>;
 }

@@ -8,7 +8,7 @@ import SiteNav from "@/components/SiteNav";
 import LevelPicker from "@/components/LevelPicker";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
-import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, LIFETIME, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
@@ -116,7 +116,7 @@ const MORE_FROM_SUEDE = [
 const FAQS = [
   {
     q: "Who is GuitarHub for?",
-    a: "Any guitarist with one thing they can't play yet. New players follow the guided lesson path, unlocked with lifetime access, a one-time purchase in GuitarHub for iPhone. Returning and intermediate players build the free 30-day plan and run it with the free tools. Experienced players go straight to the free Advanced Lab.",
+    a: `Any guitarist with one thing they can't play yet. New players follow the guided lesson path, unlocked with lifetime access for ${LIFETIME.oneTime} in GuitarHub for iPhone. Returning and intermediate players build the free 30-day plan and run it with the free tools. Experienced players go straight to the free Advanced Lab.`,
   },
   {
     q: "Can I use the planner without joining?",
@@ -188,7 +188,7 @@ export default function Home() {
                 <a href="#levels" className="font-semibold text-peach underline underline-offset-4">
                   Follow the {STAGE_LESSONS}-lesson path from stage 1
                 </a>
-                , unlocked with lifetime access in GuitarHub for iPhone.
+                , unlocked with {LIFETIME.display} lifetime access in GuitarHub for iPhone.
               </p>
             </div>
           </div>
@@ -275,7 +275,7 @@ export default function Home() {
         {/* Guided lessons with lifetime access */}
         <section id="levels" aria-labelledby="levels-title" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-20">
           <Reveal>
-            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">Guided lessons · lifetime access</p>
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">Guided lessons · {LIFETIME.display} lifetime access</p>
             <h2 id="levels-title" className="mx-auto mt-3 max-w-3xl text-center text-4xl leading-snug text-indigo-deep md:text-5xl">
               Learning from scratch?{" "}
               <em className="font-display italic">Follow the lesson path.</em>
@@ -283,10 +283,9 @@ export default function Home() {
             <p className="mx-auto mt-5 max-w-2xl text-center text-lg text-ink/70">
               {STAGE_LESSONS} guided lessons in {spellOut(STAGES)} stages take you
               from your first clean note to barre chords, the blues and your own
-              solos, with {SONG_COMPANIONS} song companions along the way. Lifetime
-              access unlocks every one with a one-time purchase in{" "}
-              {APP_STORE.name} for iPhone, and the App Store shows the price
-              before you confirm.
+              solos, with {SONG_COMPANIONS} song companions along the way. Start
+              the first module free in {APP_STORE.name} for iPhone, then
+              unlock every lesson with lifetime access: {LIFETIME.oneTime}.
             </p>
           </Reveal>
           <div className="mt-12">
@@ -297,7 +296,7 @@ export default function Home() {
               href={APP_STORE.ios}
               className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
             >
-              Get lifetime access on iPhone <span aria-hidden>↗</span>
+              {LIFETIME.cta} <span aria-hidden>↗</span>
             </a>
             <p className="text-sm leading-relaxed text-ink/70">
               Not sure where you fit?{" "}

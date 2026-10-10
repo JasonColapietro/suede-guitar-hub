@@ -4,7 +4,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { APP_STORE, GUIDES, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { DRILLS } from "@/lib/advanced/drills";
 import { keywordsFor } from "@/lib/keywords";
 
@@ -86,7 +86,7 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
     id: "cost-and-data",
     title: "Cost, accounts, and your data",
     intro:
-      "The tools, guides, and Advanced Lab are free. The guided lessons run on lifetime access from the iPhone app. Your practice data stays on your device unless you choose to sync it. Here is exactly how each part works.",
+      `The tools, guides, and Advanced Lab are free. The guided lessons run on ${LIFETIME.display} lifetime access from the iPhone app. Your practice data stays on your device unless you choose to sync it. Here is exactly how each part works.`,
   },
   {
     id: "who-its-for",
@@ -138,7 +138,7 @@ const FAQS: readonly Faq[] = [
     id: "what-guitarhub-is-not",
     group: "what-it-is",
     q: "How can I use GuitarHub?",
-    a: `Start free on guitarhub.org: tune and keep time with the tuner and metronome, structure your practice with the planning tools and written guides, and push your technique in the Advanced Lab, all without signing up. For the full guided course, download ${APP_STORE.name} from the iPhone App Store and unlock lifetime access in the app. For personal feedback on one goal, apply to the founding room.`,
+    a: `Start free on guitarhub.org: tune and keep time with the tuner and metronome, structure your practice with the planning tools and written guides, and push your technique in the Advanced Lab, all without signing up. For the full guided course, download ${APP_STORE.name} from the iPhone App Store and unlock lifetime access in the app for ${LIFETIME.oneTime}. For personal feedback on one goal, apply to the founding room.`,
   },
   {
     id: "what-are-the-tools",
@@ -158,13 +158,13 @@ const FAQS: readonly Faq[] = [
     id: "is-it-free",
     group: "cost-and-data",
     q: "Is GuitarHub free?",
-    a: `The practice tools, the ${DRILLS.length}-drill Advanced Lab, the written guides and their PDF field guides, the A-to-D chord practice routine, and the glossary are free, with no card and no sign-up. The guided guitar lessons are the paid part: they open with lifetime access, a one-time purchase made in ${APP_STORE.name} for iPhone. The App Store shows the price before you confirm. Applying to the founding room is free.`,
+    a: `The practice tools, the ${DRILLS.length}-drill Advanced Lab, the written guides and their PDF field guides, the A-to-D chord practice routine, and the glossary are free, with no card and no sign-up. The guided guitar lessons open with lifetime access, ${LIFETIME.display} one time in the US App Store, bought in ${APP_STORE.name} for iPhone, and the first module is free in the app. Applying to the founding room is free.`,
   },
   {
     id: "how-to-get-lifetime-access",
     group: "cost-and-data",
     q: "How do I get lifetime lesson access?",
-    a: `Download ${APP_STORE.name} from the iPhone App Store and choose lifetime access in the app. The App Store purchase screen shows the price and terms before you confirm, and Apple handles the payment. One purchase covers the guitar course and the voice track in the app, and Restore Purchases brings it back on a new iPhone signed in to the same Apple account.`,
+    a: `Download ${APP_STORE.name} from the iPhone App Store, start the first module free, and choose lifetime access in the app: ${LIFETIME.display} one time in the US App Store, charged in local currency on other countries' App Stores. Apple handles the payment. One purchase covers the guitar course and the voice track in the app, and Restore Purchases brings it back on a new iPhone signed in to the same Apple account.`,
   },
   {
     id: "do-i-need-an-account",

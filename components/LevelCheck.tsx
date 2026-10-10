@@ -11,6 +11,7 @@ import {
   type PlacementQuestionId,
   type PlacementScore,
 } from "@/lib/placement";
+import { APP_STORE, LIFETIME } from "@/lib/site";
 
 type Draft = { [K in PlacementQuestionId]?: PlacementScore };
 
@@ -81,7 +82,11 @@ export default function LevelCheck() {
             <p className="mt-4 max-w-2xl leading-relaxed text-white/85">{copy.firstFocus}</p>
             {result !== "advanced" && (
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75">
-                The guided lessons unlock with lifetime access, a one-time purchase in GuitarHub for iPhone.
+                The guided lessons unlock with lifetime access, {LIFETIME.oneTime} in GuitarHub for iPhone.
+                Start the first module free in the app.{" "}
+                <a href={APP_STORE.ios} className="font-semibold text-peach underline underline-offset-4">
+                  {LIFETIME.cta}
+                </a>
               </p>
             )}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

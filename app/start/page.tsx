@@ -7,7 +7,7 @@ import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { curricula } from "@/lib/learning/curriculum";
 import { PLAYER_LEVELS } from "@/lib/levels";
 import { PLACEMENT_QUESTIONS } from "@/lib/placement";
-import { OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
+import { LIFETIME, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const url = `${SITE_URL}/start`;
@@ -93,8 +93,9 @@ export default function StartPage() {
             </div>
           </div>
           <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink/70">
-            The guided lessons in every stage unlock with lifetime access, a
-            one-time purchase in GuitarHub for iPhone. The Advanced Lab, the{" "}
+            The guided lessons in every stage unlock with lifetime access,{" "}
+            {LIFETIME.oneTime} in GuitarHub for iPhone, and the first module is
+            free in the app. The Advanced Lab, the{" "}
             <Link href="/learn/guitar/routine" className="font-semibold text-violet underline underline-offset-4">A-to-D chord routine</Link>{" "}
             and the <Link href="/tools" className="font-semibold text-violet underline underline-offset-4">practice tools</Link>{" "}
             are free.
