@@ -13,6 +13,7 @@ import {
   removeSong,
   restoreReadinessState,
   scoreReadiness,
+  setCriterion,
   songIdFromName,
   summarizeRepertoire,
   toggleCriterion,
@@ -191,19 +192,17 @@ test("keeps only recognized check ids, deduped and in criteria order", () => {
 });
 
 test("creates a song with a slug id and a sanitized display name", () => {
-  assert.deepEqual(createSong("  Pride <and> Joy  "), {
-    id: "pride-and-joy",
-    name: "Pride and Joy",
-    checkedIds: [],
-  });
+  const song = createSong("  Pride <and> Joy  ");
+  assert.equal(song.name, "Pride and Joy");
+  assert.deepEqual(song.checkedIds, []);
+  assert.match(song.id, /^pride-and-joy-[0-9a-z]{7}$/);
 
-  // Two spellings of the same title collapse to one id, which is what makes
-  // the duplicate check work on names people actually type.
-  assert.equal(songIdFromName("Purple   Haze!!"), "purple-haze");
-  assert.equal(songIdFromName("purple haze"), "purple-haze");
+  // Case and spacing do not make a new song, so the duplicate check works on
+  // names people actually type.
+  assert.equal(songIdFromName("Purple   Haze"), songIdFromName("purple haze"));
 
   // Non-Latin titles keep a usable id instead of slugging away to nothing.
-  assert.equal(songIdFromName("君が代"), "君が代");
+  assert.match(songIdFromName("君が代"), /^君が代-[0-9a-z]{7}$/);
 
   assert.equal(createSong("x".repeat(200)).name.length, 80);
 
@@ -216,7 +215,7 @@ test("rejects a duplicate song and enforces the repertoire cap", () => {
   const one = addSong([], "Comfortably Numb");
   assert.deepEqual(
     one.map((song) => song.id),
-    ["comfortably-numb"],
+    [songIdFromName("Comfortably Numb")],
   );
 
   assert.throws(() => addSong(one, "comfortably   numb"), /already in your list/);
@@ -234,16 +233,17 @@ test("rejects a duplicate song and enforces the repertoire cap", () => {
 
 test("toggles a check on and off without ever storing an unknown id", () => {
   const songs = addSong([], "Teen Spirit");
+  const teen = songs[0].id;
 
-  const checked = toggleCriterion(songs, "teen-spirit", "cold-start");
+  const checked = toggleCriterion(songs, teen, "cold-start");
   assert.deepEqual(checked[0].checkedIds, ["cold-start"]);
   assert.equal(scoreReadiness(checked[0].checkedIds).score, 16);
 
-  const unchecked = toggleCriterion(checked, "teen-spirit", "cold-start");
+  const unchecked = toggleCriterion(checked, teen, "cold-start");
   assert.deepEqual(unchecked[0].checkedIds, []);
 
   // Unknown criterion, and unknown song, are both no-ops rather than throws.
-  assert.deepEqual(toggleCriterion(checked, "teen-spirit", "invented")[0].checkedIds, [
+  assert.deepEqual(toggleCriterion(checked, teen, "invented")[0].checkedIds, [
     "cold-start",
   ]);
   assert.deepEqual(toggleCriterion(checked, "no-such-song", "standing")[0].checkedIds, [
@@ -252,8 +252,8 @@ test("toggles a check on and off without ever storing an unknown id", () => {
 
   // Checked ids come back in criteria order, not click order.
   const outOfOrder = toggleCriterion(
-    toggleCriterion(songs, "teen-spirit", "any-section"),
-    "teen-spirit",
+    toggleCriterion(songs, teen, "any-section"),
+    teen,
     "cold-start",
   );
   assert.deepEqual(outOfOrder[0].checkedIds, ["cold-start", "any-section"]);
@@ -276,8 +276,8 @@ test("restores a repertoire and drops only the entries it cannot use", () => {
   });
 
   assert.deepEqual(restored, [
-    { id: "alpha", name: "Alpha", checkedIds: ["cold-start"] },
-    { id: "no-id-supplied", name: "No id supplied", checkedIds: ["standing"] },
+    { id: songIdFromName("Alpha"), name: "Alpha", checkedIds: ["cold-start"] },
+    { id: songIdFromName("No id supplied"), name: "No id supplied", checkedIds: ["standing"] },
   ]);
 
   // A stored id is never carried through, so it cannot arrive as a React key,
@@ -285,7 +285,7 @@ test("restores a repertoire and drops only the entries it cannot use", () => {
   const hostile = restoreReadinessState({
     songs: [{ id: "  <script>x</script>  ", name: "Song A", checkedIds: [] }],
   });
-  assert.deepEqual(hostile, [{ id: "song-a", name: "Song A", checkedIds: [] }]);
+  assert.deepEqual(hostile, [{ id: songIdFromName("Song A"), name: "Song A", checkedIds: [] }]);
 
   // The failure a stored id used to cause, in full: restore a song under some
   // other id, then add it again by name. `addSong` compares ids, so a foreign
@@ -348,13 +348,60 @@ test("removes one song and leaves the rest untouched", () => {
   const songs = addSong(addSong([], "First Song"), "Second Song");
 
   assert.deepEqual(
-    removeSong(songs, "first-song").map((song) => song.name),
+    removeSong(songs, songs[0].id).map((song) => song.name),
     ["Second Song"],
   );
   assert.deepEqual(
     removeSong(songs, "no-such-song").map((song) => song.name),
     ["First Song", "Second Song"],
   );
-  assert.deepEqual(removeSong(songs, "first-song").length, 1);
+  assert.deepEqual(removeSong(songs, songs[0].id).length, 1);
   assert.equal(songs.length, 2, "removeSong must not mutate its input");
+});
+
+test("titles that differ only in punctuation or after 48 characters are different songs", () => {
+  const acdc = addSong([], "AC/DC Thunderstruck");
+  const both = addSong(acdc, "AC DC Thunderstruck");
+  assert.equal(both.length, 2);
+  assert.notEqual(both[0].id, both[1].id);
+
+  const stem = "An extremely long song title that keeps on going pa";
+  assert.ok(stem.length > 48);
+  const long = addSong(addSong([], `${stem} part one`), `${stem} part two`);
+  assert.equal(long.length, 2);
+  assert.notEqual(long[0].id, long[1].id);
+
+  // Case and spacing still find the existing song.
+  assert.throws(() => addSong(both, "ac/dc   thunderstruck"), /already in your list/);
+  assert.equal(songIdFromName("Purple Haze!!") === songIdFromName("Purple Haze"), false);
+});
+
+test("songs saved under the old slug-only ids migrate with their checks", () => {
+  const restored = restoreReadinessState({
+    songs: [
+      { id: "ac-dc-thunderstruck", name: "AC/DC Thunderstruck", checkedIds: ["cold-start", "standing"] },
+      { id: "blackbird", name: "Blackbird", checkedIds: [] },
+    ],
+  });
+  assert.ok(restored);
+  if (!restored) return;
+  assert.deepEqual(
+    restored.map(song => song.id),
+    [songIdFromName("AC/DC Thunderstruck"), songIdFromName("Blackbird")],
+  );
+  assert.deepEqual(restored[0].checkedIds, ["cold-start", "standing"]);
+
+  // The title the old ids could not tell apart can now be added beside it.
+  assert.equal(addSong(restored, "AC DC Thunderstruck").length, 3);
+  assert.throws(() => addSong(restored, "blackbird"), /already in your list/);
+});
+
+test("setCriterion sets the end state, so a stale tab cannot undo another tab's tick", () => {
+  const songs = addSong([], "Teen Spirit");
+  const id = songs[0].id;
+  const on = setCriterion(songs, id, "cold-start", true);
+  assert.deepEqual(setCriterion(on, id, "cold-start", true)[0].checkedIds, ["cold-start"]);
+  assert.deepEqual(setCriterion(on, id, "cold-start", false)[0].checkedIds, []);
+  assert.deepEqual(setCriterion(on, id, "invented", true)[0].checkedIds, ["cold-start"]);
+  assert.deepEqual(setCriterion(on, "missing", "standing", true), on);
 });

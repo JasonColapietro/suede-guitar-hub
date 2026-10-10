@@ -163,3 +163,21 @@ test("a paid track opens complete advanced instruction and rejects unknown lesso
   assert.doesNotMatch(markup, /GuitarHub curriculum preview/);
   assert.equal(lessonLink(paid, "not-a-lesson"), "");
 });
+
+test("a write applies to what another tab stored, even before its storage event arrives", () => {
+  const disk = storage();
+  const tabA = routineHistoryForAccount(null, () => disk);
+  tabA.invalidate();
+  tabA.write(() => savedRoutine("first-session", 60));
+  assert.equal(parseRoutineState(tabA.read()).currentSessionId, "first-session");
+
+  // Another tab ends the routine and starts a new one. This tab's cached copy
+  // still says "first-session" because its storage event has not run yet.
+  disk.setItem(tabA.key, JSON.stringify(savedRoutine("other-tab-session", 240)));
+
+  const { state } = tabA.write(current => ({ ...current, durations: { ...current.durations, tune: 75 } }));
+  assert.equal(state.currentSessionId, "other-tab-session", "the other tab's session is kept, not overwritten");
+  assert.equal(state.durations.tune, 75);
+  assert.equal(parseRoutineState(disk.getItem(tabA.key) ?? "").currentSessionId, "other-tab-session");
+  tabA.invalidate();
+});

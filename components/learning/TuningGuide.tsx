@@ -44,8 +44,13 @@ export function TuningGuide({ onReadyChange }: { onReadyChange?: (ready: boolean
     }
     playback.current = null;
   }, []);
+  // Only a tuner that was listening, starting or playing a reference is
+  // "paused"; hiding the tab while it was idle leaves the message alone.
   useEffect(() => bindPracticeLifecycle(() => {
-    stopResources(); setPhase("idle"); setReading(null);
+    const active = request.current !== null || capture.current !== null || (playback.current !== null && !playback.current.signal.aborted);
+    stopResources();
+    if (!active) return;
+    setPhase("idle"); setReading(null);
     setMessage("Tuner paused. Start it again when you return to this page.");
   }), [stopResources]);
   useEffect(() => {

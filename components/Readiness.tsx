@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   MAX_SONGS,
   READINESS_CRITERIA,
@@ -10,10 +10,11 @@ import {
   removeSong,
   restoreReadinessState,
   scoreReadiness,
+  setCriterion,
   summarizeRepertoire,
-  toggleCriterion,
   type ReadinessSong,
 } from "@/lib/readiness";
+import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
 
 /**
  * The Song Readiness Score tool.
@@ -21,6 +22,10 @@ import {
  * Every rule lives in `lib/readiness.ts`; this file owns state, the DOM, and
  * the literal localStorage calls. No account, no network, no upload: the
  * repertoire is written to this browser and nowhere else.
+ *
+ * Every change is applied to the repertoire as it is stored now, and a write
+ * from another tab is re-read as it happens, so two open tabs cannot overwrite
+ * each other's songs.
  */
 
 const NAME_INPUT_ID = "readiness-song-name";
@@ -30,8 +35,18 @@ const FOCUS_RING =
   "focus-visible:outline-3 focus-visible:outline-offset-[3px] focus-visible:outline-violet-soft";
 const HAS_FOCUS_RING =
   "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-[3px] has-[:focus-visible]:outline-violet-soft";
+// `max-w-full` and `overflow-wrap:anywhere` because one of these buttons
+// carries the song's name, and a long name with no spaces would otherwise push
+// the page wider than the screen.
 const SMALL_BUTTON =
-  `inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/15 px-4 py-2 text-xs font-semibold text-indigo-deep motion-safe:transition hover:bg-cream-soft ${FOCUS_RING}`;
+  `inline-flex min-h-11 max-w-full items-center gap-2 rounded-full border border-ink/15 px-4 py-2 text-left text-xs font-semibold text-indigo-deep [overflow-wrap:anywhere] motion-safe:transition hover:bg-cream-soft ${FOCUS_RING}`;
+
+/** An empty repertoire removes the key rather than storing an empty list. */
+const readinessStore = createStoredValue<ReadinessSong[]>({
+  key: READINESS_STORAGE_KEY,
+  restore: restoreReadinessState,
+  serialize: (songs) => ({ songs }),
+});
 
 export default function Readiness() {
   const [songs, setSongs] = useState<ReadinessSong[]>([]);
@@ -40,51 +55,51 @@ export default function Readiness() {
   const [error, setError] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [focusTarget, setFocusTarget] = useState<string | null>(null);
+  const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
+  const [pendingClear, setPendingClear] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  // The latest songs, for callbacks that outlive the render they were made in.
+  const songsRef = useRef<ReadinessSong[]>([]);
+  useEffect(() => {
+    songsRef.current = songs;
+  }, [songs]);
 
   // Read once, on mount, never during render — that is what keeps the server
-  // HTML and the first client render identical.
+  // HTML and the first client render identical. Then follow other tabs.
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const raw = window.localStorage.getItem(READINESS_STORAGE_KEY);
-      if (raw) {
-        const restored = restoreReadinessState(JSON.parse(raw));
-        if (restored) {
-          setSongs(restored);
-          setActiveSongId(restored[0]?.id ?? null);
-        } else {
-          window.localStorage.removeItem(READINESS_STORAGE_KEY);
-        }
-      }
-    } catch {
-      // Private mode throws on access and corrupt JSON throws on parse. The
-      // cleanup itself can throw for the first of those, so it needs its own
-      // guard or it would escape this handler.
-      try {
-        window.localStorage.removeItem(READINESS_STORAGE_KEY);
-      } catch {
-        // Storage is unavailable entirely. There is nothing to clean up.
-      }
-    } finally {
-      setHydrated(true);
+    const restored = readinessStore.read();
+    if (restored.available && restored.value) {
+      setSongs(restored.value);
+      setActiveSongId(restored.value[0]?.id ?? null);
     }
+    setHydrated(true);
+
+    return subscribeToStoredKey(READINESS_STORAGE_KEY, () => {
+      const latest = readinessStore.read();
+      if (!latest.available) return;
+      const next = latest.value ?? [];
+      const ids = new Set(next.map((song) => song.id));
+      setSongs(next);
+      setPendingRemoveId((current) => (current && ids.has(current) ? current : null));
+      if (next.length === 0) setPendingClear(false);
+    });
   }, []);
 
-  // The `hydrated` gate is load-bearing: without it this effect fires before
-  // the read effect has restored, and the empty default overwrites the saved
-  // repertoire on every page load.
-  useEffect(() => {
-    if (!hydrated || typeof window === "undefined") return;
-    try {
-      window.localStorage.setItem(
-        READINESS_STORAGE_KEY,
-        JSON.stringify({ songs }),
-      );
-    } catch {
-      // Private mode and a full quota both throw on write. The tool keeps
-      // working for this session; only persistence is lost.
-    }
-  }, [hydrated, songs]);
+  /**
+   * Apply one change to the repertoire as stored now and show the result. The
+   * songs on screen are only the fallback for storage that cannot be read.
+   */
+  function commit(change: (latest: ReadinessSong[]) => ReadinessSong[]) {
+    const { value } = readinessStore.update(songsRef.current, (latest) => {
+      const next = change(latest ?? []);
+      return next.length > 0 ? next : null;
+    });
+    const next = value ?? [];
+    songsRef.current = next;
+    setSongs(next);
+    return next;
+  }
 
   const activeSong = useMemo(
     () => songs.find((song) => song.id === activeSongId) ?? songs[0] ?? null,
@@ -114,12 +129,14 @@ export default function Readiness() {
   function handleAdd(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      const next = addSong(songs, draftName);
+      // addSong throws on a refusal, which leaves storage untouched.
+      const next = commit((latest) => addSong(latest, draftName));
       const added = next[next.length - 1];
-      setSongs(next);
       setActiveSongId(added.id);
       setDraftName("");
       setError("");
+      setNotice("");
+      setPendingClear(false);
       setFocusTarget(RESULT_HEADING_ID);
     } catch (caught) {
       setError(
@@ -128,30 +145,42 @@ export default function Readiness() {
     }
   }
 
-  function handleToggle(criterionId: string) {
+  function handleCheck(criterionId: string, checked: boolean) {
     if (!activeSong) return;
     const songId = activeSong.id;
-    setSongs((current) => toggleCriterion(current, songId, criterionId));
+    const next = commit((latest) => setCriterion(latest, songId, criterionId, checked));
+    setNotice(
+      next.some((song) => song.id === songId)
+        ? ""
+        : "That song was removed in another tab, so the check was not saved.",
+    );
   }
 
   function handleRemove(songId: string) {
-    const next = removeSong(songs, songId);
-    setSongs(next);
+    const name = songs.find((song) => song.id === songId)?.name ?? "The song";
+    const next = commit((latest) => removeSong(latest, songId));
     setActiveSongId(next[0]?.id ?? null);
+    setPendingRemoveId(null);
     setError("");
+    setNotice(`${name} removed.`);
     setFocusTarget(NAME_INPUT_ID);
   }
 
+  // Deletes the songs the confirmation counted. A song added in another tab
+  // after the player agreed is kept, and the notice says so.
   function handleClear() {
-    try {
-      window.localStorage.removeItem(READINESS_STORAGE_KEY);
-    } catch {
-      // Storage unavailable. The in-memory reset below still happens.
-    }
-    setSongs([]);
-    setActiveSongId(null);
+    const shown = new Set(songs.map((song) => song.id));
+    const next = commit((latest) => latest.filter((song) => !shown.has(song.id)));
+    setActiveSongId(next[0]?.id ?? null);
+    setPendingClear(false);
+    setPendingRemoveId(null);
     setDraftName("");
     setError("");
+    setNotice(
+      next.length === 0
+        ? "Every song was cleared from this browser."
+        : `Cleared the songs shown. Kept ${next.length} added in another tab.`,
+    );
     setFocusTarget(NAME_INPUT_ID);
   }
 
@@ -276,13 +305,18 @@ export default function Readiness() {
       <p className="sr-only" aria-live="polite">
         {liveSummary}
       </p>
+      {notice ? (
+        <p role="status" className="mt-4 text-sm text-ink/60 [overflow-wrap:anywhere]">
+          {notice}
+        </p>
+      ) : null}
 
       {activeSong && assessment ? (
         <div className="mt-10 border-t border-ink/10 pt-10">
           <h3
             id={RESULT_HEADING_ID}
             tabIndex={-1}
-            className="font-display text-3xl leading-snug text-indigo-deep md:text-4xl"
+            className="font-display text-3xl leading-snug text-indigo-deep [overflow-wrap:anywhere] md:text-4xl"
           >
             {activeSong.name}
           </h3>
@@ -377,7 +411,7 @@ export default function Readiness() {
                     <input
                       type="checkbox"
                       checked={activeSong.checkedIds.includes(criterion.id)}
-                      onChange={() => handleToggle(criterion.id)}
+                      onChange={(event) => handleCheck(criterion.id, event.target.checked)}
                       className="mt-0.5 size-5 shrink-0 accent-violet"
                     />
                     <span className="min-w-0">
@@ -397,18 +431,75 @@ export default function Readiness() {
             </ul>
           </fieldset>
 
+          {/* Two steps each, the pattern the practice log uses: a song's checks
+              and the whole repertoire have no other copy and no undo. */}
           <div className="mt-8 flex flex-wrap gap-3 border-t border-ink/10 pt-6">
-            <button
-              type="button"
-              onClick={() => handleRemove(activeSong.id)}
-              className={SMALL_BUTTON}
-            >
-              Remove {activeSong.name}
-            </button>
-            <button type="button" onClick={handleClear} className={SMALL_BUTTON}>
-              Clear this browser&apos;s songs
-            </button>
+            {pendingRemoveId === activeSong.id ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => handleRemove(activeSong.id)}
+                  className={`${SMALL_BUTTON} border-violet/40 bg-violet-soft/15`}
+                >
+                  Remove {activeSong.name} for good
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingRemoveId(null)}
+                  className={SMALL_BUTTON}
+                >
+                  Keep it
+                </button>
+              </>
+            ) : pendingClear ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  className={`${SMALL_BUTTON} border-violet/40 bg-violet-soft/15`}
+                >
+                  Delete all {songs.length} {songs.length === 1 ? "song" : "songs"} for good
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingClear(false)}
+                  className={SMALL_BUTTON}
+                >
+                  Keep them
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPendingClear(false);
+                    setPendingRemoveId(activeSong.id);
+                  }}
+                  className={SMALL_BUTTON}
+                >
+                  Remove {activeSong.name}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPendingRemoveId(null);
+                    setPendingClear(true);
+                  }}
+                  className={SMALL_BUTTON}
+                >
+                  Clear this browser&apos;s songs
+                </button>
+              </>
+            )}
           </div>
+          {pendingRemoveId === activeSong.id || pendingClear ? (
+            <p className="mt-4 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80 [overflow-wrap:anywhere]">
+              {pendingClear
+                ? `This deletes every song in this browser and all of their checks. There is no other copy and no undo.`
+                : `This deletes ${activeSong.name} and its ${activeSong.checkedIds.length === 1 ? "one answered check" : `${activeSong.checkedIds.length} answered checks`}. There is no undo.`}
+            </p>
+          ) : null}
         </div>
       ) : (
         <p className="mt-8 border-t border-ink/10 pt-8 text-ink/70">

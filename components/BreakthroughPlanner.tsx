@@ -1,19 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   BREAKTHROUGH_GOALS,
   BREAKTHROUGH_STORAGE_KEY,
   createBreakthroughPlan,
   normalizeProgress,
   progressPercent,
+  rebuildBreakthroughState,
   restoreBreakthroughState,
+  sameBreakthroughProfile,
+  setBreakthroughActionDone,
   type BreakthroughPlan,
   type BreakthroughProfile,
   type ExperienceLevel,
   type GoalId,
+  type StoredBreakthroughState,
 } from "@/lib/breakthrough";
+import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
 import { STRUMLY } from "@/lib/site";
 
 const DEFAULT_PROFILE: BreakthroughProfile = {
@@ -29,56 +34,73 @@ const EXPERIENCE_OPTIONS: Array<{ value: ExperienceLevel; label: string }> = [
   { value: "returning", label: "Returning after time away" },
 ];
 
+/**
+ * The stored plan. Every change is applied to the plan as it is stored now and
+ * a write from another tab is re-read as it happens, so two open tabs cannot
+ * overwrite each other's checked actions.
+ */
+const breakthroughStore = createStoredValue<StoredBreakthroughState>({
+  key: BREAKTHROUGH_STORAGE_KEY,
+  restore: restoreBreakthroughState,
+});
+
+/** A profile change waiting on the player, because it would drop checked actions. */
+type PendingRebuild = { profile: BreakthroughProfile; dropped: number };
+
 export default function BreakthroughPlanner() {
   const [profile, setProfile] = useState<BreakthroughProfile>(DEFAULT_PROFILE);
   const [plan, setPlan] = useState<BreakthroughPlan | null>(null);
+  const [planProfile, setPlanProfile] = useState<BreakthroughProfile | null>(null);
   const [completedActionIds, setCompletedActionIds] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [focusPlan, setFocusPlan] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [pendingRebuild, setPendingRebuild] = useState<PendingRebuild | null>(null);
+  const [pendingClear, setPendingClear] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  // What is on screen, for callbacks that outlive the render they were made in.
+  const shown = useRef<StoredBreakthroughState | null>(null);
+  useEffect(() => {
+    shown.current = planProfile ? { profile: planProfile, completedActionIds } : null;
+  }, [completedActionIds, planProfile]);
+
+  /** Put a stored state on screen. */
+  function show(state: StoredBreakthroughState | null) {
+    shown.current = state;
+    if (!state) {
+      setPlan(null);
+      setPlanProfile(null);
+      setCompletedActionIds([]);
+      return;
+    }
+    const nextPlan = createBreakthroughPlan(state.profile);
+    setPlan(nextPlan);
+    setPlanProfile(state.profile);
+    setCompletedActionIds(normalizeProgress(nextPlan, state.completedActionIds));
+  }
 
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(BREAKTHROUGH_STORAGE_KEY);
-      if (raw) {
-        const restored = restoreBreakthroughState(JSON.parse(raw));
-        if (restored) {
-          const restoredPlan = createBreakthroughPlan(restored.profile);
-          setProfile(restored.profile);
-          setPlan(restoredPlan);
-          setCompletedActionIds(restored.completedActionIds);
-        } else {
-          window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
-        }
-      }
-    } catch {
-      // Two different failures land here: corrupt JSON, and storage being
-      // unavailable at all. The cleanup throws for the second of those, so it
-      // needs its own guard — without it, a private window took the throw
-      // straight out of this effect and the planner never rendered.
-      try {
-        window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
-      } catch {
-        // Storage is unavailable entirely. There is nothing to clean up.
-      }
-    } finally {
-      setHydrated(true);
+    const restored = breakthroughStore.read();
+    if (restored.available && restored.value) {
+      show(restored.value);
+      setProfile(restored.value.profile);
     }
+    setHydrated(true);
+
+    // Another tab ticked, edited or cleared the plan.
+    return subscribeToStoredKey(BREAKTHROUGH_STORAGE_KEY, () => {
+      const latest = breakthroughStore.read();
+      if (!latest.available) return;
+      setPendingRebuild(null);
+      if (!latest.value) {
+        setPendingClear(false);
+        setEditing(false);
+      }
+      show(latest.value);
+    });
   }, []);
-
-  useEffect(() => {
-    if (!hydrated || !plan) return;
-    try {
-      window.localStorage.setItem(
-        BREAKTHROUGH_STORAGE_KEY,
-        JSON.stringify({ profile, completedActionIds }),
-      );
-    } catch {
-      // Private mode throws on access and a full quota throws on write. The
-      // planner keeps working in memory; only surviving a refresh is lost, and
-      // nothing here is worth crashing the page for.
-    }
-  }, [completedActionIds, hydrated, plan, profile]);
 
   const percent = useMemo(
     () => (plan ? progressPercent(plan, completedActionIds) : 0),
@@ -96,65 +118,115 @@ export default function BreakthroughPlanner() {
     setFocusPlan(false);
   }, [focusPlan, plan]);
 
+  /** Write the plan for `next`, keeping every checked action it still has. */
+  function commitProfile(next: BreakthroughProfile) {
+    let dropped = 0;
+    const { value } = breakthroughStore.update(shown.current, (latest) => {
+      const rebuilt = rebuildBreakthroughState(latest, next);
+      dropped = rebuilt.dropped.length;
+      return rebuilt.state;
+    });
+    show(value);
+    setPendingRebuild(null);
+    setPendingClear(false);
+    setEditing(false);
+    setError("");
+    const kept = value?.completedActionIds.length ?? 0;
+    setNotice(
+      kept > 0
+        ? `Plan updated. Kept ${kept} checked ${kept === 1 ? "action" : "actions"}${dropped > 0 ? `, and cleared ${dropped} the new plan no longer has` : ""}.`
+        : "",
+    );
+    setFocusPlan(true);
+  }
+
   function buildPlan(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      const nextPlan = createBreakthroughPlan(profile);
-      setPlan(nextPlan);
-      setCompletedActionIds([]);
-      setError("");
-      setFocusPlan(true);
+      createBreakthroughPlan(profile);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Check your practice choices.");
+      return;
     }
+    // Ask before an edit throws away actions the player already checked.
+    // Changing minutes or experience keeps every action; fewer days or a new
+    // goal is what can drop some.
+    const latest = breakthroughStore.read();
+    const base = latest.available ? latest.value : shown.current;
+    const { dropped } = rebuildBreakthroughState(base, profile);
+    if (dropped.length > 0) {
+      setPendingRebuild({ profile, dropped: dropped.length });
+      return;
+    }
+    commitProfile(profile);
   }
 
-  function toggleAction(actionId: string) {
-    if (!plan) return;
-    setCompletedActionIds((current) =>
-      normalizeProgress(
-        plan,
-        current.includes(actionId)
-          ? current.filter((id) => id !== actionId)
-          : [...current, actionId],
-      ),
+  function setActionDone(actionId: string, done: boolean) {
+    if (!planProfile) return;
+    const { value } = breakthroughStore.update(shown.current, (latest) =>
+      setBreakthroughActionDone(latest, planProfile, actionId, done),
+    );
+    show(value);
+    const replaced = !value || !sameBreakthroughProfile(value.profile, planProfile);
+    setNotice(
+      replaced
+        ? "This plan was changed in another tab. Showing the saved one; check the action again if it still applies."
+        : "",
     );
   }
 
-  function clearPlan() {
-    try {
-      window.localStorage.removeItem(BREAKTHROUGH_STORAGE_KEY);
-    } catch {
-      // Storage unavailable. The in-memory reset below still happens.
-    }
-    setProfile(DEFAULT_PROFILE);
-    setPlan(null);
-    setCompletedActionIds([]);
-    setError("");
+  function startEditing() {
+    if (planProfile) setProfile(planProfile);
+    setPendingClear(false);
+    setNotice("");
+    setEditing(true);
   }
 
-  if (!plan) {
+  function cancelEditing() {
+    if (planProfile) setProfile(planProfile);
+    setPendingRebuild(null);
+    setError("");
+    setEditing(false);
+    setFocusPlan(true);
+  }
+
+  function clearPlan() {
+    breakthroughStore.write(null);
+    show(null);
+    setProfile(DEFAULT_PROFILE);
+    setPendingClear(false);
+    setError("");
+    setNotice("Plan cleared from this browser.");
+  }
+
+  if (!plan || editing) {
     return (
       <form onSubmit={buildPlan} className="breakthrough-builder" aria-busy={!hydrated}>
         <fieldset>
           <legend className="font-display text-3xl text-indigo-deep">
-            Define one finish line
+            {editing ? "Adjust your plan" : "Define one finish line"}
           </legend>
           <p className="mt-3 max-w-2xl text-ink/70">
-            One goal, four weeks, twelve actions. Your plan stays in this browser.
+            {editing
+              ? "Change the days, minutes or level and your checked actions carry over. A new goal starts a new plan."
+              : "One goal, four weeks, one action for every practice day, sized to the minutes you have. Your plan stays in this browser."}
           </p>
+          {notice && !editing ? (
+            <p role="status" className="mt-3 text-sm text-ink/60">{notice}</p>
+          ) : null}
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <label className="breakthrough-field md:col-span-2">
               <span>What do you want to prove in 30 days?</span>
               <select
                 value={profile.goal}
-                onChange={(event) =>
+                onChange={(event) => {
+                  setPendingRebuild(null);
                   setProfile((current) => ({
                     ...current,
                     goal: event.target.value as GoalId,
-                  }))
-                }
+                  }));
+                }}
               >
                 {BREAKTHROUGH_GOALS.map((goal) => (
                   <option key={goal.id} value={goal.id}>
@@ -168,12 +240,13 @@ export default function BreakthroughPlanner() {
               <span>Where are you now?</span>
               <select
                 value={profile.experience}
-                onChange={(event) =>
+                onChange={(event) => {
+                  setPendingRebuild(null);
                   setProfile((current) => ({
                     ...current,
                     experience: event.target.value as ExperienceLevel,
-                  }))
-                }
+                  }));
+                }}
               >
                 {EXPERIENCE_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -187,12 +260,13 @@ export default function BreakthroughPlanner() {
               <span>Practice days each week</span>
               <select
                 value={profile.daysPerWeek}
-                onChange={(event) =>
+                onChange={(event) => {
+                  setPendingRebuild(null);
                   setProfile((current) => ({
                     ...current,
                     daysPerWeek: Number(event.target.value),
-                  }))
-                }
+                  }));
+                }}
               >
                 {[3, 4, 5, 6].map((days) => (
                   <option key={days} value={days}>
@@ -206,12 +280,13 @@ export default function BreakthroughPlanner() {
               <span>Minutes you can protect each session</span>
               <select
                 value={profile.minutesPerSession}
-                onChange={(event) =>
+                onChange={(event) => {
+                  setPendingRebuild(null);
                   setProfile((current) => ({
                     ...current,
                     minutesPerSession: Number(event.target.value),
-                  }))
-                }
+                  }));
+                }}
               >
                 {[15, 20, 30, 45, 60].map((minutes) => (
                   <option key={minutes} value={minutes}>
@@ -225,9 +300,43 @@ export default function BreakthroughPlanner() {
 
         {error ? <p role="alert" className="mt-5 font-medium text-violet">{error}</p> : null}
 
-        <button type="submit" className="breakthrough-primary mt-8">
-          Build my 30-day plan <span aria-hidden>→</span>
-        </button>
+        {pendingRebuild ? (
+          <div role="alert" className="mt-6 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5">
+            <p className="font-medium text-indigo-deep">
+              {pendingRebuild.profile.goal !== planProfile?.goal
+                ? "A new goal starts a new plan"
+                : "Fewer practice days removes extra-day actions"}
+              , so{" "}
+              {pendingRebuild.dropped === 1
+                ? "one action you checked is"
+                : `${pendingRebuild.dropped} actions you checked are`}{" "}
+              cleared. Every action the new plan keeps stays checked.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => commitProfile(pendingRebuild.profile)}
+                className="breakthrough-reset"
+              >
+                Update and clear {pendingRebuild.dropped === 1 ? "it" : "them"}
+              </button>
+              <button type="button" onClick={cancelEditing} className="breakthrough-reset">
+                Keep my current plan
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <button type="submit" className="breakthrough-primary">
+            {editing ? "Update my plan" : "Build my 30-day plan"} <span aria-hidden>→</span>
+          </button>
+          {editing ? (
+            <button type="button" onClick={cancelEditing} className="breakthrough-reset">
+              Cancel
+            </button>
+          ) : null}
+        </div>
       </form>
     );
   }
@@ -244,12 +353,72 @@ export default function BreakthroughPlanner() {
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-ink/70">{plan.finishLine}</p>
           <p className="mt-3 text-sm font-semibold text-indigo-mid">
-            {plan.experienceLabel} · {plan.cadence}
+            {plan.experienceLabel} · {plan.cadence} · {plan.weeklyMinutes} minutes a week
           </p>
+          <p className="mt-3 max-w-2xl text-ink/70">{plan.approach}</p>
         </div>
-        <button type="button" onClick={clearPlan} className="breakthrough-reset">
-          Clear this browser&apos;s plan
-        </button>
+        {/* Two steps, the pattern the practice log uses: the plan and its
+            checked actions have no other copy and no undo. */}
+        <div className="flex flex-wrap gap-3">
+          {pendingClear ? (
+            <>
+              <button type="button" onClick={clearPlan} className="breakthrough-reset">
+                Delete the plan for good
+              </button>
+              <button
+                type="button"
+                onClick={() => setPendingClear(false)}
+                className="breakthrough-reset"
+              >
+                Keep it
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" onClick={startEditing} className="breakthrough-reset">
+                Change days, minutes or goal
+              </button>
+              <button
+                type="button"
+                onClick={() => setPendingClear(true)}
+                className="breakthrough-reset"
+              >
+                Clear this browser&apos;s plan
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {pendingClear ? (
+        <p className="mt-6 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80">
+          This deletes the plan and its{" "}
+          {completedActionIds.length === 1
+            ? "one checked action"
+            : `${completedActionIds.length} checked actions`}
+          . There is no other copy and no undo. To change days, minutes or
+          level instead, keep it and use &ldquo;Change days, minutes or goal&rdquo;.
+        </p>
+      ) : null}
+
+      <p role="status" aria-live="polite" className="mt-4 text-sm text-ink/60">
+        {notice}
+      </p>
+
+      <div className="mt-8 rounded-2xl border border-indigo-deep/10 bg-white/70 p-5">
+        <p className="text-sm font-semibold text-indigo-deep">
+          Every {plan.sessionBlocks.reduce((sum, block) => sum + block.minutes, 0)}-minute session
+        </p>
+        <ol className="mt-3 grid gap-3 sm:grid-cols-3">
+          {plan.sessionBlocks.map((block) => (
+            <li key={block.label} className="text-sm text-ink/70">
+              <strong className="block text-indigo-deep">
+                {block.label} · {block.minutes} min
+              </strong>
+              {block.detail}
+            </li>
+          ))}
+        </ol>
       </div>
 
       <div className="mt-10">
@@ -286,6 +455,9 @@ export default function BreakthroughPlanner() {
                   </span>
                   <h3 className="mt-2 font-display text-2xl text-indigo-deep">{week.title}</h3>
                   <p className="mt-3 max-w-2xl text-ink/70">{week.focus}</p>
+                  <p className="mt-2 max-w-2xl text-sm font-semibold text-indigo-mid">
+                    {week.tempoTarget}
+                  </p>
                 </div>
                 <a className="breakthrough-resource" href={week.resource.href} target="_blank" rel="noopener">
                   {week.resource.label} <span aria-hidden>↗</span>
@@ -301,9 +473,14 @@ export default function BreakthroughPlanner() {
                         <input
                           type="checkbox"
                           checked={completedActionIds.includes(action.id)}
-                          onChange={() => toggleAction(action.id)}
+                          onChange={(event) => setActionDone(action.id, event.target.checked)}
                         />
-                        <span>{action.label}</span>
+                        <span>
+                          <span className="text-xs font-semibold uppercase tracking-widest text-violet">
+                            Day {action.day}
+                          </span>{" "}
+                          {action.label}
+                        </span>
                       </label>
                     ))}
                   </div>

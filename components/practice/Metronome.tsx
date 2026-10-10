@@ -15,8 +15,13 @@ export function Metronome() {
     request.current?.abort(); request.current = null;
     playback.current?.stop(); playback.current = null;
   }, []);
+  // Only a metronome that was starting or running is "paused". Hiding the tab
+  // while it was stopped leaves the message describing what actually happened.
   useEffect(() => bindPracticeLifecycle(() => {
-    stopResources(); setPhase("idle"); setBeat(null);
+    const active = request.current !== null || playback.current !== null;
+    stopResources();
+    if (!active) return;
+    setPhase("idle"); setBeat(null);
     setMessage("Metronome paused. Start it again when you return to this page.");
   }), [stopResources]);
   function changeTempo(value: number) {

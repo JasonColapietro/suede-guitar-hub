@@ -1,31 +1,29 @@
 "use client";
 
-import { useEffect, useMemo, useReducer, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   LOG_METRICS,
   LOG_STORAGE_KEY,
   MAX_FOCUS_LENGTH,
   MAX_NOTE_LENGTH,
   MIN_TREND_POINTS,
-  addEntry,
   exportFileName,
   importLog,
   knownFocuses,
   metricSpec,
   recentFirst,
-  removeEntry,
   restoreLogState,
   serializeLog,
   storedLogPayload,
   summarizeLog,
   toIsoDate,
-  updateEntry,
   type LogEntry,
   type LogError,
   type LogMetric,
   type TrendVerdict,
 } from "@/lib/log";
-import { reduceLogState } from "@/lib/log-state";
+import { applyLogChange, sessionCount, type LogChange } from "@/lib/log-state";
+import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
 
 /**
  * The Practice Evidence Log.
@@ -38,6 +36,11 @@ import { reduceLogState } from "@/lib/log-state";
  *
  * The clock is read here, once, on mount, and passed into the library as a
  * plain `YYYY-MM-DD` string. That is the only reason the summary is testable.
+ *
+ * Every change is applied to the log as it is stored *now*, not to the copy
+ * this tab loaded, and a write from another tab is re-read as it happens. With
+ * the page open twice, the old whole-list write let the last tab to save erase
+ * whatever the other had logged.
  */
 
 const FIELD_CLASSES =
@@ -61,6 +64,17 @@ const TREND_STYLES: Record<TrendVerdict, string> = {
 
 const SUMMARY_ID = "log-summary";
 const DATE_FIELD_ID = "log-date";
+const ERROR_ID = "log-error";
+
+/**
+ * The stored log. An empty log removes the key rather than writing an empty
+ * payload, so "Clear this browser's log" leaves nothing behind.
+ */
+const logStore = createStoredValue<LogEntry[]>({
+  key: LOG_STORAGE_KEY,
+  restore: restoreLogState,
+  serialize: storedLogPayload,
+});
 
 type Draft = {
   date: string;
@@ -72,47 +86,6 @@ type Draft = {
 
 function emptyDraft(date: string): Draft {
   return { date, focus: "", metric: "tempo", value: "", note: "" };
-}
-
-/** Both storage calls can throw on their own in a private window. */
-function forgetStored(): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.removeItem(LOG_STORAGE_KEY);
-  } catch {
-    // Storage is unavailable, so there is nothing stored to forget.
-  }
-}
-
-function readStored(): LogEntry[] | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(LOG_STORAGE_KEY);
-    if (!raw) return null;
-    const restored = restoreLogState(JSON.parse(raw));
-    if (restored) return restored;
-  } catch {
-    // Private mode throws on access; corrupt JSON throws on parse. Either way
-    // the stored value is unusable.
-  }
-  // Only reached when the payload could not be read at all. A payload that was
-  // readable but held a few broken rows came back above with the good rows in
-  // it, and is never dropped here.
-  forgetStored();
-  return null;
-}
-
-function writeStored(entries: readonly LogEntry[]): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(
-      LOG_STORAGE_KEY,
-      JSON.stringify(storedLogPayload(entries)),
-    );
-  } catch {
-    // A blocked or full store costs the player persistence, not the log they
-    // are looking at. Nothing here should interrupt them.
-  }
 }
 
 function formatDate(iso: string): string {
@@ -134,13 +107,14 @@ function formatDate(iso: string): string {
 export default function PracticeLog() {
   const [hydrated, setHydrated] = useState(false);
   const [today, setToday] = useState("");
-  const [{ entries, importReceipt }, dispatchLog] = useReducer(reduceLogState, {
-    entries: [],
-    importReceipt: null,
-  });
-  function setEntries(next: LogEntry[]) {
-    dispatchLog({ type: "replace", entries: next });
-  }
+  const [entries, setEntries] = useState<LogEntry[]>([]);
+  // The latest entries, readable from callbacks that outlive a render: an
+  // import resolves after `file.text()`, by which time the closure's copy may
+  // be several changes old.
+  const entriesRef = useRef<LogEntry[]>([]);
+  useEffect(() => {
+    entriesRef.current = entries;
+  }, [entries]);
   const [draft, setDraft] = useState<Draft>(() => emptyDraft(""));
   const [editingId, setEditingId] = useState<string | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
@@ -158,33 +132,26 @@ export default function PracticeLog() {
     const stamp = toIsoDate(new Date());
     setToday(stamp);
     setDraft(emptyDraft(stamp));
-    const restored = readStored();
-    if (restored) dispatchLog({ type: "replace", entries: restored });
+    const restored = logStore.read();
+    if (restored.available && restored.value) setEntries(restored.value);
     setHydrated(true);
   }, []);
 
-  // The `hydrated` gate is load-bearing: without it this fires before the read
-  // above has restored, and the empty default overwrites the saved log on
-  // every page load.
-  //
-  // The empty case has to remove the key rather than write an empty payload.
-  // This effect runs *after* whatever emptied the log, so a `writeStored([])`
-  // here would put `{"version":2,"entries":[]}` straight back under the key
-  // that "Clear this browser's log" had just removed, and the removal would
-  // never survive a render. `SessionBuilder` gets this for free by returning
-  // early on a null plan; the log has to say it.
-  useEffect(() => {
-    if (!hydrated) return;
-    if (entries.length === 0) {
-      forgetStored();
-      return;
-    }
-    writeStored(entries);
-  }, [entries, hydrated]);
-
-  useEffect(() => {
-    if (importReceipt) setNotice(importReceipt.message);
-  }, [importReceipt]);
+  // Another tab logged, edited, deleted or cleared. Show what is stored now;
+  // a pending delete or edit of a session that no longer exists goes with it.
+  useEffect(
+    () =>
+      subscribeToStoredKey(LOG_STORAGE_KEY, () => {
+        const latest = logStore.read();
+        if (!latest.available) return;
+        const next = latest.value ?? [];
+        const ids = new Set(next.map((entry) => entry.id));
+        setEntries(next);
+        setPendingDeleteId((current) => (current && ids.has(current) ? current : null));
+        if (next.length === 0) setPendingClear(false);
+      }),
+    [],
+  );
 
   // Runs after React has committed, which is when the element exists.
   // `requestAnimationFrame` would not do: it never fires in a hidden tab, so
@@ -221,11 +188,35 @@ export default function PracticeLog() {
     setDraft((current) => ({ ...current, [key]: value }));
   }
 
+  /**
+   * Apply one change to the stored log and show the result.
+   *
+   * The current entries are only the fallback for a browser whose storage
+   * cannot be read at all; everywhere else the change is replayed against what
+   * is stored at this moment, which may include sessions from another tab.
+   */
+  function commit(change: LogChange) {
+    let outcome = applyLogChange(entriesRef.current, change);
+    const { value } = logStore.update(entriesRef.current, (latest) => {
+      outcome = applyLogChange(latest ?? [], change);
+      if (!outcome.ok) return latest;
+      return outcome.entries.length > 0 ? outcome.entries : null;
+    });
+    if (outcome.ok) {
+      const next = value ?? [];
+      entriesRef.current = next;
+      setEntries(next);
+    }
+    return outcome;
+  }
+
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const result = editingId
-      ? updateEntry(entries, editingId, draft, today)
-      : addEntry(entries, draft, today);
+    const result = commit(
+      editingId
+        ? { type: "update", id: editingId, draft, today }
+        : { type: "add", draft, today },
+    );
 
     if (!result.ok) {
       setError(result.error);
@@ -239,9 +230,8 @@ export default function PracticeLog() {
       return;
     }
 
-    setEntries(result.value);
     setError(null);
-    setNotice(editingId ? "Session updated." : "Session logged.");
+    setNotice(result.message);
     setDraft({ ...emptyDraft(today), focus: draft.focus, metric: draft.metric });
     setEditingId(null);
     setFocusTarget(SUMMARY_ID);
@@ -270,10 +260,10 @@ export default function PracticeLog() {
   }
 
   function confirmDelete(id: string) {
-    setEntries(removeEntry(entries, id));
+    const result = commit({ type: "remove", id });
     setPendingDeleteId(null);
     if (editingId === id) cancelEdit();
-    setNotice("Session removed.");
+    setNotice(result.ok ? result.message : "");
     setFocusTarget(SUMMARY_ID);
   }
 
@@ -296,7 +286,7 @@ export default function PracticeLog() {
       window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       setError(null);
       setNotice(
-        `Downloaded ${exportFileName(today)} with ${entries.length} sessions in it.`,
+        `Downloaded ${exportFileName(today)} with ${sessionCount(entries.length)} in it.`,
       );
     } catch {
       setNotice("");
@@ -332,27 +322,35 @@ export default function PracticeLog() {
       return;
     }
 
-    // Dispatch the parsed file instead of merging a snapshot captured before
-    // file.text(): sessions can be added or edited while that read is pending.
-    dispatchLog({ type: "import", imported: parsed.value });
+    // Merged against the log as stored now, not a snapshot captured before
+    // file.text(): sessions can be added or edited while that read is pending,
+    // in this tab or another one.
+    const result = commit({ type: "import", imported: parsed.value });
     setError(null);
+    setNotice(result.ok ? result.message : "");
     setFocusTarget(SUMMARY_ID);
   }
 
-  // Deliberately does not call `forgetStored` itself. The write effect above
-  // owns the key for an empty log, and clearing it here as well would only
-  // hide the ordering bug that made the removal necessary in the first place.
+  // Deletes the sessions the confirmation counted. One logged in another tab
+  // after the player agreed is kept, and the notice says so.
   function clearEverything() {
-    const removed = entries.length;
-    setEntries([]);
+    const result = commit({ type: "clear", ids: entries.map((entry) => entry.id) });
     setEditingId(null);
     setPendingDeleteId(null);
     setPendingClear(false);
     setError(null);
     setDraft(emptyDraft(today));
-    setNotice(
-      `Deleted ${removed} ${removed === 1 ? "session" : "sessions"}. This browser's log is empty.`,
-    );
+    setNotice(result.ok ? result.message : "");
+  }
+
+  /** Props that tie a field to the alert while it is the field at fault. */
+  function fieldState(field: NonNullable<LogError["field"]>, hintId?: string) {
+    const invalid = error?.field === field;
+    const describedBy = [hintId, invalid ? ERROR_ID : null].filter(Boolean).join(" ");
+    return {
+      "aria-invalid": invalid ? (true as const) : undefined,
+      "aria-describedby": describedBy || undefined,
+    };
   }
 
   const windows = summary ? [summary.last7, summary.last30] : [];
@@ -385,7 +383,7 @@ export default function PracticeLog() {
                 max={today || undefined}
                 value={draft.date}
                 onChange={(event) => set("date", event.target.value)}
-                aria-describedby="log-date-hint"
+                {...fieldState("date", "log-date-hint")}
                 className={`mt-2 ${FIELD_CLASSES}`}
               />
               <p id="log-date-hint" className="mt-2 text-sm text-ink/60">
@@ -410,7 +408,7 @@ export default function PracticeLog() {
                 placeholder="Bourrée bar 12"
                 value={draft.focus}
                 onChange={(event) => set("focus", event.target.value)}
-                aria-describedby="log-focus-hint"
+                {...fieldState("focus", "log-focus-hint")}
                 className={`mt-2 ${FIELD_CLASSES}`}
               />
               <datalist id="log-focus-options">
@@ -446,6 +444,7 @@ export default function PracticeLog() {
                     value={option.id}
                     checked={draft.metric === option.id}
                     onChange={() => set("metric", option.id)}
+                    {...fieldState("metric")}
                     className={`h-5 w-5 accent-violet ${PILL_FOCUS}`}
                   />
                   {option.label}
@@ -472,7 +471,7 @@ export default function PracticeLog() {
                 step={1}
                 value={draft.value}
                 onChange={(event) => set("value", event.target.value)}
-                aria-describedby="log-value-hint"
+                {...fieldState("value", "log-value-hint")}
                 className={`mt-2 ${FIELD_CLASSES}`}
               />
               <p id="log-value-hint" className="mt-2 text-sm text-ink/60">
@@ -495,7 +494,7 @@ export default function PracticeLog() {
                 placeholder="Cleaner, but only from a standing start"
                 value={draft.note}
                 onChange={(event) => set("note", event.target.value)}
-                aria-describedby="log-note-hint"
+                {...fieldState("note", "log-note-hint")}
                 className={`mt-2 ${FIELD_CLASSES}`}
               />
               <p id="log-note-hint" className="mt-2 text-sm text-ink/60">
@@ -508,6 +507,7 @@ export default function PracticeLog() {
 
         {error ? (
           <div
+            id={ERROR_ID}
             role="alert"
             className="mt-6 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5"
           >
@@ -810,7 +810,7 @@ export default function PracticeLog() {
             disabled={entries.length === 0}
             className={`${SMALL_PILL} disabled:cursor-not-allowed disabled:opacity-40`}
           >
-            Export {entries.length > 0 ? `${entries.length} sessions` : "the log"}{" "}
+            Export {entries.length > 0 ? sessionCount(entries.length) : "the log"}{" "}
             <span aria-hidden>↓</span>
           </button>
 

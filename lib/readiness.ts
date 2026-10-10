@@ -299,18 +299,52 @@ function cleanName(value: unknown): string {
 }
 
 /**
- * Ids are derived from the name rather than generated, which keeps this module
- * deterministic (no clock, no randomness) and makes "is this song already in
- * the list" a straight id comparison. Unicode property escapes keep non-Latin
- * titles from slugging down to nothing.
+ * The form of a name that decides whether two songs are the same song.
+ *
+ * Case, repeated spaces and Unicode compatibility forms do not make a new song;
+ * punctuation and every character up to the length cap do. "AC/DC
+ * Thunderstruck" and "AC DC Thunderstruck" are two entries, and so are two long
+ * titles that only differ after their first 48 characters.
  */
-export function songIdFromName(name: string): string {
+export function normalizedSongName(name: unknown): string {
+  return cleanName(name).normalize("NFKC").toLowerCase().replace(/\s+/gu, " ").trim();
+}
+
+/** The readable part of an id. Unicode escapes keep non-Latin titles from slugging to nothing. */
+function songSlug(name: string): string {
   return cleanName(name)
+    .normalize("NFKC")
     .toLowerCase()
     .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
     .replace(/^-+|-+$/gu, "")
     .slice(0, 48)
     .replace(/-+$/gu, "");
+}
+
+/** FNV-1a over UTF-16 code units: small, dependency-free, and deterministic. */
+function shortHash(value: string): string {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(36).padStart(7, "0");
+}
+
+/**
+ * Ids are derived from the name rather than generated, which keeps this module
+ * deterministic (no clock, no randomness).
+ *
+ * The slug alone used to be the id, and it collided: it drops punctuation and
+ * stops at 48 characters, so distinct titles were refused as "already in your
+ * list". The suffix is a hash of the whole normalized name, so the id is as
+ * distinct as the names are. Stored ids are never trusted — `restoreReadiness
+ * State` re-derives every one from its name — so songs saved under the old
+ * scheme move to the new ids, checks intact, the next time the page loads.
+ */
+export function songIdFromName(name: string): string {
+  const slug = songSlug(name);
+  return slug ? `${slug}-${shortHash(normalizedSongName(name))}` : "";
 }
 
 /** Throws with a sentence written to be rendered straight into the UI. */
@@ -324,13 +358,21 @@ export function createSong(name: string): ReadinessSong {
   return { id, name: cleaned, checkedIds: [] };
 }
 
+/** Same song: same normalized name. The id follows from it, so either matches. */
+function holdsSong(songs: readonly ReadinessSong[], song: ReadinessSong): boolean {
+  const key = normalizedSongName(song.name);
+  return songs.some(
+    (existing) => existing.id === song.id || normalizedSongName(existing.name) === key,
+  );
+}
+
 export function addSong(
   songs: readonly ReadinessSong[],
   name: string,
 ): ReadinessSong[] {
   const song = createSong(name);
 
-  if (songs.some((existing) => existing.id === song.id)) {
+  if (holdsSong(songs, song)) {
     throw new Error("That song is already in your list.");
   }
   if (songs.length >= MAX_SONGS) {
@@ -369,6 +411,29 @@ export function toggleCriterion(
 }
 
 /**
+ * Set one check on or off for one song.
+ *
+ * States the wanted end state rather than flipping, so a change made from a
+ * tab that had not yet seen another tab's tick cannot undo it. An unknown song
+ * or criterion is a no-op.
+ */
+export function setCriterion(
+  songs: readonly ReadinessSong[],
+  songId: string,
+  criterionId: string,
+  checked: boolean,
+): ReadinessSong[] {
+  return songs.map((song) => {
+    if (song.id !== songId) return song;
+    const without = song.checkedIds.filter((id) => id !== criterionId);
+    return {
+      ...song,
+      checkedIds: normalizeCheckedIds(checked ? [...without, criterionId] : without),
+    };
+  });
+}
+
+/**
  * Restore from parsed localStorage. Returns null when the stored value is not
  * this tool's shape at all (the component's cue to delete the key), and an
  * array otherwise — dropping individual songs that are unusable rather than
@@ -397,9 +462,11 @@ export function restoreReadinessState(candidate: unknown): ReadinessSong[] | nul
     // real ids) would walk straight past that check and put the same song in
     // the list twice, each copy with its own checklist.
     const id = songIdFromName(name);
-    if (!id || seen.has(id)) continue;
+    const key = normalizedSongName(name);
+    if (!id || seen.has(id) || seen.has(key)) continue;
 
     seen.add(id);
+    seen.add(key);
     songs.push({ id, name, checkedIds: normalizeCheckedIds(songRecord.checkedIds) });
     if (songs.length >= MAX_SONGS) break;
   }

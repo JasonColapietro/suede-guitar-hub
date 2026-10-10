@@ -85,3 +85,19 @@ test("ear-training and fretboard drills name exactly what they score", () => {
   const bends = DRILLS.find(item => item.id === "bends-in-tune")!;
   assert.match(bends.steps.join(" "), /half step/);
 });
+
+test("triplet drills show readable beat positions, never raw floating point", async () => {
+  const { targetMap, formatBeat } = await import("../lib/audio/practice-selection.ts");
+  for (const id of ["quarter-note-triplets", "triplet-sixteenth-shift"]) {
+    const drill = DRILLS.find(item => item.id === id);
+    assert.ok(drill, id);
+    for (const target of targetMap(drill!.spec)) {
+      assert.match(target.beatInBar, /^\d+(\.\d{1,2})?$/, `${id}: beat ${target.beatInBar}`);
+    }
+  }
+  assert.equal(formatBeat(1.6669999999999998), "1.67");
+  assert.equal(formatBeat(1.3330000000000002), "1.33");
+  assert.equal(formatBeat(2), "2");
+  assert.equal(formatBeat(1.75), "1.75");
+  assert.equal(formatBeat(Number.NaN), "");
+});

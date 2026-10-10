@@ -130,3 +130,21 @@ export function beginRoutineAttempt(attempt: RoutineAttempt): RoutineAttempt {
   if (!["pending", "paused"].includes(attempt.status)) return attempt;
   return { ...attempt, status: "paused", interrupted: attempt.interrupted || attempt.status === "paused" || attempt.elapsedMs > 0 };
 }
+export const ROUTINE_MIN_SECONDS = 15, ROUTINE_MAX_SECONDS = 3600;
+/** A typed planned duration: the whole number of seconds, or the sentence explaining why it was not saved. */
+export function parseRoutineSeconds(raw: string, title: string, saved: number): { ok: true; value: number } | { ok: false; message: string } {
+  const value = Number(raw);
+  if (raw.trim() !== "" && seconds(value)) return { ok: true, value };
+  return { ok: false, message: `Enter whole seconds from ${ROUTINE_MIN_SECONDS} to ${ROUTINE_MAX_SECONDS}. ${title} stays at ${saved} seconds until then.` };
+}
+/** The status line after moving to a block. It replaces whatever was said about the previous block. */
+export function routineBlockStatus(blockId: string, attempt: RoutineAttempt | undefined): string {
+  const index = source.blocks.findIndex(block => block.id === blockId);
+  if (index < 0) return "";
+  const lead = `Block ${index + 1} of ${source.blocks.length}: ${source.blocks[index].title}.`;
+  if (attempt?.status === "reviewed") return `${lead} Your reflection for this block is saved.`;
+  if (attempt?.status === "skipped") return `${lead} This block was skipped.`;
+  if (attempt?.status === "review") return `${lead} Time was reached; review this attempt below.`;
+  if (attempt && attempt.elapsedMs > 0) return `${lead} Resume the block when you are ready.`;
+  return `${lead} Start the block when your guitar is in hand.`;
+}
