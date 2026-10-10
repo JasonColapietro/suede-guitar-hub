@@ -236,6 +236,13 @@ export const GUIDES: readonly SiteEntry[] = [
     lastModified: "2026-10-10",
   },
   {
+    href: "/learn-guitar-fretboard-notes",
+    title: "Learn the fretboard notes and CAGED",
+    blurb:
+      "The musical alphabet, strings 6 and 5, octave shapes, and the five CAGED shapes that connect the whole neck.",
+    lastModified: "2026-10-10",
+  },
+  {
     href: "/how-to-practice-strumming",
     title: "How to practice strumming",
     blurb:
@@ -250,10 +257,24 @@ export const GUIDES: readonly SiteEntry[] = [
     lastModified: "2026-10-10",
   },
   {
+    href: "/how-to-practice-guitar-improvisation",
+    title: "How to practice improvising",
+    blurb:
+      "Constraint drills, phrases that answer each other, and landing on chord tones over a 12-bar blues in A.",
+    lastModified: "2026-10-10",
+  },
+  {
     href: "/coming-back-to-guitar",
     title: "Coming back to guitar after years away",
     blurb:
       "A 30-day restart: set up the guitar, rebuild your fingertips, record a fresh baseline, and finish one song.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-guitar-scales",
+    title: "Practicing scales so they become music",
+    blurb:
+      "One shape learned cold, then sequences, thirds, a drone, rhythm and chord tones, in a 15-minute daily plan.",
     lastModified: "2026-10-10",
   },
 ];
