@@ -81,7 +81,7 @@ export default function ApplyForm() {
         className={`rounded-3xl bg-white/10 p-8 text-center ${FOCUS_RING}`}
       >
         <p className="font-display text-2xl text-peach">Application received.</p>
-        <p className="mt-3 text-violet-soft">
+        <p className="mt-3 text-violet-pale">
           We read every application personally. If the founding room fits your
           goal, we&apos;ll reply with the next step.
         </p>
@@ -100,7 +100,7 @@ export default function ApplyForm() {
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-4">
-      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-name">Name</label>
+      <label className="text-sm font-semibold text-violet-pale" htmlFor="apply-name">Name</label>
       <input
         id="apply-name"
         name="name"
@@ -110,7 +110,7 @@ export default function ApplyForm() {
         placeholder="Your name"
         className={inputClasses}
       />
-      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-email">Email</label>
+      <label className="text-sm font-semibold text-violet-pale" htmlFor="apply-email">Email</label>
       <input
         id="apply-email"
         name="email"
@@ -121,7 +121,7 @@ export default function ApplyForm() {
         placeholder="you@example.com"
         className={inputClasses}
       />
-      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-experience">Playing experience</label>
+      <label className="text-sm font-semibold text-violet-pale" htmlFor="apply-experience">Playing experience</label>
       <input
         id="apply-experience"
         name="experience"
@@ -129,7 +129,7 @@ export default function ApplyForm() {
         placeholder="Two years, mostly self-taught"
         className={inputClasses}
       />
-      <label className="text-sm font-semibold text-violet-soft" htmlFor="apply-goal">Your 30-day breakthrough</label>
+      <label className="text-sm font-semibold text-violet-pale" htmlFor="apply-goal">Your 30-day breakthrough</label>
       <textarea
         id="apply-goal"
         name="goal"

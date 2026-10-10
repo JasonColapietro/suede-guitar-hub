@@ -333,7 +333,7 @@ export default function FaqPage() {
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub FAQ
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
@@ -347,7 +347,7 @@ export default function FaqPage() {
               type into it, and what the founding room actually is right now
               rather than what it is meant to become.
             </p>
-            <p className="mt-8 text-xs uppercase tracking-widest text-violet-soft">
+            <p className="mt-8 text-xs uppercase tracking-widest text-white/80">
               Updated <time dateTime={PUBLISHED}>August 29, 2026</time>
             </p>
           </div>

@@ -8,6 +8,10 @@
   --color-indigo-mid: #3b1f7e;
   --color-violet: #6d28d9;
   --color-violet-soft: #a78bfa;
+  /* Violet for text on the dark purple surfaces (heroes, room cards, the
+     apply form). violet-soft measures 2.4-3.9:1 there; this measures
+     >= 4.5:1 across the lightest part of the hero gradient. */
+  --color-violet-pale: #ddd3ff;
   --color-peach: #f5e2cf;
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;

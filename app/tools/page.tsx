@@ -379,7 +379,7 @@ export default function ToolsPage() {
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               Free practice tools
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-4xl leading-tight md:text-6xl">
