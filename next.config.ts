@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 import { VOICE_REDIRECTS } from "./lib/voice-redirects.ts";
+import { FIELD_GUIDES, fieldGuidePdf } from "./lib/field-guides.ts";
+import { SITE_URL } from "./lib/site.ts";
 
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
@@ -28,6 +30,34 @@ const SECURITY_HEADERS = [
   { key: "X-Frame-Options", value: "DENY" },
 ] as const;
 
+/**
+ * Public images that are not content-hashed: the Field Guide and book covers
+ * and the favicons. Without a rule they were served `max-age=0,
+ * must-revalidate`, so every page view revalidated each one. A day of
+ * freshness plus a week of stale-while-revalidate, not `immutable`: the file
+ * names stay the same when the art is re-rendered.
+ */
+const STATIC_IMAGE_CACHE = "public, max-age=86400, stale-while-revalidate=604800";
+export const STATIC_IMAGE_SOURCES = [
+  "/field-guides/covers/:file*",
+  "/books/:file*",
+  "/favicon.ico",
+  "/favicon-16x16.png",
+  "/favicon-32x32.png",
+  "/apple-touch-icon.png",
+] as const;
+
+/**
+ * Each Field Guide PDF is the printable twin of a web guide, so it names that
+ * page as its canonical in an HTTP `Link` header (the only place a PDF can
+ * carry one). Search engines then consolidate the PDF onto the HTML guide
+ * instead of indexing two copies of the same text.
+ */
+export const FIELD_GUIDE_PDF_HEADERS = FIELD_GUIDES.map((guide) => ({
+  source: fieldGuidePdf(guide),
+  headers: [{ key: "Link", value: `<${SITE_URL}${guide.href}>; rel="canonical"` }],
+}));
+
 // guitarhub.org served the Suede AI Social app before it became the lessons site.
 // Google still holds those URLs (checked 2026-09-08: /discover, /articles and
 // /article/h9-vs-volante were indexed under this host and answered 404 here),
@@ -53,12 +83,23 @@ const nextConfig: NextConfig = {
   // Apple verification uses the checked-in public trust anchor at runtime.
   outputFileTracingIncludes: { "/*": ["./lib/learning-account/AppleRootCA-G3.pem"] },
   poweredByHeader: false,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    // The sources are public files without a content hash, so cap the
+    // optimized copy's lifetime at a week rather than forever.
+    minimumCacheTTL: 604800,
+  },
   async redirects() {
     return [...LEGACY_SOCIAL_REDIRECTS, ...VOICE_REDIRECTS];
   },
   async headers() {
     return [
       { source: "/:path*", headers: [...SECURITY_HEADERS] },
+      ...STATIC_IMAGE_SOURCES.map((source) => ({
+        source,
+        headers: [{ key: "Cache-Control", value: STATIC_IMAGE_CACHE }],
+      })),
+      ...FIELD_GUIDE_PDF_HEADERS,
     ];
   },
 };

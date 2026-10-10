@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
 import { BACKGROUND_COLOR, SITE_URL, THEME_COLOR } from "../lib/site.ts";
+import { FIELD_GUIDES, fieldGuidePdf } from "../lib/field-guides.ts";
 
 function read(path: string): string {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -70,4 +71,32 @@ test("publishes a web app manifest and theme colour in the brand indigo", async 
 
 test("the footer links the FAQ", () => {
   assert.match(read("components/SiteFooter.tsx"), /href: "\/faq"/, "/faq must have an internal link");
+});
+
+test("each Field Guide PDF names its HTML guide as canonical, and static images are cached", async () => {
+  const { default: nextConfig } = await import("../next.config.ts");
+  const rules = await nextConfig.headers!();
+  for (const guide of FIELD_GUIDES) {
+    const source = fieldGuidePdf(guide);
+    assert.ok(existsSync(publicFile(source)), `${source} must exist`);
+    const rule = rules.find((candidate) => candidate.source === source);
+    assert.ok(rule, `${source} needs a Link header`);
+    assert.deepEqual(rule.headers, [{ key: "Link", value: `<${SITE_URL}${guide.href}>; rel="canonical"` }]);
+  }
+
+  for (const source of [
+    "/field-guides/covers/:file*",
+    "/books/:file*",
+    "/favicon.ico",
+    "/apple-touch-icon.png",
+  ]) {
+    const rule = rules.find((candidate) => candidate.source === source);
+    assert.ok(rule, `${source} needs a Cache-Control rule`);
+    const value = rule.headers.find((header) => header.key === "Cache-Control")?.value ?? "";
+    assert.match(value, /max-age=86400/);
+    // The files keep their names when re-rendered, so they must not be immutable.
+    assert.doesNotMatch(value, /immutable/);
+  }
+  assert.deepEqual(nextConfig.images?.formats, ["image/avif", "image/webp"]);
+  assert.ok((nextConfig.images?.minimumCacheTTL ?? 0) >= 86400);
 });
