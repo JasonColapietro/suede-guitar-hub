@@ -42,6 +42,8 @@ const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Article",
+  "@id": `${CANONICAL}#article`,
+  url: CANONICAL,
   headline: HEADLINE,
   description: DESCRIPTION,
   keywords: keywordsText("/why-cant-i-play-guitar-fast"),
@@ -52,6 +54,7 @@ const JSON_LD = {
   dateModified: PUBLISHED,
   inLanguage: "en-US",
   mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+  isPartOf: { "@id": "https://guitarhub.org/#website" },
   author: ARTICLE_AUTHOR,
   publisher: { "@id": SUEDE_ORG_ID },
 };

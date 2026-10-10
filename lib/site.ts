@@ -81,8 +81,8 @@ export const HOME: SiteEntry = {
   href: "/",
   title: "GuitarHub",
   blurb:
-    "Guitar lessons with lifetime access, plus free practice routines and advanced drills from Suede AI.",
-  lastModified: "2026-10-08",
+    "Practice guitar with a plan you can prove: a free 30-day plan, free browser tools, guided lessons with lifetime access, and the free Advanced Lab.",
+  lastModified: "2026-10-10",
 };
 
 /**
@@ -411,15 +411,15 @@ export const HUBS: readonly SiteEntry[] = [
  * the /advanced hub and of every /advanced/<drill> sitemap entry. Bump it in
  * the same commit as a drill edit.
  */
-export const ADVANCED_LAB_LAST_MODIFIED = "2026-09-25";
+export const ADVANCED_LAB_LAST_MODIFIED = "2026-10-10";
 
 export const LEARN: readonly SiteEntry[] = [
   {
     href: "/learn",
     title: "Learning paths",
     blurb:
-      "Follow the guitar lessons in order, with your place kept in this browser. Voice lessons now live on Suede Sing.",
-    lastModified: "2026-10-08",
+      "The seven-stage guitar curriculum with lifetime access, the free A-to-D routine, the free Advanced Lab, and voice lessons on Suede Sing.",
+    lastModified: "2026-10-10",
   },
   {
     href: "/learn/guitar",
@@ -432,14 +432,14 @@ export const LEARN: readonly SiteEntry[] = [
     href: "/learn/guitar/routine",
     title: "A-to-D chord practice routine",
     blurb: "A free beginner routine for A and D chord changes, with seven timed blocks, editable durations, and local practice history.",
-    lastModified: "2026-10-08",
+    lastModified: "2026-10-10",
   },
   {
     href: "/start",
     title: "Find your level",
     blurb:
-      "Three questions of self-recognition: new to guitar, comfortable with open chords, or already advanced. Each one opens at the right place.",
-    lastModified: "2026-09-25",
+      "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3, or the free Advanced Lab.",
+    lastModified: "2026-10-10",
   },
   {
     href: "/advanced",

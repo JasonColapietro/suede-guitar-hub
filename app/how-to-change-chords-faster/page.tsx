@@ -98,7 +98,7 @@ const JSON_LD = {
       dateModified: UPDATED,
       inLanguage: "en-US",
       url: CANONICAL,
-      mainEntityOfPage: CANONICAL,
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
       isPartOf: { "@id": "https://guitarhub.org/#website" },
       author: ARTICLE_AUTHOR,
       publisher: { "@id": "https://suedeai.ai/#organization" },

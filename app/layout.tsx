@@ -133,8 +133,12 @@ const JSON_LD = {
       "@id": "https://guitarhub.org/#ios-app",
       name: APP_STORE.name,
       alternateName: ["GuitarHub", "GuitarHub by Suede AI"],
+      // Read from the App Store listing (checked 2026-10-10): 135 guided
+      // guitar lessons and 102 guided voice lessons, with the tuner,
+      // metronome, vocal range finder, daily guitar routine and the first
+      // module of each track free. Keep it in step with the listing.
       description:
-        "Guided beginner guitar lessons with a free daily practice routine, chord-change drills, tuner, metronome and vocal range finder.",
+        "Step-by-step guitar lessons from first chords through barre chords, scales and improvisation, plus guided voice lessons, in one iPhone app. The chromatic tuner, metronome, vocal range finder, daily guitar practice routine and the first module of each track are free; a one-time lifetime purchase opens the rest.",
       applicationCategory: "MusicApplication",
       operatingSystem: "iOS",
       url: APP_STORE.ios,
@@ -154,15 +158,17 @@ const JSON_LD = {
       "@id": JASON_PERSON_ID,
       name: "Jason Colapietro",
       alternateName: ["Johnny Suede"],
-      jobTitle: ["Founder and CEO, Suede AI", "Fractional Forward-Deployed Engineer"],
+      // This @id is shared across the estate and its properties merge, so
+      // this site states what is relevant here: the founder of a guitar
+      // lessons site and the subjects that site teaches.
+      jobTitle: "Founder and CEO, Suede AI",
       knowsAbout: [
+        "Guitar practice",
+        "Guitar pedagogy",
+        "Music theory",
+        "Deliberate practice",
         "AI integration",
-        "Forward-deployed engineering",
         "AI agents",
-        "Search engine optimization",
-        "Generative engine optimization",
-        "Answer engine optimization",
-        "Digital PR",
       ],
       url: "https://suedeai.ai/founder",
       worksFor: { "@id": SUEDE_ORG_ID },

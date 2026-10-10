@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DrillSession } from "@/components/advanced/DrillSession";
+import { DrillTeaching } from "@/components/advanced/DrillTeaching";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { DRILLS, drillHref, getDrill, skillArea } from "@/lib/advanced/drills";
+import { drillTeaching } from "@/lib/advanced/teaching";
 import { SITE_URL } from "@/lib/site";
 import { drillKeywords } from "@/lib/keywords";
 import learning from "@/components/learning/Learning.module.css";
@@ -34,6 +36,7 @@ export default async function DrillPage({ params }: { params: Promise<Params> })
   const drill = getDrill((await params).drillId);
   if (!drill) notFound();
   const area = skillArea(drill.area);
+  const teaching = drillTeaching(drill.id);
   const index = DRILLS.findIndex(item => item.id === drill.id);
   const previous = DRILLS[index - 1], next = DRILLS[index + 1];
   return <>
@@ -55,6 +58,7 @@ export default async function DrillPage({ params }: { params: Promise<Params> })
     </details>
     <DrillSession drill={drill} />
     <section className={styles.why}><h2>Why this drill</h2><p>{drill.why}</p></section>
+    {teaching && <DrillTeaching drill={drill} teaching={teaching} />}
     <nav className={styles.pager} aria-label="More drills">
       {previous ? <Link href={drillHref(previous.id)}>← {previous.title}</Link> : <Link href="/advanced">← All drills</Link>}
       {next ? <Link href={drillHref(next.id)}>{next.title} →</Link> : <Link href="/advanced">All drills →</Link>}

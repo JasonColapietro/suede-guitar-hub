@@ -98,7 +98,7 @@ const JSON_LD = {
       dateModified: UPDATED,
       inLanguage: "en-US",
       url: CANONICAL,
-      mainEntityOfPage: CANONICAL,
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
       isPartOf: { "@id": "https://guitarhub.org/#website" },
       author: ARTICLE_AUTHOR,
       publisher: { "@id": "https://suedeai.ai/#organization" },
@@ -151,8 +151,8 @@ export default function BeginnerGuitarPracticeRoutinePage() {
         </p>
 
         <p>
-          This page is the plan for your first three months. The lessons
-          themselves live in the <Link href="/learn/guitar">GuitarHub guitar curriculum</Link>, which this plan follows stage by stage, and the <Link href="/learn/guitar/routine">A-to-D chord practice routine</Link> runs the timer for the daily blocks while you are on your first two chords.
+          This page is the plan for your first 90 days: what goes in a 20-minute session and how the material changes every 30 days. The lessons
+          themselves live in the <Link href="/learn/guitar">GuitarHub guitar curriculum</Link>, which this plan follows stage by stage, and the <Link href="/learn/guitar/routine">A-to-D chord practice routine</Link> runs the timer for the daily blocks while you are on your first two chords. Once open chords and a steady strum hold up, the <Link href="/guitar-practice-routine-intermediate">intermediate guitar practice routine</Link> takes over with five blocks built around one repair target.
         </p>
 
         <h2>Why twenty minutes a day beats two hours on Saturday</h2>

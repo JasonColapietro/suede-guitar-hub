@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { PracticeCoach } from "@/components/practice/PracticeCoach";
 import { TabPlayer } from "@/components/interactive/TabPlayer";
 import { StarRating, usePracticeLog } from "@/components/interactive/PracticeStats";
 import { starsForResult } from "@/lib/learning/rewards";
 import type { Drill } from "@/lib/advanced/drills";
+import { drillGoalBpm, drillTempoPresets } from "@/lib/advanced/tempo-presets";
 import { useDrillProgress } from "./useDrillProgress";
 import styles from "./Advanced.module.css";
 
@@ -14,14 +16,15 @@ export function DrillSession({ drill }: { drill: Drill }) {
   const [message, setMessage] = useState("");
   const practiceLog = usePracticeLog();
   const best = progress[drill.id];
-  const goal = drill.spec.completionMinimumBPM ?? drill.spec.bpm;
+  const goal = drillGoalBpm(drill);
   return <div className={styles.session}>
     <div className={styles.goal}>
-      <div><span className={styles.label}>Goal</span><strong>{goal} BPM · {drill.spec.passScore}%</strong></div>
+      <div><span className={styles.label}>Goal</span><strong>{goal} BPM · {drill.spec.passScore}% accuracy</strong></div>
       <div><span className={styles.label}>Your best</span><strong>{best ? `${best.score}% at ${best.bpm} BPM` : "No result yet"}</strong></div>
       <div><span className={styles.label}>Rating</span><strong>{best ? <StarRating stars={starsForResult(best, goal)} /> : "–"}</strong></div>
     </div>
-    <TabPlayer key={`tab-${drill.id}`} bestKey={drill.spec.mode === "rhythm" ? `drill:${drill.id}` : undefined} timeline={drill.spec} title={drill.spec.mode === "rhythm" ? "Hear the rhythm" : "Hear the line"} headingLevel={2} />
+    <TabPlayer key={`tab-${drill.id}`} bestKey={drill.spec.mode === "rhythm" ? `drill:${drill.id}` : undefined} timeline={drill.spec} title={drill.spec.mode === "rhythm" ? "Hear the rhythm" : "Hear the line"} headingLevel={2} presets={drillTempoPresets(drill)} />
+    <p className={styles.presetNote}>100% is the goal tempo, {goal} BPM. The speed presets climb from Learn to Goal about 10% at a time, and the practice slider below uses the same scale. <Link href="/tempo">Build a full ladder to your goal</Link></p>
     <PracticeCoach
       key={drill.id}
       spec={drill.spec}
