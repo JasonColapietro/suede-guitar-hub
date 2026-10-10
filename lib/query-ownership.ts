@@ -298,6 +298,43 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
       "scale page keeps the exercise vocabulary and hands phrase-answering to the improvisation " +
       "page; the improvisation page leaves sequence drills to the scale page.",
   },
+  {
+    id: "beginnerRoutine",
+    query: "beginner guitar practice routine",
+    decision: "differentiate",
+    pages: [
+      {
+        href: "/beginner-guitar-practice-routine",
+        question: "What should my first 90 days of practice look like?",
+        scopeLine:
+          "This page is the plan for your first 90 days: what goes in a 20-minute session and how the material changes every 30 days.",
+        descriptionMark: "first 90 days",
+      },
+      {
+        href: "/learn/guitar/routine",
+        question: "What do I play today, with a timer, while A and D are my first chords?",
+        scopeLine:
+          "This page runs one session for you: seven timed blocks on the A-to-D change, with your history saved in this browser.",
+        descriptionMark: "seven timed blocks",
+      },
+      {
+        href: "/guitar-practice-routine-intermediate",
+        question:
+          "What does a session contain once the beginner gains have run out?",
+        scopeLine:
+          "This page is about what a session contains once you are past the beginner stage, in five blocks with separate jobs.",
+        descriptionMark: "five-block",
+      },
+    ],
+    reason:
+      "The 90-day beginner guide arrived beside two pages that already answered part of its query: " +
+      "the A-to-D routine, which is a timer for one session on the first chord change, and the " +
+      "intermediate routine, which is the session plan for the player the beginner guide " +
+      "graduates. The three are a plan, a tool that runs one day of it, and the next plan, so " +
+      "each says which it is near the top and links the other two. The intermediate page " +
+      "prints the scope line it already carries for the routine-versus-week cluster, the same " +
+      "way the schedule page serves two clusters with one sentence.",
+  },
 ];
 
 /**
