@@ -38,6 +38,29 @@ html {
   html { scroll-padding-top: 0.5rem; }
 }
 
+/* Focus ring. Two-tone so one ring reads on both the cream paper and the dark
+   purple sections: a 3px dark indigo outline (14:1 on cream, 15:1 on white)
+   around a 2px light halo that carries the contrast on dark surfaces. Dark
+   sections flip the pair below. Unlayered on purpose: it outranks the older
+   per-component Tailwind focus utilities (violet-soft at 2.5:1 on cream). */
+:root {
+  --focus-ring: var(--color-indigo-deep);
+  --focus-halo: #fff;
+}
+
+.hero-backdrop,
+.hero-backdrop ~ *,
+.breakthrough-evidence {
+  --focus-ring: var(--color-peach);
+  --focus-halo: var(--color-indigo-deep);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--focus-halo);
+}
+
 /* The skip link's target takes programmatic focus only; it is not a control. */
 #main-content:focus {
   outline: none;
@@ -181,7 +204,7 @@ body {
 .breakthrough-resource:focus-visible,
 .breakthrough-community:focus-visible,
 .breakthrough-check input:focus-visible {
-  outline: 3px solid var(--color-violet-soft);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
