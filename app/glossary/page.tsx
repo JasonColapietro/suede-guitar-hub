@@ -152,22 +152,26 @@ export default function GlossaryPage() {
         </p>
 
         <h2>Guitar words</h2>
-        <p>
-          {GUITAR_TERMS.length} terms, defined on this page. Jump to{" "}
-          {initials(GUITAR_TERMS).map((letter, index) => (
-            <span key={letter}>
-              {index > 0 ? ", " : ""}
-              <Link
-                href={`#${termAnchor(
-                  GUITAR_TERMS.find((entry) => entry.term.startsWith(letter))!.term,
-                )}`}
-              >
-                {letter}
-              </Link>
-            </span>
-          ))}
-          .
-        </p>
+        <p>{GUITAR_TERMS.length} terms, defined on this page. Jump to:</p>
+        {/* A nav list of 44px targets rather than comma-separated letters,
+            which measured about 12x21px with 21px spacing. The `!` overrides
+            beat the Article prose styles for lists and links. */}
+        <nav aria-label="Guitar words, A to Z" className="mt-4">
+          <ul className="mt-0! flex list-none! flex-wrap gap-2 pl-0!">
+            {initials(GUITAR_TERMS).map((letter) => (
+              <li key={letter} className="mt-0!">
+                <Link
+                  href={`#${termAnchor(
+                    GUITAR_TERMS.find((entry) => entry.term.startsWith(letter))!.term,
+                  )}`}
+                  className="inline-flex size-11 items-center justify-center rounded-full bg-white font-semibold no-underline! ring-1 ring-ink/10 transition hover:ring-violet"
+                >
+                  {letter}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         {GUITAR_TERMS.map((entry) => (
           <GuitarEntry key={entry.term} entry={entry} />
         ))}
