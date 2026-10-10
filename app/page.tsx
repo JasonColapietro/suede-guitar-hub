@@ -163,7 +163,7 @@ export default function Home() {
     <>
       <SiteNav />
 
-      <main id="top">
+      <main id="main-content" tabIndex={-1}>
         {/* Hero */}
         <section className="px-3 pt-3">
           <div className="relative overflow-hidden rounded-[2rem] px-6 py-24 text-center text-cream md:py-32">
@@ -183,7 +183,7 @@ export default function Home() {
             <div className="hero-backdrop absolute inset-0 opacity-[0.86]" aria-hidden />
             <div className="relative">
             <Reveal>
-              <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-soft">
+              <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-pale">
                 Beginner to advanced
               </span>
             </Reveal>
@@ -336,7 +336,7 @@ export default function Home() {
               {ROOM_RULES.map((rule, i) => (
                 <Reveal key={rule.title} delay={(i % 3) as 0 | 1 | 2}>
                   <div className="mentor-card-glow h-full rounded-3xl border border-white/10 p-6">
-                    <span className="text-[11px] uppercase tracking-widest text-violet-soft">
+                    <span className="text-xs uppercase tracking-widest text-violet-pale">
                       Room rule {i + 1}
                     </span>
                     <h3 className="mt-3 font-display text-xl text-cream">{rule.title}</h3>
@@ -421,7 +421,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="p-6">
-                    <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                       {post.kicker}
                     </span>
                     <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">

@@ -12,7 +12,7 @@ export default function LevelPicker({ tone = "light" }: { tone?: "light" | "dark
             href={level.href}
             className={`group flex h-full flex-col rounded-3xl p-6 transition ${dark ? "bg-indigo-deep/70 ring-1 ring-white/20 hover:bg-indigo-deep/90 hover:ring-peach/60" : "bg-white ring-1 ring-ink/10 hover:ring-violet"}`}
           >
-            <span className={`text-xs font-semibold uppercase tracking-widest ${dark ? "text-violet-soft" : "text-violet"}`}>
+            <span className={`text-xs font-semibold uppercase tracking-widest ${dark ? "text-violet-pale" : "text-violet"}`}>
               {index === 2 ? "Advanced" : `Stages ${level.stages[0]}–${level.stages[1]}`}
             </span>
             <span className={`mt-2 font-display text-2xl ${dark ? "text-cream" : "text-indigo-deep"}`}>{level.label}</span>

@@ -135,11 +135,11 @@ export default function Article({
 
       {crumbs && crumbs.length > 0 ? <Breadcrumbs crumbs={crumbs} /> : null}
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <article>
           <section className="px-3 pt-3">
             <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-              <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+              <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
                 {eyebrow}
               </span>
               <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
@@ -148,7 +148,7 @@ export default function Article({
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
                 {dek}
               </p>
-              <p className="mt-8 text-xs uppercase tracking-widest text-violet-soft">
+              <p className="mt-8 text-xs uppercase tracking-widest text-white/80">
                 Updated <time dateTime={updated}>{formatUpdated(updated)}</time>
               </p>
             </div>
@@ -161,7 +161,7 @@ export default function Article({
 
         {related && related.length > 0 ? (
           <section data-print="hide" className="mx-auto max-w-4xl px-6 pb-20">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-violet">
               {relatedTitle}
             </h2>
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">

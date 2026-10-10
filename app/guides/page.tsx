@@ -353,7 +353,7 @@ function GuideCard({
       prefetch={false}
       className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-sm ring-1 ring-ink/5 transition hover:shadow-md motion-safe:hover:-translate-y-1"
     >
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+      <span className="text-xs font-semibold uppercase tracking-widest text-violet">
         Read {index + 1} of {total}
       </span>
       <h3 className="mt-3 font-display text-xl leading-snug text-indigo-deep">
@@ -379,10 +379,10 @@ export default function GuidesPage() {
 
       <Breadcrumbs crumbs={CRUMBS} />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               Guide library
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
@@ -396,7 +396,7 @@ export default function GuidesPage() {
               for, with a note on what each group is for and which page in it to
               read first.
             </p>
-            <p className="mt-8 text-xs uppercase tracking-widest text-violet-soft">
+            <p className="mt-8 text-xs uppercase tracking-widest text-white/80">
               Updated <time dateTime={UPDATED}>{formatUpdated(UPDATED)}</time> ·{" "}
               {plural(ORDERED.length, "guide")} in{" "}
               {plural(GROUPS.length, "group")}
@@ -424,7 +424,7 @@ export default function GuidesPage() {
 
         <section
           id="which-one"
-          className="mx-auto max-w-4xl scroll-mt-28 px-6 py-16 md:py-20"
+          className="mx-auto max-w-4xl px-6 py-16 md:py-20"
         >
           <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
             Which one do you need right now?
@@ -461,10 +461,10 @@ export default function GuidesPage() {
           <section
             key={group.cluster.id}
             id={group.cluster.id}
-            className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+            className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
           >
             <div className="max-w-2xl">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+              <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                 {group.cluster.kicker}
               </span>
               <h2 className="mt-3 text-3xl leading-snug text-indigo-deep md:text-4xl">
@@ -491,7 +491,7 @@ export default function GuidesPage() {
 
         <section
           id="how-to-use"
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+          className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
         >
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
@@ -522,7 +522,7 @@ export default function GuidesPage() {
 
         <section
           id="tools"
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+          className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
         >
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">

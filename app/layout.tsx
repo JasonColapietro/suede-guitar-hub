@@ -171,6 +171,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
+        {/* The one skip link for every page. Each page's main element carries
+            id="main-content" and tabIndex={-1} so focus moves with it. */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
@@ -179,7 +184,7 @@ export default function RootLayout({
             initial HTML agree. No-JS readers still receive visible content. */}
         <JsClassMarker />
         {children}
-      <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions">AI Instructions</a></nav>
+      <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions" className="inline-flex min-h-11 items-center">AI Instructions</a></nav>
       </body>
     </html>
   );

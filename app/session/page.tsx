@@ -187,10 +187,10 @@ export default function SessionPage() {
       />
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
@@ -256,11 +256,11 @@ export default function SessionPage() {
           </p>
         </section>
 
-        <section id="build" className="mx-auto max-w-6xl px-6 pb-20 scroll-mt-24">
+        <section id="build" className="mx-auto max-w-6xl px-6 pb-20">
           <SessionBuilder />
         </section>
 
-        <section id="how-it-works" className="bg-cream-soft px-6 py-20 scroll-mt-24">
+        <section id="how-it-works" className="bg-cream-soft px-6 py-20">
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
               How this works

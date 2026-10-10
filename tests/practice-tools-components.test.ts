@@ -35,7 +35,7 @@ test("standalone tuner has all six standard targets and references without lesso
 });
 test("actual practice page is discoverable, accessible as a document, and honest about microphone and history", () => {
   const markup = renderToStaticMarkup(createElement(PracticePage));
-  assert.match(markup, /id="practice-main"/); assert.match(markup, /Skip to practice tools/);
+  assert.match(markup, /<main id="main-content" tabindex="-1"/); assert.doesNotMatch(markup, /Skip to/);
   assert.match(markup, /id="tuner"/); assert.match(markup, /id="metronome-title"/);
   assert.match(markup, /not uploaded or saved/); assert.match(markup, /do not record lesson completion/);
   assert.match(markup, /href="\/learn\/guitar\/routine"/);

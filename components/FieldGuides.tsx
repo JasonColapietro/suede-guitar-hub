@@ -55,19 +55,19 @@ function CoverCard({ guide }: { guide: FieldGuide }) {
           className="h-auto w-full transition motion-safe:group-hover:scale-[1.02]"
         />
       </a>
-      <p className="mt-3 text-[11px] font-semibold uppercase tracking-widest text-violet">
+      <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-violet">
         {issueLabel(guide)}
       </p>
       <p className="mt-1 font-display text-lg leading-snug text-indigo-deep">{title}</p>
-      <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+      <p className="mt-1 flex flex-wrap gap-x-4 text-sm">
         <a
           href={fieldGuidePdf(guide)}
           download={downloadName(guide)}
-          className="font-semibold text-indigo-deep underline underline-offset-4 hover:text-violet"
+          className="inline-flex min-h-11 items-center font-semibold text-indigo-deep underline underline-offset-4 hover:text-violet"
         >
           Free PDF
         </a>
-        <Link href={guide.href} prefetch={false} className="text-ink/70 underline underline-offset-4 hover:text-violet">
+        <Link href={guide.href} prefetch={false} className="inline-flex min-h-11 items-center text-ink/70 underline underline-offset-4 hover:text-violet">
           Read online
         </Link>
       </p>
@@ -143,7 +143,7 @@ export function FieldGuideDownload({ href }: { href: string }) {
         />
       </a>
       <div className="min-w-0">
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-violet">{issueLabel(guide)}</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-violet">{issueLabel(guide)}</p>
         <p className="mt-1 text-base leading-snug text-ink/80">
           Keep this guide as a PDF for your phone or the music stand.
         </p>

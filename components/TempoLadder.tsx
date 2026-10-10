@@ -369,12 +369,15 @@ export default function TempoLadder() {
           ) : null}
         </div>
 
-        {/* Present from first paint so a screen reader announces the change,
-            rather than mounting alongside the result and being missed. */}
-        <p role="status" aria-live="polite" className="mt-4 text-sm text-ink/60">
-          {ladder
-            ? `${ladder.summary} ${completedCount} of ${ladder.sessions} sessions marked done.`
-            : ""}
+        {/* Only the progress count is live: each checkbox tick announces
+            "n of m sessions marked done" instead of re-reading the summary.
+            The span is present from first paint so the change is announced
+            rather than mounted alongside the result and missed. */}
+        <p className="mt-4 text-sm text-ink/60">
+          {ladder ? `${ladder.summary} ` : ""}
+          <span role="status">
+            {ladder ? `${completedCount} of ${ladder.sessions} sessions marked done.` : ""}
+          </span>
         </p>
       </form>
 
@@ -451,7 +454,7 @@ export default function TempoLadder() {
                     }`}
                   >
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                      <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                         Session {rung.session} · {style.badge}
                       </span>
                     </div>

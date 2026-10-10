@@ -228,7 +228,7 @@ export default function Readiness() {
 
       {songs.length > 0 ? (
         <fieldset className="mt-8 border-t border-ink/10 pt-6">
-          <legend className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <legend className="text-xs font-semibold uppercase tracking-widest text-violet">
             Your songs
           </legend>
           <ul className="mt-3 flex flex-wrap gap-2">
@@ -289,7 +289,7 @@ export default function Readiness() {
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
             <div className="rounded-3xl bg-cream-soft p-6 ring-1 ring-ink/5">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+              <p className="text-xs font-semibold uppercase tracking-widest text-violet">
                 Readiness
               </p>
               <p className="mt-2 flex items-baseline gap-1 text-indigo-deep">
@@ -329,7 +329,7 @@ export default function Readiness() {
             </div>
 
             <div className="rounded-3xl bg-indigo-deep p-6 text-cream md:p-8">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-soft">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
                 {assessment.nextAction ? "Do this next" : "Nothing left on the list"}
               </p>
               {assessment.nextAction ? (
@@ -387,7 +387,7 @@ export default function Readiness() {
                       <span className="mt-1 block text-sm leading-relaxed text-ink/60">
                         {criterion.detail}
                       </span>
-                      <span className="mt-2 block text-[11px] font-semibold uppercase tracking-widest text-violet">
+                      <span className="mt-2 block text-xs font-semibold uppercase tracking-widest text-violet">
                         Weight {criterion.weight}
                       </span>
                     </span>

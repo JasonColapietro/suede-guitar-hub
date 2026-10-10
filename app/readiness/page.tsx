@@ -139,10 +139,10 @@ export default function ReadinessPage() {
 
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-6xl">
@@ -203,13 +203,13 @@ export default function ReadinessPage() {
           </p>
         </section>
 
-        <section id="score" className="mx-auto max-w-6xl px-6 pb-20 scroll-mt-24">
+        <section id="score" className="mx-auto max-w-6xl px-6 pb-20">
           <Readiness />
         </section>
 
         <section
           id="how-it-works"
-          className="bg-cream-soft px-6 py-20 scroll-mt-24"
+          className="bg-cream-soft px-6 py-20"
         >
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
@@ -326,7 +326,7 @@ export default function ReadinessPage() {
         </section>
 
         <section className="mx-auto max-w-4xl px-6 py-20">
-          <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-violet">
             Where to go next
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">

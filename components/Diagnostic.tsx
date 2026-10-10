@@ -293,7 +293,7 @@ export default function Diagnostic() {
 
               {result.runnerUp ? (
                 <div className="mt-8 rounded-3xl border border-ink/10 p-6 sm:p-8">
-                  <p className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-violet">
                     Runner-up
                   </p>
                   <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">
@@ -315,7 +315,7 @@ export default function Diagnostic() {
           )}
 
           <div className="mt-10">
-            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-violet">
               Every signal, scored
             </h3>
             <ul className="mt-5 max-w-xl space-y-4">

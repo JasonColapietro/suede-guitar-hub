@@ -1,12 +1,12 @@
 .eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #6d28d9; }
-.label { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #62576f; margin-bottom: .2rem; }
+.label { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #62576f; margin-bottom: .2rem; }
 
 /* Lab index */
 .areaNav { display: flex; gap: .5rem; overflow-x: auto; padding: .25rem 0 1rem; margin: 0 0 1rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .areaNav::-webkit-scrollbar { display: none; }
 .areaNav a { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 44px; padding: .55rem 1rem; border: 1px solid rgba(37,17,82,.15); border-radius: 999px; font-size: .9rem; font-weight: 650; color: #251152; background: #fff; }
 .areaNav a:hover { border-color: #6d28d9; }
-.area { scroll-margin-top: 130px; padding: 2rem 0 .5rem; border-top: 1px solid rgba(37,17,82,.12); }
+.area { padding: 2rem 0 .5rem; border-top: 1px solid rgba(37,17,82,.12); }
 .areaHead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; margin-bottom: 1.1rem; }
 .areaHead h2 { font: 550 clamp(1.6rem,3.5vw,2.2rem)/1.2 var(--font-display); color: #251152; }
 .areaHead p { color: #62576f; max-width: 52ch; line-height: 1.6; }
@@ -16,10 +16,10 @@
 .card h3 { font-size: 1.1rem; font-weight: 700; color: #251152; line-height: 1.35; }
 .card p { color: #4b4159; line-height: 1.55; font-size: .95rem; }
 .meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: auto; padding-top: .4rem; font-size: .8rem; color: #62576f; }
-.tier { display: inline-flex; padding: .2rem .6rem; border-radius: 999px; font-weight: 700; font-size: .72rem; background: #ede5f8; color: #51367d; }
+.tier { display: inline-flex; padding: .2rem .6rem; border-radius: 999px; font-weight: 700; font-size: .75rem; background: #ede5f8; color: #51367d; }
 .tier[data-tier=Expert] { background: #251152; color: #f5e2cf; }
 .tier[data-tier=Core] { background: #e4ebdf; color: #304c2c; }
-.cleared { display: inline-flex; padding: .2rem .6rem; border-radius: 999px; font-weight: 700; font-size: .72rem; background: #e0e9df; color: #304c2c; }
+.cleared { display: inline-flex; padding: .2rem .6rem; border-radius: 999px; font-weight: 700; font-size: .75rem; background: #e0e9df; color: #304c2c; }
 
 /* Drill page */
 .drillHead { max-width: 760px; margin-bottom: 1.5rem; }

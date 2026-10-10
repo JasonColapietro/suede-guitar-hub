@@ -44,7 +44,7 @@ export default function NotFound() {
   return (
     <>
       <SiteNav />
-      <main className="mx-auto max-w-3xl px-6 py-24 text-center">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-6 py-24 text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-violet">404</p>
         <h1 className="mt-4 text-4xl leading-tight text-indigo-deep md:text-5xl">
           Page not found

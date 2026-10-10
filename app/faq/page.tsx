@@ -339,10 +339,10 @@ export default function FaqPage() {
 
       <Breadcrumbs crumbs={CRUMBS} />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub FAQ
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
@@ -356,7 +356,7 @@ export default function FaqPage() {
               works, what happens to anything you type into it, and how the
               founding room works.
             </p>
-            <p className="mt-8 text-xs uppercase tracking-widest text-violet-soft">
+            <p className="mt-8 text-xs uppercase tracking-widest text-white/80">
               Updated <time dateTime={UPDATED}>October 10, 2026</time>
             </p>
           </div>
@@ -385,7 +385,7 @@ export default function FaqPage() {
         <section className="mx-auto max-w-5xl px-6 py-16" aria-labelledby="on-this-page">
           <h2
             id="on-this-page"
-            className="text-[11px] font-semibold uppercase tracking-widest text-violet"
+            className="text-xs font-semibold uppercase tracking-widest text-violet"
           >
             On this page
           </h2>
@@ -421,8 +421,8 @@ export default function FaqPage() {
             aria-labelledby={`${group.id}-heading`}
             className={
               groupIndex % 2 === 0
-                ? "scroll-mt-28 bg-cream-soft px-6 py-20"
-                : "scroll-mt-28 px-6 py-20"
+                ? "bg-cream-soft px-6 py-20"
+                : "px-6 py-20"
             }
           >
             <div className="mx-auto max-w-4xl">
@@ -441,7 +441,7 @@ export default function FaqPage() {
                   <article
                     key={faq.id}
                     id={faq.id}
-                    className="scroll-mt-28 rounded-3xl bg-white p-7 ring-1 ring-ink/5"
+                    className="rounded-3xl bg-white p-7 ring-1 ring-ink/5"
                   >
                     <h3 className="font-display text-xl leading-snug text-indigo-deep md:text-2xl">
                       {faq.q}
@@ -507,7 +507,7 @@ export default function FaqPage() {
 
             {REMAINING_GUIDES.length > 0 ? (
               <>
-                <h3 className="mt-14 text-[11px] font-semibold uppercase tracking-widest text-violet">
+                <h3 className="mt-14 text-xs font-semibold uppercase tracking-widest text-violet">
                   The rest of the guides
                 </h3>
                 <ul className="mt-4 flex flex-wrap gap-3">
@@ -525,7 +525,7 @@ export default function FaqPage() {
               </>
             ) : null}
 
-            <h3 className="mt-14 text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <h3 className="mt-14 text-xs font-semibold uppercase tracking-widest text-violet">
               The other two Suede surfaces
             </h3>
             <ul className="mt-4 flex flex-wrap gap-3">
