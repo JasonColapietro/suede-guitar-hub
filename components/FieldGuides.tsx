@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { GUIDES, RESOURCES } from "@/lib/site";
 import {
@@ -15,9 +16,16 @@ import {
  * email. The web guide it was made from is one tap away underneath, so a
  * reader who would rather read in the browser is never forced into a file.
  *
- * Covers are plain <img> tags: they are pre-sized WebPs of 60-110 KB rendered
- * by scripts/field-guide-art, so the optimizer has nothing to add.
+ * Covers go through next/image. The source WebPs are 900x1200 (60-110 KB,
+ * rendered by scripts/field-guide-art) but show at 80-205 CSS px, so `sizes`
+ * lets the browser fetch a resized AVIF/WebP instead of the full file. They are
+ * never the LCP element, so they stay lazy and are never preloaded: an eager
+ * cover turned into a `:HL[...,"image"]` preload hint inside the page's RSC
+ * payload, and every link prefetch of a guide then downloaded its cover.
  */
+
+/** Shelf grid: 2 columns, 3 from `sm`, 5 from `lg` inside `max-w-6xl`. */
+const SHELF_SIZES = "(min-width: 1024px) 205px, (min-width: 640px) 30vw, 45vw";
 
 const TITLE_BY_HREF = new Map([...GUIDES, ...RESOURCES].map((entry) => [entry.href, entry.title]));
 
@@ -37,14 +45,13 @@ function CoverCard({ guide }: { guide: FieldGuide }) {
         className="group block aspect-[3/4] overflow-hidden rounded-2xl bg-[#141414] shadow-md ring-1 ring-ink/10 transition hover:shadow-xl motion-safe:hover:-translate-y-1"
         aria-label={`Download the free PDF: ${title} (${issueLabel(guide)})`}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP, see above */}
-        <img
+        <Image
           src={fieldGuideCover(guide)}
           alt=""
           width={900}
           height={1200}
+          sizes={SHELF_SIZES}
           loading="lazy"
-          decoding="async"
           className="h-auto w-full transition motion-safe:group-hover:scale-[1.02]"
         />
       </a>
@@ -60,7 +67,7 @@ function CoverCard({ guide }: { guide: FieldGuide }) {
         >
           Free PDF
         </a>
-        <Link href={guide.href} className="text-ink/70 underline underline-offset-4 hover:text-violet">
+        <Link href={guide.href} prefetch={false} className="text-ink/70 underline underline-offset-4 hover:text-violet">
           Read online
         </Link>
       </p>
@@ -125,13 +132,13 @@ export function FieldGuideDownload({ href }: { href: string }) {
       className="mx-auto mt-10 flex max-w-2xl items-center gap-5 rounded-3xl bg-white p-4 shadow-sm ring-1 ring-ink/5 sm:p-5"
     >
       <a href={fieldGuidePdf(guide)} download={downloadName(guide)} className="w-20 shrink-0 sm:w-24" tabIndex={-1} aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP, see above */}
-        <img
+        <Image
           src={fieldGuideCover(guide)}
           alt=""
           width={900}
           height={1200}
-          decoding="async"
+          sizes="96px"
+          loading="lazy"
           className="h-auto w-full rounded-lg shadow ring-1 ring-ink/10"
         />
       </a>

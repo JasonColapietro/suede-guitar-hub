@@ -100,3 +100,25 @@ test("each Field Guide PDF names its HTML guide as canonical, and static images 
   assert.deepEqual(nextConfig.images?.formats, ["image/avif", "image/webp"]);
   assert.ok((nextConfig.images?.minimumCacheTTL ?? 0) >= 86400);
 });
+
+test("cover images are lazy, sized and never preloaded", () => {
+  for (const path of ["components/FieldGuides.tsx", "components/BookShelf.tsx"]) {
+    const source = read(path);
+    assert.match(source, /from "next\/image"/, `${path} must resize covers through next/image`);
+    assert.doesNotMatch(source, /<img\b/, `${path} must not ship the 900px originals`);
+    const images = source.match(/<Image[\s\S]*?\/>/g) ?? [];
+    assert.ok(images.length > 0);
+    for (const image of images) {
+      assert.doesNotMatch(image, /\b(priority|preload|fetchPriority)\b/, `${path} covers are never the LCP`);
+      assert.match(image, /sizes=/, `${path}: every cover needs sizes`);
+      assert.match(image, /loading="lazy"/, `${path}: every cover must stay lazy`);
+    }
+  }
+});
+
+test("the footer does not prefetch its links", () => {
+  const footer = read("components/SiteFooter.tsx");
+  for (const link of footer.match(/<Link[^>]*href=\{(entry|link)\.href\}[^>]*>/g) ?? []) {
+    assert.match(link, /prefetch=\{false\}/);
+  }
+});

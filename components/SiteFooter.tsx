@@ -13,6 +13,11 @@ import {
 /**
  * The site-wide footer. Server Component, zero JavaScript.
  *
+ * Every footer link sets `prefetch={false}`. The footer renders on every page
+ * with ~30 internal links, and viewport prefetching fetched the RSC payload of
+ * each one (plus any preload hints inside them) on every page view, for links
+ * a reader rarely follows. They still navigate client-side when clicked.
+ *
  * This is the internal-linking backbone: every page renders it, so every page
  * links to every tool, guide and editorial resource. The internal columns are
  * built from `lib/site.ts` — add a page there and it appears here site-wide.
@@ -77,7 +82,7 @@ function InternalColumn({
       <ul className="mt-3" aria-labelledby={labelId}>
         {entries.map((entry) => (
           <li key={entry.href}>
-            <Link href={entry.href} className={LINK_CLASSES}>
+            <Link href={entry.href} prefetch={false} className={LINK_CLASSES}>
               {entry.title}
             </Link>
           </li>
@@ -103,7 +108,7 @@ export default function SiteFooter() {
               {SUEDE_LINKS.map((link) => (
                 <li key={link.href}>
                   {isInternalHref(link.href) ? (
-                    <Link href={link.href} className={LINK_CLASSES}>
+                    <Link href={link.href} prefetch={false} className={LINK_CLASSES}>
                       {link.label}
                     </Link>
                   ) : (

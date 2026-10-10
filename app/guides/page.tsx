@@ -340,6 +340,7 @@ function GuideCard({
   return (
     <Link
       href={entry.href}
+      prefetch={false}
       className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-sm ring-1 ring-ink/5 transition hover:shadow-md motion-safe:hover:-translate-y-1"
     >
       <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">

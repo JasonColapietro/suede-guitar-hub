@@ -103,8 +103,11 @@ function RelatedCard({ item }: { item: RelatedLink }) {
     </>
   );
 
+  // No prefetch: a related grid sits at the foot of a long article, and
+  // prefetching every card's route (and the cover preload hints inside it)
+  // spent bandwidth on pages the reader mostly does not open.
   return isInternalHref(item.href) ? (
-    <Link href={item.href} className={cardClasses}>
+    <Link href={item.href} prefetch={false} className={cardClasses}>
       {inner}
     </Link>
   ) : (
