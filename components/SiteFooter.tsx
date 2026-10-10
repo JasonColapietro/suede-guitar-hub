@@ -34,6 +34,10 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   // list, so without this line the one free reference page on the site would be
   // reachable from the XML sitemap and nowhere else.
   { href: "/glossary", label: "Guitar and voice glossary" },
+  // Same reason as the glossary: /faq sits in HUBS, so this line is the only
+  // internal link to it. Without it the page was orphaned (found only via
+  // the sitemap).
+  { href: "/faq", label: "FAQ" },
   { href: APP_STORE.ios, label: "GuitarHub for iPhone" },
   ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },

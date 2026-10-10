@@ -67,3 +67,7 @@ test("publishes a web app manifest and theme colour in the brand indigo", async 
   }
   assert.match(read("app/layout.tsx"), /themeColor:\s*THEME_COLOR/);
 });
+
+test("the footer links the FAQ", () => {
+  assert.match(read("components/SiteFooter.tsx"), /href: "\/faq"/, "/faq must have an internal link");
+});
