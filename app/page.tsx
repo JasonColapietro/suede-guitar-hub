@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { FieldGuideShelf } from "@/components/FieldGuides";
-import { BookShelf } from "@/components/BookShelf";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ApplyForm from "@/components/ApplyForm";
@@ -8,6 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import LevelPicker from "@/components/LevelPicker";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
+import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import type { Metadata } from "next";
@@ -34,93 +34,93 @@ const TOOL_COUNT = (() => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 })();
 
+/**
+ * Counted from the catalog for the same reason. Stage lessons and song
+ * companions are different kinds of lesson, so they are stated separately, as
+ * /learn does.
+ */
+const GUITAR_LESSONS = allLessons("guitar");
+const STAGE_LESSONS = GUITAR_LESSONS.filter((entry) => entry.level.stage).length;
+const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
+const STAGES = curricula.guitar.levels.filter((level) => level.stage).length;
 
-
-/** One week per stage of the /method loop: baseline, isolate, reconnect, prove. */
-const PHASES = [
+/**
+ * The visitor's 30 days, in the order they live them. Each step names the
+ * /method stage it runs, so the home page and the method page describe one
+ * loop: baseline, isolate, reconnect, prove.
+ */
+const STEPS = [
   {
-    phase: "Week 1 · Baseline",
-    title: "Record where you start",
-    body: "Choose the finish line and record a baseline before polishing, hiding, or restarting.",
+    step: "Pick a goal",
+    stage: "Day 0",
+    body: "Name one thing you can't play yet: a chord change that stalls, a solo that falls apart at tempo, a song you can't finish. One goal, written down.",
   },
   {
-    phase: "Week 2 · Isolate",
-    title: "Repair the blocker",
-    body: "Isolate the one transition, timing drift, map gap, or phrase that breaks the result.",
+    step: "Record day 1",
+    stage: "Baseline",
+    body: "Play it once on your phone, mistakes included. That take is the baseline every later attempt is measured against.",
   },
   {
-    phase: "Week 3 · Reconnect",
-    title: "Add real pressure",
-    body: "Reconnect the repaired skill to a full song, steady click, backing track, or cold prompt.",
+    step: "Run the plan",
+    stage: "Isolate · Reconnect",
+    body: "Repair the piece that breaks, then put it back into the full song, the click or the backing track. The free tools time, pace and log each session.",
   },
   {
-    phase: "Week 4 · Prove",
-    title: "Perform and compare",
-    body: "Record the final attempt beside the baseline and name the change the evidence supports.",
+    step: "Record day 30",
+    stage: "Prove",
+    body: "Play the same take again and listen beside day 1. The difference is your proof, and it sets the next goal.",
   },
 ] as const;
 
 const ROOM_RULES = [
   {
     title: "8–12 players",
-    body: "Small enough for work to be noticed and matched by goal and workable schedule.",
+    body: "Matched by goal and a schedule that works, so your playing gets heard.",
   },
   {
     title: "Private by default",
-    body: "Corrections stay private. Progress proof is shared only when the player chooses.",
+    body: "Corrections stay private. Progress proof is shared only when you choose.",
   },
   {
     title: "One weekly studio",
-    body: "Members arrive with evidence and leave with a next practice prescription.",
+    body: "Bring one recording, leave with one correction for the next session.",
   },
   {
     title: "No infinite feed",
-    body: "The crew conversation exists to change the next attempt, not compete for attention.",
+    body: "Every check-in exists to change your next attempt.",
   },
 ] as const;
 
-// Two GuitarHub guides and one Strumly guide. The kicker travels with the
-// entry instead of being hardcoded in the card, because two of these three no
-// longer leave the site and labeling them "Strumly" would be false.
-const INSIGHTS = [
+/** One compact row for the sister products, one link each. */
+const MORE_FROM_SUEDE = [
   {
-    title: "How to practice guitar effectively",
-    kicker: "Guide · GuitarHub",
-    img: "/insight-1.jpg",
-    href: "/how-to-practice-guitar-effectively",
+    name: "Strumly",
+    body: "Guitar guides on tone, rigs and the signal chain, plus song lessons with the gear behind them.",
+    href: STRUMLY.guides,
+    cta: "Browse Strumly",
   },
   {
-    title: "Why guitar practice plateaus, and what fixes it",
-    kicker: "Guide · GuitarHub",
-    img: "/insight-2.jpg",
-    href: "/guitar-practice-plateau",
+    name: "Suede Sing",
+    body: "Voice lessons from first breath to first song, with all seven stages free.",
+    href: SING_VOICE_COURSE,
+    cta: "Open Suede Sing",
   },
   {
-    title: "Signal chain topology: what actually goes where, and why",
-    kicker: "Guide · Strumly",
-    img: "/amp-glow.jpg",
-    href: STRUMLY.signalChain,
+    name: "The Signal Chain",
+    body: "The book: the history of guitar tone and 111 song lessons with full tablature.",
+    href: STRUMLY.book,
+    cta: "See the book",
   },
-] as const;
-
-// Pulled from the registry rather than retyped. `lib/site.ts` holds the only
-// external URLs this site links to, and a hand-written copy of one of them is
-// a second place for it to rot.
-const SONG_LESSONS = [
-  { song: "Purple Haze", href: STRUMLY.lessons.purpleHaze },
-  { song: "Comfortably Numb", href: STRUMLY.lessons.comfortablyNumb },
-  { song: "Pride and Joy", href: STRUMLY.lessons.prideAndJoy },
-  { song: "Smells Like Teen Spirit", href: STRUMLY.lessons.teenSpirit },
 ] as const;
 
 const FAQS = [
   {
     q: "Who is GuitarHub for?",
-    a: "Every level. New guitarists start the guided lesson course, which opens with lifetime access, a one-time purchase in GuitarHub for iPhone. Returning players use the free practice tools and planner, and experienced players go straight to the free Advanced Lab.",
+    a: "Any guitarist with one thing they can't play yet. New players follow the guided lesson path, unlocked with lifetime access, a one-time purchase in GuitarHub for iPhone. Returning and intermediate players build the free 30-day plan and run it with the free tools. Experienced players go straight to the free Advanced Lab.",
   },
   {
     q: "Can I use the planner without joining?",
-    a: "Yes. The four-week planner is free, needs no account, and stores progress only in your browser.",
+    a: "Yes. The 30-day planner is free, needs no account, and stores progress only in your browser.",
   },
   {
     q: "Where does the GuitarHub community meet?",
@@ -132,41 +132,16 @@ const FAQS = [
   },
 ] as const;
 
-function ApplyButton({
-  variant = "dark",
-  compact = false,
-}: {
-  variant?: "dark" | "light";
-  /** Header sizing: matches the pill in components/SiteNav.tsx so the brand and
-   *  the pill still share one row at 390px once the nav wraps beneath them. */
-  compact?: boolean;
-}) {
-  const classes =
-    variant === "dark"
-      ? "bg-indigo-deep text-cream hover:bg-indigo-mid"
-      : "bg-peach text-indigo-deep hover:brightness-105";
-  const size = compact
-    ? "min-h-11 shrink-0 whitespace-nowrap px-4 py-2.5 text-sm md:px-5"
-    : "px-7 py-3.5";
-  return (
-    <a
-      href="#apply"
-      className={`inline-flex items-center gap-2 rounded-full font-semibold transition ${size} ${classes}`}
-    >
-      Apply to the room <span aria-hidden>→</span>
-    </a>
-  );
-}
-
 export default function Home() {
   return (
     <>
       <SiteNav />
 
       <main id="main-content" tabIndex={-1}>
-        {/* Hero */}
+        {/* Hero. Not wrapped in Reveal: the headline and the primary action
+            have to be on screen at first paint, not after a scroll observer. */}
         <section className="px-3 pt-3">
-          <div className="relative overflow-hidden rounded-[2rem] px-6 py-24 text-center text-cream md:py-32">
+          <div className="relative overflow-hidden rounded-[2rem] px-5 pb-14 pt-12 text-center text-cream sm:px-6 md:py-28">
             {/* alt="" is deliberate. Reviewed against the artwork: this is a
                 room photograph carrying mood, and it sits under
                 `hero-backdrop` at 0.86 opacity with the headline on top of it.
@@ -182,108 +157,83 @@ export default function Home() {
             />
             <div className="hero-backdrop absolute inset-0 opacity-[0.86]" aria-hidden />
             <div className="relative">
-            <Reveal>
-              <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-violet-pale">
-                Beginner to advanced
-              </span>
-            </Reveal>
-            <Reveal delay={1}>
-              <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight text-cream md:text-6xl">
-                Guitar lessons and practice.{" "}
-                <em className="font-display italic text-peach">One step at a time.</em>
+              <p className="text-xs font-semibold uppercase tracking-widest text-violet-pale sm:text-sm">
+                GuitarHub · beginner to advanced
+              </p>
+              <h1 className="mx-auto mt-5 max-w-3xl text-4xl leading-tight text-cream sm:text-5xl md:text-6xl">
+                Practice guitar with{" "}
+                <em className="font-display italic text-peach">a plan you can prove.</em>
               </h1>
-            </Reveal>
-            <Reveal delay={2}>
-              <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-                Explore step-by-step guitar lessons, practice chord changes, and work
-                through advanced drills with GuitarHub by Suede AI. Choose your level to begin.
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+                Pick one thing you can&apos;t play yet. Get a four-week plan, free
+                tools to run it, and a recording on day 1 and day 30 that shows
+                exactly what changed. Free in your browser, no account.
               </p>
-            </Reveal>
-            <Reveal delay={3}>
-              <div className="mx-auto mt-10 max-w-4xl">
-                <LevelPicker tone="dark" />
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Link
+                  href="/breakthrough"
+                  className="inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105 sm:w-auto"
+                >
+                  Build your free 30-day plan <span aria-hidden>→</span>
+                </Link>
+                <Link
+                  href="/diagnose"
+                  className="inline-flex min-h-12 w-full max-w-sm items-center justify-center rounded-full px-7 py-3.5 font-semibold text-cream ring-1 ring-white/40 transition hover:bg-white/10 sm:w-auto"
+                >
+                  Take the 2-minute practice check
+                </Link>
               </div>
-              <p className="mt-6 text-sm text-white/80">
-                Guided lessons open with lifetime access in GuitarHub for iPhone. The Advanced Lab and practice tools are free.{" "}
-                <Link href="/learn/guitar/routine" className="font-semibold text-peach underline-offset-4 hover:underline">Try the A-to-D chord practice routine</Link>
-                {" · "}
-                <a href={SING_VOICE_COURSE} className="font-semibold text-peach underline-offset-4 hover:underline">Voice lessons on Suede Sing</a>
-                {" · "}
-                <a href={APP_STORE.ios} className="font-semibold text-peach underline-offset-4 hover:underline">GuitarHub for iPhone <span aria-hidden>↗</span></a>
+              <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/75">
+                Brand new to guitar?{" "}
+                <a href="#levels" className="font-semibold text-peach underline underline-offset-4">
+                  Follow the {STAGE_LESSONS}-lesson path from stage 1
+                </a>
+                , unlocked with lifetime access in GuitarHub for iPhone.
               </p>
-            </Reveal>
             </div>
           </div>
         </section>
 
-        {/* Advanced Lab */}
-        <section id="advanced" className="mx-auto max-w-6xl px-6 py-20">
+        {/* How it works: the four steps of the 30-day plan */}
+        <section id="how-it-works" aria-labelledby="how-it-works-title" className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
-            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">Advanced Lab · free</p>
-            <h2 className="mx-auto mt-3 max-w-3xl text-center text-4xl leading-snug text-indigo-deep md:text-5xl">
-              Already good?{" "}
-              <em className="font-display italic">Get clean at tempo.</em>
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">How it works</p>
+            <h2 id="how-it-works-title" className="mx-auto mt-3 max-w-3xl text-center text-4xl leading-snug text-indigo-deep md:text-5xl">
+              One goal, thirty days,{" "}
+              <em className="font-display italic">two recordings.</em>
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-center text-lg text-ink/70">
-              {DRILLS.length} scored drills across the {SKILL_AREAS.length} skill areas a complete player needs. Practice mode waits for every note; Play mode scores the whole pass and tells you when to push the tempo.
-            </p>
           </Reveal>
-          <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {SKILL_AREAS.map((area, i) => (
-              <li key={area.id}>
-                <Reveal delay={(i % 3) as 0 | 1 | 2}>
-                  <Link href={`/advanced#${area.id}`} className="block h-full rounded-3xl bg-white p-6 shadow-sm ring-1 ring-ink/5 transition hover:ring-violet">
-                    <span className="font-display text-xl text-indigo-deep">{area.name}</span>
-                    <span className="mt-2 block text-sm leading-relaxed text-ink/65">{area.blurb}</span>
-                  </Link>
-                </Reveal>
-              </li>
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((item, i) => (
+              <Reveal key={item.step} as="li" delay={(i % 3) as 0 | 1 | 2}>
+                <div className="h-full rounded-3xl bg-cream-soft p-7 ring-1 ring-ink/5">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-violet">
+                    {i + 1} · {item.stage}
+                  </span>
+                  <h3 className="mt-3 font-display text-2xl text-indigo-deep">{item.step}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink/70">{item.body}</p>
+                </div>
+              </Reveal>
             ))}
-          </ul>
-          <div className="mt-10 text-center">
-            <Link href="/advanced" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid">
-              Open the Advanced Lab <span aria-hidden>→</span>
+          </ol>
+          <div className="mt-10 flex flex-col items-center gap-4 text-center">
+            <Link
+              href="/breakthrough"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
+            >
+              Build your free 30-day plan <span aria-hidden>→</span>
+            </Link>
+            <Link href="/method" className="inline-flex min-h-11 items-center text-sm font-semibold text-violet underline-offset-4 hover:underline">
+              Read the four-stage method behind it
             </Link>
           </div>
         </section>
 
-        <FieldGuideShelf
-          title="Grab a field guide"
-          intro="Every practice guide as a free PDF, from the method to clean tone. Pick the problem you have this week and keep the guide on your phone or the music stand."
-          hrefs={["/guitar-practice-plateau", "/why-cant-i-play-guitar-fast", "/how-to-memorize-songs-on-guitar", "/resources/how-to-practice-clean-guitar-tone", "/guitar-practice-routine-intermediate"]}
-          moreHref="/guides#field-guides"
-        />
-
-        {/* Founding room program */}
-        <section id="program" className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="mt-24">
-            <Reveal>
-              <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
-                Want personal feedback?{" "}
-                <em className="font-display italic">Explore the founding room.</em>
-              </h2>
-            </Reveal>
-            <ol className="mt-12 grid gap-6 md:grid-cols-2">
-              {PHASES.map((item, i) => (
-                <Reveal key={item.phase} as="li" delay={(i % 2) as 0 | 1}>
-                  <div className="h-full rounded-3xl bg-cream-soft p-8 ring-1 ring-ink/5">
-                    <span className="text-sm font-semibold uppercase tracking-widest text-violet">
-                      {item.phase}
-                    </span>
-                    <h3 className="mt-3 font-display text-2xl text-indigo-deep">{item.title}</h3>
-                    <p className="mt-3 text-ink/70">{item.body}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
-        </section>
-
         {/* Free tools */}
-        <section id="tools" className="mx-auto max-w-6xl px-6 pb-24">
+        <section id="tools" aria-labelledby="tools-title" className="mx-auto max-w-6xl px-6 pb-20">
           <Reveal>
-            <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
-              {TOOL_COUNT} tools.{" "}
+            <h2 id="tools-title" className="text-center text-4xl text-indigo-deep md:text-5xl">
+              {TOOL_COUNT} free tools to run it.{" "}
               <em className="font-display italic">No account.</em>
             </h2>
           </Reveal>
@@ -315,158 +265,172 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Founding-room operating rules */}
-        <section id="room" className="px-3">
-          <div className="hero-backdrop rounded-[2rem] px-6 py-24">
-            <Reveal>
-              <h2 className="text-center text-4xl text-cream md:text-5xl">
-                A practice crew,{" "}
-                <em className="font-display italic text-peach">not another feed.</em>
-              </h2>
-            </Reveal>
-            <Reveal delay={1}>
-              <p className="mx-auto mt-5 max-w-2xl text-center text-white/75">
-                The founding room is built around one rule: every check-in must
-                change the next practice. Every application gets a personal review,
-                and you see the schedule, review capacity, and price before you
-                commit.
-              </p>
-            </Reveal>
-            <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {ROOM_RULES.map((rule, i) => (
-                <Reveal key={rule.title} delay={(i % 3) as 0 | 1 | 2}>
-                  <div className="mentor-card-glow h-full rounded-3xl border border-white/10 p-6">
-                    <span className="text-xs uppercase tracking-widest text-violet-pale">
-                      Room rule {i + 1}
-                    </span>
-                    <h3 className="mt-3 font-display text-xl text-cream">{rule.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/70">{rule.body}</p>
+        <FieldGuideShelf
+          title="Free field guides for the music stand"
+          intro="Every practice guide as a free PDF, from the method to clean tone. Pick the problem you have this week and keep the guide on your phone or the music stand."
+          hrefs={["/guitar-practice-plateau", "/why-cant-i-play-guitar-fast", "/how-to-memorize-songs-on-guitar", "/resources/how-to-practice-clean-guitar-tone", "/guitar-practice-routine-intermediate"]}
+          moreHref="/guides#field-guides"
+        />
+
+        {/* Guided lessons with lifetime access */}
+        <section id="levels" aria-labelledby="levels-title" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-20">
+          <Reveal>
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">Guided lessons · lifetime access</p>
+            <h2 id="levels-title" className="mx-auto mt-3 max-w-3xl text-center text-4xl leading-snug text-indigo-deep md:text-5xl">
+              Learning from scratch?{" "}
+              <em className="font-display italic">Follow the lesson path.</em>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-center text-lg text-ink/70">
+              {STAGE_LESSONS} guided lessons in {spellOut(STAGES)} stages take you
+              from your first clean note to barre chords, the blues and your own
+              solos, with {SONG_COMPANIONS} song companions along the way. Lifetime
+              access unlocks every one with a one-time purchase in{" "}
+              {APP_STORE.name} for iPhone, and the App Store shows the price
+              before you confirm.
+            </p>
+          </Reveal>
+          <div className="mt-12">
+            <LevelPicker />
+          </div>
+          <div className="mt-10 flex flex-col items-center gap-4 text-center">
+            <a
+              href={APP_STORE.ios}
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
+            >
+              Get lifetime access on iPhone <span aria-hidden>↗</span>
+            </a>
+            <p className="text-sm leading-relaxed text-ink/70">
+              Not sure where you fit?{" "}
+              <Link href="/start" className="font-semibold text-violet underline-offset-4 hover:underline">
+                Take the five-question level check
+              </Link>
+              {" · "}
+              <Link href="/learn/guitar/routine" className="font-semibold text-violet underline-offset-4 hover:underline">
+                Try the free A-to-D chord routine
+              </Link>
+            </p>
+          </div>
+        </section>
+
+        {/* Advanced Lab */}
+        <section id="advanced" aria-labelledby="advanced-title" className="mx-auto max-w-6xl px-6 pb-24">
+          <Reveal>
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-violet">Advanced Lab · free</p>
+            <h2 id="advanced-title" className="mx-auto mt-3 max-w-3xl text-center text-4xl leading-snug text-indigo-deep md:text-5xl">
+              Already good?{" "}
+              <em className="font-display italic">Get clean at tempo.</em>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-center text-lg text-ink/70">
+              {DRILLS.length} scored drills across the {SKILL_AREAS.length} skill areas a complete player needs. Practice mode waits for every note; Play mode scores the whole pass and tells you when to push the tempo.
+            </p>
+          </Reveal>
+          <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {SKILL_AREAS.map((area, i) => (
+              <li key={area.id}>
+                <Reveal delay={(i % 3) as 0 | 1 | 2}>
+                  <Link href={`/advanced#${area.id}`} className="block h-full rounded-3xl bg-white p-6 shadow-sm ring-1 ring-ink/5 transition hover:ring-violet">
+                    <span className="font-display text-xl text-indigo-deep">{area.name}</span>
+                    <span className="mt-2 block text-sm leading-relaxed text-ink/65">{area.blurb}</span>
+                  </Link>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 text-center">
+            <Link href="/advanced" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid">
+              Open the Advanced Lab <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </section>
+
+        {/* Founding room: the pitch, the rules and the application in one
+            place. `#apply` is the anchor every "Apply to the room" link on the
+            site points at, so it stays on the form. */}
+        <section id="room" aria-labelledby="room-title" className="px-3">
+          <div className="relative overflow-hidden rounded-[2rem] px-6 py-20 md:py-24">
+            {/* alt="" is deliberate: an amp in low light, run under
+                `hero-backdrop` at 0.92 opacity behind the copy. */}
+            <Image
+              src="/amp-glow.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="hero-backdrop absolute inset-0 opacity-[0.92]" aria-hidden />
+            <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <Reveal>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-violet-pale">The founding room</p>
+                  <h2 id="room-title" className="mt-3 text-4xl leading-snug text-cream md:text-5xl">
+                    Want a coach&apos;s ear{" "}
+                    <em className="font-display italic text-peach">on your playing?</em>
+                  </h2>
+                  <p className="mt-5 text-lg leading-relaxed text-white/80">
+                    We&apos;re forming a group of 8–12 players. Each week you bring
+                    one recording and get back one specific correction for your
+                    next session. Applying is free, and you&apos;ll see the
+                    schedule and price before you commit.
+                  </p>
+                </Reveal>
+                <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+                  {ROOM_RULES.map((rule, i) => (
+                    <Reveal key={rule.title} as="li" delay={(i % 2) as 0 | 1}>
+                      <div className="mentor-card-glow h-full rounded-2xl border border-white/10 p-5">
+                        <h3 className="font-display text-lg text-cream">{rule.title}</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-white/70">{rule.body}</p>
+                      </div>
+                    </Reveal>
+                  ))}
+                </ul>
+              </div>
+              <div id="apply" className="scroll-mt-24">
+                <Reveal>
+                  <h3 className="font-display text-2xl text-cream md:text-3xl">
+                    Apply to the founding room
+                  </h3>
+                  <p className="mt-3 text-white/75">
+                    Tell us where your playing is and name one change you can prove in
+                    30 days. No payment is taken here.
+                  </p>
+                </Reveal>
+                <Reveal delay={1}>
+                  <div className="mt-8">
+                    <ApplyForm />
                   </div>
                 </Reveal>
-              ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Results */}
-        <section id="evidence" className="mx-auto max-w-4xl px-6 py-24 text-center">
-          <Reveal>
-            <h2 className="text-4xl text-indigo-deep md:text-5xl">
-              Progress you can <em className="font-display italic">hear.</em>
-            </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              Track your progress with a baseline recording, a final recording,
-              and a clear rubric. Use each correction to improve the next attempt
-              and hear how your playing changes.
-            </p>
-          </Reveal>
-          <Reveal delay={2}>
-            <p className="mt-14 text-sm font-semibold uppercase tracking-widest text-violet">
-              Start with a real song
-            </p>
-          </Reveal>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {SONG_LESSONS.map((lesson, i) => (
-              <Reveal key={lesson.song} delay={(i % 3) as 0 | 1 | 2}>
+        {/* More from Suede AI */}
+        <section id="more" aria-labelledby="more-title" className="mx-auto max-w-6xl px-6 py-20">
+          <h2 id="more-title" className="text-center text-3xl text-indigo-deep md:text-4xl">
+            More from <em className="font-display italic">Suede AI</em>
+          </h2>
+          <ul className="mt-10 grid gap-4 md:grid-cols-3">
+            {MORE_FROM_SUEDE.map((item) => (
+              <li key={item.name}>
                 <a
-                  href={lesson.href}
-                  className="block h-full rounded-2xl bg-indigo-deep p-6 text-left transition hover:-translate-y-1 hover:bg-indigo-mid"
+                  href={item.href}
+                  className="flex h-full flex-col rounded-3xl bg-white p-6 ring-1 ring-ink/5 transition hover:ring-violet"
                 >
-                  <h3 className="font-display text-xl text-cream">{lesson.song}</h3>
-                  <p className="mt-2 text-sm text-violet-soft">
-                    The tone, the rig, and the lesson →
-                  </p>
+                  <h3 className="font-display text-xl text-indigo-deep">{item.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{item.body}</p>
+                  <span className="mt-auto pt-4 text-sm font-semibold text-violet">
+                    {item.cta} <span aria-hidden>↗</span>
+                  </span>
                 </a>
-              </Reveal>
+              </li>
             ))}
-          </div>
-        </section>
-
-        <BookShelf />
-
-        {/* Insights */}
-        <section id="insights" className="mx-auto max-w-6xl px-6 pb-24">
-          <Reveal>
-            <h2 className="text-center text-4xl text-indigo-deep md:text-5xl">
-              Insights from <em className="font-display italic">the practice room.</em>
-            </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="mx-auto mt-4 max-w-xl text-center text-ink/70">
-              Essays and breakdowns on how skilled players actually get built,
-              publishing alongside the founding cohort.
-            </p>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {INSIGHTS.map((post, i) => (
-              <Reveal key={post.title} delay={(i % 3) as 0 | 1 | 2}>
-                <a
-                  href={post.href}
-                  className="block h-full overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5 transition hover:-translate-y-1 hover:shadow-md"
-                >
-                  <div className="relative aspect-[16/10]">
-                    {/* alt="" is deliberate. The card thumbnail is a mood
-                        photograph inside a link that already carries the
-                        kicker, title and blurb below, so alt text here would
-                        double the link name rather than describe anything the
-                        reader cannot already hear. */}
-                    <Image
-                      src={post.img}
-                      alt=""
-                      fill
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-violet">
-                      {post.kicker}
-                    </span>
-                    <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">
-                      {post.title}
-                    </h3>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={2}>
-            <div className="mt-10 text-center">
-              <a
-                href={STRUMLY.guides}
-                className="inline-flex items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
-              >
-                Browse the Strumly guides <span aria-hidden>→</span>
-              </a>
-            </div>
-          </Reveal>
-        </section>
-
-        {/* Founding-room status */}
-        <section id="founding-room" className="mx-auto max-w-4xl px-6 pb-24 text-center">
-          <Reveal>
-            <h2 className="text-4xl text-indigo-deep md:text-5xl">The founding room</h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              The first room is planned for 8–12 players. Applying starts a
-              conversation about your goal, and you see the schedule, review
-              capacity, and price before you commit. Applying is free.
-            </p>
-          </Reveal>
-          <Reveal delay={2}>
-            <div className="mt-8">
-              <ApplyButton />
-            </div>
-          </Reveal>
+          </ul>
         </section>
 
         {/* FAQ */}
-        <section className="mx-auto max-w-3xl px-6 pb-24">
+        <section aria-labelledby="faq-title" className="mx-auto max-w-3xl px-6 pb-24">
           <Reveal>
-            <h2 className="text-center text-4xl text-indigo-deep">
+            <h2 id="faq-title" className="text-center text-4xl text-indigo-deep">
               Questions, <em className="font-display italic">answered.</em>
             </h2>
           </Reveal>
@@ -484,41 +448,6 @@ export default function Home() {
                 </details>
               </Reveal>
             ))}
-          </div>
-        </section>
-
-        {/* Application — dark closer */}
-        <section id="apply" className="px-3 pb-3">
-          <div className="relative overflow-hidden rounded-[2rem] px-6 py-24">
-            {/* alt="" is deliberate, same reading as the hero: an amp in low
-                light, run under `hero-backdrop` at 0.92 opacity behind the
-                closing copy. */}
-            <Image
-              src="/amp-glow.jpg"
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-            <div className="hero-backdrop absolute inset-0 opacity-[0.92]" aria-hidden />
-            <div className="relative mx-auto max-w-xl">
-              <Reveal>
-                <h2 className="text-center text-4xl text-cream md:text-5xl">
-                  Apply to the <em className="font-display italic text-peach">founding room.</em>
-                </h2>
-              </Reveal>
-              <Reveal delay={1}>
-                <p className="mt-5 text-center text-white/75">
-                  Tell us where your playing is and name one change you can prove in
-                  30 days. No payment is taken here.
-                </p>
-              </Reveal>
-              <Reveal delay={2}>
-                <div className="mt-10">
-                  <ApplyForm />
-                </div>
-              </Reveal>
-            </div>
           </div>
         </section>
       </main>

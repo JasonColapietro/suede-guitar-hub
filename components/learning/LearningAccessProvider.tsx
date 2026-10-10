@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useSyncExternalStore } from "react";
 import { guestLearningAccess, type LearningAccess } from "@/lib/learning/access";
-import { AccountSyncClient, type SyncSnapshot } from "@/lib/learning-sync/client";
+import { AccountSyncClient, accountSyncEligible, type SyncSnapshot } from "@/lib/learning-sync/client";
 import { syncLessonMap } from "@/lib/learning-sync/evidence";
 
 const LearningAccessContext = createContext<LearningAccess>(guestLearningAccess);
@@ -15,9 +15,11 @@ export function LearningAccessProvider({ access, children }: { access: LearningA
   const [client, setClient] = useState<AccountSyncClient | null>(null);
   const [storageUnavailable, setStorageUnavailable] = useState(false);
   useEffect(() => {
-    if (!access.enabled || access.status !== "verified" || !access.accountId) return;
+    // Disabled accounts, signed-out and unverified visitors never reach the sync API.
+    const scope = { enabled: access.enabled, status: access.status, accountId: access.accountId };
+    if (!accountSyncEligible(scope)) return;
     let current: AccountSyncClient;
-    try { current = new AccountSyncClient(access.accountId, window.localStorage, (url, init) => fetch(url, init), syncLessonMap, () => crypto.randomUUID()); }
+    try { current = new AccountSyncClient(scope.accountId, window.localStorage, (url, init) => fetch(url, init), syncLessonMap, () => crypto.randomUUID()); }
     catch { setStorageUnavailable(true); return; }
     setStorageUnavailable(false);
     current.activate();
@@ -38,7 +40,7 @@ export function LearningAccessProvider({ access, children }: { access: LearningA
     wake();
     return () => { current.dispose(); window.clearTimeout(refreshTimer); window.removeEventListener("storage", storage); window.removeEventListener("online", wake); window.removeEventListener("focus", wake); window.clearInterval(timer); };
   }, [access.enabled, access.accountId, access.status]);
-  const scopedClient = access.enabled && access.status === "verified" && client?.accountId === access.accountId ? client : null;
+  const scopedClient = accountSyncEligible(access) && client?.accountId === access.accountId ? client : null;
   return <LearningAccessContext.Provider value={access}><AccountSyncContext.Provider value={{ client: scopedClient, storageUnavailable }}>{children}</AccountSyncContext.Provider></LearningAccessContext.Provider>;
 }
 

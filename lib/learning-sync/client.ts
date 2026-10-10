@@ -12,6 +12,17 @@ const consentKey = (accountId: string) => `${ROOT}${accountId}.consent`;
 const prefix = (binding: LearningSyncBinding) => `${ROOT}${binding.accountId}.${binding.syncEpoch}.`;
 const initialSnapshot = (): SyncSnapshot => ({ status: "off", pending: 0, attempts: [], error: null, enabled: false });
 
+/**
+ * Whether a page may construct a sync client at all. The access snapshot is
+ * rendered by the server from `accountConfiguration()`, so when accounts are
+ * disabled (or the visitor is signed out or unverified) the browser never
+ * creates a client and never calls /api/learning/binding or
+ * /api/learning/attempts.
+ */
+export function accountSyncEligible(access: { enabled: boolean; status: string; accountId: string | null }): access is { enabled: true; status: "verified"; accountId: string } {
+  return access.enabled && access.status === "verified" && typeof access.accountId === "string" && access.accountId.length > 0;
+}
+
 /** Each immutable event has its own key. Concurrent tabs never replace a shared queue array. */
 export class AccountSyncClient {
   private snapshot = initialSnapshot();

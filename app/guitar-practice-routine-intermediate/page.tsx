@@ -70,7 +70,7 @@ const JSON_LD = {
       datePublished: "2026-08-29",
       dateModified: "2026-08-29",
       inLanguage: "en-US",
-      mainEntityOfPage: CANONICAL,
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
       author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
     },
@@ -134,12 +134,15 @@ export default function IntermediatePracticeRoutinePage() {
 
         <p>
           This page is about what a session contains once you are past the
-          beginner stage, in five blocks with separate jobs. It is not a weekly
-          plan:{" "}
-          <Link href="/guitar-practice-schedule">the practice schedule</Link>{" "}
+          beginner stage, in five blocks with separate jobs.{" "}
+          <Link href="/guitar-practice-schedule">The practice schedule</Link>{" "}
           decides which days these sessions land on and which one you defend when
           the week goes wrong, and this page decides what happens inside one of
-          them.
+          them. In your first three months, the{" "}
+          <Link href="/beginner-guitar-practice-routine">beginner guitar practice routine</Link>{" "}
+          lays out the 90-day plan, and the{" "}
+          <Link href="/learn/guitar/routine">A-to-D chord practice routine</Link>{" "}
+          times each session for you.
         </p>
 
         <h2>Why the intermediate stall is a structure problem</h2>

@@ -73,7 +73,7 @@ const JSON_LD = {
       inLanguage: "en-US",
       author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
-      mainEntityOfPage: CANONICAL,
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
     },
     {
       "@type": "FAQPage",
