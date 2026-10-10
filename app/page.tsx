@@ -68,7 +68,7 @@ const ROOM_RULES = [
 
 // Two GuitarHub guides and one Strumly guide. The kicker travels with the
 // entry instead of being hardcoded in the card, because two of these three no
-// longer leave the site and labelling them "Strumly" would be false.
+// longer leave the site and labeling them "Strumly" would be false.
 const INSIGHTS = [
   {
     title: "How to practice guitar effectively",

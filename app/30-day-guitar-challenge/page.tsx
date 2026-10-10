@@ -136,7 +136,7 @@ export default function ThirtyDayGuitarChallengePage() {
           This is the written guide: how to choose a finish line narrow enough to
           prove, and how to judge the day 30 recording. It does not build the
           four weeks for you, because the sequencing is arithmetic and the
-          judgement is not. The{" "}
+          judgment is not. The{" "}
           <Link href="/breakthrough">30-day breakthrough planner</Link> does the
           arithmetic, sized to the days and minutes you actually have. Read this
           page to decide what you are proving, then hand the month to the planner.

@@ -202,7 +202,7 @@ export const GUIDES: readonly SiteEntry[] = [
   },
   {
     href: "/practicing-guitar-with-a-metronome",
-    title: "Practising with a metronome",
+    title: "Practicing with a metronome",
     blurb:
       "Testing against the click instead of playing along with it, and what that exposes about your time.",
     lastModified: "2026-08-29",

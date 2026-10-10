@@ -199,7 +199,7 @@ export default function HowToPracticeGuitarEffectivelyPage() {
         <p>
           There is a second marker, more reliable than the first. At the correct
           tempo you can see the next move before you make it: your fingers are
-          already travelling toward the next shape while the current one is
+          already traveling toward the next shape while the current one is
           still sounding. If the next chord is a surprise, slow down.
         </p>
 
@@ -380,7 +380,7 @@ export default function HowToPracticeGuitarEffectivelyPage() {
           <li>
             <strong>It survives a surprise.</strong> Something goes wrong (a
             buzz, a missed beat) and you keep going instead of stopping.
-            Stopping means the passage is running on a memorised sequence rather
+            Stopping means the passage is running on a memorized sequence rather
             than on control.
           </li>
           <li>

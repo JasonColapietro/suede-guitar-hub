@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     name: "Log the session while it is still true",
-    text: "Pick the day you practised and write it down before the evening rewrites it. The log will not accept a date in the future, because a record of what has not happened yet is the one thing it must never hold.",
+    text: "Pick the day you practiced and write it down before the evening rewrites it. The log will not accept a date in the future, because a record of what has not happened yet is the one thing it must never hold.",
   },
   {
     name: "Name the focus the same way every time",
@@ -231,7 +231,7 @@ export default function LogPage() {
             The problem this fixes
           </p>
           <h2 className="mt-4 text-3xl leading-snug text-indigo-deep md:text-4xl">
-            You know you practised.{" "}
+            You know you practiced.{" "}
             <em className="font-display italic">
               You do not know whether it worked.
             </em>
@@ -338,7 +338,7 @@ export default function LogPage() {
               </Link>{" "}
               names it, and{" "}
               <Link href="/practicing-guitar-with-a-metronome" className={INLINE_LINK}>
-                practising with a metronome
+                practicing with a metronome
               </Link>{" "}
               covers how to take a tempo reading you can trust.
             </p>

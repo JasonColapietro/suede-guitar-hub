@@ -109,7 +109,7 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
     purpose:
       "You record the date, one focus, a tempo or clean-pass rate, and one honest note. It compares like with like over 7 and 30 days, and refuses to claim a direction until one focus has at least three sessions.",
     audience:
-      "Players who can say how often they practised but cannot show whether the passage, transition, or song they chose is actually moving.",
+      "Players who can say how often they practiced but cannot show whether the passage, transition, or song they chose is actually moving.",
   },
 };
 

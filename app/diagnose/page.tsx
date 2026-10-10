@@ -175,7 +175,7 @@ export default function DiagnosePage() {
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70">
               This is the diagnostic rather than the explanation: nine questions,
               five blockers scored, and the one worth changing next session. If
-              you would rather read the causes and recognise your own,{" "}
+              you would rather read the causes and recognize your own,{" "}
               <Link
                 href="/guitar-practice-plateau"
                 className="font-semibold text-peach underline underline-offset-4 hover:brightness-110"

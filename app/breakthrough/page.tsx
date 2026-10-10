@@ -138,7 +138,7 @@ export default function BreakthroughPage() {
               >
                 the 30-day guitar challenge
               </Link>
-              . Read that one for the judgement. Use this one for the four weeks.
+              . Read that one for the judgment. Use this one for the four weeks.
             </p>
           </div>
         </section>

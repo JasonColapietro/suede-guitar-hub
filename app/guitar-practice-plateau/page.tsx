@@ -111,7 +111,7 @@ export default function GuitarPracticePlateauPage() {
 
         <p>
           This is the written account of the six causes, so you can read them and
-          recognise your own. It does not rank them for you. The{" "}
+          recognize your own. It does not rank them for you. The{" "}
           <Link href="/diagnose">practice plateau diagnostic</Link> asks nine
           questions about your last few sessions, scores five blockers against
           their own maximums, and returns the one your answers point at hardest,

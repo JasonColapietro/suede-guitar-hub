@@ -149,7 +149,7 @@ export const READINESS_CRITERIA: readonly ReadinessCriterion[] = [
       "An audience changes your hands before it changes anything else about the performance.",
     weight: 2,
     instruction:
-      "Play it for one person this week. One is enough. What matters is that somebody is in the room, you start anyway, and you do not stop to apologise partway through.",
+      "Play it for one person this week. One is enough. What matters is that somebody is in the room, you start anyway, and you do not stop to apologize partway through.",
   },
   {
     id: "standing",

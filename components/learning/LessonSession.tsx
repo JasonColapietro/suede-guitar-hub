@@ -156,7 +156,7 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
               ? <p className={styles.small}>{currentReadingResult ? `Reading result: ${currentReadingResult.correctCount}/${currentReadingResult.total}. ${currentReadingResult.passed ? "Passed. This lesson is done." : "Review the missed topics and try again."}` : "Answer the reading check to finish. Answers save as you go."}</p>
               : <>
                 <div className={styles.actions}><button type="button" className={styles.primary} onClick={() => saveAssessment("ready")} disabled={!canMarkReady}>{done ? "Done again" : "Mark lesson done"}</button><button type="button" className={styles.secondary} onClick={() => saveAssessment("repeat")}>Needs another pass</button></div>
-                {!canMarkReady && <p className={styles.small}>Save the {needsManual ? "one-minute count" : "study"} above first. It is the proof you practised.</p>}
+                {!canMarkReady && <p className={styles.small}>Save the {needsManual ? "one-minute count" : "study"} above first. It is the proof you practiced.</p>}
               </>}
           <details className={styles.fold}>
             <summary className={styles.foldTitle}>Practice timer · {formatted}</summary>
