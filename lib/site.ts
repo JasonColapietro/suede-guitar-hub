@@ -17,6 +17,14 @@ export const SITE_URL = "https://guitarhub.org";
 export const SITE_NAME = "GuitarHub";
 
 /**
+ * Browser chrome colours: the brand indigo (`--color-indigo-deep`) and the page
+ * cream (`--color-cream`) from app/globals.css. Read by the root layout's
+ * `themeColor` and by `app/manifest.ts`.
+ */
+export const THEME_COLOR = "#251152";
+export const BACKGROUND_COLOR = "#f7f3ee";
+
+/**
  * The generated share card, spelled out here so every page can repeat it.
  *
  * `app/opengraph-image.tsx` is a file-convention image, and Next attaches it to

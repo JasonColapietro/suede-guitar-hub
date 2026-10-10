@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import { APP_STORE } from "@/lib/site";
+import { APP_STORE, THEME_COLOR } from "@/lib/site";
 import JsClassMarker from "@/components/JsClassMarker";
 import { keywordsFor } from "@/lib/keywords";
 import "./globals.css";
@@ -58,6 +58,11 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+};
+
+/** The browser chrome colour: the brand indigo, shared with app/manifest.ts. */
+export const viewport: Viewport = {
+  themeColor: THEME_COLOR,
 };
 
 // GuitarHub was the only Suede property emitting no structured data, so engines

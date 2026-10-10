@@ -1,11 +1,15 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
-import { SITE_URL } from "../lib/site.ts";
+import { BACKGROUND_COLOR, SITE_URL, THEME_COLOR } from "../lib/site.ts";
 
 function read(path: string): string {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+}
+
+function publicFile(path: string): URL {
+  return new URL(`../public${path}`, import.meta.url);
 }
 
 function pageSources(): { route: string; source: string }[] {
@@ -47,4 +51,19 @@ test("the 404 page carries its own title, one noindex and no canonical", () => {
   // single `noindex` to every 404 response itself.
   assert.match(metadata, /robots:\s*null/);
   assert.doesNotMatch(metadata, /alternates|canonical|url:/);
+});
+
+test("publishes a web app manifest and theme colour in the brand indigo", async () => {
+  const { default: manifest } = await import("../app/manifest.ts");
+  const result = manifest();
+  assert.equal(result.short_name, "GuitarHub");
+  assert.equal(result.theme_color, THEME_COLOR);
+  assert.equal(result.background_color, BACKGROUND_COLOR);
+  assert.equal(THEME_COLOR, "#251152", "theme colour must stay --color-indigo-deep");
+  assert.match(read("app/globals.css"), new RegExp(`--color-indigo-deep:\\s*${THEME_COLOR}`));
+  assert.ok(result.icons && result.icons.length > 0);
+  for (const icon of result.icons) {
+    assert.ok(existsSync(publicFile(icon.src)), `manifest icon ${icon.src} must exist in public/`);
+  }
+  assert.match(read("app/layout.tsx"), /themeColor:\s*THEME_COLOR/);
 });
