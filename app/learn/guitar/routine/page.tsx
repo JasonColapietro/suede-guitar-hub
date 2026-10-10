@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PracticeRoutine } from "@/components/learning/PracticeRoutine";
+import { routineChordAssets } from "@/lib/learning/routine-assets";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
@@ -33,6 +34,6 @@ export const metadata: Metadata = {
 export default function RoutinePage() {
   return <>
     <BreadcrumbJsonLd crumbs={[{ name: "Guitar learning path", href: "/learn/guitar" }, { name: "Daily practice", href: "/learn/guitar/routine" }]} />
-    <PracticeRoutine />
+    <PracticeRoutine chordAssets={routineChordAssets()} />
   </>;
 }

@@ -1,11 +1,16 @@
-import source from "./data/instruction-index.json" with { type: "json" };
+import { learningCatalog } from "./catalog.ts";
 import { validateInstructionQuiz, type InstructionQuiz } from "./reading-quiz.ts";
 
-const lessons = new Map(source.lessons.map(lesson => [lesson.id, lesson]));
+/**
+ * The guided-lesson index the browser reads: which lessons have authored
+ * instruction, their reading quizzes, whether they carry self-check criteria,
+ * and which practice assets gate a reflection. It comes from the slim catalog
+ * (derived from data/instruction-index.json); prerequisite lists stay server
+ * side in prerequisite-lists.ts.
+ */
+const lessons = new Map(learningCatalog.guided.map(lesson => [lesson.id, lesson]));
 
-export const guidedLessonIds = source.lessons.map(lesson => lesson.id);
-export const lessonPrerequisites: readonly { id: string; prerequisiteLessonIds: readonly string[] }[] =
-  source.lessons.map(lesson => ({ id: lesson.id, prerequisiteLessonIds: lesson.prerequisiteLessonIds }));
+export const guidedLessonIds = learningCatalog.guided.map(lesson => lesson.id);
 
 export function isGuidedLesson(lessonId: string): boolean {
   return lessons.has(lessonId);
@@ -18,7 +23,7 @@ export function getInstructionQuiz(lessonId: string): InstructionQuiz | undefine
 
 /** Derived from the authored criteria without shipping lesson prose to client surfaces. */
 export function hasInstructionSelfCheck(lessonId: string): boolean {
-  return lessons.get(lessonId)?.hasSelfCheckCriteria === true;
+  return lessons.get(lessonId)?.selfCheck === true;
 }
 
 export function hasInstructionQuiz(lessonId: string): boolean {

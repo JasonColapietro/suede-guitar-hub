@@ -42,8 +42,9 @@
  * Every function here returns what is wrong rather than throwing, so the test
  * reports the whole list instead of the first item.
  */
-import { lessonPrerequisites } from "./instruction-index.ts";
-import { allLessons, type TrackId } from "./curriculum.ts";
+import { lessonPrerequisites } from "./prerequisite-lists.ts";
+import { catalogLessons } from "./catalog.ts";
+import type { TrackId } from "./models.ts";
 
 type PrerequisiteRecord = { id: string; prerequisiteLessonIds: readonly string[] };
 type CatalogPosition = { track: TrackId; index: number };
@@ -73,7 +74,7 @@ export function dependentsOf(lessonId: string): string[] {
  * each one. This is the order `nextLessonId` advances through within a track. */
 function catalogOrder(): Map<string, CatalogPosition> {
   return new Map((['guitar', 'voice'] as const).flatMap(track =>
-    allLessons(track).map((entry, index) => [entry.lesson.id, { track, index }] as const),
+    catalogLessons(track).map((entry, index) => [entry.lesson.id, { track, index }] as const),
   ));
 }
 

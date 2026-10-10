@@ -10,7 +10,8 @@ import advanced from '../lib/learning/data/advanced-guitar-instruction.json' wit
 register('./component-render-hooks.mjs', import.meta.url);
 const { ChordDiagram, LessonInstructionAssets } = await import('../components/learning/LessonInstructionAssets.tsx');
 const { PracticeCoach } = await import('../components/practice/PracticeCoach.tsx');
-const { LessonLibrary } = await import('../components/learning/LessonLibrary.tsx');
+const { LessonLibrary, LessonLibraryView } = await import('../components/learning/LessonLibrary.tsx');
+const lessonSearch = await import('../lib/learning/lesson-search.ts');
 
 test('real upper-fret chord component renders fret4 inside its SVG and hides names for reading', () => {
   const asset = getInstructionAsset('song-guitar-shape-bm');
@@ -63,7 +64,13 @@ test('real coach renders every offbeat target with authored cues and no result b
   assert.doesNotMatch(markup, /Save checked result/);
 });
 test('real library exposes native filter names, search label and honest preview/access labels', () => {
-  const markup = renderToStaticMarkup(createElement(LessonLibrary, { track: 'guitar' }));
+  // The search index loads when the panel opens; until then the shell renders
+  // with a loading status and no results.
+  const shell = renderToStaticMarkup(createElement(LessonLibrary, { track: 'guitar' }));
+  assert.match(shell, /Song, artist, chord or skill/);
+  assert.match(shell, /Loading the lesson library/);
+  assert.doesNotMatch(shell, /Wonderwall/);
+  const markup = renderToStaticMarkup(createElement(LessonLibraryView, { track: 'guitar', search: lessonSearch }));
   assert.match(markup, /Song, artist, chord or skill/);
   assert.match(markup, /Mic exercises/);
   assert.match(markup, /All topics/);

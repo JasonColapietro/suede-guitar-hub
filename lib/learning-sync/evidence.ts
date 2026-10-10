@@ -1,14 +1,13 @@
 import type { LearningAttempt } from "../learning-account/contracts.ts";
-import { allLessons, getLesson } from "../learning/curriculum.ts";
+import { catalogLesson, catalogLessons, stageEvidenceAsset } from "../learning/catalog.ts";
 import { allowsGuidedSelfCheck } from "../learning/self-check.ts";
 import { getInstructionQuiz, getInstructionStageEvidenceAssetIds } from "../learning/instruction-index.ts";
-import { getInstructionAsset } from "../learning/instruction-assets.ts";
 import { parseReadingQuizAttempt } from "../learning/reading-quiz.ts";
 import { parseProgress, parseReadingQuizProgress, withLessonRecord, withReadingQuizEvidence, type LearningProgress, type LessonRecord, type ReadingQuizProgress } from "../learning/progress.ts";
 import { manualPracticeEvidence, studyPracticeEvidence } from "../learning/stage-two-evidence.ts";
 import { parseStageTwoHistory, type StageTwoHistory } from "../learning/stage-two.ts";
 
-export const syncLessonMap = new Map((["guitar", "voice"] as const).flatMap(track => allLessons(track).map(({ lesson }) => [lesson.id, track] as const)));
+export const syncLessonMap = new Map((["guitar", "voice"] as const).flatMap(track => catalogLessons(track).map(({ lesson }) => [lesson.id, track] as const)));
 const ordered = (attempts: readonly LearningAttempt[]) => [...attempts].sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id));
 
 /** Merge immutable answer snapshots; an answer cannot be revised by a later snapshot. */
@@ -39,8 +38,8 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
     if (attempt.track !== local.track || attempt.kind === "reading" || attempt.source === "legacy" || attempt.disposition === "insufficientSignal") continue;
     // Raw manual/study events remain evidence in their own history; only a saved lesson reflection is a lesson record.
     if (attempt.source !== "measured" && attempt.details.localSource !== "selfReported" && attempt.disposition !== "manualOverride") continue;
-    const lesson = getLesson(local.track, attempt.lessonId)?.lesson;
-    const requiredStageEvidence = getInstructionStageEvidenceAssetIds(attempt.lessonId).map(getInstructionAsset).every(asset => {
+    const lesson = catalogLesson(local.track, attempt.lessonId)?.lesson;
+    const requiredStageEvidence = getInstructionStageEvidenceAssetIds(attempt.lessonId).map(stageEvidenceAsset).every(asset => {
       if (asset.kind === "manualChanges") {
         const latest = stageTwo.changes.filter(item => item.lessonId === attempt.lessonId).at(-1);
         return manualPracticeEvidence(latest, lesson?.type === "checkpoint", asset.earlyReadinessCount).ready;
@@ -57,13 +56,13 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
       (reflectionLabel === undefined || reflectionLabel === "concept" || reflectionLabel === "guidedSelfCheck") &&
       !["practiceScore", "readingQuizAttempt", "chordChangeAttempt", "studyPracticeAttempt"].some(key => Object.hasOwn(attempt.details, key)) &&
       allowsGuidedSelfCheck(local.track, attempt.lessonId) && requiredStageEvidence;
-    const spec = lesson?.practiceSpec;
+    const spec = lesson?.practice;
     const revisionMatches = (attempt.exerciseRevision ?? null) === (spec?.revision ?? null);
     const measured = attempt.source === "measured" && attempt.disposition === "scored";
     const scoreEvidence = attempt.details.practiceScore;
     const evidence = scoreEvidence && typeof scoreEvidence === "object" && !Array.isArray(scoreEvidence) ? scoreEvidence as Record<string, unknown> : {};
-    const completeTargets = !!spec && evidence.targetCount === spec.targets.length && typeof evidence.matchedTargets === "number" && Number.isInteger(evidence.matchedTargets) && evidence.matchedTargets >= 0 && evidence.matchedTargets <= spec.targets.length && attempt.score !== null && attempt.score <= Math.round(evidence.matchedTargets / spec.targets.length * 100);
-    const fullSeconds = spec && attempt.bpm ? Math.floor(((spec.targets.at(-1)?.beat ?? 0) + 1) * 60 / attempt.bpm) : Infinity;
+    const completeTargets = !!spec && evidence.targetCount === spec.targetCount && typeof evidence.matchedTargets === "number" && Number.isInteger(evidence.matchedTargets) && evidence.matchedTargets >= 0 && evidence.matchedTargets <= spec.targetCount && attempt.score !== null && attempt.score <= Math.round(evidence.matchedTargets / spec.targetCount * 100);
+    const fullSeconds = spec && attempt.bpm ? Math.floor((spec.lastBeat + 1) * 60 / attempt.bpm) : Infinity;
     const completeDuration = attempt.practiceSeconds !== null && attempt.practiceSeconds >= fullSeconds;
     const record: LessonRecord = {
       updatedAt: attempt.createdAt, practiceSeconds: Math.floor(attempt.practiceSeconds ?? 0),
@@ -76,7 +75,7 @@ export function mergeAccountProgress(local: LearningProgress, reading: ReadingQu
     const next = withLessonRecord(progress, attempt.lessonId, record, attempt.id);
     progress = previous && previous.updatedAt > record.updatedAt ? { ...next, lessons: { ...next.lessons, [attempt.lessonId]: previous } } : next;
   }
-  const normalized = parseProgress(JSON.stringify(progress), local.track, allLessons(local.track).map(({ lesson }) => lesson.id));
+  const normalized = parseProgress(JSON.stringify(progress), local.track, catalogLessons(local.track).map(({ lesson }) => lesson.id));
   return withReadingQuizEvidence(normalized, mergeAccountReading(reading, cloud));
 }
 

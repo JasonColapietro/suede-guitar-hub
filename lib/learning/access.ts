@@ -1,4 +1,5 @@
-import { allLessons, type TrackId } from "./curriculum.ts";
+import { catalogLesson, catalogLessons } from "./catalog.ts";
+import type { TrackId } from "./models.ts";
 import { accountUUID } from "../learning-account/contracts.ts";
 import { isGuidedLesson } from "./instruction-index.ts";
 
@@ -20,19 +21,19 @@ export function hasVerifiedTrackAccess(track: TrackId, access: LearningAccess): 
 
 export function canOpenModule(track: TrackId, moduleId: string, access: LearningAccess): boolean {
   // A grant cannot open an invented module, even when a track is owned.
-  if (!allLessons(track).some(entry => entry.module.id === moduleId)) return false;
+  if (!catalogLessons(track).some(entry => entry.module.id === moduleId)) return false;
   // Web lessons require a verified purchase, including legacy free levels and samplers.
   // Catalog labels remain shared with iOS; they do not authorize web access.
   return hasVerifiedTrackAccess(track, access);
 }
 
 export function accessibleLessonIds(track: TrackId, access: LearningAccess): string[] {
-  return allLessons(track).filter(entry => isLessonReady(track, entry.lesson.id) && canOpenModule(track, entry.module.id, access)).map(entry => entry.lesson.id);
+  return catalogLessons(track).filter(entry => isLessonReady(track, entry.lesson.id) && canOpenModule(track, entry.module.id, access)).map(entry => entry.lesson.id);
 }
 
 export function isLessonReady(track: TrackId, lessonId: string): boolean {
-  const entry = allLessons(track).find(item => item.lesson.id === lessonId);
-  return !!entry && (!!entry.lesson.practiceSpec || isGuidedLesson(lessonId));
+  const entry = catalogLesson(track, lessonId);
+  return !!entry && (!!entry.lesson.practice || isGuidedLesson(lessonId));
 }
 
 /** Guest records retain their original key; signing in never assigns them to an account. */

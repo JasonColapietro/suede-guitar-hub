@@ -3,7 +3,7 @@ import songSource from "./data/song-guitar-instruction.json" with { type: "json"
 import advancedSource from "./data/advanced-guitar-instruction.json" with { type: "json" };
 import voiceSource from "./data/voice-instruction.json" with { type: "json" };
 import { getInstructionAsset, type InstructionAsset } from "./instruction-assets.ts";
-import { lessonPrerequisites } from "./instruction-index.ts";
+import { lessonPrerequisites } from "./prerequisite-lists.ts";
 import { validateInstructionQuiz, type InstructionQuiz } from "./reading-quiz.ts";
 export { answerReadingQuestion, parseReadingQuizAttempt, readingQuizResult } from "./reading-quiz.ts";
 export type { InstructionQuiz, InstructionQuizItem, ReadingQuizAnswer, ReadingQuizAttempt, ReadingQuizResult } from "./reading-quiz.ts";

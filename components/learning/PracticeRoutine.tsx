@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { getLesson, lessonHref } from "@/lib/learning/curriculum";
-import { getInstructionAsset } from "@/lib/learning/instruction-assets";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { catalogLesson } from "@/lib/learning/catalog";
+import { lessonHref } from "@/lib/learning/track";
+import type { ChordAsset } from "@/lib/learning/routine-assets";
 import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineSeconds, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineChangeRate, routineBlockStatus, routineElapsedSeconds, routinePrepared, routineStorageKey, routineTemplate, RoutineTimer, type RoutineAttempt, type RoutineBlock, type RoutineSession, type RoutineState } from "@/lib/learning/routine";
 import { ChordDiagram } from "./LessonInstructionAssets";
 import { TuningGuide } from "./TuningGuide";
@@ -62,7 +63,7 @@ function replaceAttempt(state: RoutineState, sessionId: string, blockId: string,
 }
 export function RoutineLessonLink({ id, pause }: { id: string; pause: () => void }) {
   const access = useLearningAccess();
-  const found = getLesson("guitar", id);
+  const found = catalogLesson("guitar", id);
   if (!found) return null;
   const available = isLessonReady("guitar", id) && canOpenModule("guitar", found.module.id, access);
   return <Link href={lessonHref("guitar", id)} target="_blank" rel="noopener noreferrer" onClick={pause}>{available ? "Review GuitarHub instruction" : "GuitarHub curriculum preview"} (new tab)</Link>;
@@ -72,13 +73,16 @@ export function RoutineLessonLink({ id, pause }: { id: string; pause: () => void
 export function routineContentForAccount(accountId: string | null) {
   return <RoutineContent key={accountHistoryKey(routineStorageKey, accountId)} accountId={accountId} />;
 }
-export function PracticeRoutine() {
+/** The routine's chord diagrams, looked up on the server so the demo-asset library never ships here. */
+const ChordAssetsContext = createContext<Readonly<Record<string, ChordAsset>>>({});
+export function PracticeRoutine({ chordAssets = {} }: { chordAssets?: Readonly<Record<string, ChordAsset>> }) {
   const access = useLearningAccess();
   const sync = useAccountSync();
   if (access.accountId && sync.status === "suspended") return <p role="status">Your sign-in changed. This routine is paused and its history is kept with the original account. Reload to continue.</p>;
-  return routineContentForAccount(access.accountId);
+  return <ChordAssetsContext.Provider value={chordAssets}>{routineContentForAccount(access.accountId)}</ChordAssetsContext.Provider>;
 }
 function RoutineContent({ accountId }: { accountId: string | null }) {
+  const chordAssets = useContext(ChordAssetsContext);
   const { state, change, storageWarning, history } = useRoutineStore(accountId);
   const { progress } = useLearningProgress("guitar");
   const [running, setRunning] = useState(false);
@@ -170,7 +174,7 @@ function RoutineContent({ accountId }: { accountId: string | null }) {
       {!session && <div className={styles.actions}><button type="button" className={styles.primary} disabled={!prepared} onClick={() => { change(state => newRoutineSession(state, crypto.randomUUID(), stamp())); setMessage("Routine ready. Start the first block when your guitar is in hand."); }}>Prepare today’s routine</button>{!prepared && <p>Complete preparation above to use the timer. The plan remains available to review.</p>}</div>}
     </section>
     {session && record && <section className={styles.practice} aria-labelledby="active-block-title"><p className={styles.eyebrow}>Block {routineTemplate.blocks.findIndex(item => item.id === block.id) + 1} of 7</p><h2 id="active-block-title">{block.title}</h2><p>{block.prompt}</p>
-      <div className={styles.diagrams}>{block.assetIds.map(id => { const asset = getInstructionAsset(id); return asset?.kind === "chord" ? <ChordDiagram key={id} asset={asset} /> : null; })}</div>
+      <div className={styles.diagrams}>{block.assetIds.map(id => { const asset = chordAssets[id]; return asset ? <ChordDiagram key={id} asset={asset} /> : null; })}</div>
       <div className={styles.links}><RoutineLessonLink id={block.lessonId} pause={pause} /></div><p className={styles.small}>Opening a GuitarHub lesson pauses this routine. Time spent on another tab is excluded. Resume here when ready to practice.</p>
       {block.kind === "tuning" && <><p>Set up the tuner and respond to the microphone permission request before starting this block’s timer. Reference sounds, small adjustments, and rechecking are part of this self-reported tuning practice. Extend the time whenever needed.</p><TuningGuide onReadyChange={ready => { if (ready) setMessage("Your tuning checklist is confirmed by you. Review the tuning block below when ready; no lesson completion was recorded."); }} /></>}
       <div className={styles.timer} role="timer" aria-label="Practice time remaining">{formatTime(Math.ceil(((attempt?.targetSeconds ?? record.plannedSeconds) * 1000 - (attempt?.elapsedMs ?? 0)) / 1000))}</div><p className={styles.timeCaption}>{formatTime((attempt?.elapsedMs ?? 0) / 1000)} foreground time · {running ? "Running" : attempt?.status === "reviewed" ? "Reflection saved" : attempt?.status === "review" ? "Time reached" : attempt?.status === "skipped" ? "Skipped" : "Paused / ready"}</p>

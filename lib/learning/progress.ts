@@ -1,7 +1,7 @@
 import type { TrackId } from "./models.ts";
 import { getInstructionQuiz } from "./instruction-index.ts";
 import { parseReadingQuizAttempt, readingQuizResult, type ReadingQuizAttempt } from "./reading-quiz.ts";
-import { getLesson } from "./curriculum.ts";
+import { catalogLesson } from "./catalog.ts";
 export type Assessment = "repeat" | "ready";
 export interface LessonRecord {
   updatedAt: string;
@@ -28,7 +28,7 @@ export function parseProgress(raw: string | null, track: TrackId, validLessonIds
     for (const id of validLessonIds) {
       if (!Object.hasOwn(value.lessons, id)) continue;
       const entry = value.lessons[id];
-      const authoredSpec = getLesson(track, id)?.lesson.practiceSpec;
+      const authoredSpec = catalogLesson(track, id)?.lesson.practice;
       const requiredBPM = authoredSpec?.completionMinimumBPM;
       const requiredRevision = authoredSpec?.revision;
       if (!entry || typeof entry !== "object" || !["ready", "repeat"].includes(entry.assessment) || !["selfReported", "measured", "readingQuiz"].includes(entry.source)) continue;

@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
-import { allLessons, type TrackId } from "@/lib/learning/curriculum";
+import { catalogLessons } from "@/lib/learning/catalog";
+import type { TrackId } from "@/lib/learning/models";
 import { accessibleLessonIds, accountHistoryKey } from "@/lib/learning/access";
 import { useAccountSync, useLearningAccess } from "./LearningAccessProvider";
 import { parseProgress, progressKey, parseReadingQuizProgress, readingQuizKey, withLessonRecord, type LessonRecord } from "@/lib/learning/progress";
@@ -37,7 +38,7 @@ export function useLearningProgress(track: TrackId) {
   const sync = useAccountSync();
   const key = accountHistoryKey(progressKey(track), access.accountId);
   const readingKey = accountHistoryKey(readingQuizKey(track), access.accountId);
-  const ids = useMemo(() => allLessons(track).map(({ lesson }) => lesson.id), [track]);
+  const ids = useMemo(() => catalogLessons(track).map(({ lesson }) => lesson.id), [track]);
   const availableIds = useMemo(() => accessibleLessonIds(track, access), [track, access]);
   const getSnapshot = useCallback(() => read(key), [key]);
   const getReadingSnapshot = useCallback(() => read(readingKey), [readingKey]);
