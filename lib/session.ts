@@ -835,3 +835,55 @@ export function restoreSessionState(
     ),
   };
 }
+
+/* ------------------------------------------------------------------ *
+ * Rebuilding and shared progress
+ * ------------------------------------------------------------------ */
+
+export function sameSessionInput(left: SessionInput, right: SessionInput): boolean {
+  return left.minutes === right.minutes && left.focus === right.focus;
+}
+
+/**
+ * The stored state after rebuilding to `next`, carrying every checked block
+ * that still exists.
+ *
+ * A block's id is its focus, its kind and its minutes, so rebuilding the same
+ * length and focus produces the same ids and keeps every tick. Blocks the new
+ * plan no longer has lose theirs, and those come back as `dropped` so the page
+ * can ask before discarding them.
+ */
+export function rebuildSessionState(
+  latest: StoredSessionState | null,
+  next: SessionPlan,
+): { state: StoredSessionState; dropped: string[] } {
+  const previous = [...new Set(latest?.completedBlockIds ?? [])];
+  const valid = blockIds(next);
+  return {
+    state: {
+      input: { minutes: next.minutes, focus: next.focus },
+      completedBlockIds: previous.filter((id) => valid.has(id)),
+    },
+    dropped: previous.filter((id) => !valid.has(id)),
+  };
+}
+
+/**
+ * Mark one block done or not done on the latest stored plan. Returns `latest`
+ * unchanged when another tab has replaced the plan the player was looking at.
+ */
+export function setSessionBlockDone(
+  latest: StoredSessionState | null,
+  plan: SessionPlan,
+  blockId: string,
+  done: boolean,
+): StoredSessionState | null {
+  if (!latest || !sameSessionInput(latest.input, { minutes: plan.minutes, focus: plan.focus })) {
+    return latest;
+  }
+  const without = latest.completedBlockIds.filter((id) => id !== blockId);
+  return {
+    input: latest.input,
+    completedBlockIds: normalizeSessionProgress(plan, done ? [...without, blockId] : without),
+  };
+}
