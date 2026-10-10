@@ -89,7 +89,7 @@ function initials(terms: readonly GlossaryTerm[]): readonly string[] {
 function GuitarEntry({ entry }: { entry: GlossaryTerm }) {
   const anchor = termAnchor(entry.term);
   return (
-    <div className="mt-10 scroll-mt-24" id={anchor}>
+    <div className="mt-10" id={anchor}>
       <h3 className="font-display text-2xl leading-snug text-indigo-deep">
         {entry.term}
         {entry.aka && entry.aka.length > 0 ? (

@@ -15,6 +15,27 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keep in-page anchor targets and keyboard focus clear of the sticky
+     header (WCAG 2.2 SC 2.4.11). SiteNav measures the header with a
+     ResizeObserver and writes --site-header-height; the fallbacks below are
+     the closed-header heights for first paint and no-JS readers. */
+  --site-header-height: 65px;
+  scroll-padding-top: calc(var(--site-header-height) + 0.5rem);
+}
+
+@media (min-width: 640px) {
+  html { --site-header-height: 69px; }
+}
+
+@media (min-width: 1024px) {
+  html { --site-header-height: 77px; }
+}
+
+/* Short landscape viewports: the header scrolls away instead of sticking, so
+   it never takes a third of the screen. The offset drops with it. */
+@media (max-height: 500px) {
+  .site-header { position: static; }
+  html { scroll-padding-top: 0.5rem; }
 }
 
 /* The skip link's target takes programmatic focus only; it is not a control. */
@@ -42,6 +63,14 @@ html {
 
 .skip-link:focus {
   transform: none;
+}
+
+/* Mobile primary navigation: collapsed behind the Menu button below lg once
+   scripts run. Without scripting the button cannot work, so the links stay
+   visible and the button is hidden. */
+@media (scripting: none) {
+  .site-nav-links { display: flex !important; }
+  .site-nav-toggle { display: none !important; }
 }
 
 body {

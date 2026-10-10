@@ -1,9 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useId, useRef, useState } from "react";
 
 /**
- * Shared paper header. On phones the brand and action fit one row, with all
- * primary links directly beneath. The single-row layout starts at lg so tablet
- * widths do not wrap the action into an extra sticky row.
+ * Shared paper header.
+ *
+ * Below lg the header is one compact row (brand, Menu, Find your level) and
+ * the primary links sit behind a disclosure button, so the sticky header no
+ * longer wraps to three rows on small phones. From lg up the links sit inline
+ * and the button is gone. DOM order is brand, Menu, links, action at every
+ * width, which matches the visual reading order.
+ *
+ * The header's measured height is published as `--site-header-height` on
+ * <html>; globals.css turns it into the page-wide `scroll-padding-top`, so
+ * anchor targets and keyboard focus never land underneath the header.
  */
 
 const NAV_LINKS = [
@@ -15,29 +26,91 @@ const NAV_LINKS = [
 ] as const;
 
 export default function SiteNav() {
+  const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const navId = useId();
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header || typeof ResizeObserver === "undefined") return;
+    const root = document.documentElement;
+    const publish = () =>
+      root.style.setProperty(
+        "--site-header-height",
+        `${Math.ceil(header.getBoundingClientRect().height)}px`,
+      );
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-2 sm:px-6 sm:py-3 lg:gap-x-6 lg:py-4">
+    <header
+      ref={headerRef}
+      className="site-header sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur"
+    >
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 px-4 py-2.5 sm:gap-x-3 sm:px-6 sm:py-3 lg:flex-nowrap lg:gap-x-6 lg:py-4">
         <Link
           href="/"
-          className="inline-flex min-h-11 items-center whitespace-nowrap font-display text-xl font-semibold tracking-wide text-indigo-deep sm:text-2xl"
+          className="mr-auto inline-flex min-h-11 items-center whitespace-nowrap font-display text-lg font-semibold min-[360px]:text-xl tracking-wide text-indigo-deep sm:text-2xl lg:mr-0"
         >
           GUITARHUB
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="order-last flex w-full flex-wrap items-center justify-between gap-x-2 text-sm font-medium text-ink/70 sm:justify-start sm:gap-x-6 lg:order-none lg:w-auto lg:gap-x-8"
+        <button
+          ref={toggleRef}
+          type="button"
+          className="site-nav-toggle inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-full border border-ink/15 px-3 text-sm font-medium text-indigo-deep transition hover:border-indigo-deep lg:hidden"
+          aria-expanded={open}
+          aria-controls={navId}
+          onClick={() => setOpen((value) => !value)}
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="inline-flex min-h-11 items-center transition hover:text-indigo-deep"
-            >
-              {link.label}
-            </Link>
-          ))}
+          <svg
+            aria-hidden="true"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+          >
+            <path d={open ? "M3.5 3.5l9 9M12.5 3.5l-9 9" : "M2 4h12M2 8h12M2 12h12"} />
+          </svg>
+          <span className="max-[374px]:sr-only">Menu</span>
+        </button>
+
+        <nav
+          id={navId}
+          aria-label="Primary"
+          className={`site-nav-links order-last w-full text-sm font-medium text-ink/70 lg:order-none lg:ml-auto lg:flex lg:w-auto ${open ? "flex" : "hidden"}`}
+        >
+          <ul className="grid w-full grid-cols-2 gap-x-4 pb-1 sm:flex sm:flex-wrap sm:gap-x-6 lg:gap-x-8 lg:pb-0">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="inline-flex min-h-11 items-center transition hover:text-indigo-deep"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
 
         <Link

@@ -414,8 +414,8 @@ export default function FaqPage() {
             aria-labelledby={`${group.id}-heading`}
             className={
               groupIndex % 2 === 0
-                ? "scroll-mt-28 bg-cream-soft px-6 py-20"
-                : "scroll-mt-28 px-6 py-20"
+                ? "bg-cream-soft px-6 py-20"
+                : "px-6 py-20"
             }
           >
             <div className="mx-auto max-w-4xl">
@@ -434,7 +434,7 @@ export default function FaqPage() {
                   <article
                     key={faq.id}
                     id={faq.id}
-                    className="scroll-mt-28 rounded-3xl bg-white p-7 ring-1 ring-ink/5"
+                    className="rounded-3xl bg-white p-7 ring-1 ring-ink/5"
                   >
                     <h3 className="font-display text-xl leading-snug text-indigo-deep md:text-2xl">
                       {faq.q}

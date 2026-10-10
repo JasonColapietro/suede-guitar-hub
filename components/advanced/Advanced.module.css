@@ -6,7 +6,7 @@
 .areaNav::-webkit-scrollbar { display: none; }
 .areaNav a { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 44px; padding: .55rem 1rem; border: 1px solid rgba(37,17,82,.15); border-radius: 999px; font-size: .9rem; font-weight: 650; color: #251152; background: #fff; }
 .areaNav a:hover { border-color: #6d28d9; }
-.area { scroll-margin-top: 130px; padding: 2rem 0 .5rem; border-top: 1px solid rgba(37,17,82,.12); }
+.area { padding: 2rem 0 .5rem; border-top: 1px solid rgba(37,17,82,.12); }
 .areaHead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; margin-bottom: 1.1rem; }
 .areaHead h2 { font: 550 clamp(1.6rem,3.5vw,2.2rem)/1.2 var(--font-display); color: #251152; }
 .areaHead p { color: #62576f; max-width: 52ch; line-height: 1.6; }

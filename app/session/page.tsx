@@ -258,11 +258,11 @@ export default function SessionPage() {
           </p>
         </section>
 
-        <section id="build" className="mx-auto max-w-6xl px-6 pb-20 scroll-mt-24">
+        <section id="build" className="mx-auto max-w-6xl px-6 pb-20">
           <SessionBuilder />
         </section>
 
-        <section id="how-it-works" className="bg-cream-soft px-6 py-20 scroll-mt-24">
+        <section id="how-it-works" className="bg-cream-soft px-6 py-20">
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
               How this works

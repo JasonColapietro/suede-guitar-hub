@@ -413,7 +413,7 @@ export default function GuidesPage() {
 
         <section
           id="which-one"
-          className="mx-auto max-w-4xl scroll-mt-28 px-6 py-16 md:py-20"
+          className="mx-auto max-w-4xl px-6 py-16 md:py-20"
         >
           <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
             Which one do you need right now?
@@ -450,7 +450,7 @@ export default function GuidesPage() {
           <section
             key={group.cluster.id}
             id={group.cluster.id}
-            className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+            className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
           >
             <div className="max-w-2xl">
               <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
@@ -480,7 +480,7 @@ export default function GuidesPage() {
 
         <section
           id="how-to-use"
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+          className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
         >
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
@@ -511,7 +511,7 @@ export default function GuidesPage() {
 
         <section
           id="tools"
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+          className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
         >
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
