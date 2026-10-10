@@ -1300,7 +1300,7 @@
               "title": "Down-Up Is Not Optional",
               "type": "concept",
               "minutes": 4,
-              "summary": "Why all-downstrokes caps your speed permanently."
+              "summary": "How alternate picking halves your hand travel and opens up faster single-note lines."
             },
             {
               "id": "g-l4-m2-03",
@@ -1582,7 +1582,7 @@
               "title": "Where the Edge of the Hand Goes",
               "type": "concept",
               "minutes": 4,
-              "summary": "A centimetre decides between muted and dead. Find yours."
+              "summary": "A centimeter decides between muted and dead. Find yours."
             },
             {
               "id": "g-l4-m4-04",
@@ -1946,7 +1946,7 @@
           "id": "g-l5-m6",
           "name": "Triads and Chords in Keys",
           "promise": "Name and play the one, four, five and six chords in three keys",
-          "skill": "Harmonised scale",
+          "skill": "Harmonized scale",
           "proofMetric": "recall_pct",
           "lessonsTotal": 7,
           "sampleLessonsShown": 3,
@@ -2102,7 +2102,7 @@
               "title": "Target the Third",
               "type": "exercise",
               "minutes": 7,
-              "summary": "Practise landing each chord’s third on its arrival, then connect the targets with short phrases."
+              "summary": "Practice landing each chord’s third on its arrival, then connect the targets with short phrases."
             },
             {
               "id": "g-l6-m4-08",
@@ -2287,7 +2287,7 @@
         {
           "id": "g-l7-m4",
           "name": "Extensions and Alterations",
-          "promise": "Reharmonise a progression and play it in time",
+          "promise": "Reharmonize a progression and play it in time",
           "skill": "Ninths, thirteenths, alterations",
           "proofMetric": "recall_pct",
           "lessonsTotal": 8,
@@ -2295,7 +2295,7 @@
           "lessons": [
             {
               "id": "g-l7-m4-01",
-              "title": "Colour Beyond the Seventh",
+              "title": "Color Beyond the Seventh",
               "type": "concept",
               "minutes": 5,
               "summary": "Compare selected extensions and one altered dominant against the chord identity and actual melody."
@@ -2309,7 +2309,7 @@
             },
             {
               "id": "g-l7-m4-08",
-              "title": "Checkpoint: Reharmonised and Played",
+              "title": "Checkpoint: Reharmonized and Played",
               "type": "checkpoint",
               "minutes": 7,
               "summary": "Choose a written substitution and perform it under the unchanged original melody supplied by a helper or your own recording."

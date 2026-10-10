@@ -4891,7 +4891,7 @@
         81
       ],
       "tabText": "e |--5(A)--8(C)--10(D)--12(E)--15(G)--17(A)--|",
-      "instruction": "This is a note map, not a timed scale run. Move the whole hand to reach a new position; do not stretch from fret 5 to 17. Start with A at 5 and C at 8; add E at 12 only when the move is comfortable. A, C, D, E, G is the A minor-pentatonic palette used over the A blues form. Its C is a deliberate blues colour against A7’s C#, not the A-major scale."
+      "instruction": "This is a note map, not a timed scale run. Move the whole hand to reach a new position; do not stretch from fret 5 to 17. Start with A at 5 and C at 8; add E at 12 only when the move is comfortable. A, C, D, E, G is the A minor-pentatonic palette used over the A blues form. Its C is a deliberate blues color against A7’s C#, not the A-major scale."
     },
     "advanced-solo-seed": {
       "kind": "single_string_riff",
@@ -5818,7 +5818,7 @@
         {
           "number": 7,
           "label": "Find roots and overlaps",
-          "action": "Locate G at string 6 fret 3, string 4 fret 5, string 2 fret 8, string 5 fret 10, string 3 fret 12 and string 1 fret 15. A note appearing in two neighbouring views is the same pitch location; use it to connect the maps."
+          "action": "Locate G at string 6 fret 3, string 4 fret 5, string 2 fret 8, string 5 fret 10, string 3 fret 12 and string 1 fret 15. A note appearing in two neighboring views is the same pitch location; use it to connect the maps."
         }
       ],
       "positions": [
@@ -6652,7 +6652,7 @@
         {
           "number": 4,
           "label": "Start slowly",
-          "action": "Use a separate quarter-note metronome near 50–60 BPM. First practise the hand motion silently, then add the six contacts on one easy chord. Keep the a subdivisions evenly spaced rather than swinging them."
+          "action": "Use a separate quarter-note metronome near 50–60 BPM. First practice the hand motion silently, then add the six contacts on one easy chord. Keep the a subdivisions evenly spaced rather than swinging them."
         },
         {
           "number": 5,
@@ -7298,7 +7298,7 @@
         {
           "number": 7,
           "label": "Roots and overlap",
-          "action": "Find A at string 1 fret 5, string 4 fret 7, string 2 fret 10, string 5 fret 12 and string 3 fret 14. Neighbouring patterns share one fret on every string. Patterns 4/5 are previews here; the performance check uses 1/2/3. If fret 17 is inaccessible, inspect pattern 5 an octave lower by subtracting 12 from all its frets, labelled a lower-register study."
+          "action": "Find A at string 1 fret 5, string 4 fret 7, string 2 fret 10, string 5 fret 12 and string 3 fret 14. Neighboring patterns share one fret on every string. Patterns 4/5 are previews here; the performance check uses 1/2/3. If fret 17 is inaccessible, inspect pattern 5 an octave lower by subtracting 12 from all its frets, labeled a lower-register study."
         }
       ],
       "positions": [
@@ -7864,7 +7864,7 @@
         {
           "number": 6,
           "label": "Musical scope",
-          "action": "A-minor pentatonic against A7 blues includes intentional minor-third colour: C is not A7’s chordal major third C#. Listen to the tension instead of calling every scale note a chord tone. Keep all twelve bars through rests; the app does not detect scale frames or judge blues expression."
+          "action": "A-minor pentatonic against A7 blues includes intentional minor-third color: C is not A7’s chordal major third C#. Listen to the tension instead of calling every scale note a chord tone. Keep all twelve bars through rests; the app does not detect scale frames or judge blues expression."
         }
       ],
       "barChords": [
@@ -8002,7 +8002,7 @@
     },
     "l7-extension-map": {
       "kind": "instruction_diagram",
-      "name": "Four-note colours and one altered dominant",
+      "name": "Four-note colors and one altered dominant",
       "requiresMicrophone": false,
       "panels": [
         {
@@ -8012,13 +8012,13 @@
         },
         {
           "number": 2,
-          "label": "Compare three colours",
+          "label": "Compare three colors",
           "action": "Dm9 adds E to Dm7; Cmaj9 adds D to Cmaj7; G13 adds E above a G7 identity. In the supplied grips, Dm9 and Cmaj9 omit the fifth; G13 omits the fifth, ninth and eleventh. Keep the indicated third and seventh rather than deleting the quality notes."
         },
         {
           "number": 3,
           "label": "Natural ninth versus flat ninth",
-          "action": "G9 includes A; G7(b9) includes Ab instead. Compare the reference diagrams slowly. These notes are alternatives, not two required notes to stack indiscriminately. Check the actual melody before choosing a colour."
+          "action": "G9 includes A; G7(b9) includes Ab instead. Compare the reference diagrams slowly. These notes are alternatives, not two required notes to stack indiscriminately. Check the actual melody before choosing a color."
         },
         {
           "number": 4,
@@ -8118,7 +8118,7 @@
     },
     "l7-reharm-protocol": {
       "kind": "instruction_diagram",
-      "name": "Four Windows — baseline and two reharmonisations",
+      "name": "Four Windows — baseline and two reharmonizations",
       "requiresMicrophone": false,
       "panels": [
         {
@@ -8139,12 +8139,12 @@
         {
           "number": 4,
           "label": "Choice B — different predominant",
-          "action": "Comp Fmaj7 | G13 | Cmaj9 | Cmaj9. Fmaj7 replaces Dm7 at bar 1: melody F/A supplies its root/third. This changes the underlying chord rather than only adding a colour. G13 retains B/F under bar 2’s melody."
+          "action": "Comp Fmaj7 | G13 | Cmaj9 | Cmaj9. Fmaj7 replaces Dm7 at bar 1: melody F/A supplies its root/third. This changes the underlying chord rather than only adding a color. G13 retains B/F under bar 2’s melody."
         },
         {
           "number": 5,
           "label": "Alteration comparison",
-          "action": "Separately compare G7 and G7(b9) under bar 2’s B/F melody. Ab is a deliberate added tension resolving toward G or E in C-major harmony; do not force that colour under an A-natural melody. This extra comparison alone is not a root-changing reharmonisation."
+          "action": "Separately compare G7 and G7(b9) under bar 2’s B/F melody. Ab is a deliberate added tension resolving toward G or E in C-major harmony; do not force that color under an A-natural melody. This extra comparison alone is not a root-changing reharmonization."
         },
         {
           "number": 6,
@@ -8207,12 +8207,12 @@
         {
           "number": 5,
           "label": "Switch control",
-          "action": "For a no-gap clean/driven performance, use an available hands-free control that you have tested, or another existing control you can operate without dropping the part. Practise the switching action before a full take. Hand motion or an imagined effect change is not evidence of two actual tones."
+          "action": "For a no-gap clean/driven performance, use an available hands-free control that you have tested, or another existing control you can operate without dropping the part. Practice the switching action before a full take. Hand motion or an imagined effect change is not evidence of two actual tones."
         },
         {
           "number": 6,
           "label": "Evidence limit",
-          "action": "Write a brief A/B settings description and whether a loudness jump or audible interruption remains. Perceived level matching is a listening judgement, not a measured decibel match. No automatic preset, gain or noise analysis is supplied."
+          "action": "Write a brief A/B settings description and whether a loudness jump or audible interruption remains. Perceived level matching is a listening judgment, not a measured decibel match. No automatic preset, gain or noise analysis is supplied."
         }
       ]
     },

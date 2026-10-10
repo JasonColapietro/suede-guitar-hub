@@ -2473,19 +2473,19 @@
       "steps": [
         {
           "title": "Set the reference frame",
-          "action": "Tune to standard tuning, set a four-beat count-in, and write G, D, Am on a card. Keep this session focused on the authored preparation drill.",
+          "action": "Tune to standard tuning, set a four-beat count-in, and write the two lines G–D–Am and G–D–C on a card. Keep this session focused on the authored preparation drill.",
           "lookCheck": "The guitar and chord card are stable, your picking arm is loose, and your fretting thumb rests lightly behind the neck.",
           "listenCheck": "You can count 1–2–3–4 evenly before making the first attack."
         },
         {
           "title": "Place every chord in the drill",
-          "action": "Read strings 6 (thickest) through 1 (thinnest). Fingers 1–4 are index, middle, ring and little. G — 6: fret 3, finger 2; 5: fret 2, finger 1; 4: open; 3: open; 2: open; 1: fret 3, finger 3. D — 6: mute; 5: mute; 4: open; 3: fret 2, finger 1; 2: fret 3, finger 3; 1: fret 2, finger 2. Am — 6: mute; 5: open; 4: fret 2, finger 2; 3: fret 2, finger 3; 2: fret 1, finger 1; 1: open. Pick each sounding string slowly, then release and rebuild.",
+          "action": "Read strings 6 (thickest) through 1 (thinnest). Fingers 1–4 are index, middle, ring and little. G — 6: fret 3, finger 2; 5: fret 2, finger 1; 4: open; 3: open; 2: open; 1: fret 3, finger 3. D — 6: mute; 5: mute; 4: open; 3: fret 2, finger 1; 2: fret 3, finger 3; 1: fret 2, finger 2. Am — 6: mute; 5: open; 4: fret 2, finger 2; 3: fret 2, finger 3; 2: fret 1, finger 1; 1: open. C — 6: mute; 5: fret 3, finger 3; 4: fret 2, finger 2; 3: open; 2: fret 1, finger 1; 1: open. Pick each sounding string slowly, then release and rebuild.",
           "lookCheck": "Each fingertip lands close behind its fret and muted strings remain silent.",
           "listenCheck": "Each shape has a separate usable sound; a buzz is a cue to move nearer the fret and reduce pressure."
         },
         {
           "title": "Run the authored four-bar study",
-          "action": "At 76 BPM, play one four-beat bar each of G, D, Am, G, then repeat once: eight bars and 32 attacks after a four-beat count-in. Strum down on 1, 2, 3 and 4. Float upward silently between strokes. This original preparation drill is separate from the external song arrangement.",
+          "action": "At 76 BPM, play one four-beat bar each of G, D, Am, Am, then G, D, C, C: eight bars and 32 attacks after a four-beat count-in. Strum down on 1, 2, 3 and 4. Float upward silently between strokes. This original preparation drill is separate from the external song arrangement.",
           "lookCheck": "Your fretting hand prepares the next shape during the final beat without the picking hand rushing.",
           "listenCheck": "The late-beat chord preparation with four counted downstrokes stays audible and the four-count remains steady. The microphone result covers attack timing only."
         },
@@ -2513,11 +2513,11 @@
       "practiceSegments": [
         {
           "seconds": 120,
-          "instruction": "Read the diagrams and prepare G, D, Am."
+          "instruction": "Read the diagrams and prepare G, D, Am and C."
         },
         {
           "seconds": 180,
-          "instruction": "At 76 BPM, play one four-beat bar each of G, D, Am, G, then repeat once: eight bars and 32 attacks after a four-beat count-in. Strum down on 1, 2, 3 and 4. Float upward silently between strokes. This original preparation drill is separate from the external song arrangement."
+          "instruction": "At 76 BPM, play one four-beat bar each of G, D, Am, Am, then G, D, C, C: eight bars and 32 attacks after a four-beat count-in. Strum down on 1, 2, 3 and 4. Float upward silently between strokes. This original preparation drill is separate from the external song arrangement."
         },
         {
           "seconds": 180,
@@ -2530,7 +2530,7 @@
       ],
       "selfAssessment": {
         "criteria": [
-          "I checked every sounding and muted string in G, D, Am.",
+          "I checked every sounding and muted string in G, D, Am and C.",
           "I rehearsed the complete eight-bar drill with 32 attacks.",
           "I can keep the picking hand moving while preparing the next chord.",
           "I can describe the linked page as the actual song lesson and this entry as preparation."
@@ -2544,6 +2544,7 @@
         "song-guitar-shape-g",
         "song-guitar-shape-d",
         "song-guitar-shape-am",
+        "song-guitar-shape-c",
         "song-guitar-m1-s3-external"
       ],
       "referenceIds": [

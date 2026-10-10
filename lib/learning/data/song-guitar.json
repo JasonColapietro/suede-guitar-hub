@@ -373,7 +373,7 @@
               "title": "Knockin' on Heaven's Door — Bob Dylan practice companion",
               "type": "song",
               "minutes": 10,
-              "summary": "Original 4/4 preparation for steady quarter-note chord changes using G, D, Am. Includes chord diagrams, a timed drill and an external full-song tutorial.",
+              "summary": "Original 4/4 preparation for steady quarter-note chord changes through the song's G–D–Am / G–D–C progression. Includes chord diagrams for G, D, Am and C, a timed drill and an external full-song tutorial.",
               "practiceSpec": {
                 "mode": "rhythm",
                 "bpm": 76,
@@ -381,7 +381,7 @@
                 "toleranceCents": 35,
                 "passScore": 80,
                 "completionMinimumBPM": 76,
-                "revision": 1,
+                "revision": 2,
                 "targets": [
                   {
                     "id": "run-01",
@@ -446,22 +446,22 @@
                   {
                     "id": "run-13",
                     "beat": 12,
-                    "cue": "G · ↓"
+                    "cue": "Am · ↓"
                   },
                   {
                     "id": "run-14",
                     "beat": 13,
-                    "cue": "G · ↓"
+                    "cue": "Am · ↓"
                   },
                   {
                     "id": "run-15",
                     "beat": 14,
-                    "cue": "G · ↓"
+                    "cue": "Am · ↓"
                   },
                   {
                     "id": "run-16",
                     "beat": 15,
-                    "cue": "G · ↓"
+                    "cue": "Am · ↓"
                   },
                   {
                     "id": "run-17",
@@ -506,42 +506,42 @@
                   {
                     "id": "run-25",
                     "beat": 24,
-                    "cue": "Am · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-26",
                     "beat": 25,
-                    "cue": "Am · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-27",
                     "beat": 26,
-                    "cue": "Am · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-28",
                     "beat": 27,
-                    "cue": "Am · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-29",
                     "beat": 28,
-                    "cue": "G · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-30",
                     "beat": 29,
-                    "cue": "G · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-31",
                     "beat": 30,
-                    "cue": "G · ↓"
+                    "cue": "C · ↓"
                   },
                   {
                     "id": "run-32",
                     "beat": 31,
-                    "cue": "G · ↓"
+                    "cue": "C · ↓"
                   }
                 ]
               }

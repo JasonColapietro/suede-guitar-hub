@@ -393,7 +393,7 @@
             "summary": "Land on the third of each chord as it arrives. The single fastest upgrade to a solo."
           },
           "set": {
-            "summary": "Practise landing each chord’s third on its arrival, then connect the targets with short phrases."
+            "summary": "Practice landing each chord’s third on its arrival, then connect the targets with short phrases."
           }
         },
         {
@@ -668,7 +668,7 @@
         "Amplifier/effects simulation, connected pedal control or measured level matching",
         "Full-take recording or automatic three-piece set sequencing"
       ],
-      "fallbackValidity": "Without actual accompaniment, the blues target is click-only preparation; without an actual unchanged melody, reharmonisation is chord-only preparation; without controllable real clean/driven sounds, live switching is unavailable. Existing diagrams, reference notes and manual reflection still support knowledge and practice.",
+      "fallbackValidity": "Without actual accompaniment, the blues target is click-only preparation; without an actual unchanged melody, reharmonization is chord-only preparation; without controllable real clean/driven sounds, live switching is unavailable. Existing diagrams, reference notes and manual reflection still support knowledge and practice.",
       "copyrightAndSourceBoundary": "All prose, musical maps, original phrases and complete new forms are authored for GuitarHub. Public established pedagogy informs sequencing only; no private provider implementation, commercial song arrangement, video transcript or source recording is reused.",
       "releaseBoundary": "Parent must merge both libraries/loaders, resolve all declared dependencies, apply reviewed exact-precondition summary corrections, and verify native decode/library behavior plus rendered web/iOS routes. These new attempts remain self-reported evidence. Staging is not deployment or a complete performance certificate.",
       "batchConventions": {
@@ -1068,7 +1068,7 @@
         81
       ],
       "tabText": "e |--5(A)--8(C)--10(D)--12(E)--15(G)--17(A)--|",
-      "instruction": "This is a note map, not a timed scale run. Move the whole hand to reach a new position; do not stretch from fret 5 to 17. Start with A at 5 and C at 8; add E at 12 only when the move is comfortable. A, C, D, E, G is the A minor-pentatonic palette used over the A blues form. Its C is a deliberate blues colour against A7’s C#, not the A-major scale."
+      "instruction": "This is a note map, not a timed scale run. Move the whole hand to reach a new position; do not stretch from fret 5 to 17. Start with A at 5 and C at 8; add E at 12 only when the move is comfortable. A, C, D, E, G is the A minor-pentatonic palette used over the A blues form. Its C is a deliberate blues color against A7’s C#, not the A-major scale."
     },
     "advanced-solo-seed": {
       "kind": "single_string_riff",
@@ -1995,7 +1995,7 @@
         {
           "number": 7,
           "label": "Find roots and overlaps",
-          "action": "Locate G at string 6 fret 3, string 4 fret 5, string 2 fret 8, string 5 fret 10, string 3 fret 12 and string 1 fret 15. A note appearing in two neighbouring views is the same pitch location; use it to connect the maps."
+          "action": "Locate G at string 6 fret 3, string 4 fret 5, string 2 fret 8, string 5 fret 10, string 3 fret 12 and string 1 fret 15. A note appearing in two neighboring views is the same pitch location; use it to connect the maps."
         }
       ],
       "positions": [
@@ -2829,7 +2829,7 @@
         {
           "number": 4,
           "label": "Start slowly",
-          "action": "Use a separate quarter-note metronome near 50–60 BPM. First practise the hand motion silently, then add the six contacts on one easy chord. Keep the a subdivisions evenly spaced rather than swinging them."
+          "action": "Use a separate quarter-note metronome near 50–60 BPM. First practice the hand motion silently, then add the six contacts on one easy chord. Keep the a subdivisions evenly spaced rather than swinging them."
         },
         {
           "number": 5,
@@ -3475,7 +3475,7 @@
         {
           "number": 7,
           "label": "Roots and overlap",
-          "action": "Find A at string 1 fret 5, string 4 fret 7, string 2 fret 10, string 5 fret 12 and string 3 fret 14. Neighbouring patterns share one fret on every string. Patterns 4/5 are previews here; the performance check uses 1/2/3. If fret 17 is inaccessible, inspect pattern 5 an octave lower by subtracting 12 from all its frets, labelled a lower-register study."
+          "action": "Find A at string 1 fret 5, string 4 fret 7, string 2 fret 10, string 5 fret 12 and string 3 fret 14. Neighboring patterns share one fret on every string. Patterns 4/5 are previews here; the performance check uses 1/2/3. If fret 17 is inaccessible, inspect pattern 5 an octave lower by subtracting 12 from all its frets, labeled a lower-register study."
         }
       ],
       "positions": [
@@ -4041,7 +4041,7 @@
         {
           "number": 6,
           "label": "Musical scope",
-          "action": "A-minor pentatonic against A7 blues includes intentional minor-third colour: C is not A7’s chordal major third C#. Listen to the tension instead of calling every scale note a chord tone. Keep all twelve bars through rests; the app does not detect scale frames or judge blues expression."
+          "action": "A-minor pentatonic against A7 blues includes intentional minor-third color: C is not A7’s chordal major third C#. Listen to the tension instead of calling every scale note a chord tone. Keep all twelve bars through rests; the app does not detect scale frames or judge blues expression."
         }
       ],
       "barChords": [
@@ -4179,7 +4179,7 @@
     },
     "l7-extension-map": {
       "kind": "instruction_diagram",
-      "name": "Four-note colours and one altered dominant",
+      "name": "Four-note colors and one altered dominant",
       "requiresMicrophone": false,
       "panels": [
         {
@@ -4189,13 +4189,13 @@
         },
         {
           "number": 2,
-          "label": "Compare three colours",
+          "label": "Compare three colors",
           "action": "Dm9 adds E to Dm7; Cmaj9 adds D to Cmaj7; G13 adds E above a G7 identity. In the supplied grips, Dm9 and Cmaj9 omit the fifth; G13 omits the fifth, ninth and eleventh. Keep the indicated third and seventh rather than deleting the quality notes."
         },
         {
           "number": 3,
           "label": "Natural ninth versus flat ninth",
-          "action": "G9 includes A; G7(b9) includes Ab instead. Compare the reference diagrams slowly. These notes are alternatives, not two required notes to stack indiscriminately. Check the actual melody before choosing a colour."
+          "action": "G9 includes A; G7(b9) includes Ab instead. Compare the reference diagrams slowly. These notes are alternatives, not two required notes to stack indiscriminately. Check the actual melody before choosing a color."
         },
         {
           "number": 4,
@@ -4295,7 +4295,7 @@
     },
     "l7-reharm-protocol": {
       "kind": "instruction_diagram",
-      "name": "Four Windows — baseline and two reharmonisations",
+      "name": "Four Windows — baseline and two reharmonizations",
       "requiresMicrophone": false,
       "panels": [
         {
@@ -4316,12 +4316,12 @@
         {
           "number": 4,
           "label": "Choice B — different predominant",
-          "action": "Comp Fmaj7 | G13 | Cmaj9 | Cmaj9. Fmaj7 replaces Dm7 at bar 1: melody F/A supplies its root/third. This changes the underlying chord rather than only adding a colour. G13 retains B/F under bar 2’s melody."
+          "action": "Comp Fmaj7 | G13 | Cmaj9 | Cmaj9. Fmaj7 replaces Dm7 at bar 1: melody F/A supplies its root/third. This changes the underlying chord rather than only adding a color. G13 retains B/F under bar 2’s melody."
         },
         {
           "number": 5,
           "label": "Alteration comparison",
-          "action": "Separately compare G7 and G7(b9) under bar 2’s B/F melody. Ab is a deliberate added tension resolving toward G or E in C-major harmony; do not force that colour under an A-natural melody. This extra comparison alone is not a root-changing reharmonisation."
+          "action": "Separately compare G7 and G7(b9) under bar 2’s B/F melody. Ab is a deliberate added tension resolving toward G or E in C-major harmony; do not force that color under an A-natural melody. This extra comparison alone is not a root-changing reharmonization."
         },
         {
           "number": 6,
@@ -4384,12 +4384,12 @@
         {
           "number": 5,
           "label": "Switch control",
-          "action": "For a no-gap clean/driven performance, use an available hands-free control that you have tested, or another existing control you can operate without dropping the part. Practise the switching action before a full take. Hand motion or an imagined effect change is not evidence of two actual tones."
+          "action": "For a no-gap clean/driven performance, use an available hands-free control that you have tested, or another existing control you can operate without dropping the part. Practice the switching action before a full take. Hand motion or an imagined effect change is not evidence of two actual tones."
         },
         {
           "number": 6,
           "label": "Evidence limit",
-          "action": "Write a brief A/B settings description and whether a loudness jump or audible interruption remains. Perceived level matching is a listening judgement, not a measured decibel match. No automatic preset, gain or noise analysis is supplied."
+          "action": "Write a brief A/B settings description and whether a loudness jump or audible interruption remains. Perceived level matching is a listening judgment, not a measured decibel match. No automatic preset, gain or noise analysis is supplied."
         }
       ]
     },
@@ -4661,7 +4661,7 @@
           "title": "Add and inspect the full shape",
           "action": "Add middle on string 3 fret 2, ring on string 4 fret 3. Pick 4, 3, 2, 1 slowly. When a note fails, identify that string, lift the likely blocking finger, and rebuild just that part.",
           "lookCheck": "Check fingertip clearance on adjacent strings; do not let the ring finger fall flat across string 3.",
-          "listenCheck": "Hear four distinct notes before judging the chord as a whole. One loud clear note must not hide a dead neighbour."
+          "listenCheck": "Hear four distinct notes before judging the chord as a whole. One loud clear note must not hide a dead neighbor."
         },
         {
           "title": "Make one complete entry",
@@ -4673,7 +4673,7 @@
           "title": "Repeat for recall, then choose a repair",
           "action": "Try several new entries with the diagram, then one with the shape recalled before you look. Keep a mental or paper note of which string most often needs adjustment. Short rests are part of the practice.",
           "lookCheck": "Do not change the shape or count a two-string version as a full F entry. Keep the same four-string target for comparison.",
-          "listenCheck": "Decide whether the issue is a muted neighbour, a buzz, an excluded bass string, or a noisy release; choose the matching correction."
+          "listenCheck": "Decide whether the issue is a muted neighbor, a buzz, an excluded bass string, or a noisy release; choose the matching correction."
         }
       ],
       "mistakeRecovery": [
@@ -4683,11 +4683,11 @@
         },
         {
           "observation": "A low bass string sneaks into the chord.",
-          "recovery": "Shorten the downstroke and begin at string 4. Practise the picking path once with the fretting hand gently muting all strings, then rebuild F."
+          "recovery": "Shorten the downstroke and begin at string 4. Practice the picking path once with the fretting hand gently muting all strings, then rebuild F."
         },
         {
           "observation": "The chord is clean only while it stays held.",
-          "recovery": "Practise fingers-off, place, inspect, release without any time target. Recall of the shape is the work; repeated strums of one held shape do not test it."
+          "recovery": "Practice fingers-off, place, inspect, release without any time target. Recall of the shape is the work; repeated strums of one held shape do not test it."
         },
         {
           "observation": "Open notes sound when the hand leaves.",
@@ -4717,7 +4717,7 @@
         },
         {
           "seconds": 60,
-          "instruction": "Recall the shape once, then name and practise the most useful repair."
+          "instruction": "Recall the shape once, then name and practice the most useful repair."
         }
       ],
       "selfAssessment": {
@@ -4794,7 +4794,7 @@
         },
         {
           "observation": "The bass strings ring although the fretted notes are clear.",
-          "recovery": "Practise the four-string picking path and the picking-hand stop. The next counted series must include quiet excluded strings."
+          "recovery": "Practice the four-string picking path and the picking-hand stop. The next counted series must include quiet excluded strings."
         },
         {
           "observation": "I am rushing to fit four entries inside the lesson time.",
@@ -4891,7 +4891,7 @@
       "mistakeRecovery": [
         {
           "observation": "The little finger mutes the fifth instead of adding the octave.",
-          "recovery": "Lift it, confirm the two-note version, then replace it with the fingertip on the octave string. Keep the ring fingertip clear of that neighbouring string."
+          "recovery": "Lift it, confirm the two-note version, then replace it with the fingertip on the octave string. Keep the ring fingertip clear of that neighboring string."
         },
         {
           "observation": "C5 sounds larger than expected.",
@@ -4907,7 +4907,7 @@
         },
         {
           "observation": "Every string goes dead when I try to mute.",
-          "recovery": "First restore the clear two-note root and fifth. Add contact only to an unused string at a time; keep the active fingertips curved enough to avoid their neighbours."
+          "recovery": "First restore the clear two-note root and fifth. Add contact only to an unused string at a time; keep the active fingertips curved enough to avoid their neighbors."
         }
       ],
       "practiceSegments": [
@@ -4981,13 +4981,13 @@
         },
         {
           "title": "Prepare changes during the rest",
-          "action": "Practise one G5 bar into one A5 bar, then one G5 bar into one C5 bar. On silent beat 4, keep the strings muted and aim the next root; land the entire shape for the next beat 1.",
+          "action": "Practice one G5 bar into one A5 bar, then one G5 bar into one C5 bar. On silent beat 4, keep the strings muted and aim the next root; land the entire shape for the next beat 1.",
           "lookCheck": "A5 uses frets 5,7,7 on strings 6,5,4. C5 uses frets 3,5,5 on 5,4,3, so move the picking start to string 5.",
           "listenCheck": "No open string should sound in the move. If the new chord is late, lower the working tempo rather than shortening the preceding bar."
         },
         {
           "title": "Join four-bar sections",
-          "action": "Give yourself four count-in clicks and play bars 1–4. Repeat that section until the cell and chord order are clear, then practise 5–8 and 13–16. Count through a missed attack and re-enter at the next section during rehearsal.",
+          "action": "Give yourself four count-in clicks and play bars 1–4. Repeat that section until the cell and chord order are clear, then practice 5–8 and 13–16. Count through a missed attack and re-enter at the next section during rehearsal.",
           "lookCheck": "The map remains visible. Do not jump from a missed chord into the next bar early to catch up.",
           "listenCheck": "Keep the click and rests audible. Notice whether C5 introduces a low E, or an upward move leaves a ringing slide."
         },
@@ -5015,7 +5015,7 @@
         },
         {
           "observation": "I lose my place at the returning A section.",
-          "recovery": "Read bars 9–12 aloud, then practise bars 7–10 so the transition into the repeat is familiar. Keep counting four beats per bar."
+          "recovery": "Read bars 9–12 aloud, then practice bars 7–10 so the transition into the repeat is familiar. Keep counting four beats per bar."
         },
         {
           "observation": "I speed up as soon as the shape repeats.",
@@ -5033,7 +5033,7 @@
         },
         {
           "seconds": 60,
-          "instruction": "Practise the play, stop, play, stop cell on G5 with quarter-note clicks."
+          "instruction": "Practice the play, stop, play, stop cell on G5 with quarter-note clicks."
         },
         {
           "seconds": 75,
@@ -5041,7 +5041,7 @@
         },
         {
           "seconds": 75,
-          "instruction": "Practise the four-bar sections, including the ending."
+          "instruction": "Practice the four-bar sections, including the ending."
         },
         {
           "seconds": 75,
@@ -5126,7 +5126,7 @@
         },
         {
           "observation": "The chord is correct but its sound runs across beat 2 or 4.",
-          "recovery": "Practise a firm, quiet picking-hand stop on those beats at a slower tempo, then restore 110. Palm-muted sustain still contains pitch and is not a full rest."
+          "recovery": "Practice a firm, quiet picking-hand stop on those beats at a slower tempo, then restore 110. Palm-muted sustain still contains pitch and is not a full rest."
         },
         {
           "observation": "The complete map fits only if I shorten a bar at a change.",
@@ -5138,7 +5138,7 @@
         },
         {
           "observation": "I finish at 100 BPM and want to count the 110-BPM goal.",
-          "recovery": "Keep the successful 100-BPM take as progress and practise a short section at the next comfortable setting. The named target remains 110 BPM; do not relabel a slower take."
+          "recovery": "Keep the successful 100-BPM take as progress and practice a short section at the next comfortable setting. The named target remains 110 BPM; do not relabel a slower take."
         }
       ],
       "practiceSegments": [
@@ -5207,7 +5207,7 @@
           "listenCheck": "Say twelve groups of four beats; the chord staying the same does not stop the bar count."
         },
         {
-          "title": "Check the three chord colours",
+          "title": "Check the three chord colors",
           "action": "Use the A7, D7 and E7 diagrams. Pick their intended strings separately, then strum each gently. These dominant-seventh chords add a seventh to the major-chord sound you know.",
           "lookCheck": "A7 starts on string 5, D7 on string 4, E7 on string 6. Follow the X markers instead of sweeping all six automatically.",
           "listenCheck": "Hear the open strings clearly, especially G in A7 and D in E7. These notes are part of the intended seventh chords."
@@ -5264,7 +5264,7 @@
           "I understand a chorus has twelve four-beat bars in this version."
         ],
         "readyWhen": "Explain the selected form and follow one counted chorus with the map.",
-        "ifNotReady": "Practise the last four bars and the return to A7, then rebuild the full map.",
+        "ifNotReady": "Practice the last four bars and the return to A7, then rebuild the full map.",
         "proves": "Self-checked understanding of one twelve-bar variant and its three chords.",
         "doesNotProve": "Memory recall, shuffle feel, three uninterrupted choruses or automatic chord recognition."
       },
@@ -5317,7 +5317,7 @@
         },
         {
           "title": "Locate the first uncertainty",
-          "action": "State the first bar where you needed the chart. Practise that bar plus the bar before and after, then rejoin a full chorus.",
+          "action": "State the first bar where you needed the chart. Practice that bar plus the bar before and after, then rejoin a full chorus.",
           "lookCheck": "A glance at the chart means supported practice, not chart-free recall.",
           "listenCheck": "Keep the chord-quality check separate from remembering the order."
         }
@@ -5429,7 +5429,7 @@
         },
         {
           "observation": "The last chord of a chorus gets five beats.",
-          "recovery": "Practise bar 12 into 1 with four beats per bar, then reconnect the complete form."
+          "recovery": "Practice bar 12 into 1 with four beats per bar, then reconnect the complete form."
         }
       ],
       "practiceSegments": [
@@ -5461,7 +5461,7 @@
           "All 36 bars kept four beats, with no extra gap between choruses."
         ],
         "readyWhen": "Self-review confirms three consecutive complete choruses from memory; recheck on another day for retention.",
-        "ifNotReady": "Keep the actual first error and practise its three-bar neighbourhood. A supported or partial take does not meet the memory target.",
+        "ifNotReady": "Keep the actual first error and practice its three-bar neighborhood. A supported or partial take does not meet the memory target.",
         "proves": "Learner-reported recall and continuity across this specific 36-bar form.",
         "doesNotProve": "Automatic chart hiding, verified recall percentage, certified chord quality, other blues variants or long-term retention."
       },
@@ -5489,7 +5489,7 @@
           "title": "Choose the note language",
           "action": "Use the A minor-pentatonic map: A, C, D, E, G. Begin with A at string 1 fret 5 and C at fret 8; add E at fret 12 only when moving there comfortably.",
           "lookCheck": "Move the hand between positions rather than stretching across seven frets. The palette is A blues vocabulary, not the A-major scale.",
-          "listenCheck": "C adds a blues colour against the C# inside A7. Return to A to hear home; do not assume every sustained note blends equally with every chord."
+          "listenCheck": "C adds a blues color against the C# inside A7. Return to A to hear home; do not assume every sustained note blends equally with every chord."
         },
         {
           "title": "Make a short question",
@@ -5620,7 +5620,7 @@
         },
         {
           "observation": "Moving to fret 12 breaks the count.",
-          "recovery": "Practise the shift slowly, or rehearse answers on A and C while separately learning the seed. Do not stretch the hand across the full distance."
+          "recovery": "Practice the shift slowly, or rehearse answers on A and C while separately learning the seed. Do not stretch the hand across the full distance."
         }
       ],
       "practiceSegments": [
@@ -5694,7 +5694,7 @@
           "title": "Use the palette deliberately",
           "action": "Choose from A, C, D, E, G. Repeat or vary an idea rather than racing through positions. If a wrong fret sounds, keep time and note the mistake afterward.",
           "lookCheck": "Avoid new bends for this check; fretted notes make your intended pitch choices easier to identify.",
-          "listenCheck": "A is a useful landing note. The C against A7 is an intentional blues colour; an accidental outside note is a pitch-choice error to review."
+          "listenCheck": "A is a useful landing note. The C against A7 is an intentional blues color; an accidental outside note is a pitch-choice error to review."
         },
         {
           "title": "Finish and report separately",
@@ -5706,7 +5706,7 @@
       "mistakeRecovery": [
         {
           "observation": "I stop the whole pulse to find a note.",
-          "recovery": "Reduce the note set to A and C and practise four counted bars with rests. Repeat the full check with accompaniment when the pulse holds."
+          "recovery": "Reduce the note set to A and C and practice four counted bars with rests. Repeat the full check with accompaniment when the pulse holds."
         },
         {
           "observation": "I stay in the note set but lose the bar number.",
@@ -5714,7 +5714,7 @@
         },
         {
           "observation": "I have only a metronome available.",
-          "recovery": "Practise the full phrase and label it click-only preparation. Return to the over-form check when known accompaniment or a partner is available."
+          "recovery": "Practice the full phrase and label it click-only preparation. Return to the over-form check when known accompaniment or a partner is available."
         }
       ],
       "practiceSegments": [
@@ -5822,7 +5822,7 @@
         },
         {
           "seconds": 60,
-          "instruction": "Practise reaching, holding, muting and releasing."
+          "instruction": "Practice reaching, holding, muting and releasing."
         },
         {
           "seconds": 45,
@@ -5859,7 +5859,7 @@
       "sourceTitle": "Bend to Target",
       "type": "exercise",
       "suggestedSeconds": 360,
-      "objective": "Practise matching F#4-to-G4 semitone bends using a chromatic meter when available, then repeat by ear without live visual correction.",
+      "objective": "Practice matching F#4-to-G4 semitone bends using a chromatic meter when available, then repeat by ear without live visual correction.",
       "prerequisiteLessonIds": [
         "g-l5-m5-01"
       ],
@@ -5898,15 +5898,15 @@
       "mistakeRecovery": [
         {
           "observation": "The display jumps between unrelated notes.",
-          "recovery": "Mute neighbouring strings, let the pick transient settle and try a clean single note. No usable reading means no numeric conclusion."
+          "recovery": "Mute neighboring strings, let the pick transient settle and try a clean single note. No usable reading means no numeric conclusion."
         },
         {
           "observation": "Every bend overshoots before I correct it.",
           "recovery": "Approach more gradually and compare a smaller motion with the normally fretted reference. Keep the initial overshoot distinct from the final correction."
         },
         {
-          "observation": "I watch a standard-open-string target and chase its centre.",
-          "recovery": "Use a chromatic meter configured for G4. The centre of a different open-string target is not this bend’s target."
+          "observation": "I watch a standard-open-string target and chase its center.",
+          "recovery": "Use a chromatic meter configured for G4. The center of a different open-string target is not this bend’s target."
         }
       ],
       "practiceSegments": [
@@ -6001,7 +6001,7 @@
         },
         {
           "observation": "I see G briefly while the pitch continues rising.",
-          "recovery": "Treat the attempt as unstable. Practise stopping and holding the movement, then start a new set."
+          "recovery": "Treat the attempt as unstable. Practice stopping and holding the movement, then start a new set."
         },
         {
           "observation": "One attempt has no clear reading.",
@@ -6208,7 +6208,7 @@
         },
         {
           "observation": "I know the names but cannot form Bm.",
-          "recovery": "Practise strings 3–1 at 4,3,2 slowly, pick each note, then place it back into the D-key cycle."
+          "recovery": "Practice strings 3–1 at 4,3,2 slowly, pick each note, then place it back into the D-key cycle."
         },
         {
           "observation": "I play quickly enough to hide a dead third.",
@@ -6303,7 +6303,7 @@
         },
         {
           "title": "Report the actual scope",
-          "action": "Claim the three-key target only when all twelve chord identities and voicings were recalled in one chart-free round. Otherwise name the exact key, degree or string to practise before a new round.",
+          "action": "Claim the three-key target only when all twelve chord identities and voicings were recalled in one chart-free round. Otherwise name the exact key, degree or string to practice before a new round.",
           "lookCheck": "These are the three taught keys. Passing them does not establish every major key or all triad inversions.",
           "listenCheck": "Revisit the weakest quality contrast, such as A versus Am or the F# inside D, before repeating."
         }
@@ -6311,7 +6311,7 @@
       "mistakeRecovery": [
         {
           "observation": "I forget the minor suffix but play a minor shape.",
-          "recovery": "Treat the naming response as needing review. Practise naming and playing as two explicit steps."
+          "recovery": "Treat the naming response as needing review. Practice naming and playing as two explicit steps."
         },
         {
           "observation": "I need one quick diagram glance for Bm.",
@@ -6613,7 +6613,7 @@
       "mistakeRecovery": [
         {
           "observation": "The correct root has the wrong quality.",
-          "recovery": "Review the third on string 3, then start a fresh full round after practising that distinction."
+          "recovery": "Review the third on string 3, then start a fresh full round after practicing that distinction."
         },
         {
           "observation": "I passed only four positions.",
@@ -6747,7 +6747,7 @@
           "I can distinguish the two major-grip families at the same fret."
         ],
         "readyWhen": "Build and inspect a brief five-string C-major A-shape grip, then explain its difference from E-shape G.",
-        "ifNotReady": "Repair one cluster or barre contact, keeping reduced voicings labelled as preparation.",
+        "ifNotReady": "Repair one cluster or barre contact, keeping reduced voicings labeled as preparation.",
         "proves": "Self-checked A-shape placement and root-location understanding.",
         "doesNotProve": "Every chord quality, automatic voicing recognition or a full progression performance."
       },
@@ -6802,7 +6802,7 @@
       "mistakeRecovery": [
         {
           "observation": "The pick catches string 6 on C or D.",
-          "recovery": "Practise the new picking start with muted strings, then restore the chord."
+          "recovery": "Practice the new picking start with muted strings, then restore the chord."
         },
         {
           "observation": "The C-to-D slide delays the attack.",
@@ -6810,7 +6810,7 @@
         },
         {
           "observation": "I lose the final section.",
-          "recovery": "Read C,D,G,G aloud and practise bars 11–16 before the next full take."
+          "recovery": "Read C,D,G,G aloud and practice bars 11–16 before the next full take."
         }
       ],
       "practiceSegments": [
@@ -6824,7 +6824,7 @@
         },
         {
           "seconds": 120,
-          "instruction": "Practise the four-bar sections."
+          "instruction": "Practice the four-bar sections."
         },
         {
           "seconds": 120,
@@ -6906,7 +6906,7 @@
         },
         {
           "observation": "One key is missing from my result.",
-          "recovery": "Keep it partial and practise that key before a new complete check."
+          "recovery": "Keep it partial and practice that key before a new complete check."
         }
       ],
       "practiceSegments": [
@@ -6991,7 +6991,7 @@
           "title": "Find roots and overlaps",
           "action": "Find G at the listed root addresses. Compare two adjacent views and point to a fret present in both. That shared address is literally the same note, not a new scale degree.",
           "lookCheck": "The views overlap; using a shared note helps you move between them.",
-          "listenCheck": "Sound the same shared fret twice before moving to a neighbouring note."
+          "listenCheck": "Sound the same shared fret twice before moving to a neighboring note."
         },
         {
           "title": "Preview all five views",
@@ -7081,7 +7081,7 @@
         },
         {
           "title": "Connect to the C region and back",
-          "action": "Practise 8 to 10, then 10,8,7,5 using the written new fingers. Make the final return from 7 to 3 in bar 4 a separate slow fragment.",
+          "action": "Practice 8 to 10, then 10,8,7,5 using the written new fingers. Make the final return from 7 to 3 in bar 4 a separate slow fragment.",
           "lookCheck": "Each fragment retains its original number of beats once you restore the click. Preparation pauses are allowed only outside a full take.",
           "listenCheck": "Listen to the landing pitch as well as the gap before it."
         },
@@ -7287,7 +7287,7 @@
         },
         {
           "observation": "I arrive after the change.",
-          "recovery": "Practise only a destination on each arrival bar’s first beat before adding fills."
+          "recovery": "Practice only a destination on each arrival bar’s first beat before adding fills."
         },
         {
           "observation": "I lose the form during a rest.",
@@ -7473,7 +7473,7 @@
       "mistakeRecovery": [
         {
           "observation": "All the notes are in G major but one landing clashes.",
-          "recovery": "Check that landing against the current chord’s root/third/fifth, then practise it with that chord alone."
+          "recovery": "Check that landing against the current chord’s root/third/fifth, then practice it with that chord alone."
         },
         {
           "observation": "I miss the first beat but reach the right note later.",
@@ -7513,7 +7513,7 @@
           "I kept the form through rests without a restart or skipped bar."
         ],
         "readyWhen": "One self-reviewed eight-bar improvisation contains all four correct on-time arrivals and uninterrupted form awareness.",
-        "ifNotReady": "Practise the first failed arrival with fewer fill notes, then make a new full take.",
+        "ifNotReady": "Practice the first failed arrival with fewer fill notes, then make a new full take.",
         "proves": "Learner-reported eight-bar continuity and four harmonic arrivals.",
         "doesNotProve": "Automated chord-tone analysis, microphone timing certification, artistic evaluation or a full result without accompaniment."
       },
@@ -7601,7 +7601,7 @@
       ],
       "selfAssessment": {
         "criteria": [
-          "I listened without seeing the answer first, or labelled prior familiarity.",
+          "I listened without seeing the answer first, or labeled prior familiarity.",
           "I used humming/tapping to retain the phrase before searching.",
           "I preserved a first written response before correction."
         ],
@@ -7756,7 +7756,7 @@
       "mistakeRecovery": [
         {
           "observation": "My pitch total is high but rhythm is below 18.",
-          "recovery": "Keep the target unmet and practise the missed eighth/quarter cells; do not average the totals."
+          "recovery": "Keep the target unmet and practice the missed eighth/quarter cells; do not average the totals."
         },
         {
           "observation": "The helper plays the wrong rhythm in one repeat.",
@@ -8049,7 +8049,7 @@
         },
         {
           "observation": "The final section speeds up.",
-          "recovery": "Practise the bar-16-to-17 boundary with the click and no extra accents, then restart the full form."
+          "recovery": "Practice the bar-16-to-17 boundary with the click and no extra accents, then restart the full form."
         },
         {
           "observation": "I count the right number of strums but their positions are wrong.",
@@ -8086,7 +8086,7 @@
           "I ended after the full final half beat and reported any uncertainty."
         ],
         "readyWhen": "One complete self-reviewed take meets the 100-BPM, 24-bar, exact-pattern and continuity conditions.",
-        "ifNotReady": "Keep the specific failed bar, practise it slower and begin a new complete take when ready.",
+        "ifNotReady": "Keep the specific failed bar, practice it slower and begin a new complete take when ready.",
         "proves": "Learner-reported performance of the specified full pattern at 100 BPM.",
         "doesNotProve": "Software timing certification, automatic strum counting, drift measurement or mastery of all syncopated sixteenth patterns."
       },
@@ -8133,7 +8133,7 @@
           "title": "Insert four hits",
           "action": "Use the written grid: sound the chord on 1,1a,2&,3&; scratch at the other twelve positions. Briefly restore pressure for a hit, then release before the next contact.",
           "lookCheck": "The fretting hand decides the note length; the picking hand keeps moving.",
-          "listenCheck": "Hear a recognisable four-hit outline inside quieter scratches."
+          "listenCheck": "Hear a recognizable four-hit outline inside quieter scratches."
         },
         {
           "title": "State the distinction",
@@ -8244,7 +8244,7 @@
       "mistakeRecovery": [
         {
           "observation": "Beat 2 becomes another pitched hit.",
-          "recovery": "Practise just 1a to beat 2 at half speed, releasing pressure before the downstroke."
+          "recovery": "Practice just 1a to beat 2 at half speed, releasing pressure before the downstroke."
         },
         {
           "observation": "The bar gets faster after four repetitions.",
@@ -8351,7 +8351,7 @@
         },
         {
           "observation": "A missed hit was corrected by replaying its beat.",
-          "recovery": "Keep the original miss recorded; practise that beat separately and start a new full take."
+          "recovery": "Keep the original miss recorded; practice that beat separately and start a new full take."
         }
       ],
       "practiceSegments": [
@@ -8403,7 +8403,7 @@
       "sourceTitle": "Five Boxes, One Scale",
       "type": "concept",
       "suggestedSeconds": 300,
-      "objective": "Recognise the same five A-minor pentatonic notes in overlapping patterns and connect them by shared locations.",
+      "objective": "Recognize the same five A-minor pentatonic notes in overlapping patterns and connect them by shared locations.",
       "prerequisiteLessonIds": [
         "g-l6-m3-08",
         "g-l5-m4-07"
@@ -8418,7 +8418,7 @@
         {
           "title": "Read pattern 1",
           "action": "Play the two listed notes per string slowly, low to high and back. Finish on an A instead of automatically stopping on the outermost note.",
-          "lookCheck": "Use only the written frets; the B string has a different spacing from its neighbours.",
+          "lookCheck": "Use only the written frets; the B string has a different spacing from its neighbors.",
           "listenCheck": "Every pitch belongs to the five-note collection; no F or B is required here."
         },
         {
@@ -8429,13 +8429,13 @@
         },
         {
           "title": "Preview four and five",
-          "action": "Read the remaining patterns and root landmarks. Try a small comfortable fragment; if high frets are inaccessible, study pattern 5 twelve frets lower as explicitly labelled.",
+          "action": "Read the remaining patterns and root landmarks. Try a small comfortable fragment; if high frets are inaccessible, study pattern 5 twelve frets lower as explicitly labeled.",
           "lookCheck": "Do not force a stretch or claim the high-register position was played when it was moved down an octave.",
           "listenCheck": "The lower-register version has the same note classes, with a different octave."
         },
         {
           "title": "Turn a map into music",
-          "action": "Play two notes, leave a counted rest, then answer using a neighbouring frame. Keep the phrase length constant as the hand relocates.",
+          "action": "Play two notes, leave a counted rest, then answer using a neighboring frame. Keep the phrase length constant as the hand relocates.",
           "lookCheck": "Moving the hand is a playing choice; the app does not observe the fingering.",
           "listenCheck": "Space and a destination matter more than running every available note."
         }
@@ -8451,7 +8451,7 @@
         },
         {
           "observation": "High frets are uncomfortable to reach.",
-          "recovery": "Use the labelled lower-octave study or stop at a comfortable region; do not force posture."
+          "recovery": "Use the labeled lower-octave study or stop at a comfortable region; do not force posture."
         }
       ],
       "practiceSegments": [
@@ -8479,7 +8479,7 @@
       "selfAssessment": {
         "criteria": [
           "I know the five A-minor pentatonic notes.",
-          "I can identify a shared physical note between neighbouring patterns.",
+          "I can identify a shared physical note between neighboring patterns.",
           "I distinguish map familiarity from improvisation fluency."
         ],
         "readyWhen": "Explain the five-pattern relationship and demonstrate one controlled phrase across an overlap.",
@@ -8518,7 +8518,7 @@
         },
         {
           "title": "Cross one boundary",
-          "action": "Practise bar 1 slowly: string 1 frets 5,8,10,8. Begin in pattern 1, then relocate for the 10/8 pair in pattern 2.",
+          "action": "Practice bar 1 slowly: string 1 frets 5,8,10,8. Begin in pattern 1, then relocate for the 10/8 pair in pattern 2.",
           "lookCheck": "Use the suggested index/little-finger placement rather than stretching a fixed hand across five frets.",
           "listenCheck": "The two notes after the shift retain their quarter-note spacing."
         },
@@ -8620,7 +8620,7 @@
           "title": "Agree the exact backing",
           "action": "Use the final-chorus map A7,A7,A7,A7,D7,D7,A7,A7,E7,D7,A7,A7. Arrange a real partner or your own separately made accompaniment at one comfortable tempo.",
           "lookCheck": "Bar 12 ends on A7 here; do not silently substitute a turnaround E7 from another chart.",
-          "listenCheck": "Hear the harmony through all twelve bars; a click alone is labelled position-practice preparation."
+          "listenCheck": "Hear the harmony through all twelve bars; a click alone is labeled position-practice preparation."
         },
         {
           "title": "Plan regions and destinations",
@@ -8632,7 +8632,7 @@
           "title": "Improvise a fresh chorus",
           "action": "After four count-in beats, create your own phrases within the plan and keep the twelve-bar form intact. Do not use a note-for-note seed playback as the entire improvisation.",
           "lookCheck": "The three hand regions must be physically visited; naming them afterwards is insufficient.",
-          "listenCheck": "Keep listening when the harmony changes; C against A7 is intentional blues colour, not its major-third chord tone."
+          "listenCheck": "Keep listening when the harmony changes; C against A7 is intentional blues color, not its major-third chord tone."
         },
         {
           "title": "End and review",
@@ -8650,7 +8650,7 @@
       "mistakeRecovery": [
         {
           "observation": "You start a new phrase without knowing the current chord/bar.",
-          "recovery": "Practise calling the twelve-bar form over the backing, then return with fewer notes."
+          "recovery": "Practice calling the twelve-bar form over the backing, then return with fewer notes."
         },
         {
           "observation": "The pattern-3 move causes a lost bar.",
@@ -8692,7 +8692,7 @@
         "readyWhen": "One self-reviewed chorus meets the full-form, actual-harmony and three-region improvisation conditions.",
         "ifNotReady": "Keep the first failed bar or missing condition visible, repair it and begin a new full chorus.",
         "proves": "Learner-reported twelve-bar blues improvisation and three-region use.",
-        "doesNotProve": "Detected hand position, software pitch/continuity grading, five-pattern mastery or stylistic judgement."
+        "doesNotProve": "Detected hand position, software pitch/continuity grading, five-pattern mastery or stylistic judgment."
       },
       "demoAssetIds": [
         "l7-pentatonic-five",
@@ -8726,7 +8726,7 @@
           "title": "Compare chord families",
           "action": "Name Dm7 as D,F,A,C; G7 as G,B,D,F; Cmaj7 as C,E,G,B. A seventh adds a fourth pitch class to a triad, but a playable shell can omit the fifth.",
           "lookCheck": "Do not read Cmaj7 as C7; B and Bb are different sevenths.",
-          "listenCheck": "Compare the reference notes deliberately and hear the changed colour."
+          "listenCheck": "Compare the reference notes deliberately and hear the changed color."
         },
         {
           "title": "Inspect Dm7",
@@ -8760,7 +8760,7 @@
         },
         {
           "observation": "An excluded string rings in the G7 shell.",
-          "recovery": "Pluck the chosen three strings together with separate picking fingers; practise the selection without changing chords."
+          "recovery": "Pluck the chosen three strings together with separate picking fingers; practice the selection without changing chords."
         },
         {
           "observation": "The root move interrupts the cadence.",
@@ -8839,7 +8839,7 @@
           "listenCheck": "Compare minor shells against the major-seventh shell before joining the chart."
         },
         {
-          "title": "Practise section boundaries",
+          "title": "Practice section boundaries",
           "action": "Loop bars 8–9, 16–17 and 24–25 slowly, then the final bars 31–32. Maintain attacks on 1 and 3, each lasting two beats.",
           "lookCheck": "Name both chords at a boundary before moving.",
           "listenCheck": "The first beat of the next section is timely and has the right chord quality."
@@ -8851,7 +8851,7 @@
           "listenCheck": "There is no added bridge, extra turnaround or indefinite final hold."
         },
         {
-          "title": "Review before memorising",
+          "title": "Review before memorizing",
           "action": "Record actual tempo and the first wrong chord, unplanned pause or shortened sustain. Use that location for focused repair before another full take.",
           "lookCheck": "The current complete take remains intact as evidence; a repaired fragment is separate.",
           "listenCheck": "Steady simple comping is the target; extra decorative fills are optional later."
@@ -8864,7 +8864,7 @@
         },
         {
           "observation": "The bridge is accidentally another A section.",
-          "recovery": "Name Fmaj7 as bar 17’s destination and practise the preceding G7 into it."
+          "recovery": "Name Fmaj7 as bar 17’s destination and practice the preceding G7 into it."
         },
         {
           "observation": "Fretting searches cause extra attacks.",
@@ -8902,7 +8902,7 @@
         "readyWhen": "Play the complete chart at a controllable tempo with a clear account of its harmony, pulse and remaining repairs.",
         "ifNotReady": "Repair the first failed section boundary and then return to the full composition.",
         "proves": "Self-reported complete performance of the original 32-bar comping study.",
-        "doesNotProve": "Automatic backing, recognised chord quality, a published-standard performance or memory recall while reading."
+        "doesNotProve": "Automatic backing, recognized chord quality, a published-standard performance or memory recall while reading."
       },
       "demoAssetIds": [
         "l7-window-seat",
@@ -8964,7 +8964,7 @@
       "mistakeRecovery": [
         {
           "observation": "You need to peek at the next section.",
-          "recovery": "Label the attempt assisted and practise recalling the destination section before a new chart-closed run."
+          "recovery": "Label the attempt assisted and practice recalling the destination section before a new chart-closed run."
         },
         {
           "observation": "The ending is replaced with the earlier A turnaround.",
@@ -8972,7 +8972,7 @@
         },
         {
           "observation": "You remember the first half but not where the bridge ends.",
-          "recovery": "Count B as two groups of four and practise its return into the final A."
+          "recovery": "Count B as two groups of four and practice its return into the final A."
         }
       ],
       "practiceSegments": [
@@ -8982,7 +8982,7 @@
         },
         {
           "seconds": 75,
-          "instruction": "Practise one uncertain memory boundary."
+          "instruction": "Practice one uncertain memory boundary."
         },
         {
           "seconds": 135,
@@ -9026,11 +9026,11 @@
     {
       "id": "g-l7-m4-01",
       "moduleId": "g-l7-m4",
-      "title": "Colour Beyond the Seventh",
-      "sourceTitle": "Colour Beyond the Seventh",
+      "title": "Color Beyond the Seventh",
+      "sourceTitle": "Color Beyond the Seventh",
       "type": "concept",
       "suggestedSeconds": 300,
-      "objective": "Choose a chord colour by its third, seventh and melody relationship before changing the underlying harmony.",
+      "objective": "Choose a chord color by its third, seventh and melody relationship before changing the underlying harmony.",
       "prerequisiteLessonIds": [
         "g-l7-m3-01",
         "g-l6-m4-08"
@@ -9043,7 +9043,7 @@
           "listenCheck": "Compare a shell with its extended version while keeping the same root identity."
         },
         {
-          "title": "Name the added colour",
+          "title": "Name the added color",
           "action": "Sound Dm9’s E, Cmaj9’s D and G13’s E as separate reference notes. The same E is the ninth of D and the thirteenth of G.",
           "lookCheck": "Count intervals from each chord’s root, not from the key’s tonic for every chord.",
           "listenCheck": "Hear a change of context even when the added pitch name stays the same."
@@ -9056,13 +9056,13 @@
         },
         {
           "title": "Look at the melody first",
-          "action": "Read the original Four Windows melody and identify bar 2’s B/F. These pitches can sit over the supplied G-based colours or be heard as Cb/F over Db7.",
+          "action": "Read the original Four Windows melody and identify bar 2’s B/F. These pitches can sit over the supplied G-based colors or be heard as Cb/F over Db7.",
           "lookCheck": "Preserve the written melody pitches and timing; changing them would change the comparison.",
-          "listenCheck": "A colour must be heard with the real melody before you judge its effect."
+          "listenCheck": "A color must be heard with the real melody before you judge its effect."
         },
         {
-          "title": "Distinguish colour from substitution",
-          "action": "Compare adding E to G7 with replacing G7’s root by Db. The first is a colour choice; the second changes the underlying chord and bass route.",
+          "title": "Distinguish color from substitution",
+          "action": "Compare adding E to G7 with replacing G7’s root by Db. The first is a color choice; the second changes the underlying chord and bass route.",
           "lookCheck": "Use the written baseline and the two supplied variants rather than guessing from a chord label alone.",
           "listenCheck": "Hear D–Db–C as a descending root route distinct from D–G–C."
         }
@@ -9088,7 +9088,7 @@
         },
         {
           "seconds": 90,
-          "instruction": "Compare the natural ninth and thirteenth colours."
+          "instruction": "Compare the natural ninth and thirteenth colors."
         },
         {
           "seconds": 75,
@@ -9100,19 +9100,19 @@
         },
         {
           "seconds": 30,
-          "instruction": "Explain one colour choice and one true chord substitution."
+          "instruction": "Explain one color choice and one true chord substitution."
         }
       ],
       "selfAssessment": {
         "criteria": [
           "I name an extension relative to its own root.",
           "I distinguish G9 from G7(b9).",
-          "I know a new colour and a changed underlying chord are different choices."
+          "I know a new color and a changed underlying chord are different choices."
         ],
-        "readyWhen": "Explain the selected colours and demonstrate one deliberate shell-to-extension comparison.",
-        "ifNotReady": "Return to the root, third and seventh, then add only one known colour tone.",
-        "proves": "Self-checked interval naming and harmonic-colour understanding.",
-        "doesNotProve": "Automatic chord/melody compatibility analysis, a complete reharmonised performance or a rule that all extensions fit every chord."
+        "readyWhen": "Explain the selected colors and demonstrate one deliberate shell-to-extension comparison.",
+        "ifNotReady": "Return to the root, third and seventh, then add only one known color tone.",
+        "proves": "Self-checked interval naming and harmonic-color understanding.",
+        "doesNotProve": "Automatic chord/melody compatibility analysis, a complete reharmonized performance or a rule that all extensions fit every chord."
       },
       "demoAssetIds": [
         "l7-extension-map",
@@ -9157,13 +9157,13 @@
           "title": "Compare G9 and G13",
           "action": "G9 uses G,F,A,B on strings 6,4,3,2; G13 uses G,F,B,E on the same chosen strings. Keep string 5 and high string 1 silent.",
           "lookCheck": "In G9 the B string is open; in G13 it is fretted at 5. The picking-string selection remains the same.",
-          "listenCheck": "The change in colour is audible without accidentally adding a low A or high E."
+          "listenCheck": "The change in color is audible without accidentally adding a low A or high E."
         },
         {
           "title": "Find Cmaj9’s major seventh",
           "action": "Use C,E,B,D at strings 5,4,3,2 frets 3,2,4,3. Pluck the intended strings together and then separately.",
           "lookCheck": "The B at string 3 fret 4 must not be flattened to Bb.",
-          "listenCheck": "Listen to the major-seventh colour and the added D rather than treating the chord as plain C."
+          "listenCheck": "Listen to the major-seventh color and the added D rather than treating the chord as plain C."
         },
         {
           "title": "Join a fixed four-bar loop",
@@ -9188,7 +9188,7 @@
           "recovery": "Rehearse the picking-string selection with the fretting hand held still, then restore the progression."
         },
         {
-          "observation": "Every colour is forced into one dense chord.",
+          "observation": "Every color is forced into one dense chord.",
           "recovery": "Return to one named four-note grip; the exercise compares alternatives rather than stacking all available extensions."
         }
       ],
@@ -9207,7 +9207,7 @@
         },
         {
           "seconds": 120,
-          "instruction": "Practise complete loops and one controlled G-colour comparison."
+          "instruction": "Practice complete loops and one controlled G-color comparison."
         },
         {
           "seconds": 60,
@@ -9217,13 +9217,13 @@
       "selfAssessment": {
         "criteria": [
           "I can state the notes intentionally omitted from the selected grip.",
-          "The intended third, seventh and colour tone remain audible.",
+          "The intended third, seventh and color tone remain audible.",
           "I play four complete bars without adding search time."
         ],
-        "readyWhen": "Play the complete selected four-bar colour loop at a controllable tempo and explain one alternative voicing.",
+        "readyWhen": "Play the complete selected four-bar color loop at a controllable tempo and explain one alternative voicing.",
         "ifNotReady": "Inspect the first failed note or picking-string choice, then rebuild the loop slowly.",
         "proves": "Self-reported compact extended-chord practice and interval understanding.",
-        "doesNotProve": "Microphone-certified voicings, automatic tempo accuracy, a universally comfortable grip or the over-melody reharmonisation checkpoint."
+        "doesNotProve": "Microphone-certified voicings, automatic tempo accuracy, a universally comfortable grip or the over-melody reharmonization checkpoint."
       },
       "demoAssetIds": [
         "l7-extension-map",
@@ -9250,8 +9250,8 @@
     {
       "id": "g-l7-m4-08",
       "moduleId": "g-l7-m4",
-      "title": "Checkpoint: Reharmonised and Played",
-      "sourceTitle": "Checkpoint: Reharmonised and Played",
+      "title": "Checkpoint: Reharmonized and Played",
+      "sourceTitle": "Checkpoint: Reharmonized and Played",
       "type": "checkpoint",
       "suggestedSeconds": 420,
       "objective": "Choose and perform a genuine chord substitution under the unchanged original four-bar melody.",
@@ -9281,7 +9281,7 @@
           "title": "Play the changed version",
           "action": "Start a new four-beat count-in and play all four bars under the same complete melody. Keep the two-attack bar and finish with the last C-major sustain.",
           "lookCheck": "No chord is given extra time to make a difficult grip arrive.",
-          "listenCheck": "The melody remains unchanged while the new bass route and colour are audible."
+          "listenCheck": "The melody remains unchanged while the new bass route and color are audible."
         },
         {
           "title": "Review the musical result",
@@ -9334,8 +9334,8 @@
         ],
         "readyWhen": "One self-reviewed baseline/variant comparison meets the actual-melody, genuine-substitution and intact-form conditions.",
         "ifNotReady": "Keep the missing or failed condition visible, repair it and compare complete versions again.",
-        "proves": "Learner-reported reharmonisation choice and performance under the specified original melody.",
-        "doesNotProve": "Automated harmony judgement, included melody playback, recognition of played chords or a valid result without the actual melody."
+        "proves": "Learner-reported reharmonization choice and performance under the specified original melody.",
+        "doesNotProve": "Automated harmony judgment, included melody playback, recognition of played chords or a valid result without the actual melody."
       },
       "demoAssetIds": [
         "l7-extension-map",
@@ -9610,7 +9610,7 @@
       "mistakeRecovery": [
         {
           "observation": "One switch worked but the return did not.",
-          "recovery": "Keep the failed boundary visible and practise that return before a new full take."
+          "recovery": "Keep the failed boundary visible and practice that return before a new full take."
         },
         {
           "observation": "The part remains continuous but a tone is missing.",
@@ -9618,7 +9618,7 @@
         },
         {
           "observation": "The recording or listener cannot distinguish the levels reliably.",
-          "recovery": "Mark the level judgement uncertain and repeat a controlled A/B comparison before rechecking."
+          "recovery": "Mark the level judgment uncertain and repeat a controlled A/B comparison before rechecking."
         }
       ],
       "practiceSegments": [
@@ -9719,7 +9719,7 @@
         },
         {
           "observation": "The second piece starts after an uncertain pause.",
-          "recovery": "Practise the previous ending plus exactly one transition bar into its first chord."
+          "recovery": "Practice the previous ending plus exactly one transition bar into its first chord."
         },
         {
           "observation": "The order requires a rushed retune or complicated setup.",
@@ -9928,7 +9928,7 @@
         {
           "title": "Review continuity and accuracy separately",
           "action": "After the final release, state whether every full form and both exact transitions were present. Then list wrong chords, rhythm slips or uncertain passages separately.",
-          "lookCheck": "The unbroken-set target requires the written forms and patterns to stay recognisable and complete, not a claim of software-certified perfection.",
+          "lookCheck": "The unbroken-set target requires the written forms and patterns to stay recognizable and complete, not a claim of software-certified perfection.",
           "listenCheck": "A listener or independently made recording can support review; the app does not capture or grade this set."
         },
         {
@@ -9945,10 +9945,10 @@
         },
         {
           "observation": "An extra pause appears while opening the next chart.",
-          "recovery": "Prepare a readable set chart or memorised transition before the next attempt; keep the one-bar boundary fixed."
+          "recovery": "Prepare a readable set chart or memorized transition before the next attempt; keep the one-bar boundary fixed."
         },
         {
-          "observation": "A no-stop take is labelled flawless despite audible slips.",
+          "observation": "A no-stop take is labeled flawless despite audible slips.",
           "recovery": "Separate continuity from musical accuracy and retain the first concrete repair in the result."
         }
       ],
@@ -9980,7 +9980,7 @@
           "Only the two planned four-beat transitions separated them; no restart, skipped section or added setup pause occurred.",
           "I retained specific musical errors or uncertainty instead of claiming a perfect score."
         ],
-        "readyWhen": "One self-reviewed full set preserves all three complete forms, recognisable written parts and planned transitions without an unplanned stop.",
+        "readyWhen": "One self-reviewed full set preserves all three complete forms, recognizable written parts and planned transitions without an unplanned stop.",
         "ifNotReady": "Preserve interrupted, incomplete or uncertain status and the first failed location, then prepare a new whole-set attempt.",
         "proves": "Learner-reported continuous performance of the specified three-piece set, with accuracy observations kept separate.",
         "doesNotProve": "A software-verified composite score, a flawless-performance certificate, automatic recording or a manufactured comparison with Stage 2."
@@ -10064,7 +10064,7 @@
       "id": "l5r-yamaha-technique",
       "title": "Yamaha — How to Play the Electric Guitar",
       "url": "https://www.yamaha.com/en/musical_instrument_guide/electric_guitar/play/",
-      "supports": "Bending raises pitch; a half bend is one semitone; vibrato varies pitch, and neighbouring strings need control. Numeric checkpoint and one-second hold are GuitarHub choices."
+      "supports": "Bending raises pitch; a half bend is one semitone; vibrato varies pitch, and neighboring strings need control. Numeric checkpoint and one-second hold are GuitarHub choices."
     },
     {
       "id": "l5r-justin-lead",
@@ -10190,7 +10190,7 @@
       "id": "l7-justin-repertoire",
       "title": "JustinGuitar — Developing repertoire",
       "url": "https://community.justinguitar.com/t/developing-repertoire/2051",
-      "supports": "Official administrator introduction establishes repertoire goals and song memorisation. General community comments and linked commercial songs are excluded."
+      "supports": "Official administrator introduction establishes repertoire goals and song memorization. General community comments and linked commercial songs are excluded."
     },
     {
       "id": "l7-yousician-practice",
