@@ -9,11 +9,11 @@ import { keywordsFor } from "@/lib/keywords";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/diagnose"),
-  title: "Practice Plateau Diagnostic | GuitarHub",
+  title: "Guitar Practice Plateau Quiz: Find Your Blocker | GuitarHub",
   description:
     "Answer nine questions about how you actually practice guitar and find the one habit holding your progress. Free, no account, stays in your browser.",
   openGraph: {
-    title: "Practice Plateau Diagnostic | GuitarHub",
+    title: "Guitar Practice Plateau Quiz: Find Your Blocker | GuitarHub",
     description:
       "Nine questions about how you practice. Five blockers scored. One thing to change in the next session.",
     url: "https://guitarhub.org/diagnose",

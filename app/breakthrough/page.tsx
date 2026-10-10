@@ -8,7 +8,7 @@ import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/breakthrough";
 
-const TITLE = "Build Your 30-Day Guitar Plan | GuitarHub";
+const TITLE = "Free 30-Day Guitar Practice Planner | GuitarHub";
 const DESCRIPTION =
   "Choose one guitar breakthrough, get a four-week practice sequence, launch the right Strumly tools, and track evidence in your browser.";
 

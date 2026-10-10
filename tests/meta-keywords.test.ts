@@ -110,3 +110,13 @@ test("dynamic routes derive valid keywords from their entity", () => {
     assert.ok(list.includes(lesson.title.toLowerCase().replace(/,/g, " ").replace(/\s+/g, " ").trim()));
   }
 });
+
+test("only the intermediate routine guide targets the head term 'guitar practice routine'", () => {
+  for (const [route, list] of Object.entries(ROUTE_KEYWORDS)) {
+    if (route === "/guitar-practice-routine-intermediate") {
+      assert.ok((list as readonly string[]).includes("guitar practice routine"));
+    } else {
+      assert.ok(!(list as readonly string[]).includes("guitar practice routine"), `${route} competes for "guitar practice routine"`);
+    }
+  }
+});
