@@ -132,7 +132,7 @@ export default function Article({
 
       {crumbs && crumbs.length > 0 ? <Breadcrumbs crumbs={crumbs} /> : null}
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <article>
           <section className="px-3 pt-3">
             <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">

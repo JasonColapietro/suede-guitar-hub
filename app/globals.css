@@ -17,6 +17,33 @@ html {
   scroll-behavior: smooth;
 }
 
+/* The skip link's target takes programmatic focus only; it is not a control. */
+#main-content:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* One skip link for every page, rendered first in the body by app/layout.tsx. */
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--color-indigo-deep);
+  padding: 0.5rem 1.25rem;
+  color: #fff;
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
 body {
   background: var(--color-cream);
   color: var(--color-ink);

@@ -5,5 +5,5 @@ import { LearningAccessProvider } from "@/components/learning/LearningAccessProv
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
 export default async function LearningLayout({ children }: { children: React.ReactNode }) {
   const access = await getVerifiedLearningAccess();
-  return <LearningAccessProvider key={access.accountId ?? "guest"} access={access}><a className={styles.skip} href="#learning-main">Skip to learning</a><SiteNav /><main id="learning-main" className={styles.shell}>{children}</main><SiteFooter /></LearningAccessProvider>;
+  return <LearningAccessProvider key={access.accountId ?? "guest"} access={access}><SiteNav /><main id="main-content" tabIndex={-1} className={styles.shell}>{children}</main><SiteFooter /></LearningAccessProvider>;
 }

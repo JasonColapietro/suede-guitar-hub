@@ -149,7 +149,7 @@ export default function Home() {
     <>
       <SiteNav />
 
-      <main id="top">
+      <main id="main-content" tabIndex={-1}>
         {/* Hero */}
         <section className="px-3 pt-3">
           <div className="relative overflow-hidden rounded-[2rem] px-6 py-24 text-center text-cream md:py-32">

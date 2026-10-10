@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 export default function PracticePage() {
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(application) }} />
-    <a className={learningStyles.skip} href="#practice-main">Skip to practice tools</a><SiteNav />
-    <main id="practice-main" className={learningStyles.shell}>
+    <SiteNav />
+    <main id="main-content" tabIndex={-1} className={learningStyles.shell}>
       <nav className={learningStyles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn/guitar">Guitar lessons</Link><span aria-hidden="true">/</span><span aria-current="page">Practice</span></nav>
       <header className={learningStyles.hero}><p className={styles.eyebrow}>The practice room</p><h1>Tune up.<br />Find your tempo.</h1><p>Check your strings, then play along with the click. These tools are free to use on their own, before a lesson or during your own practice.</p><div className={styles.links}><a className={learningStyles.secondary} href="#metronome-title">Metronome</a><a className={learningStyles.secondary} href="#tuner">Guitar tuner</a><Link className={learningStyles.secondary} href="/learn/guitar/routine">A/D practice routine</Link></div></header>
       <div className={styles.tools}><Metronome /><div className={styles.tuner} id="tuner"><TuningGuide /></div></div>

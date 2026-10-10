@@ -73,8 +73,6 @@
 .saved { background: #e4ebdf; color: #304c2c; padding: 1rem; border-radius: .75rem; line-height: 1.65; }
 .lessonNavigation { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.5rem 0; margin-top: 1rem; border-top: 1px solid var(--line); }
 .lessonNavigation a { min-height: 44px; display: inline-flex; align-items: center; max-width: 45%; text-decoration: underline; text-underline-offset: 4px; }
-.skip { position: absolute; left: 1rem; top: -100px; z-index: 100; background: #251152; color: white; padding: 1rem; }
-.skip:focus { top: 1rem; }
 @media(max-width: 720px) { .tracks, .lessonGrid { grid-template-columns: 1fr; } .continue { grid-template-columns: 1fr; } .continue .primary { justify-self: start; } .module { margin-left: 0; } .level > summary { gap: .8rem; } .lessonLink { padding: 1rem; gap: .65rem; } .lessonLink > :last-child { font-size: .8rem; } .lessonNavigation a { max-width: 100%; } }
 @media(prefers-reduced-motion: reduce) { .shell { scroll-behavior: auto; } }
 .stringGuide { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 0 1rem; margin-bottom: 1.5rem; }
