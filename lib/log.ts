@@ -186,6 +186,7 @@ export type LogErrorCode =
   | "note-too-long"
   | "log-full"
   | "entry-not-found"
+  | "entry-duplicate"
   | "file-unreadable"
   | "file-not-a-log"
   | "file-version-unreadable"
@@ -565,6 +566,23 @@ export function recentFirst(entries: readonly LogEntry[]): LogEntry[] {
  * Add, edit, delete
  * ------------------------------------------------------------------ */
 
+function duplicateSession<T>(): LogResult<T> {
+  return fail(
+    "entry-duplicate",
+    "That exact session is already in the log: same day, focus, number and note. Change one of them if this was a second sitting.",
+    "note",
+  );
+}
+
+/** True when a session identical to `candidate` in every field but the id is already held. */
+function holdsSession(
+  entries: readonly LogEntry[],
+  candidate: Omit<LogEntry, "id">,
+): boolean {
+  const key = sessionKey({ id: "", ...candidate });
+  return entries.some((entry) => sessionKey(entry) === key);
+}
+
 export function addEntry(
   entries: readonly LogEntry[],
   draft: LogDraft,
@@ -579,6 +597,12 @@ export function addEntry(
 
   const checked = validateDraft(draft, today);
   if (!checked.ok) return checked;
+
+  // The same rule an import already applies: a session identical in every
+  // field to one already logged is the same session, submitted twice. Refusing
+  // it here keeps a double press of "Log this session" from counting one
+  // sitting as two in every total and trend on the page.
+  if (holdsSession(entries, checked.value)) return duplicateSession();
 
   const taken = new Set(entries.map((entry) => entry.id));
   const entry: LogEntry = {
@@ -612,6 +636,9 @@ export function updateEntry(
 
   const checked = validateDraft(draft, today);
   if (!checked.ok) return checked;
+  if (holdsSession(entries.filter((entry) => entry.id !== id), checked.value)) {
+    return duplicateSession();
+  }
 
   return {
     ok: true,
