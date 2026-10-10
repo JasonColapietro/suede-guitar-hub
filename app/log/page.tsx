@@ -347,7 +347,7 @@ export default function LogPage() {
 
         <section className="mx-auto max-w-4xl px-6 py-20">
           <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
-            What this does not do.
+            How to read it.
           </h2>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (

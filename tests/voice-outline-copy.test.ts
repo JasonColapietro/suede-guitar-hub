@@ -96,7 +96,14 @@ test('the learn index counts what a guest can open instead of asserting a number
     const markup = render(LearnPage, {});
     const free = accessibleLessonIds('guitar', guestLearningAccess).length;
     assert.equal(free, 0);
-    assert.ok(markup.includes('135 lessons') && markup.includes('Lifetime access required'));
+    // 105 stage lessons and 30 song companions, counted separately rather than
+    // summed into one total that reads as 135 stage lessons.
+    const stageLessons = allLessons('guitar').filter(entry => entry.level.stage).length;
+    assert.equal(stageLessons, 105);
+    assert.ok(markup.includes(`${stageLessons}<!-- --> lessons in`) || markup.includes(`${stageLessons} lessons in`), 'the stage-lesson count is stated');
+    assert.ok(markup.includes('30<!-- --> song companions') || markup.includes('30 song companions'), 'the song companions are counted on their own');
+    assert.ok(markup.includes('Lifetime access'));
+    assert.ok(markup.includes('apps.apple.com'), 'the paid path names where to buy it');
     // The voice card no longer counts anything here: the lessons moved to Sing.
     assert.ok(markup.includes('Voice lessons on Suede Sing'), 'the voice card sends a singer to Sing');
     // This sentence is about both tracks and stays true while any lesson

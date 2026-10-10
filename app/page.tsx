@@ -23,24 +23,25 @@ const TOOL_COUNT = (() => {
 
 
 
+/** One week per stage of the /method loop: baseline, isolate, reconnect, prove. */
 const PHASES = [
   {
-    phase: "Week 1",
-    title: "Diagnose honestly",
+    phase: "Week 1 · Baseline",
+    title: "Record where you start",
     body: "Choose the finish line and record a baseline before polishing, hiding, or restarting.",
   },
   {
-    phase: "Week 2",
+    phase: "Week 2 · Isolate",
     title: "Repair the blocker",
     body: "Isolate the one transition, timing drift, map gap, or phrase that breaks the result.",
   },
   {
-    phase: "Week 3",
+    phase: "Week 3 · Reconnect",
     title: "Add real pressure",
     body: "Reconnect the repaired skill to a full song, steady click, backing track, or cold prompt.",
   },
   {
-    phase: "Week 4",
+    phase: "Week 4 · Prove",
     title: "Perform and compare",
     body: "Record the final attempt beside the baseline and name the change the evidence supports.",
   },
@@ -102,15 +103,15 @@ const SONG_LESSONS = [
 const FAQS = [
   {
     q: "Who is GuitarHub for?",
-    a: "New guitarists can explore the lesson curriculum. Lessons require verified lifetime access. Returning players can use the free practice tools and Advanced Lab. Web purchase verification is being connected; lifetime lessons are available in the iPhone app.",
+    a: "Every level. New guitarists start the guided lesson course, which opens with lifetime access, a one-time purchase in GuitarHub for iPhone. Returning players use the free practice tools and planner, and experienced players go straight to the free Advanced Lab.",
   },
   {
     q: "Can I use the planner without joining?",
     a: "Yes. The four-week planner is free, needs no account, and stores progress only in your browser.",
   },
   {
-    q: "Is the community already live inside GuitarHub?",
-    a: "No native GuitarHub forum is being claimed. Suede AI Social carries the wider conversation; the founding practice crew will be formed after applications are reviewed.",
+    q: "Where does the GuitarHub community meet?",
+    a: "On Suede AI Social, where players post rigs and talk guitar. The founding room's practice crew is formed from the applications we review personally.",
   },
   {
     q: "Does GuitarHub upload my playing?",
@@ -190,7 +191,7 @@ export default function Home() {
                 <LevelPicker tone="dark" />
               </div>
               <p className="mt-6 text-sm text-white/80">
-                Lessons require lifetime access. The Advanced Lab and practice tools are free.{" "}
+                Guided lessons open with lifetime access in GuitarHub for iPhone. The Advanced Lab and practice tools are free.{" "}
                 <Link href="/learn/guitar/routine" className="font-semibold text-peach underline-offset-4 hover:underline">Try the A-to-D chord practice routine</Link>
                 {" · "}
                 <a href={SING_VOICE_COURSE} className="font-semibold text-peach underline-offset-4 hover:underline">Voice lessons on Suede Sing</a>
@@ -312,9 +313,10 @@ export default function Home() {
             </Reveal>
             <Reveal delay={1}>
               <p className="mx-auto mt-5 max-w-2xl text-center text-white/75">
-                The founding room is being assembled around one rule: every check-in
-                must change the next practice. Applications are reviewed before the
-                schedule, review capacity, or commitment is promised.
+                The founding room is built around one rule: every check-in must
+                change the next practice. Every application gets a personal review,
+                and you see the schedule, review capacity, and price before you
+                commit.
               </p>
             </Reveal>
             <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -436,9 +438,9 @@ export default function Home() {
           </Reveal>
           <Reveal delay={1}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink/70">
-              We are qualifying the first 8–12 player room before setting schedule,
-              review capacity, or price. Applying starts a fit conversation. It does
-              not charge you or create a commitment.
+              The first room is planned for 8–12 players. Applying starts a
+              conversation about your goal, and you see the schedule, review
+              capacity, and price before you commit. Applying is free.
             </p>
           </Reveal>
           <Reveal delay={2}>

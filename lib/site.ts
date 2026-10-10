@@ -68,12 +68,12 @@ export const ABOUT: SiteEntry = {
   href: "/about",
   title: "About GuitarHub",
   blurb:
-    "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
-  lastModified: "2026-09-04",
+    "Who built GuitarHub, what it offers, and how it fits with Strumly and Suede Sing.",
+  lastModified: "2026-10-10",
 };
 
 export const LEGAL: readonly SiteEntry[] = [
-  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-09-04" },
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
   { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-09-04" },
 ];
 
@@ -293,8 +293,8 @@ export const HUBS: readonly SiteEntry[] = [
     href: "/faq",
     title: "FAQ",
     blurb:
-      "What GuitarHub is, what it is not, where your data lives, and what applying involves.",
-    lastModified: "2026-08-29",
+      "What is free, how lifetime lesson access works, where your data lives, and what applying involves.",
+    lastModified: "2026-10-10",
   },
 ];
 

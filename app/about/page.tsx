@@ -2,24 +2,36 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { GUIDES, LEARN, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { APP_STORE, GUIDES, LEARN, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { DRILLS } from "@/lib/advanced/drills";
+import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
-const UPDATED = "2026-09-08";
+const UPDATED = "2026-10-10";
+
+/**
+ * Counted from the curriculum, never typed: the stage lessons and the
+ * popular-song companions are reported separately because they are different
+ * kinds of lesson.
+ */
+const GUITAR_LESSONS = allLessons("guitar");
+const STAGE_LESSONS = GUITAR_LESSONS.filter((entry) => entry.level.stage).length;
+const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
+const STAGES = curricula.guitar.levels.filter((level) => level.stage).length;
 
 /** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
 const CRUMBS = crumbTrail("About", CANONICAL);
 
-const TITLE = "About GuitarHub: The Suede Labs Guitar Lessons Site";
+const TITLE = "About GuitarHub: The Suede AI Guitar Lessons Site";
 // Kept near 155 characters so Google prints the differentiating tail. No count
 // of the tools or modules appears here: this string is also the openGraph
 // description and the AboutPage JSON-LD description, so a hard-typed number
 // becomes three contradictions of the registries at once.
 const DESCRIPTION =
-  "GuitarHub is the Suede Labs guitar lessons site: a step-by-step curriculum, a practice method and free browser tools. Who built it and how it fits with Strumly.";
+  "GuitarHub is the Suede AI guitar lessons site: a step-by-step curriculum, a practice method and free browser tools. Who built it and how it fits with Strumly.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/about"),
@@ -102,21 +114,22 @@ export default function AboutPage() {
             About <em className="font-display italic text-peach">GuitarHub.</em>
           </>
         }
-        dek="The guitar lessons site from Suede Labs: meet the founder, explore the lessons and practice method, and learn how your practice data stays private."
+        dek="The guitar lessons site from Suede AI: meet the founder, explore the lessons and practice method, and learn how your practice data stays private."
         updated={UPDATED}
         related={RELATED}
         relatedTitle="Start with one of these"
       >
         <p>
-          GuitarHub is where Suede Labs teaches guitar. The{" "}
+          GuitarHub is where Suede AI teaches guitar. The{" "}
           <Link href="/learn/guitar">guitar path</Link> starts at the first
           foundations, how to hold the instrument, tune it, and get one clean
           note, and works up through chords, reading, rhythm and the whole
-          neck. Lessons require lifetime access, and your place is kept in this
-          browser. Later modules are currently previews while purchase access
-          is being connected. The voice lessons that used to live here moved to{" "}
-          <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of them are
-          free.
+          neck. The guided lessons open with lifetime access, a one-time
+          purchase in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone,
+          and your place on the web is kept in this browser. The voice lessons
+          moved to <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of
+          them are free. Pricing, access and data questions are answered in{" "}
+          <Link href="/faq">the GuitarHub FAQ</Link>.
         </p>
 
         <p>
@@ -136,8 +149,8 @@ export default function AboutPage() {
 
         <p>
           GuitarHub is made by{" "}
-          <a href={STRUMLY.suedeLabs}>Suede Labs</a>, a studio founded by Jason
-          Colapietro, who also publishes as Johnny Suede. Suede Labs also builds{" "}
+          <a href={STRUMLY.suedeLabs}>Suede AI</a>, a studio founded by Jason
+          Colapietro, who also publishes as Johnny Suede. Suede AI also builds{" "}
           <a href={STRUMLY.guides}>Strumly</a>, the AI guitar coach with its
           practice tools, its book and guides, and a music data API that AI
           agents pay for per call, and{" "}
@@ -148,12 +161,12 @@ export default function AboutPage() {
         </p>
 
         <p>
-          The position behind the site is his, and it is arguable. A player with
+          The position behind the site is his. A player with
           a shelf of finished courses and no finished songs has not failed at
           practice. They were handed material and no way to check their own
           work, which is a different problem with a different fix. The fix is
-          unglamorous: fewer goals, a recording at each end of the month, and an
-          honest look at the two.
+          unglamorous: fewer goals, a recording at each end of the month, and a
+          straight comparison of the two.
         </p>
 
         <p>
@@ -166,21 +179,23 @@ export default function AboutPage() {
         <h2>What GuitarHub is</h2>
 
         <p>
-          <strong>Guitar lessons, in order.</strong> The opening guitar lessons
-          guide setup, tuning preparation, and single-note practice. The wider
-          curriculum covers chord, reading, and rhythm work, with a step for
-          each and a place kept between visits. Lesson previews identify what
-          is available today. Listening demonstrations, self-reported practice,
-          visual reading results, and microphone scores are labeled separately,
-          so you know which kind of check you are looking at.
+          <strong>Guitar lessons, in order.</strong> {STAGE_LESSONS} guided
+          lessons across {spellOut(STAGES)} stages, plus {SONG_COMPANIONS}{" "}
+          popular-song practice companions. The opening lessons guide setup,
+          tuning, and single-note practice; the wider curriculum covers chords,
+          reading, rhythm and the whole neck, with a step for each and a place
+          kept between visits. Listening demonstrations, self-reported
+          practice, visual reading results, and microphone scores are labeled
+          separately, so you always know which kind of check you are looking
+          at.
         </p>
 
         <p>
-          <strong>A voice path</strong>, built the same way: from the room you
+          <strong>Voice lessons</strong>, built the same way, from the room you
           sing in and a steady tone, through registers and the break, to
-          agility and a sound of your own. It now lives on{" "}
+          agility and a sound of your own, live on{" "}
           <a href={SING_VOICE_COURSE}>Suede Sing</a>, next to the rooms that
-          measure it.
+          measure them.
         </p>
 
         <p>
@@ -191,10 +206,22 @@ export default function AboutPage() {
         </p>
 
         <p>
-          <strong>Free tools</strong>, each running in your browser:
+          <strong>The Advanced Lab</strong>, {DRILLS.length} free scored drills
+          for experienced players across technique, theory, rhythm, ear
+          training, fretboard, improvisation, repertoire and tone.{" "}
+          <Link href="/advanced">Open the Advanced Lab</Link>.
+        </p>
+
+        <p>
+          <strong>{spellOut(TOOLS.length).replace(/^./, (c) => c.toUpperCase())} free tools</strong>, each running in your browser:
         </p>
 
         <ul>
+          <li>
+            <Link href="/practice">The guitar tuner and metronome</Link> checks
+            each open string with pitch feedback and reference tones, then
+            keeps a steady four-beat click at your tempo.
+          </li>
           <li>
             <Link href="/breakthrough">The 30-day breakthrough planner</Link>{" "}
             turns one finish line into a four-week sequence you can start today.
@@ -252,31 +279,28 @@ export default function AboutPage() {
         <h2>How this fits with Strumly and Suede AI Social</h2>
 
         <p>
-          GuitarHub teaches. Strumly coaches, and it is where the practice tools
-          live. Suede AI Social carries the wider conversation. The three are Suede
-          Labs.
+          GuitarHub teaches and runs your practice. Strumly coaches. Suede AI
+          Social carries the wider conversation. All three are Suede AI
+          products.
         </p>
 
         <p>
           In practice that means a lesson or a plan here decides <em>what</em>{" "}
-          you work on this week and sends you to Strumly for the thing that
-          does it: a metronome, a chord reference, a scale map, an ear trainer,
-          the coach that listens to you play. Rebuilding those inside GuitarHub
-          would produce a second, worse copy of a tool that already exists, so
-          the lessons link out instead. The{" "}
-          <a href={STRUMLY.guides}>Strumly guides</a> cover the material this
-          site deliberately leaves alone, including gear, tone, signal chain and
-          the rights to your music. Strumly also sells its music data to AI
+          you work on this week, and GuitarHub&apos;s own tuner, metronome and
+          Advanced Lab drills cover the daily work. Strumly adds the AI coach
+          that listens to you play, along with chord references, scale maps and
+          ear training. The{" "}
+          <a href={STRUMLY.guides}>Strumly guides</a> go deep on gear, tone,
+          signal chain and the rights to your music. Strumly also sells its music data to AI
           agents one call at a time. That is Strumly&apos;s business, and it
           runs on the same chord, key and song knowledge the lessons here are
           built on.
         </p>
 
         <p>
-          GuitarHub has no forum of its own and is not claiming one.{" "}
-          <a href={STRUMLY.social}>Suede AI Social</a> is where players post rigs
-          and talk to each other, and it is a separate place with separate
-          rules.
+          The GuitarHub community meets on{" "}
+          <a href={STRUMLY.social}>Suede AI Social</a>, where players post rigs
+          and talk to each other.
         </p>
 
         <h2>Apply for the founding room</h2>
@@ -304,8 +328,8 @@ export default function AboutPage() {
         </p>
 
         <p>
-          Schedule, review capacity, and price are not set. When they are, they
-          will be stated before anyone is asked to commit to anything.{" "}
+          You see the schedule, review capacity, and price before you are asked
+          to commit to anything.{" "}
           <Link href="/#apply">The application form is on the home page.</Link>
         </p>
 
@@ -313,19 +337,20 @@ export default function AboutPage() {
 
         <p>
           The lessons and the tools keep their state in your own browser, in
-          local storage, and nowhere else. What you enter is not sent to a
-          server. Close the tab and the work is still there next time; clear
-          your browser data and it is gone. We cannot recover it, and we did
-          not have it to begin with.
+          local storage. Close the tab and the work is still there next time;
+          clear your browser data and it is gone. The planning tools send
+          nothing to a server. If you sign in on the account page and
+          explicitly turn on practice sync, new lesson-attempt results are
+          saved to your account; earlier records stay on your device.
         </p>
 
         <p>
-          The current learning release has no account sign-in and no
-          cross-device progress sync. There is no analytics script and no
-          third-party tracker on this site, which you can confirm from the page
-          source rather than take on trust. There is no uploaded audio and no
-          recording feature. When the method tells you to record a baseline, it
-          means on your phone, kept by you.
+          There is no analytics script and no third-party tracker on this
+          site, which you can confirm from the page source. The tuner, lesson
+          exercises and Advanced Lab drills listen through your microphone only
+          after you start them and analyze the sound on your device; raw audio
+          is never uploaded. When the method tells you to record a baseline,
+          record it on your phone and keep it yourself.
         </p>
 
         <p>
@@ -344,11 +369,10 @@ export default function AboutPage() {
         </p>
 
         <p>
-          If something on this site is wrong, say so and it gets fixed. That
-          includes the lessons and the method. The claims here are arguments
-          about how playing gets learned, not findings, and an argument that
-          survives contact with your actual playing is the only kind worth
-          keeping.
+          Corrections to the lessons or the method go to the same address and
+          get a personal reply. The method is an argument about how playing
+          gets learned, and it is built to be tested against your own
+          recordings: run it for a month and compare the two takes.
         </p>
       </Article>
     </>
