@@ -12,8 +12,9 @@ test("every Advanced Lab drill is a valid, playable practice spec", () => {
   for (const drill of DRILLS) {
     assert.ok(validSpec(drill.spec), `${drill.id} has an invalid spec`);
     const goal = drill.spec.completionMinimumBPM ?? drill.spec.bpm;
-    // The coach's speed slider runs 25–125 per cent of the authored tempo.
-    assert.ok(goal <= drill.spec.bpm * 1.25 + 1e-9, `${drill.id} goal ${goal} is out of reach of the speed slider`);
+    // The authored tempo is the goal, so 100% on the tab player and on the
+    // coach's 25–125% speed slider both mean the tempo the drill clears at.
+    assert.equal(drill.spec.bpm, goal, `${drill.id}: 100% must mean the goal tempo`);
     if (drill.spec.mode === "pitchSequence") {
       for (const target of drill.spec.targets) {
         const f = hz(target.midi!);

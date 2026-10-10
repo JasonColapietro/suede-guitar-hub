@@ -17,3 +17,15 @@ test("rhythm player exposes native pressed mode buttons and starts without audio
   assert.match(markup, /Play it for me/);
   assert.doesNotMatch(markup, /Cancel audio start|>Stop</);
 });
+
+test("tab player presets are labelled by purpose and open on the 100% rung", () => {
+  const markup = renderToStaticMarkup(createElement(TabPlayer, {
+    timeline: { mode: "pitchSequence", bpm: 96, targets: [{ id: "one", beat: 0, midi: 57, guitarString: 5, fret: 12 }] },
+    presets: [{ label: "Learn", bpm: 72 }, { label: "Build", bpm: 79 }, { label: "Push", bpm: 87 }, { label: "Goal", bpm: 96 }, { label: "Stretch", bpm: 106 }],
+  }));
+  for (const label of ["Learn · 72 BPM (75%)", "Build · 79 BPM (82%)", "Push · 87 BPM (91%)", "Goal · 96 BPM (100%)", "Stretch · 106 BPM (110%)"]) {
+    assert.ok(markup.includes(label), label);
+  }
+  assert.match(markup, /<option value="100" selected="">Goal · 96 BPM \(100%\)<\/option>/);
+  assert.doesNotMatch(markup, /50% · 48 BPM/);
+});
