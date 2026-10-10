@@ -19,6 +19,15 @@ export type BreakthroughProfile = {
 export type BreakthroughAction = {
   id: string;
   label: string;
+  /** Which practice day of the week this action belongs to, from 1. */
+  day: number;
+};
+
+/** One part of every practice session, sized from the minutes available. */
+export type BreakthroughSessionBlock = {
+  label: string;
+  minutes: number;
+  detail: string;
 };
 
 export type BreakthroughWeek = {
@@ -28,6 +37,9 @@ export type BreakthroughWeek = {
   resource: { label: string; href: string };
   evidence: string;
   crewPrompt: string;
+  /** Level-appropriate pace for the week's work, as a share of full tempo. */
+  tempoTarget: string;
+  /** One action per practice day. */
   actions: BreakthroughAction[];
 };
 
@@ -37,6 +49,12 @@ export type BreakthroughPlan = {
   finishLine: string;
   cadence: string;
   experienceLabel: string;
+  /** How this level should approach the month, in one sentence. */
+  approach: string;
+  /** The shape of every session: warm-up, focused work, check. */
+  sessionBlocks: BreakthroughSessionBlock[];
+  weeklyMinutes: number;
+  totalMinutes: number;
   weeks: BreakthroughWeek[];
 };
 
@@ -47,7 +65,7 @@ export type StoredBreakthroughState = {
 
 export const BREAKTHROUGH_STORAGE_KEY = "guitarhub.breakthrough.v1";
 
-type WeekTemplate = Omit<BreakthroughWeek, "week" | "actions"> & {
+type WeekTemplate = Omit<BreakthroughWeek, "week" | "actions" | "tempoTarget"> & {
   actions: readonly string[];
 };
 
@@ -244,48 +262,182 @@ const EXPERIENCE_LABELS: Record<ExperienceLevel, string> = {
   returning: "Returning player",
 };
 
+export const MIN_DAYS_PER_WEEK = 3;
+export const MAX_DAYS_PER_WEEK = 6;
+export const MIN_MINUTES_PER_SESSION = 15;
+export const MAX_MINUTES_PER_SESSION = 60;
+
+type ExperienceProfile = {
+  approach: string;
+  /** Working pace for weeks 1 to 4, as a percentage of full tempo. */
+  tempoPercents: readonly [number, number, number, number];
+  /** What earns the next notch up inside a session. */
+  moveUp: string;
+};
+
+/**
+ * What changes with experience: the pace each week works at, and the rule
+ * for raising it. An advanced beginner starts slow enough that the first pass
+ * is clean; an intermediate player reaches full tempo in week 4; a returning
+ * player starts under what their hands remember and catches up late.
+ */
+const EXPERIENCE_PROFILES: Record<ExperienceLevel, ExperienceProfile> = {
+  "advanced-beginner": {
+    approach:
+      "Keep every action small: one passage at a time, slow enough that the first pass is clean.",
+    tempoPercents: [60, 70, 80, 90],
+    moveUp: "move up only after three clean passes in a row",
+  },
+  intermediate: {
+    approach:
+      "Work at the edge: once a pass is clean twice in a row, raise the tempo inside the same session.",
+    tempoPercents: [70, 80, 90, 100],
+    moveUp: "add 5% after two clean passes in a row",
+  },
+  returning: {
+    approach:
+      "Rebuild before you push: start under the tempo your hands remember and make week 1 about consistency, not speed.",
+    tempoPercents: [55, 65, 80, 95],
+    moveUp: "move up only after a clean pass on the first try of the day",
+  },
+};
+
+/**
+ * Practice days beyond the three core actions each week. Each one consolidates
+ * the week's core work rather than adding new material, so a sixth day makes
+ * the week deeper, not wider.
+ */
+const EXTRA_ACTIONS: readonly ((week: WeekTemplate) => string)[] = [
+  () => "Repeat the hardest action from this week and note what changed",
+  (week) => `Run a practice take of this week's evidence: ${lowerFirst(week.evidence)}`,
+  () => "Replay this week's takes and write one correction for tomorrow",
+];
+
+function lowerFirst(value: string): string {
+  return value.charAt(0).toLowerCase() + value.slice(1);
+}
+
+/**
+ * Split one session into warm-up, focused work and a closing check.
+ *
+ * A fifth of the time each for the warm-up and the check, never under three
+ * minutes, and the rest — always the largest share — for the week's action.
+ */
+export function sessionBlocksFor(minutes: number): BreakthroughSessionBlock[] {
+  const warmup = Math.max(3, Math.round(minutes * 0.2));
+  const check = Math.max(3, Math.round(minutes * 0.2));
+  return [
+    {
+      label: "Warm-up",
+      minutes: warmup,
+      detail: "Slow run of yesterday's material, metronome on.",
+    },
+    {
+      label: "Today's action",
+      minutes: minutes - warmup - check,
+      detail: "The one action scheduled for today, and nothing else.",
+    },
+    {
+      label: "Check",
+      minutes: check,
+      detail: "One recorded pass, then a line on what moved.",
+    },
+  ];
+}
+
+/**
+ * One action per practice day: the week's three core actions, with any extra
+ * days spent consolidating before the last core action closes the week.
+ *
+ * Core actions keep the ids they always had (`…-a1` to `…-a3`) and extra days
+ * use `…-x4` onwards, so changing the number of days keeps every tick on an
+ * action that still exists.
+ */
+function weekActions(
+  goal: GoalId,
+  weekNumber: number,
+  week: WeekTemplate,
+  daysPerWeek: number,
+): BreakthroughAction[] {
+  const core = week.actions.map((label, index) => ({
+    id: `${goal}-w${weekNumber}-a${index + 1}`,
+    label,
+  }));
+  const extras = EXTRA_ACTIONS.slice(0, Math.max(0, daysPerWeek - core.length)).map(
+    (write, index) => ({
+      id: `${goal}-w${weekNumber}-x${core.length + index + 1}`,
+      label: write(week),
+    }),
+  );
+  const ordered = [...core.slice(0, -1), ...extras, ...core.slice(-1)];
+  return ordered.map((action, index) => ({ ...action, day: index + 1 }));
+}
+
 function getTemplate(goal: GoalId): GoalTemplate {
   const template = BREAKTHROUGH_GOALS.find((candidate) => candidate.id === goal);
   if (!template) throw new Error("Choose a supported breakthrough goal.");
   return template;
 }
 
+/**
+ * Build the four-week plan for one profile.
+ *
+ * Every input shapes it. Days per week sets how many actions each week holds
+ * (one per practice day). Minutes per session sizes the warm-up, the focused
+ * block and the closing check. Experience sets the working tempo each week and
+ * the rule for raising it. Deterministic: the same profile always produces the
+ * same plan and the same action ids.
+ */
 export function createBreakthroughPlan(
   profile: BreakthroughProfile,
 ): BreakthroughPlan {
-  if (!Number.isInteger(profile.daysPerWeek) || profile.daysPerWeek < 3 || profile.daysPerWeek > 6) {
+  if (
+    !Number.isInteger(profile.daysPerWeek) ||
+    profile.daysPerWeek < MIN_DAYS_PER_WEEK ||
+    profile.daysPerWeek > MAX_DAYS_PER_WEEK
+  ) {
     throw new Error("Choose 3 to 6 practice days per week.");
   }
   if (
     !Number.isInteger(profile.minutesPerSession) ||
-    profile.minutesPerSession < 15 ||
-    profile.minutesPerSession > 60
+    profile.minutesPerSession < MIN_MINUTES_PER_SESSION ||
+    profile.minutesPerSession > MAX_MINUTES_PER_SESSION
   ) {
     throw new Error("Choose 15 to 60 minutes per practice session.");
   }
-  if (!(profile.experience in EXPERIENCE_LABELS)) {
+  if (!Object.hasOwn(EXPERIENCE_LABELS, profile.experience)) {
     throw new Error("Choose a supported experience level.");
   }
 
   const template = getTemplate(profile.goal);
+  const level = EXPERIENCE_PROFILES[profile.experience];
+  const weeklyMinutes = profile.daysPerWeek * profile.minutesPerSession;
   return {
     goal: template.id,
     title: template.title,
     finishLine: template.finishLine,
     cadence: `${profile.daysPerWeek} days x ${profile.minutesPerSession} minutes`,
     experienceLabel: EXPERIENCE_LABELS[profile.experience],
-    weeks: template.weeks.map((week, weekIndex) => ({
-      week: weekIndex + 1,
-      title: week.title,
-      focus: week.focus,
-      resource: week.resource,
-      evidence: week.evidence,
-      crewPrompt: week.crewPrompt,
-      actions: week.actions.map((label, actionIndex) => ({
-        id: `${template.id}-w${weekIndex + 1}-a${actionIndex + 1}`,
-        label,
-      })),
-    })),
+    approach: level.approach,
+    sessionBlocks: sessionBlocksFor(profile.minutesPerSession),
+    weeklyMinutes,
+    totalMinutes: weeklyMinutes * template.weeks.length,
+    weeks: template.weeks.map((week, weekIndex) => {
+      const percent = level.tempoPercents[weekIndex] ?? 100;
+      return {
+        week: weekIndex + 1,
+        title: week.title,
+        focus: week.focus,
+        resource: week.resource,
+        evidence: week.evidence,
+        crewPrompt: week.crewPrompt,
+        tempoTarget:
+          percent >= 100
+            ? `Full tempo this week; ${level.moveUp}.`
+            : `Work at about ${percent}% of full tempo; ${level.moveUp}.`,
+        actions: weekActions(template.id, weekIndex + 1, week, profile.daysPerWeek),
+      };
+    }),
   };
 }
 
@@ -334,4 +486,64 @@ export function restoreBreakthroughState(
   } catch {
     return null;
   }
+}
+
+/* ------------------------------------------------------------------ *
+ * Editing and shared progress
+ * ------------------------------------------------------------------ */
+
+export function sameBreakthroughProfile(
+  left: BreakthroughProfile,
+  right: BreakthroughProfile,
+): boolean {
+  return (
+    left.goal === right.goal &&
+    left.experience === right.experience &&
+    left.daysPerWeek === right.daysPerWeek &&
+    left.minutesPerSession === right.minutesPerSession
+  );
+}
+
+/**
+ * The stored state after changing the profile, carrying every checked action
+ * the new plan still has.
+ *
+ * Action ids depend on the goal, the week and the action, not on the minutes
+ * or the experience level, so editing those keeps every tick. Fewer days drops
+ * only the extra-day actions that no longer exist; a new goal is a new plan.
+ * What would be lost comes back as `dropped`, so the page can ask first.
+ */
+export function rebuildBreakthroughState(
+  latest: StoredBreakthroughState | null,
+  profile: BreakthroughProfile,
+): { state: StoredBreakthroughState; dropped: string[] } {
+  const plan = createBreakthroughPlan(profile);
+  const valid = actionIds(plan);
+  const previous = [...new Set(latest?.completedActionIds ?? [])];
+  return {
+    state: {
+      profile,
+      completedActionIds: previous.filter((id) => valid.has(id)),
+    },
+    dropped: previous.filter((id) => !valid.has(id)),
+  };
+}
+
+/**
+ * Mark one action done or not done on the latest stored plan. Returns `latest`
+ * unchanged when another tab has replaced the plan the player was looking at.
+ */
+export function setBreakthroughActionDone(
+  latest: StoredBreakthroughState | null,
+  profile: BreakthroughProfile,
+  actionId: string,
+  done: boolean,
+): StoredBreakthroughState | null {
+  if (!latest || !sameBreakthroughProfile(latest.profile, profile)) return latest;
+  const plan = createBreakthroughPlan(profile);
+  const without = latest.completedActionIds.filter((id) => id !== actionId);
+  return {
+    profile: latest.profile,
+    completedActionIds: normalizeProgress(plan, done ? [...without, actionId] : without),
+  };
 }
