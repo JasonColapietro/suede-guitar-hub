@@ -57,17 +57,69 @@ const browserEnvironment: MetronomeEnvironment = {
 };
 export interface MetronomePlayback extends Capture { setTempo: (bpm: number) => void }
 
+/**
+ * The lookahead scheduler's timing, after Chris Wilson's "A Tale of Two Clocks".
+ *
+ * A JavaScript timer wakes every `METRONOME_TIMER_MS` and hands the audio clock
+ * every click due in the next `METRONOME_LOOKAHEAD_SECONDS`, each at its exact
+ * AudioContext time. The audio thread plays them on time however late the
+ * timer itself runs, so main-thread load (layout, garbage collection, another
+ * tab) no longer moves a click. Only a stall longer than the lookahead can, and
+ * then `METRONOME_LATE_TOLERANCE_SECONDS` decides what happens next.
+ */
+export const METRONOME_TIMER_MS = 25;
+export const METRONOME_LOOKAHEAD_SECONDS = 0.1;
+/** A click this late still sounds now; anything later is dropped and the grid resyncs. */
+export const METRONOME_LATE_TOLERANCE_SECONDS = 0.03;
+
+export type MetronomeCursor = { nextBeatAt: number; beat: number };
+export type MetronomeClick = { beat: number; time: number };
+
+/**
+ * Every click to commit to the audio clock between `now` and the lookahead
+ * horizon, and where the grid stands afterwards. Pure, so it is tested alone.
+ *
+ * The interval after a click is fixed when that click is committed, which is
+ * what "tempo changes take effect after the next beat" means: the click already
+ * on its way keeps its time, and the gap after it uses the new tempo.
+ *
+ * After a stall long enough that the next click is more than the tolerance
+ * late, the missed clicks are not played as a catch-up burst. The grid steps
+ * forward to its next slot, keeping its phase and the bar position, so the
+ * click comes back on the pulse the player has been keeping.
+ */
+export function scheduleMetronomeWindow(cursor: MetronomeCursor, now: number, bpm: number): { clicks: MetronomeClick[]; cursor: MetronomeCursor; skipped: number } {
+  const interval = metronomeInterval(bpm), beatsPerBar = metronomeConfiguration.beatsPerBar;
+  let { nextBeatAt, beat } = cursor, skipped = 0;
+  if (!Number.isFinite(nextBeatAt) || !Number.isFinite(now)) return { clicks: [], cursor, skipped };
+  if (nextBeatAt < now - METRONOME_LATE_TOLERANCE_SECONDS) {
+    skipped = Math.ceil((now - METRONOME_LATE_TOLERANCE_SECONDS - nextBeatAt) / interval);
+    nextBeatAt += skipped * interval;
+    beat = (beat + skipped) % beatsPerBar;
+  }
+  const clicks: MetronomeClick[] = [];
+  while (nextBeatAt < now + METRONOME_LOOKAHEAD_SECONDS) {
+    clicks.push({ beat, time: Math.max(nextBeatAt, now) });
+    nextBeatAt += interval;
+    beat = nextMetronomeBeat(beat);
+  }
+  return { clicks, cursor: { nextBeatAt, beat }, skipped };
+}
+
 /** The native four-beat cadence: click immediately, adopt tempo changes after the next beat. */
 export async function startMetronome(initialBPM: number, onBeat: (beat: number) => void, onInterrupted: () => void, signal: AbortSignal, environment: MetronomeEnvironment = browserEnvironment): Promise<MetronomePlayback> {
   if (signal.aborted) throw new Error("Metronome start was cancelled.");
   const context = environment.createContext();
   let stopped = false, releaseSession = () => {}, cancelTimer = () => {};
-  let bpm = metronomeBPM(initialBPM), beat = 0;
+  let bpm = metronomeBPM(initialBPM);
   const sources = new Set<AudioBufferSourceNode>();
+  const beatDisplays = new Set<() => void>();
   const stop = () => {
     if (stopped) return;
     stopped = true;
     cancelTimer();
+    for (const cancel of beatDisplays) cancel();
+    beatDisplays.clear();
     context.onstatechange = null;
     for (const source of sources) { source.onended = null; try { source.stop(); } catch {} source.disconnect(); }
     sources.clear();
@@ -93,41 +145,38 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
     };
     const accent = clickBuffer(metronomeConfiguration.accentFrequencyHz), tick = clickBuffer(metronomeConfiguration.tickFrequencyHz);
     /**
-     * The audio-clock time the beat being scheduled belongs on.
+     * Where the beat grid stands on the audio clock.
      *
-     * Each click used to start at `context.currentTime` — whenever the timer
-     * happened to fire — and the next timer was armed for a whole interval from
-     * that moment. setTimeout is allowed to fire late, and every late firing
-     * pushed the following beat later still, so the error accumulated instead of
-     * cancelling out: a metronome that is audibly behind after a couple of
-     * minutes, which is the one thing a metronome may not be.
-     *
-     * Anchoring to the audio clock fixes that. The beat grid advances by exact
-     * intervals independently of when the timer runs, so a late firing still
-     * places its click on the grid and the next delay is short by exactly the
-     * amount the last one overran.
+     * Clicks used to be started "now" from a timer armed one beat ahead, so
+     * every millisecond the timer fired late was a millisecond the click was
+     * late, and a 700 ms main-thread stall stretched one beat to 1.58 s.
+     * Clicks are now committed ahead of time at grid positions; see
+     * `scheduleMetronomeWindow`.
      */
-    let nextBeatAt = context.currentTime;
-    const playBeat = (initial = false) => {
+    let cursor: MetronomeCursor = { nextBeatAt: context.currentTime, beat: 0 };
+    /** The visible beat follows the click's scheduled time, not the timer that queued it. */
+    const showBeat = (beat: number, delayMs: number) => {
+      if (delayMs < 1) { onBeat(beat); return; }
+      const cancel = environment.schedule(() => { beatDisplays.delete(cancel); if (!stopped) onBeat(beat); }, delayMs);
+      beatDisplays.add(cancel);
+    };
+    const pump = (initial = false) => {
       if (stopped) return;
       try {
-        const interval = metronomeInterval(bpm);
-        // A suspended tab can leave the grid far in the past. Re-anchor rather
-        // than firing a burst of catch-up clicks for beats nobody heard.
-        if (nextBeatAt < context.currentTime - interval) nextBeatAt = context.currentTime;
-        const source = context.createBufferSource();
-        source.buffer = beat === 0 ? accent : tick;
-        source.connect(context.destination);
-        source.onended = () => { sources.delete(source); source.disconnect(); };
-        sources.add(source);
-        // Never schedule in the past: a beat the timer delivered late plays now,
-        // while the grid it belongs to stays where it was.
-        source.start(Math.max(nextBeatAt, context.currentTime));
-        onBeat(beat);
-        beat = nextMetronomeBeat(beat);
-        nextBeatAt += interval;
-        // Keep the already scheduled beat when a slider moves; changing tempo must not starve clicks.
-        cancelTimer = environment.schedule(() => playBeat(), Math.max(0, (nextBeatAt - context.currentTime) * 1000));
+        const now = context.currentTime;
+        const planned = scheduleMetronomeWindow(cursor, now, bpm);
+        cursor = planned.cursor;
+        const latency = Number.isFinite(context.outputLatency) ? context.outputLatency : 0;
+        for (const click of planned.clicks) {
+          const source = context.createBufferSource();
+          source.buffer = click.beat === 0 ? accent : tick;
+          source.connect(context.destination);
+          source.onended = () => { sources.delete(source); source.disconnect(); };
+          sources.add(source);
+          source.start(click.time);
+          showBeat(click.beat, (click.time - now + latency) * 1000);
+        }
+        cancelTimer = environment.schedule(() => pump(), METRONOME_TIMER_MS);
       } catch (error) {
         stop();
         if (initial) throw error;
@@ -135,7 +184,7 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
       }
     };
     watchAudioState(context, () => { if (!stopped) { stop(); onInterrupted(); } });
-    playBeat(true);
+    pump(true);
     return { context, stop, setTempo: value => { bpm = metronomeBPM(value); } };
   } catch (error) { stop(); throw error; }
 }
