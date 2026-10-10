@@ -284,13 +284,21 @@ export default function SessionBuilder() {
                     value={option.value}
                     checked={selected}
                     onChange={() => changeFocus(option.value)}
+                    aria-labelledby={`focus-${option.value}-label`}
+                    aria-describedby={`focus-${option.value}-blurb`}
                     className={`mt-1 h-5 w-5 shrink-0 accent-violet ${PILL_FOCUS}`}
                   />
                   <span className="min-w-0">
-                    <span className="block font-semibold text-indigo-deep">
+                    <span
+                      id={`focus-${option.value}-label`}
+                      className="block font-semibold text-indigo-deep"
+                    >
                       {option.label}
                     </span>
-                    <span className="mt-1 block text-sm leading-relaxed text-ink/70">
+                    <span
+                      id={`focus-${option.value}-blurb`}
+                      className="mt-1 block text-sm leading-relaxed text-ink/70"
+                    >
                       {option.blurb}
                     </span>
                   </span>
@@ -337,12 +345,15 @@ export default function SessionBuilder() {
           ) : null}
         </div>
 
-        {/* Present from first paint so a screen reader announces the change,
-            rather than mounting alongside the result and being missed. */}
-        <p role="status" aria-live="polite" className="mt-4 text-sm text-ink/60">
-          {plan
-            ? `${plan.summary} ${minutesDone} of ${plan.minutes} minutes marked done.`
-            : ""}
+        {/* Only the progress count is live: each checkbox tick announces
+            "n of m minutes marked done" instead of re-reading the summary.
+            The span is present from first paint so the change is announced
+            rather than mounted alongside the result and missed. */}
+        <p className="mt-4 text-sm text-ink/60">
+          {plan ? `${plan.summary} ` : ""}
+          <span role="status">
+            {plan ? `${minutesDone} of ${plan.minutes} minutes marked done.` : ""}
+          </span>
         </p>
       </form>
 
