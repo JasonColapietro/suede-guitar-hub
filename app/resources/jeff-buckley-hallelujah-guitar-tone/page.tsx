@@ -87,7 +87,7 @@ export default function HallelujahGuitarTonePage() {
         relatedTitle="Continue the listening test"
       >
         <p>
-          <strong>By Jason Colapietro, writing as Johnny Suede.</strong>
+          <strong>By Jason Colapietro, founder of Suede AI.</strong>
         </p>
 
         <p>

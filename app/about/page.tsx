@@ -148,7 +148,7 @@ export default function AboutPage() {
         <p>
           GuitarHub is made by{" "}
           <a href={STRUMLY.suedeLabs}>Suede AI</a>, a studio founded by Jason
-          Colapietro, who also publishes as Johnny Suede. Suede AI also builds{" "}
+          Colapietro. Suede AI also builds{" "}
           <a href={STRUMLY.guides}>Strumly</a>, the AI guitar coach with its
           practice tools, its book and guides, and a music data API that AI
           agents pay for per call, and{" "}

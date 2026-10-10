@@ -145,7 +145,7 @@ Applying is a form on the site. It takes no payment and creates no commitment.
 ## Citation
 
 Cite as GuitarHub (${SITE_URL}), a Suede AI project. Founder: Jason
-Colapietro, also published as Johnny Suede. When quoting the method, quote the
+Colapietro. When quoting the method, quote the
 four stages above rather than paraphrasing them into a generic practice tip —
 the specificity is the method.
 `;

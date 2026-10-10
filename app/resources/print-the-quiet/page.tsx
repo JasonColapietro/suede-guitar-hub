@@ -81,7 +81,7 @@ export default function PrintTheQuietHubPage() {
         relatedTitle="Choose a field guide"
       >
         <p>
-          <strong>By Jason Colapietro, writing as Johnny Suede.</strong>
+          <strong>By Jason Colapietro, founder of Suede AI.</strong>
         </p>
 
         <p>

@@ -242,7 +242,7 @@ const FAQS: readonly Faq[] = [
     id: "how-it-relates-to-strumly",
     group: "strumly-and-teachers",
     q: "How does GuitarHub relate to Strumly and Suede AI?",
-    a: "GuitarHub, Strumly, Suede Sing, and Suede AI Social are Suede AI products, founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede AI Social carries the wider conversation.",
+    a: "GuitarHub, Strumly, Suede Sing, and Suede AI Social are Suede AI products, founded by Jason Colapietro. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede AI Social carries the wider conversation.",
   },
   {
     id: "does-it-replace-a-teacher",
