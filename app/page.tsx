@@ -406,7 +406,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="p-6">
-                    <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                       {post.kicker}
                     </span>
                     <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">

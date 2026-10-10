@@ -342,7 +342,7 @@ function GuideCard({
       href={entry.href}
       className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-sm ring-1 ring-ink/5 transition hover:shadow-md motion-safe:hover:-translate-y-1"
     >
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+      <span className="text-xs font-semibold uppercase tracking-widest text-violet">
         Read {index + 1} of {total}
       </span>
       <h3 className="mt-3 font-display text-xl leading-snug text-indigo-deep">
@@ -453,7 +453,7 @@ export default function GuidesPage() {
             className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
           >
             <div className="max-w-2xl">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+              <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                 {group.cluster.kicker}
               </span>
               <h2 className="mt-3 text-3xl leading-snug text-indigo-deep md:text-4xl">

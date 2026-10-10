@@ -344,7 +344,7 @@ function ToolCard({ tool }: { tool: SiteEntry }) {
       {detail ? (
         <dl className="mt-6 space-y-4 border-t border-ink/10 pt-5">
           <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
               What it is for
             </dt>
             <dd className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -352,7 +352,7 @@ function ToolCard({ tool }: { tool: SiteEntry }) {
             </dd>
           </div>
           <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
               Who it helps
             </dt>
             <dd className="mt-2 text-sm leading-relaxed text-ink/70">

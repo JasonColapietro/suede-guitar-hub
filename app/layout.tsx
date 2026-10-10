@@ -175,7 +175,7 @@ export default function RootLayout({
             initial HTML agree. No-JS readers still receive visible content. */}
         <JsClassMarker />
         {children}
-      <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions">AI Instructions</a></nav>
+      <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions" className="inline-flex min-h-11 items-center">AI Instructions</a></nav>
       </body>
     </html>
   );

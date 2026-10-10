@@ -158,7 +158,7 @@ export default function Article({
 
         {related && related.length > 0 ? (
           <section data-print="hide" className="mx-auto max-w-4xl px-6 pb-20">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-violet">
               {relatedTitle}
             </h2>
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">

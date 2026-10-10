@@ -378,7 +378,7 @@ export default function FaqPage() {
         <section className="mx-auto max-w-5xl px-6 py-16" aria-labelledby="on-this-page">
           <h2
             id="on-this-page"
-            className="text-[11px] font-semibold uppercase tracking-widest text-violet"
+            className="text-xs font-semibold uppercase tracking-widest text-violet"
           >
             On this page
           </h2>
@@ -500,7 +500,7 @@ export default function FaqPage() {
 
             {REMAINING_GUIDES.length > 0 ? (
               <>
-                <h3 className="mt-14 text-[11px] font-semibold uppercase tracking-widest text-violet">
+                <h3 className="mt-14 text-xs font-semibold uppercase tracking-widest text-violet">
                   The rest of the guides
                 </h3>
                 <ul className="mt-4 flex flex-wrap gap-3">
@@ -518,7 +518,7 @@ export default function FaqPage() {
               </>
             ) : null}
 
-            <h3 className="mt-14 text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <h3 className="mt-14 text-xs font-semibold uppercase tracking-widest text-violet">
               The other two Suede surfaces
             </h3>
             <ul className="mt-4 flex flex-wrap gap-3">

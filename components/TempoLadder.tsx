@@ -451,7 +451,7 @@ export default function TempoLadder() {
                     }`}
                   >
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                      <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                         Session {rung.session} · {style.badge}
                       </span>
                     </div>

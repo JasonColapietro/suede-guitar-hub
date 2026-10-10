@@ -401,7 +401,7 @@ export default function LogPage() {
         </section>
 
         <section className="mx-auto max-w-6xl px-6 pb-20">
-          <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-violet">
             Where to go next
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

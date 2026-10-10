@@ -626,7 +626,7 @@ export default function PracticeLog() {
                           {focus.focus}
                         </h4>
                         <span
-                          className={`inline-flex items-center rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest ${TREND_STYLES[focus.trend.verdict]}`}
+                          className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-widest ${TREND_STYLES[focus.trend.verdict]}`}
                         >
                           {focus.trend.label}
                         </span>
@@ -634,7 +634,7 @@ export default function PracticeLog() {
 
                       <dl className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
                         <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                          <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
                             Best
                           </dt>
                           <dd className="text-lg font-bold text-indigo-deep">
@@ -645,7 +645,7 @@ export default function PracticeLog() {
                           </dd>
                         </div>
                         <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                          <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
                             Latest
                           </dt>
                           <dd className="text-lg font-bold text-indigo-deep">
@@ -656,7 +656,7 @@ export default function PracticeLog() {
                           </dd>
                         </div>
                         <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                          <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
                             Sessions
                           </dt>
                           <dd className="text-lg font-bold text-indigo-deep">
@@ -725,10 +725,10 @@ export default function PracticeLog() {
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                       <time dateTime={entry.date}>{formatDate(entry.date)}</time>
                     </span>
-                    <span className="text-[11px] font-semibold uppercase tracking-widest text-ink/45">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-ink/45">
                       {entry.value} {unit}
                     </span>
                   </div>

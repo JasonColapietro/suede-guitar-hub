@@ -51,7 +51,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
  * The label still names its list programmatically through `aria-labelledby`.
  */
 const COLUMN_HEADING =
-  "text-[11px] font-semibold uppercase tracking-widest text-violet";
+  "text-xs font-semibold uppercase tracking-widest text-violet";
 // `gap-1` matters: these are inline-flex, which discards the whitespace text
 // node between a label and its trailing "↗", so the gap has to be explicit.
 const LINK_CLASSES =

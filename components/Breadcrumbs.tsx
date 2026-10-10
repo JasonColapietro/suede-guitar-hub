@@ -19,7 +19,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: readonly Crumb[] }) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="mx-auto max-w-6xl px-6 pt-5 text-sm text-ink/70"
+      className="mx-auto max-w-6xl px-6 pt-2 text-sm text-ink/70"
     >
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {crumbs.map((crumb, index) => {
@@ -38,7 +38,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: readonly Crumb[] }) {
               ) : (
                 <Link
                   href={crumb.href}
-                  className="underline underline-offset-4 transition hover:text-indigo-deep"
+                  className="inline-flex min-h-11 items-center underline underline-offset-4 transition hover:text-indigo-deep"
                 >
                   {crumb.name}
                 </Link>

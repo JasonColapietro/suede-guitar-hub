@@ -71,7 +71,7 @@ export function BookShelf({ id = "book" }: { id?: string }) {
         </a>
 
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <p className="text-xs font-semibold uppercase tracking-widest text-violet">
             {COMPLETE.kicker}
           </p>
           <h3 className="mt-2 font-display text-3xl leading-tight text-indigo-deep">{COMPLETE.title}</h3>
@@ -84,7 +84,7 @@ export function BookShelf({ id = "book" }: { id?: string }) {
             Get the book on Strumly <span aria-hidden>→</span>
           </a>
 
-          <p className="mt-12 text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <p className="mt-12 text-xs font-semibold uppercase tracking-widest text-violet">
             Inside the complete edition
           </p>
           <ul className="mt-5 grid gap-6 sm:grid-cols-2">

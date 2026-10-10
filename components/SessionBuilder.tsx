@@ -423,10 +423,10 @@ export default function SessionBuilder() {
                       }`}
                     >
                       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                        <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                           Block {block.position} · {block.shortName}
                         </span>
-                        <span className="text-[11px] font-semibold uppercase tracking-widest text-ink/50">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-ink/50">
                           {block.minutes} min
                         </span>
                       </div>
