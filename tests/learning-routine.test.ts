@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, emptyRoutineState, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineChangeRate, routineElapsedSeconds, routinePrepared, routineTemplate, RoutineTimer } from "../lib/learning/routine.ts";
+import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, emptyRoutineState, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineSeconds, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineBlockStatus, routineChangeRate, routineElapsedSeconds, routinePrepared, routineTemplate, RoutineTimer } from "../lib/learning/routine.ts";
 import { emptyProgress } from "../lib/learning/progress.ts";
 const now = "2026-09-04T12:00:00.000Z";
 const later = "2026-09-05T12:00:00.000Z";
@@ -134,4 +134,29 @@ test("editing a persisted start at zero cannot erase the interrupted attempt", (
   assert.equal(edited.interrupted, true);
   const completed = checkpointRoutineAttempt(beginRoutineAttempt(edited), changes, 60000, later);
   assert.equal(routineChangeRate(reviewRoutineAttempt(completed, "practiced", 31, later)), null);
+});
+
+test("planned seconds are validated with a visible reason, never silently reverted or clamped", () => {
+  assert.deepEqual(parseRoutineSeconds("90", "Tune", 120), { ok: true, value: 90 });
+  assert.deepEqual(parseRoutineSeconds("15", "Tune", 120), { ok: true, value: 15 });
+  assert.deepEqual(parseRoutineSeconds("3600", "Tune", 120), { ok: true, value: 3600 });
+  for (const raw of ["", "  ", "14", "3601", "9000", "60.5", "abc", "-30"]) {
+    const result = parseRoutineSeconds(raw, "Tune", 120);
+    assert.equal(result.ok, false, raw);
+    if (!result.ok) assert.equal(result.message, "Enter whole seconds from 15 to 3600. Tune stays at 120 seconds until then.");
+  }
+});
+
+test("moving to a block replaces the previous block's status", () => {
+  const blocks = routineTemplate.blocks;
+  const fifth = blocks[4];
+  const fresh = routineBlockStatus(fifth.id, undefined);
+  assert.equal(fresh, `Block 5 of ${blocks.length}: ${fifth.title}. Start the block when your guitar is in hand.`);
+  assert.doesNotMatch(fresh, /Routine ready|Time reached/);
+  const attempt = newRoutineAttempt("a", "2026-09-08T12:00:00.000Z", 60);
+  assert.match(routineBlockStatus(fifth.id, { ...attempt, elapsedMs: 5000, status: "paused" }), /Resume the block/);
+  assert.match(routineBlockStatus(fifth.id, { ...attempt, status: "review" }), /review this attempt/);
+  assert.match(routineBlockStatus(fifth.id, { ...attempt, status: "reviewed" }), /reflection for this block is saved/);
+  assert.match(routineBlockStatus(fifth.id, { ...attempt, status: "skipped" }), /skipped/);
+  assert.equal(routineBlockStatus("no-such-block", undefined), "");
 });
