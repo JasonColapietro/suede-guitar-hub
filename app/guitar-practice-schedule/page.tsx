@@ -414,14 +414,15 @@ export default function GuitarPracticeSchedulePage() {
           </li>
           <li>
             <strong>One open 35.</strong> Repertoire, new material, or a session
-            that got missed. Deliberately the largest block and first on the cut
-            list, so a bad week has somewhere to take its losses.
+            that got missed. Deliberately the largest block after the anchor and
+            the first on the cut list, so a bad week has somewhere to take its
+            losses.
           </li>
         </ul>
 
         <p>
           The bad-week version is the anchor cut to thirty minutes, two tens,
-          and nothing else: seventy minutes, still pointed at the same passage,
+          and nothing else: fifty minutes, still pointed at the same passage,
           still ending with a tempo written down. The same plan at a smaller
           size, which is the property that matters.
         </p>

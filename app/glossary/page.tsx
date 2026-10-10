@@ -14,6 +14,7 @@ import {
 } from "@/lib/glossary";
 import { HUBS, OG_IMAGE, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
+import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 
 /**
  * The shared vocabulary, rendered from `contracts/glossary.json`.
@@ -129,10 +130,10 @@ export default function GlossaryPage() {
         related={[
           ...HUBS.filter((hub) => hub.href === "/guides"),
           {
-            href: "/learn/voice",
-            title: "Learn voice step by step",
+            href: SING_VOICE_COURSE,
+            title: "Voice lessons on Suede Sing",
             blurb:
-              "The voice curriculum this vocabulary belongs to, with every lesson's words linked to a definition.",
+              "The free voice curriculum this vocabulary belongs to, with every lesson's words linked to a definition.",
           },
         ]}
       >
@@ -189,8 +190,8 @@ export default function GlossaryPage() {
                 <> ({entry.aka.join(", ").toLowerCase()})</>
               ) : null}{" "}
               <span className="text-ink/60">
-                &middot; {entry.domain === "voice" ? "voice" : "music"}, used in{" "}
-                <a href={usageHref(entry)}>{entry.href}</a>
+                &middot; {entry.domain === "voice" ? "voice" : "music"}, in use on{" "}
+                <a href={usageHref(entry)}>Suede Sing ({entry.href})</a>
               </span>
             </li>
           ))}
