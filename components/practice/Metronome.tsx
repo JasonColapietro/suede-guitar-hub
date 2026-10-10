@@ -52,7 +52,7 @@ export function Metronome() {
   return <section className={styles.metronome} aria-labelledby="metronome-title">
     <p className={styles.eyebrow}>Keep a steady pulse</p><h2 id="metronome-title">Metronome</h2>
     <p>Use the click for chord changes, scales, or a passage you are working on. No microphone is needed.</p>
-    <div className={styles.beats} aria-label={phase === "running" && beat !== null ? `Beat ${beat + 1} of ${configuration.beatsPerBar}` : "Metronome stopped"}>{Array.from({ length: configuration.beatsPerBar }, (_, index) => <span key={index} data-active={beat === index && phase === "running"} data-accent={index === 0} aria-hidden="true">{index + 1}</span>)}</div>
+    <div className={styles.beats} aria-hidden="true">{Array.from({ length: configuration.beatsPerBar }, (_, index) => <span key={index} data-active={beat === index && phase === "running"} data-accent={index === 0} aria-hidden="true">{index + 1}</span>)}</div>
     <p className={styles.tempo}><strong>{bpm}</strong><span>beats per minute</span></p>
     <div className={styles.tempoControls}>
       <button type="button" aria-label={`Slower by ${configuration.buttonStepBPM} beats per minute`} disabled={bpm <= configuration.minimumBPM} onClick={() => changeTempo(bpm - configuration.buttonStepBPM)}>−</button>

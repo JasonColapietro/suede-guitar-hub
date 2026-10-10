@@ -21,7 +21,7 @@ export function DrillSession({ drill }: { drill: Drill }) {
       <div><span className={styles.label}>Your best</span><strong>{best ? `${best.score}% at ${best.bpm} BPM` : "No result yet"}</strong></div>
       <div><span className={styles.label}>Rating</span><strong>{best ? <StarRating stars={starsForResult(best, goal)} /> : "–"}</strong></div>
     </div>
-    <TabPlayer key={`tab-${drill.id}`} bestKey={drill.spec.mode === "rhythm" ? `drill:${drill.id}` : undefined} timeline={drill.spec} title={drill.spec.mode === "rhythm" ? "Hear the rhythm" : "Hear the line"} />
+    <TabPlayer key={`tab-${drill.id}`} bestKey={drill.spec.mode === "rhythm" ? `drill:${drill.id}` : undefined} timeline={drill.spec} title={drill.spec.mode === "rhythm" ? "Hear the rhythm" : "Hear the line"} headingLevel={2} />
     <PracticeCoach
       key={drill.id}
       spec={drill.spec}

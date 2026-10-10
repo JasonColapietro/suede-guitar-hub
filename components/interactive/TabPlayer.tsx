@@ -30,7 +30,7 @@ type Loop = { a: number; b: number } | null;
  * two notes. Rhythm exercises add a tap-along mode scored against the grid,
  * which needs no microphone.
  */
-export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeline.mode === "rhythm", bestKey }: { timeline: TabTimeline; title?: string; allowTap?: boolean; /** Enables a saved personal best for tap-along. */ bestKey?: string }) {
+export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeline.mode === "rhythm", bestKey, headingLevel = 3 }: { timeline: TabTimeline; title?: string; allowTap?: boolean; /** Enables a saved personal best for tap-along. */ bestKey?: string; /** 2 where the player sits directly under the page h1 (drill pages); 3 inside a lesson section. */ headingLevel?: 2 | 3 }) {
   const { targets } = timeline;
   const beatsPerBar = timeline.beatsPerBar ?? 4;
   const rhythm = timeline.mode === "rhythm";
@@ -197,7 +197,7 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
 
   return <section className={styles.panel} aria-label={title}>
     <div className={styles.head}>
-      <div><p className={styles.eyebrow}>{rhythm ? "Rhythm" : "Tab"} player</p><h3>{title}</h3></div>
+      <div><p className={styles.eyebrow}>{rhythm ? "Rhythm" : "Tab"} player</p>{headingLevel === 2 ? <h2>{title}</h2> : <h3>{title}</h3>}</div>
       {allowTap && <div className={styles.tabs} role="group" aria-label="Player mode">
         {(["listen", "tap"] as const).map(value => <button key={value} type="button" aria-pressed={mode === value} disabled={playing || starting} onClick={() => { setMode(value); setResult(null); }}>{value === "listen" ? "Listen" : "Tap along"}</button>)}
       </div>}
