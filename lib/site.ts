@@ -222,6 +222,20 @@ export const GUIDES: readonly SiteEntry[] = [
     lastModified: "2026-10-10",
   },
   {
+    href: "/guitar-finger-pain",
+    title: "Sore fingertips and hand pain",
+    blurb:
+      "How calluses form, how to press lighter, the setup fixes that help, and the pain signals that mean stop.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/record-guitar-practice-on-phone",
+    title: "Record your practice on a phone",
+    blurb:
+      "Phone placement, levels, a day 1 versus day 30 comparison, and the five things to listen for in every take.",
+    lastModified: "2026-10-10",
+  },
+  {
     href: "/how-to-practice-strumming",
     title: "How to practice strumming",
     blurb:
@@ -233,6 +247,13 @@ export const GUIDES: readonly SiteEntry[] = [
     title: "Barre chords and the F chord",
     blurb:
       "Leverage instead of grip strength, a four-step path to a full F, and the E and A shapes up the neck.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/coming-back-to-guitar",
+    title: "Coming back to guitar after years away",
+    blurb:
+      "A 30-day restart: set up the guitar, rebuild your fingertips, record a fresh baseline, and finish one song.",
     lastModified: "2026-10-10",
   },
 ];
