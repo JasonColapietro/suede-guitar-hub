@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   DIAGNOSE_STORAGE_KEY,
   DIAGNOSTIC_QUESTIONS,
+  confidenceNote,
   diagnose,
   questionPrompt,
   restoreDiagnosticState,
@@ -269,11 +270,7 @@ export default function Diagnostic() {
                   <SignalBar blocker={result.primary} lead />
                 </ul>
                 <p className="mt-3 text-sm leading-relaxed text-ink/60">
-                  {result.confidence === "faint"
-                    ? "These are faint signals. Nothing looks badly broken, so read this as the mildest of five rather than a verdict."
-                    : result.confidence === "narrow"
-                      ? "Two blockers came out close. At this margin the ranking is not decisive, so read the runner-up as well."
-                      : "This one leads by a clear margin. Start here."}
+                  {confidenceNote(result)}
                 </p>
               </div>
 

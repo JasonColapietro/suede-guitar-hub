@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   DIAGNOSTIC_BLOCKERS,
   DIAGNOSTIC_QUESTIONS,
+  confidenceNote,
   diagnose,
   normalizeAnswers,
   restoreDiagnosticState,
@@ -387,4 +388,21 @@ test("gives the same result for the same answers every time it runs", () => {
   const before = JSON.stringify(input);
   scoreAnswers(input);
   assert.equal(JSON.stringify(input), before);
+});
+
+test("a three-way near-tie is described as three close blockers, not two", () => {
+  const result = diagnose({
+    "session-end": "changed", recording: "this-week", "full-tempo": "holds", "broken-bar": "most",
+    "new-material": "one-two", "last-finished": "recent", "first-ten": "already-good", "who-checks": "nothing", click: "falls-apart",
+  });
+  assert.equal(result.status, "blocked");
+  if (result.status !== "blocked") return;
+  assert.equal(result.confidence, "narrow");
+  assert.equal(result.closeCount, 3);
+  assert.match(confidenceNote(result), /^Three blockers came out close/);
+  assert.doesNotMatch(confidenceNote(result), /Two blockers/);
+
+  assert.match(confidenceNote({ confidence: "narrow", closeCount: 2 }), /^Two blockers came out close/);
+  assert.match(confidenceNote({ confidence: "clear", closeCount: 1 }), /clear margin/);
+  assert.match(confidenceNote({ confidence: "faint", closeCount: 1 }), /faint signals/);
 });
