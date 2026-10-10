@@ -50,7 +50,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: STRUMLY.rig, label: "Strumly rig board" },
   { href: STRUMLY.sing, label: "Suede Sing" },
   { href: STRUMLY.social, label: "Suede AI Social" },
-  { href: STRUMLY.suedeLabs, label: "Suede Labs" },
+  { href: STRUMLY.suedeLabs, label: "Suede AI" },
 ];
 
 /**
@@ -137,7 +137,7 @@ export default function SiteFooter() {
             GUITARHUB
           </Link>
           <span>
-            A Suede Labs program, built by Jason Colapietro ·{" "}
+            A Suede AI program, built by Jason Colapietro ·{" "}
             <a
               href="mailto:info@suedeai.ai"
               className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-indigo-deep"
