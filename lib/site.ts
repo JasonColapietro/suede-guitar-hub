@@ -100,7 +100,7 @@ export const ABOUT: SiteEntry = {
 
 export const LEGAL: readonly SiteEntry[] = [
   { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
-  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-09-04" },
+  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-10-10" },
 ];
 
 export const TOOLS: readonly SiteEntry[] = [

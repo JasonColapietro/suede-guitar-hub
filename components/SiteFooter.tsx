@@ -145,7 +145,7 @@ export default function SiteFooter() {
               info@suedeai.ai
             </a>
           </span>
-          <span>© {new Date().getFullYear()} Suede Labs</span>
+          <span>© {new Date().getFullYear()} Suede AI</span>
         </div>
       </div>
     </footer>
