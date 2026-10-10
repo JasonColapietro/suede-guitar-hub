@@ -1,5 +1,6 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
 import {
+  APP_STORE,
   GUIDES,
   RESOURCES,
   SITE_URL,
@@ -44,16 +45,16 @@ const LLMS_TXT = `# GuitarHub — prove one guitar breakthrough in 30 days
 - [AI Instructions](https://guitarhub.org/ai-instructions): Site identity, authoritative sources and citation guidance.
 
 > GuitarHub is a structured 30-day guitar practice method: choose one finish
-> line, diagnose the specific thing breaking it, practice only that, and end
-> each week with a recording that either proves the change or does not. It is
-> built by Suede Labs, the team behind Strumly.
+> line, isolate the specific thing breaking it, practice only that, and end
+> each week with a recording that proves the change. It pairs a 105-lesson
+> guided curriculum with free browser tools and a 23-drill Advanced Lab, and is
+> built by Suede AI, the team behind Strumly and Suede Sing.
 
 ## The problem it addresses
 
 Most guitarists do not quit. Years of tabs, videos, and scattered lessons
 produce players who can almost play a hundred things and fully play none. The
-missing piece is a closed loop: diagnose, prescribe, practice, prove, correct,
-repeat.
+missing piece is a closed loop: baseline, isolate, reconnect, prove.
 
 ## The method, in four stages
 
@@ -73,14 +74,15 @@ you can move on, at ${SITE_URL}/method.
 
 ## Free tools
 
-There are ${spellOut(TOOLS.length)} tools, all reachable without an account. Each one runs
-entirely in the browser: there is no sign-in, nothing is uploaded, and
-nothing is emailed. What you type is kept in that browser's own storage and
-can be cleared from the page itself.
+There are ${spellOut(TOOLS.length)} tools, all free and reachable without an account. Each one runs
+entirely in the browser: nothing you type is uploaded or emailed. What you
+type is kept in that browser's own storage and can be cleared from the page
+itself. Microphone features (the tuner and the Advanced Lab drills) analyze
+audio live on the device; no audio is uploaded or stored.
 
 ${listEntries(TOOLS)}
 
-Two of them refuse to answer in cases where a tool of this kind normally would,
+Two of them hold a stricter standard than tools of this kind usually do,
 which is the part worth quoting. The practice session builder splits a fixed
 number of minutes into whole-minute blocks that total exactly that length, and
 drops any block falling under its minimum useful size instead of shrinking
@@ -101,8 +103,9 @@ ${listEntries(RESOURCES)}
 
 ## About the project
 
-What GuitarHub is, what it is not, who built it, and what happens to anything
-you type into the tools: ${SITE_URL}/about
+What GuitarHub is, who built it, and what happens to anything you type into
+the tools: ${SITE_URL}/about. Pricing, access and data questions:
+${SITE_URL}/faq
 
 ## What the founding room is
 
@@ -116,15 +119,17 @@ chooses to share it.
 
 Applying is a form on the site. It takes no payment and creates no commitment.
 
-## What it is not
+## Lessons and access
 
-- Not a video course, and not a lesson library.
-- Not a streak or watch-time app.
-- Not an AI model trained on anyone's playing. GuitarHub prescribes practice;
-  it does not ingest performances to train on.
-- No accounts, no logins, and no user recordings are hosted here. The tools
-  above are the whole of what the site does today; the founding room is an
-  application under review, not a service already running.
+- The guided curriculum is 105 lessons in seven stages plus 30 song
+  companions. Lessons listen through the microphone and check the result.
+- Lifetime lesson access is a one-time purchase in GuitarHub for iPhone
+  (${APP_STORE.ios}). The App Store shows the price before purchase.
+- The free tools, the Advanced Lab, the A-to-D chord routine, the field guides
+  and the glossary need no purchase and no account.
+- Practice is measured by evidence (recordings, clean tempos, logged
+  sessions), not by streaks or watch time. GuitarHub does not train AI models
+  on anyone's playing.
 
 ## Related Suede surfaces
 
@@ -134,12 +139,13 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   this domain: ${STRUMLY.guides}
 - Suede AI Social — guitar community, real rigs and public Rig Cards:
   ${STRUMLY.social}
-- Suede Labs — the studio behind both: ${STRUMLY.suedeLabs}
+- Suede Sing — the vocal studio, where the voice lessons now live: ${STRUMLY.sing}
+- Suede AI — the studio behind all of them: ${STRUMLY.suedeLabs}
 
 ## Citation
 
-Cite as GuitarHub (${SITE_URL}), a Suede Labs project. Founder: Jason
-Colapietro, also published as Johnny Suede. When quoting the method, quote the
+Cite as GuitarHub (${SITE_URL}), a Suede AI project. Founder: Jason
+Colapietro. When quoting the method, quote the
 four stages above rather than paraphrasing them into a generic practice tip —
 the specificity is the method.
 `;

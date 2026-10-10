@@ -116,6 +116,11 @@ export type Diagnosis =
        * `clear`  — one blocker leads by a real margin.
        */
       confidence: "faint" | "narrow" | "clear";
+      /**
+       * How many blockers, the primary included, scored within ten points of
+       * it. Two or more whenever `confidence` is `narrow`.
+       */
+      closeCount: number;
     };
 
 export const DIAGNOSE_STORAGE_KEY = "guitarhub.diagnose.v1";
@@ -574,7 +579,29 @@ export function diagnose(candidate: unknown): Diagnosis {
         ? "faint"
         : "clear";
 
-  return { status: "blocked", answered, total, scores, primary, runnerUp, confidence };
+  const closeCount = scores.filter(
+    (blocker) => blocker.score > 0 && primary.share - blocker.share <= 10,
+  ).length;
+
+  return { status: "blocked", answered, total, scores, primary, runnerUp, confidence, closeCount };
+}
+
+const COUNT_WORDS = ["Zero", "One", "Two", "Three", "Four", "Five"];
+
+/** The sentence under the lead blocker, saying how much weight its lead can bear. */
+export function confidenceNote(
+  result: Pick<Extract<Diagnosis, { status: "blocked" }>, "confidence" | "closeCount">,
+): string {
+  if (result.confidence === "faint") {
+    return "These are faint signals. Nothing looks badly broken, so read this as the mildest of five rather than a verdict.";
+  }
+  if (result.confidence === "narrow") {
+    const count = Math.max(2, result.closeCount);
+    return count === 2
+      ? "Two blockers came out close. At this margin the ranking is not decisive, so read the runner-up as well."
+      : `${COUNT_WORDS[count] ?? count} blockers came out close. At this margin the ranking is not decisive, so read every signal scored below, not only the runner-up.`;
+  }
+  return "This one leads by a clear margin. Start here.";
 }
 
 /**

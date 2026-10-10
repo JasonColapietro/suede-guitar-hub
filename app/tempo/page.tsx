@@ -3,8 +3,9 @@ import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import TempoLadder from "@/components/TempoLadder";
-import { GUIDES, OG_IMAGE, STRUMLY, TOOLS } from "@/lib/site";
+import { GUIDES, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
+import { BPM_MAX, BPM_MIN } from "@/lib/tempo";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/tempo"),
@@ -18,10 +19,8 @@ export const metadata: Metadata = {
     url: "https://guitarhub.org/tempo",
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: "https://guitarhub.org/tempo" },
 };
@@ -119,7 +118,7 @@ const RULES = [
   },
   {
     title: "The numbers are metronome numbers",
-    body: "Rungs land on whole BPM, and on multiples of five or two wherever that does not distort the spacing. A ladder you cannot dial in is not a ladder.",
+    body: `Rungs land on whole BPM from ${BPM_MIN} to ${BPM_MAX}, the full range of the GuitarHub metronome, and on multiples of five or two wherever that does not distort the spacing. Every rung dials in exactly.`,
   },
   {
     title: "The baseline is a measurement",
@@ -132,7 +131,7 @@ const RULES = [
 ];
 
 const PRACTICE_STEPS = [
-  "Use the ladder alongside your preferred metronome.",
+  "Play each rung on the free metronome in the GuitarHub practice room, or any metronome you already use.",
   "Assess each pass against the listed conditions. Your practice stays private; this tool uses no microphone or recordings.",
   "A ladder covers one passage. Build a separate one for each part that is holding a song back.",
   "For larger tempo goals, the builder gives you a reachable next target to complete first.",
@@ -158,10 +157,10 @@ export default function TempoPage() {
       />
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               Tempo Ladder Builder
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">

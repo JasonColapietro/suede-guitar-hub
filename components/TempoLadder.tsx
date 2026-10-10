@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   BPM_MAX,
   BPM_MIN,
@@ -9,14 +9,19 @@ import {
   TEMPO_STORAGE_KEY,
   buildTempoLadder,
   normalizeTempoProgress,
+  rebuildTempoState,
   sessionOptions,
   restoreTempoState,
+  setTempoRungDone,
+  tempoErrorField,
+  tempoLadderInput,
   tempoProgressPercent,
   type StoredTempoState,
   type TempoLadder as TempoLadderPlan,
   type TempoLadderError,
   type TempoRungKind,
 } from "@/lib/tempo";
+import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
 
 /**
  * The Tempo Ladder Builder.
@@ -24,6 +29,10 @@ import {
  * Every rule about what a ladder may look like lives in `lib/tempo.ts`. This
  * file holds state, storage, and markup, and nothing else: when the numbers are
  * refused, the sentence on screen is the one the library wrote.
+ *
+ * Every change is applied to the ladder as it is stored now, and a write from
+ * another tab is re-read as it happens, so two open tabs cannot overwrite each
+ * other's checked sessions.
  */
 
 const DEFAULT_CURRENT = 80;
@@ -37,6 +46,10 @@ const FIELD_CLASSES =
 
 const PILL_FOCUS =
   "focus-visible:[outline:3px_solid_var(--color-violet-soft)] focus-visible:[outline-offset:3px]";
+
+const SMALL_PILL =
+  "inline-flex min-h-11 items-center rounded-full border border-indigo-deep/20 px-5 py-2.5 text-xs font-semibold " +
+  `text-indigo-deep motion-safe:transition hover:bg-white ${PILL_FOCUS}`;
 
 const RUNG_STYLES: Record<TempoRungKind, { badge: string; bubble: string }> = {
   baseline: { badge: "Baseline", bubble: "bg-indigo-deep text-cream" },
@@ -60,40 +73,20 @@ function nearest(options: readonly number[], value: number): number {
   );
 }
 
-/** Both storage calls can throw on their own in a private window. */
-function forgetStored(): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.removeItem(TEMPO_STORAGE_KEY);
-  } catch {
-    // Storage is unavailable, so there is nothing stored to forget.
-  }
-}
+const tempoStore = createStoredValue<StoredTempoState>({
+  key: TEMPO_STORAGE_KEY,
+  restore: restoreTempoState,
+});
 
-function readStored(): StoredTempoState | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(TEMPO_STORAGE_KEY);
-    if (!raw) return null;
-    const restored = restoreTempoState(JSON.parse(raw));
-    if (restored) return restored;
-  } catch {
-    // Private mode throws on access; corrupt JSON throws on parse. Either way
-    // the stored value is unusable, so drop it and start clean.
-  }
-  forgetStored();
-  return null;
-}
+const FIELD_IDS = {
+  current: "tempo-current",
+  target: "tempo-target",
+  sessions: "tempo-sessions",
+} as const;
+const ERROR_ID = "tempo-error";
 
-function writeStored(state: StoredTempoState): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(TEMPO_STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    // A blocked or full store costs the player their saved progress, not the
-    // ladder they are looking at. Nothing here should interrupt them.
-  }
-}
+/** A rebuild waiting on the player, because it would drop checked sessions. */
+type PendingRebuild = { ladder: TempoLadderPlan; dropped: number };
 
 export default function TempoLadder() {
   const [hydrated, setHydrated] = useState(false);
@@ -104,33 +97,68 @@ export default function TempoLadder() {
   const [completedRungIds, setCompletedRungIds] = useState<string[]>([]);
   const [error, setError] = useState<TempoLadderError | null>(null);
   const [focusResult, setFocusResult] = useState(false);
+  const [focusField, setFocusField] = useState<string | null>(null);
+  const [pendingRebuild, setPendingRebuild] = useState<PendingRebuild | null>(null);
+  const [pendingClear, setPendingClear] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  // What is on screen, for callbacks that outlive the render they were made in.
+  const shown = useRef<StoredTempoState | null>(null);
+  useEffect(() => {
+    shown.current = ladder
+      ? { input: tempoLadderInput(ladder), completedRungIds }
+      : null;
+  }, [completedRungIds, ladder]);
+
+  /** Put a stored state on screen. The fields follow only when asked to. */
+  function show(state: StoredTempoState | null, syncFields: boolean) {
+    const result = state ? buildTempoLadder(state.input) : null;
+    const next = result?.ok ? result.value : null;
+    const done = next && state ? normalizeTempoProgress(next, state.completedRungIds) : [];
+    shown.current = next ? { input: tempoLadderInput(next), completedRungIds: done } : null;
+    setLadder(next);
+    setCompletedRungIds(done);
+    if (next && syncFields) {
+      setCurrentField(String(next.currentBpm));
+      setTargetField(String(next.targetBpm));
+      setSessions(next.sessions);
+    }
+  }
 
   useEffect(() => {
-    const restored = readStored();
-    if (restored) {
-      const result = buildTempoLadder(restored.input);
-      if (result.ok) {
-        setCurrentField(String(restored.input.currentBpm));
-        setTargetField(String(restored.input.targetBpm));
-        setSessions(restored.input.sessions);
-        setLadder(result.value);
-        setCompletedRungIds(restored.completedRungIds);
-      }
-    }
+    const restored = tempoStore.read();
+    if (restored.available && restored.value) show(restored.value, true);
     setHydrated(true);
+
+    // Another tab ticked, rebuilt or cleared. The fields are left alone unless
+    // they still describe the ladder being replaced, so a half-typed edit here
+    // is not overwritten from elsewhere.
+    return subscribeToStoredKey(TEMPO_STORAGE_KEY, () => {
+      const latest = tempoStore.read();
+      if (!latest.available) return;
+      setPendingRebuild(null);
+      if (!latest.value) setPendingClear(false);
+      const before = shown.current;
+      setCurrentField((current) => {
+        const untouched =
+          before === null || current === String(before.input.currentBpm);
+        return untouched && latest.value ? String(latest.value.input.currentBpm) : current;
+      });
+      setTargetField((current) => {
+        const untouched =
+          before === null || current === String(before.input.targetBpm);
+        return untouched && latest.value ? String(latest.value.input.targetBpm) : current;
+      });
+      show(latest.value, false);
+      if (latest.value) setSessions(latest.value.input.sessions);
+    });
   }, []);
 
   useEffect(() => {
-    if (!hydrated || !ladder) return;
-    writeStored({
-      input: {
-        currentBpm: ladder.currentBpm,
-        targetBpm: ladder.targetBpm,
-        sessions: ladder.sessions,
-      },
-      completedRungIds,
-    });
-  }, [completedRungIds, hydrated, ladder]);
+    if (!focusField) return;
+    document.getElementById(focusField)?.focus();
+    setFocusField(null);
+  }, [focusField]);
 
   // Runs after the result is committed, which requestAnimationFrame does not
   // guarantee. It also matters on the correction path: pressing the suggested
@@ -162,16 +190,58 @@ export default function TempoLadder() {
     ? normalizeTempoProgress(ladder, completedRungIds).length
     : 0;
 
+  /** Write a rebuilt ladder, keeping every checked session whose rung survives. */
+  function commitRebuild(next: TempoLadderPlan) {
+    let dropped = 0;
+    const { value } = tempoStore.update(shown.current, (latest) => {
+      const rebuilt = rebuildTempoState(latest, next);
+      dropped = rebuilt.dropped.length;
+      return rebuilt.state;
+    });
+    show(value, false);
+    setPendingRebuild(null);
+    setPendingClear(false);
+    const kept = value?.completedRungIds.length ?? 0;
+    setNotice(
+      kept > 0
+        ? `Ladder rebuilt. Kept ${kept} checked ${kept === 1 ? "session" : "sessions"}${dropped > 0 ? `, and cleared ${dropped} whose rung changed` : ""}.`
+        : dropped > 0
+          ? `Ladder rebuilt. Cleared ${dropped} checked ${dropped === 1 ? "session" : "sessions"} whose rung changed.`
+          : "",
+    );
+    setFocusResult(true);
+  }
+
   function attempt(currentBpm: number, targetBpm: number, sessionCount: number) {
     const result = buildTempoLadder({ currentBpm, targetBpm, sessions: sessionCount });
     if (!result.ok) {
       setError(result.error);
+      setPendingRebuild(null);
+      setFocusField(FIELD_IDS[tempoErrorField(result.error.code)]);
       return;
     }
     setError(null);
-    setLadder(result.value);
-    setCompletedRungIds([]);
-    setFocusResult(true);
+
+    // Ask before a rebuild throws away sessions the player already checked.
+    // Unchanged numbers keep every rung id, so this only asks when it must.
+    const latest = tempoStore.read();
+    const base = latest.available ? latest.value : shown.current;
+    const { dropped } = rebuildTempoState(base, result.value);
+    if (dropped.length > 0) {
+      setPendingRebuild({ ladder: result.value, dropped: dropped.length });
+      return;
+    }
+    commitRebuild(result.value);
+  }
+
+  /** Back out of a rebuild: the fields go back to the ladder still on screen. */
+  function keepLadder() {
+    setPendingRebuild(null);
+    if (ladder) {
+      setCurrentField(String(ladder.currentBpm));
+      setTargetField(String(ladder.targetBpm));
+      setSessions(ladder.sessions);
+    }
   }
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -199,6 +269,7 @@ export default function TempoLadder() {
     // numbers that are no longer on screen, and pressing the fix discards what
     // was just typed. An edit is the correction, so the alert goes with it.
     setError(null);
+    setPendingRebuild(null);
 
     const nextCurrent = field === "current" ? raw : currentField;
     const nextTarget = field === "target" ? raw : targetField;
@@ -211,24 +282,48 @@ export default function TempoLadder() {
     }
   }
 
-  function toggleRung(id: string) {
+  function setRungDone(id: string, done: boolean) {
     if (!ladder) return;
-    setCompletedRungIds((current) =>
-      normalizeTempoProgress(
-        ladder,
-        current.includes(id)
-          ? current.filter((rungId) => rungId !== id)
-          : [...current, id],
-      ),
+    const { value } = tempoStore.update(shown.current, (latest) =>
+      setTempoRungDone(latest, ladder, id, done),
+    );
+    const replaced =
+      value === null ||
+      value.input.currentBpm !== ladder.currentBpm ||
+      value.input.targetBpm !== ladder.targetBpm ||
+      value.input.sessions !== ladder.sessions;
+    show(value, replaced);
+    setNotice(
+      replaced
+        ? "This ladder was changed in another tab. Showing the saved one; check the session again if it still applies."
+        : "",
     );
   }
 
   function clearLadder() {
-    forgetStored();
+    tempoStore.write(null);
+    shown.current = null;
     setLadder(null);
     setCompletedRungIds([]);
     setError(null);
+    setPendingClear(false);
+    setPendingRebuild(null);
+    setNotice("Ladder cleared from this browser.");
+    setFocusField(FIELD_IDS.current);
   }
+
+  /** Props tying a field to the alert while it is the one at fault. */
+  function fieldState(field: keyof typeof FIELD_IDS, hintId: string) {
+    const invalid = error !== null && tempoErrorField(error.code) === field;
+    return {
+      "aria-invalid": invalid ? (true as const) : undefined,
+      "aria-describedby": invalid ? `${hintId} ${ERROR_ID}` : hintId,
+    };
+  }
+
+  // The result on screen no longer matches the form while it is refused or a
+  // rebuild is waiting on an answer. It stays readable, dimmed and labelled.
+  const stale = Boolean(ladder) && (error !== null || pendingRebuild !== null);
 
   const fixLabel =
     error?.suggestedSessions !== undefined
@@ -268,7 +363,7 @@ export default function TempoLadder() {
                 step={1}
                 value={currentField}
                 onChange={(event) => changeTempo("current", event.target.value)}
-                aria-describedby="tempo-current-hint"
+                {...fieldState("current", "tempo-current-hint")}
                 className={`mt-2 ${FIELD_CLASSES}`}
               />
               <p id="tempo-current-hint" className="mt-2 text-sm text-ink/60">
@@ -293,7 +388,7 @@ export default function TempoLadder() {
                 step={1}
                 value={targetField}
                 onChange={(event) => changeTempo("target", event.target.value)}
-                aria-describedby="tempo-target-hint"
+                {...fieldState("target", "tempo-target-hint")}
                 className={`mt-2 ${FIELD_CLASSES}`}
               />
               <p id="tempo-target-hint" className="mt-2 text-sm text-ink/60">
@@ -314,9 +409,10 @@ export default function TempoLadder() {
                 value={sessions}
                 onChange={(event) => {
                   setError(null);
+                  setPendingRebuild(null);
                   setSessions(Number(event.target.value));
                 }}
-                aria-describedby="tempo-sessions-hint"
+                {...fieldState("sessions", "tempo-sessions-hint")}
                 className={`mt-2 appearance-none ${FIELD_CLASSES}`}
               >
                 {options.map((option) => (
@@ -334,6 +430,7 @@ export default function TempoLadder() {
 
         {error ? (
           <div
+            id={ERROR_ID}
             role="alert"
             className="mt-6 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5"
           >
@@ -350,6 +447,34 @@ export default function TempoLadder() {
           </div>
         ) : null}
 
+        {pendingRebuild ? (
+          <div
+            role="alert"
+            className="mt-6 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5"
+          >
+            <p className="font-medium text-indigo-deep">
+              Rebuilding at these numbers changes the rungs behind{" "}
+              {pendingRebuild.dropped === 1
+                ? "one session you checked"
+                : `${pendingRebuild.dropped} sessions you checked`}
+              , so {pendingRebuild.dropped === 1 ? "that tick is" : "those ticks are"}{" "}
+              cleared. Every rung that stays the same keeps its tick.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => commitRebuild(pendingRebuild.ladder)}
+                className={`${SMALL_PILL} border-violet/40 bg-violet-soft/15`}
+              >
+                Rebuild and clear {pendingRebuild.dropped === 1 ? "it" : "them"}
+              </button>
+              <button type="button" onClick={keepLadder} className={SMALL_PILL}>
+                Keep my current ladder
+              </button>
+            </div>
+          </div>
+        ) : null}
+
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <button
             type="submit"
@@ -358,31 +483,74 @@ export default function TempoLadder() {
             {ladder ? "Rebuild the ladder" : "Build the ladder"}{" "}
             <span aria-hidden>→</span>
           </button>
+          {/* Two steps, the pattern the practice log uses: the ladder and its
+              checked sessions have no other copy and no undo. */}
           {ladder ? (
-            <button
-              type="button"
-              onClick={clearLadder}
-              className={`inline-flex min-h-11 items-center rounded-full border border-indigo-deep/20 px-5 py-2.5 text-xs font-semibold text-indigo-deep motion-safe:transition hover:bg-white ${PILL_FOCUS}`}
-            >
-              Clear this browser&apos;s ladder
-            </button>
+            pendingClear ? (
+              <>
+                <button
+                  type="button"
+                  onClick={clearLadder}
+                  className={`${SMALL_PILL} border-violet/40 bg-violet-soft/15`}
+                >
+                  Delete the ladder for good
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingClear(false)}
+                  className={SMALL_PILL}
+                >
+                  Keep it
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setPendingClear(true)}
+                className={SMALL_PILL}
+              >
+                Clear this browser&apos;s ladder
+              </button>
+            )
           ) : null}
         </div>
 
-        {/* Present from first paint so a screen reader announces the change,
-            rather than mounting alongside the result and being missed. */}
-        <p role="status" aria-live="polite" className="mt-4 text-sm text-ink/60">
-          {ladder
-            ? `${ladder.summary} ${completedCount} of ${ladder.sessions} sessions marked done.`
-            : ""}
+        {pendingClear && ladder ? (
+          <p className="mt-4 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80">
+            This deletes the ladder and the{" "}
+            {completedCount === 1 ? "one session" : `${completedCount} sessions`}{" "}
+            marked done. There is no other copy and no undo.
+          </p>
+        ) : null}
+
+        {/* Only the notice and the progress count are live: each checkbox tick
+            announces "n of m sessions marked done" instead of re-reading the
+            summary. The span is present from first paint so the change is
+            announced rather than mounted alongside the result and missed. */}
+        <p className="mt-4 text-sm text-ink/60">
+          {ladder ? `${ladder.summary} ` : ""}
+          <span role="status">
+            {notice ? `${notice} ` : ""}
+            {ladder ? `${completedCount} of ${ladder.sessions} sessions marked done.` : ""}
+          </span>
         </p>
       </form>
 
       {ladder ? (
-        <section className="mt-14 border-t border-ink/10 pt-12" aria-labelledby="tempo-result">
+        <section
+          className={`mt-14 border-t border-ink/10 pt-12 motion-safe:transition-opacity ${stale ? "opacity-50" : ""}`}
+          aria-labelledby="tempo-result"
+          aria-describedby={stale ? "tempo-stale" : undefined}
+        >
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
             Your ladder
           </p>
+          {stale ? (
+            <p id="tempo-stale" className="mt-2 text-sm font-semibold text-indigo-deep">
+              This is the ladder you built before. It does not reflect the
+              numbers in the form until you rebuild.
+            </p>
+          ) : null}
           <h2
             id="tempo-result"
             tabIndex={-1}
@@ -451,7 +619,7 @@ export default function TempoLadder() {
                     }`}
                   >
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                      <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                         Session {rung.session} · {style.badge}
                       </span>
                     </div>
@@ -475,7 +643,7 @@ export default function TempoLadder() {
                       <input
                         type="checkbox"
                         checked={done}
-                        onChange={() => toggleRung(rung.id)}
+                        onChange={(event) => setRungDone(rung.id, event.target.checked)}
                         className={`h-5 w-5 accent-violet ${PILL_FOCUS}`}
                       />
                       <span>

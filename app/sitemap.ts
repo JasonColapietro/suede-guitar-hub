@@ -4,6 +4,7 @@ import { accessibleLessonIds, guestLearningAccess } from "@/lib/learning/access"
 import { lessonHref } from "@/lib/learning/curriculum";
 import {
   ABOUT,
+  ADVANCED_LAB_LAST_MODIFIED,
   GUIDES,
   HOME,
   HUBS,
@@ -71,17 +72,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   // Use the same readiness and guest-access checks as the lesson page. Paid
   // previews, curriculum outlines and the voice routes moved to Sing stay out.
-  const learningPaths = [
-    ...accessibleLessonIds("guitar", guestLearningAccess).map((id) => lessonHref("guitar", id)),
-    ...DRILLS.map((drill) => drillHref(drill.id)),
-  ];
-  return [
-    ...pages,
-    ...learningPaths.map((path): SitemapEntry => ({
-      url: absolute(path),
-      changeFrequency: "monthly",
-      priority: 0.8,
-      // These catalogs have no verified per-page modification dates.
-    })),
-  ];
+  const lessons = accessibleLessonIds("guitar", guestLearningAccess).map((id): SitemapEntry => ({
+    url: absolute(lessonHref("guitar", id)),
+    changeFrequency: "monthly",
+    priority: 0.8,
+    // The lesson catalog has no verified per-page modification dates.
+  }));
+  // The drills share one catalog date, the same one the /advanced hub carries.
+  const drillsModified = new Date(`${ADVANCED_LAB_LAST_MODIFIED}T00:00:00.000Z`);
+  const drills = DRILLS.map((drill): SitemapEntry => ({
+    url: absolute(drillHref(drill.id)),
+    lastModified: drillsModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+  return [...pages, ...lessons, ...drills];
 }

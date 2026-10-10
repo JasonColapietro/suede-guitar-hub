@@ -57,7 +57,7 @@
 .lessonStatus { display: grid; place-items: center; height: 28px; width: 28px; border: 1px solid #b6a6cc; border-radius: 50%; font-size: .85rem; }
 .done { background: #e0e9df; border-color: #788b75; color: #304c2c; }
 .lessonGrid { display: grid; grid-template-columns: minmax(0,1.65fr) minmax(240px,1fr); gap: clamp(1.5rem,4vw,3rem); align-items: start; }
-.panel { scroll-margin-top: 150px; border: 1px solid var(--line); border-radius: 1.5rem; padding: clamp(1.25rem,3vw,2rem); background: rgba(255,255,255,.75); margin-bottom: 1.5rem; }
+.panel { border: 1px solid var(--line); border-radius: 1.5rem; padding: clamp(1.25rem,3vw,2rem); background: rgba(255,255,255,.75); margin-bottom: 1.5rem; }
 .panel h2 { font: 550 1.7rem/1.25 var(--font-display); margin: 0 0 1rem; }
 .panel h3 { font-weight: 700; margin: 1.3rem 0 .5rem; }
 .panel p { line-height: 1.7; }
@@ -73,8 +73,6 @@
 .saved { background: #e4ebdf; color: #304c2c; padding: 1rem; border-radius: .75rem; line-height: 1.65; }
 .lessonNavigation { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.5rem 0; margin-top: 1rem; border-top: 1px solid var(--line); }
 .lessonNavigation a { min-height: 44px; display: inline-flex; align-items: center; max-width: 45%; text-decoration: underline; text-underline-offset: 4px; }
-.skip { position: absolute; left: 1rem; top: -100px; z-index: 100; background: #251152; color: white; padding: 1rem; }
-.skip:focus { top: 1rem; }
 @media(max-width: 720px) { .tracks, .lessonGrid { grid-template-columns: 1fr; } .continue { grid-template-columns: 1fr; } .continue .primary { justify-self: start; } .module { margin-left: 0; } .level > summary { gap: .8rem; } .lessonLink { padding: 1rem; gap: .65rem; } .lessonLink > :last-child { font-size: .8rem; } .lessonNavigation a { max-width: 100%; } }
 @media(prefers-reduced-motion: reduce) { .shell { scroll-behavior: auto; } }
 .stringGuide { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 0 1rem; margin-bottom: 1.5rem; }
@@ -90,7 +88,7 @@
 .practiceSegments { list-style: none; margin: 1rem 0; padding: 0; }
 .practiceSegments li { display: grid; grid-template-columns: 65px 1fr; gap: .75rem; line-height: 1.6; padding: .65rem 0; border-bottom: 1px solid var(--line); }
 .library{margin:3rem 0;display:grid;gap:1rem}.library h2{font-family:var(--font-display,Georgia,serif);font-size:clamp(1.7rem,4vw,2.5rem)}.librarySearch{display:grid;gap:.6rem;font-weight:650}.librarySearch input{min-height:50px;border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;color:inherit;background:#fff;font:inherit;width:100%;min-width:0}.libraryResults{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.libraryResults a{display:block;padding:1.25rem;background:#fff;border:1px solid var(--line);border-radius:18px;height:100%;color:inherit;text-decoration:none}.libraryResults a:hover{border-color:#6d28d9}.libraryResults h3{font-size:1.1rem;margin-bottom:.4rem}.libraryResults p{line-height:1.6;margin-bottom:.65rem}.library :focus-visible{outline:3px solid #6d28d9;outline-offset:3px}@media(max-width:720px){.libraryResults{grid-template-columns:1fr}}
-.exercise { scroll-margin-top: 130px; margin: 0 0 1.5rem; }
+.exercise { margin: 0 0 1.5rem; }
 .sectionTitle { font: 550 clamp(1.5rem,3vw,1.9rem)/1.25 var(--font-display); color: #251152; margin: 0 0 .35rem; }
 .exercise > .small { color: var(--muted); margin-bottom: .9rem; max-width: 70ch; }
 .fold { border-top: 1px solid var(--line); margin-top: 1rem; padding-top: .25rem; }
@@ -101,5 +99,4 @@ details.panel > .foldTitle { font: 550 1.3rem/1.3 var(--font-display); }
 .stageJump a { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 1rem; border: 1px solid var(--line); border-radius: 999px; font-size: .88rem; font-weight: 650; color: #251152; background: #fff; }
 .stageJump a[data-current=true] { background: #251152; color: #f7f3ee; border-color: #251152; }
 .stageMeta { display: flex; flex-wrap: wrap; gap: .25rem .75rem; font-size: .82rem; color: var(--muted); }
-.level { scroll-margin-top: 120px; }
 .stageExtras { margin: 0 0 1.8rem 4.1rem; color: var(--muted); } .stageExtras a { text-decoration: underline; text-underline-offset: 3px; color: #51367d; font-weight: 650; } @media(max-width:720px){ .stageExtras { margin-left: 0; } }

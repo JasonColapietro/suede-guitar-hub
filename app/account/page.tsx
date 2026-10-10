@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { APP_STORE } from "@/lib/site";
 import { accountConfiguration } from "@/lib/learning-auth/config";
 import { resolveAccount } from "@/lib/learning-auth/server";
 import AccountSignIn from "./sign-in";
@@ -18,7 +19,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   const params = await searchParams;
   const access = account ? await getVerifiedLearningAccess() : null;
   return <Article eyebrow="GuitarHub" title="Your account" dek="Keep playing on your own terms." updated="2026-09-07" showPracticeCallToAction={false}>
-    {!configuration ? <p>Web purchase verification and account sync are not available yet. Lessons require verified lifetime access; your saved practice records remain on this device.</p>
+    {!configuration ? <p>Web purchase verification and account sync are not available yet. Lessons open with lifetime access, which you can buy or restore in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone; your saved practice records remain on this device.</p>
       : unavailable ? <p>Account sign-in is temporarily unavailable. Lessons remain locked until purchase access can be verified. Your saved practice records are kept.</p> : account ? <>
         <p>Signed in as {account.user.email ?? "your Suede account"}.</p>
         <p>Signing in does not upload earlier practice records or change an App Store purchase. Your local history stays on this device.</p>

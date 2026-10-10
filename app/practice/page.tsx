@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { TuningGuide } from "@/components/learning/TuningGuide";
 import { Metronome } from "@/components/practice/Metronome";
-import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 import learningStyles from "@/components/learning/Learning.module.css";
 import styles from "@/components/practice/PracticeTools.module.css";
 import { keywordsFor } from "@/lib/keywords";
@@ -21,15 +22,16 @@ const application = {
 export const metadata: Metadata = {
   keywords: keywordsFor("/practice"),
   title, description, alternates: { canonical: url },
-  openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
-  twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
+  openGraph: { title, description, url, siteName: "GuitarHub", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function PracticePage() {
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(application) }} />
-    <a className={learningStyles.skip} href="#practice-main">Skip to practice tools</a><SiteNav />
-    <main id="practice-main" className={learningStyles.shell}>
+    <SiteNav />
+    <main id="main-content" tabIndex={-1} className={learningStyles.shell}>
+      <BreadcrumbJsonLd crumbs={[{ name: "Guitar lessons", href: "/learn/guitar" }, { name: "Practice", href: "/practice" }]} />
       <nav className={learningStyles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn/guitar">Guitar lessons</Link><span aria-hidden="true">/</span><span aria-current="page">Practice</span></nav>
       <header className={learningStyles.hero}><p className={styles.eyebrow}>The practice room</p><h1>Tune up.<br />Find your tempo.</h1><p>Check your strings, then play along with the click. These tools are free to use on their own, before a lesson or during your own practice.</p><div className={styles.links}><a className={learningStyles.secondary} href="#metronome-title">Metronome</a><a className={learningStyles.secondary} href="#tuner">Guitar tuner</a><Link className={learningStyles.secondary} href="/learn/guitar/routine">A/D practice routine</Link></div></header>
       <div className={styles.tools}><Metronome /><div className={styles.tuner} id="tuner"><TuningGuide /></div></div>

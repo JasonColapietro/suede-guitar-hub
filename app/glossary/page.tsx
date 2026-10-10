@@ -12,8 +12,9 @@ import {
   usageHref,
   type GlossaryTerm,
 } from "@/lib/glossary";
-import { HUBS, OG_IMAGE, STRUMLY } from "@/lib/site";
+import { HUBS, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
+import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 
 /**
  * The shared vocabulary, rendered from `contracts/glossary.json`.
@@ -53,10 +54,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -74,7 +73,7 @@ const JSON_LD = {
       url: CANONICAL,
       name: TITLE,
       description: DESCRIPTION,
-      inLanguage: "en",
+      inLanguage: "en-US",
       isPartOf: { "@id": "https://guitarhub.org/#website" },
     },
     breadcrumbList(CANONICAL, CRUMBS),
@@ -89,7 +88,7 @@ function initials(terms: readonly GlossaryTerm[]): readonly string[] {
 function GuitarEntry({ entry }: { entry: GlossaryTerm }) {
   const anchor = termAnchor(entry.term);
   return (
-    <div className="mt-10 scroll-mt-24" id={anchor}>
+    <div className="mt-10" id={anchor}>
       <h3 className="font-display text-2xl leading-snug text-indigo-deep">
         {entry.term}
         {entry.aka && entry.aka.length > 0 ? (
@@ -129,10 +128,10 @@ export default function GlossaryPage() {
         related={[
           ...HUBS.filter((hub) => hub.href === "/guides"),
           {
-            href: "/learn/voice",
-            title: "Learn voice step by step",
+            href: SING_VOICE_COURSE,
+            title: "Voice lessons on Suede Sing",
             blurb:
-              "The voice curriculum this vocabulary belongs to, with every lesson's words linked to a definition.",
+              "The free voice curriculum this vocabulary belongs to, with every lesson's words linked to a definition.",
           },
         ]}
       >
@@ -152,22 +151,26 @@ export default function GlossaryPage() {
         </p>
 
         <h2>Guitar words</h2>
-        <p>
-          {GUITAR_TERMS.length} terms, defined on this page. Jump to{" "}
-          {initials(GUITAR_TERMS).map((letter, index) => (
-            <span key={letter}>
-              {index > 0 ? ", " : ""}
-              <Link
-                href={`#${termAnchor(
-                  GUITAR_TERMS.find((entry) => entry.term.startsWith(letter))!.term,
-                )}`}
-              >
-                {letter}
-              </Link>
-            </span>
-          ))}
-          .
-        </p>
+        <p>{GUITAR_TERMS.length} terms, defined on this page. Jump to:</p>
+        {/* A nav list of 44px targets rather than comma-separated letters,
+            which measured about 12x21px with 21px spacing. The `!` overrides
+            beat the Article prose styles for lists and links. */}
+        <nav aria-label="Guitar words, A to Z" className="mt-4">
+          <ul className="mt-0! flex list-none! flex-wrap gap-2 pl-0!">
+            {initials(GUITAR_TERMS).map((letter) => (
+              <li key={letter} className="mt-0!">
+                <Link
+                  href={`#${termAnchor(
+                    GUITAR_TERMS.find((entry) => entry.term.startsWith(letter))!.term,
+                  )}`}
+                  className="inline-flex size-11 items-center justify-center rounded-full bg-white font-semibold no-underline! ring-1 ring-ink/10 transition hover:ring-violet"
+                >
+                  {letter}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         {GUITAR_TERMS.map((entry) => (
           <GuitarEntry key={entry.term} entry={entry} />
         ))}
@@ -189,8 +192,8 @@ export default function GlossaryPage() {
                 <> ({entry.aka.join(", ").toLowerCase()})</>
               ) : null}{" "}
               <span className="text-ink/60">
-                &middot; {entry.domain === "voice" ? "voice" : "music"}, used in{" "}
-                <a href={usageHref(entry)}>{entry.href}</a>
+                &middot; {entry.domain === "voice" ? "voice" : "music"}, in use on{" "}
+                <a href={usageHref(entry)}>Suede Sing ({entry.href})</a>
               </span>
             </li>
           ))}

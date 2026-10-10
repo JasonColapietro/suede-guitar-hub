@@ -51,7 +51,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   return <>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><Link href={`/learn/${track}`}>{trackNames[track]}</Link><span aria-hidden="true">/</span><span>{module.name}</span></nav>
     <div className={styles.hero}><p className={styles.small}>{level.stage ? `Stage ${level.stage} · ` : ""}{module.name}{ready ? ` · ${lesson.minutes} min` : ""}</p><h1>{lesson.title}</h1><p>{lesson.summary}</p></div>
-    <LessonSession key={`${access.accountId}:${lesson.id}`} track={track} lesson={lesson} module={module} instructions={getLessonInstructions(lesson.id)} vocalMaterial={vocalMaterial} />
+    <LessonSession key={`${access.accountId}:${lesson.id}`} track={track} lesson={lesson} module={{ id: module.id, name: module.name, promise: module.promise, skill: module.skill }} instructions={getLessonInstructions(lesson.id)} vocalMaterial={vocalMaterial} />
     {companion && <>
       <div className={styles.notice}>{companion.measured
         ? "Suede Sing measures this one. Work it there and the numbers are real."

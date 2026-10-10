@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
-import { OG_IMAGE, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
+import { ARTICLE_AUTHOR, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/print-the-quiet`;
@@ -21,13 +21,11 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE.url],
   },
 };
 
@@ -49,10 +47,12 @@ const JSON_LD = {
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
   inLanguage: "en-US",
-  author: { "@id": "https://suedeai.ai/founder#person" },
+  author: ARTICLE_AUTHOR,
   publisher: { "@id": "https://suedeai.ai/#organization" },
   hasPart: FIELD_GUIDES.map((guide, index) => ({
     "@type": "Article",
+    // The @id each guide's own page gives its Article node.
+    "@id": `${SITE_URL}${guide.href}#article`,
     position: index + 1,
     name: guide.title,
     url: `${SITE_URL}${guide.href}`,
@@ -81,7 +81,7 @@ export default function PrintTheQuietHubPage() {
         relatedTitle="Choose a field guide"
       >
         <p>
-          <strong>By Jason Colapietro, writing as Johnny Suede.</strong>
+          <strong>By Jason Colapietro, founder of Suede AI.</strong>
         </p>
 
         <p>

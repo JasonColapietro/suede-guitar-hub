@@ -585,7 +585,7 @@ test("refuses a focus it does not recognise", () => {
   assert.equal(isSessionFocus("shredding"), false);
   assert.equal(isSessionFocus(undefined), false);
   assert.equal(SESSION_FOCUSES.length, 4);
-  assert.equal(sessionFocusLabel("memorise"), "Memorise a song");
+  assert.equal(sessionFocusLabel("memorise"), "Memorize a song");
 
   for (const option of SESSION_FOCUSES) {
     assert.ok(option.label.trim().length > 0, `${option.value} needs a label`);

@@ -3,7 +3,7 @@ import Link from "next/link";
 import SessionBuilder from "@/components/SessionBuilder";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
-import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { GUIDES, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/session`;
@@ -23,10 +23,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -44,7 +42,7 @@ const STEPS = [
   },
   {
     name: "Pick the one thing the session is for",
-    text: "Raise a tempo ceiling, memorise a song, repair a transition, or general upkeep. The focus decides which block gets the largest share of the time, and at short lengths it decides which blocks exist at all.",
+    text: "Raise a tempo ceiling, memorize a song, repair a transition, or general upkeep. The focus decides which block gets the largest share of the time, and at short lengths it decides which blocks exist at all.",
   },
   {
     name: "Read the split, which adds up exactly",
@@ -189,10 +187,10 @@ export default function SessionPage() {
       />
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
@@ -258,11 +256,11 @@ export default function SessionPage() {
           </p>
         </section>
 
-        <section id="build" className="mx-auto max-w-6xl px-6 pb-20 scroll-mt-24">
+        <section id="build" className="mx-auto max-w-6xl px-6 pb-20">
           <SessionBuilder />
         </section>
 
-        <section id="how-it-works" className="bg-cream-soft px-6 py-20 scroll-mt-24">
+        <section id="how-it-works" className="bg-cream-soft px-6 py-20">
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
               How this works
@@ -329,7 +327,7 @@ export default function SessionPage() {
             <p className="mt-4 text-lg leading-relaxed text-ink/70">
               Each focus carries its own weighting across the five blocks, and
               the block that repairs the thing you named is guaranteed the
-              largest share of the session. Memorising a song puts the second
+              largest share of the session. Memorizing a song puts the second
               largest share on playing from memory and almost nothing on tempo
               work; raising a tempo ceiling reverses that. At sixty minutes both
               produce five blocks, and the two sessions are not the same session
@@ -401,7 +399,7 @@ export default function SessionPage() {
 
         <section className="mx-auto max-w-4xl px-6 pb-20">
           <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-            What this does not do.
+            How to use it well.
           </h2>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (
@@ -428,17 +426,17 @@ export default function SessionPage() {
             </li>
             <li>
               <Link href="/how-to-practice-guitar-effectively" className={LINK_PILL}>
-                How to practise effectively <span aria-hidden>→</span>
+                How to practice effectively <span aria-hidden>→</span>
               </Link>
             </li>
             <li>
               <Link href="/how-long-to-practice-guitar-each-day" className={LINK_PILL}>
-                How long to practise each day <span aria-hidden>→</span>
+                How long to practice each day <span aria-hidden>→</span>
               </Link>
             </li>
             <li>
               <Link href="/how-to-memorize-songs-on-guitar" className={LINK_PILL}>
-                How to memorise a song <span aria-hidden>→</span>
+                How to memorize a song <span aria-hidden>→</span>
               </Link>
             </li>
             <li>

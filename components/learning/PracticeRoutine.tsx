@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { getLesson, lessonHref } from "@/lib/learning/curriculum";
-import { getInstructionAsset } from "@/lib/learning/instruction-assets";
-import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineChangeRate, routineElapsedSeconds, routinePrepared, routineStorageKey, routineTemplate, RoutineTimer, type RoutineAttempt, type RoutineBlock, type RoutineSession, type RoutineState } from "@/lib/learning/routine";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { catalogLesson } from "@/lib/learning/catalog";
+import { lessonHref } from "@/lib/learning/track";
+import type { ChordAsset } from "@/lib/learning/routine-assets";
+import { beginRoutineAttempt, checkpointRoutineAttempt, defaultRoutineSeconds, editRoutineAttemptTarget, finishRoutineSession, newRoutineAttempt, newRoutineSession, parseRoutineSeconds, parseRoutineState, preparationEvidence, reviewRoutineAttempt, routineChangeRate, routineBlockStatus, routineElapsedSeconds, routinePrepared, routineStorageKey, routineTemplate, RoutineTimer, type RoutineAttempt, type RoutineBlock, type RoutineSession, type RoutineState } from "@/lib/learning/routine";
 import { ChordDiagram } from "./LessonInstructionAssets";
 import { TuningGuide } from "./TuningGuide";
 import { useLearningProgress } from "./useLearningProgress";
@@ -18,11 +19,13 @@ const eventName = "guitarhub-routine-change";
 export function routineHistoryForAccount(accountId: string | null, getStorage: () => Pick<Storage, "getItem" | "setItem"> = () => window.localStorage) {
   const key = accountHistoryKey(routineStorageKey, accountId);
   const read = () => { try { return memory.get(key) ?? getStorage().getItem(key) ?? ""; } catch { return memory.get(key) ?? ""; } };
+  /** Storage first: another tab may have written since the cached copy, and its `storage` event can still be in flight. */
+  const latest = () => { try { const stored = getStorage().getItem(key); if (stored !== null) return stored; } catch { /* unavailable: use the in-memory copy */ } return memory.get(key) ?? ""; };
   return {
     key, read,
     invalidate: () => { memory.delete(key); },
     write(update: (state: RoutineState) => RoutineState) {
-      const next = parseRoutineState(JSON.stringify(update(parseRoutineState(read()))));
+      const next = parseRoutineState(JSON.stringify(update(parseRoutineState(latest()))));
       const serialized = JSON.stringify(next);
       let persisted = true;
       try { getStorage().setItem(key, serialized); } catch { persisted = false; }
@@ -60,7 +63,7 @@ function replaceAttempt(state: RoutineState, sessionId: string, blockId: string,
 }
 export function RoutineLessonLink({ id, pause }: { id: string; pause: () => void }) {
   const access = useLearningAccess();
-  const found = getLesson("guitar", id);
+  const found = catalogLesson("guitar", id);
   if (!found) return null;
   const available = isLessonReady("guitar", id) && canOpenModule("guitar", found.module.id, access);
   return <Link href={lessonHref("guitar", id)} target="_blank" rel="noopener noreferrer" onClick={pause}>{available ? "Review GuitarHub instruction" : "GuitarHub curriculum preview"} (new tab)</Link>;
@@ -70,17 +73,21 @@ export function RoutineLessonLink({ id, pause }: { id: string; pause: () => void
 export function routineContentForAccount(accountId: string | null) {
   return <RoutineContent key={accountHistoryKey(routineStorageKey, accountId)} accountId={accountId} />;
 }
-export function PracticeRoutine() {
+/** The routine's chord diagrams, looked up on the server so the demo-asset library never ships here. */
+const ChordAssetsContext = createContext<Readonly<Record<string, ChordAsset>>>({});
+export function PracticeRoutine({ chordAssets = {} }: { chordAssets?: Readonly<Record<string, ChordAsset>> }) {
   const access = useLearningAccess();
   const sync = useAccountSync();
   if (access.accountId && sync.status === "suspended") return <p role="status">Your sign-in changed. This routine is paused and its history is kept with the original account. Reload to continue.</p>;
-  return routineContentForAccount(access.accountId);
+  return <ChordAssetsContext.Provider value={chordAssets}>{routineContentForAccount(access.accountId)}</ChordAssetsContext.Provider>;
 }
 function RoutineContent({ accountId }: { accountId: string | null }) {
+  const chordAssets = useContext(ChordAssetsContext);
   const { state, change, storageWarning, history } = useRoutineStore(accountId);
   const { progress } = useLearningProgress("guitar");
   const [running, setRunning] = useState(false);
   const [message, setMessage] = useState("");
+  const [durationErrors, setDurationErrors] = useState<Record<string, string>>({});
   const runtime = useRef<{ sessionId: string; block: RoutineBlock; attempt: RoutineAttempt; clock: RoutineTimer } | null>(null);
   const session = state.sessions.find(item => item.id === state.currentSessionId);
   const block = routineTemplate.blocks.find(item => item.id === session?.selectedBlockId) ?? routineTemplate.blocks[0];
@@ -117,7 +124,22 @@ function RoutineContent({ accountId }: { accountId: string | null }) {
     const clock = new RoutineTimer(); clock.start(next.elapsedMs, monotonicNow());
     runtime.current = { sessionId: session.id, block, attempt: next, clock }; setRunning(true); setMessage("Timer running while this page is visible.");
   }
-  function select(id: string) { pause(); if (session) change(state => updateSession(state, session.id, current => ({ ...current, selectedBlockId: id }))); }
+  /** Moving to a block replaces whatever the status said about the previous one ("Routine ready", "Time reached"). */
+  function select(id: string) {
+    pause(); if (!session) return;
+    change(state => updateSession(state, session.id, current => ({ ...current, selectedBlockId: id })));
+    setMessage(routineBlockStatus(id, session.blocks.find(item => item.blockId === id)?.attempts.at(-1)));
+  }
+  /** Validate a typed duration. A refused value stays on screen beside the reason, and nothing is saved. */
+  function commitDuration(id: string, title: string, raw: string, saved: number) {
+    const parsed = parseRoutineSeconds(raw, title, saved);
+    if (parsed.ok) {
+      setDurationErrors(current => { if (!(id in current)) return current; const next = { ...current }; delete next[id]; return next; });
+      if (parsed.value !== saved) editDuration(id, parsed.value);
+      return;
+    }
+    setDurationErrors(current => ({ ...current, [id]: parsed.message }));
+  }
   function repeat() {
     pause(); if (!session || !record) return;
     change(state => updateSession(state, session.id, current => ({ ...current, blocks: current.blocks.map(item => item.blockId === block.id ? { ...item, attempts: [...item.attempts.map(old => old.status === "paused" || old.status === "pending" || old.status === "review" ? { ...old, status: "skipped" as const, completeMinute: false } : old), newRoutineAttempt(crypto.randomUUID(), stamp(), item.plannedSeconds)] } : item) })));
@@ -148,11 +170,11 @@ function RoutineContent({ accountId }: { accountId: string | null }) {
       <button type="button" className={styles.secondary} disabled={running || Object.keys(state.preparation).length === 0} onClick={() => change(state => ({ ...state, preparation: {} }))}>Reset my preparation confirmations</button>
     </details>
     <section aria-labelledby="routine-plan-title"><div className={styles.sectionHeading}><h2 id="routine-plan-title">Today’s plan</h2><span>{formatTime(totalSeconds)} planned</span></div><p>Adjust any block in seconds while the timer is paused. A little practice each day helps the movements become familiar.</p>
-      <ol className={styles.plan}>{routineTemplate.blocks.map((item, index) => { const saved = session?.blocks.find(record => record.blockId === item.id); return <li key={item.id} data-current={!!session && block.id === item.id}><div><span className={styles.number}>{index + 1}</span>{session ? <button className={styles.blockLink} type="button" onClick={() => select(item.id)} aria-current={block.id === item.id ? "step" : undefined}>{item.title}</button> : <strong>{item.title}</strong>}</div><label><span className={styles.srOnly}>{item.title} planned seconds</span><input aria-label={`${item.title} planned seconds`} type="number" min="15" max="3600" step="1" key={saved?.plannedSeconds ?? state.durations[item.id]} defaultValue={saved?.plannedSeconds ?? state.durations[item.id]} disabled={running} onBlur={event => { const value = Number(event.target.value); if (Number.isInteger(value) && value >= 15 && value <= 3600) editDuration(item.id, value); else event.target.value = String(saved?.plannedSeconds ?? state.durations[item.id]); }} onKeyDown={event => { if (event.key === "Enter") event.currentTarget.blur(); }} /><span>sec</span></label></li>; })}</ol>
+      <ol className={styles.plan}>{routineTemplate.blocks.map((item, index) => { const saved = session?.blocks.find(record => record.blockId === item.id); return <li key={item.id} data-current={!!session && block.id === item.id}><div><span className={styles.number}>{index + 1}</span>{session ? <button className={styles.blockLink} type="button" onClick={() => select(item.id)} aria-current={block.id === item.id ? "step" : undefined}>{item.title}</button> : <strong>{item.title}</strong>}</div><label><span className={styles.srOnly}>{item.title} planned seconds</span><input aria-label={`${item.title} planned seconds`} type="number" min="15" max="3600" step="1" key={saved?.plannedSeconds ?? state.durations[item.id]} defaultValue={saved?.plannedSeconds ?? state.durations[item.id]} disabled={running} aria-invalid={durationErrors[item.id] ? true : undefined} aria-describedby={durationErrors[item.id] ? `routine-duration-error-${item.id}` : undefined} onBlur={event => commitDuration(item.id, item.title, event.target.value, saved?.plannedSeconds ?? state.durations[item.id])} onKeyDown={event => { if (event.key === "Enter") event.currentTarget.blur(); }} /><span>sec</span></label>{durationErrors[item.id] && <p id={`routine-duration-error-${item.id}`} role="alert" className={styles.small}>{durationErrors[item.id]}</p>}</li>; })}</ol>
       {!session && <div className={styles.actions}><button type="button" className={styles.primary} disabled={!prepared} onClick={() => { change(state => newRoutineSession(state, crypto.randomUUID(), stamp())); setMessage("Routine ready. Start the first block when your guitar is in hand."); }}>Prepare today’s routine</button>{!prepared && <p>Complete preparation above to use the timer. The plan remains available to review.</p>}</div>}
     </section>
     {session && record && <section className={styles.practice} aria-labelledby="active-block-title"><p className={styles.eyebrow}>Block {routineTemplate.blocks.findIndex(item => item.id === block.id) + 1} of 7</p><h2 id="active-block-title">{block.title}</h2><p>{block.prompt}</p>
-      <div className={styles.diagrams}>{block.assetIds.map(id => { const asset = getInstructionAsset(id); return asset?.kind === "chord" ? <ChordDiagram key={id} asset={asset} /> : null; })}</div>
+      <div className={styles.diagrams}>{block.assetIds.map(id => { const asset = chordAssets[id]; return asset ? <ChordDiagram key={id} asset={asset} /> : null; })}</div>
       <div className={styles.links}><RoutineLessonLink id={block.lessonId} pause={pause} /></div><p className={styles.small}>Opening a GuitarHub lesson pauses this routine. Time spent on another tab is excluded. Resume here when ready to practice.</p>
       {block.kind === "tuning" && <><p>Set up the tuner and respond to the microphone permission request before starting this block’s timer. Reference sounds, small adjustments, and rechecking are part of this self-reported tuning practice. Extend the time whenever needed.</p><TuningGuide onReadyChange={ready => { if (ready) setMessage("Your tuning checklist is confirmed by you. Review the tuning block below when ready; no lesson completion was recorded."); }} /></>}
       <div className={styles.timer} role="timer" aria-label="Practice time remaining">{formatTime(Math.ceil(((attempt?.targetSeconds ?? record.plannedSeconds) * 1000 - (attempt?.elapsedMs ?? 0)) / 1000))}</div><p className={styles.timeCaption}>{formatTime((attempt?.elapsedMs ?? 0) / 1000)} foreground time · {running ? "Running" : attempt?.status === "reviewed" ? "Reflection saved" : attempt?.status === "review" ? "Time reached" : attempt?.status === "skipped" ? "Skipped" : "Paused / ready"}</p>

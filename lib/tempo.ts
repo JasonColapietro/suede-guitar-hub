@@ -22,13 +22,19 @@
  * result type carries the suggested fix alongside the message.
  */
 
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from "./audio/metronome-range.ts";
+
 /** localStorage key. Bump the version when the stored shape changes. */
 export const TEMPO_STORAGE_KEY = "guitarhub.tempo.v1";
 
-/** Slowest tempo a metronome is useful at for passage work. */
-export const BPM_MIN = 30;
-/** Fastest tempo this tool will build toward. */
-export const BPM_MAX = 300;
+/**
+ * Slowest tempo a metronome is useful at for passage work. The ladder's span
+ * is the /practice metronome's (lib/audio/metronome-range.ts), so every rung
+ * printed here is a tempo that click can play.
+ */
+export const BPM_MIN = METRONOME_MIN_BPM;
+/** Fastest tempo this tool will build toward, the metronome's top tempo. */
+export const BPM_MAX = METRONOME_MAX_BPM;
 /** A ladder shorter than this cannot hold a baseline, a climb and a back-off. */
 export const MIN_SESSIONS = 4;
 /** Past this, a ladder stops being a plan and becomes a calendar. */
@@ -824,9 +830,16 @@ export function restoreTempoState(candidate: unknown): StoredTempoState | null {
   if (!record.input || typeof record.input !== "object") return null;
 
   const inputRecord = record.input as Record<string, unknown>;
+  // Ladders saved while the tool accepted up to 300 BPM keep working: a
+  // target above today's ceiling is brought down to it rather than the whole
+  // saved ladder being discarded as invalid.
+  const savedTarget = inputRecord.targetBpm;
   const input = {
     currentBpm: inputRecord.currentBpm,
-    targetBpm: inputRecord.targetBpm,
+    targetBpm:
+      typeof savedTarget === "number" && Number.isInteger(savedTarget) && savedTarget > BPM_MAX
+        ? BPM_MAX
+        : savedTarget,
     sessions: inputRecord.sessions,
   } as TempoInput;
 
@@ -840,4 +853,78 @@ export function restoreTempoState(candidate: unknown): StoredTempoState | null {
       record.completedRungIds,
     ),
   };
+}
+
+/* ------------------------------------------------------------------ *
+ * Rebuilding and shared progress
+ * ------------------------------------------------------------------ */
+
+/** The input a ladder was built from. */
+export function tempoLadderInput(ladder: TempoLadder): TempoInput {
+  return {
+    currentBpm: ladder.currentBpm,
+    targetBpm: ladder.targetBpm,
+    sessions: ladder.sessions,
+  };
+}
+
+export function sameTempoInput(left: TempoInput, right: TempoInput): boolean {
+  return (
+    left.currentBpm === right.currentBpm &&
+    left.targetBpm === right.targetBpm &&
+    left.sessions === right.sessions
+  );
+}
+
+/**
+ * The stored state after rebuilding to `next`, carrying every checked session
+ * whose rung still exists.
+ *
+ * A rung's id is its kind, its session number and its tempo, so pressing
+ * "Rebuild" on unchanged numbers produces the same ids and keeps every tick.
+ * Only rungs the new ladder no longer has lose theirs, and those are returned
+ * as `dropped` so the page can ask before discarding them.
+ */
+export function rebuildTempoState(
+  latest: StoredTempoState | null,
+  next: TempoLadder,
+): { state: StoredTempoState; dropped: string[] } {
+  const previous = latest?.completedRungIds ?? [];
+  const valid = rungIds(next);
+  const kept = [...new Set(previous)].filter((id) => valid.has(id));
+  const dropped = [...new Set(previous)].filter((id) => !valid.has(id));
+  return {
+    state: { input: tempoLadderInput(next), completedRungIds: kept },
+    dropped,
+  };
+}
+
+/**
+ * Mark one rung done or not done on the latest stored ladder.
+ *
+ * Returns `latest` unchanged when it is not the ladder the player was looking
+ * at — another tab rebuilt or cleared it — so a tick meant for one ladder is
+ * never written onto a different one.
+ */
+export function setTempoRungDone(
+  latest: StoredTempoState | null,
+  ladder: TempoLadder,
+  rungId: string,
+  done: boolean,
+): StoredTempoState | null {
+  if (!latest || !sameTempoInput(latest.input, tempoLadderInput(ladder))) return latest;
+  const without = latest.completedRungIds.filter((id) => id !== rungId);
+  return {
+    input: latest.input,
+    completedRungIds: normalizeTempoProgress(ladder, done ? [...without, rungId] : without),
+  };
+}
+
+/** Which form field a refusal is about, so focus and `aria-invalid` land on it. */
+export function tempoErrorField(
+  code: TempoErrorCode,
+): "current" | "target" | "sessions" {
+  if (code.startsWith("current-")) return "current";
+  if (code.startsWith("sessions-")) return "sessions";
+  return "target";
 }

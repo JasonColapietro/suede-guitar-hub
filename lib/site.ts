@@ -17,6 +17,14 @@ export const SITE_URL = "https://guitarhub.org";
 export const SITE_NAME = "GuitarHub";
 
 /**
+ * Browser chrome colours: the brand indigo (`--color-indigo-deep`) and the page
+ * cream (`--color-cream`) from app/globals.css. Read by the root layout's
+ * `themeColor` and by `app/manifest.ts`.
+ */
+export const THEME_COLOR = "#251152";
+export const BACKGROUND_COLOR = "#f7f3ee";
+
+/**
  * The generated share card, spelled out here so every page can repeat it.
  *
  * `app/opengraph-image.tsx` is a file-convention image, and Next attaches it to
@@ -30,14 +38,32 @@ export const SITE_NAME = "GuitarHub";
  * of the 13 rendered pages emitted none, and the only two that kept the card
  * were the two with no `openGraph` block of their own.
  *
- * So every page declaring `openGraph` must pass `images: [OG_IMAGE]`. `alt` is
- * kept identical to the `alt` exported by `app/opengraph-image.tsx`.
+ * So every page declaring `openGraph` must pass `images: [OG_IMAGE]`, unless
+ * its own segment ships an `opengraph-image.tsx` (see `OG_ROUTES` in
+ * `lib/og-cards.ts`). Those pages must leave `images` unset instead: Next only
+ * attaches a colocated card when the page's `openGraph` / `twitter` blocks have
+ * no `images` key (`mergeStaticMetadata` in the same file). `alt` is kept
+ * identical to the `alt` exported by `app/opengraph-image.tsx`.
  */
 export const OG_IMAGE = {
   url: `${SITE_URL}/opengraph-image`,
   width: 1200,
   height: 630,
   alt: "GuitarHub: prove one guitar breakthrough in 30 days.",
+} as const;
+
+/**
+ * The author on every guide's `Article` node. The `@id` is the estate's
+ * canonical Person, defined in full in app/layout.tsx; `name` and `url` are
+ * inlined beside it because Google's Article guidelines ask for the author's
+ * name on the node itself, and a bare `@id` reference left validators that do
+ * not resolve the graph reporting an author with no name.
+ */
+export const ARTICLE_AUTHOR = {
+  "@type": "Person",
+  "@id": "https://suedeai.ai/founder#person",
+  name: "Jason Colapietro",
+  url: "https://suedeai.ai/founder",
 } as const;
 
 export type SiteEntry = {
@@ -55,8 +81,8 @@ export const HOME: SiteEntry = {
   href: "/",
   title: "GuitarHub",
   blurb:
-    "Guitar lessons with lifetime access, plus free practice routines and advanced drills from Suede AI.",
-  lastModified: "2026-10-08",
+    "Practice guitar with a plan you can prove: a free 30-day plan, free browser tools, guided lessons with lifetime access, and the free Advanced Lab.",
+  lastModified: "2026-10-10",
 };
 
 /**
@@ -68,13 +94,13 @@ export const ABOUT: SiteEntry = {
   href: "/about",
   title: "About GuitarHub",
   blurb:
-    "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
-  lastModified: "2026-09-04",
+    "Who built GuitarHub, what it offers, and how it fits with Strumly and Suede Sing.",
+  lastModified: "2026-10-10",
 };
 
 export const LEGAL: readonly SiteEntry[] = [
-  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-09-04" },
-  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-09-04" },
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
+  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-10-10" },
 ];
 
 export const TOOLS: readonly SiteEntry[] = [
@@ -133,7 +159,7 @@ export const GUIDES: readonly SiteEntry[] = [
     href: "/method",
     title: "The GuitarHub method",
     blurb:
-      "The loop the whole site runs on: diagnose, prescribe, practice, prove, correct, repeat.",
+      "The four-stage loop the whole site runs on: baseline, isolate, reconnect, prove, with an exit test for each stage.",
     lastModified: "2026-08-29",
   },
   {
@@ -202,10 +228,80 @@ export const GUIDES: readonly SiteEntry[] = [
   },
   {
     href: "/practicing-guitar-with-a-metronome",
-    title: "Practising with a metronome",
+    title: "Practicing with a metronome",
     blurb:
       "Testing against the click instead of playing along with it, and what that exposes about your time.",
     lastModified: "2026-08-29",
+  },
+  {
+    href: "/beginner-guitar-practice-routine",
+    title: "A beginner practice routine for 90 days",
+    blurb:
+      "Twenty minutes a day in five blocks, three 30-day phases, and a recording on days 1, 30, 60 and 90.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-change-chords-faster",
+    title: "How to change chords faster",
+    blurb:
+      "Anchor fingers, guide fingers, shape moves and one-minute changes, with exact fingerings for the common open-chord pairs.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/guitar-finger-pain",
+    title: "Sore fingertips and hand pain",
+    blurb:
+      "How calluses form, how to press lighter, the setup fixes that help, and the pain signals that mean stop.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/record-guitar-practice-on-phone",
+    title: "Record your practice on a phone",
+    blurb:
+      "Phone placement, levels, a day 1 versus day 30 comparison, and the five things to listen for in every take.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/learn-guitar-fretboard-notes",
+    title: "Learn the fretboard notes and CAGED",
+    blurb:
+      "The musical alphabet, strings 6 and 5, octave shapes, and the five CAGED shapes that connect the whole neck.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-strumming",
+    title: "How to practice strumming",
+    blurb:
+      "A hand that never stops, counted eighths, five patterns in order, and a click on beats 2 and 4.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-play-barre-chords",
+    title: "Barre chords and the F chord",
+    blurb:
+      "Leverage instead of grip strength, a four-step path to a full F, and the E and A shapes up the neck.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-guitar-improvisation",
+    title: "How to practice improvising",
+    blurb:
+      "Constraint drills, phrases that answer each other, and landing on chord tones over a 12-bar blues in A.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/coming-back-to-guitar",
+    title: "Coming back to guitar after years away",
+    blurb:
+      "A 30-day restart: set up the guitar, rebuild your fingertips, record a fresh baseline, and finish one song.",
+    lastModified: "2026-10-10",
+  },
+  {
+    href: "/how-to-practice-guitar-scales",
+    title: "Practicing scales so they become music",
+    blurb:
+      "One shape learned cold, then sequences, thirds, a drone, rhythm and chord tones, in a 15-minute daily plan.",
+    lastModified: "2026-10-10",
   },
 ];
 
@@ -293,8 +389,8 @@ export const HUBS: readonly SiteEntry[] = [
     href: "/faq",
     title: "FAQ",
     blurb:
-      "What GuitarHub is, what it is not, where your data lives, and what applying involves.",
-    lastModified: "2026-08-29",
+      "What is free, how lifetime lesson access works, where your data lives, and what applying involves.",
+    lastModified: "2026-10-10",
   },
 ];
 
@@ -309,13 +405,21 @@ export const HUBS: readonly SiteEntry[] = [
  * path moved to Suede Sing on 2026-09-23 and /learn/voice redirects there
  * (lib/voice-redirects.ts). Adding a track means adding it in both places.
  */
+/**
+ * When the Advanced Lab drill catalog (`lib/advanced/drills.ts`) last changed.
+ * The drills have no per-page dates, so this one date is the `lastModified` of
+ * the /advanced hub and of every /advanced/<drill> sitemap entry. Bump it in
+ * the same commit as a drill edit.
+ */
+export const ADVANCED_LAB_LAST_MODIFIED = "2026-10-10";
+
 export const LEARN: readonly SiteEntry[] = [
   {
     href: "/learn",
     title: "Learning paths",
     blurb:
-      "Follow the guitar lessons in order, with your place kept in this browser. Voice lessons now live on Suede Sing.",
-    lastModified: "2026-10-08",
+      "The seven-stage guitar curriculum with lifetime access, the free A-to-D routine, the free Advanced Lab, and voice lessons on Suede Sing.",
+    lastModified: "2026-10-10",
   },
   {
     href: "/learn/guitar",
@@ -328,21 +432,21 @@ export const LEARN: readonly SiteEntry[] = [
     href: "/learn/guitar/routine",
     title: "A-to-D chord practice routine",
     blurb: "A free beginner routine for A and D chord changes, with seven timed blocks, editable durations, and local practice history.",
-    lastModified: "2026-10-08",
+    lastModified: "2026-10-10",
   },
   {
     href: "/start",
     title: "Find your level",
     blurb:
-      "Three questions of self-recognition: new to guitar, comfortable with open chords, or already advanced. Each one opens at the right place.",
-    lastModified: "2026-09-25",
+      "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3, or the free Advanced Lab.",
+    lastModified: "2026-10-10",
   },
   {
     href: "/advanced",
     title: "Advanced Lab",
     blurb:
       "Free scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone.",
-    lastModified: "2026-09-25",
+    lastModified: ADVANCED_LAB_LAST_MODIFIED,
   },
 ];
 

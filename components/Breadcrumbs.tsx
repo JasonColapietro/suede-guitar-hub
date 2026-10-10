@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Crumb } from "@/lib/breadcrumbs";
+import { breadcrumbJsonLd, type Crumb } from "@/lib/breadcrumbs";
 
 /**
  * The visible breadcrumb trail. Server Component, zero JavaScript.
@@ -19,7 +19,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: readonly Crumb[] }) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="mx-auto max-w-6xl px-6 pt-5 text-sm text-ink/70"
+      className="mx-auto max-w-6xl px-6 pt-2 text-sm text-ink/70"
     >
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {crumbs.map((crumb, index) => {
@@ -38,7 +38,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: readonly Crumb[] }) {
               ) : (
                 <Link
                   href={crumb.href}
-                  className="underline underline-offset-4 transition hover:text-indigo-deep"
+                  className="inline-flex min-h-11 items-center underline underline-offset-4 transition hover:text-indigo-deep"
                 >
                   {crumb.name}
                 </Link>
@@ -48,5 +48,22 @@ export default function Breadcrumbs({ crumbs }: { crumbs: readonly Crumb[] }) {
         })}
       </ol>
     </nav>
+  );
+}
+
+/**
+ * The `BreadcrumbList` JSON-LD for a page that renders its own compact trail
+ * (the learning, practice and Advanced Lab pages) instead of the component
+ * above. Place it beside that trail and pass the same crumbs it shows, ending
+ * with the current page, so the structured data describes the hierarchy the
+ * reader sees. Pages using `<Breadcrumbs>` already carry the list in their own
+ * `@graph` and do not need this.
+ */
+export function BreadcrumbJsonLd({ crumbs }: { crumbs: readonly Crumb[] }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(crumbs)) }}
+    />
   );
 }

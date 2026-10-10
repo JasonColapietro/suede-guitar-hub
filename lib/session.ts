@@ -212,7 +212,7 @@ export const SESSION_FOCUSES: readonly {
   },
   {
     value: "memorise",
-    label: "Memorise a song",
+    label: "Memorize a song",
     blurb: "You can play it with the page in front of you, and not without it.",
   },
   {
@@ -292,7 +292,7 @@ const REPAIR: Record<
   transition: {
     name: "The transition that stalls",
     purpose:
-      "Both sides of the join are already playable. What is missing is the move between them, which you have never practised on its own.",
+      "Both sides of the join are already playable. What is missing is the move between them, which you have never practiced on its own.",
     doThis:
       "Play the last beat before the change and the first beat after it, and nothing else. Slow enough that your hand can be watched. Repeat until the move happens with no pause in the middle, then add one beat on each side.",
   },
@@ -313,7 +313,7 @@ const WARMUP_DO: Record<SessionFocus, string> = {
   transition:
     "Play the two bars either side of the join separately and slowly, without connecting them. Both sides go under your hands before you try to make them meet.",
   upkeep:
-    "Two minutes on something that makes your hands work — a scale shape, a chord loop, one riff — then the first thing you plan to practise, at half speed.",
+    "Two minutes on something that makes your hands work — a scale shape, a chord loop, one riff — then the first thing you plan to practice, at half speed.",
 };
 
 const TEMPO_DO: Record<SessionFocus, string> = {
@@ -833,5 +833,57 @@ export function restoreSessionState(
       result.value,
       record.completedBlockIds,
     ),
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Rebuilding and shared progress
+ * ------------------------------------------------------------------ */
+
+export function sameSessionInput(left: SessionInput, right: SessionInput): boolean {
+  return left.minutes === right.minutes && left.focus === right.focus;
+}
+
+/**
+ * The stored state after rebuilding to `next`, carrying every checked block
+ * that still exists.
+ *
+ * A block's id is its focus, its kind and its minutes, so rebuilding the same
+ * length and focus produces the same ids and keeps every tick. Blocks the new
+ * plan no longer has lose theirs, and those come back as `dropped` so the page
+ * can ask before discarding them.
+ */
+export function rebuildSessionState(
+  latest: StoredSessionState | null,
+  next: SessionPlan,
+): { state: StoredSessionState; dropped: string[] } {
+  const previous = [...new Set(latest?.completedBlockIds ?? [])];
+  const valid = blockIds(next);
+  return {
+    state: {
+      input: { minutes: next.minutes, focus: next.focus },
+      completedBlockIds: previous.filter((id) => valid.has(id)),
+    },
+    dropped: previous.filter((id) => !valid.has(id)),
+  };
+}
+
+/**
+ * Mark one block done or not done on the latest stored plan. Returns `latest`
+ * unchanged when another tab has replaced the plan the player was looking at.
+ */
+export function setSessionBlockDone(
+  latest: StoredSessionState | null,
+  plan: SessionPlan,
+  blockId: string,
+  done: boolean,
+): StoredSessionState | null {
+  if (!latest || !sameSessionInput(latest.input, { minutes: plan.minutes, focus: plan.focus })) {
+    return latest;
+  }
+  const without = latest.completedBlockIds.filter((id) => id !== blockId);
+  return {
+    input: latest.input,
+    completedBlockIds: normalizeSessionProgress(plan, done ? [...without, blockId] : without),
   };
 }

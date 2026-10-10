@@ -283,13 +283,16 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
     decision: "divergent",
     surfaces: [
       { surface: "guitarHubNative", value: [40, 208], source: TOOLS, path: ["metronome.minimumBPM", "metronome.maximumBPM"], binding: "contract" },
+      { surface: "guitarHubWeb", value: [30, 240], source: "lib/audio/metronome-range.ts METRONOME_MIN_BPM, METRONOME_MAX_BPM", binding: "live" },
       { surface: "sing", value: [30, 240], source: "sing metronome room", binding: "observed" },
     ],
     reason:
-      "40 to 208 is the span of the mechanical markings this surface is modelled on and it is pinned " +
+      "40 to 208 is the span of the mechanical markings the native app is modelled on and it is pinned " +
       "by an iOS-generated contract, so widening it moves the native contract. The wider vocal span " +
       "serves drills that are not metronome practice in the guitar sense — a breath cycle at one " +
-      "beat per second, an agility run past 208. Two ranges for two instruments.",
+      "beat per second, an agility run past 208. The web metronome takes the vocal span: its " +
+      "beat-one-only and backbeat drills are taught at a quarter and half of the playing tempo, which " +
+      "needs 30 at the bottom, and /tempo builds ladders in the same span. The native app keeps its own.",
   },
   {
     id: "pitchToleranceCents",

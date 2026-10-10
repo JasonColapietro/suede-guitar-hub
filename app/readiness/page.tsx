@@ -3,7 +3,7 @@ import Link from "next/link";
 import Readiness from "@/components/Readiness";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
-import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
+import { GUIDES, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/readiness`;
@@ -23,10 +23,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -141,10 +139,10 @@ export default function ReadinessPage() {
 
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-6xl">
@@ -205,13 +203,13 @@ export default function ReadinessPage() {
           </p>
         </section>
 
-        <section id="score" className="mx-auto max-w-6xl px-6 pb-20 scroll-mt-24">
+        <section id="score" className="mx-auto max-w-6xl px-6 pb-20">
           <Readiness />
         </section>
 
         <section
           id="how-it-works"
-          className="bg-cream-soft px-6 py-20 scroll-mt-24"
+          className="bg-cream-soft px-6 py-20"
         >
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
@@ -219,7 +217,7 @@ export default function ReadinessPage() {
             </p>
             <h2 className="mt-4 text-3xl leading-snug text-indigo-deep md:text-4xl">
               What the number is, and{" "}
-              <em className="font-display italic">what it is not.</em>
+              <em className="font-display italic">how to use it.</em>
             </h2>
 
             <ol className="mt-10 grid gap-4">
@@ -328,7 +326,7 @@ export default function ReadinessPage() {
         </section>
 
         <section className="mx-auto max-w-4xl px-6 py-20">
-          <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-violet">
             Where to go next
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">

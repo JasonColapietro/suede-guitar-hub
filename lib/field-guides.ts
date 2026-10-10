@@ -30,7 +30,7 @@ export type FieldGuide = {
   coverTitle: string;
   /** The short line under the title. */
   shout: string;
-  /** Spot colour for the rule, issue number and FREE PDF tag. */
+  /** Spot color for the rule, issue number and FREE PDF tag. */
   accent: string;
 };
 

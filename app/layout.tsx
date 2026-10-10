@@ -1,14 +1,25 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import { APP_STORE } from "@/lib/site";
+import { APP_STORE, THEME_COLOR } from "@/lib/site";
 import JsClassMarker from "@/components/JsClassMarker";
 import { keywordsFor } from "@/lib/keywords";
 import "./globals.css";
 
+// Fraunces is the display face for headings, and most hero H1s set a phrase in
+// its italic. With the default `swap`, the late-arriving italic was wider than
+// its Times-based fallback, so on a slow phone the H1 rewrapped to an extra
+// line and pushed the page down (CLS 0.12 on /tools, 0.11 on /tempo). With
+// `optional` the browser keeps whichever face it painted first: the fallback on
+// a cold first visit, Fraunces from cache on every visit after it. Nothing
+// shifts. It is not preloaded either: two high-priority font preloads competed
+// with the render-blocking stylesheet on 3G, and an `optional` face fetched
+// late is still cached for the next page.
 const fraunces = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
   variable: "--font-fraunces",
+  display: "optional",
+  preload: false,
 });
 
 const inter = Inter({
@@ -38,7 +49,11 @@ export const metadata: Metadata = {
     siteName: "GuitarHub",
     type: "website",
   },
-  alternates: { canonical: "https://guitarhub.org" },
+  // No `alternates.canonical` here. A layout's canonical is inherited by every
+  // page that does not set its own, so the 404 page and the noindexed
+  // /learn/voice/materials and /learn/voice/recordings all declared the home
+  // page as their canonical. Each indexable page sets its own self canonical
+  // (the home page included, in app/page.tsx).
   // Renders <meta name="apple-itunes-app">: Safari on iOS shows the Smart App
   // Banner above every page, which is the one install path that needs no
   // App Store search at all.
@@ -54,6 +69,11 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+};
+
+/** The browser chrome colour: the brand indigo, shared with app/manifest.ts. */
+export const viewport: Viewport = {
+  themeColor: THEME_COLOR,
 };
 
 // GuitarHub was the only Suede property emitting no structured data, so engines
@@ -113,8 +133,12 @@ const JSON_LD = {
       "@id": "https://guitarhub.org/#ios-app",
       name: APP_STORE.name,
       alternateName: ["GuitarHub", "GuitarHub by Suede AI"],
+      // Read from the App Store listing (checked 2026-10-10): 135 guided
+      // guitar lessons and 102 guided voice lessons, with the tuner,
+      // metronome, vocal range finder, daily guitar routine and the first
+      // module of each track free. Keep it in step with the listing.
       description:
-        "Guided beginner guitar lessons with a free daily practice routine, chord-change drills, tuner, metronome and vocal range finder.",
+        "Step-by-step guitar lessons from first chords through barre chords, scales and improvisation, plus guided voice lessons, in one iPhone app. The chromatic tuner, metronome, vocal range finder, daily guitar practice routine and the first module of each track are free; a one-time lifetime purchase opens the rest.",
       applicationCategory: "MusicApplication",
       operatingSystem: "iOS",
       url: APP_STORE.ios,
@@ -134,15 +158,17 @@ const JSON_LD = {
       "@id": JASON_PERSON_ID,
       name: "Jason Colapietro",
       alternateName: ["Johnny Suede"],
-      jobTitle: ["Founder and CEO, Suede AI", "Fractional Forward-Deployed Engineer"],
+      // This @id is shared across the estate and its properties merge, so
+      // this site states what is relevant here: the founder of a guitar
+      // lessons site and the subjects that site teaches.
+      jobTitle: "Founder and CEO, Suede AI",
       knowsAbout: [
+        "Guitar practice",
+        "Guitar pedagogy",
+        "Music theory",
+        "Deliberate practice",
         "AI integration",
-        "Forward-deployed engineering",
         "AI agents",
-        "Search engine optimization",
-        "Generative engine optimization",
-        "Answer engine optimization",
-        "Digital PR",
       ],
       url: "https://suedeai.ai/founder",
       worksFor: { "@id": SUEDE_ORG_ID },
@@ -162,6 +188,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
+        {/* The one skip link for every page. Each page's main element carries
+            id="main-content" and tabIndex={-1} so focus moves with it. */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
@@ -170,7 +201,7 @@ export default function RootLayout({
             initial HTML agree. No-JS readers still receive visible content. */}
         <JsClassMarker />
         {children}
-      <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions">AI Instructions</a></nav>
+      <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions" className="inline-flex min-h-11 items-center">AI Instructions</a></nav>
       </body>
     </html>
   );

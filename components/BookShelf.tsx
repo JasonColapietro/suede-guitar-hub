@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { STRUMLY } from "@/lib/site";
 
 /**
@@ -6,10 +7,11 @@ import { STRUMLY } from "@/lib/site";
  *
  * The two volumes are shown as what is inside the complete edition, not as
  * separate products: they are not sold on their own, so every cover links to
- * the one book page. Covers are plain <img> tags for the same reason as the
- * Field Guides: pre-sized 900x1350 WebPs of 40-50 KB rendered from the book's
- * own cover art (the-signal-chain-book, art.py), so the optimizer has nothing
- * to add.
+ * the one book page. Covers are 900x1350 WebPs of 40-50 KB rendered from the
+ * book's own cover art (the-signal-chain-book, art.py). They go through
+ * next/image with `sizes` for the same reason as the Field Guides: the halves
+ * show at 96 px and the complete edition at most 384 px. Lazy, never
+ * preloaded: the shelf sits far below the fold.
  */
 
 const COMPLETE = {
@@ -34,16 +36,15 @@ const HALVES = [
   },
 ] as const;
 
-function Cover({ src, className = "" }: { src: string; className?: string }) {
+function Cover({ src, sizes, className = "" }: { src: string; sizes: string; className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP, see above
-    <img
+    <Image
       src={src}
       alt=""
       width={900}
       height={1350}
+      sizes={sizes}
       loading="lazy"
-      decoding="async"
       className={`h-auto w-full rounded-xl shadow-lg ring-1 ring-ink/10 ${className}`}
     />
   );
@@ -67,11 +68,15 @@ export function BookShelf({ id = "book" }: { id?: string }) {
           className="group mx-auto block w-full max-w-sm transition motion-safe:hover:-translate-y-1"
           aria-label={`${COMPLETE.title}, ${COMPLETE.kicker}: see the book on Strumly`}
         >
-          <Cover src={COMPLETE.cover} className="group-hover:shadow-2xl" />
+          <Cover
+            src={COMPLETE.cover}
+            sizes="(min-width: 432px) 384px, calc(100vw - 48px)"
+            className="group-hover:shadow-2xl"
+          />
         </a>
 
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <p className="text-xs font-semibold uppercase tracking-widest text-violet">
             {COMPLETE.kicker}
           </p>
           <h3 className="mt-2 font-display text-3xl leading-tight text-indigo-deep">{COMPLETE.title}</h3>
@@ -84,7 +89,7 @@ export function BookShelf({ id = "book" }: { id?: string }) {
             Get the book on Strumly <span aria-hidden>→</span>
           </a>
 
-          <p className="mt-12 text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <p className="mt-12 text-xs font-semibold uppercase tracking-widest text-violet">
             Inside the complete edition
           </p>
           <ul className="mt-5 grid gap-6 sm:grid-cols-2">
@@ -92,7 +97,7 @@ export function BookShelf({ id = "book" }: { id?: string }) {
               <li key={half.title}>
                 <a href={STRUMLY.book} className="group flex gap-4" aria-label={`${half.title}: inside the complete edition, on Strumly`}>
                   <span className="w-24 shrink-0 transition motion-safe:group-hover:-translate-y-0.5">
-                    <Cover src={half.cover} />
+                    <Cover src={half.cover} sizes="96px" />
                   </span>
                   <span className="min-w-0">
                     <span className="block font-display text-lg leading-snug text-indigo-deep group-hover:text-violet">

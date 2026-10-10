@@ -222,7 +222,7 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
         href: "/guitar-practice-plateau",
         question: "Why has progress stopped, and what are the causes?",
         scopeLine:
-          "This is the written account of the six causes, so you can read them and recognise your own.",
+          "This is the written account of the six causes, so you can read them and recognize your own.",
         descriptionMark: "Six habits",
       },
       {
@@ -266,6 +266,74 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
       "performance that a player arrives at by name. Consolidating would have cost the named " +
       "recording its page for no gain, since the general protocol cannot answer a query about one " +
       "record. The overlap was in the framing, so the framing is what changed.",
+  },
+  {
+    id: "scalesVersusImprovisation",
+    query: "how to practice guitar scales",
+    decision: "differentiate",
+    pages: [
+      {
+        href: "/how-to-practice-guitar-scales",
+        question: "How do I practice a scale so the shape plays like music?",
+        scopeLine:
+          "This page is about the scale itself: how to practice a shape so it plays like music instead of an exercise.",
+        descriptionMark: "sequences",
+        handedOver: ["call and response"],
+      },
+      {
+        href: "/how-to-practice-guitar-improvisation",
+        question: "How do I practice making up phrases over chords?",
+        scopeLine:
+          "This page is about making up phrases over chords: what to practice so that improvising stops sounding like a scale played in order.",
+        descriptionMark: "call and response",
+        handedOver: ["groups of three"],
+      },
+    ],
+    reason:
+      "Both guides were written in the same batch and both promise to make scales sound like " +
+      "music, which is the half-a-query overlap this register exists to settle before it ships. " +
+      "The questions are genuinely different: one is about the shape under the fingers (sequences, " +
+      "intervals, a drone, chord tones inside the position), the other is about choosing notes in " +
+      "time over chord changes (constraints, phrases that answer each other, landing notes). The " +
+      "scale page keeps the exercise vocabulary and hands phrase-answering to the improvisation " +
+      "page; the improvisation page leaves sequence drills to the scale page.",
+  },
+  {
+    id: "beginnerRoutine",
+    query: "beginner guitar practice routine",
+    decision: "differentiate",
+    pages: [
+      {
+        href: "/beginner-guitar-practice-routine",
+        question: "What should my first 90 days of practice look like?",
+        scopeLine:
+          "This page is the plan for your first 90 days: what goes in a 20-minute session and how the material changes every 30 days.",
+        descriptionMark: "first 90 days",
+      },
+      {
+        href: "/learn/guitar/routine",
+        question: "What do I play today, with a timer, while A and D are my first chords?",
+        scopeLine:
+          "This page runs one session for you: seven timed blocks on the A-to-D change, with your history saved in this browser.",
+        descriptionMark: "seven timed blocks",
+      },
+      {
+        href: "/guitar-practice-routine-intermediate",
+        question:
+          "What does a session contain once the beginner gains have run out?",
+        scopeLine:
+          "This page is about what a session contains once you are past the beginner stage, in five blocks with separate jobs.",
+        descriptionMark: "five-block",
+      },
+    ],
+    reason:
+      "The 90-day beginner guide arrived beside two pages that already answered part of its query: " +
+      "the A-to-D routine, which is a timer for one session on the first chord change, and the " +
+      "intermediate routine, which is the session plan for the player the beginner guide " +
+      "graduates. The three are a plan, a tool that runs one day of it, and the next plan, so " +
+      "each says which it is near the top and links the other two. The intermediate page " +
+      "prints the scope line it already carries for the routine-versus-week cluster, the same " +
+      "way the schedule page serves two clusters with one sentence.",
   },
 ];
 

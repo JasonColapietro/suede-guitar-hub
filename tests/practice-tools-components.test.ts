@@ -5,16 +5,17 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import contract from "../contracts/practice-tools.json" with { type: "json" };
 import { TOOLS } from "../lib/site.ts";
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from "../lib/audio/metronome-range.ts";
 register("./component-render-hooks.mjs", import.meta.url);
 const { Metronome } = await import("../components/practice/Metronome.tsx");
 const { TuningGuide } = await import("../components/learning/TuningGuide.tsx");
 const { default: PracticePage, metadata } = await import("../app/practice/page.tsx");
 const { default: SiteNav } = await import("../components/SiteNav.tsx");
 
-test("actual metronome markup exposes native range, steps, four beats and no automatic playback", () => {
+test("actual metronome markup exposes the web range, native steps, four beats and no automatic playback", () => {
   const markup = renderToStaticMarkup(createElement(Metronome));
-  assert.match(markup, new RegExp(`min="${contract.metronome.minimumBPM}"`));
-  assert.match(markup, new RegExp(`max="${contract.metronome.maximumBPM}"`));
+  assert.match(markup, new RegExp(`min="${METRONOME_MIN_BPM}"`));
+  assert.match(markup, new RegExp(`max="${METRONOME_MAX_BPM}"`));
   assert.match(markup, new RegExp(`step="${contract.metronome.sliderStepBPM}"`));
   assert.match(markup, new RegExp(`value="${contract.metronome.defaultBPM}"`));
   assert.match(markup, new RegExp(`Slower by ${contract.metronome.buttonStepBPM} beats per minute`));
@@ -35,7 +36,7 @@ test("standalone tuner has all six standard targets and references without lesso
 });
 test("actual practice page is discoverable, accessible as a document, and honest about microphone and history", () => {
   const markup = renderToStaticMarkup(createElement(PracticePage));
-  assert.match(markup, /id="practice-main"/); assert.match(markup, /Skip to practice tools/);
+  assert.match(markup, /<main id="main-content" tabindex="-1"/); assert.doesNotMatch(markup, /Skip to/);
   assert.match(markup, /id="tuner"/); assert.match(markup, /id="metronome-title"/);
   assert.match(markup, /not uploaded or saved/); assert.match(markup, /do not record lesson completion/);
   assert.match(markup, /href="\/learn\/guitar\/routine"/);
@@ -43,12 +44,13 @@ test("actual practice page is discoverable, accessible as a document, and honest
   assert.ok(TOOLS.some(tool => tool.href === "/practice"));
   assert.match(renderToStaticMarkup(createElement(SiteNav)), /href="\/practice"[^>]*>Practice/);
 });
-test("the standalone route overrides only microphone permission while general site pages retain denial", async () => {
+test("every route allows consented microphone use so client-side navigation into the tuner works", async () => {
   const { default: config } = await import("../next.config.ts");
   const rules = await config.headers!();
   const general = rules.find(rule => rule.source === "/:path*")!;
-  const practice = rules.find(rule => rule.source === "/practice");
-  assert.ok(practice); assert.ok(rules.indexOf(practice) > rules.indexOf(general));
-  assert.equal(general.headers.find(header => header.key === "Permissions-Policy")?.value, "camera=(), geolocation=(), microphone=()");
-  assert.equal(practice.headers.find(header => header.key === "Permissions-Policy")?.value, "camera=(), geolocation=(), microphone=(self)");
+  // One sitewide policy: a page reached by client-side navigation keeps the
+  // policy of the document the visitor landed on, so a per-route override for
+  // /practice never applied to visitors arriving from / or /tools.
+  assert.equal(general.headers.find(header => header.key === "Permissions-Policy")?.value, "camera=(), geolocation=(), microphone=(self)");
+  assert.ok(!rules.some(rule => rule !== general && rule.headers.some(header => header.key === "Permissions-Policy" && header.value !== "camera=(), geolocation=(), microphone=(self)")));
 });

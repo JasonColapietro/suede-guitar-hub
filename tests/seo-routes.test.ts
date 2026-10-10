@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
 import {
+  ADVANCED_LAB_LAST_MODIFIED,
   TOOLS,
   SITEMAP_ENTRIES,
   SITE_URL as REGISTRY_SITE_URL,
@@ -227,9 +228,16 @@ test("publishes every canonical indexable page in the sitemap", async () => {
   assert.equal(urls[0], SITE_URL, "the home page must be the first entry");
 
   for (const entry of entries) {
-    // The catalogs have no editorial modification dates. Omit lastModified
-    // there rather than claiming that every deployment updates the content.
-    if (!SITEMAP_ENTRIES.some((page) => `${SITE_URL}${page.href === "/" ? "" : page.href}` === entry.url)) {
+    // The lesson catalog has no editorial modification dates. Omit
+    // lastModified there rather than claiming that every deployment updates
+    // the content. The drills share the Advanced Lab's catalog date.
+    if (DRILLS.some((drill) => `${SITE_URL}${drillHref(drill.id)}` === entry.url)) {
+      assert.deepEqual(
+        entry.lastModified,
+        new Date(`${ADVANCED_LAB_LAST_MODIFIED}T00:00:00.000Z`),
+        `${entry.url} must carry the Advanced Lab catalog date`,
+      );
+    } else if (!SITEMAP_ENTRIES.some((page) => `${SITE_URL}${page.href === "/" ? "" : page.href}` === entry.url)) {
       assert.equal(entry.lastModified, undefined);
     } else assert.ok(
       entry.lastModified instanceof Date &&
@@ -417,12 +425,19 @@ test("adds browser-facing security headers without blocking indexable pages", as
     /noindex|nofollow/,
     "security policy must not add crawl directives",
   );
-  assert.match(headers.get("Permissions-Policy") ?? "", /microphone=\(\)/);
-  const learning = rules.find((rule) => rule.source === "/learn/:path*");
-  assert.ok(learning, "learning routes must permit consented microphone practice");
-  assert.ok(rules.indexOf(learning) > rules.indexOf(sitewide), "learning policy must override the sitewide default");
-  const learningHeaders = new Map(learning.headers.map(({ key, value }) => [key, value]));
-  assert.equal(learningHeaders.get("Permissions-Policy"), "camera=(), geolocation=(), microphone=(self)");
+  // The microphone must be allowed on every route, not only the ones that use
+  // it. A Permissions-Policy is fixed for the life of the document, and
+  // client-side navigation keeps the document the visitor landed on, so `/`
+  // sending microphone=() made "Start tuner" on /practice fail with
+  // NotAllowedError for anyone who arrived through the home page.
+  const policy = "camera=(), geolocation=(), microphone=(self)";
+  assert.equal(headers.get("Permissions-Policy"), policy);
+  for (const rule of rules) {
+    for (const { key, value } of rule.headers) {
+      if (key.toLowerCase() !== "permissions-policy") continue;
+      assert.equal(value, policy, `${rule.source} must not narrow the sitewide microphone policy`);
+    }
+  }
 });
 
 test("gives every registered tool a full tools-hub card and routing row", () => {

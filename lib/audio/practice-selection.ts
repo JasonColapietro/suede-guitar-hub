@@ -9,8 +9,18 @@ export function practiceSelection(authored: PracticeSpec, mode: 'practice' | 'pl
   return { ...authored, targets: selected.map(target => ({ ...target, beat: target.beat - selected[0].beat })) };
 }
 
+/**
+ * A beat position as people read it: whole beats as "2", subdivisions to two
+ * decimals ("1.5", "1.67"). Triplet positions are stored as thirds, and
+ * printing the raw double showed "beat 1.6669999999999998".
+ */
+export function formatBeat(beat: number): string {
+  if (!Number.isFinite(beat)) return "";
+  return String(Math.round(beat * 100) / 100);
+}
+
 export function targetMap(spec: PracticeSpec) {
-  return spec.targets.map((target, index) => ({ ...target, number: index + 1, bar: Math.floor(target.beat / 4) + 1, beatInBar: target.beat % 4 + 1 }));
+  return spec.targets.map((target, index) => ({ ...target, number: index + 1, bar: Math.floor(target.beat / 4) + 1, beatInBar: formatBeat(target.beat % 4 + 1) }));
 }
 
 export function chordFretRange(frets: (number | null)[]) {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import PracticeLog from "@/components/PracticeLog";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
-import { GUIDES, OG_IMAGE, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
+import { GUIDES, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/log`;
@@ -23,10 +23,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -40,7 +38,7 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     name: "Log the session while it is still true",
-    text: "Pick the day you practised and write it down before the evening rewrites it. The log will not accept a date in the future, because a record of what has not happened yet is the one thing it must never hold.",
+    text: "Pick the day you practiced and write it down before the evening rewrites it. The log will not accept a date in the future, because a record of what has not happened yet is the one thing it must never hold.",
   },
   {
     name: "Name the focus the same way every time",
@@ -191,10 +189,10 @@ export default function LogPage() {
       />
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-4xl leading-tight md:text-6xl">
@@ -231,7 +229,7 @@ export default function LogPage() {
             The problem this fixes
           </p>
           <h2 className="mt-4 text-3xl leading-snug text-indigo-deep md:text-4xl">
-            You know you practised.{" "}
+            You know you practiced.{" "}
             <em className="font-display italic">
               You do not know whether it worked.
             </em>
@@ -260,11 +258,11 @@ export default function LogPage() {
           </p>
         </section>
 
-        <section id="log" className="mx-auto max-w-6xl px-6 pb-20 scroll-mt-24">
+        <section id="log" className="mx-auto max-w-6xl px-6 pb-20">
           <PracticeLog />
         </section>
 
-        <section id="how-it-works" className="bg-cream-soft px-6 py-20 scroll-mt-24">
+        <section id="how-it-works" className="bg-cream-soft px-6 py-20">
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
               How this works
@@ -338,7 +336,7 @@ export default function LogPage() {
               </Link>{" "}
               names it, and{" "}
               <Link href="/practicing-guitar-with-a-metronome" className={INLINE_LINK}>
-                practising with a metronome
+                practicing with a metronome
               </Link>{" "}
               covers how to take a tempo reading you can trust.
             </p>
@@ -347,7 +345,7 @@ export default function LogPage() {
 
         <section className="mx-auto max-w-4xl px-6 py-20">
           <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
-            What this does not do.
+            How to read it.
           </h2>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (
@@ -401,7 +399,7 @@ export default function LogPage() {
         </section>
 
         <section className="mx-auto max-w-6xl px-6 pb-20">
-          <h2 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-violet">
             Where to go next
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import ts from 'typescript';
 export async function resolve(specifier, context, nextResolve) {
   if (specifier === "next/link") return nextResolve("next/link.js", context);
+  if (specifier === "next/image") return { url: new URL("./next-image-shim.mjs", import.meta.url).href, shortCircuit: true };
   if (specifier.startsWith('.') && context.parentURL?.startsWith('file:')) {
     const base = new URL(specifier, context.parentURL);
     for (const extension of ['', '.ts', '.tsx', '.js']) {

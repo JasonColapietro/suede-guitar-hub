@@ -1,55 +1,17 @@
 import { ImageResponse } from "next/og";
+import { OG_COLORS, OG_CONTENT_TYPE, OG_SIZE, OgFrame, OgMasthead } from "@/lib/og";
 
 export const alt = "GuitarHub: prove one guitar breakthrough in 30 days.";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const size = OG_SIZE;
+export const contentType = OG_CONTENT_TYPE;
 
-/* Palette copied verbatim from the @theme block in app/globals.css.
-   next/og renders through Satori, which never sees Tailwind, so the tokens
-   cannot be referenced as classes here and have to be repeated as literals.
-   If those tokens change in globals.css, change them here too. */
-const CREAM = "#f7f3ee"; // --color-cream
-const INDIGO_DEEP = "#251152"; // --color-indigo-deep
-const PEACH = "#f5e2cf"; // --color-peach
-const STRING = "rgba(109, 40, 217, 0.45)"; // --color-violet, as in .strings-divider
-
-/* Low E through high E: the gauge thins as it climbs, the same idea as the
-   .strings-divider rule. Rendered as real divs rather than a repeating
-   gradient because Satori's repeating-linear-gradient support is not
-   something this route should depend on. */
-const STRING_GAUGES = [5, 4, 3, 3, 2, 2];
-
-/* No `fonts` option is passed on purpose. next/og bundles Noto Sans and
-   registers it as the default family; passing `fonts` REPLACES that default
-   rather than extending it (see render() in @vercel/og), and Satori cannot
-   read woff2, which is the only format next/font/google caches for Fraunces.
-   Fetching a font over the network at build time would put the whole route
-   one failed request away from breaking, so hierarchy here is carried by
-   size, color and spacing instead of by weight or a serif face. */
+/* The home card. The palette, the masthead and the reason no custom font is
+   loaded all live in lib/og.tsx, shared with every per-page card, so the home
+   card and the page cards cannot drift apart. */
 export default async function Image() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          backgroundColor: CREAM,
-          color: INDIGO_DEEP,
-        }}
-      >
-        {/* Masthead rule. Doubles as a hard top edge so a cream card does not
-            dissolve into the white background of Slack, iMessage or X. */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            height: 16,
-            backgroundColor: INDIGO_DEEP,
-          }}
-        />
-
+      <OgFrame>
         <div
           style={{
             display: "flex",
@@ -59,35 +21,7 @@ export default async function Image() {
             padding: "62px 80px 60px",
           }}
         >
-          {/* Masthead block: wordmark over the string rule, the same pairing
-              the site uses when .strings-divider sits under a heading. */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", fontSize: 44, letterSpacing: 8 }}>
-              GUITARHUB
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: 320,
-                marginTop: 24,
-              }}
-            >
-              {STRING_GAUGES.map((gauge, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    height: gauge,
-                    marginTop: i === 0 ? 0 : 9,
-                    backgroundColor: STRING,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+          <OgMasthead />
 
           {/* Line breaks are hardcoded as separate rows so the composition is
               deterministic and never depends on where Satori decides to wrap. */}
@@ -109,7 +43,7 @@ export default async function Image() {
                   marginLeft: 26,
                   padding: "6px 38px",
                   borderRadius: 999,
-                  backgroundColor: PEACH,
+                  backgroundColor: OG_COLORS.peach,
                 }}
               >
                 30 days
@@ -117,7 +51,7 @@ export default async function Image() {
             </div>
           </div>
         </div>
-      </div>
+      </OgFrame>
     ),
     size,
   );

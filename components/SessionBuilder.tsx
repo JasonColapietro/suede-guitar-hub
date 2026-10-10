@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   MAX_SESSION_MINUTES,
   MIN_SESSION_MINUTES,
@@ -8,15 +8,18 @@ import {
   SESSION_STORAGE_KEY,
   buildSessionPlan,
   normalizeSessionProgress,
+  rebuildSessionState,
   restoreSessionState,
   sessionMinutesDone,
   sessionProgressPercent,
+  setSessionBlockDone,
   type SessionBlockKind,
   type SessionFocus,
   type SessionPlan,
   type SessionPlanError,
   type StoredSessionState,
 } from "@/lib/session";
+import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
 
 /**
  * The Practice Session Builder.
@@ -24,6 +27,10 @@ import {
  * Every rule about what a session may look like lives in `lib/session.ts`. This
  * file holds state, storage, and markup, and nothing else: when the numbers are
  * refused, the sentence on screen is the one the library wrote.
+ *
+ * Every change is applied to the plan as it is stored now, and a write from
+ * another tab is re-read as it happens, so two open tabs cannot overwrite each
+ * other's checked blocks.
  */
 
 const DEFAULT_MINUTES = 45;
@@ -39,6 +46,13 @@ const FIELD_CLASSES =
 
 const PILL_FOCUS =
   "focus-visible:[outline:3px_solid_var(--color-violet-soft)] focus-visible:[outline-offset:3px]";
+
+const SMALL_PILL =
+  "inline-flex min-h-11 items-center rounded-full border border-indigo-deep/20 px-5 py-2.5 text-xs font-semibold " +
+  `text-indigo-deep motion-safe:transition hover:bg-white ${PILL_FOCUS}`;
+
+const MINUTES_ID = "session-minutes";
+const ERROR_ID = "session-error";
 
 const BLOCK_BUBBLE: Record<SessionBlockKind, string> = {
   warmup: "bg-violet-soft text-indigo-deep",
@@ -56,40 +70,13 @@ function parseField(value: string): number {
   return Number.isFinite(parsed) ? parsed : Number.NaN;
 }
 
-/** Both storage calls can throw on their own in a private window. */
-function forgetStored(): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.removeItem(SESSION_STORAGE_KEY);
-  } catch {
-    // Storage is unavailable, so there is nothing stored to forget.
-  }
-}
+const sessionStore = createStoredValue<StoredSessionState>({
+  key: SESSION_STORAGE_KEY,
+  restore: restoreSessionState,
+});
 
-function readStored(): StoredSessionState | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!raw) return null;
-    const restored = restoreSessionState(JSON.parse(raw));
-    if (restored) return restored;
-  } catch {
-    // Private mode throws on access; corrupt JSON throws on parse. Either way
-    // the stored value is unusable, so drop it and start clean.
-  }
-  forgetStored();
-  return null;
-}
-
-function writeStored(state: StoredSessionState): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    // A blocked or full store costs the player their saved progress, not the
-    // plan they are looking at. Nothing here should interrupt them.
-  }
-}
+/** A rebuild waiting on the player, because it would drop checked blocks. */
+type PendingRebuild = { plan: SessionPlan; dropped: number };
 
 export default function SessionBuilder() {
   const [hydrated, setHydrated] = useState(false);
@@ -99,28 +86,65 @@ export default function SessionBuilder() {
   const [completedBlockIds, setCompletedBlockIds] = useState<string[]>([]);
   const [error, setError] = useState<SessionPlanError | null>(null);
   const [focusResult, setFocusResult] = useState(false);
+  const [focusMinutes, setFocusMinutes] = useState(false);
+  const [pendingRebuild, setPendingRebuild] = useState<PendingRebuild | null>(null);
+  const [pendingClear, setPendingClear] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  // What is on screen, for callbacks that outlive the render they were made in.
+  const shown = useRef<StoredSessionState | null>(null);
+  useEffect(() => {
+    shown.current = plan
+      ? { input: { minutes: plan.minutes, focus: plan.focus }, completedBlockIds }
+      : null;
+  }, [completedBlockIds, plan]);
+
+  /** Put a stored state on screen, and the form with it when asked. */
+  function show(state: StoredSessionState | null, syncFields: boolean) {
+    const result = state ? buildSessionPlan(state.input) : null;
+    const next = result?.ok ? result.value : null;
+    const done = next && state ? normalizeSessionProgress(next, state.completedBlockIds) : [];
+    shown.current = next
+      ? { input: { minutes: next.minutes, focus: next.focus }, completedBlockIds: done }
+      : null;
+    setPlan(next);
+    setCompletedBlockIds(done);
+    if (next && syncFields) {
+      setMinutesField(String(next.minutes));
+      setFocus(next.focus);
+    }
+  }
 
   useEffect(() => {
-    const restored = readStored();
-    if (restored) {
-      const result = buildSessionPlan(restored.input);
-      if (result.ok) {
-        setMinutesField(String(restored.input.minutes));
-        setFocus(restored.input.focus);
-        setPlan(result.value);
-        setCompletedBlockIds(restored.completedBlockIds);
-      }
-    }
+    const restored = sessionStore.read();
+    if (restored.available && restored.value) show(restored.value, true);
     setHydrated(true);
+
+    // Another tab ticked, rebuilt or cleared. The minutes field follows only
+    // while it still shows the plan being replaced, so a half-typed edit here
+    // is not overwritten from elsewhere.
+    return subscribeToStoredKey(SESSION_STORAGE_KEY, () => {
+      const latest = sessionStore.read();
+      if (!latest.available) return;
+      setPendingRebuild(null);
+      if (!latest.value) setPendingClear(false);
+      const before = shown.current;
+      if (latest.value) {
+        const minutes = String(latest.value.input.minutes);
+        setMinutesField((current) =>
+          before === null || current === String(before.input.minutes) ? minutes : current,
+        );
+        setFocus(latest.value.input.focus);
+      }
+      show(latest.value, false);
+    });
   }, []);
 
   useEffect(() => {
-    if (!hydrated || !plan) return;
-    writeStored({
-      input: { minutes: plan.minutes, focus: plan.focus },
-      completedBlockIds,
-    });
-  }, [completedBlockIds, hydrated, plan]);
+    if (!focusMinutes) return;
+    document.getElementById(MINUTES_ID)?.focus();
+    setFocusMinutes(false);
+  }, [focusMinutes]);
 
   // Runs after the result is committed, which requestAnimationFrame does not
   // guarantee. It also matters on the correction path: pressing the suggested
@@ -139,16 +163,57 @@ export default function SessionBuilder() {
 
   const minutesDone = plan ? sessionMinutesDone(plan, completedBlockIds) : 0;
 
+  /** Write a rebuilt plan, keeping every checked block that survives. */
+  function commitRebuild(next: SessionPlan) {
+    let dropped = 0;
+    const { value } = sessionStore.update(shown.current, (latest) => {
+      const rebuilt = rebuildSessionState(latest, next);
+      dropped = rebuilt.dropped.length;
+      return rebuilt.state;
+    });
+    show(value, false);
+    setPendingRebuild(null);
+    setPendingClear(false);
+    const kept = value?.completedBlockIds.length ?? 0;
+    setNotice(
+      kept > 0
+        ? `Session rebuilt. Kept ${kept} checked ${kept === 1 ? "block" : "blocks"}${dropped > 0 ? `, and cleared ${dropped} that changed` : ""}.`
+        : dropped > 0
+          ? `Session rebuilt. Cleared ${dropped} checked ${dropped === 1 ? "block" : "blocks"} that changed.`
+          : "",
+    );
+    setFocusResult(true);
+  }
+
   function attempt(minutes: number, nextFocus: SessionFocus) {
     const result = buildSessionPlan({ minutes, focus: nextFocus });
     if (!result.ok) {
       setError(result.error);
+      setPendingRebuild(null);
+      if (result.error.code.startsWith("minutes-")) setFocusMinutes(true);
       return;
     }
     setError(null);
-    setPlan(result.value);
-    setCompletedBlockIds([]);
-    setFocusResult(true);
+
+    // Ask before a rebuild throws away blocks the player already checked. The
+    // same length and focus keep every block id, so this only asks when it must.
+    const latest = sessionStore.read();
+    const base = latest.available ? latest.value : shown.current;
+    const { dropped } = rebuildSessionState(base, result.value);
+    if (dropped.length > 0) {
+      setPendingRebuild({ plan: result.value, dropped: dropped.length });
+      return;
+    }
+    commitRebuild(result.value);
+  }
+
+  /** Back out of a rebuild: the form goes back to the plan still on screen. */
+  function keepPlan() {
+    setPendingRebuild(null);
+    if (plan) {
+      setMinutesField(String(plan.minutes));
+      setFocus(plan.focus);
+    }
   }
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -169,6 +234,7 @@ export default function SessionBuilder() {
     // a number no longer on screen, and pressing the fix discards what was just
     // typed. An edit is the correction, so the alert goes with it.
     setError(null);
+    setPendingRebuild(null);
     setMinutesField(raw);
   }
 
@@ -185,24 +251,37 @@ export default function SessionBuilder() {
     if (plan) attempt(parseField(minutesField), next);
   }
 
-  function toggleBlock(id: string) {
+  function setBlockDone(id: string, done: boolean) {
     if (!plan) return;
-    setCompletedBlockIds((current) =>
-      normalizeSessionProgress(
-        plan,
-        current.includes(id)
-          ? current.filter((blockId) => blockId !== id)
-          : [...current, id],
-      ),
+    const { value } = sessionStore.update(shown.current, (latest) =>
+      setSessionBlockDone(latest, plan, id, done),
+    );
+    const replaced =
+      value === null || value.input.minutes !== plan.minutes || value.input.focus !== plan.focus;
+    show(value, replaced);
+    setNotice(
+      replaced
+        ? "This session was changed in another tab. Showing the saved one; check the block again if it still applies."
+        : "",
     );
   }
 
   function clearPlan() {
-    forgetStored();
+    sessionStore.write(null);
+    shown.current = null;
     setPlan(null);
     setCompletedBlockIds([]);
     setError(null);
+    setPendingClear(false);
+    setPendingRebuild(null);
+    setNotice("Session cleared from this browser.");
+    setFocusMinutes(true);
   }
+
+  const minutesInvalid = error !== null && error.code.startsWith("minutes-");
+  // The plan on screen no longer matches the form while it is refused or a
+  // rebuild is waiting on an answer. It stays readable, dimmed and labelled.
+  const stale = Boolean(plan) && (error !== null || pendingRebuild !== null);
 
   return (
     <div className="rounded-[2rem] border border-indigo-deep/10 bg-white/70 p-6 shadow-[0_28px_80px_rgba(37,17,82,0.07)] sm:p-8 lg:p-12">
@@ -225,7 +304,7 @@ export default function SessionBuilder() {
               Minutes available
             </label>
             <input
-              id="session-minutes"
+              id={MINUTES_ID}
               name="minutes"
               type="number"
               inputMode="numeric"
@@ -234,7 +313,10 @@ export default function SessionBuilder() {
               step={1}
               value={minutesField}
               onChange={(event) => changeMinutes(event.target.value)}
-              aria-describedby="session-minutes-hint"
+              aria-invalid={minutesInvalid ? true : undefined}
+              aria-describedby={
+                minutesInvalid ? `session-minutes-hint ${ERROR_ID}` : "session-minutes-hint"
+              }
               className={`mt-2 ${FIELD_CLASSES}`}
             />
             <p id="session-minutes-hint" className="mt-2 text-sm text-ink/60">
@@ -284,13 +366,21 @@ export default function SessionBuilder() {
                     value={option.value}
                     checked={selected}
                     onChange={() => changeFocus(option.value)}
+                    aria-labelledby={`focus-${option.value}-label`}
+                    aria-describedby={`focus-${option.value}-blurb`}
                     className={`mt-1 h-5 w-5 shrink-0 accent-violet ${PILL_FOCUS}`}
                   />
                   <span className="min-w-0">
-                    <span className="block font-semibold text-indigo-deep">
+                    <span
+                      id={`focus-${option.value}-label`}
+                      className="block font-semibold text-indigo-deep"
+                    >
                       {option.label}
                     </span>
-                    <span className="mt-1 block text-sm leading-relaxed text-ink/70">
+                    <span
+                      id={`focus-${option.value}-blurb`}
+                      className="mt-1 block text-sm leading-relaxed text-ink/70"
+                    >
                       {option.blurb}
                     </span>
                   </span>
@@ -302,6 +392,7 @@ export default function SessionBuilder() {
 
         {error ? (
           <div
+            id={ERROR_ID}
             role="alert"
             className="mt-8 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5"
           >
@@ -318,6 +409,34 @@ export default function SessionBuilder() {
           </div>
         ) : null}
 
+        {pendingRebuild ? (
+          <div
+            role="alert"
+            className="mt-8 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5"
+          >
+            <p className="font-medium text-indigo-deep">
+              This rebuild changes{" "}
+              {pendingRebuild.dropped === 1
+                ? "one block you checked"
+                : `${pendingRebuild.dropped} blocks you checked`}
+              , so {pendingRebuild.dropped === 1 ? "that tick is" : "those ticks are"}{" "}
+              cleared. Every block that stays the same keeps its tick.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => commitRebuild(pendingRebuild.plan)}
+                className={`${SMALL_PILL} border-violet/40 bg-violet-soft/15`}
+              >
+                Rebuild and clear {pendingRebuild.dropped === 1 ? "it" : "them"}
+              </button>
+              <button type="button" onClick={keepPlan} className={SMALL_PILL}>
+                Keep my current session
+              </button>
+            </div>
+          </div>
+        ) : null}
+
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <button
             type="submit"
@@ -326,34 +445,73 @@ export default function SessionBuilder() {
             {plan ? "Rebuild the session" : "Build the session"}{" "}
             <span aria-hidden>→</span>
           </button>
+          {/* Two steps, the pattern the practice log uses: the plan and its
+              checked blocks have no other copy and no undo. */}
           {plan ? (
-            <button
-              type="button"
-              onClick={clearPlan}
-              className={`inline-flex min-h-11 items-center rounded-full border border-indigo-deep/20 px-5 py-2.5 text-xs font-semibold text-indigo-deep motion-safe:transition hover:bg-white ${PILL_FOCUS}`}
-            >
-              Clear this browser&apos;s session
-            </button>
+            pendingClear ? (
+              <>
+                <button
+                  type="button"
+                  onClick={clearPlan}
+                  className={`${SMALL_PILL} border-violet/40 bg-violet-soft/15`}
+                >
+                  Delete the session for good
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingClear(false)}
+                  className={SMALL_PILL}
+                >
+                  Keep it
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setPendingClear(true)}
+                className={SMALL_PILL}
+              >
+                Clear this browser&apos;s session
+              </button>
+            )
           ) : null}
         </div>
 
-        {/* Present from first paint so a screen reader announces the change,
-            rather than mounting alongside the result and being missed. */}
-        <p role="status" aria-live="polite" className="mt-4 text-sm text-ink/60">
-          {plan
-            ? `${plan.summary} ${minutesDone} of ${plan.minutes} minutes marked done.`
-            : ""}
+        {pendingClear && plan ? (
+          <p className="mt-4 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80">
+            This deletes the session plan and the {minutesDone} of {plan.minutes}{" "}
+            minutes marked done. There is no other copy and no undo.
+          </p>
+        ) : null}
+
+        {/* Only the notice and the progress count are live: each checkbox tick
+            announces "n of m minutes marked done" instead of re-reading the
+            summary. The span is present from first paint so the change is
+            announced rather than mounted alongside the result and missed. */}
+        <p className="mt-4 text-sm text-ink/60">
+          {plan ? `${plan.summary} ` : ""}
+          <span role="status">
+            {notice ? `${notice} ` : ""}
+            {plan ? `${minutesDone} of ${plan.minutes} minutes marked done.` : ""}
+          </span>
         </p>
       </form>
 
       {plan ? (
         <section
-          className="mt-14 border-t border-ink/10 pt-12"
+          className={`mt-14 border-t border-ink/10 pt-12 motion-safe:transition-opacity ${stale ? "opacity-50" : ""}`}
           aria-labelledby="session-plan"
+          aria-describedby={stale ? "session-stale" : undefined}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
             Your session
           </p>
+          {stale ? (
+            <p id="session-stale" className="mt-2 text-sm font-semibold text-indigo-deep">
+              This is the session you built before. It does not reflect the form
+              until you rebuild.
+            </p>
+          ) : null}
           <h2
             id="session-plan"
             tabIndex={-1}
@@ -423,10 +581,10 @@ export default function SessionBuilder() {
                       }`}
                     >
                       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                        <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                           Block {block.position} · {block.shortName}
                         </span>
-                        <span className="text-[11px] font-semibold uppercase tracking-widest text-ink/50">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-ink/50">
                           {block.minutes} min
                         </span>
                       </div>
@@ -450,7 +608,7 @@ export default function SessionBuilder() {
                         <input
                           type="checkbox"
                           checked={done}
-                          onChange={() => toggleBlock(block.id)}
+                          onChange={(event) => setBlockDone(block.id, event.target.checked)}
                           className={`h-5 w-5 accent-violet ${PILL_FOCUS}`}
                         />
                         <span>

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   DIAGNOSE_STORAGE_KEY,
   DIAGNOSTIC_QUESTIONS,
+  confidenceNote,
   diagnose,
   questionPrompt,
   restoreDiagnosticState,
@@ -269,11 +270,7 @@ export default function Diagnostic() {
                   <SignalBar blocker={result.primary} lead />
                 </ul>
                 <p className="mt-3 text-sm leading-relaxed text-ink/60">
-                  {result.confidence === "faint"
-                    ? "These are faint signals. Nothing looks badly broken, so read this as the mildest of five rather than a verdict."
-                    : result.confidence === "narrow"
-                      ? "Two blockers came out close. At this margin the ranking is not decisive, so read the runner-up as well."
-                      : "This one leads by a clear margin. Start here."}
+                  {confidenceNote(result)}
                 </p>
               </div>
 
@@ -293,7 +290,7 @@ export default function Diagnostic() {
 
               {result.runnerUp ? (
                 <div className="mt-8 rounded-3xl border border-ink/10 p-6 sm:p-8">
-                  <p className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-violet">
                     Runner-up
                   </p>
                   <h3 className="mt-2 font-display text-xl leading-snug text-indigo-deep">
@@ -315,7 +312,7 @@ export default function Diagnostic() {
           )}
 
           <div className="mt-10">
-            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-violet">
               Every signal, scored
             </h3>
             <ul className="mt-5 max-w-xl space-y-4">

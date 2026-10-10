@@ -7,7 +7,6 @@ import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import {
   GUIDES,
-  OG_IMAGE,
   SITE_URL,
   STRUMLY,
   TOOLS,
@@ -42,10 +41,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -109,7 +106,7 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
     purpose:
       "You record the date, one focus, a tempo or clean-pass rate, and one honest note. It compares like with like over 7 and 30 days, and refuses to claim a direction until one focus has at least three sessions.",
     audience:
-      "Players who can say how often they practised but cannot show whether the passage, transition, or song they chose is actually moving.",
+      "Players who can say how often they practiced but cannot show whether the passage, transition, or song they chose is actually moving.",
   },
 };
 
@@ -131,7 +128,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
     href: "/diagnose",
     sentence:
       "I practice most days and cannot say what stopped producing change.",
-    stage: "Before the baseline. It ends with a named blocker.",
+    stage: "Baseline. It ends with a named blocker to record against.",
   },
   {
     href: "/breakthrough",
@@ -141,7 +138,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
   {
     href: "/session",
     sentence: "I know what to work on and need it to fit the time I have today.",
-    stage: "Prescribe and practise. It turns the target into blocks you can run now.",
+    stage: "Isolate. It turns the target into blocks you can run now.",
   },
   {
     href: "/tempo",
@@ -156,7 +153,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
   {
     href: "/log",
     sentence: "I finished the session and need to know whether the work is moving.",
-    stage: "Prove and correct. It carries the evidence into the next diagnosis.",
+    stage: "Prove. It carries the evidence into the next baseline.",
   },
 ];
 
@@ -236,11 +233,13 @@ const ITEMLIST_ID = `${CANONICAL}#tools`;
  * The ItemList is built from `TOOLS`, so it can never drift from the cards
  * rendered below it — the failure mode structured data usually dies of.
  *
- * Each item carries the `<url>#tool` @id that the tool's own page already mints
- * for its `SoftwareApplication` node, so the entity is referenced rather than
- * duplicated. The name, url, and description are repeated here anyway: an @id
- * only unifies nodes that a crawler has actually fetched, so a tool page not
- * yet crawled still resolves to a complete, self-sufficient node from this one.
+ * Each item points at the `<url>#tool` @id that the tool's own page mints for
+ * its `SoftwareApplication` node, and restates nothing about it. Nodes that
+ * share an @id are one resource whose properties merge, so a second name or
+ * description written here ("Practice plateau diagnostic" beside the tool
+ * page's "Practice Plateau Diagnostic") was a conflicting label on one entity.
+ * The tool page is the single source for its node; the list carries position,
+ * the page URL and the reference.
  */
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -251,7 +250,7 @@ const JSON_LD = {
       url: CANONICAL,
       name: TITLE,
       description: DESCRIPTION,
-      image: OG_IMAGE.url,
+      image: `${CANONICAL}/opengraph-image`,
       inLanguage: "en-US",
       isPartOf: { "@id": WEBSITE_ID },
       publisher: { "@id": SUEDE_ORG_ID },
@@ -272,32 +271,8 @@ const JSON_LD = {
       itemListElement: TOOLS.map((tool, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: tool.title,
-        item: {
-          "@type": "SoftwareApplication",
-          "@id": `${SITE_URL}${tool.href}#tool`,
-          name: tool.title,
-          url: `${SITE_URL}${tool.href}`,
-          description: TOOL_DETAILS[tool.href]?.purpose ?? tool.blurb,
-          applicationCategory: "EducationalApplication",
-          applicationSubCategory: "Guitar practice tool",
-          operatingSystem: "Web",
-          browserRequirements:
-            "Requires JavaScript. No account, and no data is uploaded.",
-          isAccessibleForFree: true,
-          // Genuinely free: there is no payment step, no card, and no gate
-          // anywhere in any of these tools.
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-            availability: "https://schema.org/InStock",
-          },
-          inLanguage: "en-US",
-          isPartOf: { "@id": WEBSITE_ID },
-          publisher: { "@id": SUEDE_ORG_ID },
-          author: { "@id": JASON_PERSON_ID },
-        },
+        url: `${SITE_URL}${tool.href}`,
+        item: { "@id": `${SITE_URL}${tool.href}#tool` },
       })),
     },
     {
@@ -344,7 +319,7 @@ function ToolCard({ tool }: { tool: SiteEntry }) {
       {detail ? (
         <dl className="mt-6 space-y-4 border-t border-ink/10 pt-5">
           <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
               What it is for
             </dt>
             <dd className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -352,7 +327,7 @@ function ToolCard({ tool }: { tool: SiteEntry }) {
             </dd>
           </div>
           <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+            <dt className="text-xs font-semibold uppercase tracking-widest text-violet">
               Who it helps
             </dt>
             <dd className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -376,10 +351,10 @@ export default function ToolsPage() {
 
       <Breadcrumbs crumbs={CRUMBS} />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               Free practice tools
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-4xl leading-tight md:text-6xl">
@@ -428,10 +403,11 @@ export default function ToolsPage() {
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-ink/70">
               The last one is a claim you can check rather than trust. There is
               no analytics script and no third-party tracker on this site, which
-              the page source will tell you faster than we can. Nothing here
-              records audio, accepts an upload, or listens to you play. When a
-              tool tells you to record a baseline, it means on your phone, kept
-              by you.
+              the page source will tell you faster than we can. The tuner listens
+              only while you run it, measures pitch on your device, and never
+              records or uploads audio; the planning tools never touch the
+              microphone. When a tool tells you to record a baseline, record it
+              on your phone and keep it yourself.
             </p>
             {/* A pill rather than a link inside that sentence: an inline
                 prose link renders about 22px tall, which is not a tap target
@@ -508,13 +484,12 @@ export default function ToolsPage() {
 
         <section className="mx-auto max-w-4xl px-6 py-20">
           <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-            What these tools do not do.
+            How the tools work.
           </h2>
           <p className="mt-6 text-lg text-ink/70">
-            The limits are the other half of the privacy claim. The tools above
-            are not free in exchange for something taken from you. They are free
-            in the ordinary way: they are small, and they do less than a product
-            would.
+            Each tool does one job, on your device. That is what keeps them free
+            without taking anything from you in exchange, and these are the
+            operating details worth knowing before you start.
           </p>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (

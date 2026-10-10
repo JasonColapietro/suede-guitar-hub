@@ -8,6 +8,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { allLessons, curricula } from '../lib/learning/curriculum.ts';
 import { accessibleLessonIds, guestLearningAccess, isLessonReady } from '../lib/learning/access.ts';
 import { browseLessons } from '../lib/learning/library.ts';
+import { learningPathOutline } from '../lib/learning/path-outline.ts';
+import { SING_VOICE_COURSE } from '../lib/voice-redirects.ts';
 import { getInstructionAsset, getLessonInstructions } from '../lib/learning/instructions.ts';
 import { isStageTwoAsset } from '../lib/learning/stage-two.ts';
 
@@ -53,7 +55,7 @@ test('the premise the outline copy rests on is still the catalog', () => {
 });
 
 test('the retired track-wide voice outline claim stays absent once W1 lands', () => {
-    const voice = render(LearningPath, { track: 'voice' });
+    const voice = render(LearningPath, { outline: learningPathOutline('voice'), singCourseHref: SING_VOICE_COURSE });
     assert.equal(
         voice.includes(TRACK_WIDE_CLAIM),
         VOICE_IS_OUTLINES_ONLY,
@@ -64,7 +66,7 @@ test('the retired track-wide voice outline claim stays absent once W1 lands', ()
     // The sentence is voice-only, so guitar must never carry it whatever its
     // readiness is. Without this the assertion above would pass on a component
     // that printed the claim unconditionally.
-    assert.ok(!render(LearningPath, { track: 'guitar' }).includes(TRACK_WIDE_CLAIM));
+    assert.ok(!render(LearningPath, { outline: learningPathOutline('guitar'), singCourseHref: SING_VOICE_COURSE }).includes(TRACK_WIDE_CLAIM));
 });
 
 test('the stage badges on the learning path read their word off readiness rather than the track', () => {
@@ -72,9 +74,9 @@ test('the stage badges on the learning path read their word off readiness rather
         level => !level.modules.some(module => module.lessons.some(lesson => isLessonReady(track, lesson.id))),
     ).length;
     const badges = (markup: string) => (markup.match(/Curriculum outlines/g) ?? []).length;
-    assert.equal(badges(render(LearningPath, { track: 'voice' })), outlineStages('voice'), 'the voice badge has to follow readiness');
+    assert.equal(badges(render(LearningPath, { outline: learningPathOutline('voice'), singCourseHref: SING_VOICE_COURSE })), outlineStages('voice'), 'the voice badge has to follow readiness');
     assert.equal(outlineStages('voice'), 0, 'every voice stage has guided instruction after W1');
-    assert.equal(badges(render(LearningPath, { track: 'guitar' })), outlineStages('guitar'), 'and so does the guitar badge');
+    assert.equal(badges(render(LearningPath, { outline: learningPathOutline('guitar'), singCourseHref: SING_VOICE_COURSE })), outlineStages('guitar'), 'and so does the guitar badge');
     assert.equal(outlineStages('guitar'), 0, 'the final guitar stage now has complete instruction');
 });
 
@@ -96,7 +98,14 @@ test('the learn index counts what a guest can open instead of asserting a number
     const markup = render(LearnPage, {});
     const free = accessibleLessonIds('guitar', guestLearningAccess).length;
     assert.equal(free, 0);
-    assert.ok(markup.includes('135 lessons') && markup.includes('Lifetime access required'));
+    // 105 stage lessons and 30 song companions, counted separately rather than
+    // summed into one total that reads as 135 stage lessons.
+    const stageLessons = allLessons('guitar').filter(entry => entry.level.stage).length;
+    assert.equal(stageLessons, 105);
+    assert.ok(markup.includes(`${stageLessons}<!-- --> lessons in`) || markup.includes(`${stageLessons} lessons in`), 'the stage-lesson count is stated');
+    assert.ok(markup.includes('30<!-- --> song companions') || markup.includes('30 song companions'), 'the song companions are counted on their own');
+    assert.ok(markup.includes('Lifetime access'));
+    assert.ok(markup.includes('apps.apple.com'), 'the paid path names where to buy it');
     // The voice card no longer counts anything here: the lessons moved to Sing.
     assert.ok(markup.includes('Voice lessons on Suede Sing'), 'the voice card sends a singer to Sing');
     // This sentence is about both tracks and stays true while any lesson
@@ -124,7 +133,9 @@ test('no surface makes a track-wide claim about voice except the one that is mea
     walk('app/learn');
     assert.deepEqual(
         found.sort(),
-        ['components/learning/LessonLibrary.tsx'],
+        // The library's voice sentence went with the voice search: voice moved
+        // to Suede Sing and the on-demand search index covers guitar only.
+        [],
         'a new surface states what the voice track currently is. Either derive the word from isLessonReady like the other eight places do, or add it to this list and to the assertions above.',
     );
 });

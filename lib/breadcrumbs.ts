@@ -64,3 +64,17 @@ export function breadcrumbList(canonical: string, crumbs: readonly Crumb[]) {
     })),
   };
 }
+
+/**
+ * A standalone `BreadcrumbList` document for a page whose trail is not part of
+ * a larger `@graph`: the learning, practice and Advanced Lab pages, which render
+ * their own compact trail. The page's address is the last crumb, so the `@id`
+ * and the final `item` cannot disagree.
+ */
+export function breadcrumbJsonLd(crumbs: readonly Crumb[]) {
+  const last = crumbs[crumbs.length - 1];
+  return {
+    "@context": "https://schema.org",
+    ...breadcrumbList(absolute(last.href), crumbs),
+  };
+}

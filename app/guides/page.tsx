@@ -5,11 +5,12 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { FieldGuideShelf } from "@/components/FieldGuides";
+import { FIELD_GUIDES } from "@/lib/field-guides";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import {
   GUIDES,
-  OG_IMAGE,
+  RESOURCES,
   SITE_URL,
   STRUMLY,
   TOOLS,
@@ -38,10 +39,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -156,6 +155,59 @@ const CLUSTERS: readonly Cluster[] = [
       "/how-to-memorize-songs-on-guitar",
     ],
   },
+  {
+    id: "first-year",
+    kicker: "First year",
+    title: "Beginner foundations, and the way back in",
+    intro: (
+      <>
+        The first months of guitar, step by step: a daily routine for the
+        first 90 days, the fingertip stage everyone goes through, faster chord
+        changes, a strumming hand that keeps time, and the F chord. Returning
+        players start with the restart guide, which runs the same foundations
+        in a 30-day loop.
+      </>
+    ),
+    hrefs: [
+      "/beginner-guitar-practice-routine",
+      "/guitar-finger-pain",
+      "/how-to-change-chords-faster",
+      "/how-to-practice-strumming",
+      "/how-to-play-barre-chords",
+      "/coming-back-to-guitar",
+    ],
+  },
+  {
+    id: "the-neck",
+    kicker: "The neck",
+    title: "Fretboard, scales and improvising",
+    intro: (
+      <>
+        From knowing where the notes are to making music with them: the
+        fretboard and the CAGED map, scales practiced as music, then
+        improvising over chords. Each guide links into the Advanced Lab drills
+        that check your notes through the microphone.
+      </>
+    ),
+    hrefs: [
+      "/learn-guitar-fretboard-notes",
+      "/how-to-practice-guitar-scales",
+      "/how-to-practice-guitar-improvisation",
+    ],
+  },
+  {
+    id: "evidence",
+    kicker: "Evidence",
+    title: "Hearing your own playing",
+    intro: (
+      <>
+        Every loop on this site starts and ends with a recording. This is how
+        to make one on the phone you already own, and how to compare two takes
+        so a month of practice shows up as something you can hear.
+      </>
+    ),
+    hrefs: ["/record-guitar-practice-on-phone"],
+  },
 ];
 
 /** Renders only when a registry guide belongs to none of the groups above. */
@@ -206,6 +258,17 @@ const GROUPS = buildGroups();
 const ORDERED: readonly SiteEntry[] = GROUPS.flatMap((group) => group.entries);
 
 /**
+ * The /resources articles this page also links, through the Field Guide shelf
+ * ("Read online" under each cover), in shelf order. They are not in the guide
+ * groups, so without this the ItemList omitted pages the page visibly lists.
+ */
+const SHELF_RESOURCES: readonly SiteEntry[] = FIELD_GUIDES.flatMap((guide) => {
+  const entry = RESOURCES.find((resource) => resource.href === guide.href);
+  return entry ? [entry] : [];
+});
+const LISTED: readonly SiteEntry[] = [...ORDERED, ...SHELF_RESOURCES];
+
+/**
  * The router at the top of the page: a situation, and the one page to open.
  *
  * Rows point at tools as well as guides, because half of these situations are
@@ -220,7 +283,7 @@ const ENTRY_BY_HREF = new Map<string, SiteEntry>(
 const ROUTER_ROWS: readonly { when: string; href: string }[] = [
   { when: "You have not read anything here yet", href: "/method" },
   {
-    when: "You practise most days and nothing is changing",
+    when: "You practice most days and nothing is changing",
     href: "/guitar-practice-plateau",
   },
   {
@@ -246,6 +309,18 @@ const ROUTER_ROWS: readonly { when: string; href: string }[] = [
   {
     when: "You want a month with an actual finish line",
     href: "/30-day-guitar-challenge",
+  },
+  {
+    when: "You are in your first three months of guitar",
+    href: "/beginner-guitar-practice-routine",
+  },
+  {
+    when: "Your fingertips hurt after ten minutes",
+    href: "/guitar-finger-pain",
+  },
+  {
+    when: "You are picking the guitar back up after years away",
+    href: "/coming-back-to-guitar",
   },
 ];
 
@@ -290,7 +365,7 @@ const JSON_LD = {
       publisher: { "@id": SUEDE_ORG_ID },
       author: { "@id": JASON_PERSON_ID },
       dateModified: UPDATED,
-      image: `${SITE_URL}/opengraph-image`,
+      image: `${CANONICAL}/opengraph-image`,
       mainEntity: { "@id": `${CANONICAL}#guide-list` },
       breadcrumb: { "@id": `${CANONICAL}#breadcrumb` },
     },
@@ -300,9 +375,9 @@ const JSON_LD = {
       name: "GuitarHub practice guides",
       // Built from the same array the page renders, so the count and the order
       // cannot drift from what a crawler actually finds in the markup.
-      numberOfItems: ORDERED.length,
+      numberOfItems: LISTED.length,
       itemListOrder: "https://schema.org/ItemListOrderAscending",
-      itemListElement: ORDERED.map((guide, index) => ({
+      itemListElement: LISTED.map((guide, index) => ({
         "@type": "ListItem",
         position: index + 1,
         url: `${SITE_URL}${guide.href}`,
@@ -340,9 +415,10 @@ function GuideCard({
   return (
     <Link
       href={entry.href}
+      prefetch={false}
       className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-sm ring-1 ring-ink/5 transition hover:shadow-md motion-safe:hover:-translate-y-1"
     >
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+      <span className="text-xs font-semibold uppercase tracking-widest text-violet">
         Read {index + 1} of {total}
       </span>
       <h3 className="mt-3 font-display text-xl leading-snug text-indigo-deep">
@@ -368,10 +444,10 @@ export default function GuidesPage() {
 
       <Breadcrumbs crumbs={CRUMBS} />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               Guide library
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
@@ -385,7 +461,7 @@ export default function GuidesPage() {
               for, with a note on what each group is for and which page in it to
               read first.
             </p>
-            <p className="mt-8 text-xs uppercase tracking-widest text-violet-soft">
+            <p className="mt-8 text-xs uppercase tracking-widest text-white/80">
               Updated <time dateTime={UPDATED}>{formatUpdated(UPDATED)}</time> ·{" "}
               {plural(ORDERED.length, "guide")} in{" "}
               {plural(GROUPS.length, "group")}
@@ -413,7 +489,7 @@ export default function GuidesPage() {
 
         <section
           id="which-one"
-          className="mx-auto max-w-4xl scroll-mt-28 px-6 py-16 md:py-20"
+          className="mx-auto max-w-4xl px-6 py-16 md:py-20"
         >
           <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
             Which one do you need right now?
@@ -444,16 +520,16 @@ export default function GuidesPage() {
           </ul>
         </section>
 
-        <FieldGuideShelf intro="Every guide on this page is also a PDF you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
+        <FieldGuideShelf intro="The guides on this shelf are also PDFs you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
 
         {GROUPS.map((group) => (
           <section
             key={group.cluster.id}
             id={group.cluster.id}
-            className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+            className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
           >
             <div className="max-w-2xl">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-violet">
+              <span className="text-xs font-semibold uppercase tracking-widest text-violet">
                 {group.cluster.kicker}
               </span>
               <h2 className="mt-3 text-3xl leading-snug text-indigo-deep md:text-4xl">
@@ -480,7 +556,7 @@ export default function GuidesPage() {
 
         <section
           id="how-to-use"
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+          className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
         >
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">
@@ -511,7 +587,7 @@ export default function GuidesPage() {
 
         <section
           id="tools"
-          className="mx-auto max-w-6xl scroll-mt-28 px-6 pb-16 md:pb-20"
+          className="mx-auto max-w-6xl px-6 pb-16 md:pb-20"
         >
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-snug text-indigo-deep md:text-4xl">

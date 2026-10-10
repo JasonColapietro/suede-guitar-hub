@@ -3,12 +3,11 @@ import Link from "next/link";
 import BreakthroughPlanner from "@/components/BreakthroughPlanner";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
-import { OG_IMAGE } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/breakthrough";
 
-const TITLE = "Build Your 30-Day Guitar Plan | GuitarHub";
+const TITLE = "Free 30-Day Guitar Practice Planner | GuitarHub";
 const DESCRIPTION =
   "Choose one guitar breakthrough, get a four-week practice sequence, launch the right Strumly tools, and track evidence in your browser.";
 
@@ -29,10 +28,8 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
-    // Required, not decorative: a page-level `openGraph` block replaces the
-    // root layout's resolved object, taking the file-convention card with it.
-    // See OG_IMAGE in lib/site.ts.
-    images: [OG_IMAGE],
+    // No `images` key: Next attaches the colocated opengraph-image.tsx card
+    // only when the page leaves `images` unset.
   },
   alternates: { canonical: CANONICAL },
 };
@@ -84,13 +81,12 @@ const JSON_LD = {
   ],
 };
 
+/** The /method loop, one stage per week of the plan. */
 const LOOP = [
-  ["Diagnose", "Start from an honest attempt, not a placement quiz you can game."],
-  ["Prescribe", "One finish line and one weekly path replace the lesson pile."],
-  ["Practice", "Launch the exact Strumly tool, song, or coach session the week needs."],
-  ["Prove", "End each week with a recording and a self-diagnosis, not watch time."],
-  ["Correct", "Founding-room members receive one highest-leverage correction and next action."],
-  ["Share", "Progress proof is learner-controlled; private corrections stay private."],
+  ["Week 1 · Baseline", "Record one real attempt at your finish line and name where it breaks. No placement quiz to game."],
+  ["Week 2 · Isolate", "Cut the failure down to the smallest piece that still breaks and repair that one piece."],
+  ["Week 3 · Reconnect", "Put the repair back into the full song, the click, or the backing track the week calls for."],
+  ["Week 4 · Prove", "Record the same take beside the baseline. Founding-room members also get one highest-leverage correction, and progress proof is shared only when you choose."],
 ] as const;
 
 export default function BreakthroughPage() {
@@ -105,10 +101,10 @@ export default function BreakthroughPage() {
           than a dead end: both carry links to every other tool and guide. */}
       <SiteNav />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-soft">
+            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
               The Breakthrough Room
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
@@ -139,7 +135,7 @@ export default function BreakthroughPage() {
               >
                 the 30-day guitar challenge
               </Link>
-              . Read that one for the judgement. Use this one for the four weeks.
+              . Read that one for the judgment. Use this one for the four weeks.
             </p>
           </div>
         </section>

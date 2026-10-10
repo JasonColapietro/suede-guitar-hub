@@ -6,7 +6,8 @@ import { TabPlayer } from "@/components/interactive/TabPlayer";
 import { StepCards } from "@/components/interactive/StepCards";
 import { PracticeStats, StarRating, usePracticeLog } from "@/components/interactive/PracticeStats";
 import { bestLessonStars, starsForResult } from "@/lib/learning/rewards";
-import { MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE, type Lesson, type LearningModule, type TrackId } from "@/lib/learning/curriculum";
+import { MODULE_SAFETY_NOTE, TRACK_SAFETY_NOTE } from "@/lib/learning/safety";
+import type { Lesson, LearningModule, TrackId } from "@/lib/learning/models";
 import { elapsedSeconds, type Assessment, type LessonRecord } from "@/lib/learning/progress";
 import { useLearningProgress, useReadingQuizProgress } from "./useLearningProgress";
 import styles from "./Learning.module.css";
@@ -23,7 +24,10 @@ import type { VocalModuleMaterial } from "@/lib/learning/vocal-material";
 import { useLearningAccess } from "./LearningAccessProvider";
 import { hasVerifiedTrackAccess } from "@/lib/learning/access";
 export type { LessonInstructions } from "@/lib/learning/instructions";
-export function LessonSession({ track, lesson, module, instructions, vocalMaterial }: { track: TrackId; lesson: Lesson; module: LearningModule; instructions?: LessonInstructions; vocalMaterial?: VocalModuleMaterial }) {
+/** Only the module fields the session renders; its lesson list stays on the server. */
+export type SessionModule = Pick<LearningModule, "id" | "name" | "promise" | "skill">;
+
+export function LessonSession({ track, lesson, module, instructions, vocalMaterial }: { track: TrackId; lesson: Lesson; module: SessionModule; instructions?: LessonInstructions; vocalMaterial?: VocalModuleMaterial }) {
   const access = useLearningAccess();
   const { progress, save, saveUnscored } = useLearningProgress(track);
   const practiceLog = usePracticeLog();
@@ -156,7 +160,7 @@ export function LessonSession({ track, lesson, module, instructions, vocalMateri
               ? <p className={styles.small}>{currentReadingResult ? `Reading result: ${currentReadingResult.correctCount}/${currentReadingResult.total}. ${currentReadingResult.passed ? "Passed. This lesson is done." : "Review the missed topics and try again."}` : "Answer the reading check to finish. Answers save as you go."}</p>
               : <>
                 <div className={styles.actions}><button type="button" className={styles.primary} onClick={() => saveAssessment("ready")} disabled={!canMarkReady}>{done ? "Done again" : "Mark lesson done"}</button><button type="button" className={styles.secondary} onClick={() => saveAssessment("repeat")}>Needs another pass</button></div>
-                {!canMarkReady && <p className={styles.small}>Save the {needsManual ? "one-minute count" : "study"} above first. It is the proof you practised.</p>}
+                {!canMarkReady && <p className={styles.small}>Save the {needsManual ? "one-minute count" : "study"} above first. It is the proof you practiced.</p>}
               </>}
           <details className={styles.fold}>
             <summary className={styles.foldTitle}>Practice timer · {formatted}</summary>

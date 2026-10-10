@@ -3,6 +3,7 @@ import {
   APPLICATION_EMAIL_ADDRESS,
   normalizeApplication,
 } from "@/lib/application";
+import { methodNotAllowed, routeOptions, type HttpMethod } from "@/lib/api-methods";
 
 type ApplyResponse =
   | { ok: true }
@@ -93,3 +94,13 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
 
   return NextResponse.json({ ok: true });
 }
+
+// Methods this route does not serve answer 405 with an Allow header (lib/api-methods.ts).
+const SERVED: readonly HttpMethod[] = ["POST"];
+const notAllowed = methodNotAllowed(SERVED);
+export const GET = notAllowed;
+export const HEAD = notAllowed;
+export const PUT = notAllowed;
+export const DELETE = notAllowed;
+export const PATCH = notAllowed;
+export const OPTIONS = routeOptions(SERVED);

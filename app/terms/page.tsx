@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     title: "Terms of Use | GuitarHub",
     description,
     url: "https://guitarhub.org/terms",
+    siteName: "GuitarHub",
     type: "website",
     images: [
       {
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <Article eyebrow="GuitarHub" title="Terms of Use" dek="Using the lessons, practice tools, and purchased access." updated="2026-09-04" showPracticeCallToAction={false}>
-      <p>These terms cover guitarhub.org and the GuitarHub app, provided by Suede Labs. You may use the learning content and tools for your own practice. For help, contact <a href="mailto:info@suedeai.ai">info@suedeai.ai</a>.</p>
+      <p>These terms cover guitarhub.org and the GuitarHub app, provided by Suede AI. You may use the learning content and tools for your own practice. For help, contact <a href="mailto:info@suedeai.ai">info@suedeai.ai</a>.</p>
 
       <h2>Learning and practice</h2>
       <p>Lessons, timers, and practice suggestions support your learning. A timer finishing records time; it does not certify technique. Microphone feedback estimates the sound it receives and can be affected by noise, instrument setup, and your device. Scores and self-checks are practice feedback, not professional qualifications or a promise of a particular result.</p>

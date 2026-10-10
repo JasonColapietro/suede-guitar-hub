@@ -13,6 +13,11 @@ import {
 /**
  * The site-wide footer. Server Component, zero JavaScript.
  *
+ * Every footer link sets `prefetch={false}`. The footer renders on every page
+ * with ~30 internal links, and viewport prefetching fetched the RSC payload of
+ * each one (plus any preload hints inside them) on every page view, for links
+ * a reader rarely follows. They still navigate client-side when clicked.
+ *
  * This is the internal-linking backbone: every page renders it, so every page
  * links to every tool, guide and editorial resource. The internal columns are
  * built from `lib/site.ts` — add a page there and it appears here site-wide.
@@ -34,6 +39,10 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   // list, so without this line the one free reference page on the site would be
   // reachable from the XML sitemap and nowhere else.
   { href: "/glossary", label: "Guitar and voice glossary" },
+  // Same reason as the glossary: /faq sits in HUBS, so this line is the only
+  // internal link to it. Without it the page was orphaned (found only via
+  // the sitemap).
+  { href: "/faq", label: "FAQ" },
   { href: APP_STORE.ios, label: "GuitarHub for iPhone" },
   ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },
@@ -41,7 +50,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: STRUMLY.rig, label: "Strumly rig board" },
   { href: STRUMLY.sing, label: "Suede Sing" },
   { href: STRUMLY.social, label: "Suede AI Social" },
-  { href: STRUMLY.suedeLabs, label: "Suede Labs" },
+  { href: STRUMLY.suedeLabs, label: "Suede AI" },
 ];
 
 /**
@@ -51,7 +60,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
  * The label still names its list programmatically through `aria-labelledby`.
  */
 const COLUMN_HEADING =
-  "text-[11px] font-semibold uppercase tracking-widest text-violet";
+  "text-xs font-semibold uppercase tracking-widest text-violet";
 // `gap-1` matters: these are inline-flex, which discards the whitespace text
 // node between a label and its trailing "↗", so the gap has to be explicit.
 const LINK_CLASSES =
@@ -73,7 +82,7 @@ function InternalColumn({
       <ul className="mt-3" aria-labelledby={labelId}>
         {entries.map((entry) => (
           <li key={entry.href}>
-            <Link href={entry.href} className={LINK_CLASSES}>
+            <Link href={entry.href} prefetch={false} className={LINK_CLASSES}>
               {entry.title}
             </Link>
           </li>
@@ -99,7 +108,7 @@ export default function SiteFooter() {
               {SUEDE_LINKS.map((link) => (
                 <li key={link.href}>
                   {isInternalHref(link.href) ? (
-                    <Link href={link.href} className={LINK_CLASSES}>
+                    <Link href={link.href} prefetch={false} className={LINK_CLASSES}>
                       {link.label}
                     </Link>
                   ) : (
@@ -128,7 +137,7 @@ export default function SiteFooter() {
             GUITARHUB
           </Link>
           <span>
-            A Suede Labs program, built by Jason Colapietro ·{" "}
+            A Suede AI program, built by Jason Colapietro ·{" "}
             <a
               href="mailto:info@suedeai.ai"
               className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-indigo-deep"
@@ -136,7 +145,7 @@ export default function SiteFooter() {
               info@suedeai.ai
             </a>
           </span>
-          <span>© {new Date().getFullYear()} Suede Labs</span>
+          <span>© {new Date().getFullYear()} Suede AI</span>
         </div>
       </div>
     </footer>

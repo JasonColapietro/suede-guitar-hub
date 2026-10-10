@@ -2,9 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { claimAudioSession } from "@/lib/audio/capture";
-import { getLesson } from "@/lib/learning/curriculum";
 import { deleteVocalTake, listVocalTakes, vocalTakeOwnerScope, type StoredVocalTake } from "@/lib/learning/vocal-recording";
-import { voiceLessonUrlOnSing } from "@/lib/voice-redirects";
 import { useLearningAccess } from "./LearningAccessProvider";
 import styles from "./VocalMaterial.module.css";
 
@@ -14,7 +12,10 @@ import styles from "./VocalMaterial.module.css";
  * this site's IndexedDB, so without this page a saved take could be neither
  * played nor deleted, which the privacy policy promises.
  */
-export function SavedVoiceTakes() {
+/** Voice lesson titles and their Suede Sing links, keyed by lesson id; built on the server. */
+export type VoiceTakeLessons = Readonly<Record<string, { title: string; singHref?: string }>>;
+
+export function SavedVoiceTakes({ lessons = {} }: { lessons?: VoiceTakeLessons }) {
   const { accountId } = useLearningAccess();
   const ownerScope = vocalTakeOwnerScope(accountId ?? null);
   const [takes, setTakes] = useState<StoredVocalTake[] | null>(null);
@@ -77,8 +78,8 @@ export function SavedVoiceTakes() {
   return <section className={styles.recorder} aria-label="Saved voice takes">
     <ul>
       {(takes ?? []).map(take => {
-        const lesson = getLesson("voice", take.lessonId)?.lesson;
-        const onSing = voiceLessonUrlOnSing(take.lessonId);
+        const lesson = lessons[take.lessonId];
+        const onSing = lesson?.singHref;
         return <li key={take.lessonId} className={styles.savedTake}>
           <strong>{lesson?.title ?? take.lessonId} · {Math.max(1, Math.round(take.durationSeconds))} seconds</strong>
           <span>{new Date(take.recordedAt).toLocaleString()}</span>

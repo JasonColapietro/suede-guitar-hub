@@ -53,3 +53,7 @@ const assetDestination = 'lib/learning/data/instruction-assets.json';
 if (check) assert.deepEqual(await readFile(assetDestination), assetBytes, `${assetDestination}: stale native-derived assets`);
 else await writeFile(assetDestination, assetBytes);
 process.stdout.write(`${check ? 'Verified' : 'Synced'} ${assetDestination}\n`);
+
+// The browser's slim catalog and the guitar search index derive from the files
+// synced above; tests/learning-catalog.test.ts fails until they are rebuilt.
+if (!check) process.stdout.write('Now run `npm run learning:catalog` to rebuild the browser catalog.\n');

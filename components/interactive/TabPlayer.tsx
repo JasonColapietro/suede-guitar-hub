@@ -13,6 +13,8 @@ function readBest(key: string): number | null { try { const all = JSON.parse(win
 function writeBest(key: string, score: number) { try { const all = JSON.parse(window.localStorage.getItem(BEST_KEY) ?? "{}") as Record<string, number>; all[key] = score; window.localStorage.setItem(BEST_KEY, JSON.stringify(all)); } catch {} }
 
 export type TabTimeline = { mode: "pitchSequence" | "rhythm"; bpm: number; targets: readonly PracticeTarget[]; beatsPerBar?: number };
+/** A named playback tempo. `timeline.bpm` is 100%, so a preset at that BPM is the default. */
+export type TabSpeedPreset = { label: string; bpm: number };
 
 const STRING_NAMES = ["e", "B", "G", "D", "A", "E"];
 const STRUM = [40, 47, 52, 55, 59, 64];
@@ -30,7 +32,7 @@ type Loop = { a: number; b: number } | null;
  * two notes. Rhythm exercises add a tap-along mode scored against the grid,
  * which needs no microphone.
  */
-export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeline.mode === "rhythm", bestKey }: { timeline: TabTimeline; title?: string; allowTap?: boolean; /** Enables a saved personal best for tap-along. */ bestKey?: string }) {
+export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeline.mode === "rhythm", bestKey, headingLevel = 3, presets }: { timeline: TabTimeline; title?: string; allowTap?: boolean; /** Enables a saved personal best for tap-along. */ bestKey?: string; /** 2 where the player sits directly under the page h1 (drill pages); 3 inside a lesson section. */ headingLevel?: 2 | 3; /** Purpose-labelled tempos (drill pages) in place of the plain percentage list. */ presets?: readonly TabSpeedPreset[] }) {
   const { targets } = timeline;
   const beatsPerBar = timeline.beatsPerBar ?? 4;
   const rhythm = timeline.mode === "rhythm";
@@ -197,7 +199,7 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
 
   return <section className={styles.panel} aria-label={title}>
     <div className={styles.head}>
-      <div><p className={styles.eyebrow}>{rhythm ? "Rhythm" : "Tab"} player</p><h3>{title}</h3></div>
+      <div><p className={styles.eyebrow}>{rhythm ? "Rhythm" : "Tab"} player</p>{headingLevel === 2 ? <h2>{title}</h2> : <h3>{title}</h3>}</div>
       {allowTap && <div className={styles.tabs} role="group" aria-label="Player mode">
         {(["listen", "tap"] as const).map(value => <button key={value} type="button" aria-pressed={mode === value} disabled={playing || starting} onClick={() => { setMode(value); setResult(null); }}>{value === "listen" ? "Listen" : "Tap along"}</button>)}
       </div>}
@@ -221,7 +223,9 @@ export function TabPlayer({ timeline, title = "Hear it first", allowTap = timeli
     <div className={styles.row}>
       <button type="button" className={`${styles.button} ${styles.primary}`} onClick={() => void play()}>{starting ? "Cancel audio start" : playing ? "Stop" : mode === "tap" ? "Start tap-along" : loop ? "Play loop" : "Play it for me"}</button>
       <label className={styles.caption} style={{ display: "flex", alignItems: "center", gap: 6 }}>Speed
-        <select className={styles.select} value={speed} disabled={playing || starting} onChange={event => setSpeed(Number(event.target.value))} aria-label="Playback speed">{SPEEDS.map(value => <option key={value} value={value}>{value}% · {Math.round(timeline.bpm * value / 100)} BPM</option>)}</select>
+        <select className={styles.select} value={speed} disabled={playing || starting} onChange={event => setSpeed(Number(event.target.value))} aria-label="Playback speed">{presets
+          ? presets.map(preset => { const value = preset.bpm / timeline.bpm * 100; return <option key={preset.label} value={value}>{preset.label} · {preset.bpm} BPM ({Math.round(value)}%)</option>; })
+          : SPEEDS.map(value => <option key={value} value={value}>{value}% · {Math.round(timeline.bpm * value / 100)} BPM</option>)}</select>
       </label>
       {mode === "listen" && <button type="button" className={styles.button} aria-pressed={click} onClick={() => setClick(value => !value)} disabled={playing || starting}>Click {click ? "on" : "off"}</button>}
       {mode === "listen" && <button type="button" className={styles.button} aria-pressed={marking !== null} disabled={playing || starting} onClick={() => { if (loop || marking) { setLoop(null); setMarking(null); } else setMarking("a"); }}>{marking === "a" ? "Tap the first note…" : marking === "b" ? "Tap the last note…" : loop ? `Loop ${Math.min(loop.a, loop.b) + 1}–${Math.max(loop.a, loop.b) + 1} · clear` : "Loop a section"}</button>}
