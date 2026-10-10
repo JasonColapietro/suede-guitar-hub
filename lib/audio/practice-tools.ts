@@ -1,8 +1,14 @@
 import contract from "../../contracts/practice-tools.json" with { type: "json" };
 import { claimAudioSession, createAudioContext, watchAudioState, type Capture } from "./capture.ts";
 import { estimatePitch, noteForFrequency } from "./dsp.ts";
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from "./metronome-range.ts";
 
-export const metronomeConfiguration = contract.metronome;
+/**
+ * The native click, steps and default tempo, over the web's own tempo span.
+ * The click synthesis stays bound to the iOS contract; the range is wider so
+ * the sparse-click drills reach the tempos they need (see metronome-range.ts).
+ */
+export const metronomeConfiguration = { ...contract.metronome, minimumBPM: METRONOME_MIN_BPM, maximumBPM: METRONOME_MAX_BPM };
 export const tuningConfiguration = contract.tuning;
 
 export function metronomeBPM(value: number) {
@@ -55,7 +61,13 @@ const browserEnvironment: MetronomeEnvironment = {
   createContext: () => createAudioContext({ latencyHint: "interactive" }),
   schedule: (callback, delayMs) => { const timer = window.setTimeout(callback, delayMs); return () => window.clearTimeout(timer); },
 };
-export interface MetronomePlayback extends Capture { setTempo: (bpm: number) => void }
+export interface MetronomePlayback extends Capture {
+  setTempo: (bpm: number) => void;
+  /** Takes effect from the next click not yet committed; a new gap cycle starts on the next bar. */
+  setPattern: (pattern: MetronomePattern) => void;
+}
+/** What the beat display needs for one grid position. */
+export type MetronomeBeatInfo = { bar: number; sounding: boolean; muted: boolean };
 
 /**
  * The lookahead scheduler's timing, after Chris Wilson's "A Tale of Two Clocks".
@@ -72,8 +84,57 @@ export const METRONOME_LOOKAHEAD_SECONDS = 0.1;
 /** A click this late still sounds now; anything later is dropped and the grid resyncs. */
 export const METRONOME_LATE_TOLERANCE_SECONDS = 0.03;
 
-export type MetronomeCursor = { nextBeatAt: number; beat: number };
-export type MetronomeClick = { beat: number; time: number };
+/**
+ * Which beats of the bar sound.
+ *
+ * - `everyBeat`: all four, beat one accented.
+ * - `backbeat`: beats two and four only, so the player places one and three.
+ * - `downbeat`: beat one only, one accented click per bar.
+ */
+export type MetronomeClickMode = "everyBeat" | "backbeat" | "downbeat";
+export const METRONOME_CLICK_MODES: readonly MetronomeClickMode[] = ["everyBeat", "backbeat", "downbeat"];
+/** The gap trainer: `playBars` bars with the click, then `muteBars` silent bars, repeating. */
+export type MetronomeGap = { playBars: number; muteBars: number };
+export type MetronomePattern = { mode: MetronomeClickMode; gap: MetronomeGap | null };
+export const DEFAULT_METRONOME_PATTERN: MetronomePattern = { mode: "everyBeat", gap: null };
+/** Bars per half of a gap cycle. Two on, two off is the drill the metronome guide teaches. */
+export const METRONOME_GAP_BARS = { minimum: 1, maximum: 8, defaultPlay: 2, defaultMute: 2 } as const;
+
+/** A bar count for one half of a gap cycle, or `fallback` when out of range. */
+export function metronomeGapBars(value: unknown, fallback: number) {
+  return typeof value === "number" && Number.isInteger(value) && value >= METRONOME_GAP_BARS.minimum && value <= METRONOME_GAP_BARS.maximum ? value : fallback;
+}
+/** Decode a stored or user-supplied pattern; anything unusable becomes the steady click. */
+export function metronomePattern(value: unknown): MetronomePattern {
+  if (!value || typeof value !== "object") return DEFAULT_METRONOME_PATTERN;
+  const raw = value as { mode?: unknown; gap?: unknown };
+  const mode = METRONOME_CLICK_MODES.includes(raw.mode as MetronomeClickMode) ? raw.mode as MetronomeClickMode : DEFAULT_METRONOME_PATTERN.mode;
+  const gapRaw = raw.gap && typeof raw.gap === "object" ? raw.gap as { playBars?: unknown; muteBars?: unknown } : null;
+  const gap = gapRaw ? { playBars: metronomeGapBars(gapRaw.playBars, METRONOME_GAP_BARS.defaultPlay), muteBars: metronomeGapBars(gapRaw.muteBars, METRONOME_GAP_BARS.defaultMute) } : null;
+  return { mode, gap };
+}
+
+/** Whether `bar` (counted from `gapOrigin`) is one of the gap trainer's silent bars. */
+export function isMutedBar(bar: number, pattern: MetronomePattern, gapOrigin = 0) {
+  const gap = pattern.gap;
+  if (!gap || bar < gapOrigin) return false;
+  return (bar - gapOrigin) % (gap.playBars + gap.muteBars) >= gap.playBars;
+}
+
+/**
+ * The sound for one grid position: the accent, the ordinary tick, or nothing.
+ * The grid itself never changes with the pattern, so the bar count, the beat
+ * lights and the stall recovery all work the same in every mode.
+ */
+export function metronomeVoice(beat: number, bar: number, pattern: MetronomePattern, gapOrigin = 0): "accent" | "tick" | null {
+  if (isMutedBar(bar, pattern, gapOrigin)) return null;
+  if (pattern.mode === "downbeat") return beat === 0 ? "accent" : null;
+  if (pattern.mode === "backbeat") return beat % 2 === 1 ? "tick" : null;
+  return beat === 0 ? "accent" : "tick";
+}
+
+export type MetronomeCursor = { nextBeatAt: number; beat: number; bar?: number };
+export type MetronomeClick = { beat: number; bar: number; time: number; voice: "accent" | "tick" | null };
 
 /**
  * Every click to commit to the audio clock between `now` and the lookahead
@@ -88,30 +149,35 @@ export type MetronomeClick = { beat: number; time: number };
  * forward to its next slot, keeping its phase and the bar position, so the
  * click comes back on the pulse the player has been keeping.
  */
-export function scheduleMetronomeWindow(cursor: MetronomeCursor, now: number, bpm: number): { clicks: MetronomeClick[]; cursor: MetronomeCursor; skipped: number } {
+export function scheduleMetronomeWindow(cursor: MetronomeCursor, now: number, bpm: number, pattern: MetronomePattern = DEFAULT_METRONOME_PATTERN, gapOrigin = 0): { clicks: MetronomeClick[]; cursor: MetronomeCursor; skipped: number } {
   const interval = metronomeInterval(bpm), beatsPerBar = metronomeConfiguration.beatsPerBar;
-  let { nextBeatAt, beat } = cursor, skipped = 0;
+  let { nextBeatAt, beat } = cursor, bar = cursor.bar ?? 0, skipped = 0;
   if (!Number.isFinite(nextBeatAt) || !Number.isFinite(now)) return { clicks: [], cursor, skipped };
   if (nextBeatAt < now - METRONOME_LATE_TOLERANCE_SECONDS) {
     skipped = Math.ceil((now - METRONOME_LATE_TOLERANCE_SECONDS - nextBeatAt) / interval);
     nextBeatAt += skipped * interval;
+    // The bar count moves with the skipped beats, so a gap cycle stays in step
+    // with the bars the player has been counting through the stall.
+    bar += Math.floor((beat + skipped) / beatsPerBar);
     beat = (beat + skipped) % beatsPerBar;
   }
   const clicks: MetronomeClick[] = [];
   while (nextBeatAt < now + METRONOME_LOOKAHEAD_SECONDS) {
-    clicks.push({ beat, time: Math.max(nextBeatAt, now) });
+    clicks.push({ beat, bar, time: Math.max(nextBeatAt, now), voice: metronomeVoice(beat, bar, pattern, gapOrigin) });
     nextBeatAt += interval;
     beat = nextMetronomeBeat(beat);
+    if (beat === 0) bar++;
   }
-  return { clicks, cursor: { nextBeatAt, beat }, skipped };
+  return { clicks, cursor: { nextBeatAt, beat, bar }, skipped };
 }
 
 /** The native four-beat cadence: click immediately, adopt tempo changes after the next beat. */
-export async function startMetronome(initialBPM: number, onBeat: (beat: number) => void, onInterrupted: () => void, signal: AbortSignal, environment: MetronomeEnvironment = browserEnvironment): Promise<MetronomePlayback> {
+export async function startMetronome(initialBPM: number, onBeat: (beat: number, info: MetronomeBeatInfo) => void, onInterrupted: () => void, signal: AbortSignal, environment: MetronomeEnvironment = browserEnvironment, initialPattern: MetronomePattern = DEFAULT_METRONOME_PATTERN): Promise<MetronomePlayback> {
   if (signal.aborted) throw new Error("Metronome start was cancelled.");
   const context = environment.createContext();
   let stopped = false, releaseSession = () => {}, cancelTimer = () => {};
   let bpm = metronomeBPM(initialBPM);
+  let pattern = metronomePattern(initialPattern), gapOrigin = 0;
   const sources = new Set<AudioBufferSourceNode>();
   const beatDisplays = new Set<() => void>();
   const stop = () => {
@@ -153,28 +219,32 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
      * Clicks are now committed ahead of time at grid positions; see
      * `scheduleMetronomeWindow`.
      */
-    let cursor: MetronomeCursor = { nextBeatAt: context.currentTime, beat: 0 };
+    let cursor: MetronomeCursor = { nextBeatAt: context.currentTime, beat: 0, bar: 0 };
     /** The visible beat follows the click's scheduled time, not the timer that queued it. */
-    const showBeat = (beat: number, delayMs: number) => {
-      if (delayMs < 1) { onBeat(beat); return; }
-      const cancel = environment.schedule(() => { beatDisplays.delete(cancel); if (!stopped) onBeat(beat); }, delayMs);
+    const showBeat = (beat: number, info: MetronomeBeatInfo, delayMs: number) => {
+      if (delayMs < 1) { onBeat(beat, info); return; }
+      const cancel = environment.schedule(() => { beatDisplays.delete(cancel); if (!stopped) onBeat(beat, info); }, delayMs);
       beatDisplays.add(cancel);
     };
     const pump = (initial = false) => {
       if (stopped) return;
       try {
         const now = context.currentTime;
-        const planned = scheduleMetronomeWindow(cursor, now, bpm);
+        const planned = scheduleMetronomeWindow(cursor, now, bpm, pattern, gapOrigin);
         cursor = planned.cursor;
         const latency = Number.isFinite(context.outputLatency) ? context.outputLatency : 0;
         for (const click of planned.clicks) {
-          const source = context.createBufferSource();
-          source.buffer = click.beat === 0 ? accent : tick;
-          source.connect(context.destination);
-          source.onended = () => { sources.delete(source); source.disconnect(); };
-          sources.add(source);
-          source.start(click.time);
-          showBeat(click.beat, (click.time - now + latency) * 1000);
+          // A silent grid position still moves the beat display and the bar
+          // count; it just commits no source to the audio clock.
+          if (click.voice) {
+            const source = context.createBufferSource();
+            source.buffer = click.voice === "accent" ? accent : tick;
+            source.connect(context.destination);
+            source.onended = () => { sources.delete(source); source.disconnect(); };
+            sources.add(source);
+            source.start(click.time);
+          }
+          showBeat(click.beat, { bar: click.bar, sounding: click.voice !== null, muted: isMutedBar(click.bar, pattern, gapOrigin) }, (click.time - now + latency) * 1000);
         }
         cancelTimer = environment.schedule(() => pump(), METRONOME_TIMER_MS);
       } catch (error) {
@@ -185,6 +255,19 @@ export async function startMetronome(initialBPM: number, onBeat: (beat: number) 
     };
     watchAudioState(context, () => { if (!stopped) { stop(); onInterrupted(); } });
     pump(true);
-    return { context, stop, setTempo: value => { bpm = metronomeBPM(value); } };
+    return {
+      context, stop,
+      setTempo: value => { bpm = metronomeBPM(value); },
+      setPattern: value => {
+        const next = metronomePattern(value);
+        // A changed gap starts its cycle with click bars on the next whole bar,
+        // never mid-cycle; the rest of the current bar keeps sounding.
+        if (next.gap && (next.gap.playBars !== pattern.gap?.playBars || next.gap.muteBars !== pattern.gap?.muteBars)) {
+          const bar = cursor.bar ?? 0;
+          gapOrigin = cursor.beat === 0 ? bar : bar + 1;
+        }
+        pattern = next;
+      },
+    };
   } catch (error) { stop(); throw error; }
 }

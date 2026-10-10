@@ -22,13 +22,19 @@
  * result type carries the suggested fix alongside the message.
  */
 
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from "./audio/metronome-range.ts";
+
 /** localStorage key. Bump the version when the stored shape changes. */
 export const TEMPO_STORAGE_KEY = "guitarhub.tempo.v1";
 
-/** Slowest tempo a metronome is useful at for passage work. */
-export const BPM_MIN = 30;
-/** Fastest tempo this tool will build toward. */
-export const BPM_MAX = 300;
+/**
+ * Slowest tempo a metronome is useful at for passage work. The ladder's span
+ * is the /practice metronome's (lib/audio/metronome-range.ts), so every rung
+ * printed here is a tempo that click can play.
+ */
+export const BPM_MIN = METRONOME_MIN_BPM;
+/** Fastest tempo this tool will build toward, the metronome's top tempo. */
+export const BPM_MAX = METRONOME_MAX_BPM;
 /** A ladder shorter than this cannot hold a baseline, a climb and a back-off. */
 export const MIN_SESSIONS = 4;
 /** Past this, a ladder stops being a plan and becomes a calendar. */
@@ -824,9 +830,16 @@ export function restoreTempoState(candidate: unknown): StoredTempoState | null {
   if (!record.input || typeof record.input !== "object") return null;
 
   const inputRecord = record.input as Record<string, unknown>;
+  // Ladders saved while the tool accepted up to 300 BPM keep working: a
+  // target above today's ceiling is brought down to it rather than the whole
+  // saved ladder being discarded as invalid.
+  const savedTarget = inputRecord.targetBpm;
   const input = {
     currentBpm: inputRecord.currentBpm,
-    targetBpm: inputRecord.targetBpm,
+    targetBpm:
+      typeof savedTarget === "number" && Number.isInteger(savedTarget) && savedTarget > BPM_MAX
+        ? BPM_MAX
+        : savedTarget,
     sessions: inputRecord.sessions,
   } as TempoInput;
 

@@ -20,6 +20,7 @@ import {
   type TempoLadder,
   type TempoLadderError,
 } from "../lib/tempo.ts";
+import { metronomeBPM, metronomeConfiguration } from "../lib/audio/practice-tools.ts";
 
 const input: TempoInput = { currentBpm: 80, targetBpm: 120, sessions: 12 };
 
@@ -330,7 +331,7 @@ test("refuses zero, negative, and out-of-range tempos", () => {
 
   // The extremes themselves are legal, so the bounds are inclusive.
   assert.equal(ladderFor({ currentBpm: BPM_MIN, targetBpm: 60, sessions: 12 }).currentBpm, BPM_MIN);
-  assert.equal(ladderFor({ currentBpm: 280, targetBpm: BPM_MAX, sessions: 8 }).targetBpm, BPM_MAX);
+  assert.equal(ladderFor({ currentBpm: BPM_MAX - 20, targetBpm: BPM_MAX, sessions: 8 }).targetBpm, BPM_MAX);
 });
 
 test("refuses any gap that cannot hold two real steps, and builds the smallest one that can", () => {
@@ -355,7 +356,7 @@ test("refuses any gap that cannot hold two real steps, and builds the smallest o
   // The real guarantee: no ladder anywhere may be assembled out of steps the
   // tool refuses at the entrance. `summary` states the largest step as a safety
   // claim, so a ladder whose largest step is 1 BPM is that claim inverted.
-  for (let targetBpm = 34; targetBpm <= 300; targetBpm += 1) {
+  for (let targetBpm = 34; targetBpm <= BPM_MAX; targetBpm += 1) {
     for (let sessions = MIN_SESSIONS; sessions <= MAX_SESSIONS; sessions += 1) {
       const result = buildTempoLadder({ currentBpm: 30, targetBpm, sessions });
       if (!result.ok) continue;
@@ -414,17 +415,17 @@ test("names the longest ladder worth running for a narrow gap, and that suggesti
 });
 
 test("refuses a gap no single ladder should cover and suggests a target that does build", () => {
-  const tooWide = errorFor({ currentBpm: 30, targetBpm: 300, sessions: MAX_SESSIONS });
+  const tooWide = errorFor({ currentBpm: BPM_MIN, targetBpm: BPM_MAX, sessions: MAX_SESSIONS });
 
   assert.equal(tooWide.code, "gap-too-wide");
-  assert.equal(minimumSessions(30, 300), null);
+  assert.equal(minimumSessions(BPM_MIN, BPM_MAX), null);
   assert.ok(
     typeof tooWide.suggestedTarget === "number",
     "a refusal this large has to hand back a next step",
   );
 
   const interim = tooWide.suggestedTarget ?? 0;
-  assert.ok(interim > 30 && interim < 300, `${interim} must sit between the two tempos`);
+  assert.ok(interim > BPM_MIN && interim < BPM_MAX, `${interim} must sit between the two tempos`);
 
   const reachable = minimumSessions(30, interim);
   assert.ok(
@@ -480,8 +481,8 @@ test("offers a contiguous run of session counts, and every one of them builds", 
 
   const suggested = recommendedSessions(70, 100);
   assert.ok(suggested !== null && options.includes(suggested), "the default must be offerable");
-  assert.deepEqual(sessionOptions(30, 300), [], "an impossible gap offers nothing");
-  assert.equal(recommendedSessions(30, 300), null);
+  assert.deepEqual(sessionOptions(BPM_MIN, BPM_MAX), [], "an impossible gap offers nothing");
+  assert.equal(recommendedSessions(BPM_MIN, BPM_MAX), null);
 });
 
 test("keeps only rung ids belonging to the current ladder", () => {
@@ -540,6 +541,24 @@ test("restores only a stored state that still builds", () => {
     { input, completedRungIds: [] },
     "bad progress must not take a good ladder down with it",
   );
+});
+
+test("the ladder's tempo span is exactly what the /practice metronome plays", () => {
+  assert.equal(BPM_MIN, metronomeConfiguration.minimumBPM);
+  assert.equal(BPM_MAX, metronomeConfiguration.maximumBPM);
+  for (const bpm of [BPM_MIN, 90, BPM_MAX]) assert.equal(metronomeBPM(bpm), bpm, `${bpm} BPM plays unclamped`);
+  // Every rung of every buildable ladder is playable.
+  for (const ladderInput of SPREAD) {
+    for (const rung of ladderFor(ladderInput).rungs) assert.equal(metronomeBPM(rung.bpm), rung.bpm);
+  }
+});
+
+test("a ladder saved under the old 300 BPM ceiling is retargeted, not discarded", () => {
+  const saved = { input: { currentBpm: BPM_MAX - 30, targetBpm: 280, sessions: 10 }, completedRungIds: [] };
+  const restored = restoreTempoState(saved);
+  assert.ok(restored, "the saved ladder survives");
+  assert.equal(restored.input.targetBpm, BPM_MAX);
+  assert.equal(restoreTempoState({ input: { currentBpm: 250, targetBpm: 280, sessions: 10 } }), null, "a current tempo above the ceiling cannot be repaired");
 });
 
 test("lands most rungs on metronome numbers", () => {

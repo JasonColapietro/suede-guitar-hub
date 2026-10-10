@@ -70,7 +70,7 @@ test("the header collapses its links behind a labelled disclosure in reading ord
 test("the metronome beat lights are hidden from assistive technology", () => {
   const markup = renderToStaticMarkup(createElement(Metronome));
   assert.doesNotMatch(markup, /Metronome stopped|aria-label="Beat /);
-  assert.match(markup, /<div class="beats" aria-hidden="true">/);
+  assert.match(markup, /<div class="beats" aria-hidden="true"[ >]/);
   assert.match(markup, /role="status"/);
 });
 

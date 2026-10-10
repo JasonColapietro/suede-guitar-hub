@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { ADJUDICATIONS, ADJUDICATION_COUNT, OBSERVED_VALUE_COUNT, readContractValue, type Adjudication, type SurfaceValue } from '../contracts/adjudications.ts';
 import { DEFAULT_PITCH_BAND, MINIMUM_CLARITY, asciiNoteName, noteName, DISPLAY_SHARP, COMPARISON_SHARP } from '../lib/audio/dsp.ts';
 import { TEMPO_ADVANCE_SCORE, TEMPO_EVIDENCE_MINIMUM, TEMPO_FLOOR_SCORE } from '../lib/audio/practice-tempo.ts';
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from '../lib/audio/metronome-range.ts';
 
 /** Every live value in the register, keyed by the `source` it names. The
  * register restates these numbers deliberately; this table is what makes the
@@ -16,6 +17,7 @@ const LIVE: Record<string, number | string | readonly number[]> = {
     'lib/audio/practice-tempo.ts TEMPO_ADVANCE_SCORE': TEMPO_ADVANCE_SCORE,
     'lib/audio/practice-tempo.ts TEMPO_EVIDENCE_MINIMUM': TEMPO_EVIDENCE_MINIMUM,
     'lib/audio/practice-tempo.ts TEMPO_FLOOR_SCORE': TEMPO_FLOOR_SCORE,
+    'lib/audio/metronome-range.ts METRONOME_MIN_BPM, METRONOME_MAX_BPM': [METRONOME_MIN_BPM, METRONOME_MAX_BPM],
 };
 
 /** Entries whose claim is not a single JSON key, so the generic path check

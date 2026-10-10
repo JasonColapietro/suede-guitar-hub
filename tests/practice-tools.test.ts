@@ -1,7 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import contract from "../contracts/practice-tools.json" with { type: "json" };
-import { METRONOME_LATE_TOLERANCE_SECONDS, METRONOME_LOOKAHEAD_SECONDS, METRONOME_TIMER_MS, bindPracticeLifecycle, confirmTuningPreparation, estimateTuningPitch, metronomeBPM, metronomeConfiguration as configuration, metronomeInterval, nextMetronomeBeat, scheduleMetronomeWindow, startMetronome, tunerInputError, tuningReading } from "../lib/audio/practice-tools.ts";
+import { DEFAULT_METRONOME_PATTERN, METRONOME_GAP_BARS, METRONOME_LATE_TOLERANCE_SECONDS, METRONOME_LOOKAHEAD_SECONDS, METRONOME_TIMER_MS, bindPracticeLifecycle, isMutedBar, metronomePattern, metronomeVoice, type MetronomeBeatInfo, confirmTuningPreparation, estimateTuningPitch, metronomeBPM, metronomeConfiguration as configuration, metronomeInterval, nextMetronomeBeat, scheduleMetronomeWindow, startMetronome, tunerInputError, tuningReading } from "../lib/audio/practice-tools.ts";
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from "../lib/audio/metronome-range.ts";
+import { DEFAULT_METRONOME_SETTINGS, METRONOME_STORAGE_KEY, metronomePatternMessage, metronomeSettingsStore, patternForSettings, restoreMetronomeSettings } from "../lib/audio/metronome-settings.ts";
 import { claimAudioSession, startCapture } from "../lib/audio/capture.ts";
 import { estimatePitch } from "../lib/audio/dsp.ts";
 
@@ -90,9 +92,27 @@ test("native practice-tools contract is present, exercised and has no untracked 
   assert.equal(contract.clickFixtures.length, 14);
   assert.deepEqual(contract.knownDivergences, []);
 });
+/**
+ * The web metronome plays 30 to 240 BPM, wider than the native 40 to 208 (see
+ * lib/audio/metronome-range.ts and the metronomeRange adjudication). Inside the
+ * native span every fixture still matches the native clamp and interval
+ * exactly; outside it the web clamps to its own span.
+ */
 for (const fixture of contract.tempoFixtures) test(`native tempo ${fixture.bpm} uses its actual clamp and beat interval`, () => {
-  assert.equal(metronomeBPM(fixture.bpm), fixture.clampedBPM);
-  assert.equal(metronomeInterval(fixture.bpm), fixture.intervalSeconds);
+  const webClamp = Math.min(METRONOME_MAX_BPM, Math.max(METRONOME_MIN_BPM, fixture.bpm));
+  assert.equal(metronomeBPM(fixture.bpm), webClamp);
+  assert.equal(metronomeInterval(fixture.bpm), 60 / webClamp);
+  if (fixture.bpm >= contract.metronome.minimumBPM && fixture.bpm <= contract.metronome.maximumBPM) {
+    assert.equal(metronomeBPM(fixture.bpm), fixture.clampedBPM);
+    assert.equal(metronomeInterval(fixture.bpm), fixture.intervalSeconds);
+  }
+});
+test("the web metronome spans 30 to 240 BPM and keeps every other native setting", () => {
+  assert.equal(configuration.minimumBPM, 30);
+  assert.equal(configuration.maximumBPM, 240);
+  assert.equal(metronomeBPM(20), 30);
+  assert.equal(metronomeBPM(300), 240);
+  assert.deepEqual({ ...configuration, minimumBPM: 0, maximumBPM: 0 }, { ...contract.metronome, minimumBPM: 0, maximumBPM: 0 });
 });
 for (const fixture of contract.beatFixtures) test(`native beat ${fixture.beat} advances to ${fixture.nextBeat}`, () => {
   assert.equal(nextMetronomeBeat(fixture.beat), fixture.nextBeat);
@@ -251,6 +271,136 @@ test("scheduleMetronomeWindow keeps bar position across a skipped stretch", () =
   assert.ok(Math.abs(stalled.clicks[0].time - (1 + 3 * interval)) < 1e-9);
 
   assert.deepEqual(scheduleMetronomeWindow({ nextBeatAt: NaN, beat: 0 }, 0, 120).clicks, []);
+});
+
+/** Click times (s) and which buffer each used: the accent is buffers[0], the tick buffers[1]. */
+function voices(h: ReturnType<typeof harness>) {
+  return h.context.sources.map(source => ({ time: source.startedAt ?? NaN, voice: source.buffer === h.context.buffers[0] ? "accent" : "tick" }));
+}
+const onGrid = (time: number, interval: number) => Math.abs(time / interval - Math.round(time / interval)) < 1e-6;
+
+test("metronomeVoice: every beat, backbeat and beat-one-only patterns", () => {
+  const every = [0, 1, 2, 3].map(beat => metronomeVoice(beat, 0, { mode: "everyBeat", gap: null }));
+  assert.deepEqual(every, ["accent", "tick", "tick", "tick"]);
+  const backbeat = [0, 1, 2, 3].map(beat => metronomeVoice(beat, 0, { mode: "backbeat", gap: null }));
+  assert.deepEqual(backbeat, [null, "tick", null, "tick"], "beats 2 and 4 only");
+  const downbeat = [0, 1, 2, 3].map(beat => metronomeVoice(beat, 0, { mode: "downbeat", gap: null }));
+  assert.deepEqual(downbeat, ["accent", null, null, null], "one click per bar");
+  const gap = { mode: "everyBeat" as const, gap: { playBars: 2, muteBars: 2 } };
+  assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7].map(bar => isMutedBar(bar, gap)), [false, false, true, true, false, false, true, true]);
+  assert.equal(metronomeVoice(0, 2, gap), null, "a muted bar silences even the accent");
+  assert.equal(isMutedBar(0, gap, 1), false, "bars before a new gap cycle's origin keep sounding");
+  assert.deepEqual([1, 2, 3, 4].map(bar => isMutedBar(bar, gap, 1)), [false, false, true, true]);
+});
+
+test("scheduleMetronomeWindow counts bars and labels each grid position with its voice", () => {
+  const pattern = { mode: "downbeat" as const, gap: { playBars: 1, muteBars: 1 } };
+  let cursor = { nextBeatAt: 0, beat: 0, bar: 0 };
+  const all: { beat: number; bar: number; voice: string | null }[] = [];
+  for (let now = 0; now < 4; now += 0.025) {
+    const planned = scheduleMetronomeWindow(cursor, now, 120, pattern);
+    cursor = planned.cursor as typeof cursor;
+    all.push(...planned.clicks.map(({ beat, bar, voice }) => ({ beat, bar, voice })));
+  }
+  assert.deepEqual(all.slice(0, 9).map(click => click.bar), [0, 0, 0, 0, 1, 1, 1, 1, 2]);
+  assert.deepEqual(all.filter(click => click.voice).map(click => [click.bar, click.beat, click.voice]), [[0, 0, "accent"], [2, 0, "accent"]]);
+  // A stall that skips across a bar line moves the bar count with it, so the
+  // gap cycle stays in step with the bars the player kept counting.
+  const stalled = scheduleMetronomeWindow({ nextBeatAt: 1, beat: 2, bar: 5 }, 1 + 3 * 0.5 - 0.01, 120, pattern);
+  assert.equal(stalled.skipped, 3);
+  assert.deepEqual(stalled.clicks.map(({ beat, bar }) => [beat, bar]), [[1, 6]]);
+  // Cursors from before bars were counted still schedule.
+  assert.equal(scheduleMetronomeWindow({ nextBeatAt: 0, beat: 0 }, 0, 120).clicks[0].bar, 0);
+});
+
+test("backbeat mode clicks beats 2 and 4 on the audio grid and still shows every beat", async () => {
+  const h = harness(); const shown: [number, MetronomeBeatInfo][] = [];
+  const audio = await startMetronome(120, (beat, info) => shown.push([beat, info]), () => assert.fail("not interrupted"), new AbortController().signal, h.environment, { mode: "backbeat", gap: null });
+  try {
+    h.advance(4_000, jitter(40));
+    const clicks = voices(h);
+    assert.equal(clicks.length, 4, "two clicks a bar for two bars");
+    for (const click of clicks) {
+      assert.equal(click.voice, "tick");
+      assert.ok(onGrid(click.time - 0.5, 1), `${click.time}s is beat 2 or 4 of a 0.5s grid`);
+    }
+    assert.deepEqual(shown.slice(0, 8).map(([beat]) => beat), [0, 1, 2, 3, 0, 1, 2, 3], "the beat display keeps all four");
+    assert.deepEqual(shown.slice(0, 4).map(([, info]) => info.sounding), [false, true, false, true]);
+  } finally { audio.stop(); }
+});
+
+test("beat-one-only mode plays one accented click per bar", async () => {
+  const h = harness();
+  const audio = await startMetronome(120, () => {}, () => assert.fail("not interrupted"), new AbortController().signal, h.environment, { mode: "downbeat", gap: null });
+  try {
+    h.advance(8_100, jitter(40));
+    const clicks = voices(h);
+    assert.deepEqual(clicks.map(click => click.voice), ["accent", "accent", "accent", "accent", "accent"]);
+    for (const [index, click] of clicks.entries()) assert.ok(Math.abs(click.time - index * 2) < 1e-9, `bar ${index} starts at ${click.time}s`);
+  } finally { audio.stop(); }
+});
+
+test("the gap trainer plays two bars, silences two, and returns exactly on the grid", async () => {
+  const h = harness(); const muted: boolean[] = [];
+  const audio = await startMetronome(120, (beat, info) => { if (beat === 0) muted.push(info.muted); }, () => assert.fail("not interrupted"), new AbortController().signal, h.environment, { mode: "everyBeat", gap: { playBars: 2, muteBars: 2 } });
+  try {
+    h.advance(16_100, jitter(40));
+    const times = voices(h).map(click => click.time);
+    // Bars are 2s at 120 BPM: clicks in 0-4s and 8-12s, silence in 4-8s and 12-16s.
+    assert.equal(times.length, 17);
+    for (const time of times) {
+      const bar = Math.floor(time / 2 + 1e-9);
+      assert.ok(bar % 4 < 2 || time >= 16 - 1e-9, `no click in silent bar ${bar} (${time}s)`);
+      assert.ok(onGrid(time, 0.5), `${time}s is on the grid`);
+    }
+    assert.ok(times.includes(8), "the click returns on beat one of bar five");
+    assert.deepEqual(muted.slice(0, 8), [false, false, true, true, false, false, true, true]);
+  } finally { audio.stop(); }
+});
+
+test("pattern changes apply from the next uncommitted click and a new gap starts on the next bar", async () => {
+  const h = harness();
+  const audio = await startMetronome(120, () => {}, () => {}, new AbortController().signal, h.environment);
+  try {
+    h.advance(2_700); // inside bar 1 (2-4s)
+    const before = h.context.sources.length;
+    audio.setPattern({ mode: "everyBeat", gap: { playBars: 1, muteBars: 1 } });
+    h.advance(6_000);
+    const later = voices(h).slice(before).map(click => click.time);
+    // The rest of bar 1 keeps sounding; bar 2 (4-6s) is the new cycle's click
+    // bar, bar 3 (6-8s) its silent bar.
+    assert.ok(later.some(time => time >= 3 && time < 4), "the current bar finishes");
+    assert.ok(later.some(time => time >= 4 && time < 6), "the new cycle opens with a click bar");
+    assert.ok(!later.some(time => time >= 6 - 1e-9 && time < 8 - 1e-9), "then a silent bar");
+    audio.setPattern({ mode: "downbeat", gap: null });
+    const switched = h.context.sources.length;
+    h.advance(4_000);
+    assert.ok(voices(h).slice(switched).every(click => click.voice === "accent"), "beat-one-only after the switch");
+  } finally { audio.stop(); }
+});
+
+test("patterns and stored settings decode defensively", () => {
+  assert.deepEqual(metronomePattern(null), DEFAULT_METRONOME_PATTERN);
+  assert.deepEqual(metronomePattern({ mode: "offbeat", gap: { playBars: 0, muteBars: 99 } }), { mode: "everyBeat", gap: { playBars: METRONOME_GAP_BARS.defaultPlay, muteBars: METRONOME_GAP_BARS.defaultMute } });
+  assert.deepEqual(restoreMetronomeSettings({ bpm: 12, mode: "backbeat", gapEnabled: true, playBars: 4, muteBars: 1 }), { bpm: METRONOME_MIN_BPM, mode: "backbeat", gapEnabled: true, playBars: 4, muteBars: 1 });
+  assert.deepEqual(restoreMetronomeSettings({ bpm: "fast", mode: 3, gapEnabled: "yes", playBars: 2.5 }), DEFAULT_METRONOME_SETTINGS);
+  assert.equal(restoreMetronomeSettings([]), null);
+  assert.deepEqual(patternForSettings({ ...DEFAULT_METRONOME_SETTINGS, mode: "downbeat", gapEnabled: false, playBars: 3 }), { mode: "downbeat", gap: null });
+  assert.deepEqual(patternForSettings({ ...DEFAULT_METRONOME_SETTINGS, gapEnabled: true, playBars: 3, muteBars: 1 }).gap, { playBars: 3, muteBars: 1 });
+  assert.match(metronomePatternMessage({ ...DEFAULT_METRONOME_SETTINGS, gapEnabled: true, playBars: 2, muteBars: 1 }), /2 bars with the click, then 1 bar silent/);
+});
+
+test("the chosen tempo and pattern persist under their own key", () => {
+  const data = new Map<string, string>();
+  const area = { getItem: (key: string) => data.get(key) ?? null, setItem: (key: string, value: string) => { data.set(key, value); }, removeItem: (key: string) => { data.delete(key); } };
+  const store = metronomeSettingsStore(() => area);
+  const chosen = { bpm: 60, mode: "downbeat" as const, gapEnabled: true, playBars: 2, muteBars: 2 };
+  assert.equal(store.write(chosen), true);
+  assert.ok(data.has(METRONOME_STORAGE_KEY));
+  assert.deepEqual(metronomeSettingsStore(() => area).read(), { available: true, value: chosen });
+  const blocked = metronomeSettingsStore(() => { throw new Error("blocked"); });
+  assert.deepEqual(blocked.read(), { available: false });
+  assert.equal(blocked.write(chosen), false);
 });
 
 test("cancel during pending audio activation closes the late context without a beat", async () => {

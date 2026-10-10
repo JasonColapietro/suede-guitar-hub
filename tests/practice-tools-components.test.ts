@@ -5,16 +5,17 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import contract from "../contracts/practice-tools.json" with { type: "json" };
 import { TOOLS } from "../lib/site.ts";
+import { METRONOME_MAX_BPM, METRONOME_MIN_BPM } from "../lib/audio/metronome-range.ts";
 register("./component-render-hooks.mjs", import.meta.url);
 const { Metronome } = await import("../components/practice/Metronome.tsx");
 const { TuningGuide } = await import("../components/learning/TuningGuide.tsx");
 const { default: PracticePage, metadata } = await import("../app/practice/page.tsx");
 const { default: SiteNav } = await import("../components/SiteNav.tsx");
 
-test("actual metronome markup exposes native range, steps, four beats and no automatic playback", () => {
+test("actual metronome markup exposes the web range, native steps, four beats and no automatic playback", () => {
   const markup = renderToStaticMarkup(createElement(Metronome));
-  assert.match(markup, new RegExp(`min="${contract.metronome.minimumBPM}"`));
-  assert.match(markup, new RegExp(`max="${contract.metronome.maximumBPM}"`));
+  assert.match(markup, new RegExp(`min="${METRONOME_MIN_BPM}"`));
+  assert.match(markup, new RegExp(`max="${METRONOME_MAX_BPM}"`));
   assert.match(markup, new RegExp(`step="${contract.metronome.sliderStepBPM}"`));
   assert.match(markup, new RegExp(`value="${contract.metronome.defaultBPM}"`));
   assert.match(markup, new RegExp(`Slower by ${contract.metronome.buttonStepBPM} beats per minute`));
