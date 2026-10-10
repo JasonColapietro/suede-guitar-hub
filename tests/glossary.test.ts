@@ -293,7 +293,8 @@ test("registers the glossary as a free, indexable page in the route registry", (
   const source = pageSource("app/glossary/page.tsx");
   assert.match(source, new RegExp(`\\$\\{SITE_URL\\}${GLOSSARY_HREF}|GLOSSARY_CANONICAL`));
   assert.match(source, /alternates: \{ canonical: CANONICAL \}/);
-  assert.match(source, /images: \[OG_IMAGE\]/);
+  // Its share card is the colocated opengraph-image.tsx (tests/og-images.test.ts).
+  assert.match(pageSource("app/glossary/opengraph-image.tsx"), /cardFor\("\/glossary"\)/);
   assert.match(source, /crumbs=\{CRUMBS\}/);
 
   // A reference page has no access gate, so it must not carry the lesson pages'

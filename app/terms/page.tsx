@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     title: "Terms of Use | GuitarHub",
     description,
     url: "https://guitarhub.org/terms",
+    siteName: "GuitarHub",
     type: "website",
     images: [
       {

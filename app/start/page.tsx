@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   keywords: keywordsFor("/start"),
   title, description, alternates: { canonical: url },
   openGraph: { title, description, url, siteName: "GuitarHub", type: "website", images: [OG_IMAGE] },
-  twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE.url] },
+  twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE] },
 };
 
 export default function StartPage() {

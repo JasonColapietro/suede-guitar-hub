@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE.url],
+    images: [OG_IMAGE],
   },
 };
 // The visible trail is rendered inside PracticeRoutine (a client component);

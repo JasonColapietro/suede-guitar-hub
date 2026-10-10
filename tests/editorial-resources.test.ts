@@ -32,7 +32,11 @@ test("publishes unique canonicals, article metadata and visible source provenanc
     assert.match(source, new RegExp(`\\$\\{SITE_URL\\}${href}`));
     assert.match(source, /alternates: \{ canonical: CANONICAL \}/);
     assert.match(source, /authors: \[\{ name: "Jason Colapietro"/);
-    assert.match(source, /images: \[OG_IMAGE\]/);
+    // Each field guide ships its own share card; see tests/og-images.test.ts.
+    assert.ok(
+      existsSync(new URL(`../app${href}/opengraph-image.tsx`, import.meta.url)),
+      `${href} must ship its own opengraph-image.tsx`,
+    );
     assert.match(source, /application\/ld\+json/);
     assert.match(
       source,

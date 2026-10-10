@@ -38,8 +38,12 @@ export const BACKGROUND_COLOR = "#f7f3ee";
  * of the 13 rendered pages emitted none, and the only two that kept the card
  * were the two with no `openGraph` block of their own.
  *
- * So every page declaring `openGraph` must pass `images: [OG_IMAGE]`. `alt` is
- * kept identical to the `alt` exported by `app/opengraph-image.tsx`.
+ * So every page declaring `openGraph` must pass `images: [OG_IMAGE]`, unless
+ * its own segment ships an `opengraph-image.tsx` (see `OG_ROUTES` in
+ * `lib/og-cards.ts`). Those pages must leave `images` unset instead: Next only
+ * attaches a colocated card when the page's `openGraph` / `twitter` blocks have
+ * no `images` key (`mergeStaticMetadata` in the same file). `alt` is kept
+ * identical to the `alt` exported by `app/opengraph-image.tsx`.
  */
 export const OG_IMAGE = {
   url: `${SITE_URL}/opengraph-image`,
