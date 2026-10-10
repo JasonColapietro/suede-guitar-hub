@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
 import {
+  ADVANCED_LAB_LAST_MODIFIED,
   TOOLS,
   SITEMAP_ENTRIES,
   SITE_URL as REGISTRY_SITE_URL,
@@ -227,9 +228,16 @@ test("publishes every canonical indexable page in the sitemap", async () => {
   assert.equal(urls[0], SITE_URL, "the home page must be the first entry");
 
   for (const entry of entries) {
-    // The catalogs have no editorial modification dates. Omit lastModified
-    // there rather than claiming that every deployment updates the content.
-    if (!SITEMAP_ENTRIES.some((page) => `${SITE_URL}${page.href === "/" ? "" : page.href}` === entry.url)) {
+    // The lesson catalog has no editorial modification dates. Omit
+    // lastModified there rather than claiming that every deployment updates
+    // the content. The drills share the Advanced Lab's catalog date.
+    if (DRILLS.some((drill) => `${SITE_URL}${drillHref(drill.id)}` === entry.url)) {
+      assert.deepEqual(
+        entry.lastModified,
+        new Date(`${ADVANCED_LAB_LAST_MODIFIED}T00:00:00.000Z`),
+        `${entry.url} must carry the Advanced Lab catalog date`,
+      );
+    } else if (!SITEMAP_ENTRIES.some((page) => `${SITE_URL}${page.href === "/" ? "" : page.href}` === entry.url)) {
       assert.equal(entry.lastModified, undefined);
     } else assert.ok(
       entry.lastModified instanceof Date &&

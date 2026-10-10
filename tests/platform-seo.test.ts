@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 
-import { ARTICLE_AUTHOR, BACKGROUND_COLOR, SITE_URL, THEME_COLOR } from "../lib/site.ts";
+import { ABOUT, ARTICLE_AUTHOR, BACKGROUND_COLOR, SITE_URL, THEME_COLOR } from "../lib/site.ts";
 import { breadcrumbJsonLd } from "../lib/breadcrumbs.ts";
 import { FIELD_GUIDES, fieldGuidePdf } from "../lib/field-guides.ts";
 
@@ -70,10 +70,6 @@ test("publishes a web app manifest and theme colour in the brand indigo", async 
   assert.match(read("app/layout.tsx"), /themeColor:\s*THEME_COLOR/);
 });
 
-test("the footer links the FAQ", () => {
-  assert.match(read("components/SiteFooter.tsx"), /href: "\/faq"/, "/faq must have an internal link");
-});
-
 test("each Field Guide PDF names its HTML guide as canonical, and static images are cached", async () => {
   const { default: nextConfig } = await import("../next.config.ts");
   const rules = await nextConfig.headers!();
@@ -115,6 +111,10 @@ test("cover images are lazy, sized and never preloaded", () => {
       assert.match(image, /loading="lazy"/, `${path}: every cover must stay lazy`);
     }
   }
+});
+
+test("the footer links the FAQ", () => {
+  assert.match(read("components/SiteFooter.tsx"), /href: "\/faq"/, "/faq must have an internal link");
 });
 
 test("the footer does not prefetch its links", () => {
@@ -164,4 +164,10 @@ test("hubs list what they show: drills on /advanced, shelf resources on /guides"
   const guides = read("app/guides/page.tsx");
   assert.match(guides, /itemListElement: LISTED\.map/);
   assert.match(guides, /const LISTED[^=]*= \[\.\.\.ORDERED, \.\.\.SHELF_RESOURCES\]/);
+});
+
+test("the sitemap date for /about matches the page's dateModified", () => {
+  const about = read("app/about/page.tsx");
+  const updated = about.match(/const UPDATED = "(\d{4}-\d{2}-\d{2})";/)?.[1];
+  assert.equal(ABOUT.lastModified, updated);
 });

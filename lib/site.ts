@@ -91,7 +91,7 @@ export const ABOUT: SiteEntry = {
   title: "About GuitarHub",
   blurb:
     "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
-  lastModified: "2026-09-04",
+  lastModified: "2026-09-08",
 };
 
 export const LEGAL: readonly SiteEntry[] = [
@@ -331,6 +331,14 @@ export const HUBS: readonly SiteEntry[] = [
  * path moved to Suede Sing on 2026-09-23 and /learn/voice redirects there
  * (lib/voice-redirects.ts). Adding a track means adding it in both places.
  */
+/**
+ * When the Advanced Lab drill catalog (`lib/advanced/drills.ts`) last changed.
+ * The drills have no per-page dates, so this one date is the `lastModified` of
+ * the /advanced hub and of every /advanced/<drill> sitemap entry. Bump it in
+ * the same commit as a drill edit.
+ */
+export const ADVANCED_LAB_LAST_MODIFIED = "2026-09-25";
+
 export const LEARN: readonly SiteEntry[] = [
   {
     href: "/learn",
@@ -364,7 +372,7 @@ export const LEARN: readonly SiteEntry[] = [
     title: "Advanced Lab",
     blurb:
       "Free scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone.",
-    lastModified: "2026-09-25",
+    lastModified: ADVANCED_LAB_LAST_MODIFIED,
   },
 ];
 
