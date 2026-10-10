@@ -38,7 +38,11 @@ export const metadata: Metadata = {
     siteName: "GuitarHub",
     type: "website",
   },
-  alternates: { canonical: "https://guitarhub.org" },
+  // No `alternates.canonical` here. A layout's canonical is inherited by every
+  // page that does not set its own, so the 404 page and the noindexed
+  // /learn/voice/materials and /learn/voice/recordings all declared the home
+  // page as their canonical. Each indexable page sets its own self canonical
+  // (the home page included, in app/page.tsx).
   // Renders <meta name="apple-itunes-app">: Safari on iOS shows the Smart App
   // Banner above every page, which is the one install path that needs no
   // App Store search at all.

@@ -10,6 +10,19 @@ import LevelPicker from "@/components/LevelPicker";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { APP_STORE, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
+import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
+import { keywordsFor } from "@/lib/keywords";
+
+/**
+ * Title, description and share card come from the root layout. The canonical
+ * is set here because the layout no longer declares one: every page without
+ * its own inherited it and pointed at the home page.
+ */
+export const metadata: Metadata = {
+  keywords: keywordsFor("/"),
+  alternates: { canonical: SITE_URL },
+};
 
 /**
  * Written out from the registry, never typed. The heading below sat on a
