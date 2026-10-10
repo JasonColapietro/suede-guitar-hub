@@ -199,10 +199,14 @@ export default function MethodPage() {
         <p>
           Shrink the failure until it stops failing, along two axes at once. Cut
           the length, down to the smallest unit that still contains the problem,
-          which for a transition is often one beat either side of the join. Cut
-          the tempo, down to where you play it correctly on purpose rather than
-          correctly by luck. Then repeat it until correct is boring, not until it
-          is occasionally right. Occasionally right is what you already had.
+          which for a transition is often one beat either side of the join. Then
+          set the tempo in two gears. First find the edge: the tempo where the
+          failure shows up about half the time, which is where you can see
+          exactly what goes wrong. Then build the fix one gear down, at the
+          tempo where you play it correctly on purpose rather than correctly by
+          luck, and every attempt is clean. Repeat it there until correct is
+          boring, not until it is occasionally right. Occasionally right is what
+          you already had.
         </p>
 
         <ul>

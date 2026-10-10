@@ -133,7 +133,7 @@ export const GUIDES: readonly SiteEntry[] = [
     href: "/method",
     title: "The GuitarHub method",
     blurb:
-      "The loop the whole site runs on: diagnose, prescribe, practice, prove, correct, repeat.",
+      "The four-stage loop the whole site runs on: baseline, isolate, reconnect, prove, with an exit test for each stage.",
     lastModified: "2026-08-29",
   },
   {

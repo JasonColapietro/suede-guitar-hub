@@ -126,8 +126,9 @@ export default function ThirtyDayGuitarChallengePage() {
           thing, under the same conditions. Everything else is scaffolding.
           Choose one finish line narrow enough that someone could listen for a
           minute and say whether you hit it. Record it before you practice.
-          Spend the four weeks diagnosing what breaks, repairing that one thing,
-          putting it back under pressure, and performing it. The daily streak is
+          Spend the four weeks on the four stages of the GuitarHub method:
+          baseline what breaks, isolate and repair that one thing, reconnect it
+          under pressure, and prove it with the final take. The daily streak is
           not the measure. The pair of recordings is.
         </p>
 
@@ -186,8 +187,8 @@ export default function ThirtyDayGuitarChallengePage() {
 
         <ul>
           <li>
-            Get faster becomes <em>play the main riff cleanly at 120 bpm, up
-            from the 88 bpm I can hold today.</em>
+            Get faster becomes <em>play the main riff cleanly at 120 BPM, up
+            from the 88 BPM I can hold today.</em>
           </li>
           <li>
             Get better at rhythm becomes <em>play two minutes of this groove
@@ -251,7 +252,7 @@ export default function ThirtyDayGuitarChallengePage() {
           plateau.
         </p>
 
-        <h3>Week 1: diagnose honestly</h3>
+        <h3>Week 1 · Baseline: find where it breaks</h3>
 
         <p>
           Find the single place the performance breaks, not the list of
@@ -261,12 +262,14 @@ export default function ThirtyDayGuitarChallengePage() {
           it.
         </p>
 
-        <h3>Week 2: repair one thing</h3>
+        <h3>Week 2 · Isolate: repair one thing</h3>
 
         <p>
-          Take the broken piece out of its context and work it alone, at a
-          tempo where playing it correctly is boring. Slow enough that failure
-          is rare, then step the speed up. The{" "}
+          Take the broken piece out of its context and work it alone, in two
+          gears. First find the edge, the tempo where the error shows up about
+          half the time, and watch exactly what fails. Then drop to the tempo
+          where every attempt is clean, slow enough that playing it correctly is
+          boring, and build the fix there before stepping the speed up. The{" "}
           <Link href="/tempo">tempo ladder builder</Link> turns one passage into
           a starting speed, a target, and the steps between them. Put the piece
           back into the song at the end of each session so you are repairing the
@@ -276,7 +279,7 @@ export default function ThirtyDayGuitarChallengePage() {
           covers the mechanics.
         </p>
 
-        <h3>Week 3: add real pressure</h3>
+        <h3>Week 3 · Reconnect: add real pressure</h3>
 
         <p>
           A repaired passage played alone at a comfortable tempo is not yet a
@@ -287,7 +290,7 @@ export default function ThirtyDayGuitarChallengePage() {
           respond.
         </p>
 
-        <h3>Week 4: perform and compare</h3>
+        <h3>Week 4 · Prove: perform and compare</h3>
 
         <p>
           Stop making changes. Rehearse the version you have, record the final

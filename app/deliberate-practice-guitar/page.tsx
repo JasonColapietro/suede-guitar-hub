@@ -251,14 +251,17 @@ export default function DeliberatePracticeGuitarPage() {
         <h2>Work at the edge of what you can do</h2>
 
         <p>
-          The edge is the level where you fail some of the time. Not most of the
-          time, and not never.
+          The edge is the level where you fail some of the time, about half the
+          time. Not most of the time, and not never. It is the diagnostic gear:
+          the place you find out what fails. The fix itself gets built one gear
+          down, at the tempo where every attempt is clean.
         </p>
 
         <p>
-          Below the edge you are playing. The attempts come out clean because
-          they were always going to come out clean, and nothing about your
-          playing had to change to produce them.
+          Far below the edge, on material you already own, you are playing.
+          The attempts come out clean because they were always going to come
+          out clean, and nothing about your playing had to change to produce
+          them.
         </p>
 
         <p>
@@ -350,9 +353,11 @@ export default function DeliberatePracticeGuitarPage() {
             Three minutes: listen back and name one error. Not three. One.
           </li>
           <li>
-            Ten minutes: work at a tempo where that error shows up about half the
-            time, changing one thing per attempt. A fingering, an anchor finger,
-            where the shift starts, where you breathe.
+            Ten minutes: find the tempo where that error shows up about half the
+            time and watch what fails. Then drop to the tempo where the fix
+            comes out clean every time, changing one thing per attempt. A
+            fingering, an anchor finger, where the shift starts, where you
+            breathe. Climb back toward the edge as it holds.
           </li>
           <li>
             Three minutes: return to full speed and record the same passage
