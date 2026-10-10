@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { isLessonReady } from "@/lib/learning/access";
-import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { APP_STORE, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import { keywordsFor } from "@/lib/keywords";
@@ -43,9 +43,15 @@ export const metadata: Metadata = {
   },
 };
 export default function LearnPage() {
+  // Stage lessons and popular-song companions are different kinds of lesson,
+  // so the card counts them separately instead of adding them into one total.
+  const guitarLessons = allLessons("guitar");
+  const stageLessons = guitarLessons.filter(entry => entry.level.stage).length;
+  const songCompanions = guitarLessons.length - stageLessons;
+  const stages = curricula.guitar.levels.filter(level => level.stage).length;
   const hasOutlines = (["guitar", "voice"] as const).some(track => allLessons(track).some(entry => !isLessonReady(track, entry.lesson.id)));
   return <>
-    <div className={styles.hero}><h1>Choose your guitar or voice learning path.</h1><p>Explore the guitar curriculum here or continue to voice lessons on Suede Sing. Guitar lessons require lifetime access; the A-to-D chord practice routine is free.</p></div>
+    <div className={styles.hero}><h1>Choose your guitar or voice learning path.</h1><p>Explore the guitar curriculum here or continue to voice lessons on Suede Sing. Guitar lessons open with lifetime access from GuitarHub for iPhone; the A-to-D chord practice routine is free.</p></div>
     <div className={styles.tracks}>
       {(["guitar", "voice"] as const).map((track) => <section className={styles.track} key={track}>
         <svg className={styles.instrument} viewBox="0 0 400 80" aria-hidden="true">
@@ -54,7 +60,7 @@ export default function LearnPage() {
         <h2>{track === "guitar" ? "Guitar" : "Voice"}</h2>
         <p>{track === "guitar" ? "From your first clean note to open chords, a steady strum, and a song you can finish." : "From an easy breath to a steady tone, comfortable pitch matching, and your first song."}</p>
         {track === "guitar"
-          ? <p className={styles.small}>{allLessons(track).length} lessons · {curricula[track].levels.filter(level => level.stage).length} stages · Lifetime access required</p>
+          ? <p className={styles.small}>{stageLessons} lessons in {spellOut(stages)} stages · {songCompanions} song companions · Lifetime access</p>
           : <p className={styles.small}>Moved to Suede Sing, where all seven stages are free. Your <Link href="/learn/voice/recordings">saved voice takes</Link> and the lifetime <Link href="/learn/voice/materials">voice practice library</Link> stay here.</p>}
         {track === "guitar"
           ? <Link className={styles.primary} href="/learn/guitar">Explore guitar</Link>
@@ -62,7 +68,7 @@ export default function LearnPage() {
       </section>)}
     </div>
     <div className={styles.actions}><Link className={styles.secondary} href="/practice">Open the tuner and metronome</Link><Link className={styles.secondary} href="/learn/guitar/routine">Practice A-to-D chord changes</Link></div>
-    <div className={styles.notice}>Guitar lessons require verified lifetime access. The tuner, metronome, and practice routine are free. Your web progress stays in this browser and does not sync with the iOS app.</div>
-    <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>{hasOutlines ? "Written lessons and curriculum outlines give each session a focus." : "Written lessons give each session a focus."} Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session means you practiced; it is not a claim of mastery.</p></section>
+    <div className={styles.notice}>Unlock every guided guitar lesson with lifetime access, a one-time purchase in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone; the App Store shows the price before you confirm. The tuner, metronome, practice routine and Advanced Lab are free. Web progress is saved in this browser. <Link href="/faq#how-to-get-lifetime-access">How lifetime access works</Link></div>
+    <section className={styles.hero}><h2 className="font-display text-3xl mb-4">Learn it. Practice it. Try it through.</h2><p>{hasOutlines ? "Written lessons and curriculum outlines give each session a focus." : "Written lessons give each session a focus."} Where a microphone exercise is available, you can practice first and then play a measured attempt. For other lessons, you record your own assessment. A completed session records that you practiced, and a measured attempt shows what you can play.</p></section>
   </>;
 }

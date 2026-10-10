@@ -110,7 +110,7 @@ export default function HallelujahGuitarTonePage() {
 
         <p>
           This guide studies one recording rather than teaching clean tone in
-          general. The broader question, how to practise clean tone on your own
+          general. The broader question, how to practice clean tone on your own
           phrase over a week, is answered by{" "}
           <Link href="/resources/how-to-practice-clean-guitar-tone">
             the seven-day clean-tone test

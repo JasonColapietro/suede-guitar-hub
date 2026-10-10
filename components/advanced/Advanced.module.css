@@ -17,8 +17,8 @@
 .card p { color: #4b4159; line-height: 1.55; font-size: .95rem; }
 .meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: auto; padding-top: .4rem; font-size: .8rem; color: #62576f; }
 .tier { display: inline-flex; padding: .2rem .6rem; border-radius: 999px; font-weight: 700; font-size: .72rem; background: #ede5f8; color: #51367d; }
-.tier[data-tier=Pro] { background: #251152; color: #f5e2cf; }
-.tier[data-tier=Foundation] { background: #e4ebdf; color: #304c2c; }
+.tier[data-tier=Expert] { background: #251152; color: #f5e2cf; }
+.tier[data-tier=Core] { background: #e4ebdf; color: #304c2c; }
 .cleared { display: inline-flex; padding: .2rem .6rem; border-radius: 999px; font-weight: 700; font-size: .72rem; background: #e0e9df; color: #304c2c; }
 
 /* Drill page */

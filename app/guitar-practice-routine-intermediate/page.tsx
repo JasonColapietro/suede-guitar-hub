@@ -341,10 +341,12 @@ export default function IntermediatePracticeRoutinePage() {
         <p>
           Notice what did not happen: the short session is not the long session
           halved. Tempo work merges into repair because both are working the
-          same unit. The pressure block absorbs most of the cut because it is
-          the block that tolerates being short. The cold-start test gives up one
-          minute, because removing it saves almost nothing and costs you the
-          only measurement in the session.
+          same unit, and that merge absorbs most of the cut: together the two
+          blocks go from 25 minutes to 10. The pressure block gives up 7
+          minutes, roughly half its length, because it is the block that
+          tolerates being short. The warm-up gives up 2. The cold-start test
+          gives up one minute, because removing it saves almost nothing and
+          costs you the only measurement in the session.
         </p>
 
         <h2>How to swap material in without rebuilding the routine</h2>

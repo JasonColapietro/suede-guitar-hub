@@ -10,7 +10,7 @@ const PUBLISHED = "2026-08-29";
 const UPDATED = "2026-08-29";
 
 const DESCRIPTION =
-  "Isolate the bar that fails, slow it until every attempt is clean, repeat against a named target, and end the session so the next one starts well.";
+  "Isolate the bar that fails, find the tempo where it breaks, build the fix where every attempt is clean, and end the session so the next one starts well.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/how-to-practice-guitar-effectively"),
@@ -176,10 +176,13 @@ export default function HowToPracticeGuitarEffectivelyPage() {
         <h2>What slow enough actually means</h2>
 
         <p>
-          Slow practice is advice everyone gives and almost nobody defines. The
-          usable definition: slow enough that you play the passage correctly on
-          the first attempt, and on every attempt after it, with no mid-phrase
-          recovery.
+          Slow practice is advice everyone gives and almost nobody defines.
+          Tempo has two jobs, so use two gears. The diagnostic gear is the
+          edge: the tempo where the error shows up about half the time. A few
+          attempts there show you exactly which move fails and how. The build
+          gear is where the fix gets made: slow enough that you play the
+          passage correctly on the first attempt, and on every attempt after
+          it, with no mid-phrase recovery.
         </p>
 
         <p>
@@ -193,15 +196,15 @@ export default function HowToPracticeGuitarEffectivelyPage() {
         <p>
           There is a second marker, more reliable than the first. At the correct
           tempo you can see the next move before you make it: your fingers are
-          already travelling toward the next shape while the current one is
+          already traveling toward the next shape while the current one is
           still sounding. If the next chord is a surprise, slow down.
         </p>
 
         <p>
           Expect this to feel absurdly slow, and expect to be bored. Boredom is
           roughly where the tempo starts being useful. The real mistake is
-          picking the speed where it <em>almost</em> works: the most tempting
-          tempo available, and the least productive, because it lets you
+          drilling at the speed where it <em>almost</em> works. That tempo is
+          for finding the error, not for fixing it: repeat there and you
           rehearse the error at high fidelity.
         </p>
 
@@ -374,7 +377,7 @@ export default function HowToPracticeGuitarEffectivelyPage() {
           <li>
             <strong>It survives a surprise.</strong> Something goes wrong (a
             buzz, a missed beat) and you keep going instead of stopping.
-            Stopping means the passage is running on a memorised sequence rather
+            Stopping means the passage is running on a memorized sequence rather
             than on control.
           </li>
           <li>

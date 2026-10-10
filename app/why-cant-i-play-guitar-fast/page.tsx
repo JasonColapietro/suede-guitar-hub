@@ -120,13 +120,17 @@ export default function WhyCantIPlayGuitarFastPage() {
         <h2>A ceiling is a fact about the motion</h2>
 
         <p>
-          Fast playing is the same motion made smaller, timed more exactly, and
-          produced with less effort. Nothing new appears at 160 BPM that was
-          absent at 90; what changes is the tolerance. A finger that travels an
-          inch has time for that at 90 and does not at 160, so a motion that fit
-          before stops fitting and the passage breaks in the same place every
-          time. A ceiling belongs to a motion, not to a player: you might run
-          sixteenths at 130 in one riff and stall at 95 in another.
+          Fast playing is mostly the same motion made smaller, timed more
+          exactly, and produced with less effort. What changes most between 90
+          and 160 BPM is the tolerance. A finger that travels an inch has time
+          for that at 90 and does not at 160, so a motion that fit before stops
+          fitting and the passage breaks in the same place every time. Some
+          motions do not scale at all: above a certain speed the hand may need a
+          different motion, such as a picking stroke that moves from the wrist
+          or forearm instead of the fingers, and slowing the old one down will
+          not reveal the new one. A ceiling belongs to a motion, not to a
+          player: you might run sixteenths at 130 in one riff and stall at 95 in
+          another.
         </p>
 
         <h2>Why &ldquo;just play it slow&rdquo; is incomplete</h2>
@@ -266,6 +270,16 @@ export default function WhyCantIPlayGuitarFastPage() {
         </p>
 
         <p>
+          To check the fretting hand on its own with a scorer listening, run the
+          free{" "}
+          <Link href="/advanced/three-note-legato-g-major">
+            three-notes-per-string legato drill
+          </Link>
+          : one pick per string, two hammer-ons, every note checked for pitch in
+          order, and a coach that tells you when to push the tempo.
+        </p>
+
+        <p>
           One more test: start the passage on an upstroke. If it works one way
           and collapses the other, the pick direction was never decided. Where
           the join is between chord shapes, Strumly&apos;s guide to{" "}
@@ -327,7 +341,9 @@ export default function WhyCantIPlayGuitarFastPage() {
         <p>
           <strong>The fix.</strong> Put most of a session&apos;s tempo work
           inside that band, and move its top one rung at a time. Which is what a
-          ladder is.
+          ladder is, and the{" "}
+          <Link href="/tempo">tempo ladder builder</Link> lays one out from your
+          clean tempo to your target.
         </p>
 
         <h2>The climb: capped steps, holds, and back-offs</h2>

@@ -107,7 +107,7 @@ export default function GuitarPracticePlateauPage() {
 
         <p>
           This is the written account of the six causes, so you can read them and
-          recognise your own. It does not rank them for you. The{" "}
+          recognize your own. It does not rank them for you. The{" "}
           <Link href="/diagnose">practice plateau diagnostic</Link> asks nine
           questions about your last few sessions, scores five blockers against
           their own maximums, and returns the one your answers point at hardest,
@@ -347,7 +347,12 @@ export default function GuitarPracticePlateauPage() {
             Change one thing about the session, and write the change down so you
             cannot renegotiate it midweek.
           </li>
-          <li>Run the changed session for a week without adjusting it again.</li>
+          <li>
+            Run the changed session for a week without adjusting it again, and
+            log one line per session in the free{" "}
+            <Link href="/log">practice evidence log</Link>, which shows whether
+            the focus is moving once it has three sessions.
+          </li>
           <li>
             Record the same take at the end of the week and listen to the two
             back to back.

@@ -222,7 +222,7 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
         href: "/guitar-practice-plateau",
         question: "Why has progress stopped, and what are the causes?",
         scopeLine:
-          "This is the written account of the six causes, so you can read them and recognise your own.",
+          "This is the written account of the six causes, so you can read them and recognize your own.",
         descriptionMark: "Six habits",
       },
       {

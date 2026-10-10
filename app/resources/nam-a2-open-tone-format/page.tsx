@@ -89,7 +89,7 @@ export default function NamA2OpenTonePage() {
         relatedTitle="Keep exploring"
       >
         <p>
-          <strong>By Jason Colapietro, founder of Suede Labs.</strong>
+          <strong>By Jason Colapietro, founder of Suede AI.</strong>
         </p>
 
         <p>

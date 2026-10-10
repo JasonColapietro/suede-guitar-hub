@@ -354,6 +354,25 @@ export default function MetronomePage() {
           </li>
         </ol>
 
+        <p>
+          Run them on GuitarHub&apos;s free{" "}
+          <Link href="/practice">tuner and metronome</Link>, which keeps a
+          steady four-beat click at any tempo you set. When you want a verdict
+          on every attack, four free Advanced Lab drills time each hit against
+          the grid through your microphone:{" "}
+          <Link href="/advanced/funk-sixteenths">syncopated sixteenths</Link>,{" "}
+          <Link href="/advanced/quarter-note-triplets">quarter-note triplets</Link>
+          ,{" "}
+          <Link href="/advanced/triplet-sixteenth-shift">
+            the shift from triplets to sixteenths
+          </Link>
+          , and{" "}
+          <Link href="/advanced/dotted-eighth-displacement">
+            dotted-eighth displacement
+          </Link>
+          .
+        </p>
+
         <h2>When not to use a metronome</h2>
 
         <p>

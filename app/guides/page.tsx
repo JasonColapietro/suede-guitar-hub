@@ -230,7 +230,7 @@ const ENTRY_BY_HREF = new Map<string, SiteEntry>(
 const ROUTER_ROWS: readonly { when: string; href: string }[] = [
   { when: "You have not read anything here yet", href: "/method" },
   {
-    when: "You practise most days and nothing is changing",
+    when: "You practice most days and nothing is changing",
     href: "/guitar-practice-plateau",
   },
   {

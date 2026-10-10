@@ -376,7 +376,7 @@ export default function PracticeLog() {
                 htmlFor={DATE_FIELD_ID}
                 className="block text-sm font-semibold text-indigo-deep"
               >
-                Date you practised
+                Date you practiced
               </label>
               <input
                 id={DATE_FIELD_ID}

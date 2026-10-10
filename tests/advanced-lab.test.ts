@@ -46,3 +46,42 @@ test("saved drill progress keeps the strongest evidence and ignores unscored att
   assert.deepEqual(parseDrillProgress(JSON.stringify({ ...progress, unknown: progress[id] }), ids), progress);
   assert.deepEqual(parseDrillProgress("not json", ids), {});
 });
+
+test("drill tiers name difficulty, never a paid plan", () => {
+  // The whole lab is free, so no badge may read like a subscription tier.
+  for (const drill of DRILLS) assert.ok(["Core", "Advanced", "Expert"].includes(drill.tier), `${drill.id} tier ${drill.tier}`);
+});
+
+test("every drill ships a keyword-first search title and snippet", () => {
+  for (const drill of DRILLS) {
+    assert.ok(`${drill.seo.title} | GuitarHub`.length <= 60, `${drill.id} title is too long for the results page`);
+    assert.ok(drill.seo.description.length >= 140 && drill.seo.description.length <= 155, `${drill.id} description is ${drill.seo.description.length} characters`);
+    assert.match(drill.seo.description, /guitar/i, `${drill.id} description must name the instrument`);
+  }
+});
+
+/** Note name and octave of a target, so a drill's instructions can be checked against what it scores. */
+const NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+const noteOf = (midi: number) => `${NAMES[midi % 12]}${Math.floor(midi / 12) - 1}`;
+const pitches = (id: string) => {
+  const drill = DRILLS.find(item => item.id === id)!;
+  return drill.spec.targets.map(target => noteOf(target.midi!));
+};
+
+test("octave string skipping plays root, octave, third, octave for every chord", () => {
+  assert.deepEqual(pitches("octave-string-skipping"), [
+    "C3", "C4", "E3", "E4",
+    "A2", "A3", "C3", "C4",
+    "F2", "F3", "A2", "A3",
+    "G2", "G3", "B2", "B3",
+  ]);
+});
+
+test("ear-training and fretboard drills name exactly what they score", () => {
+  const intervals = DRILLS.find(item => item.id === "intervals-from-a")!;
+  assert.match(intervals.steps.join(" "), /major third, perfect fourth, perfect fifth, major sixth, minor seventh, octave/);
+  assert.deepEqual(pitches("intervals-from-a").filter((_, index) => index % 2 === 1), ["C#3", "D3", "E3", "F#3", "G3", "A3"]);
+  assert.deepEqual(new Set(pitches("every-c").map(note => note.slice(0, -1))), new Set(["C"]));
+  const bends = DRILLS.find(item => item.id === "bends-in-tune")!;
+  assert.match(bends.steps.join(" "), /half step/);
+});

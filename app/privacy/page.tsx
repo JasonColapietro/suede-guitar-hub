@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <Article eyebrow="GuitarHub" title="Privacy Policy" dek="Your playing stays on your device. Here is what the app and website use, save, and send." updated="2026-09-20" showPracticeCallToAction={false}>
+    <Article eyebrow="GuitarHub" title="Privacy Policy" dek="Your playing stays on your device. Here is what the app and website use, save, and send." updated="2026-10-10" showPracticeCallToAction={false}>
       <p>This policy covers the GuitarHub iOS app and guitarhub.org, operated by Suede AI. For privacy questions or requests, contact <a href="mailto:info@suedeai.ai">info@suedeai.ai</a>.</p>
 
       <h2>Microphone and audio</h2>

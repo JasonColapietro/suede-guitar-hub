@@ -4,7 +4,8 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { GUIDES, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { APP_STORE, GUIDES, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { DRILLS } from "@/lib/advanced/drills";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/faq`;
@@ -12,13 +13,14 @@ const CANONICAL = `${SITE_URL}/faq`;
 /** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
 const CRUMBS = crumbTrail("FAQ", CANONICAL);
 const PUBLISHED = "2026-08-29";
+const UPDATED = "2026-10-10";
 
 const TITLE = "GuitarHub FAQ: The Method, the Tools, and the Founding Room";
 // Kept between 140 and 160 characters. Every clause names something a reader
-// is actually deciding — cost, account, data, the room — rather than
+// is actually deciding — cost, access, data, the room — rather than
 // describing the page as "everything you need to know".
 const DESCRIPTION =
-  "Straight answers about GuitarHub: its practice method and tools, whether it is free, whether you need an account, where your data lives, and what the room is.";
+  "GuitarHub answers: what is free, how lifetime lesson access works, how the practice method and tools run, where your data lives, and how the founding room works.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/faq"),
@@ -59,6 +61,9 @@ const TOOL_SENTENCE = sentenceList(
   TOOLS.map((tool) => `the ${lowerFirst(tool.title)}`),
 );
 
+/** "Seven", from the registry, so the count in an answer cannot drift. */
+const TOOL_COUNT = spellOut(TOOLS.length);
+
 type FaqGroup = {
   id: string;
   title: string;
@@ -81,7 +86,7 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
     id: "cost-and-data",
     title: "Cost, accounts, and your data",
     intro:
-      "No part of this site charges you, and almost nothing leaves your browser. These answers say exactly what that means, and name the one exception.",
+      "The tools, guides, and Advanced Lab are free. The guided lessons run on lifetime access from the iPhone app. Your practice data stays on your device unless you choose to sync it. Here is exactly how each part works.",
   },
   {
     id: "who-its-for",
@@ -97,7 +102,7 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
   },
   {
     id: "strumly-and-teachers",
-    title: "Strumly, Suede Labs, and teachers",
+    title: "Strumly, Suede AI, and teachers",
     intro:
       "Bring GuitarHub, Strumly, and your teacher into a focused weekly practice routine.",
   },
@@ -127,25 +132,25 @@ const FAQS: readonly Faq[] = [
     id: "what-is-guitarhub",
     group: "what-it-is",
     q: "What is GuitarHub?",
-    a: "GuitarHub is the Suede Labs guitar lessons site: a step-by-step guitar curriculum, a voice path, a practice method, and free browser tools that run it. The method is one loop against one goal at a time: record where you actually are, isolate the single thing that breaks the result, put that repair back under the pressure of a full performance, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. The site exists for that gap.",
+    a: `GuitarHub is the Suede AI guitar lessons site: a step-by-step guitar curriculum, a practice method, the free Advanced Lab, and ${TOOL_COUNT} free browser tools that run the method. The method is one loop against one goal at a time, in four stages: baseline, isolate, reconnect, prove. Record where you actually are, isolate the single thing that breaks the result, reconnect that repair to a full performance under pressure, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. GuitarHub is built for that gap. Voice lessons live on Suede Sing.`,
   },
   {
     id: "what-guitarhub-is-not",
     group: "what-it-is",
     q: "How can I use GuitarHub?",
-    a: "Use the written guides and browser tools to structure your practice. Open the website directly, or find GuitarHub: Guitar Lessons on the iPhone App Store. Applications for the founding room are reviewed personally.",
+    a: `Start free on guitarhub.org: tune and keep time with the tuner and metronome, structure your practice with the planning tools and written guides, and push your technique in the Advanced Lab, all without signing up. For the full guided course, download ${APP_STORE.name} from the iPhone App Store and unlock lifetime access in the app. For personal feedback on one goal, apply to the founding room.`,
   },
   {
     id: "what-are-the-tools",
     group: "what-it-is",
     q: "What are the tools, exactly?",
-    a: `The tools are ${TOOL_SENTENCE}. Each one runs entirely in the browser you are reading this in, needs no account, and carries a button that clears what it stored. Use Strumly alongside your plan for its metronome and tuner.`,
+    a: `The tools are ${TOOL_SENTENCE}. Each one runs in the browser you are reading this in and needs no account. The planning tools keep what you enter in this browser, each with a button that clears it. The tuner and metronome share one page, so tuning up and practicing to a click take nothing else.`,
   },
   {
     id: "is-this-an-ai-product",
     group: "what-it-is",
     q: "Is GuitarHub an AI product?",
-    a: "Not in the way that phrase is usually meant. There is no chatbot on this site, no generated commentary on your playing, and no model looking at anything you do. The tools follow written rules and return the same output for the same input. Strumly, a separate Suede Labs product, is the AI guitar coach, and this site links out to it instead of embedding it.",
+    a: "Not in the way that phrase is usually meant. There is no chatbot on this site, no generated commentary on your playing, and no model looking at anything you do. The tools follow written rules and return the same output for the same input, and the microphone exercises measure pitch and timing with fixed signal processing on your device. Strumly, a separate Suede AI product, is the AI guitar coach, and this site links out to it instead of embedding it.",
   },
 
   // Cost, accounts, and your data
@@ -153,37 +158,43 @@ const FAQS: readonly Faq[] = [
     id: "is-it-free",
     group: "cost-and-data",
     q: "Is GuitarHub free?",
-    a: "Yes. The tools and guides here are free to use, no payment is taken anywhere on the site, and no card is collected. The tools are not a limited sample of a paid product. There is no paid product behind them. Applying to the founding room is free as well.",
+    a: `The practice tools, the ${DRILLS.length}-drill Advanced Lab, the written guides and their PDF field guides, the A-to-D chord practice routine, and the glossary are free, with no card and no sign-up. The guided guitar lessons are the paid part: they open with lifetime access, a one-time purchase made in ${APP_STORE.name} for iPhone. The App Store shows the price before you confirm. Applying to the founding room is free.`,
+  },
+  {
+    id: "how-to-get-lifetime-access",
+    group: "cost-and-data",
+    q: "How do I get lifetime lesson access?",
+    a: `Download ${APP_STORE.name} from the iPhone App Store and choose lifetime access in the app. The App Store purchase screen shows the price and terms before you confirm, and Apple handles the payment. One purchase covers the guitar course and the voice track in the app, and Restore Purchases brings it back on a new iPhone signed in to the same Apple account.`,
   },
   {
     id: "do-i-need-an-account",
     group: "cost-and-data",
     q: "Do I need an account?",
-    a: "No. There is no sign-up, no login, and no password. The site has no accounts. Open a tool and start using it. The only place on the site that asks for your name and email address is the founding-room application, and that is a form you choose to send once, not an account you keep.",
+    a: "Not for the free parts. The tools, the Advanced Lab, the guides, and the chord routine open without signing in. Lifetime access belongs to the Apple account that bought it in the iPhone app. On the web, the account page signs an existing Suede account in with an emailed code to verify lifetime access and offer optional practice sync, and it shows whether web purchase verification is available. The founding-room application asks for your name and email once; it does not create an account.",
   },
   {
     id: "where-is-my-data-stored",
     group: "cost-and-data",
     q: "Where is my data stored?",
-    a: "In your own browser, in local storage, and nowhere else. What you type into a tool stays on the device you typed it on, so closing the tab does not lose it and reopening the page brings it back. It also does not travel: a plan built on a laptop is not on your phone, and no account syncs it. Clear your browser data and it is gone. We cannot recover it, and we did not have it to begin with.",
+    a: "On your device. Plans, logs, lesson progress, drill results, and preferences are saved in this browser's local storage, so closing the tab keeps them and reopening the page brings them back. They stay on the device you used: a plan built on a laptop is not on your phone. If you sign in and explicitly turn on practice sync, new lesson attempts are also saved to your account; earlier records stay local. Clearing your browser data removes the local copy for good.",
   },
   {
     id: "are-recordings-uploaded",
     group: "cost-and-data",
-    q: "Does GuitarHub upload or listen to my recordings?",
-    a: "No. There is no recording feature on this site and no upload of any kind. When the method tells you to record a baseline, it means on your phone, in whatever voice-memo app you already have, kept by you. Nothing here receives, stores, or plays back audio.",
+    q: "Does GuitarHub record or upload my playing?",
+    a: "GuitarHub never uploads audio. The tuner, the lesson exercises, and the Advanced Lab drills listen through your microphone only after you start them, and measure pitch and timing live on your device; the raw audio is not saved or sent anywhere. Saving a take is always your choice: the iPhone app keeps one optional take per lesson on your phone, and voice takes saved in this browser before the voice lessons moved to Suede Sing stay playable and deletable on the Saved voice takes page. For the method's baseline, record on your phone with any voice-memo app.",
   },
   {
     id: "does-anything-train-on-my-playing",
     group: "cost-and-data",
     q: "Does anything here train on my playing?",
-    a: "No. Nothing on this site ingests performances, and no model is being trained on anything you do here. GuitarHub prescribes practice; it does not collect it. The tools send nothing to a server at all. The one page that transmits anything is the founding-room application form, which sends the four fields you typed into it and nothing else.",
+    a: "No. Nothing on this site trains a model on your playing. GuitarHub prescribes practice; it does not collect performances. Microphone audio is analyzed on your device and never sent. The tools send nothing to a server. The founding-room application sends the four fields you typed into it, and optional practice sync, if you turn it on, sends lesson-attempt results such as scores and tempos, never audio.",
   },
   {
     id: "tracking-and-analytics",
     group: "cost-and-data",
     q: "Is there tracking or analytics on this site?",
-    a: "There is no analytics script and no third-party tracker on GuitarHub. That is a claim you can check rather than take on trust: open the page source, or your browser's network panel, and see what actually loads.",
+    a: "GuitarHub runs no analytics script and no third-party tracker. Check it yourself: open the page source or your browser's network panel and see what loads. Vercel, which hosts the site, processes ordinary connection logs to deliver and protect it.",
   },
 
   // Who it is for
@@ -191,7 +202,7 @@ const FAQS: readonly Faq[] = [
     id: "who-is-it-for",
     group: "who-its-for",
     q: "Who is GuitarHub for?",
-    a: "Players who are past the first few months and no longer getting obvious returns from practice: advanced beginners, intermediates, and people coming back to the instrument after a long gap. The planner asks you to place yourself in one of those three and labels the plan with where you are starting from; the four weeks themselves are built from the goal you pick. The common shape is a player with plenty of saved material and no finished piece to show for it.",
+    a: "Every level, with a different starting point. New players start the guided guitar course at the first foundations. Players past the first few months who are no longer getting obvious returns from practice, including advanced beginners, intermediates, and people coming back after a long gap, get the most from the method and the planner, which labels the plan with where you are starting from and builds the four weeks from the goal you pick. Experienced players go straight to the Advanced Lab.",
   },
   {
     id: "who-is-it-not-for",
@@ -230,8 +241,8 @@ const FAQS: readonly Faq[] = [
   {
     id: "how-it-relates-to-strumly",
     group: "strumly-and-teachers",
-    q: "How does GuitarHub relate to Strumly and Suede Labs?",
-    a: "GuitarHub, Strumly, and Suede AI Social are part of Suede Labs, founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub structures your practice, Strumly provides complementary tools, and Suede AI Social connects the wider conversation.",
+    q: "How does GuitarHub relate to Strumly and Suede AI?",
+    a: "GuitarHub, Strumly, Suede Sing, and Suede AI Social are Suede AI products, founded by Jason Colapietro, who also publishes as Johnny Suede. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede AI Social carries the wider conversation.",
   },
   {
     id: "does-it-replace-a-teacher",
@@ -274,7 +285,7 @@ const JSON_LD = {
       image: `${CANONICAL}/opengraph-image`,
       inLanguage: "en-US",
       datePublished: PUBLISHED,
-      dateModified: PUBLISHED,
+      dateModified: UPDATED,
       isPartOf: { "@id": WEBSITE_ID },
       publisher: { "@id": SUEDE_ORG_ID },
       author: { "@id": JASON_PERSON_ID },
@@ -341,34 +352,32 @@ export default function FaqPage() {
               </em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              What this site is, what it costs, what happens to anything you
-              type into it, and what the founding room actually is right now
-              rather than what it is meant to become.
+              What GuitarHub is, what is free, how lifetime lesson access
+              works, what happens to anything you type into it, and how the
+              founding room works.
             </p>
             <p className="mt-8 text-xs uppercase tracking-widest text-violet-soft">
-              Updated <time dateTime={PUBLISHED}>August 29, 2026</time>
+              Updated <time dateTime={UPDATED}>October 10, 2026</time>
             </p>
           </div>
         </section>
 
         <section className="mx-auto max-w-3xl px-6 pt-16 md:pt-20">
           <p className="text-lg leading-relaxed text-ink/70">
-            The answers below are checkable against the site itself. Where
-            something does not exist yet, it says so instead of describing the
-            plan in the present tense. Where a claim is an argument about how
-            practice works rather than a fact about the software, it is written
-            as an argument.
+            Every answer below describes the site as it runs today, and you can
+            check each one against the site itself. Where a claim is an argument
+            about how practice works rather than a fact about the software, it
+            is written as an argument.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-ink/70">
-            If an answer here is wrong, or the site changed and this page did
-            not, mail{" "}
+            Have a question this page does not answer? Mail{" "}
             <a
               href="mailto:info@suedeai.ai"
               className="text-indigo-deep underline underline-offset-4 hover:text-violet"
             >
               info@suedeai.ai
             </a>{" "}
-            and it gets fixed.
+            and you get a personal reply.
           </p>
           <div className="strings-divider mx-auto mt-14 h-10 max-w-xs" aria-hidden />
         </section>

@@ -9,6 +9,10 @@
  * metadata without them.
  *
  * Article pages also pass `keywordsText(route)` into their Article JSON-LD.
+ *
+ * One page owns each head term. "guitar practice routine" belongs to
+ * /guitar-practice-routine-intermediate alone, so no other list carries it and
+ * the site stops competing with itself for that query.
  */
 
 export const MIN_KEYWORDS = 5;
@@ -26,7 +30,6 @@ export const ROUTE_KEYWORDS = {
     "online guitar lessons",
     "learn guitar",
     "how to practice guitar",
-    "guitar practice routine",
     "guitar lessons app",
     "guitarhub",
   ],
@@ -61,7 +64,6 @@ export const ROUTE_KEYWORDS = {
   "/learn/guitar/routine": [
     "a to d chord changes",
     "beginner chord practice routine",
-    "guitar practice routine",
     "guitar practice for beginners",
     "guitar practice routine template",
     "guitar chords for beginners",
@@ -114,7 +116,6 @@ export const ROUTE_KEYWORDS = {
   "/breakthrough": [
     "30 day guitar challenge",
     "guitar practice schedule",
-    "guitar practice routine",
     "guitar practice routine template",
     "guitar goals for beginners",
     "guitar practice plan",
@@ -131,7 +132,6 @@ export const ROUTE_KEYWORDS = {
   ],
   "/session": [
     "guitar practice routine generator",
-    "guitar practice routine",
     "guitar practice schedule",
     "guitar practice routine template",
     "how long to practice guitar",
@@ -167,7 +167,6 @@ export const ROUTE_KEYWORDS = {
     "how to practice guitar",
     "how to practice guitar effectively",
     "deliberate practice guitar",
-    "guitar practice routine",
     "guitar practice plateau",
     "guitar practice tips",
     "guitar method",
@@ -178,7 +177,6 @@ export const ROUTE_KEYWORDS = {
     "how to practice guitar",
     "guitar practice tips",
     "guitar practice tips for beginners",
-    "guitar practice routine",
     "deliberate practice guitar",
     "what to practice on guitar to get better",
     "guitarhub",
@@ -204,7 +202,6 @@ export const ROUTE_KEYWORDS = {
   "/30-day-guitar-challenge": [
     "30 day guitar challenge",
     "guitar practice schedule",
-    "guitar practice routine",
     "guitar practice for beginners",
     "guitar goals for beginners",
     "guitar practice routine template",
@@ -224,14 +221,12 @@ export const ROUTE_KEYWORDS = {
     "how long should i practice guitar a day",
     "how long to practice guitar",
     "guitar practice schedule",
-    "guitar practice routine",
     "guitar practice tips",
     "how to practice guitar",
     "guitarhub",
   ],
   "/guitar-practice-schedule": [
     "guitar practice schedule",
-    "guitar practice routine",
     "guitar practice routine template",
     "how long should i practice guitar a day",
     "30 day guitar challenge",
@@ -268,7 +263,6 @@ export const ROUTE_KEYWORDS = {
     "guitar practice tips",
     "guitar practice tips for beginners",
     "how to practice guitar",
-    "guitar practice routine",
     "guitar practice schedule",
     "how long to practice guitar",
     "guitar practice plateau",

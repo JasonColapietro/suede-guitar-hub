@@ -212,7 +212,7 @@ export const SESSION_FOCUSES: readonly {
   },
   {
     value: "memorise",
-    label: "Memorise a song",
+    label: "Memorize a song",
     blurb: "You can play it with the page in front of you, and not without it.",
   },
   {
@@ -292,7 +292,7 @@ const REPAIR: Record<
   transition: {
     name: "The transition that stalls",
     purpose:
-      "Both sides of the join are already playable. What is missing is the move between them, which you have never practised on its own.",
+      "Both sides of the join are already playable. What is missing is the move between them, which you have never practiced on its own.",
     doThis:
       "Play the last beat before the change and the first beat after it, and nothing else. Slow enough that your hand can be watched. Repeat until the move happens with no pause in the middle, then add one beat on each side.",
   },
@@ -313,7 +313,7 @@ const WARMUP_DO: Record<SessionFocus, string> = {
   transition:
     "Play the two bars either side of the join separately and slowly, without connecting them. Both sides go under your hands before you try to make them meet.",
   upkeep:
-    "Two minutes on something that makes your hands work — a scale shape, a chord loop, one riff — then the first thing you plan to practise, at half speed.",
+    "Two minutes on something that makes your hands work — a scale shape, a chord loop, one riff — then the first thing you plan to practice, at half speed.",
 };
 
 const TEMPO_DO: Record<SessionFocus, string> = {

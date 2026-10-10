@@ -94,12 +94,12 @@ export const ABOUT: SiteEntry = {
   href: "/about",
   title: "About GuitarHub",
   blurb:
-    "Who built GuitarHub, what it does, what it does not do, and how it relates to Strumly.",
-  lastModified: "2026-09-08",
+    "Who built GuitarHub, what it offers, and how it fits with Strumly and Suede Sing.",
+  lastModified: "2026-10-10",
 };
 
 export const LEGAL: readonly SiteEntry[] = [
-  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-09-04" },
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
   { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-09-04" },
 ];
 
@@ -159,7 +159,7 @@ export const GUIDES: readonly SiteEntry[] = [
     href: "/method",
     title: "The GuitarHub method",
     blurb:
-      "The loop the whole site runs on: diagnose, prescribe, practice, prove, correct, repeat.",
+      "The four-stage loop the whole site runs on: baseline, isolate, reconnect, prove, with an exit test for each stage.",
     lastModified: "2026-08-29",
   },
   {
@@ -228,7 +228,7 @@ export const GUIDES: readonly SiteEntry[] = [
   },
   {
     href: "/practicing-guitar-with-a-metronome",
-    title: "Practising with a metronome",
+    title: "Practicing with a metronome",
     blurb:
       "Testing against the click instead of playing along with it, and what that exposes about your time.",
     lastModified: "2026-08-29",
@@ -319,8 +319,8 @@ export const HUBS: readonly SiteEntry[] = [
     href: "/faq",
     title: "FAQ",
     blurb:
-      "What GuitarHub is, what it is not, where your data lives, and what applying involves.",
-    lastModified: "2026-08-29",
+      "What is free, how lifetime lesson access works, where your data lives, and what applying involves.",
+    lastModified: "2026-10-10",
   },
 ];
 

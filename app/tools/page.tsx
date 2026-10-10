@@ -106,7 +106,7 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
     purpose:
       "You record the date, one focus, a tempo or clean-pass rate, and one honest note. It compares like with like over 7 and 30 days, and refuses to claim a direction until one focus has at least three sessions.",
     audience:
-      "Players who can say how often they practised but cannot show whether the passage, transition, or song they chose is actually moving.",
+      "Players who can say how often they practiced but cannot show whether the passage, transition, or song they chose is actually moving.",
   },
 };
 
@@ -128,7 +128,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
     href: "/diagnose",
     sentence:
       "I practice most days and cannot say what stopped producing change.",
-    stage: "Before the baseline. It ends with a named blocker.",
+    stage: "Baseline. It ends with a named blocker to record against.",
   },
   {
     href: "/breakthrough",
@@ -138,7 +138,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
   {
     href: "/session",
     sentence: "I know what to work on and need it to fit the time I have today.",
-    stage: "Prescribe and practise. It turns the target into blocks you can run now.",
+    stage: "Isolate. It turns the target into blocks you can run now.",
   },
   {
     href: "/tempo",
@@ -153,7 +153,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
   {
     href: "/log",
     sentence: "I finished the session and need to know whether the work is moving.",
-    stage: "Prove and correct. It carries the evidence into the next diagnosis.",
+    stage: "Prove. It carries the evidence into the next baseline.",
   },
 ];
 
@@ -425,10 +425,11 @@ export default function ToolsPage() {
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-ink/70">
               The last one is a claim you can check rather than trust. There is
               no analytics script and no third-party tracker on this site, which
-              the page source will tell you faster than we can. Nothing here
-              records audio, accepts an upload, or listens to you play. When a
-              tool tells you to record a baseline, it means on your phone, kept
-              by you.
+              the page source will tell you faster than we can. The tuner listens
+              only while you run it, measures pitch on your device, and never
+              records or uploads audio; the planning tools never touch the
+              microphone. When a tool tells you to record a baseline, record it
+              on your phone and keep it yourself.
             </p>
             {/* A pill rather than a link inside that sentence: an inline
                 prose link renders about 22px tall, which is not a tap target
@@ -505,13 +506,12 @@ export default function ToolsPage() {
 
         <section className="mx-auto max-w-4xl px-6 py-20">
           <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-            What these tools do not do.
+            How the tools work.
           </h2>
           <p className="mt-6 text-lg text-ink/70">
-            The limits are the other half of the privacy claim. The tools above
-            are not free in exchange for something taken from you. They are free
-            in the ordinary way: they are small, and they do less than a product
-            would.
+            Each tool does one job, on your device. That is what keeps them free
+            without taking anything from you in exchange, and these are the
+            operating details worth knowing before you start.
           </p>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (

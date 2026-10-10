@@ -67,7 +67,7 @@ const FAQS = [
   },
   {
     q: "Should I practice every day, or take rest days?",
-    a: "Most days is the better default. The limit on a session is attention rather than tissue recovery, so a day off is a scheduling decision and not a physical requirement. Pain is the exception: hand, wrist or forearm pain is a reason to stop and get it looked at, not to practice through.",
+    a: "Most days is the better default. Past the first few weeks, the limit on a session is attention rather than tissue recovery, so a day off is a scheduling decision. In the first weeks, fingertips are still toughening: keep sessions short, spread them across the day, and stop when a fingertip is sore. Pain at any stage is a reason to stop: hand, wrist or forearm pain gets looked at, not practiced through.",
   },
   {
     q: "Does two hours a day improve you twice as fast as one?",

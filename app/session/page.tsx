@@ -42,7 +42,7 @@ const STEPS = [
   },
   {
     name: "Pick the one thing the session is for",
-    text: "Raise a tempo ceiling, memorise a song, repair a transition, or general upkeep. The focus decides which block gets the largest share of the time, and at short lengths it decides which blocks exist at all.",
+    text: "Raise a tempo ceiling, memorize a song, repair a transition, or general upkeep. The focus decides which block gets the largest share of the time, and at short lengths it decides which blocks exist at all.",
   },
   {
     name: "Read the split, which adds up exactly",
@@ -327,7 +327,7 @@ export default function SessionPage() {
             <p className="mt-4 text-lg leading-relaxed text-ink/70">
               Each focus carries its own weighting across the five blocks, and
               the block that repairs the thing you named is guaranteed the
-              largest share of the session. Memorising a song puts the second
+              largest share of the session. Memorizing a song puts the second
               largest share on playing from memory and almost nothing on tempo
               work; raising a tempo ceiling reverses that. At sixty minutes both
               produce five blocks, and the two sessions are not the same session
@@ -399,7 +399,7 @@ export default function SessionPage() {
 
         <section className="mx-auto max-w-4xl px-6 pb-20">
           <h2 className="text-4xl leading-snug text-indigo-deep md:text-5xl">
-            What this does not do.
+            How to use it well.
           </h2>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (
@@ -426,17 +426,17 @@ export default function SessionPage() {
             </li>
             <li>
               <Link href="/how-to-practice-guitar-effectively" className={LINK_PILL}>
-                How to practise effectively <span aria-hidden>→</span>
+                How to practice effectively <span aria-hidden>→</span>
               </Link>
             </li>
             <li>
               <Link href="/how-long-to-practice-guitar-each-day" className={LINK_PILL}>
-                How long to practise each day <span aria-hidden>→</span>
+                How long to practice each day <span aria-hidden>→</span>
               </Link>
             </li>
             <li>
               <Link href="/how-to-memorize-songs-on-guitar" className={LINK_PILL}>
-                How to memorise a song <span aria-hidden>→</span>
+                How to memorize a song <span aria-hidden>→</span>
               </Link>
             </li>
             <li>

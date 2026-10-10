@@ -452,7 +452,7 @@ export function validateDraft(
   today: string,
 ): LogResult<Omit<LogEntry, "id">> {
   if (draft.date === undefined || draft.date === null || draft.date === "") {
-    return fail("date-missing", "Pick the date you practised.", "date");
+    return fail("date-missing", "Pick the date you practiced.", "date");
   }
   if (!isIsoDate(draft.date)) {
     return fail(

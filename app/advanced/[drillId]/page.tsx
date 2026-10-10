@@ -17,14 +17,16 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const drill = getDrill((await params).drillId);
   if (!drill) return {};
   const url = `${SITE_URL}${drillHref(drill.id)}`;
-  const full = `${drill.title} | GuitarHub Advanced Lab`;
-  // Keep the title inside the ~60 character SERP window.
-  const title = full.length <= 60 ? full : `${drill.title} | GuitarHub`;
+  // Keyword-first search title and snippet, authored per drill and held to the
+  // ~60 character title window and a 140-155 character description by
+  // tests/advanced-lab.test.ts.
+  const title = `${drill.seo.title} | GuitarHub`;
+  const description = drill.seo.description;
   return {
-    title, description: drill.summary, alternates: { canonical: url },
+    title, description, alternates: { canonical: url },
     keywords: drillKeywords(drill.title, skillArea(drill.area).name),
-    openGraph: { title, description: drill.summary, url, siteName: "GuitarHub", type: "article" },
-    twitter: { card: "summary_large_image", title, description: drill.summary },
+    openGraph: { title, description, url, siteName: "GuitarHub", type: "article" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

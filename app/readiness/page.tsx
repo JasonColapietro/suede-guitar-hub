@@ -217,7 +217,7 @@ export default function ReadinessPage() {
             </p>
             <h2 className="mt-4 text-3xl leading-snug text-indigo-deep md:text-4xl">
               What the number is, and{" "}
-              <em className="font-display italic">what it is not.</em>
+              <em className="font-display italic">how to use it.</em>
             </h2>
 
             <ol className="mt-10 grid gap-4">
