@@ -5,10 +5,21 @@ import JsClassMarker from "@/components/JsClassMarker";
 import { keywordsFor } from "@/lib/keywords";
 import "./globals.css";
 
+// Fraunces is the display face for headings, and most hero H1s set a phrase in
+// its italic. With the default `swap`, the late-arriving italic was wider than
+// its Times-based fallback, so on a slow phone the H1 rewrapped to an extra
+// line and pushed the page down (CLS 0.12 on /tools, 0.11 on /tempo). With
+// `optional` the browser keeps whichever face it painted first: the fallback on
+// a cold first visit, Fraunces from cache on every visit after it. Nothing
+// shifts. It is not preloaded either: two high-priority font preloads competed
+// with the render-blocking stylesheet on 3G, and an `optional` face fetched
+// late is still cached for the next page.
 const fraunces = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
   variable: "--font-fraunces",
+  display: "optional",
+  preload: false,
 });
 
 const inter = Inter({
