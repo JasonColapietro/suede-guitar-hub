@@ -841,3 +841,77 @@ export function restoreTempoState(candidate: unknown): StoredTempoState | null {
     ),
   };
 }
+
+/* ------------------------------------------------------------------ *
+ * Rebuilding and shared progress
+ * ------------------------------------------------------------------ */
+
+/** The input a ladder was built from. */
+export function tempoLadderInput(ladder: TempoLadder): TempoInput {
+  return {
+    currentBpm: ladder.currentBpm,
+    targetBpm: ladder.targetBpm,
+    sessions: ladder.sessions,
+  };
+}
+
+export function sameTempoInput(left: TempoInput, right: TempoInput): boolean {
+  return (
+    left.currentBpm === right.currentBpm &&
+    left.targetBpm === right.targetBpm &&
+    left.sessions === right.sessions
+  );
+}
+
+/**
+ * The stored state after rebuilding to `next`, carrying every checked session
+ * whose rung still exists.
+ *
+ * A rung's id is its kind, its session number and its tempo, so pressing
+ * "Rebuild" on unchanged numbers produces the same ids and keeps every tick.
+ * Only rungs the new ladder no longer has lose theirs, and those are returned
+ * as `dropped` so the page can ask before discarding them.
+ */
+export function rebuildTempoState(
+  latest: StoredTempoState | null,
+  next: TempoLadder,
+): { state: StoredTempoState; dropped: string[] } {
+  const previous = latest?.completedRungIds ?? [];
+  const valid = rungIds(next);
+  const kept = [...new Set(previous)].filter((id) => valid.has(id));
+  const dropped = [...new Set(previous)].filter((id) => !valid.has(id));
+  return {
+    state: { input: tempoLadderInput(next), completedRungIds: kept },
+    dropped,
+  };
+}
+
+/**
+ * Mark one rung done or not done on the latest stored ladder.
+ *
+ * Returns `latest` unchanged when it is not the ladder the player was looking
+ * at — another tab rebuilt or cleared it — so a tick meant for one ladder is
+ * never written onto a different one.
+ */
+export function setTempoRungDone(
+  latest: StoredTempoState | null,
+  ladder: TempoLadder,
+  rungId: string,
+  done: boolean,
+): StoredTempoState | null {
+  if (!latest || !sameTempoInput(latest.input, tempoLadderInput(ladder))) return latest;
+  const without = latest.completedRungIds.filter((id) => id !== rungId);
+  return {
+    input: latest.input,
+    completedRungIds: normalizeTempoProgress(ladder, done ? [...without, rungId] : without),
+  };
+}
+
+/** Which form field a refusal is about, so focus and `aria-invalid` land on it. */
+export function tempoErrorField(
+  code: TempoErrorCode,
+): "current" | "target" | "sessions" {
+  if (code.startsWith("current-")) return "current";
+  if (code.startsWith("sessions-")) return "sessions";
+  return "target";
+}
