@@ -29,7 +29,7 @@ export type StorageArea = Pick<Storage, "getItem" | "setItem" | "removeItem">;
  * Callers fall back to their in-memory copy instead.
  */
 export type StoredRead<T> =
-  | { available: true; value: T | null }
+  | { available: true; value: T | null; persisted: boolean }
   | { available: false };
 
 export type StoredValue<T> = {
@@ -41,8 +41,8 @@ export type StoredValue<T> = {
   /**
    * Apply `change` to the latest stored value and write the result.
    *
-   * `fallback` is used only when storage cannot be read at all, which keeps a
-   * private window working from memory exactly as it did before.
+   * `fallback` is used when storage cannot be read. Failed writes are retained
+   * in memory too, so a readable but full store cannot undo the previous edit.
    */
   update: (
     fallback: T | null,
@@ -71,6 +71,10 @@ export function createStoredValue<T>(options: StoredValueOptions<T>): StoredValu
   const { key, restore } = options;
   const serialize = options.serialize ?? ((value: T) => value);
   const storage = options.storage ?? browserStorage;
+  // A full localStorage can still be readable. Keep an unsaved value until it
+  // can be written, unless another tab changes the backing value first. The
+  // baseline prevents retrying stale work over a newer saved plan or log.
+  let pending: { value: T | null; baseline: string | null | undefined } | null = null;
 
   function remove(): boolean {
     try {
@@ -86,9 +90,16 @@ export function createStoredValue<T>(options: StoredValueOptions<T>): StoredValu
     try {
       raw = storage().getItem(key);
     } catch {
+      if (pending) return { available: true, value: pending.value, persisted: false };
       return { available: false };
     }
-    if (raw === null || raw === "") return { available: true, value: null };
+    if (pending) {
+      if (raw === pending.baseline || (pending.baseline === undefined && raw === null)) {
+        return { available: true, value: pending.value, persisted: false };
+      }
+      pending = null;
+    }
+    if (raw === null || raw === "") return { available: true, value: null, persisted: true };
 
     let restored: T | null = null;
     try {
@@ -99,15 +110,24 @@ export function createStoredValue<T>(options: StoredValueOptions<T>): StoredValu
     // Unreadable is dropped rather than kept: leaving it would make every
     // later read fail the same way, and no tool can show it anyway.
     if (restored === null) remove();
-    return { available: true, value: restored };
+    return { available: true, value: restored, persisted: true };
   }
 
   function write(value: T | null): boolean {
-    if (value === null) return remove();
+    let baseline = pending?.baseline;
     try {
-      storage().setItem(key, JSON.stringify(serialize(value)));
+      baseline = storage().getItem(key);
+    } catch {
+      // Storage can reject reads and writes independently. Still try the
+      // write, and retain its input if both access paths are unavailable.
+    }
+    try {
+      if (value === null) storage().removeItem(key);
+      else storage().setItem(key, JSON.stringify(serialize(value)));
+      pending = null;
       return true;
     } catch {
+      pending = { value, baseline };
       return false;
     }
   }
@@ -121,8 +141,10 @@ export function createStoredValue<T>(options: StoredValueOptions<T>): StoredValu
     const next = change(base);
     // Returning the value it was given is how a change says "nothing to do",
     // such as a refused entry. Writing it back would only wake the other tabs.
-    if (next === base) return { value: next, persisted: latest.available };
-    const persisted = latest.available ? write(next) : false;
+    if (next === base && latest.available && latest.persisted) {
+      return { value: next, persisted: true };
+    }
+    const persisted = write(next);
     return { value: next, persisted };
   }
 
@@ -186,4 +208,11 @@ export function setMembership(
 ): string[] {
   const without = ids.filter((existing) => existing !== id);
   return member ? [...without, id] : without;
+}
+
+/** Clear only the exact plan the player chose to delete, not a newer tab's work. */
+export function clearConfirmedSnapshot<T>(latest: T | null, confirmed: T | null): T | null {
+  return confirmed !== null && JSON.stringify(latest) === JSON.stringify(confirmed)
+    ? null
+    : latest;
 }

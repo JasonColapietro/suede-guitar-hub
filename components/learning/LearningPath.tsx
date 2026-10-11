@@ -15,6 +15,14 @@ import type { PathLesson, PathOutline } from "@/lib/learning/path-outline";
 
 const lessonTypes = { concept: "Learn", exercise: "Practice", song: "Song", checkpoint: "Checkpoint" };
 
+function revealSection(id: string, focus = false) {
+  const target = document.getElementById(id);
+  if (!(target instanceof HTMLDetailsElement)) return;
+  target.open = true;
+  if (focus) target.querySelector("summary")?.focus({ preventScroll: true });
+  target.scrollIntoView({ block: "start" });
+}
+
 /**
  * The outline (titles, names, flags) comes from the server page; this
  * component adds what only the browser knows: saved progress, purchase access
@@ -36,10 +44,7 @@ export function LearningPath({ outline, singCourseHref }: { outline: PathOutline
 
   // /learn/guitar#stage-3 (the level picker's link) opens and shows that stage.
   useEffect(() => {
-    const reveal = () => {
-      const target = document.getElementById(window.location.hash.slice(1));
-      if (target instanceof HTMLDetailsElement) { target.open = true; target.scrollIntoView({ block: "start" }); }
-    };
+    const reveal = () => revealSection(window.location.hash.slice(1));
     reveal();
     window.addEventListener("hashchange", reveal);
     return () => window.removeEventListener("hashchange", reveal);
@@ -57,7 +62,12 @@ export function LearningPath({ outline, singCourseHref }: { outline: PathOutline
     </section>}
 
     {track === "guitar" && <nav className={styles.stageJump} aria-label="Jump to a stage">
-      {outline.levels.filter(level => level.stage).map(level => <a key={level.id} href={`#stage-${level.stage}`} data-current={level.id === currentStageId}>Stage {level.stage} · {level.name}</a>)}
+      {outline.levels.filter(level => level.stage).map(level => <a key={level.id} href={`#stage-${level.stage}`} data-current={level.id === currentStageId} onClick={event => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        // Clicking the current hash emits no hashchange, even if its panel was
+        // closed. Open it on every normal activation and continue focus there.
+        revealSection(`stage-${level.stage}`, true);
+      }}>Stage {level.stage} · {level.name}</a>)}
       <Link href="/advanced">Advanced Lab →</Link>
     </nav>}
 

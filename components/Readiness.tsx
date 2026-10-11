@@ -15,6 +15,7 @@ import {
   type ReadinessSong,
 } from "@/lib/readiness";
 import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import PracticeStorageNotice from "@/components/PracticeStorageNotice";
 
 /**
  * The Song Readiness Score tool.
@@ -54,9 +55,10 @@ export default function Readiness() {
   const [draftName, setDraftName] = useState("");
   const [error, setError] = useState("");
   const [hydrated, setHydrated] = useState(false);
+  const [storageUnavailable, setStorageUnavailable] = useState(false);
   const [focusTarget, setFocusTarget] = useState<string | null>(null);
   const [pendingRemoveId, setPendingRemoveId] = useState<string | null>(null);
-  const [pendingClear, setPendingClear] = useState(false);
+  const [pendingClear, setPendingClear] = useState<string[] | null>(null);
   const [notice, setNotice] = useState("");
 
   // The latest songs, for callbacks that outlive the render they were made in.
@@ -69,6 +71,7 @@ export default function Readiness() {
   // HTML and the first client render identical. Then follow other tabs.
   useEffect(() => {
     const restored = readinessStore.read();
+    setStorageUnavailable(!restored.available || !restored.persisted);
     if (restored.available && restored.value) {
       setSongs(restored.value);
       setActiveSongId(restored.value[0]?.id ?? null);
@@ -77,12 +80,13 @@ export default function Readiness() {
 
     return subscribeToStoredKey(READINESS_STORAGE_KEY, () => {
       const latest = readinessStore.read();
+      setStorageUnavailable(!latest.available || !latest.persisted);
       if (!latest.available) return;
       const next = latest.value ?? [];
       const ids = new Set(next.map((song) => song.id));
       setSongs(next);
       setPendingRemoveId((current) => (current && ids.has(current) ? current : null));
-      if (next.length === 0) setPendingClear(false);
+      if (next.length === 0) setPendingClear(null);
     });
   }, []);
 
@@ -91,10 +95,11 @@ export default function Readiness() {
    * songs on screen are only the fallback for storage that cannot be read.
    */
   function commit(change: (latest: ReadinessSong[]) => ReadinessSong[]) {
-    const { value } = readinessStore.update(songsRef.current, (latest) => {
+    const { value, persisted } = readinessStore.update(songsRef.current, (latest) => {
       const next = change(latest ?? []);
       return next.length > 0 ? next : null;
     });
+    setStorageUnavailable(!persisted);
     const next = value ?? [];
     songsRef.current = next;
     setSongs(next);
@@ -136,7 +141,7 @@ export default function Readiness() {
       setDraftName("");
       setError("");
       setNotice("");
-      setPendingClear(false);
+      setPendingClear(null);
       setFocusTarget(RESULT_HEADING_ID);
     } catch (caught) {
       setError(
@@ -169,10 +174,11 @@ export default function Readiness() {
   // Deletes the songs the confirmation counted. A song added in another tab
   // after the player agreed is kept, and the notice says so.
   function handleClear() {
-    const shown = new Set(songs.map((song) => song.id));
+    if (!pendingClear) return;
+    const shown = new Set(pendingClear);
     const next = commit((latest) => latest.filter((song) => !shown.has(song.id)));
     setActiveSongId(next[0]?.id ?? null);
-    setPendingClear(false);
+    setPendingClear(null);
     setPendingRemoveId(null);
     setDraftName("");
     setError("");
@@ -216,6 +222,8 @@ export default function Readiness() {
         other check, because two of them end a performance rather than dent it.
         Your songs stay in this browser.
       </p>
+
+      <PracticeStorageNotice unavailable={storageUnavailable} />
 
       <form onSubmit={handleAdd} className="mt-8" aria-busy={!hydrated}>
         <label
@@ -458,11 +466,11 @@ export default function Readiness() {
                   onClick={handleClear}
                   className={`${SMALL_BUTTON} border-violet/40 bg-violet-soft/15`}
                 >
-                  Delete all {songs.length} {songs.length === 1 ? "song" : "songs"} for good
+                  Delete {pendingClear.length} {pendingClear.length === 1 ? "song" : "songs"} for good
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPendingClear(false)}
+                  onClick={() => setPendingClear(null)}
                   className={SMALL_BUTTON}
                 >
                   Keep them
@@ -473,7 +481,7 @@ export default function Readiness() {
                 <button
                   type="button"
                   onClick={() => {
-                    setPendingClear(false);
+                    setPendingClear(null);
                     setPendingRemoveId(activeSong.id);
                   }}
                   className={SMALL_BUTTON}
@@ -484,7 +492,7 @@ export default function Readiness() {
                   type="button"
                   onClick={() => {
                     setPendingRemoveId(null);
-                    setPendingClear(true);
+                    setPendingClear(songs.map((item) => item.id));
                   }}
                   className={SMALL_BUTTON}
                 >
@@ -496,7 +504,7 @@ export default function Readiness() {
           {pendingRemoveId === activeSong.id || pendingClear ? (
             <p className="mt-4 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80 [overflow-wrap:anywhere]">
               {pendingClear
-                ? `This deletes every song in this browser and all of their checks. There is no other copy and no undo.`
+                ? `This deletes the ${pendingClear.length} selected ${pendingClear.length === 1 ? "song" : "songs"} and their checks. Songs added afterward stay in your repertoire. There is no other copy and no undo.`
                 : `This deletes ${activeSong.name} and its ${activeSong.checkedIds.length === 1 ? "one answered check" : `${activeSong.checkedIds.length} answered checks`}. There is no undo.`}
             </p>
           ) : null}

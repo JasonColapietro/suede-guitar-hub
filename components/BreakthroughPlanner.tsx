@@ -18,7 +18,8 @@ import {
   type GoalId,
   type StoredBreakthroughState,
 } from "@/lib/breakthrough";
-import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import { clearConfirmedSnapshot, createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import PracticeStorageNotice from "@/components/PracticeStorageNotice";
 import { STRUMLY } from "@/lib/site";
 
 const DEFAULT_PROFILE: BreakthroughProfile = {
@@ -54,10 +55,11 @@ export default function BreakthroughPlanner() {
   const [completedActionIds, setCompletedActionIds] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [hydrated, setHydrated] = useState(false);
+  const [storageUnavailable, setStorageUnavailable] = useState(false);
   const [focusPlan, setFocusPlan] = useState(false);
   const [editing, setEditing] = useState(false);
   const [pendingRebuild, setPendingRebuild] = useState<PendingRebuild | null>(null);
-  const [pendingClear, setPendingClear] = useState(false);
+  const [pendingClear, setPendingClear] = useState<StoredBreakthroughState | null>(null);
   const [notice, setNotice] = useState("");
 
   // What is on screen, for callbacks that outlive the render they were made in.
@@ -83,6 +85,7 @@ export default function BreakthroughPlanner() {
 
   useEffect(() => {
     const restored = breakthroughStore.read();
+    setStorageUnavailable(!restored.available || !restored.persisted);
     if (restored.available && restored.value) {
       show(restored.value);
       setProfile(restored.value.profile);
@@ -92,10 +95,12 @@ export default function BreakthroughPlanner() {
     // Another tab ticked, edited or cleared the plan.
     return subscribeToStoredKey(BREAKTHROUGH_STORAGE_KEY, () => {
       const latest = breakthroughStore.read();
+      setStorageUnavailable(!latest.available || !latest.persisted);
       if (!latest.available) return;
       setPendingRebuild(null);
+      setPendingClear(null);
       if (!latest.value) {
-        setPendingClear(false);
+        setPendingClear(null);
         setEditing(false);
       }
       show(latest.value);
@@ -121,14 +126,15 @@ export default function BreakthroughPlanner() {
   /** Write the plan for `next`, keeping every checked action it still has. */
   function commitProfile(next: BreakthroughProfile) {
     let dropped = 0;
-    const { value } = breakthroughStore.update(shown.current, (latest) => {
+    const { value, persisted } = breakthroughStore.update(shown.current, (latest) => {
       const rebuilt = rebuildBreakthroughState(latest, next);
       dropped = rebuilt.dropped.length;
       return rebuilt.state;
     });
+    setStorageUnavailable(!persisted);
     show(value);
     setPendingRebuild(null);
-    setPendingClear(false);
+    setPendingClear(null);
     setEditing(false);
     setError("");
     const kept = value?.completedActionIds.length ?? 0;
@@ -163,9 +169,10 @@ export default function BreakthroughPlanner() {
 
   function setActionDone(actionId: string, done: boolean) {
     if (!planProfile) return;
-    const { value } = breakthroughStore.update(shown.current, (latest) =>
+    const { value, persisted } = breakthroughStore.update(shown.current, (latest) =>
       setBreakthroughActionDone(latest, planProfile, actionId, done),
     );
+    setStorageUnavailable(!persisted);
     show(value);
     const replaced = !value || !sameBreakthroughProfile(value.profile, planProfile);
     setNotice(
@@ -177,7 +184,7 @@ export default function BreakthroughPlanner() {
 
   function startEditing() {
     if (planProfile) setProfile(planProfile);
-    setPendingClear(false);
+    setPendingClear(null);
     setNotice("");
     setEditing(true);
   }
@@ -191,10 +198,21 @@ export default function BreakthroughPlanner() {
   }
 
   function clearPlan() {
-    breakthroughStore.write(null);
+    if (!pendingClear) return;
+    const { value, persisted } = breakthroughStore.update(shown.current, (latest) =>
+      clearConfirmedSnapshot(latest, pendingClear),
+    );
+    setStorageUnavailable(!persisted);
+    if (value) {
+      show(value);
+      setPendingClear(null);
+      setNotice("This plan changed after you chose to clear it. The updated work has been kept.");
+      setFocusPlan(true);
+      return;
+    }
     show(null);
     setProfile(DEFAULT_PROFILE);
-    setPendingClear(false);
+    setPendingClear(null);
     setError("");
     setNotice("Plan cleared from this browser.");
   }
@@ -202,6 +220,7 @@ export default function BreakthroughPlanner() {
   if (!plan || editing) {
     return (
       <form onSubmit={buildPlan} className="breakthrough-builder" aria-busy={!hydrated}>
+        <PracticeStorageNotice unavailable={storageUnavailable} />
         <fieldset>
           <legend className="font-display text-3xl text-indigo-deep">
             {editing ? "Adjust your plan" : "Define one finish line"}
@@ -343,6 +362,7 @@ export default function BreakthroughPlanner() {
 
   return (
     <section className="breakthrough-plan" aria-labelledby="your-plan">
+      <PracticeStorageNotice unavailable={storageUnavailable} />
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
@@ -367,7 +387,7 @@ export default function BreakthroughPlanner() {
               </button>
               <button
                 type="button"
-                onClick={() => setPendingClear(false)}
+                onClick={() => setPendingClear(null)}
                 className="breakthrough-reset"
               >
                 Keep it
@@ -380,7 +400,7 @@ export default function BreakthroughPlanner() {
               </button>
               <button
                 type="button"
-                onClick={() => setPendingClear(true)}
+                onClick={() => setPendingClear(shown.current)}
                 className="breakthrough-reset"
               >
                 Clear this browser&apos;s plan

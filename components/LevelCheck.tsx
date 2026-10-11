@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import {
   PLACEMENT_QUESTIONS,
   PLACEMENT_RESULTS,
@@ -25,6 +25,7 @@ function complete(answers: Draft): answers is PlacementAnswers {
  */
 export default function LevelCheck() {
   const [answers, setAnswers] = useState<Draft>({});
+  const firstAnswer = useRef<HTMLInputElement>(null);
   const baseId = useId();
   const answered = PLACEMENT_QUESTIONS.filter((question) => answers[question.id] !== undefined).length;
   const result = complete(answers) ? placeLevel(answers) : null;
@@ -54,6 +55,7 @@ export default function LevelCheck() {
                     >
                       <input
                         id={id}
+                        ref={index === 0 && score === 0 ? firstAnswer : undefined}
                         type="radio"
                         name={`${baseId}-${question.id}`}
                         value={score}
@@ -105,7 +107,7 @@ export default function LevelCheck() {
             </div>
             <button
               type="button"
-              onClick={() => setAnswers({})}
+              onClick={() => { setAnswers({}); firstAnswer.current?.focus(); }}
               className="mt-6 min-h-11 text-sm font-semibold text-violet-pale underline underline-offset-4"
             >
               Answer again

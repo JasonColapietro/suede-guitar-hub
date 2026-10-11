@@ -176,14 +176,23 @@ export async function playReference(frequency: number, externalSignal: AbortSign
     const controller = new AbortController(), signal = controller.signal;
     const cancel = () => controller.abort();
     externalSignal.addEventListener('abort', cancel, { once: true });
-    const context = createAudioContext(), oscillator = context.createOscillator(), gain = context.createGain();
-    let closed = false;
+    let context: AudioContext | null = null, oscillator: OscillatorNode | null = null, gain: GainNode | null = null;
+    let closed = false, unwatch = () => {}, releaseSession = () => {};
     const stop = () => { if (closed)
-        return; closed = true; oscillator.disconnect(); gain.disconnect(); void context.close().catch(() => { }); };
+        return; closed = true; unwatch(); if (oscillator) oscillator.onended = null; oscillator?.disconnect(); gain?.disconnect(); void context?.close().catch(() => { }); };
     signal.addEventListener('abort', stop, { once: true });
-    const releaseSession = claimAudioSession(cancel);
     try {
+        // Each resource is owned before the next construction can throw.
+        context = createAudioContext();
+        oscillator = context.createOscillator();
+        gain = context.createGain();
+        releaseSession = claimAudioSession(cancel);
         await context.resume();
+        if (signal.aborted)
+            return false;
+        // A lost audio clock never reaches the oscillator's scheduled end.
+        // Resolve as interrupted so tuner and lesson controls can recover.
+        unwatch = watchAudioState(context, cancel);
         if (signal.aborted)
             return false;
         oscillator.frequency.value = frequency;
@@ -197,9 +206,10 @@ export async function playReference(frequency: number, externalSignal: AbortSign
         gain.gain.exponentialRampToValueAtTime(.0001, now + .9);
         oscillator.start(now);
         oscillator.stop(now + .95);
+        const playingOscillator = oscillator;
         await new Promise<void>(resolve => {
             const cancelled = () => resolve();
-            oscillator.onended = () => { signal.removeEventListener('abort', cancelled); resolve(); };
+            playingOscillator.onended = () => { signal.removeEventListener('abort', cancelled); resolve(); };
             signal.addEventListener('abort', cancelled, { once: true });
         });
         if (!signal.aborted)
@@ -214,6 +224,9 @@ export async function playReference(frequency: number, externalSignal: AbortSign
         signal.removeEventListener('abort', stop);
         externalSignal.removeEventListener('abort', cancel);
         releaseSession();
+        // Monitoring can synchronously cancel an already-closed context
+        // before its cleanup callback has been assigned to unwatch.
+        unwatch();
         stop();
     }
 }

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { getEventListeners } from 'node:events';
 import { claimAudioSession, playReference, startCapture, watchAudioState } from '../lib/audio/capture.ts';
 
 function deferred<T>() {
@@ -138,7 +139,7 @@ test('reference playback reports cancellation separately from a completed fade i
   const contexts: ReferenceContext[] = [];
   const timers: { callback: () => void; delay: number; cancelled: boolean }[] = [];
   class ReferenceContext {
-    currentTime = 0; destination = {}; closed = false;
+    state = 'running'; currentTime = 0; destination = {}; closed = false;
     oscillator = { frequency: { value: 0 }, type: 'sine', onended: null as (() => void) | null, connect() {}, disconnect() {}, start() {}, stop() {} };
     gain = { gain: { setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {} };
     constructor() { contexts.push(this); }
@@ -205,6 +206,65 @@ test('a brief iOS interruption resumes instead of stopping, while a lasting one 
   closed.state = 'closed'; closed.onstatechange?.();
   assert.equal(closedLost, 1);
 });
+
+for (const closedAtStart of [false, true]) {
+test(`reference playback releases its caller when the context ${closedAtStart ? 'starts closed' : 'closes before the tone ends'}`, async () => {
+  const contexts: ReferenceContext[] = [];
+  class ReferenceContext {
+    state = closedAtStart ? 'closed' : 'running'; currentTime = 0; destination = {};
+    onstatechange: (() => void) | null = null;
+    oscillator = { frequency: { value: 0 }, type: 'sine', onended: null as (() => void) | null, connect() {}, disconnect() {}, start() {}, stop() {} };
+    gain = { gain: { setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect() {}, disconnect() {} };
+    constructor() { contexts.push(this); }
+    async resume() {}
+    async close() { this.state = 'closed'; }
+    createOscillator() { return this.oscillator; }
+    createGain() { return this.gain; }
+  }
+  const original = Object.getOwnPropertyDescriptor(globalThis, 'AudioContext');
+  Object.defineProperty(globalThis, 'AudioContext', { configurable: true, value: ReferenceContext });
+  const controller = new AbortController();
+  let result: boolean | undefined;
+  const playback = playReference(110, controller.signal).then(value => { result = value; });
+  try {
+    await Promise.resolve();
+    const context = contexts[0];
+    context.state = 'closed'; context.onstatechange?.();
+    for (let i = 0; i < 6; i++) await Promise.resolve();
+    assert.equal(result, false, 'an interrupted tone must not leave reference controls waiting for an ended event that cannot fire');
+    assert.equal(context.onstatechange, null);
+  } finally {
+    controller.abort(); await playback;
+    if (original) Object.defineProperty(globalThis, 'AudioContext', original); else Reflect.deleteProperty(globalThis, 'AudioContext');
+  }
+});
+}
+
+for (const failingNode of ['oscillator', 'gain']) {
+  test(`reference playback releases setup resources when ${failingNode} construction fails`, async () => {
+    let closed = false, oscillatorDisconnected = false;
+    class FailedContext {
+      async close() { closed = true; }
+      createOscillator() {
+        if (failingNode === 'oscillator') throw new Error('Audio node unavailable');
+        return { disconnect() { oscillatorDisconnected = true; } };
+      }
+      createGain() { throw new Error('Audio node unavailable'); }
+    }
+    const original = Object.getOwnPropertyDescriptor(globalThis, 'AudioContext');
+    Object.defineProperty(globalThis, 'AudioContext', { configurable: true, value: FailedContext });
+    const controller = new AbortController();
+    try {
+      await assert.rejects(playReference(110, controller.signal), /Audio node unavailable/);
+      assert.equal(closed, true, 'a partially constructed reference must close its audio context');
+      assert.equal(getEventListeners(controller.signal, 'abort').length, 0, 'failed setup must detach its caller abort listener');
+      assert.equal(oscillatorDisconnected, failingNode === 'gain');
+    } finally {
+      controller.abort();
+      if (original) Object.defineProperty(globalThis, 'AudioContext', original); else Reflect.deleteProperty(globalThis, 'AudioContext');
+    }
+  });
+}
 
 test('audio monitoring recovers or reports a context already suspended when monitoring begins', async () => {
   let resumed = 0, lost = 0;
