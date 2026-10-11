@@ -64,8 +64,11 @@ export function LearningPath({ outline, singCourseHref }: { outline: PathOutline
     {track === "guitar" && <nav className={styles.stageJump} aria-label="Jump to a stage">
       {outline.levels.filter(level => level.stage).map(level => <a key={level.id} href={`#stage-${level.stage}`} data-current={level.id === currentStageId} onClick={event => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        // Clicking the current hash emits no hashchange, even if its panel was
-        // closed. Open it on every normal activation and continue focus there.
+        // Native fragment activation would override summary focus after this
+        // handler. Keep its URL/Back behavior while opening the panel directly.
+        event.preventDefault();
+        const hash = `#stage-${level.stage}`;
+        if (window.location.hash !== hash) window.history.pushState(null, "", hash);
         revealSection(`stage-${level.stage}`, true);
       }}>Stage {level.stage} · {level.name}</a>)}
       <Link href="/advanced">Advanced Lab →</Link>
