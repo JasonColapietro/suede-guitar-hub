@@ -63,24 +63,31 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
     `Goal: ${payload.goal}`,
   ].join("\n");
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "GuitarHub Applications <applications@guitarhub.org>",
-      to: ["info@suedeai.ai"],
-      reply_to: payload.email,
-      subject: `GuitarHub application — ${payload.name}`,
-      text,
-    }),
-  });
+  let response: Response | null = null;
+  try {
+    response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "GuitarHub Applications <applications@guitarhub.org>",
+        to: ["info@suedeai.ai"],
+        reply_to: payload.email,
+        subject: `GuitarHub application — ${payload.name}`,
+        text,
+      }),
+      // A hung provider must not hold the request open; the fallback below applies.
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (error) {
+    console.error("apply: email request failed", error instanceof Error ? error.name : "unknown");
+  }
 
-  if (!response.ok) {
-    const detail = await response.text().catch(() => "");
-    console.error("apply: email send failed", response.status, detail);
+  if (!response?.ok) {
+    const detail = response ? await response.text().catch(() => "") : "";
+    console.error("apply: email send failed", response?.status ?? "network", detail);
     return NextResponse.json(
       {
         ok: false,
