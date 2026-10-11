@@ -75,15 +75,10 @@
 .lessonNavigation a { min-height: 44px; display: inline-flex; align-items: center; max-width: 45%; text-decoration: underline; text-underline-offset: 4px; }
 @media(max-width: 720px) { .tracks, .lessonGrid { grid-template-columns: 1fr; } .continue { grid-template-columns: 1fr; } .continue .primary { justify-self: start; } .module { margin-left: 0; } .level > summary { gap: .8rem; } .lessonLink { padding: 1rem; gap: .65rem; } .lessonLink > :last-child { font-size: .8rem; } .lessonNavigation a { max-width: 100%; } }
 @media(prefers-reduced-motion: reduce) { .shell { scroll-behavior: auto; } }
-.stringGuide { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 0 1rem; margin-bottom: 1.5rem; }
 .tuningMeter { height: 8px; border-radius: 4px; background: #d8cede; position: relative; margin: 1rem 10px; }
 .tuningMeter::before { content: ""; position: absolute; width: 2px; height: 24px; left: 50%; top: -8px; background: #796784; }
 .tuningMeter span { position: absolute; width: 20px; height: 20px; border-radius: 50%; top: -6px; transform: translateX(-50%); background: #ac6a12; }
 .tuningMeter span[data-near=true] { background: #36703a; }
-.stringTable { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .9rem; }
-.stringTable th, .stringTable td { text-align: left; padding: .55rem .75rem; border-bottom: 1px solid var(--line); }
-.stringTable th { font-weight: 650; }
-.stringGuide details summary { cursor: pointer; min-height: 44px; padding: .6rem 0; font-weight: 650; }
 .check { margin-top: .6rem; font-size: .9rem; color: #62576f; }
 .practiceSegments { list-style: none; margin: 1rem 0; padding: 0; }
 .practiceSegments li { display: grid; grid-template-columns: 65px 1fr; gap: .75rem; line-height: 1.6; padding: .65rem 0; border-bottom: 1px solid var(--line); }
