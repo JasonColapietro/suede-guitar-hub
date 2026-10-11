@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
 import { APP_STORE, LIFETIME } from "@/lib/site";
-import { accountConfiguration } from "@/lib/learning-auth/config";
+import { accountConfiguration, safeAccountDestination } from "@/lib/learning-auth/config";
 import { resolveAccount } from "@/lib/learning-auth/server";
 import AccountSignIn from "./sign-in";
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
@@ -12,11 +12,12 @@ import { AccountSyncControls, ScopedAccountSignOut } from "@/components/learning
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Your account | GuitarHub", robots: { index: false, follow: false } };
 
-export default async function AccountPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function AccountPage({ searchParams }: { searchParams: Promise<{ error?: string; next?: string | string[] }> }) {
   const configuration = accountConfiguration();
   let unavailable = false;
   const account = configuration ? await resolveAccount().catch(() => { unavailable = true; return null; }) : null;
   const params = await searchParams;
+  const returnTo = safeAccountDestination(params.next);
   const access = account ? await getVerifiedLearningAccess() : null;
   return <Article eyebrow="GuitarHub" title="Your account" dek="Keep playing on your own terms." updated="2026-09-07" showPracticeCallToAction={false}>
     {!configuration ? <p>Web purchase verification and account sync are not available yet. Lessons open with lifetime access, {LIFETIME.oneTime}, which you can buy or restore in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone; your saved practice records remain on this device.</p>
@@ -27,8 +28,9 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
       </> : <>
         <p>Sign in to an existing Suede account using an email code. This page does not create an account. Lessons require verified lifetime access. The standalone practice tools do not require an account.</p>
         {params.error && <p role="alert">Sign-in did not finish. Please try again.</p>}
-        <AccountSignIn />
+        <AccountSignIn returnTo={returnTo} />
       </>}
+    {returnTo !== "/account" && <p><Link href={returnTo}>Return to your lesson</Link></p>}
     <p><Link href="/learn/guitar">Return to guitar lessons</Link> · <Link href="/privacy">Privacy</Link></p>
   </Article>;
 }

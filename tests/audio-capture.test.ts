@@ -4,9 +4,66 @@ import { claimAudioSession, playReference, startCapture, watchAudioState } from 
 
 function deferred<T>() {
   let resolve!: (value: T) => void;
-  const promise = new Promise<T>(done => { resolve = done; });
-  return { promise, resolve };
+  let reject!: (reason: Error) => void;
+  const promise = new Promise<T>((done, fail) => { resolve = done; reject = fail; });
+  return { promise, resolve, reject };
 }
+
+for (const grantAfterCancel of [false, true]) {
+  test(`capture releases a microphone granted ${grantAfterCancel ? 'after' : 'before'} cancellation while audio resume is pending`, async () => {
+    const resuming = deferred<void>(), requesting = deferred<unknown>();
+    const track = { stopped: false, stop() { this.stopped = true; } };
+    const stream = { getTracks: () => [track], getAudioTracks: () => [track] };
+    let closed = false;
+    class PendingContext {
+      resume() { return resuming.promise; }
+      async close() { closed = true; }
+    }
+    const originals = new Map(['AudioContext', 'navigator'].map(name => [name, Object.getOwnPropertyDescriptor(globalThis, name)]));
+    Object.defineProperty(globalThis, 'AudioContext', { configurable: true, value: PendingContext });
+    Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { mediaDevices: { getUserMedia: () => requesting.promise } } });
+    const controller = new AbortController();
+    const opening = startCapture(() => {}, () => {}, controller.signal);
+    const rejected = assert.rejects(opening, /cancelled/);
+    try {
+      if (!grantAfterCancel) { requesting.resolve(stream); await Promise.resolve(); }
+      controller.abort();
+      if (grantAfterCancel) { requesting.resolve(stream); await Promise.resolve(); }
+      assert.equal(closed, true);
+      assert.equal(track.stopped, true, 'Stop must release a granted mic without waiting for browser audio resume');
+    } finally {
+      controller.abort();
+      resuming.resolve();
+      await rejected;
+      for (const [name, descriptor] of originals) { if (descriptor) Object.defineProperty(globalThis, name, descriptor); else Reflect.deleteProperty(globalThis, name); }
+    }
+  });
+}
+
+test('capture reports denied microphone permission without waiting for audio resume', async () => {
+  const resuming = deferred<void>(), requesting = deferred<unknown>();
+  let closed = false, failure: unknown;
+  class PendingContext {
+    resume() { return resuming.promise; }
+    async close() { closed = true; }
+  }
+  const originals = new Map(['AudioContext', 'navigator'].map(name => [name, Object.getOwnPropertyDescriptor(globalThis, name)]));
+  Object.defineProperty(globalThis, 'AudioContext', { configurable: true, value: PendingContext });
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { mediaDevices: { getUserMedia: () => requesting.promise } } });
+  const controller = new AbortController();
+  const opening = startCapture(() => {}, () => {}, controller.signal).catch(error => { failure = error; });
+  try {
+    requesting.reject(new Error('Permission denied'));
+    for (let i = 0; i < 6; i++) await Promise.resolve();
+    assert.match(String(failure), /Permission denied/);
+    assert.equal(closed, true);
+  } finally {
+    resuming.resolve();
+    await opening;
+    controller.abort();
+    for (const [name, descriptor] of originals) { if (descriptor) Object.defineProperty(globalThis, name, descriptor); else Reflect.deleteProperty(globalThis, name); }
+  }
+});
 
 test('capture cancels pending setup, closes late streams, and permits only one audio input', async () => {
   let requests = 0;
@@ -147,4 +204,15 @@ test('a brief iOS interruption resumes instead of stopping, while a lasting one 
   watchAudioState(closed as unknown as AudioContext, () => closedLost++, 20);
   closed.state = 'closed'; closed.onstatechange?.();
   assert.equal(closedLost, 1);
+});
+
+test('audio monitoring recovers or reports a context already suspended when monitoring begins', async () => {
+  let resumed = 0, lost = 0;
+  const context = { state: 'suspended', onstatechange: null, async resume() { resumed++; } };
+  const unwatch = watchAudioState(context as unknown as AudioContext, () => lost++, 20);
+  try {
+    assert.equal(resumed, 1, 'an existing suspension needs recovery without another state-change event');
+    await new Promise(done => setTimeout(done, 40));
+    assert.equal(lost, 1, 'a context that stays suspended cannot leave practice waiting forever');
+  } finally { unwatch(); }
 });

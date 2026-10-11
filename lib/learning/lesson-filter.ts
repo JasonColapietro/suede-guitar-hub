@@ -9,9 +9,10 @@ export interface SearchableLesson { title: string; summary: string; type: Lesson
 function searchText(text: string) { return text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().replaceAll("’", "'"); }
 
 /** The native library's filter and word-search semantics, over actual content. Data-free, so the browser can load it without the curriculum. */
-export function lessonMatcher(filter: LessonFilter = "guided", query = "") {
+export function lessonMatcher(filter: LessonFilter = "guided", query = "", levelName = "") {
   const words = searchText(query).split(/\s+/).filter(Boolean);
   return (entry: SearchableLesson) => {
+    if (levelName && entry.levelName !== levelName) return false;
     if (filter === "guided" && !entry.isGuided) return false;
     if (filter === "songs" && !(entry.isGuided && entry.type === "song")) return false;
     if (filter === "microphone" && !entry.mic) return false;

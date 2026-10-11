@@ -5,6 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { TuningGuide } from "@/components/learning/TuningGuide";
 import { Metronome } from "@/components/practice/Metronome";
+import PracticeWorkspace from "@/components/PracticeWorkspace";
 import { SITE_URL } from "@/lib/site";
 import learningStyles from "@/components/learning/Learning.module.css";
 import styles from "@/components/practice/PracticeTools.module.css";
@@ -37,6 +38,7 @@ export default function PracticePage() {
       <div className={styles.tools}><Metronome /><div className={styles.tuner} id="tuner"><TuningGuide /></div></div>
       <p className={learningStyles.notice}>The tuner asks for microphone access when you start it. Audio is processed in this browser and is not uploaded or saved. The metronome and reference tones do not need microphone permission. Starting another audio tool stops the current one; leaving this page or hiding the tab stops the sound and microphone.</p>
       <p className={learningStyles.small}>Use one string at a time. The tuner shows pitch and octave, not complete chords or a lesson score. These tools do not record lesson completion.</p>
+      <PracticeWorkspace />
       <div className={styles.links}><Link className={learningStyles.primary} href="/learn/guitar">Back to guitar lessons</Link><Link className={learningStyles.secondary} href="/tools">More practice tools</Link></div>
     </main><SiteFooter />
   </>;

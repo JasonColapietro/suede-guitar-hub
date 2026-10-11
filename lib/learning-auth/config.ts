@@ -13,8 +13,8 @@ export function accountConfiguration(): PublicAccountConfiguration | null {
 }
 
 /** Callback destinations stay inside the account and learning surfaces. */
-export function safeAccountDestination(value: string | null): string {
-  if (!value || !/^\/(?:account|learn)(?:[/?]|$)/.test(value) || /[\\\r\n]/.test(value)) return "/account";
+export function safeAccountDestination(value: unknown): string {
+  if (typeof value !== "string" || !/^\/(?:account|learn)(?:[/?]|$)/.test(value) || /[\\\r\n]/.test(value)) return "/account";
   try {
     const parsed = new URL(value, "https://guitarhub.org");
     if (parsed.origin !== "https://guitarhub.org" || !/^\/(?:account|learn)(?:\/|$)/.test(parsed.pathname)) return "/account";

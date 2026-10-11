@@ -57,8 +57,9 @@ test("the vendored contract is the shape this repo expects", () => {
   // Pinned here as well as there so a vendored copy predating it fails the
   // parity suite rather than the citation suite, where the error is less clear.
   // Versions 3-7 added the pitch engine, vibrato, programs, free weeks and
-  // breath detection; none of them changes the editorial section.
-  assert.equal(contract.version, 7);
+  // breath detection. Version 8 publishes warm-up onset grace, gaps and range
+  // caps; the measurements and companion links consumed here remain valid.
+  assert.equal(contract.version, 8);
   assert.equal(contract.reference.repo, "JasonColapietro/sing");
   assert.ok(Object.keys(measurements).length > 10, "measurement section is vacuous");
 });

@@ -12,6 +12,7 @@ import { breadcrumbList, crumbTrail } from "../lib/breadcrumbs.ts";
 import { DRILLS, drillHref } from "../lib/advanced/drills.ts";
 import { allLessons, lessonHref } from "../lib/learning/curriculum.ts";
 import { canOpenModule, guestLearningAccess, isLessonReady } from "../lib/learning/access.ts";
+import { primaryNavigation } from "../lib/site-navigation.ts";
 
 const SITE_URL = "https://guitarhub.org";
 
@@ -393,15 +394,14 @@ test("routes the homepage primary navigation through the crawlable hubs", () => 
   const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
   assert.match(home, /<SiteNav \/>/, "the homepage must render the shared primary navigation");
   const source = readFileSync(new URL("../components/SiteNav.tsx", import.meta.url), "utf8");
-  const navLinks = source.match(/const NAV_LINKS = \[[\s\S]*?\n\] as const;/)?.[0];
-
-  assert.ok(navLinks, "components/SiteNav.tsx must define its primary navigation links");
-  assert.match(navLinks, /href: "\/learn\/guitar"/);
-  assert.match(navLinks, /href: "\/advanced"/);
-  assert.match(navLinks, /href: "\/tools"/);
-  assert.match(
-    navLinks,
-    /href: "\/guides", label: "Guides"/,
+  assert.match(source, /primaryNavigation\.map\(/, "the shared header must render the navigation registry");
+  const navLinks = new Map(primaryNavigation.map(({ href, label }) => [href, label]));
+  assert.equal(navLinks.get("/learn/guitar"), "Lessons");
+  assert.equal(navLinks.get("/advanced"), "Advanced");
+  assert.equal(navLinks.get("/tools"), "Tools");
+  assert.equal(
+    navLinks.get("/guides"),
+    "Guides",
     "the Guides link must reach the guides hub (which lists /method), not bypass it for one article",
   );
 });

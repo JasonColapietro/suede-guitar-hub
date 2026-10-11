@@ -12,6 +12,8 @@ const guided = new Set(guidedLessonIds);
 const lessons = (index as unknown as LessonSearchIndex).lessons.map(lesson => ({ ...lesson, isGuided: guided.has(lesson.id) }));
 
 export type SearchResult = LessonSearchEntry & { isGuided: boolean };
-export function searchGuitarLessons(filter: LessonFilter = "guided", query = ""): SearchResult[] {
-  return lessons.filter(lessonMatcher(filter, query));
+export const guitarLessonLevels = [...new Set(lessons.map(lesson => lesson.levelName))];
+
+export function searchGuitarLessons(filter: LessonFilter = "guided", query = "", levelName = ""): SearchResult[] {
+  return lessons.filter(lessonMatcher(filter, query, levelName));
 }

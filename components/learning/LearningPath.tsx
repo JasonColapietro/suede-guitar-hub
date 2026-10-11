@@ -63,6 +63,13 @@ export function LearningPath({ outline, singCourseHref }: { outline: PathOutline
 
     <p className={`${styles.small} ${styles.muted}`}>{access.status === "unavailable" ? "We could not verify purchase access. Lessons remain locked and your history is kept." : ownsTrack ? "Verified lifetime access: every guided lesson in this track is open." : "Every lesson requires verified lifetime access. Browse the curriculum below."} Progress saves in this browser.{access.enabled && <> <Link href="/account">Account</Link></>}</p>
 
+    {/* The search and its index load the first time the panel opens; the
+        lesson titles it searches are listed in the stages below. */}
+    <details id="lesson-search" className={styles.level} onToggle={event => { if (event.currentTarget.open) setSearchOpened(true); }}>
+      <summary><span className={styles.stage} aria-hidden="true">⌕</span><div><h2>Search every lesson and song</h2><p className={styles.muted}>By song, artist, chord or skill.</p></div></summary>
+      {searchOpened && <LessonLibrary track={track} />}
+    </details>
+
     {outline.levels.map(level => {
       const lessonIds = level.modules.flatMap(module => module.lessons.map(lesson => lesson.id));
       const doneHere = lessonIds.filter(id => progress.lessons[id]?.assessment === "ready" && isLessonReady(track, id)).length;
@@ -81,12 +88,5 @@ export function LearningPath({ outline, singCourseHref }: { outline: PathOutline
     })}
 
     {track === "guitar" && <section className={styles.continue} aria-label="Daily guitar practice"><div><h2>Need a daily routine?</h2><p>Seven blocks, about 21 minutes: tune, shapes, changes and songs.</p></div><Link className={styles.primary} href="/learn/guitar/routine">Open practice routine</Link></section>}
-
-    {/* The search and its index load the first time the panel opens; the
-        lesson titles it searches are already listed in the stages above. */}
-    <details className={styles.level} onToggle={event => { if (event.currentTarget.open) setSearchOpened(true); }}>
-      <summary><span className={styles.stage} aria-hidden="true">⌕</span><div><h2>Search every lesson and song</h2><p className={styles.muted}>By song, artist, chord or skill.</p></div></summary>
-      {searchOpened && <LessonLibrary track={track} />}
-    </details>
   </>;
 }

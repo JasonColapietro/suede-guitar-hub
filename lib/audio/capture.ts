@@ -28,7 +28,7 @@ export function createAudioContext(options?: AudioContextOptions): AudioContext 
 export function watchAudioState(context: AudioContext, onLost: () => void, graceMs = 1500) {
     let timer: ReturnType<typeof setTimeout> | null = null, done = false;
     const clear = () => { if (timer !== null) { clearTimeout(timer); timer = null; } };
-    context.onstatechange = () => {
+    const inspect = () => {
         if (done) return;
         const state = context.state as string;
         if (state === 'running') { clear(); return; }
@@ -36,6 +36,10 @@ export function watchAudioState(context: AudioContext, onLost: () => void, grace
         void context.resume().catch(() => { });
         if (timer === null) timer = setTimeout(() => { timer = null; if (!done && (context.state as string) !== 'running') { done = true; onLost(); } }, graceMs);
     };
+    context.onstatechange = inspect;
+    // Setup can finish after the browser has already suspended the context.
+    // Waiting for another event in that state leaves the practice clock frozen.
+    inspect();
     return () => { done = true; clear(); context.onstatechange = null; };
 }
 let interruptCurrentAudio: (() => void) | null = null;
@@ -97,9 +101,18 @@ export async function startCapture(onSamples: (samples: Float32Array, time: numb
         // awaiting one before asking for the other lost the gesture and left
         // the exercise sitting on "Get ready" with no audio flowing.
         const resuming = context.resume().catch(() => { });
-        const requesting = navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
-        await resuming;
-        stream = await requesting;
+        const requesting = navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false } }).then(input => {
+            // Own the mic as soon as permission resolves, even when resume is
+            // still pending. Stop must release it in either completion order.
+            if (signal.aborted || stopped) {
+                input.getTracks().forEach(t => t.stop());
+                throw new Error('Microphone setup was cancelled.');
+            }
+            stream = input;
+            return input;
+        });
+        // Observe both immediately so denial is handled while resume is pending.
+        [stream] = await Promise.all([requesting, resuming]);
         if (signal.aborted || stopped) {
             stream.getTracks().forEach(t => t.stop());
             throw new Error('Microphone setup was cancelled.');
