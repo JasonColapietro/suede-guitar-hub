@@ -10,6 +10,15 @@ test("account callbacks cannot leave the learning/account surfaces", () => {
   }
 });
 
+test("account return destinations reject ambiguous query values and keep lesson queries", () => {
+  const lesson = "/learn/guitar/g-l1-m1-02?practice=1";
+  assert.equal(safeAccountDestination(lesson), lesson);
+  assert.equal(safeAccountDestination("/learn/voice/materials"), "/learn/voice/materials");
+  for (const value of [[lesson], [lesson, "https://evil.example"], undefined, 123, {}, "/learn/%2e%2e/%2e%2e/apply", "javascript:alert(1)"]) {
+    assert.equal(safeAccountDestination(value), "/account", JSON.stringify(value));
+  }
+});
+
 test("browser account mutations require an exact origin", () => {
   const url = "https://guitarhub.org/auth/sign-out";
   assert.equal(isSameOriginMutation(new Request(url, { headers: { origin: "https://guitarhub.org" } })), true);

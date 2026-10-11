@@ -75,6 +75,12 @@ test('real library exposes native filter names, search label and honest preview/
   assert.match(markup, /Mic exercises/);
   assert.match(markup, /All topics/);
   assert.match(markup, /135 results/);
+  assert.match(markup, /Stage or collection<select/);
+  assert.match(markup, /All stages and songs/);
+  assert.match(markup, /<option value="Popular Song Companions">Popular Song Companions<\/option>/);
+  assert.match(markup, /aria-pressed="true"[^>]*>Guided<span[^>]*> \(135\)<\/span>/);
+  assert.match(markup, /role="status" aria-atomic="true"/);
+  assert.match(markup, /Popular Song Companions · /);
   assert.match(markup, /Lesson preview/);
   assert.equal(accessibleLessonIds('guitar', guestLearningAccess).length, 0);
   assert.doesNotMatch(markup, />Available<\/span>/);

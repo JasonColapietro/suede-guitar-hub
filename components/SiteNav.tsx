@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
+import { currentNavigationHref, primaryNavigation } from "@/lib/site-navigation";
 
 /**
  * Shared paper header.
@@ -17,15 +19,9 @@ import { useEffect, useId, useRef, useState } from "react";
  * anchor targets and keyboard focus never land underneath the header.
  */
 
-const NAV_LINKS = [
-  { href: "/learn/guitar", label: "Lessons" },
-  { href: "/advanced", label: "Advanced" },
-  { href: "/practice", label: "Practice" },
-  { href: "/tools", label: "Tools" },
-  { href: "/guides", label: "Guides" },
-] as const;
-
 export default function SiteNav() {
+  const pathname = usePathname();
+  const currentHref = currentNavigationHref(pathname);
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -65,6 +61,7 @@ export default function SiteNav() {
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 px-4 py-2.5 sm:gap-x-3 sm:px-6 sm:py-3 lg:flex-nowrap lg:gap-x-6 lg:py-4">
         <Link
           href="/"
+          onClick={() => setOpen(false)}
           className="mr-auto inline-flex min-h-11 items-center whitespace-nowrap font-display text-lg font-semibold min-[360px]:text-xl tracking-wide text-indigo-deep sm:text-2xl lg:mr-0"
         >
           GUITARHUB
@@ -99,11 +96,12 @@ export default function SiteNav() {
           className={`site-nav-links order-last w-full text-sm font-medium text-ink/70 lg:order-none lg:ml-auto lg:flex lg:w-auto ${open ? "flex" : "hidden"}`}
         >
           <ul className="grid w-full grid-cols-2 gap-x-4 pb-1 sm:flex sm:flex-wrap sm:gap-x-6 lg:gap-x-8 lg:pb-0">
-            {NAV_LINKS.map((link) => (
+            {primaryNavigation.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="inline-flex min-h-11 items-center transition hover:text-indigo-deep"
+                  className={`inline-flex min-h-11 items-center transition hover:text-indigo-deep ${currentHref === link.href ? "font-semibold text-indigo-deep underline decoration-2 underline-offset-8" : ""}`}
+                  aria-current={currentHref === link.href ? pathname === link.href ? "page" : "location" : undefined}
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
@@ -115,6 +113,7 @@ export default function SiteNav() {
 
         <Link
           href="/start"
+          onClick={() => setOpen(false)}
           className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-indigo-deep px-3 py-2.5 text-xs font-semibold text-cream transition hover:bg-indigo-mid sm:px-4 sm:text-sm lg:px-5"
         >
           Find your level

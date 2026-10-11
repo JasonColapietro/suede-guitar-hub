@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { safeAccountDestination } from "@/lib/learning-auth/config";
 
-export default function AccountSignIn() {
+export default function AccountSignIn({ returnTo = "/account" }: { returnTo?: string }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -20,7 +21,7 @@ export default function AccountSignIn() {
         body: JSON.stringify(sent ? { email, code } : { email }),
       });
       if (!response.ok) throw new Error("sign_in_failed");
-      if (sent) { router.replace("/account"); router.refresh(); return; }
+      if (sent) { router.replace(safeAccountDestination(returnTo)); router.refresh(); return; }
       setSent(true);
       setMessage("If this email matches an existing Suede account, check your inbox for a sign-in code.");
     } catch { setMessage(sent ? "The code could not be verified. Check the email and code, then try again." : "Sign-in is unavailable right now. Your local lessons and practice are still available."); }

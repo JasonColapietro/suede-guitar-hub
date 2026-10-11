@@ -6,6 +6,7 @@ import ApplyForm from "@/components/ApplyForm";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import LevelPicker from "@/components/LevelPicker";
+import PracticeWorkspace from "@/components/PracticeWorkspace";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { APP_STORE, LIFETIME, STRUMLY, TOOLS, spellOut } from "@/lib/site";
@@ -193,6 +194,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <PracticeWorkspace compact />
 
         {/* How it works: the four steps of the 30-day plan */}
         <section id="how-it-works" aria-labelledby="how-it-works-title" className="mx-auto max-w-6xl px-6 py-20">
