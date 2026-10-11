@@ -77,6 +77,9 @@ test("answering placement again clears every answer and returns focus to the fir
 test("stage jump reopens the current hash and focuses its summary without intercepting modified clicks", () => {
   let scrolls = 0;
   let focused = 0;
+  let prevented = 0;
+  const location = { hash: "#stage-3" };
+  const history: string[] = [];
   class Details {
     open = false;
     scrollIntoView() { scrolls++; }
@@ -96,7 +99,11 @@ test("stage jump reopens the current hash and focuses its summary without interc
   }, {
     HTMLDetailsElement: Details,
     document: { getElementById: (id: string) => id === "stage-3" ? target : null },
-    window: { location: { hash: "#stage-3" }, addEventListener() {}, removeEventListener() {} },
+    window: {
+      location,
+      history: { pushState: (_state: unknown, _title: string, hash: string) => { history.push(hash); location.hash = hash; } },
+      addEventListener() {}, removeEventListener() {},
+    },
   });
   const tree = h.render("LearningPath", {
     outline: { track: "guitar", stageCount: 1, levels: [{ id: "third", stage: 3, name: "Open chords", modules: [], extras: [] }] },
@@ -108,12 +115,26 @@ test("stage jump reopens the current hash and focuses its summary without interc
   const link = tree.find(node => node.type === "a" && node.props.href === "#stage-3")!;
   assert.equal(typeof link.props.onClick, "function", "same-hash clicks need a handler because they emit no hashchange");
   const click = link.props.onClick as (event: Record<string, unknown>) => void;
-  click({ button: 0, ctrlKey: true });
-  assert.equal(target.open, false, "open-in-new-tab clicks leave this page alone");
+  for (const modifiers of [{ ctrlKey: true }, { metaKey: true }, { shiftKey: true }, { altKey: true }, { button: 1 }, { defaultPrevented: true }]) {
+    click({ button: 0, preventDefault: () => { prevented++; }, ...modifiers });
+    assert.equal(target.open, false, "modified clicks leave this page alone");
+  }
+  assert.equal(prevented, 0, "modified clicks keep native browser behavior");
+  assert.deepEqual(history, []);
   const previousScrolls = scrolls;
   const previousFocus = focused;
-  click({ button: 0 });
+  click({ button: 0, preventDefault: () => { prevented++; } });
+  assert.equal(prevented, 1, "the native fragment action must not override summary focus");
+  assert.deepEqual(history, [], "reopening the current stage does not add duplicate history");
   assert.equal(target.open, true, "a collapsed current stage opens again");
   assert.equal(scrolls, previousScrolls + 1);
   assert.equal(focused, previousFocus + 1, "keyboard navigation continues at the chosen stage");
+  target.open = false;
+  location.hash = "#stage-1";
+  click({ button: 0, preventDefault: () => { prevented++; } });
+  assert.equal(prevented, 2);
+  assert.deepEqual(history, ["#stage-3"], "changing stages creates one Back-navigable URL entry");
+  assert.equal(location.hash, "#stage-3");
+  assert.equal(target.open, true);
+  assert.equal(focused, previousFocus + 2);
 });
