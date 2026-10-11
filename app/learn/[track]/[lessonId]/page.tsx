@@ -15,6 +15,8 @@ import { LessonSession } from "@/components/learning/LessonSession";
 import { vocalMaterialForModule } from "@/lib/learning/vocal-material";
 import styles from "@/components/learning/Learning.module.css";
 import { lessonKeywords } from "@/lib/keywords";
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { cardFor } from "@/lib/og-cards";
 type Params = { track: string; lessonId: string };
 // Never cache a purchaser's lesson response for another visitor.
 export const dynamic = "force-dynamic";
@@ -23,8 +25,26 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!isTrackId(track)) return {};
   const entry = getLesson(track, lessonId);
   if (!entry) return {};
-  return { title: `${entry.lesson.title} | GuitarHub ${trackNames[track]}`, description: entry.lesson.summary, keywords: lessonKeywords(track, entry.lesson.title, entry.module.name), alternates: { canonical: lessonHref(track, lessonId) },
-  robots: { index: false, follow: true } };
+  const title = `${entry.lesson.title} | GuitarHub ${trackNames[track]}`;
+  const description = entry.lesson.summary;
+  const canonical = `${SITE_URL}${lessonHref(track, lessonId)}`;
+  // A lesson has no colocated image, so explicitly preserve the public track
+  // card when replacing the layout's Open Graph object. Only the title and
+  // summary already shown in the locked preview belong in share metadata.
+  const image = track === "guitar" ? {
+    ...OG_IMAGE,
+    url: `${SITE_URL}/learn/guitar/opengraph-image/card`,
+    alt: cardFor("/learn/guitar").alt,
+  } : OG_IMAGE;
+  return {
+    title,
+    description,
+    keywords: lessonKeywords(track, entry.lesson.title, entry.module.name),
+    alternates: { canonical },
+    robots: { index: false, follow: true },
+    openGraph: { title, description, url: canonical, siteName: SITE_NAME, type: "website", images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
 }
 export default async function LessonPage({ params }: { params: Promise<Params> }) {
   const { track, lessonId } = await params;

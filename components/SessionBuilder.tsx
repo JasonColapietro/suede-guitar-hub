@@ -19,7 +19,8 @@ import {
   type SessionPlanError,
   type StoredSessionState,
 } from "@/lib/session";
-import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import { clearConfirmedSnapshot, createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import PracticeStorageNotice from "@/components/PracticeStorageNotice";
 
 /**
  * The Practice Session Builder.
@@ -80,6 +81,7 @@ type PendingRebuild = { plan: SessionPlan; dropped: number };
 
 export default function SessionBuilder() {
   const [hydrated, setHydrated] = useState(false);
+  const [storageUnavailable, setStorageUnavailable] = useState(false);
   const [minutesField, setMinutesField] = useState(String(DEFAULT_MINUTES));
   const [focus, setFocus] = useState<SessionFocus>(DEFAULT_FOCUS);
   const [plan, setPlan] = useState<SessionPlan | null>(null);
@@ -88,7 +90,7 @@ export default function SessionBuilder() {
   const [focusResult, setFocusResult] = useState(false);
   const [focusMinutes, setFocusMinutes] = useState(false);
   const [pendingRebuild, setPendingRebuild] = useState<PendingRebuild | null>(null);
-  const [pendingClear, setPendingClear] = useState(false);
+  const [pendingClear, setPendingClear] = useState<StoredSessionState | null>(null);
   const [notice, setNotice] = useState("");
 
   // What is on screen, for callbacks that outlive the render they were made in.
@@ -117,6 +119,7 @@ export default function SessionBuilder() {
 
   useEffect(() => {
     const restored = sessionStore.read();
+    setStorageUnavailable(!restored.available || !restored.persisted);
     if (restored.available && restored.value) show(restored.value, true);
     setHydrated(true);
 
@@ -125,9 +128,10 @@ export default function SessionBuilder() {
     // is not overwritten from elsewhere.
     return subscribeToStoredKey(SESSION_STORAGE_KEY, () => {
       const latest = sessionStore.read();
+      setStorageUnavailable(!latest.available || !latest.persisted);
       if (!latest.available) return;
       setPendingRebuild(null);
-      if (!latest.value) setPendingClear(false);
+      setPendingClear(null);
       const before = shown.current;
       if (latest.value) {
         const minutes = String(latest.value.input.minutes);
@@ -166,14 +170,15 @@ export default function SessionBuilder() {
   /** Write a rebuilt plan, keeping every checked block that survives. */
   function commitRebuild(next: SessionPlan) {
     let dropped = 0;
-    const { value } = sessionStore.update(shown.current, (latest) => {
+    const { value, persisted } = sessionStore.update(shown.current, (latest) => {
       const rebuilt = rebuildSessionState(latest, next);
       dropped = rebuilt.dropped.length;
       return rebuilt.state;
     });
+    setStorageUnavailable(!persisted);
     show(value, false);
     setPendingRebuild(null);
-    setPendingClear(false);
+    setPendingClear(null);
     const kept = value?.completedBlockIds.length ?? 0;
     setNotice(
       kept > 0
@@ -253,11 +258,12 @@ export default function SessionBuilder() {
 
   function setBlockDone(id: string, done: boolean) {
     if (!plan) return;
-    const { value } = sessionStore.update(shown.current, (latest) =>
+    const { value, persisted } = sessionStore.update(shown.current, (latest) =>
       setSessionBlockDone(latest, plan, id, done),
     );
     const replaced =
       value === null || value.input.minutes !== plan.minutes || value.input.focus !== plan.focus;
+    setStorageUnavailable(!persisted);
     show(value, replaced);
     setNotice(
       replaced
@@ -267,12 +273,23 @@ export default function SessionBuilder() {
   }
 
   function clearPlan() {
-    sessionStore.write(null);
+    if (!pendingClear) return;
+    const { value, persisted } = sessionStore.update(shown.current, (latest) =>
+      clearConfirmedSnapshot(latest, pendingClear),
+    );
+    setStorageUnavailable(!persisted);
+    if (value) {
+      show(value, true);
+      setPendingClear(null);
+      setNotice("This plan changed after you chose to clear it. The updated work has been kept.");
+      setFocusResult(true);
+      return;
+    }
     shown.current = null;
     setPlan(null);
     setCompletedBlockIds([]);
     setError(null);
-    setPendingClear(false);
+    setPendingClear(null);
     setPendingRebuild(null);
     setNotice("Session cleared from this browser.");
     setFocusMinutes(true);
@@ -285,6 +302,7 @@ export default function SessionBuilder() {
 
   return (
     <div className="rounded-[2rem] border border-indigo-deep/10 bg-white/70 p-6 shadow-[0_28px_80px_rgba(37,17,82,0.07)] sm:p-8 lg:p-12">
+      <PracticeStorageNotice unavailable={storageUnavailable} />
       <form onSubmit={submit} aria-busy={!hydrated} noValidate>
         <fieldset className="border-0 p-0">
           <legend className="font-display text-3xl text-indigo-deep">
@@ -459,7 +477,7 @@ export default function SessionBuilder() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPendingClear(false)}
+                  onClick={() => setPendingClear(null)}
                   className={SMALL_PILL}
                 >
                   Keep it
@@ -468,7 +486,7 @@ export default function SessionBuilder() {
             ) : (
               <button
                 type="button"
-                onClick={() => setPendingClear(true)}
+                onClick={() => setPendingClear(shown.current)}
                 className={SMALL_PILL}
               >
                 Clear this browser&apos;s session

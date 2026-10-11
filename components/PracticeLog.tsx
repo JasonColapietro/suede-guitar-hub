@@ -24,6 +24,7 @@ import {
 } from "@/lib/log";
 import { applyLogChange, sessionCount, type LogChange } from "@/lib/log-state";
 import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import PracticeStorageNotice from "@/components/PracticeStorageNotice";
 
 /**
  * The Practice Evidence Log.
@@ -106,6 +107,7 @@ function formatDate(iso: string): string {
 
 export default function PracticeLog() {
   const [hydrated, setHydrated] = useState(false);
+  const [storageUnavailable, setStorageUnavailable] = useState(false);
   const [today, setToday] = useState("");
   const [entries, setEntries] = useState<LogEntry[]>([]);
   // The latest entries, readable from callbacks that outlive a render: an
@@ -118,7 +120,7 @@ export default function PracticeLog() {
   const [draft, setDraft] = useState<Draft>(() => emptyDraft(""));
   const [editingId, setEditingId] = useState<string | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
-  const [pendingClear, setPendingClear] = useState(false);
+  const [pendingClear, setPendingClear] = useState<string[] | null>(null);
   const [error, setError] = useState<LogError | null>(null);
   const [notice, setNotice] = useState("");
   const [focusTarget, setFocusTarget] = useState<string | null>(null);
@@ -133,6 +135,7 @@ export default function PracticeLog() {
     setToday(stamp);
     setDraft(emptyDraft(stamp));
     const restored = logStore.read();
+    setStorageUnavailable(!restored.available || !restored.persisted);
     if (restored.available && restored.value) setEntries(restored.value);
     setHydrated(true);
   }, []);
@@ -143,12 +146,13 @@ export default function PracticeLog() {
     () =>
       subscribeToStoredKey(LOG_STORAGE_KEY, () => {
         const latest = logStore.read();
+        setStorageUnavailable(!latest.available || !latest.persisted);
         if (!latest.available) return;
         const next = latest.value ?? [];
         const ids = new Set(next.map((entry) => entry.id));
         setEntries(next);
         setPendingDeleteId((current) => (current && ids.has(current) ? current : null));
-        if (next.length === 0) setPendingClear(false);
+        if (next.length === 0) setPendingClear(null);
       }),
     [],
   );
@@ -197,11 +201,12 @@ export default function PracticeLog() {
    */
   function commit(change: LogChange) {
     let outcome = applyLogChange(entriesRef.current, change);
-    const { value } = logStore.update(entriesRef.current, (latest) => {
+    const { value, persisted } = logStore.update(entriesRef.current, (latest) => {
       outcome = applyLogChange(latest ?? [], change);
       if (!outcome.ok) return latest;
       return outcome.entries.length > 0 ? outcome.entries : null;
     });
+    setStorageUnavailable(!persisted);
     if (outcome.ok) {
       const next = value ?? [];
       entriesRef.current = next;
@@ -240,7 +245,7 @@ export default function PracticeLog() {
   function startEdit(entry: LogEntry) {
     setEditingId(entry.id);
     setPendingDeleteId(null);
-    setPendingClear(false);
+    setPendingClear(null);
     setError(null);
     setNotice("");
     setDraft({
@@ -334,10 +339,11 @@ export default function PracticeLog() {
   // Deletes the sessions the confirmation counted. One logged in another tab
   // after the player agreed is kept, and the notice says so.
   function clearEverything() {
-    const result = commit({ type: "clear", ids: entries.map((entry) => entry.id) });
+    if (!pendingClear) return;
+    const result = commit({ type: "clear", ids: pendingClear });
     setEditingId(null);
     setPendingDeleteId(null);
-    setPendingClear(false);
+    setPendingClear(null);
     setError(null);
     setDraft(emptyDraft(today));
     setNotice(result.ok ? result.message : "");
@@ -357,6 +363,7 @@ export default function PracticeLog() {
 
   return (
     <div className="rounded-[2rem] border border-indigo-deep/10 bg-white/70 p-6 shadow-[0_28px_80px_rgba(37,17,82,0.07)] sm:p-8 lg:p-12">
+      <PracticeStorageNotice unavailable={storageUnavailable} canExport />
       <form onSubmit={submit} aria-busy={!hydrated} noValidate>
         <fieldset className="border-0 p-0">
           <legend className="font-display text-3xl text-indigo-deep">
@@ -771,7 +778,7 @@ export default function PracticeLog() {
                         <button
                           type="button"
                           onClick={() => {
-                            setPendingClear(false);
+                            setPendingClear(null);
                             setPendingDeleteId(entry.id);
                           }}
                           className={SMALL_PILL}
@@ -843,12 +850,12 @@ export default function PracticeLog() {
                   onClick={clearEverything}
                   className={`${SMALL_PILL} border-violet/40 bg-violet-soft/15`}
                 >
-                  Delete all {entries.length}{" "}
-                  {entries.length === 1 ? "session" : "sessions"} for good
+                  Delete {pendingClear.length}{" "}
+                  {pendingClear.length === 1 ? "session" : "sessions"} for good
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPendingClear(false)}
+                  onClick={() => setPendingClear(null)}
                   className={SMALL_PILL}
                 >
                   Keep them
@@ -859,7 +866,7 @@ export default function PracticeLog() {
                 type="button"
                 onClick={() => {
                   setPendingDeleteId(null);
-                  setPendingClear(true);
+                  setPendingClear(entries.map((item) => item.id));
                 }}
                 className={SMALL_PILL}
               >
@@ -875,8 +882,7 @@ export default function PracticeLog() {
             aria-live="polite"
             className="mt-4 max-w-2xl rounded-2xl border border-violet/25 bg-violet-soft/10 p-5 text-ink/80"
           >
-            This deletes every session in this browser, including the{" "}
-            {entries.length === 1 ? "one" : entries.length} above. There is
+            This deletes the {pendingClear.length === 1 ? "session" : `${pendingClear.length} sessions`} selected when you chose to clear. Sessions added afterward stay in your log. There is
             no copy anywhere else and no undo. If you have not exported the log
             yet, export it first.
           </p>

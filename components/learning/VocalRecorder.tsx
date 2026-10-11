@@ -104,17 +104,23 @@ export function VocalRecorder({ lessonId, accountId }: { lessonId: string; accou
     try {
       const current = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
       if (!mounted.current || currentOperation !== operation.current || document.hidden) {
-        pending.current = false;
         current.getTracks().forEach(track => track.stop());
-        releaseAudioSession();
-        if (mounted.current && currentOperation === operation.current) { setStarting(false); setStatus("Recording did not start because this page is hidden."); }
+        // A late permission result belongs only to the old request. It must
+        // never release the audio session held by a newer recording.
+        if (currentOperation === operation.current) {
+          pending.current = false;
+          releaseAudioSession();
+          if (mounted.current) { setStarting(false); setStatus("Recording did not start because this page is hidden."); }
+        }
         return;
       }
       pending.current = false;
+      // Own the granted input before probing formats or constructing a
+      // recorder, either of which can fail on a supported browser.
+      stream.current = current;
       const supported = typeof MediaRecorder.isTypeSupported === "function";
       const mimeType = supported ? ["audio/webm;codecs=opus", "audio/mp4", "audio/webm"].find(type => MediaRecorder.isTypeSupported(type)) : undefined;
       const next = new MediaRecorder(current, mimeType ? { mimeType } : undefined);
-      stream.current = current;
       recorder.current = next;
       chunks.current = [];
       discard.current = false;
@@ -154,6 +160,9 @@ export function VocalRecorder({ lessonId, accountId }: { lessonId: string; accou
       timer.current = window.setInterval(() => setElapsed(recordingElapsedSeconds(started.current, performance.now())), 250);
       finishTimer.current = window.setTimeout(() => stopRecording(true), VOCAL_TAKE_LIMIT_SECONDS * 1000);
     } catch (error) {
+      // Permission denial can arrive after cancellation and a successful
+      // retry. Only the current request may clear shared recording state.
+      if (currentOperation !== operation.current) return;
       stream.current?.getTracks().forEach(track => track.stop());
       stream.current = null;
       recorder.current = null;
@@ -189,6 +198,7 @@ export function VocalRecorder({ lessonId, accountId }: { lessonId: string; accou
     <h3>Listen to your own take</h3>
     <p>Record up to two minutes, then listen back. GuitarHub keeps one latest take for this lesson in this browser. It is optional, never uploaded or synced, does not score your singing, and does not complete the lesson.</p>
     {recording ? <><p className={styles.recording} role="timer">Recording · {Math.floor(elapsed)} / {VOCAL_TAKE_LIMIT_SECONDS} seconds</p><div className={styles.actions}><button type="button" onClick={() => stopRecording(true)}>Save take</button><button type="button" onClick={() => stopRecording(false)}>Discard new take</button></div></> : <button type="button" disabled={loading || starting || deleting} onClick={() => void begin()}>{loading ? "Loading saved take…" : starting ? "Waiting for microphone…" : take ? "Replace take" : "Record a take"}</button>}
+    {starting && <button type="button" onClick={() => interrupt("Microphone request cancelled.")}>Cancel microphone request</button>}
     {take && !recording && !starting && <div className={styles.savedTake}><strong>Latest take · {Math.max(1, Math.round(take.durationSeconds))} seconds</strong><span>{new Date(take.recordedAt).toLocaleString()}</span><div className={styles.actions}><button type="button" disabled={deleting} onClick={playing ? stopPlayback : play}>{playing ? "Stop playback" : "Play take"}</button>{confirmDelete ? <><span role="alert">Delete this take permanently?</span><button type="button" disabled={deleting} onClick={() => void remove()}>{deleting ? "Deleting…" : "Confirm delete"}</button><button type="button" disabled={deleting} onClick={() => setConfirmDelete(false)}>Keep take</button></> : <button type="button" disabled={deleting} onClick={() => setConfirmDelete(true)}>Delete take</button>}</div></div>}
     <p className={styles.status} role="status">{status}</p>
   </section>;

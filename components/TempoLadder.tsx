@@ -21,7 +21,8 @@ import {
   type TempoLadderError,
   type TempoRungKind,
 } from "@/lib/tempo";
-import { createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import { clearConfirmedSnapshot, createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
+import PracticeStorageNotice from "@/components/PracticeStorageNotice";
 
 /**
  * The Tempo Ladder Builder.
@@ -90,6 +91,7 @@ type PendingRebuild = { ladder: TempoLadderPlan; dropped: number };
 
 export default function TempoLadder() {
   const [hydrated, setHydrated] = useState(false);
+  const [storageUnavailable, setStorageUnavailable] = useState(false);
   const [currentField, setCurrentField] = useState(String(DEFAULT_CURRENT));
   const [targetField, setTargetField] = useState(String(DEFAULT_TARGET));
   const [sessions, setSessions] = useState(DEFAULT_SESSIONS);
@@ -99,7 +101,7 @@ export default function TempoLadder() {
   const [focusResult, setFocusResult] = useState(false);
   const [focusField, setFocusField] = useState<string | null>(null);
   const [pendingRebuild, setPendingRebuild] = useState<PendingRebuild | null>(null);
-  const [pendingClear, setPendingClear] = useState(false);
+  const [pendingClear, setPendingClear] = useState<StoredTempoState | null>(null);
   const [notice, setNotice] = useState("");
 
   // What is on screen, for callbacks that outlive the render they were made in.
@@ -127,6 +129,7 @@ export default function TempoLadder() {
 
   useEffect(() => {
     const restored = tempoStore.read();
+    setStorageUnavailable(!restored.available || !restored.persisted);
     if (restored.available && restored.value) show(restored.value, true);
     setHydrated(true);
 
@@ -135,9 +138,10 @@ export default function TempoLadder() {
     // is not overwritten from elsewhere.
     return subscribeToStoredKey(TEMPO_STORAGE_KEY, () => {
       const latest = tempoStore.read();
+      setStorageUnavailable(!latest.available || !latest.persisted);
       if (!latest.available) return;
       setPendingRebuild(null);
-      if (!latest.value) setPendingClear(false);
+      setPendingClear(null);
       const before = shown.current;
       setCurrentField((current) => {
         const untouched =
@@ -193,14 +197,15 @@ export default function TempoLadder() {
   /** Write a rebuilt ladder, keeping every checked session whose rung survives. */
   function commitRebuild(next: TempoLadderPlan) {
     let dropped = 0;
-    const { value } = tempoStore.update(shown.current, (latest) => {
+    const { value, persisted } = tempoStore.update(shown.current, (latest) => {
       const rebuilt = rebuildTempoState(latest, next);
       dropped = rebuilt.dropped.length;
       return rebuilt.state;
     });
+    setStorageUnavailable(!persisted);
     show(value, false);
     setPendingRebuild(null);
-    setPendingClear(false);
+    setPendingClear(null);
     const kept = value?.completedRungIds.length ?? 0;
     setNotice(
       kept > 0
@@ -284,7 +289,7 @@ export default function TempoLadder() {
 
   function setRungDone(id: string, done: boolean) {
     if (!ladder) return;
-    const { value } = tempoStore.update(shown.current, (latest) =>
+    const { value, persisted } = tempoStore.update(shown.current, (latest) =>
       setTempoRungDone(latest, ladder, id, done),
     );
     const replaced =
@@ -292,6 +297,7 @@ export default function TempoLadder() {
       value.input.currentBpm !== ladder.currentBpm ||
       value.input.targetBpm !== ladder.targetBpm ||
       value.input.sessions !== ladder.sessions;
+    setStorageUnavailable(!persisted);
     show(value, replaced);
     setNotice(
       replaced
@@ -301,12 +307,23 @@ export default function TempoLadder() {
   }
 
   function clearLadder() {
-    tempoStore.write(null);
+    if (!pendingClear) return;
+    const { value, persisted } = tempoStore.update(shown.current, (latest) =>
+      clearConfirmedSnapshot(latest, pendingClear),
+    );
+    setStorageUnavailable(!persisted);
+    if (value) {
+      show(value, true);
+      setPendingClear(null);
+      setNotice("This ladder changed after you chose to clear it. The updated work has been kept.");
+      setFocusResult(true);
+      return;
+    }
     shown.current = null;
     setLadder(null);
     setCompletedRungIds([]);
     setError(null);
-    setPendingClear(false);
+    setPendingClear(null);
     setPendingRebuild(null);
     setNotice("Ladder cleared from this browser.");
     setFocusField(FIELD_IDS.current);
@@ -334,6 +351,7 @@ export default function TempoLadder() {
 
   return (
     <div className="rounded-[2rem] border border-indigo-deep/10 bg-white/70 p-6 shadow-[0_28px_80px_rgba(37,17,82,0.07)] sm:p-8 lg:p-12">
+      <PracticeStorageNotice unavailable={storageUnavailable} />
       <form onSubmit={submit} aria-busy={!hydrated} noValidate>
         <fieldset className="border-0 p-0">
           <legend className="font-display text-3xl text-indigo-deep">
@@ -497,7 +515,7 @@ export default function TempoLadder() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPendingClear(false)}
+                  onClick={() => setPendingClear(null)}
                   className={SMALL_PILL}
                 >
                   Keep it
@@ -506,7 +524,7 @@ export default function TempoLadder() {
             ) : (
               <button
                 type="button"
-                onClick={() => setPendingClear(true)}
+                onClick={() => setPendingClear(shown.current)}
                 className={SMALL_PILL}
               >
                 Clear this browser&apos;s ladder

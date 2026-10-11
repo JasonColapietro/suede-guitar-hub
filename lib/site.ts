@@ -82,7 +82,7 @@ export const HOME: SiteEntry = {
   title: "GuitarHub",
   blurb:
     "Practice guitar with a plan you can prove: a free 30-day plan, free browser tools, guided lessons with lifetime access, and the free Advanced Lab.",
-  lastModified: "2026-10-10",
+  lastModified: "2026-10-11",
 };
 
 /**
@@ -108,14 +108,14 @@ export const TOOLS: readonly SiteEntry[] = [
     href: "/practice",
     title: "Guitar tuner and metronome",
     blurb: "Check each open string with pitch feedback and reference tones, then practice with a steady four-beat click.",
-    lastModified: "2026-09-08",
+    lastModified: "2026-10-11",
   },
   {
     href: "/breakthrough",
     title: "30-day breakthrough planner",
     blurb:
       "Choose one finish line and turn it into a four-week practice sequence you can run this month.",
-    lastModified: "2026-08-29",
+    lastModified: "2026-10-11",
   },
   {
     href: "/diagnose",
@@ -129,28 +129,28 @@ export const TOOLS: readonly SiteEntry[] = [
     title: "Practice session builder",
     blurb:
       "Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.",
-    lastModified: "2026-08-30",
+    lastModified: "2026-10-11",
   },
   {
     href: "/tempo",
     title: "Tempo ladder builder",
     blurb:
       "Turn one difficult passage into a tempo ladder with a starting speed, a target, and steps between them.",
-    lastModified: "2026-08-29",
+    lastModified: "2026-10-11",
   },
   {
     href: "/readiness",
     title: "Song readiness score",
     blurb:
       "Check a song against the parts that break under pressure before you call it finished.",
-    lastModified: "2026-08-29",
+    lastModified: "2026-10-11",
   },
   {
     href: "/log",
     title: "Practice evidence log",
     blurb:
       "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
-    lastModified: "2026-08-30",
+    lastModified: "2026-10-11",
   },
 ];
 
@@ -426,7 +426,7 @@ export const LEARN: readonly SiteEntry[] = [
     title: "Beginner guitar lessons, step by step",
     blurb:
       "The guitar curriculum from the first foundations: lifetime lesson access, guided practice, and browser-local progress.",
-    lastModified: "2026-10-08",
+    lastModified: "2026-10-11",
   },
   {
     href: "/learn/guitar/routine",
@@ -439,7 +439,7 @@ export const LEARN: readonly SiteEntry[] = [
     title: "Find your level",
     blurb:
       "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3, or the free Advanced Lab.",
-    lastModified: "2026-10-10",
+    lastModified: "2026-10-11",
   },
   {
     href: "/advanced",
