@@ -143,7 +143,7 @@
                 "title": "Hiss for Twelve",
                 "type": "exercise",
                 "minutes": 4,
-                "summary": "Twelve seconds is an optional practice goal that clears the first mark at ten; duration is your own observation, not an automatic pass."
+                "summary": "Evenness first, duration second. Count your hiss gently and listen for a steady sound; the sustain test's seconds are a record, not a pass."
               },
               {
                 "id": "v-l1-m3-04",
@@ -332,7 +332,7 @@
                 "title": "Self-Check: Switch on Cue",
                 "type": "checkpoint",
                 "minutes": 5,
-                "summary": "Called at random, both directions."
+                "summary": "Before recording, roll a die six times and write the order (odd = fuller, even = lighter); switch on each cue in that order, both directions."
               }
             ]
           },
@@ -434,7 +434,7 @@
           },
           {
             "id": "v-l3-m5",
-            "name": "Fix the Wobble",
+            "name": "Breathy, Nasal or Tight",
             "promise": "compared a relaxed baseline with a later take and described one audible change without forcing a rough sound.",
             "skill": "Breathiness, nasality, tension",
             "proofMetric": "self_reported",
@@ -460,7 +460,7 @@
                 "title": "Self-Check: Compare With Your Baseline",
                 "type": "checkpoint",
                 "minutes": 5,
-                "summary": "Same phrase as Stage 2, judged against how it sounded then."
+                "summary": "Use the same short phrase for the relaxed baseline and the changed example, then compare both in the same recording."
               }
             ]
           }
@@ -543,7 +543,7 @@
             "id": "v-l4-m3",
             "name": "Say It Clearly",
             "promise": "spoke and sang the displayed lyric slowly enough for each word to remain understandable on playback.",
-            "skill": "Diction as a scored axis",
+            "skill": "Clear, intelligible diction",
             "proofMetric": "self_reported",
             "lessonsTotal": 7,
             "sampleLessonsShown": 3,
@@ -599,7 +599,7 @@
                 "title": "Self-Check: Three Articulations on Cue",
                 "type": "checkpoint",
                 "minutes": 5,
-                "summary": "Called at random mid-phrase."
+                "summary": "Before recording, shuffle three slips marked grace, staccato and accent; sing the phrase once per slip in the order drawn."
               }
             ]
           },
@@ -959,7 +959,7 @@
                 "title": "The Notes That Sound Like Feeling",
                 "type": "concept",
                 "minutes": 4,
-                "summary": "Blue thirds and sevenths, and where they sit against the chord."
+                "summary": "Blue thirds and sevenths, and how they resolve toward the tonic."
               },
               {
                 "id": "v-l6-m5-04",
@@ -1098,7 +1098,7 @@
                 "title": "Neutral, Restrained, Driven, Edged",
                 "type": "concept",
                 "minutes": 6,
-                "summary": "Four production choices, decoupled from pitch height. Any of them can happen anywhere in your range."
+                "summary": "Four production choices that are separate from pitch height. Neutral and restrained work across your range; driven and edged get harder the higher you go, so try them low in your range first."
               },
               {
                 "id": "v-l7-m3-04",
@@ -1112,7 +1112,7 @@
                 "title": "Self-Check: Three Modes on Cue",
                 "type": "checkpoint",
                 "minutes": 6,
-                "summary": "Called at random, with a return to easy neutral voice between attempts. Strain is not measured."
+                "summary": "Before recording, draw the order from slips marked neutral, restrained and driven, with a return to easy neutral voice between attempts. Strain is not measured."
               }
             ]
           },
@@ -1137,7 +1137,7 @@
                 "title": "Effects: Listening and a Stop Plan",
                 "type": "exercise",
                 "minutes": 7,
-                "summary": "Short bursts, with a hard stop the moment it tightens."
+                "summary": "Only for an effect a teacher has already taught you: short bursts, with a hard stop the moment it tightens. Otherwise, listen and plan without producing it."
               },
               {
                 "id": "v-l7-m4-08",

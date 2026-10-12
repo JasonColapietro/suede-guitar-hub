@@ -59,7 +59,10 @@ test("the vendored contract is the shape this repo expects", () => {
   // Versions 3-7 added the pitch engine, vibrato, programs, free weeks and
   // breath detection. Version 8 publishes warm-up onset grace, gaps and range
   // caps; the measurements and companion links consumed here remain valid.
-  assert.equal(contract.version, 8);
+  // Version 9 adds warm-up glide slack, a nominal range and per-exercise range
+  // caps, plus editorial word counts and song ranges; `measurement`,
+  // `deepLinks` and `taxonomy` are unchanged, so the proofs pinned here hold.
+  assert.equal(contract.version, 9);
   assert.equal(contract.reference.repo, "JasonColapietro/sing");
   assert.ok(Object.keys(measurements).length > 10, "measurement section is vacuous");
 });
