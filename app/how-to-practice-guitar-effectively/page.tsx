@@ -2,10 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/how-to-practice-guitar-effectively";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "How to practice guitar effectively", href: "/how-to-practice-guitar-effectively" },
+];
+
 const PUBLISHED = "2026-08-29";
 const UPDATED = "2026-08-29";
 
@@ -96,6 +104,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: faq.a },
       })),
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -108,6 +117,7 @@ export default function HowToPracticeGuitarEffectivelyPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/how-to-practice-guitar-effectively"
         title={
           <>

@@ -20,7 +20,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "Sore fingertips and hand pain from guitar: what to do";
 
 const DESCRIPTION =
-  "Why fingertips hurt when you start guitar, how calluses form, how to press lighter, the setup fixes that help, and the pain signals that mean stop and get checked.";
+  "Why fingertips hurt when you start guitar, how calluses form, how to press lighter, setup fixes that help, and the pain signals that mean stop and get checked.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [
@@ -30,7 +30,7 @@ const CRUMBS = [
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/guitar-finger-pain"),
-  title: "Guitar Finger Pain: Sore Fingertips, Calluses, Hand Pain | GuitarHub",
+  title: "Guitar Finger Pain: Sore Fingertips and Calluses | GuitarHub",
   description: DESCRIPTION,
   openGraph: {
     title: HEADLINE,

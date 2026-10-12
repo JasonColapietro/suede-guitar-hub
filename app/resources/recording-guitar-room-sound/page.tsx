@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/recording-guitar-room-sound`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Print the Quiet", href: "/resources/print-the-quiet" },
+  { name: "How to hear the room in a guitar recording", href: "/resources/recording-guitar-room-sound" },
+];
+
 const PUBLISHED = "2026-08-31";
 const TITLE = "How to Hear the Room in a Guitar Recording";
 const DESCRIPTION =
@@ -49,18 +58,23 @@ const RELATED: readonly RelatedLink[] = [
 
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${CANONICAL}#article`,
-  headline: TITLE,
-  description: DESCRIPTION,
-  keywords: keywordsText("/resources/recording-guitar-room-sound"),
-  image: `${CANONICAL}/opengraph-image`,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": "https://suedeai.ai/#organization" },
-  mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${CANONICAL}#article`,
+      headline: TITLE,
+      description: DESCRIPTION,
+      keywords: keywordsText("/resources/recording-guitar-room-sound"),
+      image: `${CANONICAL}/opengraph-image`,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": "https://suedeai.ai/#organization" },
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 export default function RecordingGuitarRoomSoundPage() {
@@ -72,6 +86,7 @@ export default function RecordingGuitarRoomSoundPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/resources/recording-guitar-room-sound"
         eyebrow="Print the Quiet field guide"
         title={

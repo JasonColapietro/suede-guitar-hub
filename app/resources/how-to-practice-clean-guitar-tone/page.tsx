@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/how-to-practice-clean-guitar-tone`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Print the Quiet", href: "/resources/print-the-quiet" },
+  { name: "How to practice clean guitar tone", href: "/resources/how-to-practice-clean-guitar-tone" },
+];
+
 const PUBLISHED = "2026-08-31";
 const TITLE = "How to Practice Clean Guitar Tone";
 const DESCRIPTION =
@@ -50,18 +59,23 @@ const RELATED: readonly RelatedLink[] = [
 
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${CANONICAL}#article`,
-  headline: TITLE,
-  description: DESCRIPTION,
-  keywords: keywordsText("/resources/how-to-practice-clean-guitar-tone"),
-  image: `${CANONICAL}/opengraph-image`,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": "https://suedeai.ai/#organization" },
-  mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${CANONICAL}#article`,
+      headline: TITLE,
+      description: DESCRIPTION,
+      keywords: keywordsText("/resources/how-to-practice-clean-guitar-tone"),
+      image: `${CANONICAL}/opengraph-image`,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": "https://suedeai.ai/#organization" },
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 export default function CleanGuitarTonePage() {
@@ -73,6 +87,7 @@ export default function CleanGuitarTonePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/resources/how-to-practice-clean-guitar-tone"
         eyebrow="Print the Quiet field guide"
         title={

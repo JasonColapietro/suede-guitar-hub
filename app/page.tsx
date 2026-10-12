@@ -14,6 +14,7 @@ import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
+import { pageJsonLd } from "@/lib/page-schema";
 
 /**
  * Title, description and share card come from the root layout. The canonical
@@ -133,9 +134,18 @@ const FAQS = [
   },
 ] as const;
 
+/** The home page as its own node; the WebSite it belongs to is in app/layout.tsx. */
+const PAGE_JSON_LD = pageJsonLd({
+  canonical: SITE_URL,
+  name: "Guitar Lessons & Practice Tools | GuitarHub by Suede AI",
+  description:
+    "Explore guitar lessons with lifetime access, plus free practice routines and advanced drills. GuitarHub by Suede AI keeps web progress in your browser.",
+});
+
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PAGE_JSON_LD) }} />
       <SiteNav />
 
       <main id="main-content" tabIndex={-1}>

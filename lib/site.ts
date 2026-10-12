@@ -98,6 +98,19 @@ export const ABOUT: SiteEntry = {
   lastModified: "2026-10-10",
 };
 
+/**
+ * The citation guide for AI assistants: a static page at
+ * public/ai-instructions.html, rewritten to /ai-instructions in vercel.json.
+ * Keep `lastModified` equal to the <lastmod> in
+ * public/ai-instructions-sitemap.xml.
+ */
+export const AI_INSTRUCTIONS: SiteEntry = {
+  href: "/ai-instructions",
+  title: "AI Instructions",
+  blurb: "How to cite GuitarHub: what the site covers, which pages to source, and how to describe them.",
+  lastModified: "2026-10-12",
+};
+
 export const LEGAL: readonly SiteEntry[] = [
   { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
   { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-10-10" },

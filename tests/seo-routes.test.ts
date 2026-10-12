@@ -4,6 +4,7 @@ import test from "node:test";
 
 import {
   ADVANCED_LAB_LAST_MODIFIED,
+  AI_INSTRUCTIONS,
   TOOLS,
   SITEMAP_ENTRIES,
   SITE_URL as REGISTRY_SITE_URL,
@@ -170,8 +171,20 @@ test("publishes every canonical indexable page in the sitemap", async () => {
   // The failure this file exists to prevent, named in app/sitemap.ts's own
   // header comment: a sitemap that advertises a 404. Every URL emitted has to
   // have a page.tsx behind it.
+  // Static pages in public/ reached through a vercel.json rewrite (the AI
+  // Instructions page) have no page.tsx; the rewrite and the file must exist.
+  const rewrites: { source: string; destination: string }[] =
+    JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8")).rewrites ?? [];
   for (const url of urls) {
     const path = url.slice(SITE_URL.length);
+    const rewrite = rewrites.find((rule) => rule.source === path);
+    if (rewrite) {
+      assert.ok(
+        existsSync(new URL(`../public${rewrite.destination}`, import.meta.url)),
+        `${url} is rewritten to public${rewrite.destination}, which does not exist`,
+      );
+      continue;
+    }
     const route = resolveRoute(path);
 
     assert.ok(
@@ -238,6 +251,10 @@ test("publishes every canonical indexable page in the sitemap", async () => {
         new Date(`${ADVANCED_LAB_LAST_MODIFIED}T00:00:00.000Z`),
         `${entry.url} must carry the Advanced Lab catalog date`,
       );
+    } else if (entry.url === `${SITE_URL}${AI_INSTRUCTIONS.href}`) {
+      const declared = readFileSync(new URL("../public/ai-instructions-sitemap.xml", import.meta.url), "utf8").match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
+      assert.equal(AI_INSTRUCTIONS.lastModified, declared, "the AI Instructions dates must agree");
+      assert.deepEqual(entry.lastModified, new Date(`${AI_INSTRUCTIONS.lastModified}T00:00:00.000Z`));
     } else if (!SITEMAP_ENTRIES.some((page) => `${SITE_URL}${page.href === "/" ? "" : page.href}` === entry.url)) {
       assert.equal(entry.lastModified, undefined);
     } else assert.ok(

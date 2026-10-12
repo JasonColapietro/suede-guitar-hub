@@ -45,6 +45,7 @@ const LLMS_TXT = `# GuitarHub — prove one guitar breakthrough in 30 days
 ## Source and citation guide
 
 - [AI Instructions](https://guitarhub.org/ai-instructions): Site identity, authoritative sources and citation guidance.
+- [Full text](https://guitarhub.org/llms-full.txt): the full text of every public guide, tool, hub and policy page in one Markdown file, generated from the pages themselves.
 
 > GuitarHub is a structured 30-day guitar practice method: choose one finish
 > line, isolate the specific thing breaking it, practice only that, and end

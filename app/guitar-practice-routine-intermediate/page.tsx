@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/guitar-practice-routine-intermediate";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "An intermediate practice routine", href: "/guitar-practice-routine-intermediate" },
+];
 
 const TITLE = "An Intermediate Guitar Practice Routine in Five Blocks";
 const DESCRIPTION =
@@ -83,6 +90,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: faq.a },
       })),
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -106,6 +114,7 @@ export default function IntermediatePracticeRoutinePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/guitar-practice-routine-intermediate"
         title={
           <>

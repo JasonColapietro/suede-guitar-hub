@@ -3,6 +3,9 @@ import Link from "next/link";
 import SessionBuilder from "@/components/SessionBuilder";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { webPageNode } from "@/lib/page-schema";
 import { GUIDES, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
@@ -65,6 +68,12 @@ const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 const SITE_ID = "https://guitarhub.org/#website";
 
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Tools", "/tools"),
+  { name: "Practice session builder", href: "/session" },
+];
+
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -121,8 +130,16 @@ const JSON_LD = {
       })),
       author: { "@id": JASON_PERSON_ID },
       publisher: { "@id": SUEDE_ORG_ID },
-      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+      mainEntityOfPage: { "@id": `${CANONICAL}#webpage` },
     },
+    webPageNode({
+      canonical: CANONICAL,
+      name: TITLE,
+      description: DESCRIPTION,
+      mainEntity: `${CANONICAL}#tool`,
+      crumbs: CRUMBS,
+    }),
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -186,6 +203,8 @@ export default function SessionPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">

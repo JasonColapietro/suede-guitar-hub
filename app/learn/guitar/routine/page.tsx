@@ -6,6 +6,7 @@ import styles from "@/components/learning/Learning.module.css";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import { OG_IMAGE, SITE_URL } from "@/lib/site";
+import { pageJsonLd } from "@/lib/page-schema";
 
 const TITLE = "A-to-D Chord Practice Routine for Beginners | GuitarHub";
 const DESCRIPTION = "Practice A-to-D guitar chord changes with seven timed blocks, editable durations, and local history. A free routine for players who know the two shapes.";
@@ -33,9 +34,13 @@ export const metadata: Metadata = {
 };
 // The visible trail is rendered inside PracticeRoutine (a client component);
 // its structured twin is emitted here, with the same two crumbs.
+const CRUMBS = [{ name: "Guitar learning path", href: "/learn/guitar" }, { name: "Daily practice", href: "/learn/guitar/routine" }];
+const PAGE_JSON_LD = pageJsonLd({ canonical: CANONICAL, name: TITLE, description: DESCRIPTION, crumbs: CRUMBS, breadcrumbs: false });
+
 export default function RoutinePage() {
   return <>
-    <BreadcrumbJsonLd crumbs={[{ name: "Guitar learning path", href: "/learn/guitar" }, { name: "Daily practice", href: "/learn/guitar/routine" }]} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PAGE_JSON_LD) }} />
+    <BreadcrumbJsonLd crumbs={CRUMBS} />
     <PracticeRoutine chordAssets={routineChordAssets()} />
     {/* The scope line recorded for this page in lib/query-ownership.ts, with
         the links to the two routine guides it shares a query with. */}

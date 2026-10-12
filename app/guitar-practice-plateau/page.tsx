@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/guitar-practice-plateau";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Why guitar practice plateaus", href: "/guitar-practice-plateau" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const HEADLINE = "Why guitar practice plateaus, and how to break one";
@@ -41,22 +49,27 @@ const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 // here later.
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${CANONICAL}#article`,
-  url: CANONICAL,
-  headline: HEADLINE,
-  description: DESCRIPTION,
-  keywords: keywordsText("/guitar-practice-plateau"),
-  // Google lists `image` as a recommended Article property. It names this
-  // page's own 1200x630 card, served by the colocated opengraph-image.tsx.
-  image: `${CANONICAL}/opengraph-image`,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
-  isPartOf: { "@id": "https://guitarhub.org/#website" },
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": SUEDE_ORG_ID },
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${CANONICAL}#article`,
+      url: CANONICAL,
+      headline: HEADLINE,
+      description: DESCRIPTION,
+      keywords: keywordsText("/guitar-practice-plateau"),
+      // Google lists `image` as a recommended Article property. It names this
+      // page's own 1200x630 card, served by the colocated opengraph-image.tsx.
+      image: `${CANONICAL}/opengraph-image`,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+      isPartOf: { "@id": "https://guitarhub.org/#website" },
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": SUEDE_ORG_ID },
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 // Ordered deliberately: the diagnostic first, because that is where the page
@@ -82,6 +95,7 @@ export default function GuitarPracticePlateauPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/guitar-practice-plateau"
         title={
           <>

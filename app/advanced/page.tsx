@@ -7,6 +7,8 @@ import { SITE_URL } from "@/lib/site";
 import learning from "@/components/learning/Learning.module.css";
 import styles from "@/components/advanced/Advanced.module.css";
 import { keywordsFor } from "@/lib/keywords";
+import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
+import { pageJsonLd } from "@/lib/page-schema";
 
 const url = `${SITE_URL}/advanced`;
 const title = "Advanced Guitar Drills with Live Feedback | GuitarHub";
@@ -41,9 +43,16 @@ const JSON_LD = {
   })),
 };
 
+/** Read by the compact visible trail and its BreadcrumbList twin. */
+const CRUMBS = [{ name: "GuitarHub", href: "/" }, { name: "Advanced Lab", href: "/advanced" }];
+const PAGE_JSON_LD = pageJsonLd({ canonical: url, name: title, description, type: "CollectionPage", mainEntity: `${url}#drills`, crumbs: CRUMBS, breadcrumbs: false });
+
 export default function AdvancedLab() {
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PAGE_JSON_LD) }} />
+    <BreadcrumbJsonLd crumbs={CRUMBS} />
+    <nav className={learning.breadcrumbs} aria-label="Breadcrumb"><Link href="/">GuitarHub</Link><span aria-hidden="true">/</span><span aria-current="page">Advanced Lab</span></nav>
     <header className={learning.hero}>
       <p className={styles.eyebrow}>Advanced Lab · free</p>
       <h1>Past the basics.<br />Now make it clean at tempo.</h1>

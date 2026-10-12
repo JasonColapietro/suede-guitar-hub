@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { crumbTrail } from "@/lib/breadcrumbs";
+import { pageJsonLd } from "@/lib/page-schema";
 import { keywordsFor } from "@/lib/keywords";
 
 const description = "How GuitarHub handles microphone input, local learning progress, optional account sync, App Store purchases, and messages you send us.";
@@ -26,9 +28,15 @@ export const metadata: Metadata = {
   },
 };
 
+const CANONICAL = "https://guitarhub.org/privacy";
+const CRUMBS = crumbTrail("Privacy Policy", "/privacy");
+const JSON_LD = pageJsonLd({ canonical: CANONICAL, name: "Privacy Policy | GuitarHub", description, crumbs: CRUMBS });
+
 export default function PrivacyPage() {
   return (
-    <Article eyebrow="GuitarHub" title="Privacy Policy" dek="Your playing stays on your device. Here is what the app and website use, save, and send." updated="2026-10-10" showPracticeCallToAction={false}>
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+    <Article crumbs={CRUMBS} eyebrow="GuitarHub" title="Privacy Policy" dek="Your playing stays on your device. Here is what the app and website use, save, and send." updated="2026-10-10" showPracticeCallToAction={false}>
       <p>This policy covers the GuitarHub iOS app and guitarhub.org, operated by Suede AI. For privacy questions or requests, contact <a href="mailto:info@suedeai.ai">info@suedeai.ai</a>.</p>
 
       <h2>Microphone and audio</h2>
@@ -60,5 +68,6 @@ export default function PrivacyPage() {
       <p>You can decline microphone access, leave sync off or pause it, delete cloud practice history, clear local data, and choose whether to submit a message. Contact us to ask what account, purchase, or correspondence records we hold or to request access, correction, or deletion. We will handle requests according to the rights that apply where you live. If GuitarHub’s data practices change, we will update this page and its date, and request any permissions needed for new features.</p>
       <p>See also the <Link href="/terms">Terms of Use</Link>.</p>
     </Article>
+    </>
   );
 }

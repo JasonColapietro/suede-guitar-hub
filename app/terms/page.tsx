@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { crumbTrail } from "@/lib/breadcrumbs";
+import { pageJsonLd } from "@/lib/page-schema";
 import { keywordsFor } from "@/lib/keywords";
 
-const description = "Terms for using GuitarHub’s learning tools, lesson content, App Store access, and support.";
+const description = "Terms for using GuitarHub: the free learning tools and lesson content, external links, lifetime lesson access through the App Store, local records, and support.";
 export const metadata: Metadata = {
   keywords: keywordsFor("/terms"),
   title: "Terms of Use | GuitarHub",
@@ -26,9 +28,15 @@ export const metadata: Metadata = {
   },
 };
 
+const CANONICAL = "https://guitarhub.org/terms";
+const CRUMBS = crumbTrail("Terms of Use", "/terms");
+const JSON_LD = pageJsonLd({ canonical: CANONICAL, name: "Terms of Use | GuitarHub", description, crumbs: CRUMBS });
+
 export default function TermsPage() {
   return (
-    <Article eyebrow="GuitarHub" title="Terms of Use" dek="Using the lessons, practice tools, and purchased access." updated="2026-09-04" showPracticeCallToAction={false}>
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+    <Article crumbs={CRUMBS} eyebrow="GuitarHub" title="Terms of Use" dek="Using the lessons, practice tools, and purchased access." updated="2026-09-04" showPracticeCallToAction={false}>
       <p>These terms cover guitarhub.org and the GuitarHub app, provided by Suede AI. You may use the learning content and tools for your own practice. For help, contact <a href="mailto:info@suedeai.ai">info@suedeai.ai</a>.</p>
 
       <h2>Learning and practice</h2>
@@ -49,5 +57,6 @@ export default function TermsPage() {
       <p>Practice records are currently stored locally. Clearing browser data, deleting app data, or changing devices can remove them. Use an export feature where one is available if you want a separate copy. Features and external links may change as the service is maintained; the currently available lesson content and access are described in the app or on the relevant page.</p>
       <p>Our <Link href="/privacy">Privacy Policy</Link> explains microphone processing, local records, purchases, hosting, and messages. Contact <a href="mailto:info@suedeai.ai">info@suedeai.ai</a> for support or questions about these terms.</p>
     </Article>
+    </>
   );
 }

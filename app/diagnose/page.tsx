@@ -3,25 +3,32 @@ import Link from "next/link";
 import Diagnostic from "@/components/Diagnostic";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { webPageNode } from "@/lib/page-schema";
 import { DIAGNOSTIC_BLOCKERS, DIAGNOSTIC_QUESTIONS } from "@/lib/diagnose";
 import { keywordsFor } from "@/lib/keywords";
 
+const CANONICAL = "https://guitarhub.org/diagnose";
+const TITLE = "Guitar Practice Plateau Quiz: Find Your Blocker | GuitarHub";
+const DESCRIPTION =
+  "Answer nine questions about how you actually practice guitar and find the one habit holding your progress. Free, no account, stays in your browser.";
+
 export const metadata: Metadata = {
   keywords: keywordsFor("/diagnose"),
-  title: "Guitar Practice Plateau Quiz: Find Your Blocker | GuitarHub",
-  description:
-    "Answer nine questions about how you actually practice guitar and find the one habit holding your progress. Free, no account, stays in your browser.",
+  title: TITLE,
+  description: DESCRIPTION,
   openGraph: {
-    title: "Guitar Practice Plateau Quiz: Find Your Blocker | GuitarHub",
+    title: TITLE,
     description:
       "Nine questions about how you practice. Five blockers scored. One thing to change in the next session.",
-    url: "https://guitarhub.org/diagnose",
+    url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
     // No `images` key: Next attaches the colocated opengraph-image.tsx card
     // only when the page leaves `images` unset.
   },
-  alternates: { canonical: "https://guitarhub.org/diagnose" },
+  alternates: { canonical: CANONICAL },
 };
 
 // These @ids are defined by the graph in `app/layout.tsx`, which renders on
@@ -31,6 +38,12 @@ export const metadata: Metadata = {
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 const SITE_ID = "https://guitarhub.org/#website";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Tools", "/tools"),
+  { name: "Practice plateau diagnostic", href: "/diagnose" },
+];
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -110,6 +123,14 @@ const JSON_LD = {
         },
       ],
     },
+    webPageNode({
+      canonical: CANONICAL,
+      name: TITLE,
+      description: DESCRIPTION,
+      mainEntity: `${CANONICAL}#tool`,
+      crumbs: CRUMBS,
+    }),
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -149,6 +170,8 @@ export default function DiagnosePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">

@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, RESOURCES, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/print-the-quiet`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Print the Quiet guitar tone field guides", href: "/resources/print-the-quiet" },
+];
+
 const PUBLISHED = "2026-08-31";
 const TITLE = "Print the Quiet Guitar Tone Field Guides";
 const DESCRIPTION =
@@ -39,24 +47,29 @@ const FIELD_GUIDES: readonly RelatedLink[] = RESOURCES.filter((entry) =>
 
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": `${CANONICAL}#collection`,
-  name: TITLE,
-  description: DESCRIPTION,
-  url: CANONICAL,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": "https://suedeai.ai/#organization" },
-  hasPart: FIELD_GUIDES.map((guide, index) => ({
-    "@type": "Article",
-    // The @id each guide's own page gives its Article node.
-    "@id": `${SITE_URL}${guide.href}#article`,
-    position: index + 1,
-    name: guide.title,
-    url: `${SITE_URL}${guide.href}`,
-  })),
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${CANONICAL}#collection`,
+      name: TITLE,
+      description: DESCRIPTION,
+      url: CANONICAL,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": "https://suedeai.ai/#organization" },
+      hasPart: FIELD_GUIDES.map((guide, index) => ({
+        "@type": "Article",
+        // The @id each guide's own page gives its Article node.
+        "@id": `${SITE_URL}${guide.href}#article`,
+        position: index + 1,
+        name: guide.title,
+        url: `${SITE_URL}${guide.href}`,
+      })),
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 export default function PrintTheQuietHubPage() {
@@ -68,6 +81,7 @@ export default function PrintTheQuietHubPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         eyebrow="GuitarHub editorial series"
         title={
           <>

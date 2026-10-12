@@ -9,11 +9,14 @@ import { PLAYER_LEVELS } from "@/lib/levels";
 import { PLACEMENT_QUESTIONS } from "@/lib/placement";
 import { LIFETIME, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { webPageNode } from "@/lib/page-schema";
 
 const url = `${SITE_URL}/start`;
 const title = "Find Your Guitar Level in Five Questions | GuitarHub";
 const description =
-  "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3 or the free Advanced Lab, with the first thing to practice there.";
+  "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3 or the free Advanced Lab, with your first practice step.";
 export const metadata: Metadata = {
   keywords: keywordsFor("/start"),
   title, description, alternates: { canonical: url },
@@ -31,6 +34,12 @@ const stagesFor = (from: number, to: number) =>
 
 const QUESTION_WORD = spellOut(PLACEMENT_QUESTIONS.length);
 
+const CRUMBS = crumbTrail("Find your level", "/start");
+const PAGE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [webPageNode({ canonical: url, name: title, description, crumbs: CRUMBS }), breadcrumbList(url, CRUMBS)],
+};
+
 export default function StartPage() {
   const [beginner, intermediate, advanced] = PLAYER_LEVELS;
   const destinations = [
@@ -39,7 +48,9 @@ export default function StartPage() {
   ];
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PAGE_JSON_LD) }} />
       <SiteNav />
+      <Breadcrumbs crumbs={CRUMBS} />
       <main id="main-content" tabIndex={-1} className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-20">
         <p className="text-xs font-semibold uppercase tracking-widest text-violet">Find your level</p>
         <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-indigo-deep sm:text-5xl">

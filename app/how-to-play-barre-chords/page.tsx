@@ -20,7 +20,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "How to play barre chords and the F chord";
 
 const DESCRIPTION =
-  "Play the F barre chord cleanly: index placement, arm weight instead of a thumb squeeze, a four-step path from Fmaj7 to full F, and the E and A shapes up the neck.";
+  "Play the F barre chord cleanly: index placement, arm weight instead of a thumb squeeze, four steps from Fmaj7 to full F, and the E and A shapes up the neck.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [

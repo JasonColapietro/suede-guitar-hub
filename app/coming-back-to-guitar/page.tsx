@@ -20,7 +20,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "Coming back to guitar after years away: a 30-day restart";
 
 const DESCRIPTION =
-  "Restart guitar after a long break: get the instrument set up, rebuild your fingertips in short sessions, record a fresh baseline, and finish one song in 30 days.";
+  "Restart guitar after a long break: get the guitar set up, rebuild your fingertips in short sessions, record a fresh baseline, and finish one song in 30 days.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [
@@ -30,7 +30,7 @@ const CRUMBS = [
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/coming-back-to-guitar"),
-  title: "Coming Back to Guitar After Years Away: A 30-Day Restart | GuitarHub",
+  title: "Coming Back to Guitar: A 30-Day Restart Plan | GuitarHub",
   description: DESCRIPTION,
   openGraph: {
     title: HEADLINE,

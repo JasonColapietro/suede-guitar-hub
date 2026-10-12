@@ -10,7 +10,8 @@ import { trackKeywords } from "@/lib/keywords";
 import styles from "@/components/learning/Learning.module.css";
 import { FieldGuideShelf } from "@/components/FieldGuides";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
-import { guitarCourseJsonLd, jsonLdText } from "@/lib/course-schema";
+import { GUITAR_COURSE_ID, guitarCourseJsonLd, jsonLdText } from "@/lib/course-schema";
+import { pageJsonLd } from "@/lib/page-schema";
 // Voice is not served here: /learn/voice redirects to the course on Suede Sing
 // (lib/voice-redirects.ts), so only the guitar path is generated.
 export function generateStaticParams() { return [{ track: "guitar" }]; }
@@ -25,18 +26,24 @@ export function generateStaticParams() { return [{ track: "guitar" }]; }
  * and twitter-image.tsx supply this track's own card, and Next attaches a
  * colocated card only when the page leaves `images` unset.
  */
+/** One source for the title and description, read by the metadata and the WebPage node. */
+function trackCopy(track: "guitar" | "voice") {
+  return track === "guitar"
+    ? {
+        title: "Beginner Guitar Lessons, Step by Step | GuitarHub",
+        description: `Beginner guitar lessons from first notes to open chords, strumming, and songs. Unlock every lesson with ${LIFETIME.display} lifetime access in GuitarHub for iPhone.`,
+      }
+    : {
+        title: "Free Voice Lessons & Vocal Training | GuitarHub",
+        description: "Practice 21 free guided voice lessons from GuitarHub's 102-lesson voice curriculum, with breath, pitch, registers, songs, and Suede Sing exercises.",
+      };
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ track: string }> }): Promise<Metadata> {
   const { track } = await params;
   if (!isTrackId(track)) return {};
   const canonical = `${SITE_URL}/learn/${track}`;
-  const title =
-    track === "guitar"
-      ? "Beginner Guitar Lessons, Step by Step | GuitarHub"
-      : "Free Voice Lessons & Vocal Training | GuitarHub";
-  const description =
-    track === "guitar"
-      ? `Beginner guitar lessons from first notes to open chords, strumming, and songs. Unlock every lesson with ${LIFETIME.display} lifetime access in GuitarHub for iPhone.`
-      : "Practice 21 free guided voice lessons from GuitarHub's 102-lesson voice curriculum, with breath, pitch, registers, songs, and Suede Sing exercises.";
+  const { title, description } = trackCopy(track);
   return {
     title,
     description,
@@ -62,5 +69,15 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
   // The guitar path is the course: a Course node built from the curriculum
   // this page renders (lib/course-schema.ts).
   const course = track === "guitar" ? guitarCourseJsonLd() : null;
-  return <>{course && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(course) }} />}<BreadcrumbJsonLd crumbs={[{ name: "Learning paths", href: "/learn" }, { name: trackNames[track], href: `/learn/${track}` }]} /><nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><span>{trackNames[track]}</span></nav><div className={styles.notice}><p>Every guided lesson opens with lifetime access: {LIFETIME.oneTime} in {APP_STORE.name} for iPhone, with the first module free in the app. Restore Purchases brings your access back on a new iPhone. Questions about pricing, access or your data are answered in <Link href="/faq">the GuitarHub FAQ</Link>.</p><div className={styles.actions}><a className={styles.primary} href={APP_STORE.ios}>{LIFETIME.cta}</a><Link className={styles.secondary} href="/faq#how-to-get-lifetime-access">How lifetime access works</Link></div></div><p className={styles.small}>New to the vocabulary? <Link href="/glossary">The glossary</Link> defines every word this curriculum uses, in one sentence each.</p><LearningPath outline={learningPathOutline(track)} singCourseHref={SING_VOICE_COURSE} /><FieldGuideShelf id="lesson-field-guides" title="Take a field guide with you" intro="Free PDFs to keep beside the lessons. Download one, put it on the music stand, and come back to the next lesson." hrefs={["/method", "/how-to-practice-guitar-effectively", "/practicing-guitar-with-a-metronome", "/how-to-memorize-songs-on-guitar", "/guitar-practice-plateau", "/resources/how-to-practice-clean-guitar-tone"]} moreHref="/guides#field-guides" /></>;
+  const crumbs = [{ name: "Learning paths", href: "/learn" }, { name: trackNames[track], href: `/learn/${track}` }];
+  const copy = trackCopy(track);
+  const page = pageJsonLd({
+    canonical: `${SITE_URL}/learn/${track}`,
+    name: copy.title,
+    description: copy.description,
+    ...(course ? { mainEntity: GUITAR_COURSE_ID } : {}),
+    crumbs,
+    breadcrumbs: false,
+  });
+  return <>{course && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(course) }} />}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(page) }} /><BreadcrumbJsonLd crumbs={crumbs} /><nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><span>{trackNames[track]}</span></nav><div className={styles.notice}><p>Every guided lesson opens with lifetime access: {LIFETIME.oneTime} in {APP_STORE.name} for iPhone, with the first module free in the app. Restore Purchases brings your access back on a new iPhone. Questions about pricing, access or your data are answered in <Link href="/faq">the GuitarHub FAQ</Link>.</p><div className={styles.actions}><a className={styles.primary} href={APP_STORE.ios}>{LIFETIME.cta}</a><Link className={styles.secondary} href="/faq#how-to-get-lifetime-access">How lifetime access works</Link></div></div><p className={styles.small}>New to the vocabulary? <Link href="/glossary">The glossary</Link> defines every word this curriculum uses, in one sentence each.</p><LearningPath outline={learningPathOutline(track)} singCourseHref={SING_VOICE_COURSE} /><FieldGuideShelf id="lesson-field-guides" title="Take a field guide with you" intro="Free PDFs to keep beside the lessons. Download one, put it on the music stand, and come back to the next lesson." hrefs={["/method", "/how-to-practice-guitar-effectively", "/practicing-guitar-with-a-metronome", "/how-to-memorize-songs-on-guitar", "/guitar-practice-plateau", "/resources/how-to-practice-clean-guitar-tone"]} moreHref="/guides#field-guides" /></>;
 }
