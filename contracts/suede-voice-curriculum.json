@@ -104,7 +104,7 @@
                 "title": "Low First, High Second, Neither Forced",
                 "type": "concept",
                 "minutes": 3,
-                "summary": "Comfortable, not extreme. The number we want is the one you can use."
+                "summary": "Comfortable, not extreme. The number we want is one you can repeat next month."
               },
               {
                 "id": "v-l1-m2-02",
@@ -1120,7 +1120,7 @@
             "id": "v-l7-m4",
             "name": "Effects, Carefully",
             "promise": "read the safety material and wrote a stop plan; I did not attempt to learn a new vocal effect from an app.",
-            "skill": "Creak, growl, slide, scream",
+            "skill": "Effects safety and a stop plan",
             "proofMetric": "self_reported",
             "lessonsTotal": 8,
             "sampleLessonsShown": 3,
@@ -1184,7 +1184,7 @@
             "id": "v-l7-m6",
             "name": "The Room",
             "promise": "rehearsed the supplied study arrangement and compared microphone distance or phrasing on separate takes.",
-            "skill": "Performance and harmony",
+            "skill": "Performance and mic technique",
             "proofMetric": "self_reported",
             "lessonsTotal": 8,
             "sampleLessonsShown": 3,

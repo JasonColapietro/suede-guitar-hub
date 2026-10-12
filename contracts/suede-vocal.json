@@ -1902,7 +1902,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0.5,
+          "to": 1
+        },
         "steps": [
           [
             7
@@ -2677,7 +2680,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32297,
+      "totalWords": 32376,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2756,7 +2759,7 @@
           "part": "Reading your own voice",
           "summary": "How to take the range test honestly, what a disappointing result usually means, and how much the voice-type label is worth.",
           "free": true,
-          "words": 1398,
+          "words": 1450,
           "path": "/book/reading-the-range-test"
         },
         {
@@ -2776,7 +2779,7 @@
           "part": "Reading your own voice",
           "summary": "How to locate your own transition with the pitch studio and range test, read a belt ceiling honestly, and tell head voice from falsetto.",
           "free": false,
-          "words": 1335,
+          "words": 1339,
           "path": "/book/finding-your-break"
         },
         {
@@ -2796,7 +2799,7 @@
           "part": "Reading your own voice",
           "summary": "How room noise, mic placement, headphone bleed and a rough day distort your readings — and how to catch a bad session before you act on it.",
           "free": true,
-          "words": 1443,
+          "words": 1463,
           "path": "/book/when-numbers-lie"
         },
         {
@@ -2856,7 +2859,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks on the low register, which rewards release rather than effort, and on carrying a long phrase without running the tank dry.",
           "free": false,
-          "words": 1372,
+          "words": 1375,
           "path": "/book/weeks-9-10-bottom"
         },
         {
@@ -2915,7 +2918,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it — the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 72449,
+      "totalWords": 72444,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -2944,7 +2947,7 @@
           "part": "How to read a voice",
           "summary": "What the eight classification labels mean, why a pop mezzo and an opera mezzo are different claims, tessitura versus range, and how to guess your own type without a teacher.",
           "free": true,
-          "words": 868,
+          "words": 865,
           "path": "/atlas/voice-types-in-the-wild"
         },
         {
@@ -3074,7 +3077,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The streaming era's R&B — falsetto confessions, whisper-runs, baritone outliers and produced nonchalance — and how the genre traded the shout for the microphone's trust.",
           "free": false,
-          "words": 5391,
+          "words": 5390,
           "path": "/atlas/modern-rnb"
         },
         {
@@ -3174,7 +3177,7 @@
           "part": "Appendices",
           "summary": "The atlas's extremes in one place — lowest floors, highest ceilings, widest spans and the whistle club, each with the recording where the note happened when one is famously known.",
           "free": false,
-          "words": 1005,
+          "words": 1004,
           "path": "/atlas/the-records"
         },
         {
@@ -3664,7 +3667,8 @@
         "params": [
           "exercise",
           "routine",
-          "step"
+          "step",
+          "reps"
         ]
       },
       "breath": {
@@ -3793,7 +3797,7 @@
     "warmupGap": "Consecutive notes (or glide steps) of a warm-up are separated by gapSec / tempo seconds of silence, gapSec being the exercise's own value; the default is published on every exercise rather than left implicit. The gap is part of patternSeconds and is never scored, and the guide plays the same gaps.",
     "warmupRangeCap": "A non-null rangeCap trims the fitted root ladder before it is walked: with n rungs counted from the bottom (index 0), keep indexes round(from * (n - 1)) through max(that, round(to * (n - 1))), inclusive. A ladder of one rung is kept as it is. A down ladder is capped first and reversed after. Null walks the whole fitted ladder.",
     "warmupGlideWindow": "A glide frame at pattern time t is measured against the nearest pitch the guide's straight-line ramp passes through between t - glideTimeSlack * d - onsetGraceSec and t + glideTimeSlack * d, d being the glide's duration at the tempo sung and the ramp held at its endpoints outside the glide. The frame is in tune when it is within toleranceCents of that pitch, and its cents error is measured from it. onsetGraceSec here is warmups.scoring.onsetGraceSec itself, not the per-note capped grace. Plain notes are scored against their one pitch.",
-    "warmupOctaveWithoutRange": "Without a saved range every warm-up ladder is fitted to warmups.nominalRange (A2–E4, before any rangeCap) and any octave of each target counts: each sung frame is moved by whole octaves to the octave nearest the target at that instant before it is compared. Each note's tallies are filed under its target moved by the rounded mean of the whole-octave shifts of that note's counted frames, and the rep's reported root is moved by the rounded mean over the whole rep. With a saved range only the written octave counts.",
+    "warmupOctaveWithoutRange": "Without a saved range every warm-up ladder is fitted to warmups.nominalRange (A2–E4, before any rangeCap) and any octave counts, but one octave per rep: the rep is scored as if every sung frame were moved by the same whole number of octaves, for each shift from 2 octaves down to 2 octaves up, and the shift whose score is highest before rounding is the rep's octave (on a tie, the one with the smaller mean cents error, then the one nearer the written octave, the lower first). The rep's score, its cents error and every note's tallies come from that shift alone, and each note and the rep's reported root are moved by it. With a saved range only the written octave counts.",
     "freeExerciseGate": "A warmup is free if and only if it is in EXERCISES. Pro packs are gated by array membership, not by a flag, so a free surface must never deep-link a pack exercise."
   },
   "knownDivergences": {
