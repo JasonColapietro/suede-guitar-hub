@@ -1,0 +1,84 @@
+name: Sync sing contracts
+# The five contracts under contracts/ are vendored from JasonColapietro/sing@main,
+# and Verify web fails every run, on any commit, the moment sing changes one.
+# This job re-syncs them hourly. When the re-synced tree passes everything
+# Verify web runs, it commits straight to main. When it does not (a parity pin
+# that needs a person, a lesson ID that moved), it pushes the attempt to
+# sync/sing-contracts and opens an issue instead: the repository does not let
+# GITHUB_TOKEN open pull requests.
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: sync-sing-contracts
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      # The checks need no dependencies, so a quiet hour costs seconds.
+      - id: drift
+        run: |
+          if npm run --silent contracts:check; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.drift.outputs.stale == 'true'
+        run: npm ci
+      - if: steps.drift.outputs.stale == 'true'
+        id: sync
+        run: |
+          for script in scripts/sync-sing-*.mjs; do node "$script"; done
+          npm run llms:full
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat
+          fi
+      # The same steps as Verify web, against the re-synced tree.
+      - if: steps.sync.outputs.changed == 'true'
+        id: verify
+        run: |
+          npm test
+          npm run lint
+          npm run build
+          node scripts/check-account-bundle.mjs
+          node scripts/check-lesson-gate-bundle.mjs
+          npm run contracts:check
+      - if: always() && steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898182+github-actions[bot]@users.noreply.github.com'
+          sing_sha=$(git ls-remote https://github.com/JasonColapietro/sing.git refs/heads/main | cut -c1-7)
+          git add contracts public/llms-full.txt
+          git commit -m "Sync sing contracts to sing@${sing_sha}" \
+            -m "Copied with scripts/sync-sing-*.mjs and public/llms-full.txt rebuilt, by .github/workflows/sync-sing-contracts.yml."
+      - if: steps.sync.outputs.changed == 'true' && steps.verify.outcome == 'success'
+        run: git push origin HEAD:main
+      - if: failure() && steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          git push --force origin HEAD:refs/heads/sync/sing-contracts
+          title='Sing contract sync needs a person'
+          body="The hourly sync re-synced the sing contracts but the result failed verification, so it was not merged. The attempt is on the sync/sing-contracts branch. Failed run: ${RUN_URL}"
+          existing=$(gh issue list --state open --search "in:title \"${title}\"" --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
