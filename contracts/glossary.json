@@ -304,7 +304,7 @@
             "Transposing"
           ],
           "definition": "Moving a whole song up or down by a fixed number of semitones, which changes the key without changing the tune.",
-          "where": "Once you have taken the range test, song practice opens each melody fitted to your measured range, and you can shift it a semitone at a time from there; without a saved range it opens in its written key.",
+          "where": "Once you have taken the range test, song practice opens each melody fitted to your measured range, and you can shift it a semitone at a time from there; without a saved range it opens in its written key and is scored in either octave.",
           "href": "/songs",
           "domain": "music",
           "publisher": "sing"

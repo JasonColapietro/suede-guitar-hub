@@ -1328,7 +1328,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0.25,
+          "to": 0.75
+        },
         "steps": [
           [
             0
@@ -1347,7 +1350,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0.25,
+          "to": 0.75
+        },
         "steps": [
           [
             5
@@ -2680,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32376,
+      "totalWords": 32505,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2749,7 +2755,7 @@
           "part": "Reading your own voice",
           "summary": "Your voice has three ranges — absolute, comfortable, and performable — and the one people quote is the least useful of the three.",
           "free": false,
-          "words": 1299,
+          "words": 1318,
           "path": "/book/range-is-not-one-number"
         },
         {
@@ -2769,7 +2775,7 @@
           "part": "Reading your own voice",
           "summary": "How to read an accuracy score honestly: what a cent is, why dead centre isn't the goal, and how drift, scoops and vibrato differ.",
           "free": false,
-          "words": 1414,
+          "words": 1498,
           "path": "/book/pitch-accuracy"
         },
         {
@@ -2869,7 +2875,7 @@
           "part": "The twelve-week program",
           "summary": "Move the last two weeks onto real repertoire, retest, and compare against your week-one recording without fooling yourself.",
           "free": false,
-          "words": 1606,
+          "words": 1612,
           "path": "/book/weeks-11-12-songs"
         },
         {
@@ -2889,7 +2895,7 @@
           "part": "Range and repertoire",
           "summary": "Why changing a song's key is ordinary professional practice, how to find the key that fits you, and where transposition stops helping.",
           "free": false,
-          "words": 1502,
+          "words": 1522,
           "path": "/book/transposition"
         },
         {
@@ -2987,7 +2993,7 @@
           "part": "Pop",
           "summary": "The women who defined what a pop lead vocal is — from torch-song discipline through the belt arms race — and what their entries teach about power built to last.",
           "free": false,
-          "words": 1726,
+          "words": 1912,
           "path": "/atlas/pop-women-the-founders"
         },
         {
@@ -2997,7 +3003,7 @@
           "part": "Pop",
           "summary": "The current and recent generation of pop leads — whisper-pop, fry onsets, whistle flexes and conversational belts — and how the microphone rewrote what counts as power.",
           "free": false,
-          "words": 5711,
+          "words": 4975,
           "path": "/atlas/pop-women-the-moderns"
         },
         {
@@ -3007,7 +3013,7 @@
           "part": "Pop",
           "summary": "From crooners to falsetto-forward streaming stars — why the male pop lead keeps climbing, and what the tenor arms race costs the baritones who enter it.",
           "free": false,
-          "words": 2912,
+          "words": 4424,
           "path": "/atlas/the-pop-men"
         },
         {
@@ -3017,7 +3023,7 @@
           "part": "Rock, metal and alternative",
           "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades — where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
           "free": false,
-          "words": 6764,
+          "words": 5134,
           "path": "/atlas/the-classic-rock-men"
         },
         {
@@ -3037,7 +3043,7 @@
           "part": "Rock, metal and alternative",
           "summary": "From post-punk monotone to grunge catharsis — the chapter where refusing to sing beautifully became its own technique, and what that refusal actually requires.",
           "free": false,
-          "words": 2128,
+          "words": 3131,
           "path": "/atlas/alternative-punk-and-new-wave"
         },
         {
@@ -3047,7 +3053,7 @@
           "part": "Rock, metal and alternative",
           "summary": "Air-raid tenors, operatic sopranos and controlled growls — trained singing at rock volume, and why metal singing is closer to opera than either camp admits.",
           "free": false,
-          "words": 3464,
+          "words": 3161,
           "path": "/atlas/metal"
         },
         {
@@ -3057,7 +3063,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "Church-trained tenors, velvet baritones and the falsetto tradition — the men who made secular music testify, and the phrasing lessons every genre stole from them.",
           "free": false,
-          "words": 2460,
+          "words": 3276,
           "path": "/atlas/the-soul-men"
         },
         {
@@ -3067,7 +3073,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "From torch and church to quiet storm — the women who set the bar for vocal authority, and the complete techniques their entries document.",
           "free": false,
-          "words": 2044,
+          "words": 2584,
           "path": "/atlas/the-soul-and-rnb-women"
         },
         {
@@ -3077,7 +3083,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The streaming era's R&B — falsetto confessions, whisper-runs, baritone outliers and produced nonchalance — and how the genre traded the shout for the microphone's trust.",
           "free": false,
-          "words": 5390,
+          "words": 4482,
           "path": "/atlas/modern-rnb"
         },
         {
@@ -3087,7 +3093,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The source tradition and the ensemble athletes — where the runs, the shout and the squall come from, plus the a cappella specialists who turned blend itself into virtuosity.",
           "free": false,
-          "words": 1870,
+          "words": 2528,
           "path": "/atlas/gospel-and-a-cappella"
         },
         {
@@ -3107,7 +3113,7 @@
           "part": "Country, folk and jazz",
           "summary": "The confiders — voices built to serve words, from coffeehouse sopranos to gravel philosophers — and how modest instruments built long careers here.",
           "free": false,
-          "words": 2311,
+          "words": 3108,
           "path": "/atlas/folk-and-the-songwriters"
         },
         {
@@ -3117,7 +3123,7 @@
           "part": "Country, folk and jazz",
           "summary": "Horn-players with lyrics — time feel, delayed vibrato, harmonic ears and the microphone's first great singers, from the songbook era to the new jazz generation.",
           "free": false,
-          "words": 4049,
+          "words": 2728,
           "path": "/atlas/jazz-and-the-standards"
         },
         {
@@ -3127,7 +3133,7 @@
           "part": "The trained voice",
           "summary": "The unamplified athletes — what filling a hall without a microphone actually requires, why opera ranges look modest, and what every amplified singer can steal from the fach system.",
           "free": false,
-          "words": 2195,
+          "words": 2858,
           "path": "/atlas/opera-and-classical-crossover"
         },
         {
@@ -3137,7 +3143,7 @@
           "part": "The trained voice",
           "summary": "Eight shows a week — the belt as a certified skill, legit versus contemporary technique, and why theatre singers are the book's masters of sustainable intensity.",
           "free": false,
-          "words": 2486,
+          "words": 2675,
           "path": "/atlas/musical-theatre"
         },
         {
@@ -3147,7 +3153,7 @@
           "part": "The world's voices",
           "summary": "From ranchera's long breath to reggaetón's rhythmic speech — a continent of vocal traditions, their signature techniques, and the bilingual generation remixing all of them.",
           "free": false,
-          "words": 2403,
+          "words": 3350,
           "path": "/atlas/latin-voices"
         },
         {
@@ -3157,7 +3163,7 @@
           "part": "The world's voices",
           "summary": "The idol-system technicians, Japan's genre-fluent stylists, playback legends and global outliers — precision singing at industrial standards.",
           "free": false,
-          "words": 6779,
+          "words": 4366,
           "path": "/atlas/kpop-jpop-and-global-pop"
         },
         {

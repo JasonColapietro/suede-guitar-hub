@@ -4902,7 +4902,7 @@ The clean-tone guide works through pick attack, hand position and amp settings a
 - [Vocal range](https://sing.suedeai.ai/glossary#vocal-range) · voice, in use on [Suede Sing (/range)](https://sing.suedeai.ai/range)
 - [Voice type](https://sing.suedeai.ai/glossary#voice-type) · voice, in use on [Suede Sing (/range)](https://sing.suedeai.ai/range)
 - [Vowel](https://sing.suedeai.ai/glossary#vowel) · voice, in use on [Suede Sing (/warmups)](https://sing.suedeai.ai/warmups)
-- [Whistle register](https://sing.suedeai.ai/glossary#whistle-register) · voice, in use on [Suede Sing (/singers/records)](https://sing.suedeai.ai/singers/records)
+- [Whistle register](https://sing.suedeai.ai/glossary#whistle-register) · voice, in use on [Suede Sing (/singers)](https://sing.suedeai.ai/singers)
 
 ## Questions, answered without the sales pitch.
 

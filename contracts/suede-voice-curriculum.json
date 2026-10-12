@@ -159,7 +159,7 @@
       {
         "id": "v-l2",
         "name": "Steady Tone",
-        "subtitle": "One song, in your key, in one register, start to finish",
+        "subtitle": "A first song phrase, in your key and in one register",
         "access": "free",
         "moduleCount": 4,
         "lessonCount": 24,
@@ -573,7 +573,7 @@
           },
           {
             "id": "v-l4-m4",
-            "name": "Grace and Grit",
+            "name": "Attack and Release",
             "promise": "used one supplied phrase to compare connected, detached, and gently accented attacks by ear.",
             "skill": "Grace notes, staccato, accent",
             "proofMetric": "self_reported",
@@ -756,7 +756,7 @@
                 "title": "The Difference You Can Hear",
                 "type": "concept",
                 "minutes": 4,
-                "summary": "Belt and shout sound similar for about two seconds. Then one of them stops."
+                "summary": "Belt and shout can sound alike at first. The difference is in repetition: an easy call sounds the same the third time, a shout costs more each time."
               },
               {
                 "id": "v-l5-m4-04",
@@ -1014,7 +1014,7 @@
       {
         "id": "v-l7",
         "name": "Signature",
-        "subtitle": "A style you chose, effects you earned, and a set you can perform",
+        "subtitle": "A style you chose, a stop plan for effects, and a study you can perform",
         "access": "free",
         "moduleCount": 6,
         "lessonCount": 48,
@@ -1169,7 +1169,7 @@
                 "title": "Semitone at a Time",
                 "type": "exercise",
                 "minutes": 7,
-                "summary": "Extend, hold, rescan. Open the range tool yourself when you want to compare another comfortable scan."
+                "summary": "Extend one semitone, hold it briefly, release. Count it only when it is easy on three separate days; retest your range weeks apart, not today."
               },
               {
                 "id": "v-l7-m5-08",
