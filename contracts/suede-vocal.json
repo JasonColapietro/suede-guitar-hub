@@ -1,6 +1,6 @@
 {
   "contract": "suede-vocal",
-  "version": 8,
+  "version": 9,
   "reference": {
     "repo": "JasonColapietro/sing",
     "modules": [
@@ -598,7 +598,12 @@
     "scoring": {
       "toleranceCents": 50,
       "onsetGraceSec": 0.105,
-      "onsetGraceMaxShare": 0.5
+      "onsetGraceMaxShare": 0.5,
+      "glideTimeSlack": 0.1
+    },
+    "nominalRange": {
+      "lowMidi": 45,
+      "highMidi": 64
     },
     "exercises": [
       {
@@ -950,7 +955,10 @@
         "ladder": "down",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.5
+        },
         "steps": [
           [
             4,
@@ -971,7 +979,10 @@
         "ladder": "down",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.5
+        },
         "steps": [
           [
             4,
@@ -991,7 +1002,10 @@
         "ladder": "down",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.5
+        },
         "steps": [
           [
             7,
@@ -1555,7 +1569,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.6
+        },
         "steps": [
           [
             0,
@@ -1578,7 +1595,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.6
+        },
         "steps": [
           [
             4,
@@ -1600,7 +1620,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.15,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.6
+        },
         "steps": [
           [
             0,
@@ -1622,7 +1645,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.6
+        },
         "steps": [
           [
             0,
@@ -1712,7 +1738,10 @@
         "ladder": "up",
         "unscoredLeadSec": 0,
         "gapSec": 0.08,
-        "rangeCap": null,
+        "rangeCap": {
+          "from": 0,
+          "to": 0.6
+        },
         "steps": [
           [
             7,
@@ -2648,7 +2677,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 31738,
+      "totalWords": 32297,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2677,7 +2706,7 @@
           "part": "How the voice works",
           "summary": "Why your voice has a transition zone, roughly where it sits for your voice type, and why vowel and weight get you through it when force never will.",
           "free": false,
-          "words": 1428,
+          "words": 1508,
           "path": "/book/the-passaggio"
         },
         {
@@ -2687,7 +2716,7 @@
           "part": "How the voice works",
           "summary": "What support actually means physically, why pushing more air makes tone worse, and how to feel the difference.",
           "free": false,
-          "words": 1479,
+          "words": 1477,
           "path": "/book/breath"
         },
         {
@@ -2697,7 +2726,7 @@
           "part": "How the voice works",
           "summary": "How the throat and mouth shape one buzzy fold vibration into vowels, brightness and carrying power — and how to change tone without changing effort.",
           "free": false,
-          "words": 1311,
+          "words": 1377,
           "path": "/book/resonance"
         },
         {
@@ -2727,7 +2756,7 @@
           "part": "Reading your own voice",
           "summary": "How to take the range test honestly, what a disappointing result usually means, and how much the voice-type label is worth.",
           "free": true,
-          "words": 1340,
+          "words": 1398,
           "path": "/book/reading-the-range-test"
         },
         {
@@ -2737,7 +2766,7 @@
           "part": "Reading your own voice",
           "summary": "How to read an accuracy score honestly: what a cent is, why dead centre isn't the goal, and how drift, scoops and vibrato differ.",
           "free": false,
-          "words": 1399,
+          "words": 1414,
           "path": "/book/pitch-accuracy"
         },
         {
@@ -2747,7 +2776,7 @@
           "part": "Reading your own voice",
           "summary": "How to locate your own transition with the pitch studio and range test, read a belt ceiling honestly, and tell head voice from falsetto.",
           "free": false,
-          "words": 1294,
+          "words": 1335,
           "path": "/book/finding-your-break"
         },
         {
@@ -2767,7 +2796,7 @@
           "part": "Reading your own voice",
           "summary": "How room noise, mic placement, headphone bleed and a rough day distort your readings — and how to catch a bad session before you act on it.",
           "free": true,
-          "words": 1314,
+          "words": 1443,
           "path": "/book/when-numbers-lie"
         },
         {
@@ -2777,7 +2806,7 @@
           "part": "The twelve-week program",
           "summary": "The shape of the twelve weeks — four blocks, short sessions, and the rules for skipping, repeating, and going back.",
           "free": false,
-          "words": 1396,
+          "words": 1409,
           "path": "/book/how-the-program-works"
         },
         {
@@ -2787,7 +2816,7 @@
           "part": "The twelve-week program",
           "summary": "How to spend the first two weeks collecting honest data and building a breath habit, without trying to sing better yet.",
           "free": false,
-          "words": 1395,
+          "words": 1420,
           "path": "/book/weeks-1-2-baseline"
         },
         {
@@ -2807,7 +2836,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks of quiet sirens, slides and vowel work across your transition — how to run the sessions, and what to do when they go badly.",
           "free": false,
-          "words": 1541,
+          "words": 1557,
           "path": "/book/weeks-5-6-passaggio"
         },
         {
@@ -2837,7 +2866,7 @@
           "part": "The twelve-week program",
           "summary": "Move the last two weeks onto real repertoire, retest, and compare against your week-one recording without fooling yourself.",
           "free": false,
-          "words": 1520,
+          "words": 1606,
           "path": "/book/weeks-11-12-songs"
         },
         {
@@ -2857,7 +2886,7 @@
           "part": "Range and repertoire",
           "summary": "Why changing a song's key is ordinary professional practice, how to find the key that fits you, and where transposition stops helping.",
           "free": false,
-          "words": 1470,
+          "words": 1502,
           "path": "/book/transposition"
         },
         {
@@ -2886,16 +2915,16 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it — the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 72394,
+      "totalWords": 72449,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
           "order": 1,
           "title": "How to read an entry",
           "part": "How to read a voice",
-          "summary": "The anatomy of an atlas entry — what the cited range, the full-voice ceiling, the whistle flag and the sourced extremes actually claim, and how conservative those claims are.",
+          "summary": "The anatomy of an atlas entry — what the cited range, the full-voice ceiling, the whistle flag and the sourced extremes actually claim, and how far to trust those claims.",
           "free": true,
-          "words": 902,
+          "words": 893,
           "path": "/atlas/how-to-read-an-entry"
         },
         {
@@ -2905,7 +2934,7 @@
           "part": "How to read a voice",
           "summary": "Scientific pitch notation in five minutes — what C4 means, why F#5 and Gb5 are the same note, how octave spans are counted, and why identical voices get different figures.",
           "free": true,
-          "words": 861,
+          "words": 848,
           "path": "/atlas/notes-octaves-and-the-keyboard"
         },
         {
@@ -2915,7 +2944,7 @@
           "part": "How to read a voice",
           "summary": "What the eight classification labels mean, why a pop mezzo and an opera mezzo are different claims, tessitura versus range, and how to guess your own type without a teacher.",
           "free": true,
-          "words": 857,
+          "words": 868,
           "path": "/atlas/voice-types-in-the-wild"
         },
         {
@@ -2925,7 +2954,7 @@
           "part": "How to read a voice",
           "summary": "The working lexicon behind every entry — weight, placement, vibrato, onset, grit, breathiness, twang, cry and their friends, each defined by ear with exemplars from the atlas.",
           "free": false,
-          "words": 1040,
+          "words": 1043,
           "path": "/atlas/a-vocabulary-for-tone"
         },
         {
@@ -2935,7 +2964,7 @@
           "part": "The borrower's method",
           "summary": "The five-step method behind every technique paragraph in this book: pick a trait, match the habitat, change one dial at a time, close the loop with recordings, and time-box the costume.",
           "free": false,
-          "words": 922,
+          "words": 949,
           "path": "/atlas/how-to-borrow-a-voice"
         },
         {
@@ -2945,7 +2974,7 @@
           "part": "The borrower's method",
           "summary": "The four expensive things in this book — whistle notes, extreme lows, distortion and sustained belting — what makes each risky to chase, and the warning signs that mean stop.",
           "free": false,
-          "words": 796,
+          "words": 811,
           "path": "/atlas/the-safety-rail"
         },
         {
@@ -2955,7 +2984,7 @@
           "part": "Pop",
           "summary": "The women who defined what a pop lead vocal is — from torch-song discipline through the belt arms race — and what their entries teach about power built to last.",
           "free": false,
-          "words": 1713,
+          "words": 1726,
           "path": "/atlas/pop-women-the-founders"
         },
         {
@@ -2975,7 +3004,7 @@
           "part": "Pop",
           "summary": "From crooners to falsetto-forward streaming stars — why the male pop lead keeps climbing, and what the tenor arms race costs the baritones who enter it.",
           "free": false,
-          "words": 2937,
+          "words": 2912,
           "path": "/atlas/the-pop-men"
         },
         {
@@ -2985,7 +3014,7 @@
           "part": "Rock, metal and alternative",
           "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades — where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
           "free": false,
-          "words": 6758,
+          "words": 6764,
           "path": "/atlas/the-classic-rock-men"
         },
         {
@@ -3095,7 +3124,7 @@
           "part": "The trained voice",
           "summary": "The unamplified athletes — what filling a hall without a microphone actually requires, why opera ranges look modest, and what every amplified singer can steal from the fach system.",
           "free": false,
-          "words": 2174,
+          "words": 2195,
           "path": "/atlas/opera-and-classical-crossover"
         },
         {
@@ -3145,7 +3174,7 @@
           "part": "Appendices",
           "summary": "The atlas's extremes in one place — lowest floors, highest ceilings, widest spans and the whistle club, each with the recording where the note happened when one is famously known.",
           "free": false,
-          "words": 999,
+          "words": 1005,
           "path": "/atlas/the-records"
         },
         {
@@ -3228,7 +3257,7 @@
           "highMidi": 78,
           "rangeLabel": "A3–F#5",
           "spanSemitones": 21,
-          "difficulty": "Medium",
+          "difficulty": "Hard",
           "sourceNote": "Musicnotes original-key arrangement, A3–F#5 in D major",
           "path": "/can-you-sing/good-luck-babe"
         },
@@ -3425,7 +3454,7 @@
           "key": "Db major",
           "lowMidi": 51,
           "highMidi": 70,
-          "rangeLabel": "D#3–A#4",
+          "rangeLabel": "Eb3–Bb4",
           "spanSemitones": 19,
           "difficulty": "Medium",
           "sourceNote": "Musicnotes original-key arrangement, sounding Eb3–Bb4 in Db major",
@@ -3443,7 +3472,7 @@
           "key": "C minor",
           "lowMidi": 58,
           "highMidi": 74,
-          "rangeLabel": "A#3–D5",
+          "rangeLabel": "Bb3–D5",
           "spanSemitones": 16,
           "difficulty": "Medium",
           "sourceNote": "Musicnotes original-key arrangement, Bb3–D5 in C minor",
@@ -3534,11 +3563,11 @@
           "genre": "Pop",
           "key": "A major",
           "lowMidi": 56,
-          "highMidi": 85,
-          "rangeLabel": "G#3–C#6",
-          "spanSemitones": 29,
-          "difficulty": "Hard",
-          "sourceNote": "Musicnotes original-key duet arrangement, combined voice range G#3–C#6 in A major; the notated lead line tops near E5",
+          "highMidi": 76,
+          "rangeLabel": "G#3–E5",
+          "spanSemitones": 20,
+          "difficulty": "Medium",
+          "sourceNote": "Musicnotes original-key duet arrangement in A major: notated lead line G#3 to about E5; harmonized falsetto ad-libs take the combined voice range to C#6",
           "path": "/can-you-sing/die-with-a-smile"
         },
         {
@@ -3571,7 +3600,7 @@
           "key": "Ab major",
           "lowMidi": 56,
           "highMidi": 77,
-          "rangeLabel": "G#3–F5",
+          "rangeLabel": "Ab3–F5",
           "spanSemitones": 21,
           "difficulty": "Medium",
           "sourceNote": "Musicnotes original-key Singer Pro arrangement MN0309204, Ab3–F5 in Ab major",
@@ -3587,12 +3616,12 @@
           "year": 1965,
           "genre": "Pop",
           "key": "Bb major",
-          "lowMidi": 60,
-          "highMidi": 81,
-          "rangeLabel": "C4–A5",
+          "lowMidi": 48,
+          "highMidi": 69,
+          "rangeLabel": "C3–A4",
           "spanSemitones": 21,
-          "difficulty": "Hard",
-          "sourceNote": "Musicnotes original-key Singer Pro arrangement MN0133818, C4–A5 in Bb major",
+          "difficulty": "Medium",
+          "sourceNote": "Musicnotes original-key Singer Pro arrangement MN0133818, written C4–A5, sounding C3–A4 in Bb major",
           "path": "/can-you-sing/unchained-melody"
         },
         {
@@ -3763,6 +3792,8 @@
     "warmupOnsetGrace": "Each warm-up target note forgives its first g seconds, g = min(warmups.scoring.onsetGraceSec, warmups.scoring.onsetGraceMaxShare * the note's duration at the tempo sung). Inside g a frame outside toleranceCents is dropped entirely (no hit, no cents error, no voiced frame) and a frame within it counts as voiced with its cents error but earns no hit time. Hit time is credited only from g to the note's end. A note's possible time is its duration less g, its credited time is capped at that, and the rep score is total credited over total possible. The grace is an onset tolerance for input latency beyond the score-lag model, so it is in seconds and does not scale with tempo. Glide segments get it too.",
     "warmupGap": "Consecutive notes (or glide steps) of a warm-up are separated by gapSec / tempo seconds of silence, gapSec being the exercise's own value; the default is published on every exercise rather than left implicit. The gap is part of patternSeconds and is never scored, and the guide plays the same gaps.",
     "warmupRangeCap": "A non-null rangeCap trims the fitted root ladder before it is walked: with n rungs counted from the bottom (index 0), keep indexes round(from * (n - 1)) through max(that, round(to * (n - 1))), inclusive. A ladder of one rung is kept as it is. A down ladder is capped first and reversed after. Null walks the whole fitted ladder.",
+    "warmupGlideWindow": "A glide frame at pattern time t is measured against the nearest pitch the guide's straight-line ramp passes through between t - glideTimeSlack * d - onsetGraceSec and t + glideTimeSlack * d, d being the glide's duration at the tempo sung and the ramp held at its endpoints outside the glide. The frame is in tune when it is within toleranceCents of that pitch, and its cents error is measured from it. onsetGraceSec here is warmups.scoring.onsetGraceSec itself, not the per-note capped grace. Plain notes are scored against their one pitch.",
+    "warmupOctaveWithoutRange": "Without a saved range every warm-up ladder is fitted to warmups.nominalRange (A2–E4, before any rangeCap) and any octave of each target counts: each sung frame is moved by whole octaves to the octave nearest the target at that instant before it is compared. Each note's tallies are filed under its target moved by the rounded mean of the whole-octave shifts of that note's counted frames, and the rep's reported root is moved by the rounded mean over the whole rep. With a saved range only the written octave counts.",
     "freeExerciseGate": "A warmup is free if and only if it is in EXERCISES. Pro packs are gated by array membership, not by a flag, so a free surface must never deep-link a pack exercise."
   },
   "knownDivergences": {
