@@ -4877,7 +4877,7 @@ The clean-tone guide works through pick attack, hand position and amp settings a
 - [Intonation](https://sing.suedeai.ai/glossary#intonation) (tuning) · music, in use on [Suede Sing (/ear-training)](https://sing.suedeai.ai/ear-training)
 - [Legato](https://sing.suedeai.ai/glossary#legato) · music, in use on [Suede Sing (/warmups)](https://sing.suedeai.ai/warmups)
 - [Lip trill](https://sing.suedeai.ai/glossary#lip-trill) (lip bubble) · voice, in use on [Suede Sing (/warmups)](https://sing.suedeai.ai/warmups)
-- [Metronome](https://sing.suedeai.ai/glossary#metronome) (click, click track) · music, in use on [Suede Sing (/songs)](https://sing.suedeai.ai/songs)
+- [Metronome](https://sing.suedeai.ai/glossary#metronome) (click, click track) · music, in use on [Suede Sing (/tools)](https://sing.suedeai.ai/tools)
 - [Mix](https://sing.suedeai.ai/glossary#mix) (mixed voice) · voice, in use on [Suede Sing (/singers)](https://sing.suedeai.ai/singers)
 - [Octave](https://sing.suedeai.ai/glossary#octave) · music, in use on [Suede Sing (/range)](https://sing.suedeai.ai/range)
 - [Onset](https://sing.suedeai.ai/glossary#onset) (attack) · voice, in use on [Suede Sing (/studio)](https://sing.suedeai.ai/studio)
