@@ -40,7 +40,6 @@ const SECURITY_HEADERS = [
 const STATIC_IMAGE_CACHE = "public, max-age=86400, stale-while-revalidate=604800";
 export const STATIC_IMAGE_SOURCES = [
   "/field-guides/covers/:file*",
-  "/books/:file*",
   "/favicon.ico",
   "/favicon-16x16.png",
   "/favicon-32x32.png",

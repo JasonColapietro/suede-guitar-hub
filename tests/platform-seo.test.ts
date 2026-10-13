@@ -83,7 +83,6 @@ test("each Field Guide PDF names its HTML guide as canonical, and static images 
 
   for (const source of [
     "/field-guides/covers/:file*",
-    "/books/:file*",
     "/favicon.ico",
     "/apple-touch-icon.png",
   ]) {
@@ -99,7 +98,7 @@ test("each Field Guide PDF names its HTML guide as canonical, and static images 
 });
 
 test("cover images are lazy, sized and never preloaded", () => {
-  for (const path of ["components/FieldGuides.tsx", "components/BookShelf.tsx"]) {
+  for (const path of ["components/FieldGuides.tsx"]) {
     const source = read(path);
     assert.match(source, /from "next\/image"/, `${path} must resize covers through next/image`);
     assert.doesNotMatch(source, /<img\b/, `${path} must not ship the 900px originals`);
