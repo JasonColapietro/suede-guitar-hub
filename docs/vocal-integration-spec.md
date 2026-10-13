@@ -766,6 +766,15 @@ rounded to nearest can return the tempo the learner is already at, so "ready to
 increase" recommends no increase. Outward rounding always moves, which is the
 whole point of a recommendation.
 
+*Update, 2026-10-13:* grid snapping is resolved, and the losing surface was this
+repository. sing's song auto tempo steps one `tempoStep` from the current rate and
+snaps, so it always moves exactly one step. The web instead rounded a five per
+cent change to half a BPM and snapped outward, which at some tempos skipped a
+step. It now moves exactly one grid step, in lockstep with native through
+`contracts/learning.json`. The entry keeps its `unify` decision with
+`pendingOn: "guitarHubWeb"`, like the accidental glyph, so three `unify` decisions
+now wait on another surface: two on sing and one on native.
+
 The clarity floors are `notComparable` and must stay that way. One minus a
 cumulative-mean-normalized difference is not a normalized autocorrelation, so
 0.5 here is not a looser 0.85 and neither is a looser anything of sing's. A

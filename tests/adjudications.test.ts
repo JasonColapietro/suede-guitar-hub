@@ -52,8 +52,10 @@ test('the decision tally is the one the spec prints', () => {
     for (const entry of ADJUDICATIONS) tally[entry.decision] = (tally[entry.decision] ?? 0) + 1;
     assert.deepEqual(tally, { divergent: 5, unify: 5, recordedUpstream: 3, featureGap: 1, notComparable: 1 });
     const assigned = ADJUDICATIONS.filter(entry => entry.pendingOn && entry.pendingOn !== 'guitarHubWeb');
-    assert.equal(assigned.length, 4, 'the spec says four unify decisions wait on another surface');
-    assert.equal(assigned.filter(entry => entry.pendingOn === 'sing').length, 3, 'three on sing');
+    // The spec's W17 prose found four, three on sing; its grid-snapping note
+    // records that gridSnapping has since resolved here.
+    assert.equal(assigned.length, 3, 'three unify decisions wait on another surface');
+    assert.equal(assigned.filter(entry => entry.pendingOn === 'sing').length, 2, 'two on sing');
     assert.equal(assigned.filter(entry => entry.pendingOn === 'guitarHubNative').length, 1, 'one on native');
 });
 
@@ -205,7 +207,7 @@ test('the twelve-second hiss keeps naming the ladder rung it clears', () => {
 
 test('the accidental unification is done, not merely decided', () => {
     const entry = byId('accidentalGlyph');
-    assert.equal(entry.pendingOn, 'guitarHubWeb', 'this is the one whose losing surface is here');
+    assert.equal(entry.pendingOn, 'guitarHubWeb', 'its losing surface is here');
     const glyph = readContractValue('contracts/suede-vocal.json', 'pitch.accidentalGlyph') as string;
     assert.equal(glyph, COMPARISON_SHARP);
     assert.equal(noteName(61), `C${DISPLAY_SHARP}4`, 'display keeps the typographic sharp');
