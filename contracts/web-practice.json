@@ -1,6 +1,6 @@
 {
   "contract": "guitarhub-web-practice",
-  "version": 1,
+  "version": 2,
   "detector": {
     "algorithm": "yin",
     "polyphonic": false,
@@ -26,9 +26,6 @@
     "minimumRatio": 0.25,
     "maximumRatio": 1.25,
     "incrementRatio": 0.05,
-    "decreaseFactor": 0.95,
-    "increaseFactor": 1.05,
-    "bpmStep": 0.5,
     "bpmMatchEpsilon": 0.01,
     "floorScore": 60,
     "advanceScore": 90,

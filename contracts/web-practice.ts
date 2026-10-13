@@ -33,19 +33,18 @@ import { RHYTHM_WINDOW_BEATS } from "../lib/audio/practice.ts";
 import {
   TEMPO_ADVANCE_SCORE,
   TEMPO_BPM_MATCH_EPSILON,
-  TEMPO_BPM_STEP,
-  TEMPO_DECREASE_FACTOR,
   TEMPO_EVIDENCE_MINIMUM,
   TEMPO_EVIDENCE_WINDOW,
   TEMPO_FLOOR_SCORE,
-  TEMPO_INCREASE_FACTOR,
   TEMPO_INCREMENT_RATIO,
   TEMPO_MAXIMUM_RATIO,
   TEMPO_MINIMUM_RATIO,
 } from "../lib/audio/practice-tempo.ts";
 
 export const CONTRACT_NAME = "guitarhub-web-practice";
-export const CONTRACT_VERSION = 1;
+/** 2: dropped adaptiveTempo.decreaseFactor, increaseFactor and bpmStep; a
+ * recommendation now moves exactly one incrementRatio step from the current tempo. */
+export const CONTRACT_VERSION = 2;
 
 /** Asserted against `contracts/web-practice.json`, so adding a key is a
  * deliberate act: the list has to be extended in the same commit. */
@@ -120,9 +119,6 @@ export function buildContract() {
       minimumRatio: TEMPO_MINIMUM_RATIO,
       maximumRatio: TEMPO_MAXIMUM_RATIO,
       incrementRatio: TEMPO_INCREMENT_RATIO,
-      decreaseFactor: TEMPO_DECREASE_FACTOR,
-      increaseFactor: TEMPO_INCREASE_FACTOR,
-      bpmStep: TEMPO_BPM_STEP,
       bpmMatchEpsilon: TEMPO_BPM_MATCH_EPSILON,
       floorScore: TEMPO_FLOOR_SCORE,
       advanceScore: TEMPO_ADVANCE_SCORE,

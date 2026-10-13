@@ -252,11 +252,11 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
     decision: "unify",
     pendingOn: "sing",
     surfaces: [
-      { surface: "guitarHubWeb", value: "floor on decrease, ceil on increase", source: "lib/audio/practice-tempo.ts", binding: "live" },
+      { surface: "guitarHubWeb", value: "one grid step away from the current tempo", source: "lib/audio/practice-tempo.ts", binding: "live" },
       { surface: "sing", value: "round to nearest", source: "sing practice tempo", binding: "observed" },
     ],
     reason:
-      "Outward rounding is the correct rule and round-to-nearest is a bug wearing the look of a " +
+      "Stepping away from the current tempo is the correct rule and round-to-nearest is a bug wearing the look of a " +
       "preference: from a grid position, a five per cent step rounded to nearest can return the " +
       "tempo the learner is already at, so 'ready to increase' silently recommends no increase. " +
       "Rounding away from the current tempo always moves, which is the entire point of a " +

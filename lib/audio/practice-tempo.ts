@@ -9,10 +9,6 @@ export type TempoReason = 'buildingEvidence' | 'repeatToConsolidate' | 'readyToI
  * named that agreement was a coincidence no test could notice. They are
  * serialized by `contracts/web-practice.ts`; changing one fails that contract. */
 export const TEMPO_MINIMUM_RATIO = .25, TEMPO_MAXIMUM_RATIO = 1.25, TEMPO_INCREMENT_RATIO = .05;
-/** Recommendations move by one twentieth, rounded outward onto the grid. */
-export const TEMPO_DECREASE_FACTOR = .95, TEMPO_INCREASE_FACTOR = 1.05;
-/** Recommendations are quantized to half a beat per minute. */
-export const TEMPO_BPM_STEP = .5;
 /** A score under this is a reduction regardless of the spec's own pass score. */
 export const TEMPO_FLOOR_SCORE = 60;
 /** Advancing needs two consecutive attempts at or above this, and the pass score. */
@@ -31,12 +27,11 @@ export function recommendPracticeTempo(spec: PracticeSpec, currentBPM: number, a
   const latest = gradable.at(-1);
   let reason: TempoReason = 'buildingEvidence', requested = current;
   if (latest && latest.score !== null) {
-    if (latest.score < TEMPO_FLOOR_SCORE || latest.score < spec.passScore) { reason = 'reduceAndRebuild'; requested = Math.round(current * TEMPO_DECREASE_FACTOR / TEMPO_BPM_STEP) * TEMPO_BPM_STEP; }
-    else if (gradable.length >= TEMPO_EVIDENCE_MINIMUM && gradable.slice(-TEMPO_EVIDENCE_MINIMUM).every(attempt => attempt.score! >= TEMPO_ADVANCE_SCORE && attempt.score! >= spec.passScore)) { reason = 'readyToIncrease'; requested = Math.round(current * TEMPO_INCREASE_FACTOR / TEMPO_BPM_STEP) * TEMPO_BPM_STEP; }
+    if (latest.score < TEMPO_FLOOR_SCORE || latest.score < spec.passScore) reason = 'reduceAndRebuild';
+    else if (gradable.length >= TEMPO_EVIDENCE_MINIMUM && gradable.slice(-TEMPO_EVIDENCE_MINIMUM).every(attempt => attempt.score! >= TEMPO_ADVANCE_SCORE && attempt.score! >= spec.passScore)) reason = 'readyToIncrease';
     else if (gradable.length >= TEMPO_EVIDENCE_MINIMUM) reason = 'repeatToConsolidate';
   }
-  requested = Math.min(maximum, Math.max(minimum, requested));
-  // Move exactly one grid step from the current tempo. Snapping the half-BPM
+  // Move exactly one grid step from the current tempo. Snapping a half-BPM
   // rounded 5% change could cross a grid point and skip a step (76 BPM failed
   // went to 68.4, not 72.2; 105% failed went to 95%, not 100%). Same arithmetic
   // as native AdaptiveDifficulty; contracts/learning.json pins both.
