@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/guitar-practice-schedule`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "A schedule that survives a real week", href: "/guitar-practice-schedule" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "A Guitar Practice Schedule That Survives a Real Week";
@@ -66,6 +74,7 @@ const JSON_LD = {
       publisher: { "@id": SUEDE_ORG_ID },
       mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -78,6 +87,7 @@ export default function GuitarPracticeSchedulePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/guitar-practice-schedule"
         title={
           <>

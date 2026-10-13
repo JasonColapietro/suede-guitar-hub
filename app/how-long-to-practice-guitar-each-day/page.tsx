@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 import {
   ARTICLE_AUTHOR,
@@ -13,6 +14,13 @@ import {
 } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/how-long-to-practice-guitar-each-day`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "How long to practice each day", href: "/how-long-to-practice-guitar-each-day" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "How Long Should You Practice Guitar Each Day?";
@@ -112,6 +120,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: item.a },
       })),
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -124,6 +133,7 @@ export default function HowLongToPracticePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/how-long-to-practice-guitar-each-day"
         eyebrow="GuitarHub guide"
         title={

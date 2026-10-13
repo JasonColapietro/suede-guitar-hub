@@ -3,6 +3,9 @@ import Link from "next/link";
 import Readiness from "@/components/Readiness";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { webPageNode } from "@/lib/page-schema";
 import { GUIDES, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
@@ -75,6 +78,12 @@ const RELATED = RELATED_HREFS.flatMap((href) =>
 const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Tools", "/tools"),
+  { name: "Song readiness score", href: "/readiness" },
+];
+
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -124,8 +133,16 @@ const JSON_LD = {
       })),
       author: { "@id": JASON_PERSON_ID },
       publisher: { "@id": SUEDE_ORG_ID },
-      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+      mainEntityOfPage: { "@id": `${CANONICAL}#webpage` },
     },
+    webPageNode({
+      canonical: CANONICAL,
+      name: TITLE,
+      description: DESCRIPTION,
+      mainEntity: `${CANONICAL}#tool`,
+      crumbs: CRUMBS,
+    }),
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -138,6 +155,8 @@ export default function ReadinessPage() {
       />
 
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">

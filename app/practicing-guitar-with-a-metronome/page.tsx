@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 import {
   ARTICLE_AUTHOR,
@@ -12,6 +13,13 @@ import {
 } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/practicing-guitar-with-a-metronome`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Practicing with a metronome", href: "/practicing-guitar-with-a-metronome" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "How to Actually Practice With a Metronome";
@@ -100,6 +108,7 @@ const JSON_LD = {
       publisher: { "@id": SUEDE_ORG_ID },
       mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -112,6 +121,7 @@ export default function MetronomePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/practicing-guitar-with-a-metronome"
         eyebrow="Timing and tempo"
         title={

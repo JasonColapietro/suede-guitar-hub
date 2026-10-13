@@ -8,6 +8,7 @@ import { DRILLS, drillHref, getDrill, skillArea } from "@/lib/advanced/drills";
 import { drillTeaching } from "@/lib/advanced/teaching";
 import { SITE_URL } from "@/lib/site";
 import { drillKeywords } from "@/lib/keywords";
+import { pageJsonLd } from "@/lib/page-schema";
 import learning from "@/components/learning/Learning.module.css";
 import styles from "@/components/advanced/Advanced.module.css";
 
@@ -39,12 +40,21 @@ export default async function DrillPage({ params }: { params: Promise<Params> })
   const teaching = drillTeaching(drill.id);
   const index = DRILLS.findIndex(item => item.id === drill.id);
   const previous = DRILLS[index - 1], next = DRILLS[index + 1];
+  const crumbs = [
+    { name: "Advanced Lab", href: "/advanced" },
+    { name: area.name, href: `/advanced#${area.id}` },
+    { name: drill.title, href: drillHref(drill.id) },
+  ];
+  const page = pageJsonLd({
+    canonical: `${SITE_URL}${drillHref(drill.id)}`,
+    name: `${drill.seo.title} | GuitarHub`,
+    description: drill.seo.description,
+    crumbs,
+    breadcrumbs: false,
+  });
   return <>
-    <BreadcrumbJsonLd crumbs={[
-      { name: "Advanced Lab", href: "/advanced" },
-      { name: area.name, href: `/advanced#${area.id}` },
-      { name: drill.title, href: drillHref(drill.id) },
-    ]} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(page) }} />
+    <BreadcrumbJsonLd crumbs={crumbs} />
     <nav className={learning.breadcrumbs} aria-label="Breadcrumb"><Link href="/advanced">Advanced Lab</Link><span aria-hidden="true">/</span><Link href={`/advanced#${area.id}`}>{area.name}</Link></nav>
     <header className={styles.drillHead}>
       <p className={styles.eyebrow}>{area.name} · {drill.tier} · {drill.minutes} min</p>

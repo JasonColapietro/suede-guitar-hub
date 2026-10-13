@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, SITE_URL, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/how-to-memorize-songs-on-guitar`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "How to memorize a song", href: "/how-to-memorize-songs-on-guitar" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "How to Memorize a Song on Guitar Without the Tab";
@@ -73,6 +81,7 @@ const JSON_LD = {
       author: ARTICLE_AUTHOR,
       publisher: { "@id": SUEDE_ORG_ID },
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -85,6 +94,7 @@ export default function HowToMemorizeSongsOnGuitarPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/how-to-memorize-songs-on-guitar"
         title={
           <>

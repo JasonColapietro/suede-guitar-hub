@@ -2,10 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/method`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "The GuitarHub method", href: "/method" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const TITLE = "The GuitarHub Method: A Four-Stage Practice Loop";
@@ -102,6 +110,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: item.a },
       })),
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -114,6 +123,7 @@ export default function MethodPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/method"
         eyebrow="The GuitarHub method"
         title={

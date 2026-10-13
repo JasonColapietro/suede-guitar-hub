@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/nam-a2-open-tone-format`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Print the Quiet", href: "/resources/print-the-quiet" },
+  { name: "NAM A2 turns guitar tone into an open format", href: "/resources/nam-a2-open-tone-format" },
+];
+
 const PUBLISHED = "2026-08-31";
 
 const TITLE = "NAM A2 Turns Guitar Tone Into an Open Format";
@@ -52,18 +61,23 @@ const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${CANONICAL}#article`,
-  headline: TITLE,
-  description: DESCRIPTION,
-  keywords: keywordsText("/resources/nam-a2-open-tone-format"),
-  image: `${CANONICAL}/opengraph-image`,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": SUEDE_ORG_ID },
-  mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${CANONICAL}#article`,
+      headline: TITLE,
+      description: DESCRIPTION,
+      keywords: keywordsText("/resources/nam-a2-open-tone-format"),
+      image: `${CANONICAL}/opengraph-image`,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": SUEDE_ORG_ID },
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 export default function NamA2OpenTonePage() {
@@ -75,6 +89,7 @@ export default function NamA2OpenTonePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/resources/nam-a2-open-tone-format"
         eyebrow="GuitarHub editorial"
         title={

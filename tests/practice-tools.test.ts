@@ -397,7 +397,7 @@ test("the chosen tempo and pattern persist under their own key", () => {
   const chosen = { bpm: 60, mode: "downbeat" as const, gapEnabled: true, playBars: 2, muteBars: 2 };
   assert.equal(store.write(chosen), true);
   assert.ok(data.has(METRONOME_STORAGE_KEY));
-  assert.deepEqual(metronomeSettingsStore(() => area).read(), { available: true, value: chosen });
+  assert.deepEqual(metronomeSettingsStore(() => area).read(), { available: true, value: chosen, persisted: true });
   const blocked = metronomeSettingsStore(() => { throw new Error("blocked"); });
   assert.deepEqual(blocked.read(), { available: false });
   assert.equal(blocked.write(chosen), false);

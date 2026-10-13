@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, SITE_URL, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/resources/jeff-buckley-hallelujah-guitar-tone`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Print the Quiet", href: "/resources/print-the-quiet" },
+  { name: "What Hallelujah teaches about guitar tone", href: "/resources/jeff-buckley-hallelujah-guitar-tone" },
+];
+
 const PUBLISHED = "2026-08-31";
 const TITLE = "What Hallelujah Teaches About Guitar Tone";
 const DESCRIPTION =
@@ -50,18 +59,23 @@ const RELATED: readonly RelatedLink[] = [
 
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${CANONICAL}#article`,
-  headline: TITLE,
-  description: DESCRIPTION,
-  keywords: keywordsText("/resources/jeff-buckley-hallelujah-guitar-tone"),
-  image: `${CANONICAL}/opengraph-image`,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": "https://suedeai.ai/#organization" },
-  mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${CANONICAL}#article`,
+      headline: TITLE,
+      description: DESCRIPTION,
+      keywords: keywordsText("/resources/jeff-buckley-hallelujah-guitar-tone"),
+      image: `${CANONICAL}/opengraph-image`,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": "https://suedeai.ai/#organization" },
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 export default function HallelujahGuitarTonePage() {
@@ -73,6 +87,7 @@ export default function HallelujahGuitarTonePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/resources/jeff-buckley-hallelujah-guitar-tone"
         eyebrow="Print the Quiet field guide"
         title={

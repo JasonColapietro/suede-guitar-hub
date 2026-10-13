@@ -20,7 +20,7 @@ const TITLE = "GuitarHub FAQ: The Method, the Tools, and the Founding Room";
 // is actually deciding — cost, access, data, the room — rather than
 // describing the page as "everything you need to know".
 const DESCRIPTION =
-  "GuitarHub answers: what is free, how lifetime lesson access works, how the practice method and tools run, where your data lives, and how the founding room works.";
+  "GuitarHub answers: what is free, how lifetime lesson access works, how the method and tools run, where your data lives, and how the founding room works.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/faq"),

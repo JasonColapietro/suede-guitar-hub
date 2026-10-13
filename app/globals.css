@@ -262,6 +262,42 @@ body {
   transition: transform 260ms ease;
 }
 
+/* Native progress keeps its semantics while matching the practice tools in
+   Chromium, Safari, and Firefox, where accent-color alone is inconsistent. */
+.practice-workspace-progress {
+  appearance: none;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-cream-soft);
+  color: var(--color-violet);
+}
+
+.practice-workspace-progress::-webkit-progress-bar {
+  border-radius: inherit;
+  background: var(--color-cream-soft);
+}
+
+.practice-workspace-progress::-webkit-progress-value {
+  border-radius: inherit;
+  background: var(--color-violet);
+}
+
+.practice-workspace-progress::-moz-progress-bar {
+  border-radius: inherit;
+  background: var(--color-violet);
+}
+
+@media (forced-colors: active) {
+  .practice-workspace-progress {
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+  .practice-workspace-progress::-webkit-progress-bar { background: Canvas; }
+  .practice-workspace-progress::-webkit-progress-value { background: Highlight; }
+  .practice-workspace-progress::-moz-progress-bar { background: Highlight; }
+}
+
 .breakthrough-timeline {
   position: relative;
   display: grid;

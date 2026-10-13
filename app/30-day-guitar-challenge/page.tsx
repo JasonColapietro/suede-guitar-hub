@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, STRUMLY } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/30-day-guitar-challenge";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "The 30-day guitar challenge", href: "/30-day-guitar-challenge" },
+];
 
 const TITLE = "The 30-Day Guitar Challenge That Actually Works";
 const DESCRIPTION =
@@ -84,6 +91,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: item.a },
       })),
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -105,6 +113,7 @@ export default function ThirtyDayGuitarChallengePage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/30-day-guitar-challenge"
         title={
           <>

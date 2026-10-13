@@ -2,27 +2,34 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { webPageNode } from "@/lib/page-schema";
 import TempoLadder from "@/components/TempoLadder";
 import { GUIDES, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 import { BPM_MAX, BPM_MIN } from "@/lib/tempo";
 
+const CANONICAL = "https://guitarhub.org/tempo";
+const TITLE = "Tempo Ladder Builder | GuitarHub";
+const DESCRIPTION =
+  "Turn one stuck passage into a tempo ladder: a proven starting speed, capped steps, hold rungs, a back-off session, and a target you can record.";
+
 export const metadata: Metadata = {
   keywords: keywordsFor("/tempo"),
-  title: "Tempo Ladder Builder | GuitarHub",
-  description:
-    "Turn one stuck passage into a tempo ladder: a proven starting speed, capped steps, hold rungs, a back-off session, and a target you can record.",
+  title: TITLE,
+  description: DESCRIPTION,
   openGraph: {
-    title: "Tempo Ladder Builder | GuitarHub",
+    title: TITLE,
     description:
       "Enter the tempo you play a passage cleanly and the tempo you want. Get an ordered ladder of sessions, each with a pass condition.",
-    url: "https://guitarhub.org/tempo",
+    url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
     // No `images` key: Next attaches the colocated opengraph-image.tsx card
     // only when the page leaves `images` unset.
   },
-  alternates: { canonical: "https://guitarhub.org/tempo" },
+  alternates: { canonical: CANONICAL },
 };
 
 // The Organization and Person nodes are defined once, in app/layout.tsx. These
@@ -32,6 +39,12 @@ const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 const JASON_PERSON_ID = "https://suedeai.ai/founder#person";
 const SITE_ID = "https://guitarhub.org/#website";
 const TOOL_ID = "https://guitarhub.org/tempo#tool";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Tools", "/tools"),
+  { name: "Tempo ladder builder", href: "/tempo" },
+];
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -100,6 +113,14 @@ const JSON_LD = {
         },
       ],
     },
+    webPageNode({
+      canonical: CANONICAL,
+      name: TITLE,
+      description: DESCRIPTION,
+      mainEntity: `${CANONICAL}#tool`,
+      crumbs: CRUMBS,
+    }),
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -156,6 +177,8 @@ export default function TempoPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">

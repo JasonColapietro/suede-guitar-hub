@@ -5,6 +5,7 @@ import { lessonHref } from "@/lib/learning/curriculum";
 import {
   ABOUT,
   ADVANCED_LAB_LAST_MODIFIED,
+  AI_INSTRUCTIONS,
   GUIDES,
   HOME,
   HUBS,
@@ -86,5 +87,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.8,
   }));
-  return [...pages, ...lessons, ...drills];
+  // The AI Instructions page is a static file in public/ (served through the
+  // vercel.json rewrite), so it has no registry entry. It is indexable and is
+  // also listed in ai-instructions-sitemap.xml; its date tracks that file.
+  const staticPages: SitemapEntry[] = [
+    { url: absolute(AI_INSTRUCTIONS.href), lastModified: new Date(`${AI_INSTRUCTIONS.lastModified}T00:00:00.000Z`), changeFrequency: "monthly", priority: 0.3 },
+  ];
+  return [...pages, ...lessons, ...drills, ...staticPages];
 }

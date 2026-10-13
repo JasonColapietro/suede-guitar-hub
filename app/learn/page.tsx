@@ -8,6 +8,8 @@ import { APP_STORE, LIFETIME, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
 import styles from "@/components/learning/Learning.module.css";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import { keywordsFor } from "@/lib/keywords";
+import { pageJsonLd } from "@/lib/page-schema";
+import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
 const CANONICAL = `${SITE_URL}/learn`;
 
@@ -18,9 +20,9 @@ const STAGE_LESSONS = GUITAR_LESSONS.filter(entry => entry.level.stage).length;
 const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
 const STAGES = curricula.guitar.levels.filter(level => level.stage);
 
-const TITLE = "Learn Guitar: Lesson Path, Free Routine & Advanced Lab | GuitarHub";
+const TITLE = "Learn Guitar: Lessons, Free Routine & Advanced Lab | GuitarHub";
 const DESCRIPTION =
-  `The ${STAGE_LESSONS}-lesson GuitarHub guitar curriculum in ${spellOut(STAGES.length)} stages with ${LIFETIME.display} lifetime access, plus the free A-to-D chord routine, the free Advanced Lab and voice lessons on Suede Sing.`;
+  `The ${STAGE_LESSONS}-lesson GuitarHub guitar curriculum in ${spellOut(STAGES.length)} stages with ${LIFETIME.display} lifetime access, plus the free A-to-D chord routine and the free Advanced Lab.`;
 
 /**
  * The `openGraph` and `twitter` blocks are the point of this object, not
@@ -77,9 +79,16 @@ const FREE_PATHS = [
   },
 ] as const;
 
+/** Read by the compact visible trail and its BreadcrumbList twin. */
+const CRUMBS = [{ name: "GuitarHub", href: "/" }, { name: "Learning paths", href: "/learn" }];
+const PAGE_JSON_LD = pageJsonLd({ canonical: CANONICAL, name: TITLE, description: DESCRIPTION, type: "CollectionPage", crumbs: CRUMBS, breadcrumbs: false });
+
 export default function LearnPage() {
   const hasOutlines = (["guitar", "voice"] as const).some(track => allLessons(track).some(entry => !isLessonReady(track, entry.lesson.id)));
   return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PAGE_JSON_LD) }} />
+    <BreadcrumbJsonLd crumbs={CRUMBS} />
+    <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/">GuitarHub</Link><span aria-hidden="true">/</span><span aria-current="page">Learning paths</span></nav>
     <div className={styles.hero}>
       <h1>Learn guitar in order, and practice it every day.</h1>
       <p>GuitarHub teaches guitar as a path: {STAGE_LESSONS} guided lessons in {spellOut(STAGES.length)} stages, each one building on the last, with free tools for the days between lessons. Start with the curriculum if you are new, run the free routine on any day you pick up the guitar, and move to the Advanced Lab when the fundamentals are under your fingers. Not sure which fits? <Link href="/start">Find your level in five questions</Link>.</p>

@@ -1,4 +1,6 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
+import { DRILLS } from "@/lib/advanced/drills";
+import { catalogLessons, learningCatalog } from "@/lib/learning/catalog";
 import {
   APP_STORE,
   GUIDES,
@@ -22,15 +24,14 @@ import {
 // and a description cannot outlive the page it describes.
 
 /**
- * `/method` is excluded from the generated guide list on purpose. Its registry
- * blurb describes the loop as "diagnose, prescribe, practice, prove, correct,
- * repeat", but the page itself teaches the four-stage version spelled out above
- * (baseline, isolate, reconnect, prove). Listing both in one file hands an
- * answer engine two different stage sets for the same URL, which is precisely
- * the failure this file exists to prevent. The method section above already
- * names `/method` with the stages the page actually uses.
+ * The method section already names `/method` and spells out its four stages,
+ * so omit that duplicate from the generated guide list.
  */
 const WRITTEN_GUIDES = GUIDES.filter((entry) => entry.href !== "/method");
+const GUITAR_LESSONS = catalogLessons("guitar");
+const GUITAR_STAGES = learningCatalog.tracks.guitar.filter((level) => level.stage).length;
+const STAGE_LESSONS = GUITAR_LESSONS.filter(({ level }) => level.stage).length;
+const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
 
 /** `- Title — blurb`, then the absolute URL on its own line. */
 function listEntries(entries: readonly SiteEntry[]): string {
@@ -44,11 +45,12 @@ const LLMS_TXT = `# GuitarHub — prove one guitar breakthrough in 30 days
 ## Source and citation guide
 
 - [AI Instructions](https://guitarhub.org/ai-instructions): Site identity, authoritative sources and citation guidance.
+- [Full text](https://guitarhub.org/llms-full.txt): the full text of every public guide, tool, hub and policy page in one Markdown file, generated from the pages themselves.
 
 > GuitarHub is a structured 30-day guitar practice method: choose one finish
 > line, isolate the specific thing breaking it, practice only that, and end
-> each week with a recording that proves the change. It pairs a 105-lesson
-> guided curriculum with free browser tools and a 23-drill Advanced Lab, and is
+> each week with a recording that proves the change. It pairs ${GUITAR_LESSONS.length} guitar lessons,
+> including ${SONG_COMPANIONS} song companions, with free browser tools and a ${DRILLS.length}-drill Advanced Lab, and is
 > built by Suede AI, the team behind Strumly and Suede Sing.
 
 ## The problem it addresses
@@ -122,8 +124,15 @@ Applying is a form on the site. It takes no payment and creates no commitment.
 
 ## Lessons and access
 
-- The guided curriculum is 105 lessons in seven stages plus 30 song
-  companions. Lessons listen through the microphone and check the result.
+- The guitar curriculum contains ${GUITAR_LESSONS.length} lessons: ${STAGE_LESSONS} lessons in ${spellOut(GUITAR_STAGES)} stages
+  plus ${SONG_COMPANIONS} song companions. Each lesson pairs written instruction with a practice
+  task. Microphone exercises measure pitch or timing where available; other
+  tasks use a quiz, a self-check or the player's own assessment.
+- Browse the guitar curriculum: ${SITE_URL}/learn/guitar
+- Search lessons by song, artist, skill, stage and practice type:
+  ${SITE_URL}/learn/guitar#lesson-search
+- Resume saved sessions, 30-day plans, tempo ladders and logged practice:
+  ${SITE_URL}/practice#practice-workspace-title
 - Lifetime lesson access costs ${LIFETIME.display} ${LIFETIME.currency}, one time, in the US
   App Store: the in-app purchase "${LIFETIME.name}" in GuitarHub for iPhone
   (${APP_STORE.ios}). Other storefronts charge their local price. The first

@@ -55,7 +55,7 @@ export default function PracticeWorkspace({ compact = false }: { compact?: boole
                 <p className="text-xs font-semibold uppercase tracking-wider text-violet">{card.label}</p>
                 <h3 className="mt-2 font-display text-xl text-indigo-deep">{card.title}</h3>
                 <p className="mt-2 text-sm font-semibold text-ink/80">{card.metric}</p>
-                {card.percent !== null && <progress aria-label={`${card.label}: checked progress`} value={card.percent} max={100} className="mt-3 h-2 w-full accent-violet" />}
+                {card.percent !== null && <progress aria-label={`${card.label}: checked progress`} aria-valuetext={card.metric} value={card.percent} max={100} className="practice-workspace-progress mt-3 h-2 w-full" />}
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">{card.detail}</p>
                 <span className="mt-4 text-sm font-semibold text-indigo-deep group-hover:underline">{card.cta} <span aria-hidden>→</span></span>
               </Link>

@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, STRUMLY, TOOLS, type SiteEntry } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = "https://guitarhub.org/deliberate-practice-guitar";
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Deliberate practice on guitar", href: "/deliberate-practice-guitar" },
+];
 
 const DESCRIPTION =
   "How to judge your own playing with no teacher in the room: one target you cannot hit yet, a difficulty where you keep missing, and a verdict on every attempt.";
@@ -83,6 +90,7 @@ const JSON_LD = {
         acceptedAnswer: { "@type": "Answer", text: item.a },
       })),
     },
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -108,6 +116,7 @@ export default function DeliberatePracticeGuitarPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/deliberate-practice-guitar"
         title={
           <>

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BreakthroughPlanner from "@/components/BreakthroughPlanner";
 import SiteNav from "@/components/SiteNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
+import { webPageNode } from "@/lib/page-schema";
 import SiteFooter from "@/components/SiteFooter";
 import { keywordsFor } from "@/lib/keywords";
 
@@ -44,6 +47,12 @@ const SITE_ID = "https://guitarhub.org/#website";
 // The other three tools each carry a SoftwareApplication node; this one is the
 // primary CTA target from every page's closer and had none, so nothing
 // machine-readable said what it is or that it is free.
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Tools", "/tools"),
+  { name: "30-day breakthrough planner", href: "/breakthrough" },
+];
+
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -78,6 +87,14 @@ const JSON_LD = {
       publisher: { "@id": SUEDE_ORG_ID },
       author: { "@id": JASON_PERSON_ID },
     },
+    webPageNode({
+      canonical: CANONICAL,
+      name: TITLE,
+      description: DESCRIPTION,
+      mainEntity: `${CANONICAL}#tool`,
+      crumbs: CRUMBS,
+    }),
+    breadcrumbList(CANONICAL, CRUMBS),
   ],
 };
 
@@ -100,6 +117,8 @@ export default function BreakthroughPage() {
       {/* The shared header and footer, so this page is part of the site rather
           than a dead end: both carry links to every other tool and guide. */}
       <SiteNav />
+
+      <Breadcrumbs crumbs={CRUMBS} />
 
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">

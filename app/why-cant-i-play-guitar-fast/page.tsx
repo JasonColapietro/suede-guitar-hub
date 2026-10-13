@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article, { type RelatedLink } from "@/components/Article";
+import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { ARTICLE_AUTHOR, GUIDES, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor, keywordsText } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/why-cant-i-play-guitar-fast`;
+
+/** Read by both the visible trail and the BreadcrumbList node below. */
+const CRUMBS = [
+  ...crumbTrail("Guides", "/guides"),
+  { name: "Why you cannot play it fast yet", href: "/why-cant-i-play-guitar-fast" },
+];
+
 const PUBLISHED = "2026-08-29";
 
 const HEADLINE =
@@ -41,22 +49,27 @@ const SUEDE_ORG_ID = "https://suedeai.ai/#organization";
 // structured-data violation.
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": `${CANONICAL}#article`,
-  url: CANONICAL,
-  headline: HEADLINE,
-  description: DESCRIPTION,
-  keywords: keywordsText("/why-cant-i-play-guitar-fast"),
-  // Google lists `image` as a recommended Article property. It names this
-  // page's own 1200x630 card, served by the colocated opengraph-image.tsx.
-  image: `${CANONICAL}/opengraph-image`,
-  datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
-  inLanguage: "en-US",
-  mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
-  isPartOf: { "@id": "https://guitarhub.org/#website" },
-  author: ARTICLE_AUTHOR,
-  publisher: { "@id": SUEDE_ORG_ID },
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${CANONICAL}#article`,
+      url: CANONICAL,
+      headline: HEADLINE,
+      description: DESCRIPTION,
+      keywords: keywordsText("/why-cant-i-play-guitar-fast"),
+      // Google lists `image` as a recommended Article property. It names this
+      // page's own 1200x630 card, served by the colocated opengraph-image.tsx.
+      image: `${CANONICAL}/opengraph-image`,
+      datePublished: PUBLISHED,
+      dateModified: PUBLISHED,
+      inLanguage: "en-US",
+      mainEntityOfPage: { "@type": "WebPage", "@id": CANONICAL },
+      isPartOf: { "@id": "https://guitarhub.org/#website" },
+      author: ARTICLE_AUTHOR,
+      publisher: { "@id": SUEDE_ORG_ID },
+    },
+    breadcrumbList(CANONICAL, CRUMBS),
+  ],
 };
 
 /**
@@ -96,6 +109,7 @@ export default function WhyCantIPlayGuitarFastPage() {
       />
 
       <Article
+        crumbs={CRUMBS}
         guideHref="/why-cant-i-play-guitar-fast"
         eyebrow="GuitarHub guide"
         title={
