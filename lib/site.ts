@@ -534,8 +534,7 @@ export const STRUMLY = {
   signalChain: "https://strumly.suedeai.ai/guides/signal-chain-topology",
   /**
    * The Signal Chain, the complete and final edition, sold on Strumly. The
-   * page is Strumly's app/(marketing)/book route; its covers are mirrored in
-   * public/books/ for the shelf in components/BookShelf.tsx.
+   * page is Strumly's app/(marketing)/book route.
    */
   book: "https://strumly.suedeai.ai/book",
   printTheQuiet: "https://strumly.suedeai.ai/book/print-the-quiet",

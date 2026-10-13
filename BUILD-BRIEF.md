@@ -11,7 +11,7 @@ Ship **guitarhub.org** as a new site that is **nearly identical in structure, la
 3. **Imagery:** prefer Kie AI generation if key access is available in-session (`KIE_AI_API_KEY`, macOS login Keychain; use only inside command substitution, never print or persist). If key access is blocked, ship with crafted CSS/SVG/gradient art matching Sonora's visual rhythm and list "generate Kie AI imagery" in HANDOFF.md as the follow-up.
 
 ## References
-- `./reference/sonora-hero.png`, `sonora-desktop.png`, `sonora-mobile.png` — full-page captures of the target. Study them; re-fetch the live site if more detail is needed.
+- Full-page captures of the target lived in `./reference/` until 2026-10-13 (see git history); re-fetch the live site for detail.
 - Existing scaffold: this directory is already a Next.js (App Router) scaffold — build on it, don't restart.
 
 ## Sonora structure to mirror (from captures + site)
