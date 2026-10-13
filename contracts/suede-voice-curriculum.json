@@ -63,7 +63,7 @@
             "name": "Set Up Your Space",
             "promise": "compared a quiet recording with my initial room setup and could hear my voice clearly.",
             "skill": "Room setup and clean input",
-            "proofMetric": "phonation_sec",
+            "proofMetric": "self_reported",
             "lessonsTotal": 4,
             "sampleLessonsShown": 3,
             "lessons": [
@@ -248,7 +248,7 @@
               {
                 "id": "v-l2-m3-04",
                 "title": "One Note Per Bar",
-                "type": "song",
+                "type": "exercise",
                 "minutes": 5,
                 "summary": "Use the supplied sustained reference for short holds, resting between them."
               },
@@ -761,7 +761,7 @@
               {
                 "id": "v-l5-m4-04",
                 "title": "An Easy Pattern Through Your Transition",
-                "type": "song",
+                "type": "exercise",
                 "minutes": 6,
                 "summary": "A short supplied pattern that crosses your transition zone — pick the key that puts it there."
               },
@@ -1153,7 +1153,7 @@
             "name": "Higher and Lower",
             "promise": "compared comfortable notes with an earlier baseline and recorded my observation without forcing an extension.",
             "skill": "Range extension",
-            "proofMetric": "range_midi_span",
+            "proofMetric": "self_reported",
             "lessonsTotal": 8,
             "sampleLessonsShown": 3,
             "lessons": [

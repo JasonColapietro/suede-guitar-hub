@@ -287,7 +287,7 @@
       "measurable": "yes",
       "unit": "midi",
       "module": "components/range/range-test.tsx",
-      "note": "Lowest and highest comfortable note by cumulative dwell. Falsetto and head voice count toward the high note."
+      "note": "Lowest and highest clear notes reached in one test, each counted once the detector has heard it for 600 ms in total (cumulative dwell), so a passing octave error does not count. These are the limits the singer reached, not a comfortable band. Falsetto and head voice count toward the high note."
     },
     "ringRatio": {
       "measurable": "yes",
@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32505,
+      "totalWords": 32633,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2725,7 +2725,7 @@
           "part": "How the voice works",
           "summary": "What support actually means physically, why pushing more air makes tone worse, and how to feel the difference.",
           "free": false,
-          "words": 1477,
+          "words": 1568,
           "path": "/book/breath"
         },
         {
@@ -2745,7 +2745,7 @@
           "part": "How the voice works",
           "summary": "What warming up and cooling down actually do, how water and sleep really reach your voice, and where normal tiredness ends and a doctor begins.",
           "free": false,
-          "words": 1226,
+          "words": 1230,
           "path": "/book/stamina-and-health"
         },
         {
@@ -2825,7 +2825,7 @@
           "part": "The twelve-week program",
           "summary": "How to spend the first two weeks collecting honest data and building a breath habit, without trying to sing better yet.",
           "free": false,
-          "words": 1420,
+          "words": 1421,
           "path": "/book/weeks-1-2-baseline"
         },
         {
@@ -2905,7 +2905,7 @@
           "part": "Range and repertoire",
           "summary": "How to read the singer library for tessitura and craft instead of ceilings, and what those cited figures can and cannot tell you.",
           "free": false,
-          "words": 1380,
+          "words": 1412,
           "path": "/book/learning-from-other-voices"
         },
         {
@@ -2924,7 +2924,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it — the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 72444,
+      "totalWords": 72468,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -2983,7 +2983,7 @@
           "part": "The borrower's method",
           "summary": "The four expensive things in this book — whistle notes, extreme lows, distortion and sustained belting — what makes each risky to chase, and the warning signs that mean stop.",
           "free": false,
-          "words": 811,
+          "words": 838,
           "path": "/atlas/the-safety-rail"
         },
         {
@@ -3023,7 +3023,7 @@
           "part": "Rock, metal and alternative",
           "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades — where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
           "free": false,
-          "words": 5134,
+          "words": 5131,
           "path": "/atlas/the-classic-rock-men"
         },
         {
@@ -3392,7 +3392,7 @@
           "highMidi": 73,
           "rangeLabel": "E3–C#5",
           "spanSemitones": 21,
-          "difficulty": "Medium",
+          "difficulty": "Hard",
           "sourceNote": "Musicnotes original-key arrangement, written E4–C#6, sounding E3–C#5 in A major",
           "path": "/can-you-sing/lose-control"
         },
@@ -3465,7 +3465,7 @@
           "highMidi": 70,
           "rangeLabel": "Eb3–Bb4",
           "spanSemitones": 19,
-          "difficulty": "Medium",
+          "difficulty": "Hard",
           "sourceNote": "Musicnotes original-key arrangement, sounding Eb3–Bb4 in Db major",
           "path": "/can-you-sing/someone-you-loved"
         },
