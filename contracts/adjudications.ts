@@ -103,8 +103,8 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
       "cross-repository comparison of note strings fails on the glyph before it reaches the pitch. " +
       "Unified by separating the two jobs rather than picking a winner: noteName keeps U+266F for " +
       "display, asciiNoteName emits the spelling the vocal contract declares, and comparison uses " +
-      "that one. This is the only entry here whose losing surface is this repository, so it is the " +
-      "only one resolved rather than recorded. This repository still has no flat spelling, which " +
+      "that one. This was the first entry whose losing surface is this repository, so it was " +
+      "resolved rather than recorded (gridSnapping is the second). This repository still has no flat spelling, which " +
       "voice work will need.",
   },
   {
@@ -250,17 +250,19 @@ export const ADJUDICATIONS: readonly Adjudication[] = [
     id: "gridSnapping",
     concept: "How a recommended tempo lands on the grid",
     decision: "unify",
-    pendingOn: "sing",
+    pendingOn: "guitarHubWeb",
     surfaces: [
       { surface: "guitarHubWeb", value: "one grid step away from the current tempo", source: "lib/audio/practice-tempo.ts", binding: "live" },
-      { surface: "sing", value: "round to nearest", source: "sing practice tempo", binding: "observed" },
+      { surface: "sing", value: "one grid step away from the current rate", source: "sing components/songs/lib.ts autoTempoStep", binding: "observed" },
     ],
     reason:
-      "Stepping away from the current tempo is the correct rule and round-to-nearest is a bug wearing the look of a " +
-      "preference: from a grid position, a five per cent step rounded to nearest can return the " +
-      "tempo the learner is already at, so 'ready to increase' silently recommends no increase. " +
-      "Rounding away from the current tempo always moves, which is the entire point of a " +
-      "recommendation. sing is the surface to change.",
+      "A recommendation must move exactly one grid step from the tempo the learner is at. sing's " +
+      "song auto tempo adds or subtracts one tempoStep and snaps, which from a grid position always " +
+      "lands on the neighbouring step; recorded earlier as 'round to nearest', it was never the " +
+      "surface that skipped. This repository was: it rounded a five per cent change to half a BPM " +
+      "and then snapped outward, which at some tempos crossed a grid point and moved two steps " +
+      "(76 BPM failed went to 68.4, not 72.2). Resolved here, with native in lockstep through " +
+      "contracts/learning.json.",
   },
   {
     id: "hissTargetVersusSustainLadder",
