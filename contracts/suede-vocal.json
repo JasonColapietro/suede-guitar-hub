@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32977,
+      "totalWords": 33049,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2795,7 +2795,7 @@
           "part": "Reading your own voice",
           "summary": "How to tell real vocal change from ordinary day-to-day noise, and how long to wait before your progress charts mean anything.",
           "free": false,
-          "words": 1348,
+          "words": 1420,
           "path": "/book/tracking-change"
         },
         {
