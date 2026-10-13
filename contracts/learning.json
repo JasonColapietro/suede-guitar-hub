@@ -4386,7 +4386,7 @@
       "case" : "maximum",
       "currentBPM" : 112.5,
       "expected" : {
-        "bpm" : 103.5,
+        "bpm" : 108,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-l2-m4-06"
@@ -6061,7 +6061,7 @@
       "case" : "59",
       "currentBPM" : 68,
       "expected" : {
-        "bpm" : 61.200000000000003,
+        "bpm" : 64.600000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m1-02"
@@ -6079,7 +6079,7 @@
       "case" : "60",
       "currentBPM" : 68,
       "expected" : {
-        "bpm" : 61.200000000000003,
+        "bpm" : 64.600000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m1-02"
@@ -6147,7 +6147,7 @@
       "case" : "two 90",
       "currentBPM" : 68,
       "expected" : {
-        "bpm" : 74.800000000000011,
+        "bpm" : 71.400000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m1-02"
@@ -6331,7 +6331,7 @@
       "case" : "59",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 68.400000000000006,
+        "bpm" : 72.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m1-03"
@@ -6349,7 +6349,7 @@
       "case" : "60",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 68.400000000000006,
+        "bpm" : 72.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m1-03"
@@ -6417,7 +6417,7 @@
       "case" : "two 90",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 83.600000000000009,
+        "bpm" : 79.800000000000011,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m1-03"
@@ -7681,7 +7681,7 @@
       "case" : "59",
       "currentBPM" : 66,
       "expected" : {
-        "bpm" : 59.400000000000006,
+        "bpm" : 62.700000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m2-03"
@@ -7699,7 +7699,7 @@
       "case" : "60",
       "currentBPM" : 66,
       "expected" : {
-        "bpm" : 59.400000000000006,
+        "bpm" : 62.700000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m2-03"
@@ -7767,7 +7767,7 @@
       "case" : "two 90",
       "currentBPM" : 66,
       "expected" : {
-        "bpm" : 72.600000000000009,
+        "bpm" : 69.300000000000011,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m2-03"
@@ -8491,7 +8491,7 @@
       "case" : "59",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m3-01"
@@ -8509,7 +8509,7 @@
       "case" : "60",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m3-01"
@@ -8577,7 +8577,7 @@
       "case" : "two 90",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 85.800000000000011,
+        "bpm" : 81.900000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m3-01"
@@ -9301,7 +9301,7 @@
       "case" : "59",
       "currentBPM" : 66,
       "expected" : {
-        "bpm" : 59.400000000000006,
+        "bpm" : 62.700000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m3-04"
@@ -9319,7 +9319,7 @@
       "case" : "60",
       "currentBPM" : 66,
       "expected" : {
-        "bpm" : 59.400000000000006,
+        "bpm" : 62.700000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m3-04"
@@ -9387,7 +9387,7 @@
       "case" : "two 90",
       "currentBPM" : 66,
       "expected" : {
-        "bpm" : 72.600000000000009,
+        "bpm" : 69.300000000000011,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m3-04"
@@ -9571,7 +9571,7 @@
       "case" : "59",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m3-05"
@@ -9589,7 +9589,7 @@
       "case" : "60",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m3-05"
@@ -9657,7 +9657,7 @@
       "case" : "two 90",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 85.800000000000011,
+        "bpm" : 81.900000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m3-05"
@@ -10111,7 +10111,7 @@
       "case" : "59",
       "currentBPM" : 58,
       "expected" : {
-        "bpm" : 52.200000000000003,
+        "bpm" : 55.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m4-02"
@@ -10129,7 +10129,7 @@
       "case" : "60",
       "currentBPM" : 58,
       "expected" : {
-        "bpm" : 52.200000000000003,
+        "bpm" : 55.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m4-02"
@@ -10197,7 +10197,7 @@
       "case" : "two 90",
       "currentBPM" : 58,
       "expected" : {
-        "bpm" : 63.800000000000011,
+        "bpm" : 60.900000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m4-02"
@@ -10381,7 +10381,7 @@
       "case" : "59",
       "currentBPM" : 56,
       "expected" : {
-        "bpm" : 50.400000000000006,
+        "bpm" : 53.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m4-03"
@@ -10399,7 +10399,7 @@
       "case" : "60",
       "currentBPM" : 56,
       "expected" : {
-        "bpm" : 50.400000000000006,
+        "bpm" : 53.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m4-03"
@@ -10467,7 +10467,7 @@
       "case" : "two 90",
       "currentBPM" : 56,
       "expected" : {
-        "bpm" : 61.600000000000009,
+        "bpm" : 58.800000000000004,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m4-03"
@@ -11191,7 +11191,7 @@
       "case" : "59",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 68.400000000000006,
+        "bpm" : 72.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m5-01"
@@ -11209,7 +11209,7 @@
       "case" : "60",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 68.400000000000006,
+        "bpm" : 72.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m5-01"
@@ -11277,7 +11277,7 @@
       "case" : "two 90",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 83.600000000000009,
+        "bpm" : 79.800000000000011,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m5-01"
@@ -12001,7 +12001,7 @@
       "case" : "59",
       "currentBPM" : 86,
       "expected" : {
-        "bpm" : 77.399999999999991,
+        "bpm" : 81.700000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m5-04"
@@ -12019,7 +12019,7 @@
       "case" : "60",
       "currentBPM" : 86,
       "expected" : {
-        "bpm" : 77.399999999999991,
+        "bpm" : 81.700000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m5-04"
@@ -12087,7 +12087,7 @@
       "case" : "two 90",
       "currentBPM" : 86,
       "expected" : {
-        "bpm" : 94.599999999999994,
+        "bpm" : 90.299999999999997,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m5-04"
@@ -12271,7 +12271,7 @@
       "case" : "59",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 68.400000000000006,
+        "bpm" : 72.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m5-05"
@@ -12289,7 +12289,7 @@
       "case" : "60",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 68.400000000000006,
+        "bpm" : 72.200000000000003,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m5-05"
@@ -12357,7 +12357,7 @@
       "case" : "two 90",
       "currentBPM" : 76,
       "expected" : {
-        "bpm" : 83.600000000000009,
+        "bpm" : 79.800000000000011,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m5-05"
@@ -12541,7 +12541,7 @@
       "case" : "59",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m6-01"
@@ -12559,7 +12559,7 @@
       "case" : "60",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m6-01"
@@ -12627,7 +12627,7 @@
       "case" : "two 90",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 85.800000000000011,
+        "bpm" : 81.900000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m6-01"
@@ -12811,7 +12811,7 @@
       "case" : "59",
       "currentBPM" : 68,
       "expected" : {
-        "bpm" : 61.200000000000003,
+        "bpm" : 64.600000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m6-02"
@@ -12829,7 +12829,7 @@
       "case" : "60",
       "currentBPM" : 68,
       "expected" : {
-        "bpm" : 61.200000000000003,
+        "bpm" : 64.600000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m6-02"
@@ -12897,7 +12897,7 @@
       "case" : "two 90",
       "currentBPM" : 68,
       "expected" : {
-        "bpm" : 74.800000000000011,
+        "bpm" : 71.400000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m6-02"
@@ -13621,7 +13621,7 @@
       "case" : "59",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m6-05"
@@ -13639,7 +13639,7 @@
       "case" : "60",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 70.200000000000003,
+        "bpm" : 74.100000000000009,
         "reason" : "reduceAndRebuild"
       },
       "lessonId" : "g-songs-m6-05"
@@ -13707,7 +13707,7 @@
       "case" : "two 90",
       "currentBPM" : 78,
       "expected" : {
-        "bpm" : 85.800000000000011,
+        "bpm" : 81.900000000000006,
         "reason" : "readyToIncrease"
       },
       "lessonId" : "g-songs-m6-05"

@@ -36,8 +36,12 @@ export function recommendPracticeTempo(spec: PracticeSpec, currentBPM: number, a
     else if (gradable.length >= TEMPO_EVIDENCE_MINIMUM) reason = 'repeatToConsolidate';
   }
   requested = Math.min(maximum, Math.max(minimum, requested));
-  const increment = spec.bpm * TEMPO_INCREMENT_RATIO;
-  if (reason === 'reduceAndRebuild') requested = Math.floor(requested / increment) * increment;
-  if (reason === 'readyToIncrease') requested = Math.ceil(requested / increment) * increment;
+  // Move exactly one grid step from the current tempo. Snapping the half-BPM
+  // rounded 5% change could cross a grid point and skip a step (76 BPM failed
+  // went to 68.4, not 72.2; 105% failed went to 95%, not 100%). Same arithmetic
+  // as native AdaptiveDifficulty; contracts/learning.json pins both.
+  const increment = spec.bpm * TEMPO_INCREMENT_RATIO, steps = current / increment;
+  if (reason === 'reduceAndRebuild') requested = (Math.ceil(steps - 1e-6) - 1) * increment;
+  if (reason === 'readyToIncrease') requested = (Math.floor(steps + 1e-6) + 1) * increment;
   return { bpm: Math.min(maximum, Math.max(minimum, requested)), reason };
 }
