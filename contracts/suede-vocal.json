@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32633,
+      "totalWords": 32785,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2815,7 +2815,7 @@
           "part": "The twelve-week program",
           "summary": "The shape of the twelve weeks — four blocks, short sessions, and the rules for skipping, repeating, and going back.",
           "free": false,
-          "words": 1409,
+          "words": 1484,
           "path": "/book/how-the-program-works"
         },
         {
@@ -2825,7 +2825,7 @@
           "part": "The twelve-week program",
           "summary": "How to spend the first two weeks collecting honest data and building a breath habit, without trying to sing better yet.",
           "free": false,
-          "words": 1421,
+          "words": 1437,
           "path": "/book/weeks-1-2-baseline"
         },
         {
@@ -2835,7 +2835,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks in the part of your range that already works: steady tone, clean onsets, honest sustain, and the ear work that holds them together.",
           "free": false,
-          "words": 1360,
+          "words": 1384,
           "path": "/book/weeks-3-4-middle"
         },
         {
@@ -2875,7 +2875,7 @@
           "part": "The twelve-week program",
           "summary": "Move the last two weeks onto real repertoire, retest, and compare against your week-one recording without fooling yourself.",
           "free": false,
-          "words": 1612,
+          "words": 1649,
           "path": "/book/weeks-11-12-songs"
         },
         {
@@ -2924,7 +2924,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it — the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 72468,
+      "totalWords": 72480,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -3063,7 +3063,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "Church-trained tenors, velvet baritones and the falsetto tradition — the men who made secular music testify, and the phrasing lessons every genre stole from them.",
           "free": false,
-          "words": 3276,
+          "words": 3298,
           "path": "/atlas/the-soul-men"
         },
         {
@@ -3193,7 +3193,7 @@
           "part": "Appendices",
           "summary": "The whole library shelved by classification, basses to sopranos, with each voice's cited range — the shopping index for borrowing along your own shelf.",
           "free": false,
-          "words": 3364,
+          "words": 3354,
           "path": "/atlas/every-voice-by-type"
         }
       ]
