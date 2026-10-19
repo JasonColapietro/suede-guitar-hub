@@ -4,6 +4,8 @@ import { catalogLessons, learningCatalog } from "@/lib/learning/catalog";
 import {
   APP_STORE,
   GUIDES,
+  HUBS,
+  LEARN,
   LIFETIME,
   RESOURCES,
   SITE_URL,
@@ -28,6 +30,15 @@ import {
  * so omit that duplicate from the generated guide list.
  */
 const WRITTEN_GUIDES = GUIDES.filter((entry) => entry.href !== "/method");
+
+/**
+ * The crawl entry points: the learning paths and the index pages. The lesson
+ * curriculum (/learn/guitar) and the FAQ are named in their own sections below,
+ * so they are left out here rather than listed twice.
+ */
+const START_POINTS = [...LEARN, ...HUBS].filter(
+  (entry) => entry.href !== "/learn/guitar" && entry.href !== "/faq",
+);
 const GUITAR_LESSONS = catalogLessons("guitar");
 const GUITAR_STAGES = learningCatalog.tracks.guitar.filter((level) => level.stage).length;
 const STAGE_LESSONS = GUITAR_LESSONS.filter(({ level }) => level.stage).length;
@@ -74,6 +85,10 @@ Evidence replaces watch time, vague streaks, and hoping it sounds better.
 
 The stages are written out in full, with what each one asks and how you know
 you can move on, at ${SITE_URL}/method.
+
+## Where to start
+
+${listEntries(START_POINTS)}
 
 ## Free tools
 
