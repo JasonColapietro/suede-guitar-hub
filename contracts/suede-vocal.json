@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
       "pathPrefix": "/book",
-      "totalWords": 33049,
+      "totalWords": 33092,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2765,7 +2765,7 @@
           "part": "Reading your own voice",
           "summary": "How to take the range test honestly, what a disappointing result usually means, and how much the voice-type label is worth.",
           "free": true,
-          "words": 1517,
+          "words": 1560,
           "path": "/book/reading-the-range-test"
         },
         {

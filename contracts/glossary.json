@@ -95,7 +95,7 @@
           "term": "Interval",
           "anchor": "interval",
           "aka": [],
-          "definition": "The distance between two pitches, named by how many scale steps it covers — a third, a fifth, an octave.",
+          "definition": "The distance between two pitches, named by counting the letter names it spans with both ends included, so C up to E is a third, C up to G a fifth and C up to the next C an octave.",
           "where": "Ear training plays intervals and asks you to name or sing them back.",
           "href": "/ear-training",
           "domain": "music",
