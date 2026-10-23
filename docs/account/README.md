@@ -10,6 +10,18 @@ The existing Suede browser uses PKCE and the server verifies sessions through `s
 
 The production GuitarHub environment inventory, checked by the parent integration task, contains only `RESEND_API_KEY`. GuitarHub Apple capability/grouping, native audience, Services ID, callback allowlist, deployed account configuration, and App Store Server API credentials still need verification. None is inferred from source configuration comments.
 
+### Lead intake hub
+
+GuitarHub reports founding-room applications and recorded Apple purchases to the Suede AI lead intake hub in Agent Studio (`docs/intake/CONTRACT.md` in `suede-agent-studio`, source id `guitarhub`). Signups and logins are not sent from here: database triggers on the shared Supabase project capture them.
+
+| Variable | Value |
+| --- | --- |
+| `SUEDE_INTAKE_SOURCE` | `guitarhub` |
+| `SUEDE_INTAKE_SECRET` | 32+ byte random secret (`openssl rand -base64 48`), identical to the `guitarhub` entry in the hub's `INTAKE_SOURCE_SECRETS` |
+| `SUEDE_INTAKE_URL` | Optional. Defaults to `https://agents.suedeai.ai/api/intake/events` |
+
+`lib/intake-forward.ts` signs and sends each event. `POST /api/apply` sends the Resend email and the `application` event in parallel and answers success when either lands; the applicant sees the mailto fallback only when both fail. The Apple purchase and notification handlers forward a `purchase` event (`apple:<transaction id>` or `apple:<notification UUID>`) after the ledger write, through Next's `after()`, carrying only product id, environment, event type and revocation state. With the variables unset, applications still go out by email and purchases still record; the forward logs `[intake] not configured` and sends nothing.
+
 ## Identity and request boundaries
 
 - Resolve browser cookies or native Supabase bearer tokens on the server with fresh provider verification. Reject anonymous Supabase identities for account linking. Never accept an account ID from the body as authorization.

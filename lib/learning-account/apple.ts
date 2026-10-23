@@ -15,6 +15,7 @@ export type AppleLearningConfiguration = {
 };
 
 const transactionID = (value: unknown): value is string => typeof value === "string" && /^\d{1,40}$/.test(value);
+const appleLabel = (value: unknown): value is string => typeof value === "string" && /^[A-Z_]{1,64}$/.test(value);
 const timestamp = (value: unknown): value is number => typeof value === "number" && Number.isSafeInteger(value) && value > 0 && value <= 8_640_000_000_000_000;
 
 /** Business validation only. Call exclusively on the official verifier's returned payload. */
@@ -86,7 +87,7 @@ export function createAppleLearningVerifier(configuration: AppleLearningConfigur
       if (current.originalTransactionId !== submitted.originalTransactionId || current.transactionId !== submitted.transactionId || current.appAccountToken !== expectedToken) throw new LearningAccountError("purchase_owner_conflict");
       return { ...current, accountId };
     },
-    async verifyNotification(signedPayload: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null> {
+    async verifyNotification(signedPayload: string): Promise<{ notificationId: string; notificationType?: string; purchase: VerifiedLifetimePurchase } | null> {
       boundedJWS(signedPayload);
       let notification;
       try { notification = await verifier.verifyAndDecodeNotification(signedPayload); }
@@ -96,7 +97,10 @@ export function createAppleLearningVerifier(configuration: AppleLearningConfigur
       const event = await verify(notification.data.signedTransactionInfo);
       const purchase = await reconcileTransaction(event.transactionId);
       if (purchase.originalTransactionId !== event.originalTransactionId || purchase.appAccountToken !== event.appAccountToken) throw new LearningAccountError("purchase_identity_mismatch");
-      return { notificationId: notification.notificationUUID, purchase };
+      // Apple's event label (ONE_TIME_CHARGE, REFUND, ...), plus its subtype when present. Kept only in the documented shape.
+      const type = appleLabel(notification.notificationType) ? notification.notificationType : null;
+      const notificationType = type && appleLabel(notification.subtype) ? `${type}/${notification.subtype}` : type;
+      return { notificationId: notification.notificationUUID, ...(notificationType ? { notificationType } : {}), purchase };
     },
   };
 }

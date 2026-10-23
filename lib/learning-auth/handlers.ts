@@ -1,5 +1,6 @@
 import { accountUUID, parseLearningAttempt, lifetimeTracks, LearningAccountError, type LearningTrack, type VerifiedLifetimePurchase, type StoreEnvironment } from "../learning-account/contracts.ts";
 import { accountJSON, accountErrorResponse, attemptCursor, boundedAccountBody, requireAccountMutationOrigin, AccountHTTPError } from "./http.ts";
+import { INTAKE_PROPERTY, intakeSummary, type IntakeEvent } from "../intake-forward.ts";
 
 export type AccountBinding = { appAccountToken: string; syncEpoch: string };
 export type StoredPurchase = { transactionId: string; originalTransactionId: string; appAccountToken: string };
@@ -17,14 +18,37 @@ export type LearningHandlerDependencies = {
   verifier(): Promise<{
     verifyPurchase(signed: string, binding: { accountId: string; appAccountToken: string }): Promise<VerifiedLifetimePurchase & { accountId: string }>;
     reconcileTransaction(id: string): Promise<VerifiedLifetimePurchase>;
-    verifyNotification(signed: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null>;
+    verifyNotification(signed: string): Promise<{ notificationId: string; notificationType?: string; purchase: VerifiedLifetimePurchase } | null>;
   }>;
   environment(): StoreEnvironment;
   allowedLessons: ReadonlyMap<string, LearningTrack>;
+  /**
+   * Lead intake hub (lib/intake-forward.ts). Called only after a successful
+   * ledger write. Production hands the forward to Next's `after()`, so the hub
+   * never delays or changes the response.
+   */
+  forwardIntake(event: IntakeEvent): void | Promise<unknown>;
 };
 
 function bodyOwner(body: Record<string, unknown>, accountId: string): void {
   if (accountUUID(body.accountId) !== accountId) throw new LearningAccountError("account_changed");
+}
+
+/**
+ * The hub's copy of a recorded Apple purchase. Product, environment and event
+ * type only: never the signed payload, the app account token or the account id.
+ * `revoked` comes from the ledger row, which may hold a newer refund than Apple's event.
+ */
+export function applePurchaseIntakeEvent(input: { id: string; occurredAt: string; type: string; recorded: VerifiedLifetimePurchase }): IntakeEvent {
+  const { recorded } = input;
+  return {
+    id: input.id,
+    kind: "purchase",
+    property: INTAKE_PROPERTY,
+    occurredAt: input.occurredAt,
+    summary: intakeSummary(`GuitarHub App Store ${input.type}: lifetime access (${recorded.environment})`),
+    details: { productId: recorded.productId, environment: recorded.environment, type: input.type, revoked: recorded.revokedAt !== null },
+  };
 }
 
 /** Shared by the API and server-rendered access decision; never caches provider state. */
@@ -62,6 +86,12 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
     const binding = await deps.getBinding(accountId, create);
     if (!binding) throw new AccountHTTPError(409, "account_binding_required");
     return { appAccountToken: accountUUID(binding.appAccountToken), syncEpoch: accountUUID(binding.syncEpoch) };
+  };
+  // The ledger already holds the purchase, so a hub failure never changes the
+  // response or turns a recorded purchase into an error.
+  const forwardPurchase = async (event: IntakeEvent): Promise<void> => {
+    try { await deps.forwardIntake(event); }
+    catch { console.error("[intake] purchase forward failed", { id: event.id }); }
   };
   return {
     binding: route(async (request) => {
@@ -127,6 +157,7 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const purchase = await (await deps.verifier()).verifyPurchase(body.signedTransaction, { accountId, appAccountToken: binding.appAccountToken });
       if (purchase.accountId !== accountId || purchase.appAccountToken !== binding.appAccountToken || purchase.environment !== environment) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountId, purchase);
+      await forwardPurchase(applePurchaseIntakeEvent({ id: `apple:${purchase.transactionId}`, occurredAt: purchase.purchasedAt, type: "purchase", recorded }));
       return accountJSON({ accountId, tracks: lifetimeTracks(recorded, environment), environment });
     }),
     notification: route(async (request) => {
@@ -139,7 +170,9 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const owner = await deps.findPurchaseOwner(event.purchase);
       if (!owner) return accountJSON({ received: true });
       if (owner.appAccountToken !== event.purchase.appAccountToken) throw new LearningAccountError("purchase_owner_conflict");
-      await deps.recordPurchase(accountUUID(owner.accountId), event.purchase);
+      const recorded = await deps.recordPurchase(accountUUID(owner.accountId), event.purchase);
+      await forwardPurchase(applePurchaseIntakeEvent({ id: `apple:${event.notificationId}`, occurredAt: new Date().toISOString(),
+        type: event.notificationType ?? "notification", recorded }));
       return accountJSON({ received: true });
     }),
   };

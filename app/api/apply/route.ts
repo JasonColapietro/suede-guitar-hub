@@ -3,6 +3,7 @@ import {
   APPLICATION_EMAIL_ADDRESS,
   normalizeApplication,
 } from "@/lib/application";
+import { deliverApplication } from "@/lib/application-delivery";
 import { methodNotAllowed, routeOptions, type HttpMethod } from "@/lib/api-methods";
 
 type ApplyResponse =
@@ -36,13 +37,18 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
       { status: 400 },
     );
   }
-  const payload = normalized.value;
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  // The email and the lead intake hub are two durable paths for the same
+  // application (lib/application-delivery.ts). Either one landing is a
+  // delivered application; the fallback below appears only when both failed.
+  const delivery = await deliverApplication(normalized.value);
+  if (delivery.delivered) {
+    return NextResponse.json({ ok: true });
+  }
+
+  if (!delivery.email.ok && delivery.email.reason === "not-configured") {
     // Degrade gracefully: never throw on missing configuration, and tell the
     // applicant plainly that the form path is down rather than spinning.
-    console.error("apply: RESEND_API_KEY is unset; application not delivered");
     return NextResponse.json(
       {
         ok: false,
@@ -54,52 +60,15 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
     );
   }
 
-  const text = [
-    `New GuitarHub application`,
-    ``,
-    `Name: ${payload.name}`,
-    `Email: ${payload.email}`,
-    `Experience: ${payload.experience || "(not given)"}`,
-    `Goal: ${payload.goal}`,
-  ].join("\n");
-
-  let response: Response | null = null;
-  try {
-    response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "GuitarHub Applications <applications@guitarhub.org>",
-        to: ["info@suedeai.ai"],
-        reply_to: payload.email,
-        subject: `GuitarHub application — ${payload.name}`,
-        text,
-      }),
-      // A hung provider must not hold the request open; the fallback below applies.
-      signal: AbortSignal.timeout(10_000),
-    });
-  } catch (error) {
-    console.error("apply: email request failed", error instanceof Error ? error.name : "unknown");
-  }
-
-  if (!response?.ok) {
-    const detail = response ? await response.text().catch(() => "") : "";
-    console.error("apply: email send failed", response?.status ?? "network", detail);
-    return NextResponse.json(
-      {
-        ok: false,
-        error:
-          "We couldn't submit your application just now. Use the email fallback below and we'll take it from there.",
-        fallback: emailFallback,
-      },
-      { status: 502 },
-    );
-  }
-
-  return NextResponse.json({ ok: true });
+  return NextResponse.json(
+    {
+      ok: false,
+      error:
+        "We couldn't submit your application just now. Use the email fallback below and we'll take it from there.",
+      fallback: emailFallback,
+    },
+    { status: 502 },
+  );
 }
 
 // Methods this route does not serve answer 405 with an Allow header (lib/api-methods.ts).

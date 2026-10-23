@@ -31,7 +31,17 @@ const INDEXES = EXTENSIONS.filter((ext) => ext !== "").map(
   (ext) => `/index${ext}`,
 );
 
+/**
+ * `next` ships CommonJS entry points without an `exports` map, so Node's ESM
+ * resolver will not add the `.js` a bundler adds. Route handlers import
+ * `next/server`; `tests/apply-route.test.ts` runs one directly.
+ */
+const NEXT_ENTRY_POINTS = new Set(["next/server"]);
+
 export async function resolve(specifier, context, nextResolve) {
+  if (NEXT_ENTRY_POINTS.has(specifier)) {
+    return nextResolve(`${specifier}.js`, context);
+  }
   if (!specifier.startsWith(ALIAS)) {
     return nextResolve(specifier, context);
   }

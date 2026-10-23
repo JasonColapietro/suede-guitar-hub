@@ -5,6 +5,7 @@ import { createEmailAuthHandlers, type EmailAuthClient } from "../lib/learning-a
 import { boundedAccountBody } from "../lib/learning-auth/http.ts";
 import { parseAccountBearer, verifiedProviderUser } from "../lib/learning-auth/identity.ts";
 import { LearningAccountError, parseLearningAttempt, GUITARHUB_BUNDLE_ID, GUITARHUB_LIFETIME_PRODUCT_ID, type VerifiedLifetimePurchase } from "../lib/learning-account/contracts.ts";
+import type { IntakeEvent } from "../lib/intake-forward.ts";
 
 const id = "a1111111-1111-4111-8111-111111111111", epoch = "b2222222-2222-4222-8222-222222222222", other = "c3333333-3333-4333-8333-333333333333";
 const purchase: VerifiedLifetimePurchase = { environment: "Production", originalTransactionId: "123", transactionId: "123", bundleId: GUITARHUB_BUNDLE_ID, productId: GUITARHUB_LIFETIME_PRODUCT_ID, appAccountToken: id, purchasedAt: "2026-09-01T00:00:00Z", signedAt: "2026-09-02T00:00:00Z", revokedAt: null };
@@ -13,6 +14,7 @@ const request = (body?: unknown, init: RequestInit = {}, query = "") => new Requ
 
 function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
   const writes: string[] = [];
+  const forwarded: IntakeEvent[] = [];
   const deps: LearningHandlerDependencies = {
     enabled: () => true, resolveAccount: async () => ({ accountId: id }),
     getBinding: async (_account, create) => { if (create) writes.push("binding"); return { appAccountToken: id, syncEpoch: epoch }; },
@@ -22,9 +24,11 @@ function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
     clearHistory: async (account, scope) => { assert.equal(account,id); assert.equal(scope,epoch); writes.push("clear"); return other; },
     recordPurchase: async (_account, value) => { writes.push("purchase"); return value; },
     verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId: id }), reconcileTransaction: async () => purchase, verifyNotification: async () => ({ notificationId: other, purchase }) }),
-    environment: () => "Production", allowedLessons: new Map([["g-l1-m1-02", "guitar"]]), ...overrides,
+    environment: () => "Production", allowedLessons: new Map([["g-l1-m1-02", "guitar"]]),
+    forwardIntake: (event) => { assert.ok(writes.includes("purchase"), "the hub hears only about a purchase the ledger already holds"); forwarded.push(event); },
+    ...overrides,
   };
-  return { handlers: createLearningHandlers(deps), writes, deps };
+  return { handlers: createLearningHandlers(deps), writes, forwarded, deps };
 }
 
 test("disabled and unauthenticated handlers perform no writes or Apple lookups", async () => {
@@ -83,6 +87,74 @@ test("a newer stored refund overrides an older active Apple response", async () 
   const h=harness({recordPurchase:async()=>({...purchase,revokedAt:"2026-09-04T00:00:00Z"})});
   assert.deepEqual((await(await h.handlers.access(request())).json()).tracks,[]);
   assert.deepEqual((await(await h.handlers.purchase(request({accountId:id,signedTransaction:"fixture"}))).json()).tracks,[]);
+});
+test("a recorded Apple purchase is forwarded to the lead intake hub without signed payloads, tokens or account ids", async () => {
+  const h = harness();
+  assert.equal((await h.handlers.purchase(request({ accountId: id, signedTransaction: "verified fixture" }))).status, 200);
+  assert.deepEqual(h.forwarded, [{
+    id: "apple:123", kind: "purchase", property: "guitarhub.org", occurredAt: purchase.purchasedAt,
+    summary: "GuitarHub App Store purchase: lifetime access (Production)",
+    details: { productId: GUITARHUB_LIFETIME_PRODUCT_ID, environment: "Production", type: "purchase", revoked: false },
+  }]);
+  const sent = JSON.stringify(h.forwarded);
+  for (const secret of ["verified fixture", id, epoch]) assert.ok(!sent.includes(secret), "no signed payload, app account token or account id");
+
+  // A restore of the same transaction reuses the id, so the hub treats it as a duplicate.
+  await h.handlers.purchase(request({ accountId: id, signedTransaction: "verified fixture" }));
+  assert.deepEqual(h.forwarded.map((event) => event.id), ["apple:123", "apple:123"]);
+});
+test("a recorded Apple notification is forwarded by notification id with Apple's event type", async () => {
+  const refund = { ...purchase, revokedAt: "2026-09-04T00:00:00Z" };
+  const h = harness({ verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId: id }), reconcileTransaction: async () => refund,
+    verifyNotification: async () => ({ notificationId: other, notificationType: "REFUND", purchase: refund }) }) });
+  const before = Date.now();
+  assert.equal((await h.handlers.notification(request({ signedPayload: "verified fixture" }))).status, 200);
+  assert.equal(h.forwarded.length, 1);
+  const [event] = h.forwarded;
+  assert.equal(event.id, `apple:${other}`);
+  assert.equal(event.kind, "purchase");
+  assert.equal(event.summary, "GuitarHub App Store REFUND: lifetime access (Production)");
+  assert.deepEqual(event.details, { productId: GUITARHUB_LIFETIME_PRODUCT_ID, environment: "Production", type: "REFUND", revoked: true });
+  assert.ok(Date.parse(event.occurredAt) >= before - 1_000);
+  assert.equal(event.person, undefined);
+
+  const untyped = harness();
+  await untyped.handlers.notification(request({ signedPayload: "verified fixture" }));
+  assert.equal(untyped.forwarded[0]?.details?.type, "notification");
+});
+test("nothing reaches the hub unless the ledger write succeeded, and a hub failure never changes the response", async () => {
+  const rejected = harness({ verifier: async () => ({ verifyPurchase: async () => { throw new LearningAccountError("apple_verification_failed"); }, reconcileTransaction: async () => purchase, verifyNotification: async () => { throw new LearningAccountError("apple_verification_failed"); } }) });
+  await rejected.handlers.purchase(request({ accountId: id, signedTransaction: "unsigned" }));
+  await rejected.handlers.notification(request({ signedPayload: "unsigned" }));
+  assert.deepEqual(rejected.forwarded, []);
+
+  const conflict = harness({ verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId: id, appAccountToken: other }), reconcileTransaction: async () => purchase, verifyNotification: async () => null }) });
+  assert.equal((await conflict.handlers.purchase(request({ accountId: id, signedTransaction: "fixture" }))).status, 409);
+  assert.equal((await conflict.handlers.notification(request({ signedPayload: "fixture" }))).status, 200);
+  assert.deepEqual(conflict.forwarded, []);
+
+  const unclaimed = harness({ findPurchaseOwner: async () => null });
+  await unclaimed.handlers.notification(request({ signedPayload: "verified fixture" }));
+  assert.deepEqual(unclaimed.forwarded, []);
+
+  const ledgerDown = harness({ recordPurchase: async () => { throw new Error("ledger unavailable"); } });
+  assert.equal((await ledgerDown.handlers.purchase(request({ accountId: id, signedTransaction: "fixture" }))).status, 503);
+  assert.equal((await ledgerDown.handlers.notification(request({ signedPayload: "fixture" }))).status, 503);
+  assert.deepEqual(ledgerDown.forwarded, []);
+
+  const disabled = harness({ enabled: () => false });
+  await disabled.handlers.purchase(request({ accountId: id, signedTransaction: "fixture" }));
+  await disabled.handlers.notification(request({ signedPayload: "fixture" }));
+  assert.deepEqual(disabled.forwarded, []);
+
+  for (const forwardIntake of [() => { throw new Error("after() unavailable"); }, async () => { throw new Error("hub down"); }]) {
+    const failing = harness({ forwardIntake });
+    const bought = await failing.handlers.purchase(request({ accountId: id, signedTransaction: "fixture" }));
+    assert.equal(bought.status, 200);
+    assert.deepEqual((await bought.json()).tracks, ["guitar", "voice"]);
+    assert.deepEqual(await (await failing.handlers.notification(request({ signedPayload: "fixture" }))).json(), { received: true });
+    assert.deepEqual(failing.writes, ["purchase", "purchase"]);
+  }
 });
 test("reads reject old epochs/cursors, detect concurrent reset, and preserve bigint cursors", async () => {
   let lookups = 0;
