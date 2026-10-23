@@ -10,7 +10,7 @@ import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
-const UPDATED = "2026-10-10";
+const UPDATED = "2026-10-23";
 
 /**
  * Counted from the curriculum, never typed: the stage lessons and the
@@ -353,7 +353,8 @@ export default function AboutPage() {
 
         <p>
           The application form sends the four fields you fill in through Resend
-          to info@suedeai.ai. The website host also processes ordinary connection
+          to info@suedeai.ai and records them in Agent Studio, Suede AI’s
+          customer records system. The website host also processes ordinary connection
           information to deliver and protect the site. The{" "}
           <Link href="/privacy">Privacy Policy</Link> explains microphone use,
           local records, purchases, hosting, and messages in more detail.

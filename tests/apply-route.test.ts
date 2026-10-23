@@ -87,6 +87,16 @@ test("success when both the email and the hub delivered, with the application fo
   assert.match(String(sent.email[0].text), new RegExp(`Reference: ${String(event.id)}$`), "the email and the hub event share a reference");
 });
 
+test("a name or address the form accepts but the hub would refuse is reshaped, not lost", async () => {
+  const sent = providers({ ...RESEND_ON, ...HUB_ON }, sentOk(), accepted());
+  const name = `Ana ${"D".repeat(196)}`;
+  assert.equal((await POST(apply({ ...APPLICATION, name, email: "a@b.c" }))).status, 200);
+  const [event] = sent.hub;
+  assert.deepEqual(event.person, { name: `${name.slice(0, 119)}…` });
+  assert.deepEqual(event.details, { submitted_email: "a@b.c", experience: "Two years", goal: "Play one complete song cleanly" });
+  assert.equal(sent.email[0].reply_to, "a@b.c", "the email path still carries the address as typed");
+});
+
 test("success when only the email delivered: hub rejected or unconfigured", async () => {
   for (const [env, hub] of [
     [{ ...RESEND_ON, ...HUB_ON }, status(400)],

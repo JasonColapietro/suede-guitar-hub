@@ -95,7 +95,7 @@ export const ABOUT: SiteEntry = {
   title: "About GuitarHub",
   blurb:
     "Who built GuitarHub, what it offers, and how it fits with Strumly and Suede Sing.",
-  lastModified: "2026-10-10",
+  lastModified: "2026-10-23",
 };
 
 /**
@@ -112,7 +112,7 @@ export const AI_INSTRUCTIONS: SiteEntry = {
 };
 
 export const LEGAL: readonly SiteEntry[] = [
-  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-23" },
   { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-10-10" },
 ];
 

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
 import test from "node:test";
 
-import { forwardToIntake, intakeSummary, type IntakeEvent } from "../lib/intake-forward.ts";
+import { forwardToIntake, intakeBody, intakeSummary, INTAKE_MAX_BODY_BYTES, prepareIntakeEvent, type IntakeEvent } from "../lib/intake-forward.ts";
 
 const SECRET = "s".repeat(48);
 const ENV = { SUEDE_INTAKE_SOURCE: "guitarhub", SUEDE_INTAKE_SECRET: SECRET };
@@ -129,4 +129,66 @@ test("missing source, missing secret or a secret under 32 bytes sends nothing", 
 test("summaries are one line and at most 200 characters", () => {
   assert.equal(intakeSummary("  GuitarHub\n application:\tAna  "), "GuitarHub application: Ana");
   assert.equal(intakeSummary("x".repeat(500)).length, 200);
+});
+
+/** The body the sender actually posted, parsed. */
+async function postedEvent(event: IntakeEvent): Promise<{ raw: string; event: IntakeEvent }> {
+  const { calls, fetcher } = scripted(accepted(false));
+  assert.deepEqual(await forwardToIntake(event, ENV, fetcher), { ok: true, duplicate: false });
+  const raw = String(calls[0].init.body);
+  const timestamp = header(calls[0], "x-suede-intake-timestamp");
+  assert.equal(header(calls[0], "x-suede-intake-signature"), `v1=${createHmac("sha256", SECRET).update(`${timestamp}.${raw}`).digest("hex")}`, "the shaped body is the signed body");
+  return { raw, event: JSON.parse(raw) as IntakeEvent };
+}
+
+test("a name the site accepts (up to 200 characters) is cut to the hub's 120 and kept on one line", async () => {
+  const { event } = await postedEvent({ ...EVENT, person: { email: "ana@example.com", name: `Ana\n  ${"D".repeat(196)}` } });
+  assert.equal(event.person?.name?.length, 120);
+  assert.ok(event.person?.name?.startsWith("Ana D"));
+  assert.ok(event.person?.name?.endsWith("…"));
+  assert.equal(prepareIntakeEvent({ ...EVENT, person: { name: "Ana Diaz" } }).person?.name, "Ana Diaz");
+  // A surrogate pair at the cut is never split.
+  const emoji = prepareIntakeEvent({ ...EVENT, person: { name: `${"x".repeat(118)}🎸🎸` } }).person?.name ?? "";
+  assert.ok(emoji.length <= 120);
+  assert.doesNotMatch(emoji, /[\uD800-\uDBFF](?![\uDC00-\uDFFF])/);
+});
+
+test("an email the hub's validator refuses moves to details.submitted_email instead of failing the event", async () => {
+  for (const email of ["a@b.c", "ana@localhost", ".ana@example.com", "ana..diaz@example.com", "ana.@example.com"]) {
+    const { event } = await postedEvent({ ...EVENT, person: { email, name: "Ana Diaz" } });
+    assert.deepEqual(event.person, { name: "Ana Diaz" }, email);
+    assert.equal(event.details?.submitted_email, email);
+    assert.deepEqual(Object.keys(event.details ?? {}), ["submitted_email", "experience", "goal"], "the rescued address comes first");
+  }
+  for (const email of ["ana@example.com", "o'brien+gh@mail.example.co.uk", "A_B-c@Example.ORG"]) {
+    const { event } = await postedEvent({ ...EVENT, person: { email, name: "Ana Diaz" } });
+    assert.equal(event.person?.email, email);
+    assert.equal(event.details?.submitted_email, undefined);
+  }
+  const noPerson = prepareIntakeEvent({ ...EVENT, person: { email: "a@b.c" } });
+  assert.equal(noPerson.person, undefined, "an empty person is left out");
+  assert.equal(JSON.stringify(noPerson).includes('"person"'), false);
+});
+
+test("detail strings are cut to 2,000 characters and the body never exceeds 32,768 bytes", async () => {
+  assert.equal(prepareIntakeEvent({ ...EVENT, details: { goal: "g".repeat(2_500) } }).details?.goal?.toString().length, 2_000);
+
+  // Multibyte text: 40 fields of 2,000 three-byte characters is about 240 KB.
+  const heavy: IntakeEvent = { ...EVENT, details: Object.fromEntries(Array.from({ length: 40 }, (_, i) => [`field${i}`, "界".repeat(2_000)])) };
+  const { raw, event } = await postedEvent(heavy);
+  assert.ok(Buffer.byteLength(raw, "utf8") <= INTAKE_MAX_BODY_BYTES, `${Buffer.byteLength(raw, "utf8")} bytes`);
+  assert.equal(Object.keys(event.details ?? {}).length, 40, "every field survives, shortened");
+  assert.deepEqual(event.person, EVENT.person);
+  assert.equal(event.id, EVENT.id);
+
+  // An ordinary application is sent unchanged.
+  assert.equal(intakeBody(EVENT), JSON.stringify(EVENT));
+
+  // When shortening details is not enough, details and then attribution go; the person still arrives.
+  const oversized: IntakeEvent = { ...EVENT, attribution: Object.fromEntries(Array.from({ length: 200 }, (_, i) => [`a${i}`, "x".repeat(300)])) };
+  const fitted = JSON.parse(intakeBody(oversized)) as IntakeEvent;
+  assert.ok(Buffer.byteLength(intakeBody(oversized), "utf8") <= INTAKE_MAX_BODY_BYTES);
+  assert.equal(fitted.details, undefined);
+  assert.equal(fitted.attribution, undefined);
+  assert.deepEqual(fitted.person, EVENT.person);
 });

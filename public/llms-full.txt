@@ -187,7 +187,7 @@ Source: https://guitarhub.org/about
 
 The guitar lessons site from Suede AI: meet the founder, explore the lessons and practice method, and learn how your practice data stays private.
 
-Updated October 10, 2026
+Updated October 23, 2026
 
 GuitarHub is where Suede AI teaches guitar. The [guitar path](https://guitarhub.org/learn/guitar) starts at the first foundations, how to hold the instrument, tune it, and get one clean note, and works up through chords, reading, rhythm and the whole neck. The guided lessons open with lifetime access, $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875) for iPhone, and your place on the web is kept in this browser. The voice lessons moved to [Suede Sing](https://sing.suedeai.ai/learn/voice), where all of them are free. Pricing, access and data questions are answered in [the GuitarHub FAQ](https://guitarhub.org/faq).
 
@@ -253,7 +253,7 @@ The lessons and the tools keep their state in your own browser, in local storage
 
 There is no analytics script and no third-party tracker on this site, which you can confirm from the page source. The tuner, lesson exercises and Advanced Lab drills listen through your microphone only after you start them and analyze the sound on your device; raw audio is never uploaded. When the method tells you to record a baseline, record it on your phone and keep it yourself.
 
-The application form sends the four fields you fill in through Resend to info@suedeai.ai. The website host also processes ordinary connection information to deliver and protect the site. The [Privacy Policy](https://guitarhub.org/privacy) explains microphone use, local records, purchases, hosting, and messages in more detail.
+The application form sends the four fields you fill in through Resend to info@suedeai.ai and records them in Agent Studio, Suede AI’s customer records system. The website host also processes ordinary connection information to deliver and protect the site. The [Privacy Policy](https://guitarhub.org/privacy) explains microphone use, local records, purchases, hosting, and messages in more detail.
 
 ### Corrections and contact
 
@@ -5100,7 +5100,7 @@ Source: https://guitarhub.org/privacy
 
 Your playing stays on your device. Here is what the app and website use, save, and send.
 
-Updated October 10, 2026
+Updated October 23, 2026
 
 This policy covers the GuitarHub iOS app and guitarhub.org, operated by Suede AI. For privacy questions or requests, contact [info@suedeai.ai](mailto:info@suedeai.ai).
 
@@ -5126,13 +5126,13 @@ Local records remain until you clear the relevant website data or remove the app
 
 ### Purchases
 
-Apple handles purchases made through the iOS App Store. The app uses Apple’s transaction and entitlement information to provide purchased access and restore eligible purchases. When account services are available, GuitarHub may use Apple-signed transaction data and an account-binding token to verify, bind, and later reconcile lifetime access with Apple. GuitarHub stores the verified transaction identifiers, app and product identifiers, store environment, purchase, signing, and revocation dates, and account-binding token needed to restore access, recognize refunds, and prevent a purchase from being transferred to another account.
+Apple handles purchases made through the iOS App Store. The app uses Apple’s transaction and entitlement information to provide purchased access and restore eligible purchases. When account services are available, GuitarHub may use Apple-signed transaction data and an account-binding token to verify, bind, and later reconcile lifetime access with Apple. GuitarHub stores the verified transaction identifiers, app and product identifiers, store environment, purchase, signing, and revocation dates, and account-binding token needed to restore access, recognize refunds, and prevent a purchase from being transferred to another account. When GuitarHub records a verified purchase, refund, or other App Store notice, it also sends the product identifier, store environment, event type, and refund status to Agent Studio, Suede AI’s customer records system. That record does not include your name, email, account identifier, or Apple-signed data.
 
 GuitarHub does not receive your payment-card details. Apple maintains its own purchase records under [Apple’s privacy policy](https://www.apple.com/legal/privacy/). Removing local practice data or deleting cloud practice history does not delete an Apple purchase or GuitarHub’s verified purchase record.
 
 ### Applications and support messages
 
-If you submit the website’s founding-room application, its name, email, experience, and goal fields are sent through Resend to our support inbox. We use that information to review your application and respond. If you use an email link instead, your email provider sends the message and any attachments you choose to include. Please avoid sending sensitive information that is not needed for your request.
+If you submit the website’s founding-room application, its name, email, experience, and goal fields are sent through Resend to our support inbox and recorded in Agent Studio, Suede AI’s customer records system, so we can follow up. We use that information to review your application and respond. If you use an email link instead, your email provider sends the message and any attachments you choose to include. Please avoid sending sensitive information that is not needed for your request.
 
 Application and support correspondence is kept to handle your request and related follow-up. You can ask us to correct or delete it at [info@suedeai.ai](mailto:info@suedeai.ai). Some records may need to be retained to meet legal obligations or resolve a dispute. See [Resend’s privacy policy](https://resend.com/legal/privacy-policy) for information about its service.
 
