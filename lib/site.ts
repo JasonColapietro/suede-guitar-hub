@@ -121,49 +121,49 @@ export const TOOLS: readonly SiteEntry[] = [
     href: "/practice",
     title: "Guitar tuner and metronome",
     blurb: "Check each open string with pitch feedback and reference tones, then practice with a steady four-beat click.",
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-24",
   },
   {
     href: "/breakthrough",
     title: "30-day breakthrough planner",
     blurb:
       "Choose one finish line and turn it into a four-week practice sequence you can run this month.",
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-24",
   },
   {
     href: "/diagnose",
     title: "Practice plateau diagnostic",
     blurb:
       "Answer a short set of questions and name the part of your practice that stopped producing change.",
-    lastModified: "2026-08-29",
+    lastModified: "2026-10-24",
   },
   {
     href: "/session",
     title: "Practice session builder",
     blurb:
       "Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.",
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-24",
   },
   {
     href: "/tempo",
     title: "Tempo ladder builder",
     blurb:
       "Turn one difficult passage into a tempo ladder with a starting speed, a target, and steps between them.",
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-24",
   },
   {
     href: "/readiness",
     title: "Song readiness score",
     blurb:
       "Check a song against the parts that break under pressure before you call it finished.",
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-24",
   },
   {
     href: "/log",
     title: "Practice evidence log",
     blurb:
       "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-24",
   },
 ];
 

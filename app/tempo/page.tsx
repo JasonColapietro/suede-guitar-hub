@@ -50,7 +50,7 @@ const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebApplication",
       "@id": TOOL_ID,
       name: "Tempo Ladder Builder",
       url: "https://guitarhub.org/tempo",

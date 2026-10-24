@@ -49,7 +49,7 @@ const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebApplication",
       "@id": "https://guitarhub.org/diagnose#tool",
       name: "Practice Plateau Diagnostic",
       url: "https://guitarhub.org/diagnose",

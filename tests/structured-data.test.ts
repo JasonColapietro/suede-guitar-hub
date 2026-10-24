@@ -130,6 +130,8 @@ test("the /tools list references each tool's node instead of redefining it", () 
   // Each referenced @id is minted by the tool's own page.
   for (const tool of TOOLS) {
     const page = read(`app${tool.href}/page.tsx`);
-    assert.ok(/#tool[`"]/.test(page), `${tool.href} must define the SoftwareApplication its list entry points at`);
+    assert.match(page, /"@type": "WebApplication"/, `${tool.href}: browser requirements belong to WebApplication`);
+    assert.doesNotMatch(page, /"@type": "SoftwareApplication"/);
+    assert.ok(/#tool[`"]/.test(page), `${tool.href} must define the WebApplication its list entry points at`);
   }
 });
