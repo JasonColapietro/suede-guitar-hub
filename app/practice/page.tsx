@@ -16,7 +16,7 @@ const title = "Free Guitar Tuner and Metronome | GuitarHub";
 const description = "Tune your guitar one string at a time, hear standard tuning references, and practice with a steady four-beat metronome. Free in your browser, with no account.";
 const url = `${SITE_URL}/practice`;
 const application = {
-  "@context": "https://schema.org", "@type": "SoftwareApplication", "@id": `${url}#tool`,
+  "@context": "https://schema.org", "@type": "WebApplication", "@id": `${url}#tool`,
   name: "Guitar tuner and metronome", description, url, applicationCategory: "EducationalApplication",
   operatingSystem: "Web", browserRequirements: "Requires JavaScript and Web Audio. The tuner also requires a secure connection and microphone permission.",
   isAccessibleForFree: true, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },

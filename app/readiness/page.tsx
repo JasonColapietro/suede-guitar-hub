@@ -88,7 +88,7 @@ const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebApplication",
       "@id": `${CANONICAL}#tool`,
       name: "Song Readiness Score",
       url: CANONICAL,

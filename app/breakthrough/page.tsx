@@ -57,7 +57,7 @@ const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "SoftwareApplication",
+      "@type": "WebApplication",
       "@id": `${CANONICAL}#tool`,
       name: "30-day breakthrough planner",
       url: CANONICAL,
