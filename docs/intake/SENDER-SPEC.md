@@ -17,7 +17,11 @@ in this change.
 The hub owner must publish a versioned repository artifact and fixtures containing
 the event envelope, per-event allowlists, signature format, response semantics,
 body bounds, lifecycle correlation, idempotency retention and consent handling.
-A stale branch's `IntakeEvent` interface is not this approval. Until that artifact
+The read-only historical hub artifact at
+`7caec4e5b13ff593ca1e4addf372d6ac8ee635c7` (`docs/intake/CONTRACT.md`)
+is unversioned: it has no purchase lifecycle correlation semantics, failure-alert
+kind, or separately reserved spam/canary capacity. It therefore does not satisfy
+this dependency. A stale branch's `IntakeEvent` interface is not this approval. Until that artifact
 is available, no wire format or production route integration is implemented.
 
 ## Sender invariants
@@ -73,3 +77,18 @@ Activation requires a pinned hub contract and fixtures, approved durable storage
 and consent/disclosure review, then separately authorized credentials/configuration.
 This branch does not create credentials, configure production secrets, apply
 migrations, modify RLS, add live auth triggers or enable forwarding.
+
+## Prepared local component
+
+`lib/intake/apple-identity.ts` is a pure projection of an authoritative verified
+ledger row. It hashes environment, bundle, product and original transaction into
+a stable local correlation key; purchase, restore and notification ingress can
+share that key. It emits only product/environment, normalized purchase and
+observation times, revocation time and active/revoked state. No raw transaction
+identity, account UUID, notification UUID or token is emitted.
+
+This is not a hub event schema. It defines no delivery/event ID or update policy,
+does not infer reinstatement from a historical snapshot, has no route imports,
+and performs no I/O. It does not solve persistence, worker fencing, delivery,
+application acceptance or purchase-to-ticket deduplication until integrated
+against the revised approved contract.

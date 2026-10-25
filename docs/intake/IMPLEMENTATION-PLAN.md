@@ -5,6 +5,8 @@ Spec: [SENDER-SPEC.md](./SENDER-SPEC.md).
 
 - [x] Inspect current main and source branch without merging stale work.
 - [x] Document scope, acceptance boundaries, privacy and activation gates.
+- [x] Prepare pure local Apple correlation/snapshot helper and six focused tests;
+      no production imports or wire format.
 - [ ] Pin hub owner's versioned contract SHA and copy shared synthetic fixtures.
 - [ ] Write failing tests for exact event schema/allowlists, canonical Apple
       identity and purchase/revocation lifecycle correlation.
