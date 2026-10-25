@@ -19,6 +19,8 @@ export type LearningHandlerDependencies = {
     reconcileTransaction(id: string): Promise<VerifiedLifetimePurchase>;
     verifyNotification(signed: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null>;
   }>;
+  /** Intake capture runs after an authoritative ledger write; never alters entitlement decisions. */
+  capturePurchase?(purchase: VerifiedLifetimePurchase): Promise<void>;
   environment(): StoreEnvironment;
   allowedLessons: ReadonlyMap<string, LearningTrack>;
 };
@@ -27,8 +29,13 @@ function bodyOwner(body: Record<string, unknown>, accountId: string): void {
   if (accountUUID(body.accountId) !== accountId) throw new LearningAccountError("account_changed");
 }
 
+async function captureRecorded(deps: Pick<LearningHandlerDependencies, "capturePurchase">, purchase: VerifiedLifetimePurchase): Promise<void> {
+  try { await deps.capturePurchase?.(purchase); }
+  catch { console.error("[intake] purchase capture pending ledger reconciliation"); }
+}
+
 /** Shared by the API and server-rendered access decision; never caches provider state. */
-export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependencies, "environment" | "listPurchases" | "verifier" | "recordPurchase">, accountId: string) {
+export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependencies, "environment" | "listPurchases" | "verifier" | "recordPurchase" | "capturePurchase">, accountId: string) {
   const environment = deps.environment();
   const rows = await deps.listPurchases(accountId, environment);
   const tracks = new Set<LearningTrack>();
@@ -38,6 +45,7 @@ export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependen
       const purchase = await verifier.reconcileTransaction(row.transactionId);
       if (purchase.environment !== environment || purchase.originalTransactionId !== row.originalTransactionId || purchase.appAccountToken !== row.appAccountToken) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountId, purchase);
+      await captureRecorded(deps, recorded);
       lifetimeTracks(recorded, environment).forEach((track) => tracks.add(track));
     }
   }
@@ -127,6 +135,7 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const purchase = await (await deps.verifier()).verifyPurchase(body.signedTransaction, { accountId, appAccountToken: binding.appAccountToken });
       if (purchase.accountId !== accountId || purchase.appAccountToken !== binding.appAccountToken || purchase.environment !== environment) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountId, purchase);
+      await captureRecorded(deps, recorded);
       return accountJSON({ accountId, tracks: lifetimeTracks(recorded, environment), environment });
     }),
     notification: route(async (request) => {
@@ -139,7 +148,8 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const owner = await deps.findPurchaseOwner(event.purchase);
       if (!owner) return accountJSON({ received: true });
       if (owner.appAccountToken !== event.purchase.appAccountToken) throw new LearningAccountError("purchase_owner_conflict");
-      await deps.recordPurchase(accountUUID(owner.accountId), event.purchase);
+      const recorded = await deps.recordPurchase(accountUUID(owner.accountId), event.purchase);
+      await captureRecorded(deps, recorded);
       return accountJSON({ received: true });
     }),
   };

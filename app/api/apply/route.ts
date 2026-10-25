@@ -1,3 +1,4 @@
+import { captureSubmittedApplication } from "@/lib/intake/capture";
 import { NextResponse } from "next/server";
 import {
   APPLICATION_EMAIL_ADDRESS,
@@ -37,6 +38,8 @@ export async function POST(request: Request): Promise<NextResponse<ApplyResponse
     );
   }
   const payload = normalized.value;
+  try { await captureSubmittedApplication(payload); }
+  catch { console.error("[intake] application capture unavailable; existing email path continues"); }
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
