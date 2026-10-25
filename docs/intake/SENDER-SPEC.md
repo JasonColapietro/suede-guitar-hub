@@ -1,6 +1,7 @@
 # GuitarHub dormant lead-intake sender
 
-Status: design and local preparation only; activation is on hold.
+Status: dormant implementation and local preparation; activation is on hold.
+See [draft implementation pin](./DRAFT-CONTRACT-PIN.md) for current scope and gates.
 
 ## Baseline and scope
 
@@ -22,7 +23,9 @@ The read-only historical hub artifact at
 is unversioned: it has no purchase lifecycle correlation semantics, failure-alert
 kind, or separately reserved spam/canary capacity. It therefore does not satisfy
 this dependency. A stale branch's `IntakeEvent` interface is not this approval. Until that artifact
-is available, no wire format or production route integration is implemented.
+is approved, activation stays blocked. Draft-only application and immutable
+purchase-acceptance envelopes now pin `0b33f45a…`; lifecycle and failure-alert
+protocols remain absent. Production capture seams perform no I/O.
 
 ## Sender invariants
 
@@ -87,8 +90,8 @@ share that key. It emits only product/environment, normalized purchase and
 observation times, revocation time and active/revoked state. No raw transaction
 identity, account UUID, notification UUID or token is emitted.
 
-This is not a hub event schema. It defines no delivery/event ID or update policy,
-does not infer reinstatement from a historical snapshot, has no route imports,
-and performs no I/O. It does not solve persistence, worker fencing, delivery,
+This projection is not a hub event schema and performs no I/O.
+The separate sender builds immutable acceptance envelopes; unsupported lifecycle
+snapshots remain internal blocked records and do not infer reinstatement. It does not solve persistence, worker fencing, delivery,
 application acceptance or purchase-to-ticket deduplication until integrated
 against the revised approved contract.

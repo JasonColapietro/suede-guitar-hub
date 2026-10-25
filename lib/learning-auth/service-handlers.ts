@@ -1,3 +1,4 @@
+import { captureRecordedPurchase } from "../intake/capture";
 import { allLessons } from "../learning/curriculum";
 import type { LearningTrack } from "../learning-account/contracts";
 import { accountConfiguration } from "./config";
@@ -16,5 +17,6 @@ export const learningHandlers = createLearningHandlers({
   },
   getBinding: getAccountBinding, listAttempts: listAccountAttempts, listPurchases: listAccountPurchases, findPurchaseOwner,
   appendAttempts: appendAccountAttempts, clearHistory: clearAccountHistory, recordPurchase: recordVerifiedPurchase,
+  capturePurchase: captureRecordedPurchase,
   verifier: appleLearningVerifier, environment: purchaseEnvironment, allowedLessons,
 });

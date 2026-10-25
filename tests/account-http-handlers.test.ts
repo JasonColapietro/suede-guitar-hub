@@ -175,3 +175,24 @@ test("UTF-8 sized history pages preserve every record and advance only across re
   assert.ok(pages > 1);
   assert.deepEqual(received, rows.map(row => row.body.id));
 });
+
+test("purchase, notification and access recovery capture authoritative ledger state without changing entitlements", async () => {
+  const captured: VerifiedLifetimePurchase[] = [];
+  const revoked = { ...purchase, signedAt: "2026-09-04T00:00:00Z", revokedAt: "2026-09-03T00:00:00Z" };
+  const h = harness({ recordPurchase: async () => revoked, capturePurchase: async (row) => { captured.push(row); } });
+  const paid = await h.handlers.purchase(request({ accountId: id, signedTransaction: "verified fixture" }));
+  assert.equal(paid.status, 200);
+  assert.deepEqual((await paid.json()).tracks, []);
+  assert.equal((await h.handlers.notification(request({ signedPayload: "verified fixture" }))).status, 200);
+  assert.equal((await h.handlers.access(request())).status, 200);
+  assert.deepEqual(captured, [revoked, revoked, revoked]);
+});
+
+test("intake capture failure does not reverse accepted purchase, notification or refund behavior", async (context) => {
+  context.mock.method(console, "error", () => {});
+  const h = harness({ capturePurchase: async () => { throw new Error("synthetic persistence outage"); } });
+  const paid = await h.handlers.purchase(request({ accountId: id, signedTransaction: "verified fixture" }));
+  assert.equal(paid.status, 200); assert.deepEqual((await paid.json()).tracks, ["guitar", "voice"]);
+  assert.equal((await h.handlers.notification(request({ signedPayload: "verified fixture" }))).status, 200);
+  assert.equal((await h.handlers.access(request())).status, 200);
+});
