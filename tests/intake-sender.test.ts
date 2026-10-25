@@ -33,7 +33,7 @@ test("application builder omits arbitrary request keys, credential text and URL 
   const value = applicationEvent({ ...input, password: "private", goal: "password=private", experience: "https://user:pass@example.test/path?token=private#private" }, receipt, at);
   assert.equal(isDraftHubEvent(value), true);
   assert.doesNotMatch(JSON.stringify(value), /private|user:pass/);
-  assert.deepEqual(Object.keys(value.details), ["application_id", "interest", "note"]);
+  assert.deepEqual(Object.keys(value.details), ["application_id", "interest"]);
   assert.equal(value.summary, "GuitarHub founding room application");
 });
 
@@ -90,7 +90,7 @@ test("accepted local queue survives close/reopen, leases survive crashes, and st
     assert.equal(store.finish(retry, { state: "delivered" }, 31001), true);
     assert.equal(store.get(id)?.state, "delivered");
     assert.equal(store.enqueueApplication(input, receipt, at), id);
-    assert.throws(() => store.enqueueApplication({ ...input, goal: "Changed" }, receipt, at), /identity_conflict/);
+    assert.throws(() => store.enqueueApplication({ ...input, name: "Changed" }, receipt, at), /identity_conflict/);
   } finally { store.close(); h.cleanup(); }
 });
 
@@ -168,4 +168,10 @@ test("strict Gregorian dates reject rollover and invalid time/offset before dura
   }
   const tampered = { ...event(), details: { ...event().details, password: "synthetic-private" } };
   assert.deepEqual(await sendIntakeEvent(tampered, config, async () => { throw new Error("must not send"); }), { state: "blocked", reason: "payload" });
+});
+
+test("intake omits freeform goal and experience and strips credentials from every URI scheme in names", () => {
+  const value = applicationEvent({ ...input, name: "postgres://db-user:db-pass@example.test/profile?private=value#fragment", goal: "postgres://goal-user:goal-pass@example.test/db", experience: "redis://cache-user:cache-pass@example.test/0" }, receipt, at);
+  assert.deepEqual(value.details, { application_id: receipt, interest: "founding-room-application" });
+  assert.doesNotMatch(JSON.stringify(value), /db-user|db-pass|goal-user|goal-pass|cache-user|cache-pass|private|fragment/);
 });

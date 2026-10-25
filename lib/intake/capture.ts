@@ -21,7 +21,7 @@ const ROUTE_CAPTURE_ENABLED = false;
 async function hostedStore(): Promise<HostedIntakeOutbox> {
   const { accountBackend } = await import("../learning-auth/backend.ts");
   const backend = accountBackend();
-  return new HostedIntakeOutbox((name, args) => backend.rpc(name, args));
+  return new HostedIntakeOutbox((name, args, signal) => backend.rpc(name, args).abortSignal(signal));
 }
 
 /** Production capture seam. Never use ephemeral SQLite for hosted requests. */

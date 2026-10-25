@@ -13,10 +13,10 @@ Local tests reproduce both HMAC vectors and reject unsupported field examples.
 
 ## Implemented dormant path
 
-- Explicit application builder emits only normalized contact details, requested
-  interest and experience under approved application_id/interest/note keys. It
-  omits unknown request keys and credential-like free text, strips URL credentials,
-  query and fragment, and never claims newsletter/signup consent.
+- Explicit application builder emits only normalized contact details, receipt identity and a fixed application
+  category under approved application_id/interest keys. Freeform goal and
+  experience remain confined to the existing application email path. It
+  omits unknown request keys and credential-like free text, strips credentials, query and fragment from every URI scheme, and never claims newsletter/signup consent.
 - Immutable Apple purchase acceptance uses one original-purchase/environment
   correlation key for purchase, notification and restore/reconciliation paths.
   Its content excludes mutable entitlement/refund status, observation time,
@@ -27,7 +27,8 @@ Local tests reproduce both HMAC vectors and reject unsupported field examples.
   acknowledgement reads. Only 202 with accepted=true and boolean duplicate means
   stored. 400/401/403/413 retain blocked records for explicit repair. Retryable
   errors retain original identities and content, with jitter and Retry-After.
-- Hosted RPC adapter has four bounded methods: enqueue, claim, finish and repair.
+- Hosted RPC adapter propagates its deadline AbortSignal to the actual PostgREST
+  request and also bounds uncooperative promises. It has four bounded methods: enqueue, claim, finish and repair.
   Prepared SQL uses a private table, invoker functions, atomic lane admission,
   SKIP LOCKED claims and lease-token-fenced completion. No anonymous/browser role
   privileges, RLS statements or auth triggers are included. No target SQL ran.

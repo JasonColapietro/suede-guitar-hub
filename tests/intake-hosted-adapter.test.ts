@@ -49,3 +49,13 @@ test("authoritative ledger replay recovers missed purchase acceptance and stops 
   assert.deepEqual(seen, ["123", "123"]);
   await assert.rejects(() => recoverPurchaseCaptures(rows(), { ...store, enqueueAcceptedPurchase: async () => { throw new Error("synthetic outage"); } }), /synthetic outage/);
 });
+
+test("hosted timeout aborts underlying RPC rather than only abandoning its promise", async () => {
+  let signal: AbortSignal | undefined;
+  const store = new HostedIntakeOutbox(async (_name, _args, abortSignal) => {
+    signal = abortSignal;
+    return new Promise(() => {});
+  }, 10);
+  await assert.rejects(() => store.enqueueAcceptedPurchase(purchase), /intake_persistence_timeout/);
+  assert.equal(signal?.aborted, true);
+});

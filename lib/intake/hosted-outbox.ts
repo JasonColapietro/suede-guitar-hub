@@ -5,21 +5,23 @@ import { applicationEvent, purchaseEvent, sendIntakeEvent, type SenderConfig, ty
 import type { VerifiedLifetimePurchase } from "../learning-account/contracts.ts";
 
 type Lane = "application" | "purchase" | "lifecycle" | "failure" | "spam" | "canary";
-export type IntakeRPC = (name: string, args: Readonly<Record<string, unknown>>) => PromiseLike<{ data: unknown; error: unknown }>;
+export type IntakeRPC = (name: string, args: Readonly<Record<string, unknown>>, signal: AbortSignal) => PromiseLike<{ data: unknown; error: unknown }>;
 export type HostedJob = { id: string; body: SenderEvent; token: string; attempts: number };
 
 /** RPC contract prepared in docs/intake/hosted-outbox-proposal.sql; never provisions anything. */
 export class HostedIntakeOutbox {
   readonly rpc: IntakeRPC;
-  constructor(rpc: IntakeRPC) { this.rpc = rpc; }
+  readonly #timeoutMs: number;
+  constructor(rpc: IntakeRPC, timeoutMs = 4000) { this.rpc = rpc; this.#timeoutMs = Math.max(1, Math.min(4000, timeoutMs)); }
   async #call(name: string, args: Record<string, unknown>): Promise<unknown> {
+    const controller = new AbortController();
     let timer: ReturnType<typeof setTimeout> | undefined;
     let result: { data: unknown; error: unknown };
     try {
-      result = await Promise.race([Promise.resolve(this.rpc(name, args)), new Promise<never>((_resolve, reject) => {
-        timer = setTimeout(() => reject(new Error("intake_persistence_timeout")), 4000);
+      result = await Promise.race([Promise.resolve(this.rpc(name, args, controller.signal)), new Promise<never>((_resolve, reject) => {
+        timer = setTimeout(() => { controller.abort(); reject(new Error("intake_persistence_timeout")); }, this.#timeoutMs);
       })]);
-    } finally { clearTimeout(timer); }
+    } finally { clearTimeout(timer); controller.abort(); }
     if (result.error) throw new Error("intake_persistence_unavailable");
     return result.data;
   }

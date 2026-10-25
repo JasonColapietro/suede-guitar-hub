@@ -8,7 +8,7 @@ export const HUB_CONTRACT_SHA = "0b33f45a0bdde87b8e7746666d6200c17d0c4b82";
 export type ApplicationEvent = {
   id: string; kind: "application"; property: "guitarhub.org"; occurredAt: string;
   summary: string; person: { email: string; name: string };
-  details: { application_id: string; interest: string; note: string };
+  details: { application_id: string; interest: "founding-room-application" };
 };
 
 export type PurchaseEvent = {
@@ -29,7 +29,7 @@ export function purchaseEvent(purchase: VerifiedLifetimePurchase): PurchaseEvent
 
 function prepareWireEvent(event: SenderEvent): SenderEvent {
   if (event.kind === "application") {
-    const prepared = applicationEvent({ name: event.person.name, email: event.person.email, goal: event.details.interest, experience: event.details.note }, event.details.application_id, event.occurredAt);
+    const prepared = applicationEvent({ name: event.person.name, email: event.person.email, goal: event.details.interest, experience: "" }, event.details.application_id, event.occurredAt);
     if (event.id !== prepared.id || event.property !== "guitarhub.org") throw new Error("invalid_wire_payload");
     return prepared;
   }
@@ -46,7 +46,7 @@ function clean(value: string, max: number): string {
   // Free text is not a safe carrier for arbitrary credentials. Omit it entirely
   // when it resembles a credential; do not retain fragments after truncation.
   if (/password|passwd|secret|token|api.?key|authorization|bearer\s|private key|cookie\s*:|\bAKIA[A-Z0-9]{16}\b|\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\b|\beyJ[\w-]+\.[\w-]+\.[\w-]+|\b(?:sk|pk|rk)_(?:live|test)_|\bgh[pousr]_/i.test(text)) return "[omitted sensitive text]";
-  const clipped = text.replace(/\bhttps?:\/\/[^\s<>"']+/gi, (candidate) => {
+  const clipped = text.replace(/\b[a-z][a-z0-9+.-]*:\/\/[^\s<>"']+/gi, (candidate) => {
     try { const url = new URL(candidate); url.username = ""; url.password = ""; url.search = ""; url.hash = ""; return url.toString(); }
     catch { return "[omitted URL]"; }
   }).slice(0, max);
@@ -64,7 +64,7 @@ export function applicationEvent(input: unknown, receiptId: string, at: string):
     id: `application:${receiptId.toLowerCase()}`, kind: "application", property: "guitarhub.org",
     occurredAt: new Date(at).toISOString(), summary: "GuitarHub founding room application",
     person: { email, name: clean(application.value.name, 120).replace(/\s+/g, " ").trim() },
-    details: { application_id: receiptId.toLowerCase(), interest: clean(application.value.goal, 2000), note: clean(application.value.experience, 500) },
+    details: { application_id: receiptId.toLowerCase(), interest: "founding-room-application" },
   };
 }
 
