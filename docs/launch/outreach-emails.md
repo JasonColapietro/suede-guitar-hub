@@ -172,7 +172,7 @@ This does it in thirty seconds and costs nothing.
 > prompted this.]
 >
 > I am [YOUR NAME]. I built GuitarHub, a free set of guitar practice tools,
-> and Strumly, an AI guitar coach, at Suede Labs.
+> and Strumly, an AI guitar coach, at Suede AI.
 >
 > The position I would argue on [SHOW]: guitar education sells lessons and
 > almost never sells a way to check whether a lesson worked, which is why

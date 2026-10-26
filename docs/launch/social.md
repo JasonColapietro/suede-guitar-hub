@@ -139,7 +139,7 @@ Your answers go into your browser's local storage and nowhere else, which also m
 **9/**
 
 ```
-I'm Jason. I build Suede Labs. GuitarHub is the practice method, Strumly is our AI guitar coach.
+I'm Jason. I build Suede AI. GuitarHub is the practice method, Strumly is our AI guitar coach.
 
 There's also a founding practice room, but it's an application we're reviewing, not a running product, and I'd rather say that than imply otherwise.
 
@@ -214,7 +214,7 @@ That constraint made the copy better, not worse. Removing every claim I couldn't
 
 The tools are free and there is nothing to buy: guitarhub.org
 
-Built at Suede Labs, where we also build Strumly, an AI guitar coach.
+Built at Suede AI, where we also build Strumly, an AI guitar coach.
 ```
 
 **Notes**

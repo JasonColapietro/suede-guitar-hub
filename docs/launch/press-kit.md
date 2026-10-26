@@ -22,7 +22,7 @@ estimate. We would rather answer a question than issue a correction.
 |---|---|
 | Name | GuitarHub (one word, capital G and H) |
 | What it is | A guitar practice method plus four free browser tools |
-| Made by | Suede Labs |
+| Made by | Suede AI |
 | Founder | Jason Colapietro, also published as Johnny Suede |
 | Launched | Site live at guitarhub.org |
 | Price | Nothing on the site is paid. No payment is taken anywhere. |
@@ -39,21 +39,21 @@ Use whichever length fits. Do not blend them.
 
 ### 25 words
 
-> GuitarHub is a free, browser-based guitar practice method from Suede Labs.
+> GuitarHub is a free, browser-based guitar practice method from Suede AI.
 > Pick one breakthrough, work the thing blocking it, and end each week with
 > evidence.
 
 ### 60 words
 
 > GuitarHub is a guitar practice method and a set of free browser tools from
-> Suede Labs, the studio behind Strumly. The whole site runs one loop against
+> Suede AI, the studio behind Strumly. The whole site runs one loop against
 > one goal: record a baseline, isolate the part that actually breaks, put it
 > back under pressure, then record again and compare. Nothing needs an account.
 > A small founding room is reviewing applications now.
 
 ### 150 words
 
-> GuitarHub is a guitar practice method from Suede Labs, the studio behind the
+> GuitarHub is a guitar practice method from Suede AI, the studio behind the
 > AI guitar coach Strumly. It is built for players who are past the beginner
 > stage and stalled: people with years of tabs, videos, and half-learned songs
 > who can almost play a hundred things and fully play none.
@@ -79,13 +79,13 @@ or a hometown, because we have not published any.
 
 ### Short (byline, 31 words)
 
-> Jason Colapietro is the founder and CEO of Suede Labs, the studio behind
+> Jason Colapietro is the founder and CEO of Suede AI, the studio behind
 > GuitarHub, the AI guitar coach Strumly, and the guitar community Suede
 > Social. He also publishes as Johnny Suede.
 
 ### Long (108 words)
 
-> Jason Colapietro is the founder and CEO of Suede Labs, the studio behind
+> Jason Colapietro is the founder and CEO of Suede AI, the studio behind
 > GuitarHub, the AI guitar coach Strumly, and the guitar community Suede
 > Social. He also publishes as Johnny Suede.
 >
@@ -98,9 +98,8 @@ or a hometown, because we have not published any.
 
 **Name and pronunciation notes.** "Colapietro" is the surname. "Johnny Suede"
 is a publishing name for the same person, not a separate contributor and not a
-company. On music-facing surfaces the company is written **Suede Labs**, without
-a trailing "AI"; elsewhere in the estate the company name is "Suede AI", and
-"Suede" refers to the same organization.
+company. The company is written **Suede AI** on every surface, music-facing
+ones included. "Suede" alone refers to the same organization.
 
 ---
 
@@ -214,7 +213,7 @@ All served from the live site unless noted.
 | Asset | Path | Size | Notes |
 |---|---|---|---|
 | Suede mark | `/suede-mark.png` | 400 × 400 PNG | The logo asset shipped with the site. |
-| Suede Labs logo | `https://suedeai.ai/suede-ai-logo-transparent.png` | Transparent PNG | The canonical organization logo declared in the site's structured data. |
+| Suede AI logo | `https://suedeai.ai/suede-ai-logo-transparent.png` | Transparent PNG | The canonical organization logo declared in the site's structured data. |
 | Hero photograph | `/hero-studio.jpg` | 2400 × 1920 | Site hero background. |
 | Amp glow | `/amp-glow.jpg` | 1600 × 1055 | Used behind the application section. |
 | Guide card art | `/insight-1.jpg`, `/insight-2.jpg` | 1200 × 803, 1200 × 800 | Editorial card images. |
@@ -248,7 +247,7 @@ Fraunces for display and italic accents. Inter for body text.
 
 - **Strumly**, the AI guitar coach, guides index: https://strumly.suedeai.ai/guides
 - **Suede AI Social**, the guitar community: https://social.suedeai.ai
-- **Suede Labs**, the studio behind all three: https://suedeai.ai
+- **Suede AI**, the studio behind all three: https://suedeai.ai
 
 The relationship in one line: GuitarHub orchestrates the practice, Strumly
 powers the tools, and Suede AI Social carries the wider conversation.
@@ -269,7 +268,7 @@ rather than search for it.
 - https://www.linkedin.com/in/jasoncolapietro (declared; LinkedIn returned an
   anti-bot response to an automated check, so confirm in a browser)
 
-**Suede Labs**
+**Suede AI**
 
 - https://suedeai.ai (checked 2026-08-29, 200)
 - https://x.com/AISUEDE (checked 2026-08-29, 200)

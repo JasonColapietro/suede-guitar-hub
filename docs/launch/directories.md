@@ -166,7 +166,7 @@ GuitarHub is a free practice site for guitarists whose playing has stopped chang
 Append this sentence when the field allows more (adds 21 chars, total 406):
 
 ```
- Built by Suede Labs.
+ Built by Suede AI.
 ```
 
 ---
@@ -192,7 +192,7 @@ Six written guides cover the method behind the tools.
 
 There is no account, no sign-up, and no upload. Answers are stored in your browser's local storage and nowhere else. There is nothing to buy.
 
-Built by Suede Labs, who also build Strumly, an AI guitar coach.
+Built by Suede AI, who also build Strumly, an AI guitar coach.
 ```
 
 ---
@@ -209,7 +209,7 @@ Built by Suede Labs, who also build Strumly, an AI guitar coach.
 | Tags (5–10) | `guitar`, `guitar practice`, `music education`, `practice tools`, `learn guitar`, `metronome`, `tempo training`, `free tools`, `no signup`, `browser tools` |
 | Startup type (Launching Next) | Side project |
 | 90-day marketing budget (Launching Next) | Whatever is true. It is a filter field, not a public one. |
-| Maker / founder | Jason Colapietro, Suede Labs |
+| Maker / founder | Jason Colapietro, Suede AI |
 | Contact | info@suedeai.ai |
 | Screenshot | A tool mid-use, showing a real result. Not the hero section. A directory card showing a headline tells a browsing visitor nothing; a card showing a tempo ladder or a scored diagnostic tells them exactly what they get. |
 
@@ -247,7 +247,7 @@ not an ask for votes, which HN penalises.
 ### Product Hunt maker's first comment
 
 ```
-Hi everyone. I'm Jason, I build guitar software at Suede Labs.
+Hi everyone. I'm Jason, I build guitar software at Suede AI.
 
 GuitarHub is for players whose practice stopped producing change. Not beginners — people a few years in, with a shelf of half-learned songs, who are putting the hours in and hearing the same recording every month.
 
