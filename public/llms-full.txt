@@ -4823,7 +4823,7 @@ Lead lessons write pull-offs and hammer-ons between two frets, so three notes co
 
 #### Register
 
-A region of the neck and of pitch — the low strings, the middle of the board, the high frets — rather than a mechanism that switches.
+A region of the neck and of pitch (the low strings, the middle of the board, the high frets) rather than a mechanism that switches.
 
 Lessons name the register a phrase sits in, and the same shape moved up the neck is the same chord in a higher one. [See it in use](https://guitarhub.org/learn).
 
@@ -4831,7 +4831,7 @@ Lessons name the register a phrase sits in, and the same shape moved up the neck
 
 A short repeated figure that identifies a song, usually played rather than sung.
 
-The riff lessons build a recognisable song out of one figure repeated, which is the fastest route to playing something someone else knows. [See it in use](https://guitarhub.org/learn).
+The riff lessons build a recognizable song out of one figure repeated, which is the fastest route to playing something someone else knows. [See it in use](https://guitarhub.org/learn).
 
 #### Strum
 
@@ -4893,7 +4893,7 @@ The clean-tone guide works through pick attack, hand position and amp settings a
 - [Spectrogram](https://sing.suedeai.ai/glossary#spectrogram) · music, in use on [Suede Sing (/analyze)](https://sing.suedeai.ai/analyze)
 - [Staccato](https://sing.suedeai.ai/glossary#staccato) · music, in use on [Suede Sing (/warmups)](https://sing.suedeai.ai/warmups)
 - [Tessitura](https://sing.suedeai.ai/glossary#tessitura) · voice, in use on [Suede Sing (/songs)](https://sing.suedeai.ai/songs)
-- [Tone](https://sing.suedeai.ai/glossary#tone) (timbre, colour) · music, in use on [Suede Sing (/analyze)](https://sing.suedeai.ai/analyze)
+- [Tone](https://sing.suedeai.ai/glossary#tone) (timbre, color) · music, in use on [Suede Sing (/analyze)](https://sing.suedeai.ai/analyze)
 - [Transposition](https://sing.suedeai.ai/glossary#transposition) (transposing) · music, in use on [Suede Sing (/songs)](https://sing.suedeai.ai/songs)
 - [Twang](https://sing.suedeai.ai/glossary#twang) (epilaryngeal narrowing) · voice, in use on [Suede Sing (/warmups)](https://sing.suedeai.ai/warmups)
 - [Vibrato](https://sing.suedeai.ai/glossary#vibrato) · music, in use on [Suede Sing (/analyze)](https://sing.suedeai.ai/analyze)

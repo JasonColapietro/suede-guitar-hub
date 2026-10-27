@@ -169,7 +169,7 @@
           "high": 60,
           "spanSemitones": 5,
           "semantics": "m1-m2-crossing",
-          "caveat": "A countertenor's working transition is the crossing out of full voice into the falsetto-family register the voice then sings above — a different event from the shifts listed for the other categories, and the one figure here that varies most from singer to singer."
+          "caveat": "A countertenor's working transition is the crossing out of full voice into the falsetto-family register the voice then sings above. That is a different event from the shifts listed for the other categories, and the one figure here that varies most from singer to singer."
         },
         "Contralto": {
           "low": 67,
@@ -2684,7 +2684,7 @@
   "editorial": {
     "book": {
       "title": "The Measured Voice",
-      "subtitle": "A practical guide to building a voice you can measure — included with Suede Sing Pro.",
+      "subtitle": "A practical guide to building a voice you can measure, included with Suede Pro.",
       "pathPrefix": "/book",
       "totalWords": 33092,
       "chapters": [
@@ -2693,7 +2693,7 @@
           "order": 1,
           "title": "What your voice actually is",
           "part": "How the voice works",
-          "summary": "Breath as the power, the folds as the vibrator, the throat and mouth as the filter — the three-part model the rest of this book runs on.",
+          "summary": "Breath as the power, the folds as the vibrator, the throat and mouth as the filter: the three-part model the rest of this book runs on.",
           "free": true,
           "words": 1403,
           "path": "/book/what-your-voice-is"
@@ -2703,7 +2703,7 @@
           "order": 2,
           "title": "Registers, and why they exist",
           "part": "How the voice works",
-          "summary": "What physically changes between chest, head, mix, falsetto and whistle — and why teachers give the same sounds different names.",
+          "summary": "What physically changes between chest, head, mix, falsetto and whistle, and why teachers give the same sounds different names.",
           "free": false,
           "words": 1264,
           "path": "/book/registers"
@@ -2733,7 +2733,7 @@
           "order": 5,
           "title": "Resonance, placement and the vowel",
           "part": "How the voice works",
-          "summary": "How the throat and mouth shape one buzzy fold vibration into vowels, brightness and carrying power — and how to change tone without changing effort.",
+          "summary": "How the throat and mouth shape one buzzy fold vibration into vowels, brightness and carrying power, and how to change tone without changing effort.",
           "free": false,
           "words": 1377,
           "path": "/book/resonance"
@@ -2753,7 +2753,7 @@
           "order": 7,
           "title": "Your range is not one number",
           "part": "Reading your own voice",
-          "summary": "Your voice has three ranges — absolute, comfortable, and performable — and the one people quote is the least useful of the three.",
+          "summary": "Your voice has three ranges (absolute, comfortable, and performable), and the one people quote is the least useful of the three.",
           "free": false,
           "words": 1318,
           "path": "/book/range-is-not-one-number"
@@ -2773,7 +2773,7 @@
           "order": 9,
           "title": "What pitch accuracy actually measures",
           "part": "Reading your own voice",
-          "summary": "How to read an accuracy score honestly: what a cent is, why dead centre isn't the goal, and how drift, scoops and vibrato differ.",
+          "summary": "How to read an accuracy score honestly: what a cent is, why dead center isn't the goal, and how drift, scoops and vibrato differ.",
           "free": false,
           "words": 1498,
           "path": "/book/pitch-accuracy"
@@ -2803,7 +2803,7 @@
           "order": 12,
           "title": "When the numbers lie to you",
           "part": "Reading your own voice",
-          "summary": "How room noise, mic placement, headphone bleed and a rough day distort your readings — and how to catch a bad session before you act on it.",
+          "summary": "Room noise, mic placement, headphone bleed and a rough day distort your readings. Here is how to catch a bad session before you act on it.",
           "free": true,
           "words": 1463,
           "path": "/book/when-numbers-lie"
@@ -2813,7 +2813,7 @@
           "order": 13,
           "title": "How the twelve weeks work",
           "part": "The twelve-week program",
-          "summary": "The shape of the twelve weeks — four blocks, short sessions, and the rules for skipping, repeating, and going back.",
+          "summary": "The shape of the twelve weeks: four blocks, short sessions, and the rules for skipping, repeating, and going back.",
           "free": false,
           "words": 1484,
           "path": "/book/how-the-program-works"
@@ -2843,7 +2843,7 @@
           "order": 16,
           "title": "Weeks 5 and 6: through the break",
           "part": "The twelve-week program",
-          "summary": "Two weeks of quiet sirens, slides and vowel work across your transition — how to run the sessions, and what to do when they go badly.",
+          "summary": "Two weeks of quiet sirens, slides and vowel work across your transition: how to run the sessions, and what to do when they go badly.",
           "free": false,
           "words": 1557,
           "path": "/book/weeks-5-6-passaggio"
@@ -2922,7 +2922,7 @@
     },
     "atlas": {
       "title": "The Voice Atlas",
-      "subtitle": "Who sings what, how it sounds, and how to borrow it — the range, tone and technique of every voice in the library.",
+      "subtitle": "Who sings what, how it sounds, and how to borrow it: the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
       "totalWords": 72505,
       "chapters": [
@@ -2931,7 +2931,7 @@
           "order": 1,
           "title": "How to read an entry",
           "part": "How to read a voice",
-          "summary": "The anatomy of an atlas entry — what the cited range, the full-voice ceiling, the whistle flag and the sourced extremes actually claim, and how far to trust those claims.",
+          "summary": "The anatomy of an atlas entry: what the cited range, the full-voice ceiling, the whistle flag and the sourced extremes actually claim, and how far to trust those claims.",
           "free": true,
           "words": 893,
           "path": "/atlas/how-to-read-an-entry"
@@ -2941,7 +2941,7 @@
           "order": 2,
           "title": "Notes, octaves and the keyboard",
           "part": "How to read a voice",
-          "summary": "Scientific pitch notation in five minutes — what C4 means, why F#5 and Gb5 are the same note, how octave spans are counted, and why identical voices get different figures.",
+          "summary": "Scientific pitch notation in five minutes: what C4 means, why F#5 and Gb5 are the same note, how octave spans are counted, and why identical voices get different figures.",
           "free": true,
           "words": 848,
           "path": "/atlas/notes-octaves-and-the-keyboard"
@@ -2961,7 +2961,7 @@
           "order": 4,
           "title": "A vocabulary for tone",
           "part": "How to read a voice",
-          "summary": "The working lexicon behind every entry — weight, placement, vibrato, onset, grit, breathiness, twang, cry and their friends, each defined by ear with exemplars from the atlas.",
+          "summary": "The working lexicon behind every entry (weight, placement, vibrato, onset, grit, breathiness, twang, cry and their friends), each defined by ear with exemplars from the atlas.",
           "free": false,
           "words": 1068,
           "path": "/atlas/a-vocabulary-for-tone"
@@ -2981,7 +2981,7 @@
           "order": 6,
           "title": "The safety rail",
           "part": "The borrower's method",
-          "summary": "The four expensive things in this book — whistle notes, extreme lows, distortion and sustained belting — what makes each risky to chase, and the warning signs that mean stop.",
+          "summary": "The four expensive things in this book (whistle notes, extreme lows, distortion and sustained belting), what makes each risky to chase, and the warning signs that mean stop.",
           "free": false,
           "words": 838,
           "path": "/atlas/the-safety-rail"
@@ -2991,7 +2991,7 @@
           "order": 7,
           "title": "Pop women: the founders",
           "part": "Pop",
-          "summary": "The women who defined what a pop lead vocal is — from torch-song discipline through the belt arms race — and what their entries teach about power built to last.",
+          "summary": "The women who defined what a pop lead vocal is, from torch-song discipline through the belt arms race, and what their entries teach about power built to last.",
           "free": false,
           "words": 1912,
           "path": "/atlas/pop-women-the-founders"
@@ -3001,7 +3001,7 @@
           "order": 8,
           "title": "Pop women: the moderns",
           "part": "Pop",
-          "summary": "The current and recent generation of pop leads — whisper-pop, fry onsets, whistle flexes and conversational belts — and how the microphone rewrote what counts as power.",
+          "summary": "The current and recent generation of pop leads (whisper-pop, fry onsets, whistle flexes and conversational belts) and how the microphone rewrote what counts as power.",
           "free": false,
           "words": 4975,
           "path": "/atlas/pop-women-the-moderns"
@@ -3011,7 +3011,7 @@
           "order": 9,
           "title": "The pop men",
           "part": "Pop",
-          "summary": "From crooners to falsetto-forward streaming stars — why the male pop lead keeps climbing, and what the tenor arms race costs the baritones who enter it.",
+          "summary": "Why the male pop lead keeps climbing, from crooners to falsetto-forward streaming stars, and what the tenor arms race costs the baritones who enter it.",
           "free": false,
           "words": 4424,
           "path": "/atlas/the-pop-men"
@@ -3021,7 +3021,7 @@
           "order": 10,
           "title": "The classic rock men",
           "part": "Rock, metal and alternative",
-          "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades — where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
+          "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades: where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
           "free": false,
           "words": 5131,
           "path": "/atlas/the-classic-rock-men"
@@ -3031,7 +3031,7 @@
           "order": 11,
           "title": "The women of rock",
           "part": "Rock, metal and alternative",
-          "summary": "Belters, banshees and deadpan cool — the women who fronted rock bands on their own terms, and what their entries teach about projection over a loud stage.",
+          "summary": "The women who fronted rock bands on their own terms, from belters and banshees to deadpan cool, and what their entries teach about projection over a loud stage.",
           "free": false,
           "words": 1588,
           "path": "/atlas/the-women-of-rock"
@@ -3041,7 +3041,7 @@
           "order": 12,
           "title": "Alternative, punk and new wave",
           "part": "Rock, metal and alternative",
-          "summary": "From post-punk monotone to grunge catharsis — the chapter where refusing to sing beautifully became its own technique, and what that refusal actually requires.",
+          "summary": "Refusing to sing beautifully became its own technique, from post-punk monotone to grunge catharsis. This chapter covers what that refusal actually requires.",
           "free": false,
           "words": 3131,
           "path": "/atlas/alternative-punk-and-new-wave"
@@ -3051,7 +3051,7 @@
           "order": 13,
           "title": "Metal",
           "part": "Rock, metal and alternative",
-          "summary": "Air-raid tenors, operatic sopranos and controlled growls — trained singing at rock volume, and why metal singing is closer to opera than either camp admits.",
+          "summary": "Air-raid tenors, operatic sopranos and controlled growls: trained singing at rock volume, and why metal singing is closer to opera than either camp admits.",
           "free": false,
           "words": 3161,
           "path": "/atlas/metal"
@@ -3061,7 +3061,7 @@
           "order": 14,
           "title": "The soul men",
           "part": "Soul, R&B and gospel",
-          "summary": "Church-trained tenors, velvet baritones and the falsetto tradition — the men who made secular music testify, and the phrasing lessons every genre stole from them.",
+          "summary": "The men who made secular music testify (church-trained tenors, velvet baritones and the falsetto tradition) and the phrasing lessons every genre stole from them.",
           "free": false,
           "words": 3298,
           "path": "/atlas/the-soul-men"
@@ -3071,7 +3071,7 @@
           "order": 15,
           "title": "The soul and R&B women",
           "part": "Soul, R&B and gospel",
-          "summary": "From torch and church to quiet storm — the women who set the bar for vocal authority, and the complete techniques their entries document.",
+          "summary": "The women who set the bar for vocal authority, from torch and church to quiet storm, and the complete techniques their entries document.",
           "free": false,
           "words": 2584,
           "path": "/atlas/the-soul-and-rnb-women"
@@ -3081,7 +3081,7 @@
           "order": 16,
           "title": "Modern R&B",
           "part": "Soul, R&B and gospel",
-          "summary": "The streaming era's R&B — falsetto confessions, whisper-runs, baritone outliers and produced nonchalance — and how the genre traded the shout for the microphone's trust.",
+          "summary": "The streaming era's R&B (falsetto confessions, whisper-runs, baritone outliers and produced nonchalance) and how the genre traded the shout for the microphone's trust.",
           "free": false,
           "words": 4482,
           "path": "/atlas/modern-rnb"
@@ -3091,7 +3091,7 @@
           "order": 17,
           "title": "Gospel and a cappella",
           "part": "Soul, R&B and gospel",
-          "summary": "The source tradition and the ensemble athletes — where the runs, the shout and the squall come from, plus the a cappella specialists who turned blend itself into virtuosity.",
+          "summary": "The source tradition and the ensemble athletes: where the runs, the shout and the squall come from, plus the a cappella specialists who turned blend itself into virtuosity.",
           "free": false,
           "words": 2528,
           "path": "/atlas/gospel-and-a-cappella"
@@ -3101,7 +3101,7 @@
           "order": 18,
           "title": "Country",
           "part": "Country, folk and jazz",
-          "summary": "Twang as technology, the accent as instrument, and storytelling tessitura — country's vocal toolkit from honky-tonk cries to stadium baritones.",
+          "summary": "Twang as technology, the accent as instrument, and storytelling tessitura make up country's vocal toolkit, from honky-tonk cries to stadium baritones.",
           "free": false,
           "words": 4309,
           "path": "/atlas/country"
@@ -3111,7 +3111,7 @@
           "order": 19,
           "title": "Folk and the songwriters",
           "part": "Country, folk and jazz",
-          "summary": "The confiders — voices built to serve words, from coffeehouse sopranos to gravel philosophers — and how modest instruments built long careers here.",
+          "summary": "The confiders: voices built to serve words, from coffeehouse sopranos to gravel philosophers, and how modest instruments built long careers here.",
           "free": false,
           "words": 3108,
           "path": "/atlas/folk-and-the-songwriters"
@@ -3121,7 +3121,7 @@
           "order": 20,
           "title": "Jazz and the standards",
           "part": "Country, folk and jazz",
-          "summary": "Horn-players with lyrics — time feel, delayed vibrato, harmonic ears and the microphone's first great singers, from the songbook era to the new jazz generation.",
+          "summary": "Horn-players with lyrics: time feel, delayed vibrato, harmonic ears and the microphone's first great singers, from the songbook era to the new jazz generation.",
           "free": false,
           "words": 2728,
           "path": "/atlas/jazz-and-the-standards"
@@ -3131,7 +3131,7 @@
           "order": 21,
           "title": "Opera and classical crossover",
           "part": "The trained voice",
-          "summary": "The unamplified athletes — what filling a hall without a microphone actually requires, why opera ranges look modest, and what every amplified singer can steal from the fach system.",
+          "summary": "The unamplified athletes: what filling a hall without a microphone actually requires, why opera ranges look modest, and what every amplified singer can steal from the fach system.",
           "free": false,
           "words": 2858,
           "path": "/atlas/opera-and-classical-crossover"
@@ -3141,7 +3141,7 @@
           "order": 22,
           "title": "Musical theatre",
           "part": "The trained voice",
-          "summary": "Eight shows a week — the belt as a certified skill, legit versus contemporary technique, and why theatre singers are the book's masters of sustainable intensity.",
+          "summary": "Eight shows a week: the belt as a certified skill, legit versus contemporary technique, and why theater singers are the book's masters of sustainable intensity.",
           "free": false,
           "words": 2675,
           "path": "/atlas/musical-theatre"
@@ -3151,7 +3151,7 @@
           "order": 23,
           "title": "Latin voices",
           "part": "The world's voices",
-          "summary": "From ranchera's long breath to reggaetón's rhythmic speech — a continent of vocal traditions, their signature techniques, and the bilingual generation remixing all of them.",
+          "summary": "A continent of vocal traditions, from ranchera's long breath to reggaetón's rhythmic speech, with their signature techniques and the bilingual generation remixing all of them.",
           "free": false,
           "words": 3350,
           "path": "/atlas/latin-voices"
@@ -3161,7 +3161,7 @@
           "order": 24,
           "title": "K-pop, J-pop and global pop",
           "part": "The world's voices",
-          "summary": "The idol-system technicians, Japan's genre-fluent stylists, playback legends and global outliers — precision singing at industrial standards.",
+          "summary": "Precision singing at industrial standards: the idol-system technicians, Japan's genre-fluent stylists, playback legends and global outliers.",
           "free": false,
           "words": 4366,
           "path": "/atlas/kpop-jpop-and-global-pop"
@@ -3171,7 +3171,7 @@
           "order": 25,
           "title": "Reggae, Afrobeats and African voices",
           "part": "The world's voices",
-          "summary": "Groove-first singing — patois phrasing, Afrobeats' melodic economy, amapiano's smoothness and the continent's great griot and mbalax voices.",
+          "summary": "Groove-first singing, from patois phrasing and Afrobeats' melodic economy to amapiano's smoothness and the continent's great griot and mbalax voices.",
           "free": false,
           "words": 2078,
           "path": "/atlas/reggae-afrobeats-and-african-voices"
@@ -3181,7 +3181,7 @@
           "order": 26,
           "title": "The records",
           "part": "Appendices",
-          "summary": "The atlas's extremes in one place — lowest floors, highest ceilings, widest spans and the whistle club, each with the recording where the note happened when one is famously known.",
+          "summary": "The atlas's extremes in one place (lowest floors, highest ceilings, widest spans and the whistle club), each with the recording where the note happened when one is famously known.",
           "free": false,
           "words": 1004,
           "path": "/atlas/the-records"
@@ -3191,7 +3191,7 @@
           "order": 27,
           "title": "Every voice by type",
           "part": "Appendices",
-          "summary": "The whole library shelved by classification, basses to sopranos, with each voice's cited range — the shopping index for borrowing along your own shelf.",
+          "summary": "The whole library shelved by classification, basses to sopranos, with each voice's cited range. It is the shopping index for borrowing along your own shelf.",
           "free": false,
           "words": 3354,
           "path": "/atlas/every-voice-by-type"
