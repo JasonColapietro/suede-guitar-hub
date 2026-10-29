@@ -211,7 +211,7 @@
                 "title": "Onset Without the Click",
                 "type": "concept",
                 "minutes": 3,
-                "summary": "Compare an easy onset with a previous attempt; the synthesized reference supplies pitch, not a demonstration of vocal technique."
+                "summary": "Compare an easy onset with a previous attempt; the piano reference supplies pitch, not a demonstration of vocal technique."
               },
               {
                 "id": "v-l2-m2-03",
@@ -489,7 +489,7 @@
                 "title": "Hear the Pitch Before You Sing",
                 "type": "concept",
                 "minutes": 4,
-                "summary": "Compare your note with the synthesized reference and listen for whether your next attempt settles closer."
+                "summary": "Compare your note with the piano reference and listen for whether your next attempt settles closer."
               },
               {
                 "id": "v-l4-m1-03",
@@ -763,7 +763,7 @@
                 "title": "An Easy Pattern Through Your Transition",
                 "type": "exercise",
                 "minutes": 6,
-                "summary": "A short supplied pattern that crosses your transition zone — pick the key that puts it there."
+                "summary": "A short supplied pattern that crosses your transition zone. Pick the key that puts it there."
               },
               {
                 "id": "v-l5-m4-07",
@@ -1080,7 +1080,7 @@
                 "title": "Self-Check: One Song, Two Styles",
                 "type": "checkpoint",
                 "minutes": 7,
-                "summary": "Both recognisable, both yours."
+                "summary": "Both recognizable, both yours."
               }
             ]
           },

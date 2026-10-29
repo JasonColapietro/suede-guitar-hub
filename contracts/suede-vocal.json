@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure, included with Suede Pro.",
       "pathPrefix": "/book",
-      "totalWords": 33092,
+      "totalWords": 32535,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2695,7 +2695,7 @@
           "part": "How the voice works",
           "summary": "Breath as the power, the folds as the vibrator, the throat and mouth as the filter: the three-part model the rest of this book runs on.",
           "free": true,
-          "words": 1403,
+          "words": 1386,
           "path": "/book/what-your-voice-is"
         },
         {
@@ -2705,7 +2705,7 @@
           "part": "How the voice works",
           "summary": "What physically changes between chest, head, mix, falsetto and whistle, and why teachers give the same sounds different names.",
           "free": false,
-          "words": 1264,
+          "words": 1241,
           "path": "/book/registers"
         },
         {
@@ -2715,7 +2715,7 @@
           "part": "How the voice works",
           "summary": "Why your voice has a transition zone, roughly where it sits for your voice type, and why vowel and weight get you through it when force never will.",
           "free": false,
-          "words": 1508,
+          "words": 1468,
           "path": "/book/the-passaggio"
         },
         {
@@ -2725,7 +2725,7 @@
           "part": "How the voice works",
           "summary": "What support actually means physically, why pushing more air makes tone worse, and how to feel the difference.",
           "free": false,
-          "words": 1568,
+          "words": 1545,
           "path": "/book/breath"
         },
         {
@@ -2735,7 +2735,7 @@
           "part": "How the voice works",
           "summary": "How the throat and mouth shape one buzzy fold vibration into vowels, brightness and carrying power, and how to change tone without changing effort.",
           "free": false,
-          "words": 1377,
+          "words": 1312,
           "path": "/book/resonance"
         },
         {
@@ -2755,7 +2755,7 @@
           "part": "Reading your own voice",
           "summary": "Your voice has three ranges (absolute, comfortable, and performable), and the one people quote is the least useful of the three.",
           "free": false,
-          "words": 1318,
+          "words": 1291,
           "path": "/book/range-is-not-one-number"
         },
         {
@@ -2765,7 +2765,7 @@
           "part": "Reading your own voice",
           "summary": "How to take the range test honestly, what a disappointing result usually means, and how much the voice-type label is worth.",
           "free": true,
-          "words": 1560,
+          "words": 1465,
           "path": "/book/reading-the-range-test"
         },
         {
@@ -2785,7 +2785,7 @@
           "part": "Reading your own voice",
           "summary": "How to locate your own transition with the pitch studio and range test, read a belt ceiling honestly, and tell head voice from falsetto.",
           "free": false,
-          "words": 1369,
+          "words": 1346,
           "path": "/book/finding-your-break"
         },
         {
@@ -2795,7 +2795,7 @@
           "part": "Reading your own voice",
           "summary": "How to tell real vocal change from ordinary day-to-day noise, and how long to wait before your progress charts mean anything.",
           "free": false,
-          "words": 1420,
+          "words": 1407,
           "path": "/book/tracking-change"
         },
         {
@@ -2805,7 +2805,7 @@
           "part": "Reading your own voice",
           "summary": "Room noise, mic placement, headphone bleed and a rough day distort your readings. Here is how to catch a bad session before you act on it.",
           "free": true,
-          "words": 1463,
+          "words": 1461,
           "path": "/book/when-numbers-lie"
         },
         {
@@ -2825,7 +2825,7 @@
           "part": "The twelve-week program",
           "summary": "How to spend the first two weeks collecting honest data and building a breath habit, without trying to sing better yet.",
           "free": false,
-          "words": 1437,
+          "words": 1406,
           "path": "/book/weeks-1-2-baseline"
         },
         {
@@ -2835,7 +2835,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks in the part of your range that already works: steady tone, clean onsets, honest sustain, and the ear work that holds them together.",
           "free": false,
-          "words": 1384,
+          "words": 1361,
           "path": "/book/weeks-3-4-middle"
         },
         {
@@ -2845,7 +2845,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks of quiet sirens, slides and vowel work across your transition: how to run the sessions, and what to do when they go badly.",
           "free": false,
-          "words": 1557,
+          "words": 1534,
           "path": "/book/weeks-5-6-passaggio"
         },
         {
@@ -2855,7 +2855,7 @@
           "part": "The twelve-week program",
           "summary": "How to work above your transition for two weeks: height without weight, head voice before belt, and hard limits on volume and repetition.",
           "free": false,
-          "words": 1428,
+          "words": 1405,
           "path": "/book/weeks-7-8-top"
         },
         {
@@ -2865,7 +2865,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks on the low register, which rewards release rather than effort, and on carrying a long phrase without running the tank dry.",
           "free": false,
-          "words": 1384,
+          "words": 1361,
           "path": "/book/weeks-9-10-bottom"
         },
         {
@@ -2875,7 +2875,7 @@
           "part": "The twelve-week program",
           "summary": "Move the last two weeks onto real repertoire, retest, and compare against your week-one recording without fooling yourself.",
           "free": false,
-          "words": 1677,
+          "words": 1654,
           "path": "/book/weeks-11-12-songs"
         },
         {
@@ -2885,7 +2885,7 @@
           "part": "Range and repertoire",
           "summary": "How to audit a song before you learn it: where its melody lives, why the chorus decides, and what the highest note is really telling you.",
           "free": false,
-          "words": 1367,
+          "words": 1344,
           "path": "/book/choosing-songs"
         },
         {
@@ -2895,7 +2895,7 @@
           "part": "Range and repertoire",
           "summary": "Why changing a song's key is ordinary professional practice, how to find the key that fits you, and where transposition stops helping.",
           "free": false,
-          "words": 1522,
+          "words": 1508,
           "path": "/book/transposition"
         },
         {
@@ -2905,7 +2905,7 @@
           "part": "Range and repertoire",
           "summary": "How to read the singer library for tessitura and craft instead of ceilings, and what those cited figures can and cannot tell you.",
           "free": false,
-          "words": 1412,
+          "words": 1389,
           "path": "/book/learning-from-other-voices"
         },
         {
@@ -2915,7 +2915,7 @@
           "part": "Range and repertoire",
           "summary": "How to order songs, keys and rest across a whole set so your voice is still working on the last song.",
           "free": false,
-          "words": 1462,
+          "words": 1439,
           "path": "/book/building-a-set"
         }
       ]
@@ -2924,7 +2924,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it: the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 72505,
+      "totalWords": 70846,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -2933,7 +2933,7 @@
           "part": "How to read a voice",
           "summary": "The anatomy of an atlas entry: what the cited range, the full-voice ceiling, the whistle flag and the sourced extremes actually claim, and how far to trust those claims.",
           "free": true,
-          "words": 893,
+          "words": 861,
           "path": "/atlas/how-to-read-an-entry"
         },
         {
@@ -2943,7 +2943,7 @@
           "part": "How to read a voice",
           "summary": "Scientific pitch notation in five minutes: what C4 means, why F#5 and Gb5 are the same note, how octave spans are counted, and why identical voices get different figures.",
           "free": true,
-          "words": 848,
+          "words": 840,
           "path": "/atlas/notes-octaves-and-the-keyboard"
         },
         {
@@ -2953,7 +2953,7 @@
           "part": "How to read a voice",
           "summary": "What the eight classification labels mean, why a pop mezzo and an opera mezzo are different claims, tessitura versus range, and how to guess your own type without a teacher.",
           "free": true,
-          "words": 865,
+          "words": 855,
           "path": "/atlas/voice-types-in-the-wild"
         },
         {
@@ -2963,7 +2963,7 @@
           "part": "How to read a voice",
           "summary": "The working lexicon behind every entry (weight, placement, vibrato, onset, grit, breathiness, twang, cry and their friends), each defined by ear with exemplars from the atlas.",
           "free": false,
-          "words": 1068,
+          "words": 1070,
           "path": "/atlas/a-vocabulary-for-tone"
         },
         {
@@ -2973,7 +2973,7 @@
           "part": "The borrower's method",
           "summary": "The five-step method behind every technique paragraph in this book: pick a trait, match the habitat, change one dial at a time, close the loop with recordings, and time-box the costume.",
           "free": false,
-          "words": 949,
+          "words": 937,
           "path": "/atlas/how-to-borrow-a-voice"
         },
         {
@@ -2983,7 +2983,7 @@
           "part": "The borrower's method",
           "summary": "The four expensive things in this book (whistle notes, extreme lows, distortion and sustained belting), what makes each risky to chase, and the warning signs that mean stop.",
           "free": false,
-          "words": 838,
+          "words": 819,
           "path": "/atlas/the-safety-rail"
         },
         {
@@ -3001,7 +3001,7 @@
           "order": 8,
           "title": "Pop women: the moderns",
           "part": "Pop",
-          "summary": "The current and recent generation of pop leads (whisper-pop, fry onsets, whistle flexes and conversational belts) and how the microphone rewrote what counts as power.",
+          "summary": "The current generation of pop leads (whisper-pop, fry onsets, whistle flexes, conversational belts) and how the microphone rewrote what counts as power.",
           "free": false,
           "words": 4975,
           "path": "/atlas/pop-women-the-moderns"
@@ -3153,7 +3153,7 @@
           "part": "The world's voices",
           "summary": "A continent of vocal traditions, from ranchera's long breath to reggaetón's rhythmic speech, with their signature techniques and the bilingual generation remixing all of them.",
           "free": false,
-          "words": 3350,
+          "words": 3342,
           "path": "/atlas/latin-voices"
         },
         {
@@ -3183,7 +3183,7 @@
           "part": "Appendices",
           "summary": "The atlas's extremes in one place (lowest floors, highest ceilings, widest spans and the whistle club), each with the recording where the note happened when one is famously known.",
           "free": false,
-          "words": 1004,
+          "words": 680,
           "path": "/atlas/the-records"
         },
         {
@@ -3193,7 +3193,7 @@
           "part": "Appendices",
           "summary": "The whole library shelved by classification, basses to sopranos, with each voice's cited range. It is the shopping index for borrowing along your own shelf.",
           "free": false,
-          "words": 3354,
+          "words": 2106,
           "path": "/atlas/every-voice-by-type"
         }
       ]
