@@ -360,7 +360,7 @@
       "measurable": "no",
       "unit": null,
       "module": null,
-      "note": "No chest/head/falsetto classification on any Suede surface. This row used to say the iOS app reports a single H1-H2 derived boundary; that was false and is corrected here — the iOS app has no spectral analysis at all, its pitch estimator is time-domain YIN, and its only vocal surface plots f0 and latches range extremes. `lib/audio/register-mechanism.ts` now computes H1-H2 as a pure function against one boundary that is chosen rather than validated, and nothing calls it from a live take. Even once something does, the boundary it settles is the heavier laryngeal mechanism against the lighter; the pedagogical chest and head both sit inside the heavier one, so it will not answer a chest-versus-head question."
+      "note": "No chest/head/falsetto classification on any Suede surface, and none in the iOS app either: its pitch estimator is time-domain YIN, and its only vocal surface plots f0 and latches range extremes. An H1-H2 boundary, if one were built, would settle the heavier laryngeal mechanism against the lighter; the pedagogical chest and head both sit inside the heavier one, so it would not answer a chest-versus-head question."
     },
     "vowelOrFormant": {
       "measurable": "no",
@@ -2581,7 +2581,7 @@
       },
       {
         "id": "daily",
-        "name": "Daily ear workout",
+        "name": "Daily ear routine",
         "steps": [
           {
             "game": "higher-lower",
@@ -2604,7 +2604,7 @@
       },
       {
         "id": "full",
-        "name": "Full ear workout",
+        "name": "Full ear routine",
         "steps": [
           {
             "game": "higher-lower",
