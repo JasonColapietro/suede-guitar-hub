@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure, included with Suede Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32535,
+      "totalWords": 32582,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2745,7 +2745,7 @@
           "part": "How the voice works",
           "summary": "What warming up and cooling down actually do, how water and sleep really reach your voice, and where normal tiredness ends and a doctor begins.",
           "free": false,
-          "words": 1230,
+          "words": 1239,
           "path": "/book/stamina-and-health"
         },
         {
@@ -2805,7 +2805,7 @@
           "part": "Reading your own voice",
           "summary": "Room noise, mic placement, headphone bleed and a rough day distort your readings. Here is how to catch a bad session before you act on it.",
           "free": true,
-          "words": 1461,
+          "words": 1499,
           "path": "/book/when-numbers-lie"
         },
         {
@@ -2924,7 +2924,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it: the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 70846,
+      "totalWords": 70856,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -2983,7 +2983,7 @@
           "part": "The borrower's method",
           "summary": "The four expensive things in this book (whistle notes, extreme lows, distortion and sustained belting), what makes each risky to chase, and the warning signs that mean stop.",
           "free": false,
-          "words": 819,
+          "words": 829,
           "path": "/atlas/the-safety-rail"
         },
         {
