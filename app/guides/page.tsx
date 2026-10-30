@@ -23,11 +23,11 @@ const CANONICAL = `${SITE_URL}/guides`;
 /** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
 const CRUMBS = crumbTrail("Guides", CANONICAL);
 
-const TITLE = "Guitar Practice Guides and Tips: The GuitarHub Library";
+const TITLE = "Guitar Practice Guides and Tips | GuitarHub";
 // Kept inside 140-160 characters so Google prints the differentiating tail
 // rather than truncating it.
 const DESCRIPTION =
-  "Every GuitarHub practice guide in one place, grouped by the problem it solves: learning the method, diagnosing a plateau, building the week, raising a ceiling.";
+  "Every GuitarHub practice guide, grouped by the problem it solves: learning the method, diagnosing a plateau, building the week, and raising a ceiling.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/guides"),

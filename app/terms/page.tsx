@@ -5,7 +5,7 @@ import { crumbTrail } from "@/lib/breadcrumbs";
 import { pageJsonLd } from "@/lib/page-schema";
 import { keywordsFor } from "@/lib/keywords";
 
-const description = "Terms for using GuitarHub: the free learning tools and lesson content, external links, lifetime lesson access through the App Store, local records, and support.";
+const description = "Terms for using GuitarHub: free learning tools and lessons, external links, lifetime lesson access through the App Store, local records, and support.";
 export const metadata: Metadata = {
   keywords: keywordsFor("/terms"),
   title: "Terms of Use | GuitarHub",

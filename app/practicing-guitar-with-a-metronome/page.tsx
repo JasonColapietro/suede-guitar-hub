@@ -22,9 +22,9 @@ const CRUMBS = [
 
 const PUBLISHED = "2026-08-29";
 
-const TITLE = "How to Actually Practice With a Metronome";
+const TITLE = "How to Practice Guitar With a Metronome | GuitarHub";
 const DESCRIPTION =
-  "Most players play along with a click instead of testing against it. What the gap tells you, how to subdivide, where to put the click, and when to leave it off.";
+  "Most guitarists play along with a click instead of testing against it. Learn what the gap tells you, how to subdivide, and when to turn the click off.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/practicing-guitar-with-a-metronome"),
@@ -126,7 +126,7 @@ export default function MetronomePage() {
         eyebrow="Timing and tempo"
         title={
           <>
-            How to actually practice with a{" "}
+            How to practice guitar with a{" "}
             <em className="font-display italic text-peach">metronome.</em>
           </>
         }

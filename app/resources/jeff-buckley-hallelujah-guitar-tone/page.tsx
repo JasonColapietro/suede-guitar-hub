@@ -15,7 +15,7 @@ const CRUMBS = [
 ];
 
 const PUBLISHED = "2026-08-31";
-const TITLE = "What Hallelujah Teaches About Guitar Tone";
+const TITLE = "Jeff Buckley Hallelujah Guitar Tone | GuitarHub";
 const DESCRIPTION =
   "A close-listening guide to Jeff Buckley's Hallelujah guitar tone, with a practical test for dynamics, space, arpeggio balance and recording restraint.";
 
@@ -92,7 +92,7 @@ export default function HallelujahGuitarTonePage() {
         eyebrow="Print the Quiet field guide"
         title={
           <>
-            What Hallelujah teaches about{" "}
+            What Jeff Buckley&apos;s Hallelujah teaches about{" "}
             <em className="font-display italic text-peach">guitar tone.</em>
           </>
         }

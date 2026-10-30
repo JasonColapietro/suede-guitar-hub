@@ -54,7 +54,7 @@ export default function StartPage() {
       <main id="main-content" tabIndex={-1} className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-20">
         <p className="text-xs font-semibold uppercase tracking-widest text-violet">Find your level</p>
         <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-indigo-deep sm:text-5xl">
-          {QUESTION_WORD.charAt(0).toUpperCase() + QUESTION_WORD.slice(1)} questions. One place to start.
+          Find your guitar level in {QUESTION_WORD} questions.
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink/70">
           Answer for what your hands can do on an ordinary practice day. Your

@@ -20,7 +20,7 @@ const STAGE_LESSONS = GUITAR_LESSONS.filter(entry => entry.level.stage).length;
 const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
 const STAGES = curricula.guitar.levels.filter(level => level.stage);
 
-const TITLE = "Learn Guitar: Lessons, Free Routine & Advanced Lab | GuitarHub";
+const TITLE = "Learn Guitar: Lessons, Routines and Drills | GuitarHub";
 const DESCRIPTION =
   `The ${STAGE_LESSONS}-lesson GuitarHub guitar curriculum in ${spellOut(STAGES.length)} stages with ${LIFETIME.display} lifetime access, plus the free A-to-D chord routine and the free Advanced Lab.`;
 

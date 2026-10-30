@@ -31,7 +31,7 @@ const TITLE = "About GuitarHub: The Suede AI Guitar Lessons Site";
 // description and the AboutPage JSON-LD description, so a hard-typed number
 // becomes three contradictions of the registries at once.
 const DESCRIPTION =
-  "GuitarHub is the Suede AI guitar lessons site: a step-by-step curriculum, a practice method and free browser tools. Who built it and how it fits with Strumly.";
+  "GuitarHub is Suede AI's guitar lessons site: a step-by-step curriculum, a practice method and free browser tools. See who built it and how it fits Strumly.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/about"),

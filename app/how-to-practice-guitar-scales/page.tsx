@@ -30,7 +30,7 @@ const CRUMBS = [
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/how-to-practice-guitar-scales"),
-  title: "Practice Guitar Scales So They Sound Like Music | GuitarHub",
+  title: "How to Practice Guitar Scales Musically | GuitarHub",
   description: DESCRIPTION,
   openGraph: {
     title: HEADLINE,
@@ -128,7 +128,7 @@ export default function HowToPracticeGuitarScalesPage() {
         crumbs={CRUMBS}
         title={
           <>
-            How to practice scales so they{" "}
+            How to practice guitar scales so they{" "}
             <em className="font-display italic text-peach">turn into music.</em>
           </>
         }

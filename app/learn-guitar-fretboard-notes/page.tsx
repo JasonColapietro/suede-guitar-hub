@@ -30,7 +30,7 @@ const CRUMBS = [
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/learn-guitar-fretboard-notes"),
-  title: "Learn the Guitar Fretboard Notes and the CAGED System | GuitarHub",
+  title: "Guitar Fretboard Notes and the CAGED System | GuitarHub",
   description: DESCRIPTION,
   openGraph: {
     title: HEADLINE,
@@ -128,7 +128,7 @@ export default function LearnGuitarFretboardNotesPage() {
         crumbs={CRUMBS}
         title={
           <>
-            Learn the notes on the fretboard,{" "}
+            Learn the guitar fretboard notes,{" "}
             <em className="font-display italic text-peach">
               then connect them with CAGED.
             </em>

@@ -40,9 +40,9 @@ const CRUMBS = crumbTrail("Glossary", CANONICAL);
 const ENTRY = HUBS.find((hub) => hub.href === "/glossary");
 const PUBLISHED = ENTRY?.lastModified ?? "2026-09-13";
 
-const TITLE = "Guitar and Voice Glossary: Every Term in One Sentence";
+const TITLE = "Guitar and Voice Glossary: Every Term Defined | GuitarHub";
 const DESCRIPTION =
-  "Guitar vocabulary defined in one sentence each, and each voice and music term linked to its Suede Sing definition. Free, with the page where each word is used.";
+  "Every guitar term defined in one sentence, each voice and music term linked to its Suede Sing definition, and the page where each word is used.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/glossary"),
@@ -119,7 +119,7 @@ export default function GlossaryPage() {
         eyebrow="GuitarHub reference"
         title={
           <>
-            The words, <em className="font-display italic text-peach">defined once.</em>
+            Guitar and voice glossary: <em className="font-display italic text-peach">every word defined once.</em>
           </>
         }
         dek={`${GLOSSARY_TERMS.length} terms across guitar, voice and the music vocabulary neither instrument owns. One sentence each, and the page where the word is already in use.`}

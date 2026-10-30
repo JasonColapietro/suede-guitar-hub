@@ -20,7 +20,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "How to practice guitar improvisation";
 
 const DESCRIPTION =
-  "Practice guitar improvisation with constraint drills, call and response, and phrases that land on chord tones over a 12-bar blues in A, recorded every session.";
+  "Practice guitar improvisation with constraint drills, call and response, and phrases that land on chord tones over a 12-bar blues in A, recorded each time.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [
@@ -128,7 +128,7 @@ export default function HowToPracticeGuitarImprovisationPage() {
         crumbs={CRUMBS}
         title={
           <>
-            How to practice improvising,{" "}
+            How to practice guitar improvisation,{" "}
             <em className="font-display italic text-peach">
               one constraint at a time.
             </em>

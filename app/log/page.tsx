@@ -12,9 +12,9 @@ import { keywordsFor } from "@/lib/keywords";
 const CANONICAL = `${SITE_URL}/log`;
 const PUBLISHED = "2026-08-29";
 
-const TITLE = "Practice Evidence Log | GuitarHub";
+const TITLE = "Guitar Practice Log That Tracks Progress | GuitarHub";
 const DESCRIPTION =
-  "Log one line per guitar session — the date, the focus, and the tempo or pass rate you hit — then see what actually moved. No streaks, no account, no upload.";
+  "Log one line per guitar session: the date, the focus, and the tempo or pass rate you hit. See what moved, free in your browser with no account.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/log"),
@@ -215,7 +215,7 @@ export default function LogPage() {
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-4xl leading-tight md:text-6xl">
-              A streak proves you showed up.{" "}
+              Your guitar practice log.{" "}
               <em className="font-display italic text-peach">
                 This proves something changed.
               </em>

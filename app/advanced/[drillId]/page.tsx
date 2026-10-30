@@ -58,7 +58,7 @@ export default async function DrillPage({ params }: { params: Promise<Params> })
     <nav className={learning.breadcrumbs} aria-label="Breadcrumb"><Link href="/advanced">Advanced Lab</Link><span aria-hidden="true">/</span><Link href={`/advanced#${area.id}`}>{area.name}</Link></nav>
     <header className={styles.drillHead}>
       <p className={styles.eyebrow}>{area.name} · {drill.tier} · {drill.minutes} min</p>
-      <h1>{drill.title}</h1>
+      <h1>{drill.seo.title}</h1>
       <p>{drill.summary}</p>
     </header>
     <details className={styles.how} open>

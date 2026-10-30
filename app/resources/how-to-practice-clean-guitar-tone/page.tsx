@@ -15,7 +15,7 @@ const CRUMBS = [
 ];
 
 const PUBLISHED = "2026-08-31";
-const TITLE = "How to Practice Clean Guitar Tone";
+const TITLE = "How to Practice Clean Guitar Tone | GuitarHub";
 const DESCRIPTION =
   "A seven-day clean guitar tone test for attack, muting, dynamics and edge of breakup, using matched recordings instead of preset collecting.";
 

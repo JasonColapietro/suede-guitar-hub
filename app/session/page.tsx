@@ -12,7 +12,7 @@ import { keywordsFor } from "@/lib/keywords";
 const CANONICAL = `${SITE_URL}/session`;
 const PUBLISHED = "2026-08-29";
 
-const TITLE = "Practice Session Builder | GuitarHub";
+const TITLE = "Guitar Practice Session Builder | GuitarHub";
 const DESCRIPTION =
   "Enter the minutes you actually have and the one thing you are fixing. Get a practice session split into timed blocks that add up to exactly that length.";
 
@@ -213,9 +213,9 @@ export default function SessionPage() {
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
-              You have the time.{" "}
+              Guitar practice session builder.{" "}
               <em className="font-display italic text-peach">
-                Now spend it on purpose.
+                Spend your minutes on purpose.
               </em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">

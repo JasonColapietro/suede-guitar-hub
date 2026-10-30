@@ -21,7 +21,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "A beginner guitar practice routine for the first 90 days";
 
 const DESCRIPTION =
-  "A 20-minute daily beginner guitar practice routine for your first 90 days: tuning, two chords, one-minute changes, strumming, and a recording every 30 days.";
+  "A 20-minute daily beginner guitar practice routine for your first 90 days: tuning, two chords, one-minute changes, strumming, and a monthly recording.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [
@@ -31,7 +31,7 @@ const CRUMBS = [
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/beginner-guitar-practice-routine"),
-  title: "Beginner Guitar Practice Routine: Your First 90 Days | GuitarHub",
+  title: "Beginner Guitar Practice Routine: First 90 Days | GuitarHub",
   description: DESCRIPTION,
   openGraph: {
     title: HEADLINE,

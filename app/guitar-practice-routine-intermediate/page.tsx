@@ -13,7 +13,7 @@ const CRUMBS = [
   { name: "An intermediate practice routine", href: "/guitar-practice-routine-intermediate" },
 ];
 
-const TITLE = "An Intermediate Guitar Practice Routine in Five Blocks";
+const TITLE = "Intermediate Guitar Practice Routine | GuitarHub";
 const DESCRIPTION =
   "A five-block practice routine for players stuck between beginner and fluent, in a 25-minute and a 50-minute version, plus what to cut on a 10-minute day.";
 

@@ -15,7 +15,7 @@ const CRUMBS = [
 
 const PUBLISHED = "2026-08-29";
 
-const TITLE = "How to Memorize a Song on Guitar Without the Tab";
+const TITLE = "How to Memorize Songs on Guitar | GuitarHub";
 const DESCRIPTION =
   "Reading the tab again trains reading, not recall. Memorize a song by learning its form, chunking by section, drilling the joins, and testing it cold.";
 
