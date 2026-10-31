@@ -20,7 +20,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "How to record your guitar practice on a phone";
 
 const DESCRIPTION =
-  "Record guitar practice on your phone: where to put it, how to set the level, how to run a day 1 versus day 30 comparison, and the five things to listen for.";
+  "Record guitar practice on your phone: where to put it, how to set the level, how to compare day 1 with day 30, and the five things to listen for.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [
@@ -128,7 +128,7 @@ export default function RecordGuitarPracticeOnPhonePage() {
         crumbs={CRUMBS}
         title={
           <>
-            Record your practice on a phone, and{" "}
+            Record your guitar practice on a phone, and{" "}
             <em className="font-display italic text-peach">hear what changed.</em>
           </>
         }

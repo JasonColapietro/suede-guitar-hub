@@ -14,7 +14,7 @@ const CRUMBS = [
 ];
 
 const PUBLISHED = "2026-08-31";
-const TITLE = "How to Hear the Room in a Guitar Recording";
+const TITLE = "How to Hear the Room in a Guitar Recording | GuitarHub";
 const DESCRIPTION =
   "A practical guitar room-sound experiment comparing close, distant and simulated ambience while keeping the performance and playback level controlled.";
 
@@ -91,8 +91,8 @@ export default function RecordingGuitarRoomSoundPage() {
         eyebrow="Print the Quiet field guide"
         title={
           <>
-            Hear what the room is doing to{" "}
-            <em className="font-display italic text-peach">your guitar.</em>
+            How to hear the room in{" "}
+            <em className="font-display italic text-peach">a guitar recording.</em>
           </>
         }
         dek="A room changes the first reflection, decay and low-frequency balance before a plugin enters the chain. This experiment separates those effects from the performance."

@@ -13,9 +13,9 @@ const CRUMBS = [
   { name: "The 30-day guitar challenge", href: "/30-day-guitar-challenge" },
 ];
 
-const TITLE = "The 30-Day Guitar Challenge That Actually Works";
+const TITLE = "30-Day Guitar Challenge You Can Prove | GuitarHub";
 const DESCRIPTION =
-  "Most 30-day guitar challenges measure the streak instead of the playing. Here is how to pick a finish line you can prove, run the four weeks, and judge day 30.";
+  "Most 30-day guitar challenges measure the streak, not the playing. Pick a finish line you can prove, run the four weeks, and judge day 30 on a recording.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/30-day-guitar-challenge"),

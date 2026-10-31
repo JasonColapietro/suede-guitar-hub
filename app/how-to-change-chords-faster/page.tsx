@@ -129,8 +129,8 @@ export default function HowToChangeChordsFasterPage() {
         crumbs={CRUMBS}
         title={
           <>
-            How to change chords{" "}
-            <em className="font-display italic text-peach">faster.</em>
+            How to change chords faster{" "}
+            <em className="font-display italic text-peach">on guitar.</em>
           </>
         }
         dek="Fast changes come from moving less, not from moving harder. Keep what can stay, slide what can slide, move the rest as one shape, and leave early."

@@ -20,7 +20,7 @@ const UPDATED = "2026-10-10";
 const HEADLINE = "How to practice strumming and rhythm guitar";
 
 const DESCRIPTION =
-  "Practice strumming with a hand that never stops, counted eighths, five patterns in order and a click on beats 2 and 4, then move to sixteenths and syncopation.";
+  "Practice strumming with a hand that never stops, counted eighths, five patterns in order and a click on 2 and 4, then move to sixteenths and syncopation.";
 
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [

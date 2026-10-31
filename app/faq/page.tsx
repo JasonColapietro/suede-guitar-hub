@@ -346,7 +346,7 @@ export default function FaqPage() {
               GuitarHub FAQ
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
-              Questions, answered{" "}
+              GuitarHub FAQ, answered{" "}
               <em className="font-display italic text-peach">
                 without the sales pitch.
               </em>

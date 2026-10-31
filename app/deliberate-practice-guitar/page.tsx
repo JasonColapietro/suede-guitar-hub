@@ -14,7 +14,7 @@ const CRUMBS = [
 ];
 
 const DESCRIPTION =
-  "How to judge your own playing with no teacher in the room: one target you cannot hit yet, a difficulty where you keep missing, and a verdict on every attempt.";
+  "Judge your own guitar playing with no teacher in the room: one target you cannot hit yet, a difficulty where you keep missing, a verdict on every attempt.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/deliberate-practice-guitar"),
@@ -120,7 +120,7 @@ export default function DeliberatePracticeGuitarPage() {
         guideHref="/deliberate-practice-guitar"
         title={
           <>
-            Deliberate practice,{" "}
+            Deliberate practice on guitar,{" "}
             <em className="font-display italic text-peach">at the instrument.</em>
           </>
         }

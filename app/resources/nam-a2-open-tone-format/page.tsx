@@ -15,7 +15,7 @@ const CRUMBS = [
 
 const PUBLISHED = "2026-08-31";
 
-const TITLE = "NAM A2 Turns Guitar Tone Into an Open Format";
+const TITLE = "NAM A2 Open Guitar Tone Format | GuitarHub";
 const DESCRIPTION =
   "NAM A2 makes neural amp captures more efficient and portable. See what Full and Lite mean, where compatibility breaks, and why provenance matters.";
 

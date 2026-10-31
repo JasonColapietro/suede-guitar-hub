@@ -128,7 +128,7 @@ export default function MethodPage() {
         eyebrow="The GuitarHub method"
         title={
           <>
-            The loop: baseline, isolate, reconnect,{" "}
+            The GuitarHub method: baseline, isolate, reconnect,{" "}
             <em className="font-display italic text-peach">prove.</em>
           </>
         }

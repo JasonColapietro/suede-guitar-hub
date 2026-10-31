@@ -114,7 +114,7 @@ export default function WhyCantIPlayGuitarFastPage() {
         eyebrow="GuitarHub guide"
         title={
           <>
-            Why you cannot play it{" "}
+            Why you cannot play guitar{" "}
             <em className="font-display italic text-peach">fast yet.</em>
           </>
         }

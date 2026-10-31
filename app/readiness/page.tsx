@@ -12,7 +12,7 @@ import { keywordsFor } from "@/lib/keywords";
 const CANONICAL = `${SITE_URL}/readiness`;
 const PUBLISHED = "2026-08-29";
 
-const TITLE = "Song Readiness Score | GuitarHub";
+const TITLE = "Song Readiness Score for Guitar Players | GuitarHub";
 const DESCRIPTION =
   "Score a guitar song against ten checks that decide whether it survives outside practice conditions, then get the single highest-leverage thing to fix.";
 
@@ -165,7 +165,7 @@ export default function ReadinessPage() {
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-6xl">
-              Finished, <em className="font-display italic text-peach">or just comfortable?</em>
+              Song readiness score: finished, <em className="font-display italic text-peach">or just comfortable?</em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
               Score one song against the ten conditions that decide whether it

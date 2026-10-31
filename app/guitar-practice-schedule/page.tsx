@@ -15,7 +15,7 @@ const CRUMBS = [
 
 const PUBLISHED = "2026-08-29";
 
-const TITLE = "A Guitar Practice Schedule That Survives a Real Week";
+const TITLE = "Guitar Practice Schedule for a Real Week | GuitarHub";
 const DESCRIPTION =
   "Daily guitar practice schedules collapse by Wednesday. Build the week around a minute total, one session you defend, and a cut order you decide in advance.";
 

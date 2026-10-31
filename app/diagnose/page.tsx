@@ -180,7 +180,7 @@ export default function DiagnosePage() {
               GuitarHub tool
             </span>
             <h1 className="mx-auto mt-7 max-w-3xl text-4xl leading-tight md:text-5xl">
-              Something in your practice{" "}
+              Guitar practice plateau quiz: find what{" "}
               <em className="font-display italic text-peach">stopped working.</em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">

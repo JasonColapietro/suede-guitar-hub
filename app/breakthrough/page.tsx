@@ -127,7 +127,7 @@ export default function BreakthroughPage() {
               The Breakthrough Room
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
-              Stop browsing. <em className="font-display italic text-peach">Prove one change.</em>
+              Your 30-day guitar practice plan. <em className="font-display italic text-peach">Prove one change.</em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
               Turn one guitar goal into four weeks of practice, evidence, correction, and the next right move. The planner is free and stays in your browser.

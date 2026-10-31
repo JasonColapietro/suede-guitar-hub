@@ -6,11 +6,9 @@ This file carries the full text of GuitarHub's public pages, generated from the 
 
 Key facts: 135 guitar lessons in the curriculum; 23 free drills in the Advanced Lab; free tools in the browser with no account; lifetime lesson access is $79 USD, one time, in GuitarHub: Guitar Lessons for iPhone (https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875). Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.
 
-## Practice guitar with a plan you can prove.
+## Guitar lessons and practice tools, beginner to advanced Practice guitar with a plan you can prove.
 
 Source: https://guitarhub.org
-
-GuitarHub · beginner to advanced
 
 Pick one thing you can't play yet. Get a four-week plan, free tools to run it, and a recording on day 1 and day 30 that shows exactly what changed. Free in your browser, no account.
 
@@ -794,7 +792,7 @@ Saved in this browser as guest history. Routine history is not cloud-synced. Ret
 
 No routines yet.
 
-## Five questions. One place to start.
+## Find your guitar level in five questions.
 
 Source: https://guitarhub.org/start
 
@@ -836,7 +834,7 @@ The guided lessons in every stage unlock with lifetime access, $79 one time in G
 - Between two results, take the lower one. Starting low costs you a few quick sessions; starting high means practicing on top of a gap for weeks.
 - Already know the one thing you want to fix? Skip placement and [build a 30-day plan around it](https://guitarhub.org/breakthrough).
 
-## Past the basics. Now make it clean at tempo.
+## Advanced guitar drills with live feedback
 
 Source: https://guitarhub.org/advanced
 
@@ -970,7 +968,7 @@ Four long notes with vibrato that stays recognizably on pitch.
 
 Alternate soft and loud bars while the timing stays exactly the same.
 
-## The loop: baseline, isolate, reconnect, prove.
+## The GuitarHub method: baseline, isolate, reconnect, prove.
 
 Source: https://guitarhub.org/method
 
@@ -1316,7 +1314,7 @@ The plateau broke when something you could not play a month ago is something you
 
 If more than one of the six tells was true and you cannot decide where to start, the [practice plateau diagnostic](https://guitarhub.org/diagnose) asks a short set of questions and names the part of your practice that stopped producing change. It takes a couple of minutes, needs no account, and nothing leaves your browser.
 
-## Deliberate practice, at the instrument.
+## Deliberate practice on guitar, at the instrument.
 
 Source: https://guitarhub.org/deliberate-practice-guitar
 
@@ -1953,7 +1951,7 @@ The [30-day breakthrough planner](https://guitarhub.org/breakthrough) turns one 
 
 Build the week from the worst version of itself. A schedule that only works on a good week has not been tested against the only kind of week you reliably get.
 
-## Why you cannot play it fast yet.
+## Why you cannot play guitar fast yet.
 
 Source: https://guitarhub.org/why-cant-i-play-guitar-fast
 
@@ -2189,7 +2187,7 @@ Where this sits in a week is a scheduling question. The [intermediate practice r
 
 None of that makes the song feel finished faster. It makes the point at which you can say you know it something you can check: page closed, on a day you did not warm up.
 
-## How to actually practice with a metronome.
+## How to practice guitar with a metronome.
 
 Source: https://guitarhub.org/practicing-guitar-with-a-metronome
 
@@ -2392,7 +2390,7 @@ Chords first. Open chords and a steady strum let you play real songs within week
 
 Tune, run one set of one-minute changes on the chord pair you are working on, and play one song or study through once. That keeps the daily contact that builds calluses and consolidates the change, and it takes ten minutes.
 
-## How to change chords faster.
+## How to change chords faster on guitar.
 
 Source: https://guitarhub.org/how-to-change-chords-faster
 
@@ -2496,7 +2494,7 @@ D to A. The index finger can stay on string 3 at fret 2 for both shapes, so only
 
 Work it out from the song. At 100 BPM in 4/4 there are 25 bars a minute, so a song that changes chord once per bar needs 25 changes a minute, and one that changes every two beats needs 50. Aim above the song's number, so the change has time to spare.
 
-## Sore fingertips, hand pain, and when to stop.
+## Guitar finger pain: sore fingertips, calluses, and when to stop.
 
 Source: https://guitarhub.org/guitar-finger-pain
 
@@ -2598,7 +2596,7 @@ Yes. Nylon strings on a classical guitar sit at lower tension and are softer und
 
 No. Fingertip tenderness is normal; aching in the wrist, thumb, forearm or elbow is a warning sign that something in your posture, grip or guitar setup is overloading the hand. Rest it, check your thumb pressure and wrist angle, and if the pain is still there after a day or two of rest, see a doctor or a hand therapist.
 
-## Record your practice on a phone, and hear what changed.
+## Record your guitar practice on a phone, and hear what changed.
 
 Source: https://guitarhub.org/record-guitar-practice-on-phone
 
@@ -2687,7 +2685,7 @@ One short take at the end of most sessions, and one full baseline-style take eve
 
 For timing checks, yes, quietly. A click you can hear on playback lets you hear exactly where you rush or drag. For the monthly comparison, record a count-in and then play without the click, so you can hear whether your own time holds.
 
-## Learn the notes on the fretboard, then connect them with CAGED.
+## Learn the guitar fretboard notes, then connect them with CAGED.
 
 Source: https://guitarhub.org/learn-guitar-fretboard-notes
 
@@ -2880,7 +2878,7 @@ Either works. A thin to medium pick, roughly 0.5 to 0.7 millimeters, gives a bri
 
 Count the beat out loud while the song plays, then listen for which strums land on the numbers and which land on the ands. Tap the pattern on your leg with the down-up motion going, and only then try it on the guitar. Many songs use one main pattern with small variations at the ends of phrases.
 
-## Barre chords and the F chord, without the death grip.
+## How to play barre chords and the F chord without the death grip.
 
 Source: https://guitarhub.org/how-to-play-barre-chords
 
@@ -2974,7 +2972,7 @@ Lighter strings need less force, so yes, and a professional setup that lowers th
 
 Usually because the thumb is squeezing the neck to supply the pressure. Move the thumb lower behind the neck, roughly behind the middle finger, and let the weight of your arm pull the fingers into the strings. Pain that stays after rest, or spreads to the wrist or forearm, is a reason to stop and get it checked.
 
-## How to practice improvising, one constraint at a time.
+## How to practice guitar improvisation, one constraint at a time.
 
 Source: https://guitarhub.org/how-to-practice-guitar-improvisation
 
@@ -3158,7 +3156,7 @@ Get the one you have restrung and set up first. A setup by a guitar technician f
 
 Lessons help most once you know what you want to work on. Spend the first two weeks finding your level and recording a baseline, then choose: the GuitarHub curriculum for a structured path from wherever you land, or a teacher for live feedback on the specific thing your recordings point at.
 
-## How to practice scales so they turn into music.
+## How to practice guitar scales so they turn into music.
 
 Source: https://guitarhub.org/how-to-practice-guitar-scales
 
@@ -3249,7 +3247,7 @@ Yes, as your default: down, up, down, up, regardless of string changes. It keeps
 
 Play it cold, at the start of a session, with no warm-up. Start it from any note, play it in a sequence, and make a four-bar phrase with it over a chord. If all of that works without looking at a diagram, the scale is learned. If any part fails, that part is tomorrow's practice.
 
-## Print the Quiet, turned into practice tests.
+## Print the Quiet guitar tone guides, turned into practice tests.
 
 Source: https://guitarhub.org/resources/print-the-quiet
 
@@ -3362,7 +3360,7 @@ The Day 7 recording should show the selected category improving under the same c
 
 **One chain. One phrase. One audible change.**
 
-## What Hallelujah teaches about guitar tone.
+## What Jeff Buckley's Hallelujah teaches about guitar tone.
 
 Source: https://guitarhub.org/resources/jeff-buckley-hallelujah-guitar-tone
 
@@ -3439,7 +3437,7 @@ Remove noises that interrupt the phrase or reveal weak muting. Keep incidental e
 
 **Study the record for relationships. Test those relationships on the instrument you own.**
 
-## Hear what the room is doing to your guitar.
+## How to hear the room in a guitar recording.
 
 Source: https://guitarhub.org/resources/recording-guitar-room-sound
 
@@ -3613,7 +3611,7 @@ Neural Amp Modeler Architecture 2, often called NAM v2, is an open-source archit
 
 **Test one A2 capture and document its provenance.**
 
-## Tune up. Find your tempo.
+## Guitar tuner and metronome
 
 Source: https://guitarhub.org/practice
 
@@ -3665,7 +3663,7 @@ Open the [session builder](https://guitarhub.org/session), [30-day planner](http
 
 Checked steps are your practice record. Compare recordings and logged results to judge what improved. Browser data stays on this device; export your evidence log to keep a backup.
 
-## Stop browsing. Prove one change.
+## Your 30-day guitar practice plan. Prove one change.
 
 Source: https://guitarhub.org/breakthrough
 
@@ -3697,7 +3695,7 @@ Put the repair back into the full song, the click, or the backing track the week
 
 Record the same take beside the baseline. Founding-room members also get one highest-leverage correction, and progress proof is shared only when you choose.
 
-## Something in your practice stopped working.
+## Guitar practice plateau quiz: find what stopped working.
 
 Source: https://guitarhub.org/diagnose
 
@@ -3769,7 +3767,7 @@ If you would rather read than answer questions, these three cover the same groun
 
 Knowing the blocker changes nothing on its own. Turn it into a plan you can run this month, or apply to the founding room and have a crew read your evidence. Applying starts a fit conversation. It takes no payment.
 
-## You have the time. Now spend it on purpose.
+## Guitar practice session builder. Spend your minutes on purpose.
 
 Source: https://guitarhub.org/session
 
@@ -3892,7 +3890,7 @@ A session builder can tell you to spend fifteen minutes on the bar that breaks f
 
 Applying starts a fit conversation. It does not charge you or create a commitment.
 
-## One passage. One tempo at a time.
+## Tempo ladder builder: one passage, one tempo at a time.
 
 Source: https://guitarhub.org/tempo
 
@@ -3986,7 +3984,7 @@ The builder gives you the next tempo. Apply to the founding room for a small pra
 
 Applying starts a fit conversation. It does not charge you or create a commitment.
 
-## Finished, or just comfortable?
+## Song readiness score: finished, or just comfortable?
 
 Source: https://guitarhub.org/readiness
 
@@ -4054,7 +4052,7 @@ How to run a 30-day challenge that ends with a recording you can compare, not a 
 
 Score the song, do the one action, and score it again. If you want a human layer around that work, the founding room is being assembled as a small crew with a weekly studio. Applying starts a fit conversation and takes no payment.
 
-## A streak proves you showed up. This proves something changed.
+## Your guitar practice log. This proves something changed.
 
 Source: https://guitarhub.org/log
 
@@ -4745,7 +4743,7 @@ GuitarHub orchestrates the practice; Strumly powers the tools and keeps its own 
 
 The planner turns one finish line into a four-week sequence and names the evidence each week has to produce. It needs no account. Applying to the founding room starts a fit conversation, is reviewed, and takes no payment.
 
-## The words, defined once.
+## Guitar and voice glossary: every word defined once.
 
 Source: https://guitarhub.org/glossary
 
@@ -4904,7 +4902,7 @@ The clean-tone guide works through pick attack, hand position and amp settings a
 - [Vowel](https://sing.suedeai.ai/glossary#vowel) · voice, in use on [Suede Sing (/warmups)](https://sing.suedeai.ai/warmups)
 - [Whistle register](https://sing.suedeai.ai/glossary#whistle-register) · voice, in use on [Suede Sing (/singers)](https://sing.suedeai.ai/singers)
 
-## Questions, answered without the sales pitch.
+## GuitarHub FAQ, answered without the sales pitch.
 
 Source: https://guitarhub.org/faq
 

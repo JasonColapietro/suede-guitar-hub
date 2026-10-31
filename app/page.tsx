@@ -168,10 +168,10 @@ export default function Home() {
             />
             <div className="hero-backdrop absolute inset-0 opacity-[0.86]" aria-hidden />
             <div className="relative">
-              <p className="text-xs font-semibold uppercase tracking-widest text-violet-pale sm:text-sm">
-                GuitarHub · beginner to advanced
-              </p>
-              <h1 className="mx-auto mt-5 max-w-3xl text-4xl leading-tight text-cream sm:text-5xl md:text-6xl">
+              <h1 className="mx-auto max-w-3xl text-4xl leading-tight text-cream sm:text-5xl md:text-6xl">
+                <span className="mb-5 block text-xs font-semibold uppercase leading-normal tracking-widest text-violet-pale sm:text-sm">
+                  Guitar lessons and practice tools, beginner to advanced
+                </span>
                 Practice guitar with{" "}
                 <em className="font-display italic text-peach">a plan you can prove.</em>
               </h1>

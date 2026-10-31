@@ -11,7 +11,7 @@ import { keywordsFor } from "@/lib/keywords";
 import { BPM_MAX, BPM_MIN } from "@/lib/tempo";
 
 const CANONICAL = "https://guitarhub.org/tempo";
-const TITLE = "Tempo Ladder Builder | GuitarHub";
+const TITLE = "Guitar Tempo Ladder Builder for Speed | GuitarHub";
 const DESCRIPTION =
   "Turn one stuck passage into a tempo ladder: a proven starting speed, capped steps, hold rungs, a back-off session, and a target you can record.";
 
@@ -187,9 +187,9 @@ export default function TempoPage() {
               Tempo Ladder Builder
             </span>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
-              One passage.{" "}
+              Tempo ladder builder: one passage,{" "}
               <em className="font-display italic text-peach">
-                One tempo at a time.
+                one tempo at a time.
               </em>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">

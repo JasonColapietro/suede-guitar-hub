@@ -13,7 +13,7 @@ const CRUMBS = [
 ];
 
 const PUBLISHED = "2026-08-31";
-const TITLE = "Print the Quiet Guitar Tone Field Guides";
+const TITLE = "Print the Quiet Guitar Tone Field Guides | GuitarHub";
 const DESCRIPTION =
   "Three practical GuitarHub guides on clean tone, Jeff Buckley's Hallelujah and room sound, adapted from Jason Colapietro's Print the Quiet essays.";
 
@@ -85,7 +85,7 @@ export default function PrintTheQuietHubPage() {
         eyebrow="GuitarHub editorial series"
         title={
           <>
-            Print the Quiet, turned into{" "}
+            Print the Quiet guitar tone guides, turned into{" "}
             <em className="font-display italic text-peach">practice tests.</em>
           </>
         }
