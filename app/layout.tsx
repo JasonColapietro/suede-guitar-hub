@@ -172,11 +172,20 @@ const JSON_LD = {
       ],
       url: "https://suedeai.ai/founder",
       worksFor: { "@id": SUEDE_ORG_ID },
+      // The estate's canonical sameAs set for this Person, in canonical order.
+      // The App Store developer page is listed so Apple's lowercase developer
+      // name resolves to this correctly capitalised entity.
       sameAs: [
+        "https://www.wikidata.org/wiki/Q140235755",
+        "https://www.crunchbase.com/person/jason-colapietro-d83e",
+        "https://apps.apple.com/us/developer/jason-colapietro/id1895958699",
+        "https://github.com/JasonColapietro",
         "https://www.linkedin.com/in/jasoncolapietro",
         "https://x.com/johnnysuede",
-        "https://github.com/JasonColapietro",
-        "https://www.wikidata.org/wiki/Q140235755",
+        "https://www.youtube.com/@johnnysuede",
+        "https://jasoncolapietro.substack.com",
+        "https://jasoncolapietro.com",
+        "https://johnnysuede.com",
       ],
     },
   ],
