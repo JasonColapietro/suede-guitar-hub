@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure, included with Suede Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32619,
+      "totalWords": 32430,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2705,7 +2705,7 @@
           "part": "How the voice works",
           "summary": "What physically changes between chest, head, mix, falsetto and whistle, and why teachers give the same sounds different names.",
           "free": false,
-          "words": 1241,
+          "words": 1233,
           "path": "/book/registers"
         },
         {
@@ -2715,7 +2715,7 @@
           "part": "How the voice works",
           "summary": "Why your voice has a transition zone, roughly where it sits for your voice type, and why vowel and weight get you through it when force never will.",
           "free": false,
-          "words": 1473,
+          "words": 1461,
           "path": "/book/the-passaggio"
         },
         {
@@ -2725,7 +2725,7 @@
           "part": "How the voice works",
           "summary": "What support actually means physically, why pushing more air makes tone worse, and how to feel the difference.",
           "free": false,
-          "words": 1545,
+          "words": 1534,
           "path": "/book/breath"
         },
         {
@@ -2735,7 +2735,7 @@
           "part": "How the voice works",
           "summary": "How the throat and mouth shape one buzzy fold vibration into vowels, brightness and carrying power, and how to change tone without changing effort.",
           "free": false,
-          "words": 1312,
+          "words": 1304,
           "path": "/book/resonance"
         },
         {
@@ -2745,7 +2745,7 @@
           "part": "How the voice works",
           "summary": "What warming up and cooling down actually do, how water and sleep really reach your voice, and where normal tiredness ends and a doctor begins.",
           "free": false,
-          "words": 1239,
+          "words": 1234,
           "path": "/book/stamina-and-health"
         },
         {
@@ -2755,7 +2755,7 @@
           "part": "Reading your own voice",
           "summary": "Your voice has three ranges (absolute, comfortable, and performable), and the one people quote is the least useful of the three.",
           "free": false,
-          "words": 1291,
+          "words": 1276,
           "path": "/book/range-is-not-one-number"
         },
         {
@@ -2775,7 +2775,7 @@
           "part": "Reading your own voice",
           "summary": "How to read an accuracy score honestly: what a cent is, why dead center isn't the goal, and how drift, scoops and vibrato differ.",
           "free": false,
-          "words": 1519,
+          "words": 1506,
           "path": "/book/pitch-accuracy"
         },
         {
@@ -2785,7 +2785,7 @@
           "part": "Reading your own voice",
           "summary": "How to locate your own transition with the pitch studio and range test, read a belt ceiling honestly, and tell head voice from falsetto.",
           "free": false,
-          "words": 1346,
+          "words": 1337,
           "path": "/book/finding-your-break"
         },
         {
@@ -2795,7 +2795,7 @@
           "part": "Reading your own voice",
           "summary": "How to tell real vocal change from ordinary day-to-day noise, and how long to wait before your progress charts mean anything.",
           "free": false,
-          "words": 1407,
+          "words": 1399,
           "path": "/book/tracking-change"
         },
         {
@@ -2815,7 +2815,7 @@
           "part": "The twelve-week program",
           "summary": "The shape of the twelve weeks: four blocks, short sessions, and the rules for skipping, repeating, and going back.",
           "free": false,
-          "words": 1484,
+          "words": 1474,
           "path": "/book/how-the-program-works"
         },
         {
@@ -2825,7 +2825,7 @@
           "part": "The twelve-week program",
           "summary": "How to spend the first two weeks collecting honest data and building a breath habit, without trying to sing better yet.",
           "free": false,
-          "words": 1406,
+          "words": 1397,
           "path": "/book/weeks-1-2-baseline"
         },
         {
@@ -2835,7 +2835,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks in the part of your range that already works: steady tone, clean onsets, honest sustain, and the ear work that holds them together.",
           "free": false,
-          "words": 1361,
+          "words": 1349,
           "path": "/book/weeks-3-4-middle"
         },
         {
@@ -2845,7 +2845,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks of quiet sirens, slides and vowel work across your transition: how to run the sessions, and what to do when they go badly.",
           "free": false,
-          "words": 1545,
+          "words": 1531,
           "path": "/book/weeks-5-6-passaggio"
         },
         {
@@ -2855,7 +2855,7 @@
           "part": "The twelve-week program",
           "summary": "How to work above your transition for two weeks: height without weight, head voice before belt, and hard limits on volume and repetition.",
           "free": false,
-          "words": 1405,
+          "words": 1395,
           "path": "/book/weeks-7-8-top"
         },
         {
@@ -2865,7 +2865,7 @@
           "part": "The twelve-week program",
           "summary": "Two weeks on the low register, which rewards release rather than effort, and on carrying a long phrase without running the tank dry.",
           "free": false,
-          "words": 1361,
+          "words": 1358,
           "path": "/book/weeks-9-10-bottom"
         },
         {
@@ -2875,7 +2875,7 @@
           "part": "The twelve-week program",
           "summary": "Move the last two weeks onto real repertoire, retest, and compare against your week-one recording without fooling yourself.",
           "free": false,
-          "words": 1654,
+          "words": 1644,
           "path": "/book/weeks-11-12-songs"
         },
         {
@@ -2885,7 +2885,7 @@
           "part": "Range and repertoire",
           "summary": "How to audit a song before you learn it: where its melody lives, why the chorus decides, and what the highest note is really telling you.",
           "free": false,
-          "words": 1344,
+          "words": 1335,
           "path": "/book/choosing-songs"
         },
         {
@@ -2895,7 +2895,7 @@
           "part": "Range and repertoire",
           "summary": "Why changing a song's key is ordinary professional practice, how to find the key that fits you, and where transposition stops helping.",
           "free": false,
-          "words": 1508,
+          "words": 1499,
           "path": "/book/transposition"
         },
         {
@@ -2905,7 +2905,7 @@
           "part": "Range and repertoire",
           "summary": "How to read the singer library for tessitura and craft instead of ceilings, and what those cited figures can and cannot tell you.",
           "free": false,
-          "words": 1389,
+          "words": 1385,
           "path": "/book/learning-from-other-voices"
         },
         {
@@ -2915,7 +2915,7 @@
           "part": "Range and repertoire",
           "summary": "How to order songs, keys and rest across a whole set so your voice is still working on the last song.",
           "free": false,
-          "words": 1439,
+          "words": 1429,
           "path": "/book/building-a-set"
         }
       ]
@@ -2924,7 +2924,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it: the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 70753,
+      "totalWords": 70658,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -2963,7 +2963,7 @@
           "part": "How to read a voice",
           "summary": "The working lexicon behind every entry (weight, placement, vibrato, onset, grit, breathiness, twang, cry and their friends), each defined by ear with exemplars from the atlas.",
           "free": false,
-          "words": 1080,
+          "words": 1064,
           "path": "/atlas/a-vocabulary-for-tone"
         },
         {
@@ -2973,7 +2973,7 @@
           "part": "The borrower's method",
           "summary": "The five-step method behind every technique paragraph in this book: pick a trait, match the habitat, change one dial at a time, close the loop with recordings, and time-box the costume.",
           "free": false,
-          "words": 937,
+          "words": 923,
           "path": "/atlas/how-to-borrow-a-voice"
         },
         {
@@ -2983,7 +2983,7 @@
           "part": "The borrower's method",
           "summary": "The four expensive things in this book (whistle notes, extreme lows, distortion and sustained belting), what makes each risky to chase, and the warning signs that mean stop.",
           "free": false,
-          "words": 857,
+          "words": 847,
           "path": "/atlas/the-safety-rail"
         },
         {
@@ -2993,7 +2993,7 @@
           "part": "Pop",
           "summary": "The women who defined what a pop lead vocal is, from torch-song discipline through the belt arms race, and what their entries teach about power built to last.",
           "free": false,
-          "words": 1900,
+          "words": 1896,
           "path": "/atlas/pop-women-the-founders"
         },
         {
@@ -3003,7 +3003,7 @@
           "part": "Pop",
           "summary": "The current generation of pop leads (whisper-pop, fry onsets, whistle flexes, conversational belts) and how the microphone rewrote what counts as power.",
           "free": false,
-          "words": 4954,
+          "words": 4947,
           "path": "/atlas/pop-women-the-moderns"
         },
         {
@@ -3013,7 +3013,7 @@
           "part": "Pop",
           "summary": "Why the male pop lead keeps climbing, from crooners to falsetto-forward streaming stars, and what the tenor arms race costs the baritones who enter it.",
           "free": false,
-          "words": 4413,
+          "words": 4415,
           "path": "/atlas/the-pop-men"
         },
         {
@@ -3023,7 +3023,7 @@
           "part": "Rock, metal and alternative",
           "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades: where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
           "free": false,
-          "words": 5116,
+          "words": 5118,
           "path": "/atlas/the-classic-rock-men"
         },
         {
@@ -3033,7 +3033,7 @@
           "part": "Rock, metal and alternative",
           "summary": "The women who fronted rock bands on their own terms, from belters and banshees to deadpan cool, and what their entries teach about projection over a loud stage.",
           "free": false,
-          "words": 1587,
+          "words": 1584,
           "path": "/atlas/the-women-of-rock"
         },
         {
@@ -3043,7 +3043,7 @@
           "part": "Rock, metal and alternative",
           "summary": "Refusing to sing beautifully became its own technique, from post-punk monotone to grunge catharsis. This chapter covers what that refusal actually requires.",
           "free": false,
-          "words": 3115,
+          "words": 3111,
           "path": "/atlas/alternative-punk-and-new-wave"
         },
         {
@@ -3053,7 +3053,7 @@
           "part": "Rock, metal and alternative",
           "summary": "Air-raid tenors, operatic sopranos and controlled growls: trained singing at rock volume, and why metal singing is closer to opera than either camp admits.",
           "free": false,
-          "words": 3152,
+          "words": 3148,
           "path": "/atlas/metal"
         },
         {
@@ -3063,7 +3063,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The men who made secular music testify (church-trained tenors, velvet baritones and the falsetto tradition) and the phrasing lessons every genre stole from them.",
           "free": false,
-          "words": 3296,
+          "words": 3295,
           "path": "/atlas/the-soul-men"
         },
         {
@@ -3073,7 +3073,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The women who set the bar for vocal authority, from torch and church to quiet storm, and the complete techniques their entries document.",
           "free": false,
-          "words": 2577,
+          "words": 2575,
           "path": "/atlas/the-soul-and-rnb-women"
         },
         {
@@ -3083,7 +3083,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The streaming era's R&B (falsetto confessions, whisper-runs, baritone outliers and produced nonchalance) and how the genre traded the shout for the microphone's trust.",
           "free": false,
-          "words": 4480,
+          "words": 4476,
           "path": "/atlas/modern-rnb"
         },
         {
@@ -3093,7 +3093,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The source tradition and the ensemble athletes: where the runs, the shout and the squall come from, plus the a cappella specialists who turned blend itself into virtuosity.",
           "free": false,
-          "words": 2522,
+          "words": 2521,
           "path": "/atlas/gospel-and-a-cappella"
         },
         {
@@ -3103,7 +3103,7 @@
           "part": "Country, folk and jazz",
           "summary": "Twang as technology, the accent as instrument, and storytelling tessitura make up country's vocal toolkit, from honky-tonk cries to stadium baritones.",
           "free": false,
-          "words": 4289,
+          "words": 4293,
           "path": "/atlas/country"
         },
         {
@@ -3113,7 +3113,7 @@
           "part": "Country, folk and jazz",
           "summary": "The confiders: voices built to serve words, from coffeehouse sopranos to gravel philosophers, and how modest instruments built long careers here.",
           "free": false,
-          "words": 3101,
+          "words": 3100,
           "path": "/atlas/folk-and-the-songwriters"
         },
         {
@@ -3123,7 +3123,7 @@
           "part": "Country, folk and jazz",
           "summary": "Horn-players with lyrics: time feel, delayed vibrato, harmonic ears and the microphone's first great singers, from the songbook era to the new jazz generation.",
           "free": false,
-          "words": 2712,
+          "words": 2707,
           "path": "/atlas/jazz-and-the-standards"
         },
         {
@@ -3133,18 +3133,18 @@
           "part": "The trained voice",
           "summary": "The unamplified athletes: what filling a hall without a microphone actually requires, why opera ranges look modest, and what every amplified singer can steal from the fach system.",
           "free": false,
-          "words": 2852,
+          "words": 2848,
           "path": "/atlas/opera-and-classical-crossover"
         },
         {
-          "slug": "musical-theatre",
+          "slug": "musical-theater",
           "order": 22,
-          "title": "Musical theatre",
+          "title": "Musical theater",
           "part": "The trained voice",
           "summary": "Eight shows a week: the belt as a certified skill, legit versus contemporary technique, and why theater singers are the book's masters of sustainable intensity.",
           "free": false,
-          "words": 2672,
-          "path": "/atlas/musical-theatre"
+          "words": 2671,
+          "path": "/atlas/musical-theater"
         },
         {
           "slug": "latin-voices",
@@ -3153,7 +3153,7 @@
           "part": "The world's voices",
           "summary": "A continent of vocal traditions, from ranchera's long breath to reggaetón's rhythmic speech, with their signature techniques and the bilingual generation remixing all of them.",
           "free": false,
-          "words": 3338,
+          "words": 3336,
           "path": "/atlas/latin-voices"
         },
         {
@@ -3163,7 +3163,7 @@
           "part": "The world's voices",
           "summary": "Precision singing at industrial standards: the idol-system technicians, Japan's genre-fluent stylists, playback legends and global outliers.",
           "free": false,
-          "words": 4366,
+          "words": 4363,
           "path": "/atlas/kpop-jpop-and-global-pop"
         },
         {
@@ -3173,7 +3173,7 @@
           "part": "The world's voices",
           "summary": "Groove-first singing, from patois phrasing and Afrobeats' melodic economy to amapiano's smoothness and the continent's great griot and mbalax voices.",
           "free": false,
-          "words": 2095,
+          "words": 2088,
           "path": "/atlas/reggae-afrobeats-and-african-voices"
         },
         {
@@ -3183,7 +3183,7 @@
           "part": "Appendices",
           "summary": "The atlas's extremes in one place (lowest floors, highest ceilings, widest spans and the whistle club), each with the recording where the note happened when one is famously known.",
           "free": false,
-          "words": 680,
+          "words": 677,
           "path": "/atlas/the-records"
         },
         {
@@ -3193,7 +3193,7 @@
           "part": "Appendices",
           "summary": "The whole library shelved by classification, basses to sopranos, with each voice's cited range. It is the shopping index for borrowing along your own shelf.",
           "free": false,
-          "words": 2106,
+          "words": 2099,
           "path": "/atlas/every-voice-by-type"
         }
       ]
