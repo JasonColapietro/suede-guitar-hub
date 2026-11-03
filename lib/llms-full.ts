@@ -99,6 +99,21 @@ function inline(html: string, origin: string): string {
     .trim();
 }
 
+/**
+ * A Markdown table from the inside of a `<table>`. The first row is the
+ * header; a visually hidden caption is dropped, and a pipe inside a cell is
+ * escaped so it cannot split the row.
+ */
+function tableToMarkdown(html: string, origin: string): string {
+  const rows = [...html.replace(/<caption[\s\S]*?<\/caption>/gi, "").matchAll(/<tr(\s[^>]*)?>([\s\S]*?)<\/tr>/gi)].map((row) =>
+    [...row[2].matchAll(/<t[hd](\s[^>]*)?>([\s\S]*?)<\/t[hd]>/gi)].map((cell) => inline(cell[2], origin).replace(/\|/g, "\\|")),
+  );
+  if (rows.length === 0) return "";
+  const width = Math.max(...rows.map((cells) => cells.length));
+  const line = (cells: string[]) => `| ${Array.from({ length: width }, (_, index) => cells[index] ?? "").join(" | ")} |`;
+  return [line(rows[0]), `|${" --- |".repeat(width)}`, ...rows.slice(1).map(line)].join("\n");
+}
+
 /** Markdown for the main column of one rendered page. */
 export function mainToMarkdown(html: string, { origin }: { origin: string }): string {
   const main = html.match(/<main[^>]*>([\s\S]*)<\/main>/i)?.[1] ?? html;
@@ -115,13 +130,18 @@ export function mainToMarkdown(html: string, { origin }: { origin: string }): st
   }
 
   const blocks: string[] = [];
-  const pattern = /<(h[1-6]|p|li|dt|dd|blockquote)(\s[^>]*)?>([\s\S]*?)<\/\1>/gi;
+  const pattern = /<(h[1-6]|p|li|dt|dd|blockquote|table)(\s[^>]*)?>([\s\S]*?)<\/\1>/gi;
   let match: RegExpExecArray | null;
   while ((match = pattern.exec(body))) {
     const tag = match[1].toLowerCase();
     // A list item holding its own block content is read through its children.
     if (tag === "li" && /<(p|h[1-6])[\s>]/i.test(match[3])) {
       pattern.lastIndex = match.index + match[0].indexOf(">") + 1;
+      continue;
+    }
+    if (tag === "table") {
+      const table = tableToMarkdown(match[3], origin);
+      if (table) blocks.push(table);
       continue;
     }
     const text = inline(match[3], origin);

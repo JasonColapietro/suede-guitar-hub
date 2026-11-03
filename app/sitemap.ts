@@ -6,6 +6,7 @@ import {
   ABOUT,
   ADVANCED_LAB_LAST_MODIFIED,
   AI_INSTRUCTIONS,
+  COMPARISONS,
   GUIDES,
   HOME,
   HUBS,
@@ -53,6 +54,7 @@ const GROUPS: readonly Group[] = [
   { entries: TOOLS, priority: 0.8, changeFrequency: "monthly" },
   { entries: RESOURCES, priority: 0.75, changeFrequency: "monthly" },
   { entries: OTHER_GUIDES, priority: 0.7, changeFrequency: "monthly" },
+  { entries: COMPARISONS, priority: 0.7, changeFrequency: "monthly" },
   { entries: [ABOUT], priority: 0.5, changeFrequency: "yearly" },
   { entries: LEGAL, priority: 0.3, changeFrequency: "yearly" },
 ];

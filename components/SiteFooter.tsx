@@ -43,6 +43,9 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   // internal link to it. Without it the page was orphaned (found only via
   // the sitemap).
   { href: "/faq", label: "FAQ" },
+  // The comparison hub sits in HUBS too; this line links it from every page,
+  // and the hub links on to every head-to-head and alternatives page.
+  { href: "/compare", label: "Compare GuitarHub" },
   { href: APP_STORE.ios, label: "GuitarHub for iPhone" },
   ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },

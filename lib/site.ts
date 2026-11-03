@@ -95,7 +95,7 @@ export const ABOUT: SiteEntry = {
   title: "About GuitarHub",
   blurb:
     "Who built GuitarHub, what it offers, and how it fits with Strumly and Suede Sing.",
-  lastModified: "2026-10-10",
+  lastModified: "2026-11-03",
 };
 
 /**
@@ -405,6 +405,88 @@ export const HUBS: readonly SiteEntry[] = [
       "What is free, how lifetime lesson access works, where your data lives, and what applying involves.",
     lastModified: "2026-10-10",
   },
+  /**
+   * The comparison hub. Every head-to-head and alternatives page in
+   * `COMPARISONS` links back here, and the footer links here from every page.
+   */
+  {
+    href: "/compare",
+    title: "Compare GuitarHub",
+    blurb:
+      "GuitarHub side by side with Fender Play, Yousician, JustinGuitar, Guitar Tricks and Ultimate Guitar on price, lessons and practice tools.",
+    lastModified: "2026-11-03",
+  },
+];
+
+/**
+ * The head-to-head ("GuitarHub vs X") and "X alternatives" pages under
+ * /compare. Their copy and every competitor fact live in `lib/comparisons.ts`,
+ * each fact with the source URL it was checked against; the date below is the
+ * day those facts were last verified. Re-check the sources before bumping it.
+ */
+export const COMPARISONS_VERIFIED = "2026-11-03";
+
+export const COMPARISONS: readonly SiteEntry[] = [
+  {
+    href: "/compare/guitarhub-vs-fender-play",
+    title: "GuitarHub vs Fender Play",
+    blurb: "A one-time lifetime price against a Fender Play subscription, with lessons, feedback and practice tools compared row by row.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/fender-play-alternatives",
+    title: "Fender Play alternatives",
+    blurb: "The lesson platforms guitarists compare with Fender Play, led by GuitarHub's lifetime course and free browser tools.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/guitarhub-vs-yousician",
+    title: "GuitarHub vs Yousician",
+    blurb: "Two ways to get feedback while you play: Yousician's play-along scoring and GuitarHub's on-device measurement with recorded proof.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/yousician-alternatives",
+    title: "Yousician alternatives",
+    blurb: "Guitar learning apps to weigh against Yousician, with GuitarHub's one-time price and free Advanced Lab first.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/guitarhub-vs-justinguitar",
+    title: "GuitarHub vs JustinGuitar",
+    blurb: "JustinGuitar's graded video course and paid app next to GuitarHub's step-by-step lessons, measured exercises and free tools.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/justinguitar-alternatives",
+    title: "JustinGuitar alternatives",
+    blurb: "Where to go next from JustinGuitar, starting with GuitarHub's 30-day method, free practice tools and lifetime lessons.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/guitarhub-vs-guitar-tricks",
+    title: "GuitarHub vs Guitar Tricks",
+    blurb: "An 11,000-lesson video subscription next to a focused lifetime course built around one provable change a month.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/guitar-tricks-alternatives",
+    title: "Guitar Tricks alternatives",
+    blurb: "Online guitar lesson options to compare with Guitar Tricks, with GuitarHub's one-time price and free tools up front.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/guitarhub-vs-ultimate-guitar",
+    title: "GuitarHub vs Ultimate Guitar",
+    blurb: "Ultimate Guitar finds you the tab. GuitarHub gives you the lessons, tempo ladders and recorded proof to play it.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
+  {
+    href: "/compare/ultimate-guitar-alternatives",
+    title: "Ultimate Guitar alternatives",
+    blurb: "For players who want structured learning beyond a tab catalog: GuitarHub first, then the lesson platforms worth comparing.",
+    lastModified: COMPARISONS_VERIFIED,
+  },
 ];
 
 /**
@@ -470,6 +552,7 @@ export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
   ...TOOLS,
   ...GUIDES,
   ...RESOURCES,
+  ...COMPARISONS,
   ABOUT,
   ...LEGAL,
 ];

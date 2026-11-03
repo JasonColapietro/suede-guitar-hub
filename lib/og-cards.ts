@@ -2,6 +2,7 @@ import type { Drill } from "./advanced/drills.ts";
 import { skillArea } from "./advanced/drills.ts";
 import {
   ABOUT,
+  COMPARISONS,
   GUIDES,
   HUBS,
   LEARN,
@@ -42,6 +43,7 @@ const GROUPS: readonly { eyebrow: string; entries: readonly SiteEntry[] }[] = [
   { eyebrow: "Reference", entries: HUBS },
   { eyebrow: "Learn guitar", entries: LEARN },
   { eyebrow: "About", entries: [ABOUT] },
+  { eyebrow: "Comparison", entries: COMPARISONS },
 ];
 
 const EYEBROWS: Readonly<Record<string, string>> = {
@@ -50,6 +52,7 @@ const EYEBROWS: Readonly<Record<string, string>> = {
   "/guides": "Practice guides",
   "/glossary": "Glossary",
   "/faq": "Questions and answers",
+  "/compare": "Compare",
   "/learn/guitar": "Learning path",
   "/advanced": "Advanced Lab",
 };
@@ -76,6 +79,8 @@ export const OG_ROUTES: readonly string[] = [
   "/guides",
   "/glossary",
   "/faq",
+  "/compare",
+  ...COMPARISONS.map((entry) => entry.href),
   "/learn/guitar",
   "/advanced",
   ABOUT.href,
