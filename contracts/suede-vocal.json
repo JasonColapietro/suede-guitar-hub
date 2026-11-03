@@ -2686,7 +2686,7 @@
       "title": "The Measured Voice",
       "subtitle": "A practical guide to building a voice you can measure, included with Suede Pro.",
       "pathPrefix": "/book",
-      "totalWords": 32598,
+      "totalWords": 32619,
       "chapters": [
         {
           "slug": "what-your-voice-is",
@@ -2775,7 +2775,7 @@
           "part": "Reading your own voice",
           "summary": "How to read an accuracy score honestly: what a cent is, why dead center isn't the goal, and how drift, scoops and vibrato differ.",
           "free": false,
-          "words": 1498,
+          "words": 1519,
           "path": "/book/pitch-accuracy"
         },
         {
@@ -2924,7 +2924,7 @@
       "title": "The Voice Atlas",
       "subtitle": "Who sings what, how it sounds, and how to borrow it: the range, tone and technique of every voice in the library.",
       "pathPrefix": "/atlas",
-      "totalWords": 70715,
+      "totalWords": 70753,
       "chapters": [
         {
           "slug": "how-to-read-an-entry",
@@ -3003,7 +3003,7 @@
           "part": "Pop",
           "summary": "The current generation of pop leads (whisper-pop, fry onsets, whistle flexes, conversational belts) and how the microphone rewrote what counts as power.",
           "free": false,
-          "words": 4949,
+          "words": 4954,
           "path": "/atlas/pop-women-the-moderns"
         },
         {
@@ -3013,7 +3013,7 @@
           "part": "Pop",
           "summary": "Why the male pop lead keeps climbing, from crooners to falsetto-forward streaming stars, and what the tenor arms race costs the baritones who enter it.",
           "free": false,
-          "words": 4411,
+          "words": 4413,
           "path": "/atlas/the-pop-men"
         },
         {
@@ -3023,7 +3023,7 @@
           "part": "Rock, metal and alternative",
           "summary": "The wailers, shouters and art-rock baritones of rock's imperial decades: where the famous highs really came from, and the era's quiet lesson about sustainable volume.",
           "free": false,
-          "words": 5120,
+          "words": 5116,
           "path": "/atlas/the-classic-rock-men"
         },
         {
@@ -3053,7 +3053,7 @@
           "part": "Rock, metal and alternative",
           "summary": "Air-raid tenors, operatic sopranos and controlled growls: trained singing at rock volume, and why metal singing is closer to opera than either camp admits.",
           "free": false,
-          "words": 3155,
+          "words": 3152,
           "path": "/atlas/metal"
         },
         {
@@ -3073,7 +3073,7 @@
           "part": "Soul, R&B and gospel",
           "summary": "The women who set the bar for vocal authority, from torch and church to quiet storm, and the complete techniques their entries document.",
           "free": false,
-          "words": 2580,
+          "words": 2577,
           "path": "/atlas/the-soul-and-rnb-women"
         },
         {
@@ -3113,7 +3113,7 @@
           "part": "Country, folk and jazz",
           "summary": "The confiders: voices built to serve words, from coffeehouse sopranos to gravel philosophers, and how modest instruments built long careers here.",
           "free": false,
-          "words": 3099,
+          "words": 3101,
           "path": "/atlas/folk-and-the-songwriters"
         },
         {
@@ -3163,7 +3163,7 @@
           "part": "The world's voices",
           "summary": "Precision singing at industrial standards: the idol-system technicians, Japan's genre-fluent stylists, playback legends and global outliers.",
           "free": false,
-          "words": 4354,
+          "words": 4366,
           "path": "/atlas/kpop-jpop-and-global-pop"
         },
         {
@@ -3173,7 +3173,7 @@
           "part": "The world's voices",
           "summary": "Groove-first singing, from patois phrasing and Afrobeats' melodic economy to amapiano's smoothness and the continent's great griot and mbalax voices.",
           "free": false,
-          "words": 2068,
+          "words": 2095,
           "path": "/atlas/reggae-afrobeats-and-african-voices"
         },
         {
