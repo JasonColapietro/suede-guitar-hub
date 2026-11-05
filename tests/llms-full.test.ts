@@ -80,3 +80,12 @@ test("the AI Instructions page links the full-text reference and names its page"
   const ld = JSON.parse(guide.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] ?? "{}");
   assert.deepEqual(ld["@graph"].map((node: { "@type": string }) => node["@type"]), ["WebPage", "BreadcrumbList"]);
 });
+
+test("tables convert to Markdown tables, without the screen-reader caption", () => {
+  const markdown = mainToMarkdown(
+    '<main><p>Intro</p><table><caption class="sr-only">Hidden</caption><thead><tr><th>Row</th><th>A | B</th></tr></thead>' +
+      '<tbody><tr><th scope="row">Price</th><td><a href="/learn">$79</a></td></tr></tbody></table></main>',
+    { origin: SITE_URL },
+  );
+  assert.equal(markdown, `Intro\n\n| Row | A \\| B |\n| --- | --- |\n| Price | [$79](${SITE_URL}/learn) |`);
+});

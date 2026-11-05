@@ -53,6 +53,12 @@ export type ArticleProps = {
   crumbs?: readonly Crumb[];
   showPracticeCallToAction?: boolean;
   /**
+   * A page-specific closing call to action, rendered in place of the default
+   * planner block. Pages that sell something other than the planner (the
+   * /compare pages lead to lifetime access and the free tools) pass their own.
+   */
+  callToAction?: ReactNode;
+  /**
    * This page's own route. When a Field Guide PDF is made from it
    * (lib/field-guides.ts), a download card appears under the hero.
    */
@@ -128,6 +134,7 @@ export default function Article({
   showPracticeCallToAction = true,
   crumbs,
   guideHref,
+  callToAction,
 }: ArticleProps) {
   return (
     <>
@@ -174,7 +181,7 @@ export default function Article({
           </section>
         ) : null}
 
-        {showPracticeCallToAction ? <section data-print="hide" className="px-3 pb-3">
+        {callToAction ?? (showPracticeCallToAction ? <section data-print="hide" className="px-3 pb-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center md:py-24">
             <h2 className="mx-auto max-w-2xl text-4xl text-cream md:text-5xl">
               Put this to work{" "}
@@ -200,7 +207,7 @@ export default function Article({
               </Link>
             </div>
           </div>
-        </section> : null}
+        </section> : null)}
       </main>
 
       <SiteFooter />

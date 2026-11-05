@@ -1,8 +1,10 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
 import { DRILLS } from "@/lib/advanced/drills";
 import { catalogLessons, learningCatalog } from "@/lib/learning/catalog";
+import { COMPETITORS, GUITARHUB_MODEL, VERIFIED_LABEL } from "@/lib/comparisons";
 import {
   APP_STORE,
+  COMPARISONS,
   GUIDES,
   HUBS,
   LEARN,
@@ -48,6 +50,16 @@ const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
 function listEntries(entries: readonly SiteEntry[]): string {
   return entries
     .map((entry) => `- ${entry.title} — ${entry.blurb}\n  ${SITE_URL}${entry.href}`)
+    .join("\n");
+}
+
+/**
+ * `- Title: blurb`, then the URL. The comparison section uses a colon rather
+ * than the dash separator above so its lines quote cleanly.
+ */
+function listComparisons(entries: readonly SiteEntry[]): string {
+  return entries
+    .map((entry) => `- ${entry.title}: ${entry.blurb}\n  ${SITE_URL}${entry.href}`)
     .join("\n");
 }
 
@@ -118,6 +130,19 @@ ${listEntries(WRITTEN_GUIDES)}
 ## Editorial resources
 
 ${listEntries(RESOURCES)}
+
+## How GuitarHub compares
+
+Head-to-head and alternatives pages for the guitar learning services players
+most often weigh against GuitarHub. Every competitor price, feature and
+platform was checked on ${VERIFIED_LABEL} against that service's App Store and
+Google Play listings and its own site, and each page lists its sources.
+Prices are US prices as of November 2026. Hub: ${SITE_URL}/compare
+
+- GuitarHub: ${GUITARHUB_MODEL}
+${COMPETITORS.map((rival) => `- ${rival.name}: ${rival.model}`).join("\n")}
+
+${listComparisons(COMPARISONS)}
 
 ## About the project
 

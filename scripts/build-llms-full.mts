@@ -11,14 +11,14 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 register("../tests/component-render-hooks.mjs", import.meta.url);
 
-const { ABOUT, GUIDES, HOME, HUBS, LEARN, LEGAL, RESOURCES, SITE_URL, TOOLS, APP_STORE, LIFETIME } = await import("../lib/site.ts");
+const { ABOUT, COMPARISONS, GUIDES, HOME, HUBS, LEARN, LEGAL, RESOURCES, SITE_URL, TOOLS, APP_STORE, LIFETIME } = await import("../lib/site.ts");
 const { buildLlmsFull } = await import("../lib/llms-full.ts");
 const { allLessons } = await import("../lib/learning/curriculum.ts");
 const { DRILLS } = await import("../lib/advanced/drills.ts");
 
 const DESTINATION = new URL("../public/llms-full.txt", import.meta.url);
 
-/** Reading order: what GuitarHub is, the method, the guides, the tools, the policies. */
+/** Reading order: what GuitarHub is, the method, the guides, the tools, the hubs and comparisons, the policies. */
 const ROUTES: readonly string[] = [
   HOME.href,
   ABOUT.href,
@@ -27,6 +27,7 @@ const ROUTES: readonly string[] = [
   ...RESOURCES.map((entry) => entry.href),
   ...TOOLS.map((entry) => entry.href),
   ...HUBS.map((entry) => entry.href),
+  ...COMPARISONS.map((entry) => entry.href),
   ...LEGAL.map((entry) => entry.href),
 ];
 

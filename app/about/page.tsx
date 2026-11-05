@@ -10,7 +10,7 @@ import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
-const UPDATED = "2026-10-10";
+const UPDATED = "2026-11-03";
 
 /**
  * Counted from the curriculum, never typed: the stage lessons and the
@@ -127,7 +127,10 @@ export default function AboutPage() {
           and your place on the web is kept in this browser. The voice lessons
           moved to <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of
           them are free. Pricing, access and data questions are answered in{" "}
-          <Link href="/faq">the GuitarHub FAQ</Link>.
+          <Link href="/faq">the GuitarHub FAQ</Link>, and{" "}
+          <Link href="/compare">the GuitarHub comparisons</Link> set the site
+          side by side with Fender Play, Yousician, JustinGuitar, Guitar Tricks
+          and Ultimate Guitar.
         </p>
 
         <p>

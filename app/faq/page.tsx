@@ -379,6 +379,17 @@ export default function FaqPage() {
             </a>{" "}
             and you get a personal reply.
           </p>
+          <p className="mt-6 text-lg leading-relaxed text-ink/70">
+            Weighing GuitarHub against Fender Play, Yousician, JustinGuitar,
+            Guitar Tricks or Ultimate Guitar?{" "}
+            <Link
+              href="/compare"
+              className="text-indigo-deep underline underline-offset-4 hover:text-violet"
+            >
+              See the side-by-side comparisons
+            </Link>
+            , with every price checked in November 2026.
+          </p>
           <div className="strings-divider mx-auto mt-14 h-10 max-w-xs" aria-hidden />
         </section>
 
