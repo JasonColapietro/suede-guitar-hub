@@ -8,9 +8,12 @@ import { renderToStaticMarkup } from "react-dom/server";
 import {
   COMPETITORS,
   GUITARHUB_CELLS,
+  PRICE_ROWS,
   ROW_ORDER,
+  VERIFIED_LABEL,
   alternativesHref,
   comparisonPage,
+  isPriceRow,
   vsHref,
 } from "../lib/comparisons.ts";
 import { COMPARISONS, COMPARISONS_VERIFIED, HUBS, LIFETIME } from "../lib/site.ts";
@@ -19,8 +22,10 @@ register("./component-render-hooks.mjs", import.meta.url);
 
 /**
  * The /compare pages make claims about other companies, so they carry rules
- * the rest of the site does not: every competitor has sources, every price
- * sits beside its "as of" month, and the copy keeps the house writing rules.
+ * the rest of the site does not: every competitor has sources, competitor
+ * pricing always reads "varies" with a link to the competitor's own pricing
+ * page (owner direction, 2026-11-05), and the copy keeps the house writing
+ * rules. GuitarHub's own price comes from LIFETIME and stays exact.
  */
 
 const read = (relative: string) => readFileSync(new URL(`../${relative}`, import.meta.url), "utf8");
@@ -64,13 +69,58 @@ test("the registry holds one head-to-head and one alternatives page per competit
   for (const entry of COMPARISONS) assert.equal(entry.lastModified, COMPARISONS_VERIFIED);
 });
 
-test("every competitor is sourced, and every price carries its as-of month", () => {
+/**
+ * A competitor price figure: a dollar amount, a per-month or per-year rate, a
+ * free trial, or an "as of" price label. GuitarHub's own price is stripped
+ * before this runs, so any match is a competitor price that leaked back in.
+ */
+const COMPETITOR_PRICE = [
+  /\$\s?\d/,
+  /\b\d+(\.\d+)?\s*(USD|dollars?)\b/i,
+  /\bper (month|year)\b|\/\s?(mo|month|yr|year)\b/i,
+  /\bfree trial\b|\b\d+-day (free )?trial\b/i,
+  /\bas of November 2026\b/i,
+  /\bcheaper than\b|\bpasses .* in month\b|\bover two years\b/i,
+];
+
+/** Source titles are citations, kept as the competitor publishes them ("Fender Play Free Trial FAQs"). */
+const SOURCE_LABELS = [...new Set(COMPETITORS.flatMap((rival) => rival.sources.map((source) => source.label)))];
+
+/** Removes every spelling of GuitarHub's own price, which stays exact on these pages, and the cited source titles. */
+function withoutGuitarHubPrice(value: string): string {
+  return SOURCE_LABELS.reduce((text, label) => text.replaceAll(label, " "), value)
+    .replaceAll(LIFETIME.cta, " ")
+    .replaceAll(LIFETIME.oneTime, " ")
+    .replaceAll(`${LIFETIME.display} USD`, " ")
+    .replaceAll(LIFETIME.display, " ");
+}
+
+function assertNoCompetitorPrice(value: string, where: string): void {
+  const stripped = withoutGuitarHubPrice(value);
+  for (const pattern of COMPETITOR_PRICE) {
+    const hit = stripped.match(pattern);
+    assert.equal(hit, null, `${where} carries a competitor price (${pattern}): "${hit ? stripped.slice(Math.max(0, (hit.index ?? 0) - 60), (hit.index ?? 0) + 60) : ""}"`);
+  }
+}
+
+test("every competitor is sourced, and its pricing reads varies with a link to its own pricing page", () => {
   for (const rival of COMPETITORS) {
     assert.ok(rival.sources.length >= 2, `${rival.name} needs at least two sources`);
     for (const source of rival.sources) assert.match(source.url, /^https:\/\//);
-    assert.match(rival.pricing, /^As of November 2026/, `${rival.name}: the price sentence must open with its date`);
-    for (const row of ROW_ORDER) assert.ok(rival.cells[row], `${rival.name} is missing the ${row} row`);
+    assert.ok(
+      rival.sources.some((source) => source.url === rival.pricingSource.url),
+      `${rival.name}: the pricing link must also be listed in its sources`,
+    );
+    for (const row of ROW_ORDER) {
+      if (isPriceRow(row)) {
+        assert.equal((rival.cells as Record<string, string>)[row], undefined, `${rival.name} must not type a ${row} cell`);
+      } else {
+        assert.ok(rival.cells[row], `${rival.name} is missing the ${row} row`);
+      }
+    }
+    assertNoCompetitorPrice(JSON.stringify(rival), `${rival.name}'s data`);
   }
+  assert.deepEqual([...PRICE_ROWS], ["price", "free"]);
   for (const row of ROW_ORDER) assert.ok(GUITARHUB_CELLS[row]);
   assert.match(GUITARHUB_CELLS.price, new RegExp(`\\$${LIFETIME.price}`), "GuitarHub's price comes from LIFETIME");
 });
@@ -83,6 +133,7 @@ test("search titles and descriptions are unique and within limits", () => {
     assert.ok(page.title.length <= 60 && /GuitarHub/.test(page.title), page.title);
     assert.ok(page.description.length <= 155, `${entry.href}: description is ${page.description.length} characters`);
     assert.match(page.description, /November 2026/);
+    assertNoCompetitorPrice(`${page.title} ${page.description} ${page.entry.blurb}`, `${entry.href} metadata`);
     assert.equal(page.canonical, `https://guitarhub.org${entry.href}`);
     titles.add(page.title);
     descriptions.add(page.description);
@@ -113,14 +164,48 @@ test("each page answers first, shows its table, sources and FAQ, and keeps the w
       assert.ok(body.includes(question.acceptedAnswer.text), `${href}: an FAQ answer is not visible on the page`);
     }
 
-    if (href !== "/compare") {
+    assertNoCompetitorPrice(body, `${href} visible copy`);
+    assertNoCompetitorPrice(JSON.stringify(ld), `${href} JSON-LD`);
+    assert.ok(body.includes(VERIFIED_LABEL), `${href} must show the date its facts were checked`);
+
+    if (href === "/compare") {
+      for (const rival of COMPETITORS) {
+        assert.ok(markup.includes(`href="${rival.pricingSource.url}"`), `/compare must link ${rival.name}'s pricing`);
+      }
+    } else {
       const page = comparisonPage(href);
       assert.match(body, /Sources/);
       for (const source of page.competitor.sources) {
         assert.ok(markup.includes(`href="${source.url}"`), `${href} must cite ${source.url}`);
       }
-      assert.match(body, /November 2026/);
+      assert.match(body, /Pricing varies/, `${href} must say competitor pricing varies`);
+      assert.ok(
+        markup.includes(`href="${page.competitor.pricingSource.url}"`),
+        `${href} must link ${page.competitor.name}'s pricing page`,
+      );
+      assert.ok(body.includes(LIFETIME.oneTime), `${href} must keep GuitarHub's own price`);
     }
+  }
+});
+
+test("llms.txt and llms-full.txt carry no competitor price", async () => {
+  const route = (await import(new URL("../app/llms.txt/route.ts", import.meta.url).href)) as { GET: () => Response | Promise<Response> };
+  const llms = await (await route.GET()).text();
+  const start = llms.indexOf("## How GuitarHub compares");
+  const end = llms.indexOf("## About the project");
+  assert.ok(start >= 0 && end > start, "llms.txt must keep its comparison section");
+  const section = llms.slice(start, end);
+  assertNoCompetitorPrice(section, "llms.txt comparison section");
+  for (const rival of COMPETITORS) assert.ok(section.includes(`${rival.name}: Pricing varies (${rival.pricingSource.url})`));
+
+  const full = read("public/llms-full.txt");
+  const compare = full.slice(full.indexOf("Source: https://guitarhub.org/compare\n"));
+  assert.ok(compare.length > 0 && compare.includes("Pricing varies"), "llms-full.txt must carry the regenerated comparison pages");
+  for (const href of COMPARISONS.map((entry) => entry.href)) {
+    const at = full.indexOf(`Source: https://guitarhub.org${href}\n`);
+    assert.ok(at >= 0, `llms-full.txt is missing ${href}`);
+    const next = full.indexOf("\nSource: https://", at + 1);
+    assertNoCompetitorPrice(full.slice(at, next === -1 ? undefined : next), `llms-full.txt ${href}`);
   }
 });
 

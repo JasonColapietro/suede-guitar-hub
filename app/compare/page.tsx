@@ -5,7 +5,9 @@ import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import {
   COMPETITORS,
   GUITARHUB,
-  GUITARHUB_MODEL,
+  GUITARHUB_FORMAT_SUMMARY,
+  GUITARHUB_PRICE_SUMMARY,
+  PRICE_CELL,
   VERIFIED_LABEL,
   alternativesHref,
   vsHref,
@@ -64,7 +66,7 @@ const FAQS: readonly Faq[] = [
   {
     id: "how-were-comparisons-checked",
     q: "How were these comparisons checked?",
-    a: `Every competitor price, feature and platform was checked on ${VERIFIED_LABEL} against the competitor's App Store and Google Play listings and its own website or help center. Each comparison page lists its sources, and prices are quoted as of November 2026 in US dollars.`,
+    a: `Every competitor feature and platform was checked on ${VERIFIED_LABEL} against the competitor's App Store and Google Play listings and its own website or help center. Competitor pricing varies, so each comparison page links to that service's own pricing page or store listing alongside its sources.`,
   },
   {
     id: "does-guitarhub-score-playing",
@@ -155,13 +157,19 @@ export default function ComparePage() {
           buy once. {GUITARHUB.lessons} guided lessons cost {LIFETIME.oneTime}{" "}
           for lifetime access, and the {GUITARHUB.tools} practice tools, the{" "}
           {GUITARHUB.drills}-drill Advanced Lab and the written guides are free
-          in any browser. Fender Play, Yousician, the JustinGuitar app and
-          Guitar Tricks sell recurring subscriptions, and Ultimate Guitar is a
-          tab catalog with paid Pro features.
+          in any browser. Fender Play, Guitar Tricks and JustinGuitar teach
+          through video lessons, Yousician through play-along scoring, and
+          Ultimate Guitar is a tab catalog.
+          GuitarHub is the one built to prove each month&apos;s progress with a
+          recording.
         </p>
 
         <h2>How does GuitarHub compare with other guitar lesson apps?</h2>
-        <p>Prices are US prices as of November 2026, checked on {VERIFIED_LABEL}.</p>
+        <p>
+          Facts checked on {VERIFIED_LABEL}. Competitor pricing varies; each
+          price cell links to that service&apos;s own pricing page or store
+          listing.
+        </p>
         <div className={TABLE_WRAP}>
           <table className="w-full min-w-[34rem] border-collapse text-left text-base">
             <caption className="sr-only">
@@ -170,14 +178,16 @@ export default function ComparePage() {
             <thead>
               <tr>
                 <th scope="col" className={TH_COL}>Service</th>
-                <th scope="col" className={TH_COL}>Price and format</th>
+                <th scope="col" className={TH_COL}>Price</th>
+                <th scope="col" className={TH_COL}>Format</th>
                 <th scope="col" className={TH_COL}>Compare</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-t border-ink/5">
                 <th scope="row" className={TH_ROW}>GuitarHub</th>
-                <td className={TD}>{GUITARHUB_MODEL}</td>
+                <td className={TD}>{GUITARHUB_PRICE_SUMMARY}</td>
+                <td className={TD}>{GUITARHUB_FORMAT_SUMMARY}</td>
                 <td className={TD}>
                   <Link href="/learn/guitar" prefetch={false}>See the curriculum</Link>
                 </td>
@@ -185,7 +195,15 @@ export default function ComparePage() {
               {COMPETITORS.map((rival) => (
                 <tr key={rival.slug} className="border-t border-ink/5">
                   <th scope="row" className={TH_ROW}>{rival.name}</th>
-                  <td className={TD}>{rival.model}</td>
+                  <td className={TD}>
+                    <a
+                      href={rival.pricingSource.url}
+                      aria-label={`${rival.name} pricing varies: see ${rival.pricingSource.label}`}
+                    >
+                      {PRICE_CELL}
+                    </a>
+                  </td>
+                  <td className={TD}>{rival.formatSummary}</td>
                   <td className={TD}>
                     <Link href={vsHref(rival.slug)} prefetch={false}>
                       GuitarHub vs {rival.name}
