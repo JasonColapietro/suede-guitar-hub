@@ -1,7 +1,7 @@
 import { MIN_TREND_POINTS, NO_EVIDENCE_LABEL } from "@/lib/log";
 import { DRILLS } from "@/lib/advanced/drills";
 import { catalogLessons, learningCatalog } from "@/lib/learning/catalog";
-import { COMPETITORS, GUITARHUB_MODEL, VERIFIED_LABEL } from "@/lib/comparisons";
+import { COMPETITORS, GUITARHUB_MODEL, PRICING_VARIES, VERIFIED_LABEL } from "@/lib/comparisons";
 import {
   APP_STORE,
   COMPARISONS,
@@ -134,13 +134,14 @@ ${listEntries(RESOURCES)}
 ## How GuitarHub compares
 
 Head-to-head and alternatives pages for the guitar learning services players
-most often weigh against GuitarHub. Every competitor price, feature and
-platform was checked on ${VERIFIED_LABEL} against that service's App Store and
-Google Play listings and its own site, and each page lists its sources.
-Prices are US prices as of November 2026. Hub: ${SITE_URL}/compare
+most often weigh against GuitarHub. Every competitor feature and platform was
+checked on ${VERIFIED_LABEL} against that service's App Store and Google Play
+listings and its own site, and each page lists its sources. Competitor pricing
+varies; each line below links to that service's own pricing page or store
+listing. Hub: ${SITE_URL}/compare
 
 - GuitarHub: ${GUITARHUB_MODEL}
-${COMPETITORS.map((rival) => `- ${rival.name}: ${rival.model}`).join("\n")}
+${COMPETITORS.map((rival) => `- ${rival.name}: ${PRICING_VARIES} (${rival.pricingSource.url}); ${rival.formatSummary}`).join("\n")}
 
 ${listComparisons(COMPARISONS)}
 

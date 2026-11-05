@@ -6,13 +6,17 @@ import {
   COMPETITORS,
   GUITARHUB,
   GUITARHUB_CELLS,
-  GUITARHUB_MODEL,
+  GUITARHUB_FORMAT_SUMMARY,
+  GUITARHUB_PRICE_SUMMARY,
   GUITARHUB_SOURCES,
+  PRICE_CELL,
+  PRICING_VARIES,
   ROW_LABELS,
   ROW_ORDER,
   VERIFIED_LABEL,
   alternativesHref,
   comparisonPage,
+  isPriceRow,
   vsHref,
   type Competitor,
   type ComparisonPageInfo,
@@ -36,9 +40,10 @@ import {
  * The two comparison page types under /compare, rendered from the verified
  * facts in `lib/comparisons.ts`. Server Components, zero JavaScript.
  *
- * Each page answers first, then shows the side-by-side table, the pricing
- * with its "as of" date, the reasons to choose GuitarHub, an FAQ and the
- * sources every competitor fact was checked against. The FAQ questions render
+ * Each page answers first, then shows the side-by-side table, GuitarHub's
+ * price, the reasons to choose GuitarHub, an FAQ and the sources every
+ * competitor fact was checked against. Competitor pricing always reads
+ * "Pricing varies" and links to the competitor's own pricing page. The FAQ questions render
  * as headings and are the same strings the FAQPage JSON-LD carries, so the
  * markup never claims an answer the page does not show.
  */
@@ -50,8 +55,13 @@ const TH_ROW = "px-4 py-3 align-top font-semibold text-indigo-deep";
 const TD = "px-4 py-3 align-top leading-relaxed text-ink/75";
 const ROW = "border-t border-ink/5";
 
-function usd(amount: number): string {
-  return `$${amount.toFixed(2)}`;
+/** A competitor's price, as the owner directs it to read: "varies", linked to its own pricing page. */
+function PricingVaries({ rival, label = PRICING_VARIES }: { rival: Competitor; label?: string }) {
+  return (
+    <a href={rival.pricingSource.url} aria-label={`${rival.name} pricing varies: see ${rival.pricingSource.label}`}>
+      {label}
+    </a>
+  );
 }
 
 function ComparisonTable({ rival }: { rival: Competitor }) {
@@ -81,7 +91,13 @@ function ComparisonTable({ rival }: { rival: Competitor }) {
                 {ROW_LABELS[row]}
               </th>
               <td className={TD}>{GUITARHUB_CELLS[row]}</td>
-              <td className={TD}>{rival.cells[row]}</td>
+              <td className={TD}>
+                {isPriceRow(row) ? (
+                  <PricingVaries rival={rival} label={row === "price" ? PRICING_VARIES : PRICE_CELL} />
+                ) : (
+                  rival.cells[row]
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -104,7 +120,10 @@ function AlternativesTable({ rival }: { rival: Competitor }) {
               Alternative
             </th>
             <th scope="col" className={TH_COL}>
-              Price and format (as of November 2026)
+              Price
+            </th>
+            <th scope="col" className={TH_COL}>
+              Format
             </th>
             <th scope="col" className={TH_COL}>
               Full comparison
@@ -116,7 +135,8 @@ function AlternativesTable({ rival }: { rival: Competitor }) {
             <th scope="row" className={TH_ROW}>
               GuitarHub (our pick)
             </th>
-            <td className={TD}>{GUITARHUB_MODEL}</td>
+            <td className={TD}>{GUITARHUB_PRICE_SUMMARY}</td>
+            <td className={TD}>{GUITARHUB_FORMAT_SUMMARY}</td>
             <td className={TD}>
               <Link href={vsHref(rival.slug)} prefetch={false}>
                 GuitarHub vs {rival.name}
@@ -128,7 +148,10 @@ function AlternativesTable({ rival }: { rival: Competitor }) {
               <th scope="row" className={TH_ROW}>
                 {entry.name}
               </th>
-              <td className={TD}>{entry.model}</td>
+              <td className={TD}>
+                <PricingVaries rival={entry} label={PRICE_CELL} />
+              </td>
+              <td className={TD}>{entry.formatSummary}</td>
               <td className={TD}>
                 <Link href={vsHref(entry.slug)} prefetch={false}>
                   GuitarHub vs {entry.name}
@@ -164,19 +187,6 @@ function SourceList({ sources }: { sources: readonly Source[] }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-/** Two years of the published annual plan, against the one-time price. */
-function TwoYearCost({ rival }: { rival: Competitor }) {
-  if (!rival.yearlyUsd) return null;
-  return (
-    <p>
-      Over two years, {rival.name}&apos;s annual plan comes to{" "}
-      <strong>{usd(rival.yearlyUsd * 2)}</strong> at the November 2026 US
-      price. GuitarHub lifetime access stays <strong>{LIFETIME.display}</strong>,
-      and every free tool, guide and Advanced Lab drill stays free.
-    </p>
   );
 }
 
@@ -382,15 +392,17 @@ export function VsPage({ href }: { href: string }) {
       <h2>How do GuitarHub and {rival.name} compare?</h2>
       <ComparisonTable rival={rival} />
 
-      <h2>How much does {rival.name} cost compared with GuitarHub?</h2>
-      <p>{rival.pricing}</p>
+      <h2>What does GuitarHub cost?</h2>
       <p>
         GuitarHub lifetime lesson access is <strong>{LIFETIME.oneTime}</strong>{" "}
         on the US App Store, bought once in {APP_STORE.name}; other
         storefronts charge their local price. The first module, the practice
-        tools, the Advanced Lab and the written guides are free.
+        tools, the Advanced Lab and the written guides are free, and one
+        purchase keeps every guided lesson open for good.
       </p>
-      <TwoYearCost rival={rival} />
+      <p>
+        {rival.name}: <PricingVaries rival={rival} />.
+      </p>
 
       <h2>How does {rival.name} teach guitar?</h2>
       <p>{rival.summary}</p>
@@ -420,8 +432,8 @@ export function VsPage({ href }: { href: string }) {
 
       <h2>Sources</h2>
       <p>
-        Checked on {VERIFIED_LABEL}. Prices are US prices as of November 2026
-        and vary by country, currency and promotion.
+        Facts checked on {VERIFIED_LABEL}. Competitor pricing varies; each
+        service&apos;s own pricing page or store listing is linked below.
       </p>
       <SourceList sources={[...rival.sources, ...GUITARHUB_SOURCES]} />
     </Shell>
@@ -447,7 +459,7 @@ export function AlternativesPage({ href }: { href: string }) {
         <strong>The short answer:</strong> {rival.alternativesAnswer}
       </p>
       <p>
-        {rival.summary} {rival.pricing}
+        {rival.summary} {rival.name}: <PricingVaries rival={rival} />.
       </p>
 
       <h2>What is the best alternative to {rival.name}?</h2>
@@ -501,8 +513,8 @@ export function AlternativesPage({ href }: { href: string }) {
 
       <h2>Sources</h2>
       <p>
-        Checked on {VERIFIED_LABEL}. Prices are US prices as of November 2026
-        and vary by country, currency and promotion.
+        Facts checked on {VERIFIED_LABEL}. Competitor pricing varies; each
+        service&apos;s own pricing page or store listing is linked below.
       </p>
       <SourceList
         sources={[

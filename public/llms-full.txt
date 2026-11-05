@@ -4914,7 +4914,7 @@ Every answer below describes the site as it runs today, and you can check each o
 
 Have a question this page does not answer? Mail [info@suedeai.ai](mailto:info@suedeai.ai) and you get a personal reply.
 
-Weighing GuitarHub against Fender Play, Yousician, JustinGuitar, Guitar Tricks or Ultimate Guitar? [See the side-by-side comparisons](https://guitarhub.org/compare), with every price checked in November 2026.
+Weighing GuitarHub against Fender Play, Yousician, JustinGuitar, Guitar Tricks or Ultimate Guitar? [See the side-by-side comparisons](https://guitarhub.org/compare), with lessons, feedback and practice tools compared row by row.
 
 ### On this page
 
@@ -5102,26 +5102,26 @@ Price, lessons, feedback and practice tools side by side, with every competitor 
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub is the guitar course you buy once. 135 guided lessons cost $79 one time for lifetime access, and the 7 practice tools, the 23-drill Advanced Lab and the written guides are free in any browser. Fender Play, Yousician, the JustinGuitar app and Guitar Tricks sell recurring subscriptions, and Ultimate Guitar is a tab catalog with paid Pro features.
+**The short answer:** GuitarHub is the guitar course you buy once. 135 guided lessons cost $79 one time for lifetime access, and the 7 practice tools, the 23-drill Advanced Lab and the written guides are free in any browser. Fender Play, Guitar Tricks and JustinGuitar teach through video lessons, Yousician through play-along scoring, and Ultimate Guitar is a tab catalog. GuitarHub is the one built to prove each month's progress with a recording.
 
 ### How does GuitarHub compare with other guitar lesson apps?
 
-Prices are US prices as of November 2026, checked on November 3, 2026.
+Facts checked on November 3, 2026. Competitor pricing varies; each price cell links to that service's own pricing page or store listing.
 
-| Service | Price and format | Compare |
-| --- | --- | --- |
-| GuitarHub | $79 one time, lifetime lessons; free browser tools | [See the curriculum](https://guitarhub.org/learn/guitar) |
-| Fender Play | Subscription, $19.99 a month or $149.99 a year; video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
-| Yousician | Subscription from $19.99 a month or $119.99 a year; play-along app | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
-| JustinGuitar | Free website course; app from $8.99 a month or $64.99 a year | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
-| Guitar Tricks | Subscription, $19.99 a month or $179.99 a year in app; video lessons | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
-| Ultimate Guitar | Free tabs; Pro+ $9.99 a month or $39.99 a year; tab catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
+| Service | Price | Format | Compare |
+| --- | --- | --- | --- |
+| GuitarHub | $79 one time, lifetime lessons | Guided written lessons with microphone scoring; free browser tools | [See the curriculum](https://guitarhub.org/learn/guitar) |
+| Fender Play | [Varies](https://www.fender.com/products/fender-play-subscription) | Short instructor video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
+| Yousician | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) | Play-along app with microphone feedback | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
+| JustinGuitar | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) | Graded video course on the web and in an app | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
+| Guitar Tricks | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) | Video lesson library with style paths | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
+| Ultimate Guitar | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) | Chords and tabs catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
 
 ### Which comparison should you read?
 
 #### Fender Play
 
-Fender Play is Fender's subscription lesson service for guitar, bass and ukulele, with more than 3,000 short video lessons and a library of over 1,000 songs.
+Fender Play is Fender's lesson service for guitar, bass and ukulele, with more than 3,000 short video lessons and a library of over 1,000 songs.
 
 - [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play)
 - [The best Fender Play alternatives](https://guitarhub.org/compare/fender-play-alternatives)
@@ -5135,21 +5135,21 @@ Yousician is an interactive music learning app for guitar, bass and singing that
 
 #### JustinGuitar
 
-JustinGuitar is Justin Sandercoe's guitar teaching site and app. The Beginner Grade 1 course is free on justinguitar.com, and the Justin Guitar Lessons & Songs app is a paid subscription with 210 video lessons and more than 1,500 songs.
+JustinGuitar is Justin Sandercoe's guitar teaching site and app. Its graded beginner course runs on justinguitar.com, and the Justin Guitar Lessons & Songs app holds 210 video lessons and more than 1,500 songs.
 
 - [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar)
 - [The best JustinGuitar alternatives](https://guitarhub.org/compare/justinguitar-alternatives)
 
 #### Guitar Tricks
 
-Guitar Tricks is a video lesson subscription that has taught guitar online since 1998, with more than 11,000 lessons, a Core Learning System for beginners and hundreds of song tutorials.
+Guitar Tricks is a video lesson service that has taught guitar online since 1998, with more than 11,000 lessons, a Core Learning System for beginners and hundreds of song tutorials.
 
 - [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks)
 - [The best Guitar Tricks alternatives](https://guitarhub.org/compare/guitar-tricks-alternatives)
 
 #### Ultimate Guitar
 
-Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with paid Pro features and UG Courses for lessons.
+Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with Pro features and UG Courses for lessons.
 
 - [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar)
 - [The best Ultimate Guitar alternatives](https://guitarhub.org/compare/ultimate-guitar-alternatives)
@@ -5170,7 +5170,7 @@ The 7 browser practice tools, the 23-drill Advanced Lab, the A-to-D chord routin
 
 #### How were these comparisons checked?
 
-Every competitor price, feature and platform was checked on November 3, 2026 against the competitor's App Store and Google Play listings and its own website or help center. Each comparison page lists its sources, and prices are quoted as of November 2026 in US dollars.
+Every competitor feature and platform was checked on November 3, 2026 against the competitor's App Store and Google Play listings and its own website or help center. Competitor pricing varies, so each comparison page links to that service's own pricing page or store listing alongside its sources.
 
 #### Does GuitarHub listen to my playing?
 
@@ -5180,11 +5180,11 @@ Yes. Microphone exercises in the lessons score single-note pitch and attack timi
 
 Source: https://guitarhub.org/compare/guitarhub-vs-fender-play
 
-A one-time lifetime price against a Fender Play subscription, with lessons, feedback and practice tools compared row by row.
+GuitarHub's one-time lifetime course next to Fender Play's video lessons, with lessons, feedback and practice tools compared row by row.
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub gives a guitarist the full course for $79 one time, where Fender Play is a subscription at $19.99 a month or $149.99 a year (as of November 2026). GuitarHub pairs 135 guided lessons with free browser practice tools, a free 23-drill Advanced Lab and a 30-day method that ends every month with a recording you can compare against day one.
+**The short answer:** GuitarHub gives a guitarist the full course for $79 one time, with lifetime access and no renewals. It pairs 135 guided lessons with free browser practice tools, a free 23-drill Advanced Lab and a 30-day method that ends every month with a recording you can compare against day one.
 
 Every Fender Play fact on this page was checked on November 3, 2026 against the sources listed at the end.
 
@@ -5192,8 +5192,8 @@ Every Fender Play fact on this page was checked on November 3, 2026 against the 
 
 | Feature | GuitarHub | Fender Play |
 | --- | --- | --- |
-| Price (as of November 2026) | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | Subscription: $19.99 a month or $149.99 a year |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | 7-day trial on the monthly plan, 14-day trial on the annual plan |
+| Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://www.fender.com/products/fender-play-subscription) |
+| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://www.fender.com/products/fender-play-subscription) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | 3,000+ short video lessons with instructors |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | MatchMySound listening feedback in guided lessons |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | 1,000+ song library with tab, chord charts and backing tracks |
@@ -5201,17 +5201,15 @@ Every Fender Play fact on this page was checked on November 3, 2026 against the 
 | Platforms | iPhone and iPad app, plus free practice tools in any web browser | iOS, Android and web browser |
 | Instruments | Guitar, with voice lessons included in the same app | Guitar, bass and ukulele |
 
-### How much does Fender Play cost compared with GuitarHub?
+### What does GuitarHub cost?
 
-As of November 2026, Fender Play costs $19.99 a month or $149.99 a year in the US, with a 7-day free trial on the monthly plan and a 14-day free trial on the annual plan.
+GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free, and one purchase keeps every guided lesson open for good.
 
-GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free.
-
-Over two years, Fender Play's annual plan comes to **$299.98** at the November 2026 US price. GuitarHub lifetime access stays **$79**, and every free tool, guide and Advanced Lab drill stays free.
+Fender Play: [Pricing varies](https://www.fender.com/products/fender-play-subscription).
 
 ### How does Fender Play teach guitar?
 
-Fender Play is Fender's subscription lesson service for guitar, bass and ukulele, with more than 3,000 short video lessons and a library of over 1,000 songs.
+Fender Play is Fender's lesson service for guitar, bass and ukulele, with more than 3,000 short video lessons and a library of over 1,000 songs.
 
 Fender Play teaches through short instructor videos arranged into a path you set by instrument and genre. Its practice mode adds a metronome and tempo control, lessons carry scrolling tab, chord charts and backing tracks, and guided lessons use MatchMySound listening technology to score your playing. Streaks and practice reminders keep the habit going.
 
@@ -5225,7 +5223,7 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 #### Pay once and keep the course
 
-Fender Play's annual plan is $149.99 every year. GuitarHub lifetime access is $79 one time, and the monthly Fender Play plan passes that total in month 4.
+GuitarHub lifetime access is $79 one time. One purchase opens all 135 guided lessons for good, and the tools, guides and Advanced Lab stay free.
 
 #### Recorded proof in place of streaks
 
@@ -5250,9 +5248,9 @@ Weighing other options as well? See every [Fender Play alternative](https://guit
 
 ### GuitarHub vs Fender Play: frequently asked questions
 
-#### Is GuitarHub cheaper than Fender Play?
+#### What does GuitarHub lifetime access include?
 
-Yes. GuitarHub lifetime lesson access is $79 one time in the US App Store. As of November 2026, Fender Play is $149.99 a year on the annual plan, and its $19.99 monthly plan passes $79 in month 4.
+All 135 guided guitar lessons in GuitarHub: Guitar Lessons, including 24 popular-song companions, for $79 one time in the US App Store. It never renews, and one purchase also covers the voice track in the app.
 
 #### How do GuitarHub lessons compare with Fender Play's video lessons?
 
@@ -5268,7 +5266,7 @@ Yes. The guitar path starts at the first foundations: holding the guitar, tuning
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Fender Play: Learn Guitar on the App Store](https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939)
 - [Fender Play subscription (fender.com)](https://www.fender.com/products/fender-play-subscription)
@@ -5287,9 +5285,9 @@ The lesson platforms guitarists compare with Fender Play, led by GuitarHub's lif
 
 Updated November 3, 2026
 
-**The short answer:** The strongest Fender Play alternative for a guitarist is GuitarHub: 135 guided lessons for $79 one time instead of a recurring subscription, free practice tools and a free Advanced Lab in any browser, and a method built to prove progress with recordings.
+**The short answer:** The strongest Fender Play alternative for a guitarist is GuitarHub: 135 guided lessons for $79 one time with lifetime access, free practice tools and a free Advanced Lab in any browser, and a method built to prove progress with recordings.
 
-Fender Play is Fender's subscription lesson service for guitar, bass and ukulele, with more than 3,000 short video lessons and a library of over 1,000 songs. As of November 2026, Fender Play costs $19.99 a month or $149.99 a year in the US, with a 7-day free trial on the monthly plan and a 14-day free trial on the annual plan.
+Fender Play is Fender's lesson service for guitar, bass and ukulele, with more than 3,000 short video lessons and a library of over 1,000 songs. Fender Play: [Pricing varies](https://www.fender.com/products/fender-play-subscription).
 
 ### What is the best alternative to Fender Play?
 
@@ -5309,19 +5307,19 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 GuitarHub leads the list below. Each row links to a full side-by-side comparison with GuitarHub, checked on November 3, 2026.
 
-| Alternative | Price and format (as of November 2026) | Full comparison |
-| --- | --- | --- |
-| GuitarHub (our pick) | $79 one time, lifetime lessons; free browser tools | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
-| Yousician | Subscription from $19.99 a month or $119.99 a year; play-along app | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
-| JustinGuitar | Free website course; app from $8.99 a month or $64.99 a year | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
-| Guitar Tricks | Subscription, $19.99 a month or $179.99 a year in app; video lessons | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
-| Ultimate Guitar | Free tabs; Pro+ $9.99 a month or $39.99 a year; tab catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
+| Alternative | Price | Format | Full comparison |
+| --- | --- | --- | --- |
+| GuitarHub (our pick) | $79 one time, lifetime lessons | Guided written lessons with microphone scoring; free browser tools | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
+| Yousician | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) | Play-along app with microphone feedback | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
+| JustinGuitar | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) | Graded video course on the web and in an app | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
+| Guitar Tricks | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) | Video lesson library with style paths | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
+| Ultimate Guitar | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) | Chords and tabs catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
 
 ### Why switch from Fender Play to GuitarHub?
 
 #### Pay once and keep the course
 
-Fender Play's annual plan is $149.99 every year. GuitarHub lifetime access is $79 one time, and the monthly Fender Play plan passes that total in month 4.
+GuitarHub lifetime access is $79 one time. One purchase opens all 135 guided lessons for good, and the tools, guides and Advanced Lab stay free.
 
 #### Recorded proof in place of streaks
 
@@ -5348,9 +5346,9 @@ The row-by-row breakdown is on [GuitarHub vs Fender Play](https://guitarhub.org/
 
 #### What is the best alternative to Fender Play?
 
-GuitarHub, for a guitarist who wants a complete course without a subscription: 135 guided lessons for $79 one time, free browser practice tools, a free 23-drill Advanced Lab and a method that proves progress with before-and-after recordings.
+GuitarHub, for a guitarist who wants a complete course bought once: 135 guided lessons for $79 one time, free browser practice tools, a free 23-drill Advanced Lab and a method that proves progress with before-and-after recordings.
 
-#### Is there a Fender Play alternative without a monthly subscription?
+#### Is there a Fender Play alternative I can buy once?
 
 Yes. GuitarHub sells lifetime lesson access as one in-app purchase, $79 one time on the US App Store, and it never renews. Other countries' App Stores charge their local price.
 
@@ -5360,7 +5358,7 @@ GuitarHub's tuner and metronome, 6 other practice tools, the Advanced Lab drills
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Fender Play: Learn Guitar on the App Store](https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939)
 - [Fender Play subscription (fender.com)](https://www.fender.com/products/fender-play-subscription)
@@ -5391,7 +5389,7 @@ Two ways to get feedback while you play: Yousician's play-along scoring and Guit
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub gives you scored practice and a complete guitar course for $79 one time, where Yousician is a subscription from $19.99 a month or $119.99 a year for one instrument (as of November 2026). GuitarHub measures pitch and timing on your device, adds a free 23-drill Advanced Lab and free browser tools, and builds every month around a recording you can compare.
+**The short answer:** GuitarHub gives you scored practice and a complete guitar course for $79 one time, with lifetime access and no renewals. It measures pitch and timing on your device, adds a free 23-drill Advanced Lab and free browser tools, and builds every month around a recording you can compare.
 
 Every Yousician fact on this page was checked on November 3, 2026 against the sources listed at the end.
 
@@ -5399,8 +5397,8 @@ Every Yousician fact on this page was checked on November 3, 2026 against the so
 
 | Feature | GuitarHub | Yousician |
 | --- | --- | --- |
-| Price (as of November 2026) | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | Subscription: one instrument $19.99 a month or $119.99 a year; Premium+ $29.99 a month |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | 7-day free trial of Premium+ |
+| Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) |
+| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Interactive play-along lessons, exercises and songs (10,000+) |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Real-time microphone feedback while you play |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | Thousands of play-along songs with interactive tabs, new songs weekly |
@@ -5408,13 +5406,11 @@ Every Yousician fact on this page was checked on November 3, 2026 against the so
 | Platforms | iPhone and iPad app, plus free practice tools in any web browser | iOS, Android, macOS and Windows |
 | Instruments | Guitar, with voice lessons included in the same app | Guitar, bass and singing |
 
-### How much does Yousician cost compared with GuitarHub?
+### What does GuitarHub cost?
 
-As of November 2026, the US App Store lists Yousician's one-instrument plan at $19.99 a month or $119.99 a year, and Premium+ at $29.99 a month or $159.99 to $179.99 a year. Yousician offers a 7-day free trial of Premium+.
+GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free, and one purchase keeps every guided lesson open for good.
 
-GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free.
-
-Over two years, Yousician's annual plan comes to **$239.98** at the November 2026 US price. GuitarHub lifetime access stays **$79**, and every free tool, guide and Advanced Lab drill stays free.
+Yousician: [Pricing varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039).
 
 ### How does Yousician teach guitar?
 
@@ -5432,7 +5428,7 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 #### One price, no renewals
 
-Yousician's one-instrument plan is $119.99 a year as of November 2026. GuitarHub lifetime access is $79 one time, and the free first module lets you start before you pay anything.
+GuitarHub lifetime access is $79 one time and never renews, and the free first module lets you start before you pay anything.
 
 #### Scoring that stays on your device
 
@@ -5461,9 +5457,9 @@ Weighing other options as well? See every [Yousician alternative](https://guitar
 
 Yes. GuitarHub's microphone exercises score single-note pitch and attack timing in supported lessons, and every one of the 23 Advanced Lab drills is scored live through your microphone. The audio is analyzed on your device and is never uploaded.
 
-#### Is GuitarHub cheaper than Yousician?
+#### How do I pay for GuitarHub?
 
-Yes. GuitarHub lifetime lesson access is $79 one time in the US App Store. As of November 2026, Yousician's one-instrument plan is $119.99 a year or $19.99 a month on the US App Store, and the monthly plan passes $79 in month 4.
+Download GuitarHub: Guitar Lessons from the iPhone App Store, start the first module free, and buy lifetime access in the app: $79 one time on the US App Store, charged in local currency on other storefronts. Apple handles the payment, and Restore Purchases brings your access back on a new iPhone.
 
 #### Can I use GuitarHub on a computer?
 
@@ -5475,7 +5471,7 @@ Yes. The free Advanced Lab has 23 scored drills for experienced players across t
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Yousician: Learn & Play Guitar on the App Store](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039)
 - [Yousician guitar lessons (yousician.com)](https://yousician.com/guitar)
@@ -5494,7 +5490,7 @@ Updated November 3, 2026
 
 **The short answer:** The leading Yousician alternative is GuitarHub: microphone-scored guitar practice, 135 guided lessons for $79 one time with no renewals, and a free Advanced Lab of 23 scored drills in any browser.
 
-Yousician is an interactive music learning app for guitar, bass and singing that listens through your microphone while you play along, with more than 10,000 lessons, exercises and songs. As of November 2026, the US App Store lists Yousician's one-instrument plan at $19.99 a month or $119.99 a year, and Premium+ at $29.99 a month or $159.99 to $179.99 a year. Yousician offers a 7-day free trial of Premium+.
+Yousician is an interactive music learning app for guitar, bass and singing that listens through your microphone while you play along, with more than 10,000 lessons, exercises and songs. Yousician: [Pricing varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039).
 
 ### What is the best alternative to Yousician?
 
@@ -5514,19 +5510,19 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 GuitarHub leads the list below. Each row links to a full side-by-side comparison with GuitarHub, checked on November 3, 2026.
 
-| Alternative | Price and format (as of November 2026) | Full comparison |
-| --- | --- | --- |
-| GuitarHub (our pick) | $79 one time, lifetime lessons; free browser tools | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
-| Fender Play | Subscription, $19.99 a month or $149.99 a year; video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
-| JustinGuitar | Free website course; app from $8.99 a month or $64.99 a year | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
-| Guitar Tricks | Subscription, $19.99 a month or $179.99 a year in app; video lessons | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
-| Ultimate Guitar | Free tabs; Pro+ $9.99 a month or $39.99 a year; tab catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
+| Alternative | Price | Format | Full comparison |
+| --- | --- | --- | --- |
+| GuitarHub (our pick) | $79 one time, lifetime lessons | Guided written lessons with microphone scoring; free browser tools | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
+| Fender Play | [Varies](https://www.fender.com/products/fender-play-subscription) | Short instructor video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
+| JustinGuitar | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) | Graded video course on the web and in an app | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
+| Guitar Tricks | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) | Video lesson library with style paths | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
+| Ultimate Guitar | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) | Chords and tabs catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
 
 ### Why switch from Yousician to GuitarHub?
 
 #### One price, no renewals
 
-Yousician's one-instrument plan is $119.99 a year as of November 2026. GuitarHub lifetime access is $79 one time, and the free first module lets you start before you pay anything.
+GuitarHub lifetime access is $79 one time and never renews, and the free first module lets you start before you pay anything.
 
 #### Scoring that stays on your device
 
@@ -5553,7 +5549,7 @@ The row-by-row breakdown is on [GuitarHub vs Yousician](https://guitarhub.org/co
 
 #### What is the best Yousician alternative?
 
-GuitarHub, for a guitarist who wants microphone-scored practice without a subscription: 135 guided lessons for $79 one time, a free 23-drill Advanced Lab and free browser practice tools.
+GuitarHub, for a guitarist who wants microphone-scored practice with a one-time price: 135 guided lessons for $79 one time, a free 23-drill Advanced Lab and free browser practice tools.
 
 #### Is there a Yousician alternative you buy once?
 
@@ -5565,7 +5561,7 @@ GuitarHub's Advanced Lab is free: 23 drills scored live through your microphone 
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Yousician: Learn & Play Guitar on the App Store](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039)
 - [Yousician guitar lessons (yousician.com)](https://yousician.com/guitar)
@@ -5596,7 +5592,7 @@ JustinGuitar's graded video course and paid app next to GuitarHub's step-by-step
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub gives you a guided guitar course, measured practice and a 30-day method for $79 one time, with no app subscription to renew. JustinGuitar pairs a free website course with a paid app from $8.99 a month or $64.99 a year (as of November 2026). GuitarHub adds microphone-scored exercises, 7 free browser tools and a free 23-drill Advanced Lab.
+**The short answer:** GuitarHub gives you a guided guitar course, measured practice and a 30-day method for $79 one time, with lifetime access and no renewals. JustinGuitar teaches through Justin Sandercoe's graded video lessons. GuitarHub adds microphone-scored exercises, 7 free browser tools and a free 23-drill Advanced Lab.
 
 Every JustinGuitar fact on this page was checked on November 3, 2026 against the sources listed at the end.
 
@@ -5604,8 +5600,8 @@ Every JustinGuitar fact on this page was checked on November 3, 2026 against the
 
 | Feature | GuitarHub | JustinGuitar |
 | --- | --- | --- |
-| Price (as of November 2026) | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | Website course free; app from $8.99 a month or $64.99 a year |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | Beginner Grade 1 course on justinguitar.com |
+| Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) |
+| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Video lessons (210 in the app, 36+ hours) |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Interactive exercises, One-Minute Chord Changes and progress tracking |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | 1,500+ songs in the app song player |
@@ -5613,17 +5609,15 @@ Every JustinGuitar fact on this page was checked on November 3, 2026 against the
 | Platforms | iPhone and iPad app, plus free practice tools in any web browser | Web, iOS and Android |
 | Instruments | Guitar, with voice lessons included in the same app | Guitar |
 
-### How much does JustinGuitar cost compared with GuitarHub?
+### What does GuitarHub cost?
 
-As of November 2026, the Beginner Grade 1 course on justinguitar.com is free. The US App Store lists the app's Full Access at $8.99 a month or $64.99 a year, with Unlimited Access plans listed up to $129.99 a year.
+GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free, and one purchase keeps every guided lesson open for good.
 
-GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free.
-
-Over two years, JustinGuitar's annual plan comes to **$129.98** at the November 2026 US price. GuitarHub lifetime access stays **$79**, and every free tool, guide and Advanced Lab drill stays free.
+JustinGuitar: [Pricing varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504).
 
 ### How does JustinGuitar teach guitar?
 
-JustinGuitar is Justin Sandercoe's guitar teaching site and app. The Beginner Grade 1 course is free on justinguitar.com, and the Justin Guitar Lessons & Songs app is a paid subscription with 210 video lessons and more than 1,500 songs.
+JustinGuitar is Justin Sandercoe's guitar teaching site and app. Its graded beginner course runs on justinguitar.com, and the Justin Guitar Lessons & Songs app holds 210 video lessons and more than 1,500 songs.
 
 JustinGuitar teaches through Justin Sandercoe's video lessons, organized into graded modules. The app covers beginner Grades 1 to 3 in 210 video lessons, with a 10-minute daily practice routine, One-Minute Chord Change exercises, a color-chord system, a tuner and a song player with adjustable tempo.
 
@@ -5645,7 +5639,7 @@ The GuitarHub curriculum runs through seven stages, from the first clean note to
 
 #### One purchase for the full course
 
-GuitarHub lifetime access is $79 one time, with no app subscription to renew each year.
+GuitarHub lifetime access is $79 one time and never renews. One purchase opens every guided lesson and the voice track in the app.
 
 #### Proof at the end of every month
 
@@ -5666,9 +5660,9 @@ Weighing other options as well? See every [JustinGuitar alternative](https://gui
 
 GuitarHub is built around measured practice and proof: microphone-scored exercises, practice tools that turn a hard passage into a tempo ladder, and a 30-day method that ends with a recording you compare against day one. JustinGuitar is built around Justin Sandercoe's graded video lessons.
 
-#### How much does GuitarHub cost compared with the JustinGuitar app?
+#### How much does GuitarHub cost?
 
-GuitarHub lifetime lesson access is $79 one time in the US App Store, with no renewals. As of November 2026, the US App Store lists JustinGuitar app Full Access at $8.99 a month or $64.99 a year.
+GuitarHub lifetime lesson access is $79 one time in the US App Store, and it never renews. The first module in the app, the 7 practice tools, the 23-drill Advanced Lab and the written guides are free.
 
 #### Does GuitarHub help with chord changes?
 
@@ -5680,7 +5674,7 @@ Stages five to seven of the curriculum cover barre chords, the whole neck and a 
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Justin Guitar Lessons & Songs on the App Store](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504)
 - [JustinGuitar Beginner Grade 1 FAQ](https://www.justinguitar.com/faq/beginner-course-grade-1)
@@ -5700,7 +5694,7 @@ Updated November 3, 2026
 
 **The short answer:** The best next step from JustinGuitar is GuitarHub: 135 guided lessons for $79 one time with no renewals, microphone-scored exercises, free practice tools and a free Advanced Lab that takes you past the beginner grades.
 
-JustinGuitar is Justin Sandercoe's guitar teaching site and app. The Beginner Grade 1 course is free on justinguitar.com, and the Justin Guitar Lessons & Songs app is a paid subscription with 210 video lessons and more than 1,500 songs. As of November 2026, the Beginner Grade 1 course on justinguitar.com is free. The US App Store lists the app's Full Access at $8.99 a month or $64.99 a year, with Unlimited Access plans listed up to $129.99 a year.
+JustinGuitar is Justin Sandercoe's guitar teaching site and app. Its graded beginner course runs on justinguitar.com, and the Justin Guitar Lessons & Songs app holds 210 video lessons and more than 1,500 songs. JustinGuitar: [Pricing varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504).
 
 ### What is the best alternative to JustinGuitar?
 
@@ -5720,13 +5714,13 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 GuitarHub leads the list below. Each row links to a full side-by-side comparison with GuitarHub, checked on November 3, 2026.
 
-| Alternative | Price and format (as of November 2026) | Full comparison |
-| --- | --- | --- |
-| GuitarHub (our pick) | $79 one time, lifetime lessons; free browser tools | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
-| Fender Play | Subscription, $19.99 a month or $149.99 a year; video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
-| Yousician | Subscription from $19.99 a month or $119.99 a year; play-along app | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
-| Guitar Tricks | Subscription, $19.99 a month or $179.99 a year in app; video lessons | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
-| Ultimate Guitar | Free tabs; Pro+ $9.99 a month or $39.99 a year; tab catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
+| Alternative | Price | Format | Full comparison |
+| --- | --- | --- | --- |
+| GuitarHub (our pick) | $79 one time, lifetime lessons | Guided written lessons with microphone scoring; free browser tools | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
+| Fender Play | [Varies](https://www.fender.com/products/fender-play-subscription) | Short instructor video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
+| Yousician | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) | Play-along app with microphone feedback | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
+| Guitar Tricks | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) | Video lesson library with style paths | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
+| Ultimate Guitar | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) | Chords and tabs catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
 
 ### Why switch from JustinGuitar to GuitarHub?
 
@@ -5740,7 +5734,7 @@ The GuitarHub curriculum runs through seven stages, from the first clean note to
 
 #### One purchase for the full course
 
-GuitarHub lifetime access is $79 one time, with no app subscription to renew each year.
+GuitarHub lifetime access is $79 one time and never renews. One purchase opens every guided lesson and the voice track in the app.
 
 #### Proof at the end of every month
 
@@ -5765,13 +5759,13 @@ GuitarHub: 135 guided lessons for $79 one time, microphone-scored exercises, 7 f
 
 Take GuitarHub's five-question level check at guitarhub.org/start. It places you at stage 1, stage 3 or the free Advanced Lab based on your chords, changes, barre chords and soloing.
 
-#### Is there a JustinGuitar app alternative without a subscription?
+#### Is there a JustinGuitar alternative with lifetime access?
 
 Yes. GuitarHub lifetime lesson access is one purchase, $79 one time on the US App Store, and it covers the full guitar course and the voice track in the app.
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Justin Guitar Lessons & Songs on the App Store](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504)
 - [JustinGuitar Beginner Grade 1 FAQ](https://www.justinguitar.com/faq/beginner-course-grade-1)
@@ -5798,11 +5792,11 @@ Checked on November 3, 2026. Prices are US prices as of November 2026 and vary b
 
 Source: https://guitarhub.org/compare/guitarhub-vs-guitar-tricks
 
-An 11,000-lesson video subscription next to a focused lifetime course built around one provable change a month.
+An 11,000-lesson video library next to a focused lifetime course built around one provable change a month.
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub gives you a focused guitar course for $79 one time, where Guitar Tricks is a video subscription at $19.99 a month or $179.99 a year in its app (as of November 2026). Instead of a library to browse, GuitarHub hands you one path, microphone-scored exercises, free browser tools and a 30-day method that proves each month's progress with a recording.
+**The short answer:** GuitarHub gives you a focused guitar course for $79 one time, with lifetime access and no renewals. Where Guitar Tricks offers a library of more than 11,000 video lessons to browse, GuitarHub hands you one path, microphone-scored exercises, free browser tools and a 30-day method that proves each month's progress with a recording.
 
 Every Guitar Tricks fact on this page was checked on November 3, 2026 against the sources listed at the end.
 
@@ -5810,8 +5804,8 @@ Every Guitar Tricks fact on this page was checked on November 3, 2026 against th
 
 | Feature | GuitarHub | Guitar Tricks |
 | --- | --- | --- |
-| Price (as of November 2026) | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | Subscription in app: $19.99 a month or $179.99 a year |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | Rotating free lessons and a 7-day free trial in the app |
+| Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) |
+| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Video lessons (11,000+) |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Progress system, fretboard trainer and reference tuner |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | Hundreds of song tutorials with downloadable tab and notation |
@@ -5819,17 +5813,15 @@ Every Guitar Tricks fact on this page was checked on November 3, 2026 against th
 | Platforms | iPhone and iPad app, plus free practice tools in any web browser | Web, iOS and Android |
 | Instruments | Guitar, with voice lessons included in the same app | Guitar |
 
-### How much does Guitar Tricks cost compared with GuitarHub?
+### What does GuitarHub cost?
 
-As of November 2026, the Guitar Tricks app lists Full Access at $19.99 a month or $179.99 a year in the US after a 7-day free trial, and its free version rotates a selection of lessons.
+GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free, and one purchase keeps every guided lesson open for good.
 
-GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free.
-
-Over two years, Guitar Tricks's annual plan comes to **$359.98** at the November 2026 US price. GuitarHub lifetime access stays **$79**, and every free tool, guide and Advanced Lab drill stays free.
+Guitar Tricks: [Pricing varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254).
 
 ### How does Guitar Tricks teach guitar?
 
-Guitar Tricks is a video lesson subscription that has taught guitar online since 1998, with more than 11,000 lessons, a Core Learning System for beginners and hundreds of song tutorials.
+Guitar Tricks is a video lesson service that has taught guitar online since 1998, with more than 11,000 lessons, a Core Learning System for beginners and hundreds of song tutorials.
 
 Guitar Tricks teaches through short, incremental instructor videos. Its Core Learning System takes beginners through the basics, then branches into styles such as acoustic, rock, country and blues. Members get downloadable tab and notation, a scale finder, a chord finder, a reference tuner, a fretboard trainer and a progress system.
 
@@ -5845,9 +5837,9 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 GuitarHub lessons follow a fixed order through seven stages, with a place kept between visits, so the next lesson is always the right one. The level check places you at the stage that fits.
 
-#### A fraction of the yearly cost
+#### One price for the whole course
 
-Guitar Tricks Full Access is $179.99 a year in its app as of November 2026. GuitarHub lifetime access is $79 one time, once.
+GuitarHub lifetime access is $79 one time and opens every guided lesson. The tools, guides and Advanced Lab are free alongside it.
 
 #### Practice that proves itself
 
@@ -5868,9 +5860,9 @@ Weighing other options as well? See every [Guitar Tricks alternative](https://gu
 
 ### GuitarHub vs Guitar Tricks: frequently asked questions
 
-#### Is GuitarHub cheaper than Guitar Tricks?
+#### What does one GuitarHub purchase open?
 
-Yes. GuitarHub lifetime lesson access is $79 one time in the US App Store. As of November 2026, Guitar Tricks Full Access in its app is $179.99 a year or $19.99 a month, and the monthly plan passes $79 in month 4.
+All 135 guided lessons in seven stages plus 24 popular-song companions, for $79 one time on the US App Store with no renewals. The 7 practice tools, the Advanced Lab and the written guides are free alongside it.
 
 #### How is GuitarHub structured compared with Guitar Tricks?
 
@@ -5882,7 +5874,7 @@ GuitarHub is one guided path in seven stages, from the first clean note to barre
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Guitar Lessons - Guitar Tricks on the App Store](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254)
 - [Guitar Lessons by GuitarTricks on Google Play](https://play.google.com/store/apps/details?id=com.guitartricks.gt)
@@ -5898,9 +5890,9 @@ Online guitar lesson options to compare with Guitar Tricks, with GuitarHub's one
 
 Updated November 3, 2026
 
-**The short answer:** The top Guitar Tricks alternative is GuitarHub: 135 guided lessons for $79 one time instead of $179.99 a year, a single clear path through seven stages, free practice tools and a free 23-drill Advanced Lab.
+**The short answer:** The top Guitar Tricks alternative is GuitarHub: 135 guided lessons for $79 one time with lifetime access, a single clear path through seven stages, free practice tools and a free 23-drill Advanced Lab.
 
-Guitar Tricks is a video lesson subscription that has taught guitar online since 1998, with more than 11,000 lessons, a Core Learning System for beginners and hundreds of song tutorials. As of November 2026, the Guitar Tricks app lists Full Access at $19.99 a month or $179.99 a year in the US after a 7-day free trial, and its free version rotates a selection of lessons.
+Guitar Tricks is a video lesson service that has taught guitar online since 1998, with more than 11,000 lessons, a Core Learning System for beginners and hundreds of song tutorials. Guitar Tricks: [Pricing varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254).
 
 ### What is the best alternative to Guitar Tricks?
 
@@ -5920,13 +5912,13 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 GuitarHub leads the list below. Each row links to a full side-by-side comparison with GuitarHub, checked on November 3, 2026.
 
-| Alternative | Price and format (as of November 2026) | Full comparison |
-| --- | --- | --- |
-| GuitarHub (our pick) | $79 one time, lifetime lessons; free browser tools | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
-| Fender Play | Subscription, $19.99 a month or $149.99 a year; video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
-| Yousician | Subscription from $19.99 a month or $119.99 a year; play-along app | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
-| JustinGuitar | Free website course; app from $8.99 a month or $64.99 a year | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
-| Ultimate Guitar | Free tabs; Pro+ $9.99 a month or $39.99 a year; tab catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
+| Alternative | Price | Format | Full comparison |
+| --- | --- | --- | --- |
+| GuitarHub (our pick) | $79 one time, lifetime lessons | Guided written lessons with microphone scoring; free browser tools | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
+| Fender Play | [Varies](https://www.fender.com/products/fender-play-subscription) | Short instructor video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
+| Yousician | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) | Play-along app with microphone feedback | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
+| JustinGuitar | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) | Graded video course on the web and in an app | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
+| Ultimate Guitar | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) | Chords and tabs catalog | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
 
 ### Why switch from Guitar Tricks to GuitarHub?
 
@@ -5934,9 +5926,9 @@ GuitarHub leads the list below. Each row links to a full side-by-side comparison
 
 GuitarHub lessons follow a fixed order through seven stages, with a place kept between visits, so the next lesson is always the right one. The level check places you at the stage that fits.
 
-#### A fraction of the yearly cost
+#### One price for the whole course
 
-Guitar Tricks Full Access is $179.99 a year in its app as of November 2026. GuitarHub lifetime access is $79 one time, once.
+GuitarHub lifetime access is $79 one time and opens every guided lesson. The tools, guides and Advanced Lab are free alongside it.
 
 #### Practice that proves itself
 
@@ -5961,9 +5953,9 @@ The row-by-row breakdown is on [GuitarHub vs Guitar Tricks](https://guitarhub.or
 
 GuitarHub, for a guitarist who wants a clear path and a one-time price: 135 guided lessons for $79 one time, microphone-scored exercises, free browser tools and a free 23-drill Advanced Lab.
 
-#### Is there a cheaper alternative to Guitar Tricks?
+#### Is there a Guitar Tricks alternative with a one-time price?
 
-Yes. GuitarHub lifetime access is $79 one time once on the US App Store, against $179.99 a year for Guitar Tricks Full Access in its app as of November 2026. GuitarHub's tools, guides and Advanced Lab are free.
+Yes. GuitarHub lifetime access is $79 one time on the US App Store and never renews. GuitarHub's tools, guides and Advanced Lab are free.
 
 #### Which Guitar Tricks alternative works for beginners?
 
@@ -5971,7 +5963,7 @@ GuitarHub starts at the first foundations, holding the guitar, tuning it and pla
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Guitar Lessons - Guitar Tricks on the App Store](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254)
 - [Guitar Lessons by GuitarTricks on Google Play](https://play.google.com/store/apps/details?id=com.guitartricks.gt)
@@ -6010,8 +6002,8 @@ Every Ultimate Guitar fact on this page was checked on November 3, 2026 against 
 
 | Feature | GuitarHub | Ultimate Guitar |
 | --- | --- | --- |
-| Price (as of November 2026) | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | Free tabs; UG Pro+ $9.99 for one month or $39.99 for one year (US App Store) |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | Chords, tabs and lyrics for 1M+ songs |
+| Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) |
+| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Tabs and chords; UG Courses with 2,500+ lessons across instruments |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Interactive tabs that play note by note (Pro) |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | 1M+ songs; 29,000+ Pro tabs with backing tracks |
@@ -6019,17 +6011,15 @@ Every Ultimate Guitar fact on this page was checked on November 3, 2026 against 
 | Platforms | iPhone and iPad app, plus free practice tools in any web browser | Web, iOS and Android |
 | Instruments | Guitar, with voice lessons included in the same app | Guitar, bass, ukulele and more |
 
-### How much does Ultimate Guitar cost compared with GuitarHub?
+### What does GuitarHub cost?
 
-As of November 2026, Ultimate Guitar's chords, tabs and lyrics are free to read. The US App Store lists UG Pro+ at $9.99 for one month or $39.99 for one year, alongside other Pro and sale offers.
+GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free, and one purchase keeps every guided lesson open for good.
 
-GuitarHub lifetime lesson access is **$79 one time** on the US App Store, bought once in GuitarHub: Guitar Lessons; other storefronts charge their local price. The first module, the practice tools, the Advanced Lab and the written guides are free.
-
-Over two years, Ultimate Guitar's annual plan comes to **$79.98** at the November 2026 US price. GuitarHub lifetime access stays **$79**, and every free tool, guide and Advanced Lab drill stays free.
+Ultimate Guitar: [Pricing varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853).
 
 ### How does Ultimate Guitar teach guitar?
 
-Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with paid Pro features and UG Courses for lessons.
+Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with Pro features and UG Courses for lessons.
 
 Ultimate Guitar centers on its song catalog: chords, tabs and lyrics for guitar, bass and ukulele, with collections, playlists and personal tabs. A Pro account adds interactive tabs that play note by note, more than 29,000 tabs with backing tracks and synchronized lyrics, a metronome, transposing and a tuner. UG Courses offers over 2,500 lessons across instruments.
 
@@ -6082,7 +6072,7 @@ Yes. The curriculum includes 24 popular-song practice companions, including Wond
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Ultimate Guitar: Chords & Tabs on the App Store](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853)
 - [Ultimate Guitar (ultimate-guitar.com)](https://www.ultimate-guitar.com/)
@@ -6101,7 +6091,7 @@ Updated November 3, 2026
 
 **The short answer:** For a player who wants to learn guitar rather than collect tabs, the best Ultimate Guitar alternative is GuitarHub: a guided 135-lesson course for $79 one time, 7 free practice tools and a free 23-drill Advanced Lab.
 
-Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with paid Pro features and UG Courses for lessons. As of November 2026, Ultimate Guitar's chords, tabs and lyrics are free to read. The US App Store lists UG Pro+ at $9.99 for one month or $39.99 for one year, alongside other Pro and sale offers.
+Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with Pro features and UG Courses for lessons. Ultimate Guitar: [Pricing varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853).
 
 ### What is the best alternative to Ultimate Guitar?
 
@@ -6121,13 +6111,13 @@ Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pi
 
 GuitarHub leads the list below. Each row links to a full side-by-side comparison with GuitarHub, checked on November 3, 2026.
 
-| Alternative | Price and format (as of November 2026) | Full comparison |
-| --- | --- | --- |
-| GuitarHub (our pick) | $79 one time, lifetime lessons; free browser tools | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
-| Fender Play | Subscription, $19.99 a month or $149.99 a year; video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
-| Yousician | Subscription from $19.99 a month or $119.99 a year; play-along app | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
-| JustinGuitar | Free website course; app from $8.99 a month or $64.99 a year | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
-| Guitar Tricks | Subscription, $19.99 a month or $179.99 a year in app; video lessons | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
+| Alternative | Price | Format | Full comparison |
+| --- | --- | --- | --- |
+| GuitarHub (our pick) | $79 one time, lifetime lessons | Guided written lessons with microphone scoring; free browser tools | [GuitarHub vs Ultimate Guitar](https://guitarhub.org/compare/guitarhub-vs-ultimate-guitar) |
+| Fender Play | [Varies](https://www.fender.com/products/fender-play-subscription) | Short instructor video lessons | [GuitarHub vs Fender Play](https://guitarhub.org/compare/guitarhub-vs-fender-play) |
+| Yousician | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) | Play-along app with microphone feedback | [GuitarHub vs Yousician](https://guitarhub.org/compare/guitarhub-vs-yousician) |
+| JustinGuitar | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) | Graded video course on the web and in an app | [GuitarHub vs JustinGuitar](https://guitarhub.org/compare/guitarhub-vs-justinguitar) |
+| Guitar Tricks | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) | Video lesson library with style paths | [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks) |
 
 ### Why switch from Ultimate Guitar to GuitarHub?
 
@@ -6172,7 +6162,7 @@ Yes. GuitarHub lifetime lesson access is $79 one time in the US App Store, with 
 
 ### Sources
 
-Checked on November 3, 2026. Prices are US prices as of November 2026 and vary by country, currency and promotion.
+Facts checked on November 3, 2026. Competitor pricing varies; each service's own pricing page or store listing is linked below.
 
 - [Ultimate Guitar: Chords & Tabs on the App Store](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853)
 - [Ultimate Guitar (ultimate-guitar.com)](https://www.ultimate-guitar.com/)

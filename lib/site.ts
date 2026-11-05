@@ -430,7 +430,7 @@ export const COMPARISONS: readonly SiteEntry[] = [
   {
     href: "/compare/guitarhub-vs-fender-play",
     title: "GuitarHub vs Fender Play",
-    blurb: "A one-time lifetime price against a Fender Play subscription, with lessons, feedback and practice tools compared row by row.",
+    blurb: "GuitarHub's one-time lifetime course next to Fender Play's video lessons, with lessons, feedback and practice tools compared row by row.",
     lastModified: COMPARISONS_VERIFIED,
   },
   {
@@ -466,7 +466,7 @@ export const COMPARISONS: readonly SiteEntry[] = [
   {
     href: "/compare/guitarhub-vs-guitar-tricks",
     title: "GuitarHub vs Guitar Tricks",
-    blurb: "An 11,000-lesson video subscription next to a focused lifetime course built around one provable change a month.",
+    blurb: "An 11,000-lesson video library next to a focused lifetime course built around one provable change a month.",
     lastModified: COMPARISONS_VERIFIED,
   },
   {

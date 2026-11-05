@@ -388,7 +388,7 @@ export default function FaqPage() {
             >
               See the side-by-side comparisons
             </Link>
-            , with every price checked in November 2026.
+            , with lessons, feedback and practice tools compared row by row.
           </p>
           <div className="strings-divider mx-auto mt-14 h-10 max-w-xs" aria-hidden />
         </section>
