@@ -112,3 +112,35 @@ test("a claimed row reconciles without a token from Apple; an unclaimed row stil
   assert.deepEqual((await response.json()).tracks, ["guitar", "voice"]);
   assert.deepEqual(received, [["123", token], ["456", undefined]]);
 });
+
+test("an Apple refund notification for a claimed purchase is written to the claimant's ledger row", async () => {
+  const other = "c3333333-3333-4333-8333-333333333333";
+  const refunded = { ...purchase, signedAt: "2026-09-03T00:00:00Z", revokedAt: "2026-09-03T00:00:00Z" };
+  for (const claimed of [true, false]) {
+    const lookups: unknown[] = [], tokens: unknown[] = [], recorded: unknown[][] = [];
+    const h = harness({
+      findPurchaseOwner: async (identity) => { lookups.push(identity); return { accountId: id, appAccountToken: token, claimed }; },
+      recordPurchase: async (...args) => { recorded.push(args); return args[1]; },
+      // Stands in for the adapter: the transaction carries no token (bought before sign-in); a claimed row's token is used.
+      verifier: async () => verifier({ verifyNotification: async (_signed, claimedTokenFor) => {
+        const claimedToken = await claimedTokenFor?.("123");
+        tokens.push(claimedToken);
+        if (!claimedToken) throw new LearningAccountError("ownership_recovery_required");
+        return { notificationId: other, purchase: { ...refunded, appAccountToken: claimedToken } };
+      } }),
+    }, true);
+    const response = await h.handlers.notification(request({ signedPayload: "verified fixture" }));
+    assert.deepEqual(lookups, [{ environment: "Production", originalTransactionId: "123" }]); // one lookup, before validation
+    if (claimed) {
+      assert.equal(response.status, 200);
+      assert.deepEqual(tokens, [token]);
+      assert.deepEqual(recorded, [[id, { ...refunded, appAccountToken: token }]]);
+    } else {
+      // An unclaimed tokenless purchase is refused exactly as before.
+      assert.equal(response.status, 409);
+      assert.deepEqual(await response.json(), { error: "ownership_recovery_required" });
+      assert.deepEqual(tokens, [undefined]);
+      assert.deepEqual(recorded, []);
+    }
+  }
+});

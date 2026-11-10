@@ -17,7 +17,7 @@ function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
     enabled: () => true, resolveAccount: async () => ({ accountId: id, verifiedEmail: "buyer@example.com" }),
     getBinding: async (_account, create) => { if (create) writes.push("binding"); return { appAccountToken: id, syncEpoch: epoch }; },
     listAttempts: async () => [], listPurchases: async () => [{ transactionId: "123", originalTransactionId: "123", appAccountToken: id, claimed: false }],
-    findPurchaseOwner: async () => ({ accountId: id, appAccountToken: id }),
+    findPurchaseOwner: async () => ({ accountId: id, appAccountToken: id, claimed: false }),
     appendAttempts: async (account, scope, attempts) => { assert.equal(account,id); assert.equal(scope,epoch); assert.equal(attempts.length,1); writes.push("attempt"); return [{ attempt_id: other, sequence: "1" }]; },
     clearHistory: async (account, scope) => { assert.equal(account,id); assert.equal(scope,epoch); writes.push("clear"); return other; },
     recordPurchase: async (_account, value) => { writes.push("purchase"); return value; },

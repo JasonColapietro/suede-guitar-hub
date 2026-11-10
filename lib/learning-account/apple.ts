@@ -57,11 +57,20 @@ export function createAppleLearningVerifier(configuration: AppleLearningConfigur
   const verifier = new SignedDataVerifier(configuration.appleRootCertificates, true, environment, GUITARHUB_BUNDLE_ID, configuration.appAppleId);
   const api = new AppStoreServerAPIClient(configuration.signingKey, configuration.keyId, configuration.issuerId, GUITARHUB_BUNDLE_ID, environment);
 
-  async function verify(signedTransaction: string, claimedToken?: string): Promise<VerifiedLifetimePurchase> {
+  /**
+   * `claimedToken` may be a lookup: it runs after the signature is verified, with the transaction's original id,
+   * so a notification can find a claimed row's token before the tokenless payload is validated.
+   */
+  async function verify(signedTransaction: string, claimedToken?: string | ((originalTransactionId: string) => Promise<string | undefined>)): Promise<VerifiedLifetimePurchase> {
     boundedJWS(signedTransaction);
+    let payload: JWSTransactionDecodedPayload;
+    try { payload = await verifier.verifyAndDecodeTransaction(signedTransaction); }
+    catch { throw new LearningAccountError("apple_verification_failed"); }
+    const token = typeof claimedToken === "function"
+      ? (transactionID(payload.originalTransactionId) ? await claimedToken(payload.originalTransactionId) : undefined)
+      : claimedToken;
     try {
-      const payload = await verifier.verifyAndDecodeTransaction(signedTransaction);
-      return validateVerifiedLifetimePayload(payload, configuration.environment, claimedToken);
+      return validateVerifiedLifetimePayload(payload, configuration.environment, token);
     } catch (error) {
       if (error instanceof LearningAccountError) throw error;
       throw new LearningAccountError("apple_verification_failed");
@@ -105,15 +114,21 @@ export function createAppleLearningVerifier(configuration: AppleLearningConfigur
       if (current.revokedAt !== null) throw new LearningAccountError("purchase_revoked");
       return { ...current, accountId };
     },
-    async verifyNotification(signedPayload: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null> {
+    /**
+     * `claimedTokenFor` returns the stored token when the ledger row for this original transaction id was claimed,
+     * otherwise undefined. A claimed purchase may carry no token, or another account's, so its refund is
+     * validated and reconciled with the row's token, as `reconcileLearningAccess` does.
+     */
+    async verifyNotification(signedPayload: string, claimedTokenFor?: (originalTransactionId: string) => Promise<string | undefined>): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null> {
       boundedJWS(signedPayload);
       let notification;
       try { notification = await verifier.verifyAndDecodeNotification(signedPayload); }
       catch { throw new LearningAccountError("apple_verification_failed"); }
       if (!notification.notificationUUID) throw new LearningAccountError("invalid_notification");
       if (!notification.data?.signedTransactionInfo) return null;
-      const event = await verify(notification.data.signedTransactionInfo);
-      const purchase = await reconcileTransaction(event.transactionId);
+      let claimedToken: string | undefined;
+      const event = await verify(notification.data.signedTransactionInfo, async (originalTransactionId) => (claimedToken = await claimedTokenFor?.(originalTransactionId)));
+      const purchase = await reconcileTransaction(event.transactionId, claimedToken);
       if (purchase.originalTransactionId !== event.originalTransactionId || purchase.appAccountToken !== event.appAccountToken) throw new LearningAccountError("purchase_identity_mismatch");
       return { notificationId: notification.notificationUUID, purchase };
     },

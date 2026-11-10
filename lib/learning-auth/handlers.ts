@@ -6,6 +6,7 @@ import { accountJSON, accountErrorResponse, attemptCursor, boundedAccountBody, r
 export type AccountBinding = { appAccountToken: string; syncEpoch: string };
 /** `claimed` rows were linked through the claim endpoint and hold the claimant's binding token. */
 export type StoredPurchase = { transactionId: string; originalTransactionId: string; appAccountToken: string; claimed: boolean };
+export type PurchaseOwner = { accountId: string; appAccountToken: string; claimed: boolean };
 export type AttemptPageRow = { sequence: string; body: unknown };
 export type LearningHandlerDependencies = {
   enabled(): boolean;
@@ -14,7 +15,7 @@ export type LearningHandlerDependencies = {
   getBinding(accountId: string, create: boolean): Promise<AccountBinding | null>;
   listAttempts(accountId: string, cursor: string): Promise<AttemptPageRow[]>;
   listPurchases(accountId: string, environment: StoreEnvironment): Promise<StoredPurchase[]>;
-  findPurchaseOwner(purchase: VerifiedLifetimePurchase): Promise<{ accountId: string; appAccountToken: string } | null>;
+  findPurchaseOwner(purchase: Pick<VerifiedLifetimePurchase, "environment" | "originalTransactionId">): Promise<PurchaseOwner | null>;
   appendAttempts(accountId: string, syncEpoch: string, attempts: unknown[]): Promise<unknown>;
   clearHistory(accountId: string, syncEpoch: string): Promise<string>;
   recordPurchase(accountId: string, purchase: VerifiedLifetimePurchase): Promise<VerifiedLifetimePurchase>;
@@ -24,7 +25,7 @@ export type LearningHandlerDependencies = {
     verifyPurchase(signed: string, binding: { accountId: string; appAccountToken: string }): Promise<VerifiedLifetimePurchase & { accountId: string }>;
     verifyClaim(signed: string, binding: { accountId: string; appAccountToken: string }): Promise<VerifiedLifetimePurchase & { accountId: string }>;
     reconcileTransaction(id: string, claimedToken?: string): Promise<VerifiedLifetimePurchase>;
-    verifyNotification(signed: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null>;
+    verifyNotification(signed: string, claimedTokenFor?: (originalTransactionId: string) => Promise<string | undefined>): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null>;
   }>;
   /** Intake capture runs after an authoritative ledger write; never alters entitlement decisions. */
   capturePurchase?(purchase: VerifiedLifetimePurchase): Promise<void>;
@@ -190,10 +191,16 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const body = await boundedAccountBody(request, 70_000);
       if (typeof body.signedPayload !== "string") throw new AccountHTTPError(400, "invalid_notification");
       const environment = deps.environment();
-      const event = await (await deps.verifier()).verifyNotification(body.signedPayload);
+      // The owner is looked up before validation: a claimed row's refund is checked with the row's token.
+      let lookedUp: { originalTransactionId: string; owner: PurchaseOwner | null } | undefined;
+      const event = await (await deps.verifier()).verifyNotification(body.signedPayload, async (originalTransactionId) => {
+        const owner = await deps.findPurchaseOwner({ environment, originalTransactionId });
+        lookedUp = { originalTransactionId, owner };
+        return owner?.claimed ? owner.appAccountToken : undefined;
+      });
       if (!event) return accountJSON({ received: true });
       if (event.purchase.environment !== environment) throw new LearningAccountError("purchase_identity_mismatch");
-      const owner = await deps.findPurchaseOwner(event.purchase);
+      const owner = lookedUp?.originalTransactionId === event.purchase.originalTransactionId ? lookedUp.owner : await deps.findPurchaseOwner(event.purchase);
       if (!owner) return accountJSON({ received: true });
       if (owner.appAccountToken !== event.purchase.appAccountToken) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountUUID(owner.accountId), event.purchase);

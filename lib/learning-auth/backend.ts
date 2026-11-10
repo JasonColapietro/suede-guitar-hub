@@ -118,11 +118,11 @@ export async function listAccountPurchases(accountId: string, environment: Store
   return result.data.map((row) => ({ transactionId: row.transaction_id as string, originalTransactionId: row.original_transaction_id as string, appAccountToken: accountUUID(row.app_account_token), claimed: row.claimed === true }));
 }
 
-export async function findPurchaseOwner(purchase: VerifiedLifetimePurchase) {
-  const result = await accountBackend().from("guitarhub_apple_purchases").select("account_id,app_account_token")
+export async function findPurchaseOwner(purchase: Pick<VerifiedLifetimePurchase, "environment" | "originalTransactionId">) {
+  const result = await accountBackend().from("guitarhub_apple_purchases").select("account_id,app_account_token,claimed")
     .eq("environment", purchase.environment).eq("original_transaction_id", purchase.originalTransactionId).maybeSingle();
   checkDatabaseError(result.error);
-  return result.data?.account_id ? { accountId: accountUUID(result.data.account_id), appAccountToken: accountUUID(result.data.app_account_token) } : null;
+  return result.data?.account_id ? { accountId: accountUUID(result.data.account_id), appAccountToken: accountUUID(result.data.app_account_token), claimed: result.data.claimed === true } : null;
 }
 
 /** Production must count only live-mode Stripe purchases; previews and local runs accept test mode. */

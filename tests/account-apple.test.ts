@@ -95,3 +95,28 @@ test("reconciling a claimed row uses the stored token; an unclaimed tokenless re
   assert.equal((await verifier.reconcileTransaction("123456789", claimant)).appAccountToken, claimant);
   await assert.rejects(() => verifier.reconcileTransaction("123456789"), /ownership_recovery_required/);
 });
+
+test("a refund notification for a claimed purchase reconciles with the claimed row's token", async (context) => {
+  const other = "c3333333-3333-4333-8333-333333333333";
+  const refund = { revocationDate: 1_780_000_500_000, signedDate: 1_780_002_000_000 };
+  for (const embedded of [undefined, other]) {
+    const lookups = appleDouble(context, { appAccountToken: embedded, ...refund });
+    context.mock.method(SignedDataVerifier.prototype, "verifyAndDecodeNotification", async () => ({ notificationUUID: "f6666666-6666-4666-8666-666666666666", data: { signedTransactionInfo: fixture } }));
+    const asked: string[] = [];
+    const event = await createAppleLearningVerifier(config).verifyNotification("signed.notification.payload", async (originalTransactionId) => { asked.push(originalTransactionId); return claimant; });
+    assert.deepEqual(asked, ["123456789"]);
+    assert.deepEqual(lookups, ["123456789"]);
+    assert.equal(event?.purchase.appAccountToken, claimant);
+    assert.notEqual(event?.purchase.revokedAt, null);
+    context.mock.restoreAll();
+  }
+  // An unclaimed row: a tokenless transaction is still refused, and a bound one keeps its own token.
+  appleDouble(context, { appAccountToken: undefined, ...refund });
+  context.mock.method(SignedDataVerifier.prototype, "verifyAndDecodeNotification", async () => ({ notificationUUID: "f6666666-6666-4666-8666-666666666666", data: { signedTransactionInfo: fixture } }));
+  await assert.rejects(() => createAppleLearningVerifier(config).verifyNotification("signed.notification.payload", async () => undefined), /ownership_recovery_required/);
+  await assert.rejects(() => createAppleLearningVerifier(config).verifyNotification("signed.notification.payload"), /ownership_recovery_required/);
+  context.mock.restoreAll();
+  appleDouble(context, { ...refund });
+  context.mock.method(SignedDataVerifier.prototype, "verifyAndDecodeNotification", async () => ({ notificationUUID: "f6666666-6666-4666-8666-666666666666", data: { signedTransactionInfo: fixture } }));
+  assert.equal((await createAppleLearningVerifier(config).verifyNotification("signed.notification.payload", async () => undefined))?.purchase.appAccountToken, token);
+});
