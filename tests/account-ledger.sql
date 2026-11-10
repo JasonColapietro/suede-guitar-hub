@@ -144,7 +144,7 @@ reset role;
 -- Sell-first ledger: Stripe purchases, free module, Apple claims, deletion and client privileges.
 set role service_role;
 do $$
-declare b uuid := 'b2222222-2222-4222-8222-222222222222'; c uuid := 'c5555555-5555-4555-8555-555555555555'; token_c uuid; p jsonb; ap jsonb; result public.guitarhub_apple_purchases; count_rows integer; r text; refunded timestamptz;
+declare b uuid := 'b2222222-2222-4222-8222-222222222222'; c uuid := 'c5555555-5555-4555-8555-555555555555'; token_c uuid; epoch_c uuid; p jsonb; ap jsonb; result public.guitarhub_apple_purchases; count_rows integer; r text; refunded timestamptz;
 begin
   p := jsonb_build_object('checkoutSessionId','cs_test_1','paymentIntentId','pi_test_1','email','Buyer@Example.com ','livemode',false,'amountTotal',4900,'currency','usd','purchasedAt','2026-11-10T00:00:00Z');
   if public.guitarhub_record_stripe_purchase('evt_1','checkout.session.completed',p) <> 'recorded' then raise exception 'first stripe event not recorded'; end if;
@@ -196,7 +196,16 @@ begin
   insert into public.guitarhub_attempts(account_id, attempt_id, body) values (c,'e6666666-6666-4666-8666-666666666666',
     '{"version":1,"id":"e6666666-6666-4666-8666-666666666666","track":"guitar","source":"selfReported","disposition":"reflection"}');
   perform public.guitarhub_record_stripe_purchase('evt_4','checkout.session.completed', p || '{"checkoutSessionId":"cs_test_2","paymentIntentId":"pi_test_2","email":"owner@example.com"}');
+  select sync_epoch into epoch_c from public.guitarhub_account_tokens where account_id = c;
   perform public.guitarhub_delete_account(c, 'Owner@Example.com');
+  begin
+    perform public.guitarhub_append_attempts(c, epoch_c, '[{"version":1,"id":"e7777777-7777-4777-8777-777777777777","track":"guitar","source":"selfReported","disposition":"reflection"}]');
+    raise exception 'append with the pre-deletion epoch recreated history';
+  exception when others then
+    if sqlerrm <> 'sync_epoch_changed' then raise; end if;
+  end;
+  select count(*) into count_rows from public.guitarhub_attempts where account_id = c;
+  if count_rows <> 0 then raise exception 'stale-epoch append left attempts after deletion'; end if;
   select count(*) into count_rows from public.guitarhub_attempts where account_id = c;
   if count_rows <> 0 then raise exception 'delete_account kept attempts'; end if;
   select count(*) into count_rows from public.guitarhub_free_modules where account_id = c;
@@ -232,8 +241,11 @@ begin
   exception when others then
     if sqlerrm <> 'purchase_already_linked' then raise; end if;
   end;
+  -- The real caller sends the claimant's own binding token, not the deleted account's.
+  ap := ap || jsonb_build_object('appAccountToken', public.guitarhub_get_account_token(b));
   result := public.guitarhub_claim_apple_purchase(b, ap, 'Owner@example.com');
   if result.account_id <> b or not result.claimed then raise exception 'orphaned purchase not re-linked to its owner email'; end if;
+  if result.app_account_token <> public.guitarhub_get_account_token(b) then raise exception 're-link did not bind the claimant token'; end if;
 end;
 $$;
 reset role;

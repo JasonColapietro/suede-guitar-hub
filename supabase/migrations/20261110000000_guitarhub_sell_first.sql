@@ -174,7 +174,8 @@ begin
     where environment = incoming.environment and original_transaction_id = incoming.original_transaction_id for update;
   if existing.account_id is distinct from p_account_id then
     if existing.account_id is null and claimant_email is not null and existing.owner_email = claimant_email then
-      update public.guitarhub_apple_purchases set account_id = p_account_id
+      -- The deleted account's token row is gone; bind the row to the claimant's own token.
+      update public.guitarhub_apple_purchases set account_id = p_account_id, app_account_token = incoming.app_account_token
         where environment = incoming.environment and original_transaction_id = incoming.original_transaction_id returning * into existing;
     else
       raise exception 'purchase_already_linked' using errcode = '23514';
@@ -201,8 +202,10 @@ $$;
 -- binding token stays while any Apple purchase references it.
 create function public.guitarhub_delete_account(p_account_id uuid, p_email text) returns void
 language plpgsql security invoker set search_path = '' as $$
-declare owner text := lower(btrim(p_email));
+declare owner text := lower(btrim(p_email)); locked uuid;
 begin
+  -- Serializes against guitarhub_append_attempts, which locks the same row.
+  select account_id into locked from public.guitarhub_account_tokens where account_id = p_account_id for update;
   delete from public.guitarhub_attempts where account_id = p_account_id;
   delete from public.guitarhub_free_modules where account_id = p_account_id;
   if owner is not null then
@@ -211,6 +214,9 @@ begin
   update public.guitarhub_apple_purchases set owner_email = coalesce(owner, owner_email) where account_id = p_account_id;
   if not exists (select 1 from public.guitarhub_apple_purchases where account_id = p_account_id) then
     delete from public.guitarhub_account_tokens where account_id = p_account_id;
+  else
+    -- The kept token row must not accept a device still holding the pre-deletion epoch.
+    update public.guitarhub_account_tokens set sync_epoch = gen_random_uuid() where account_id = p_account_id;
   end if;
 end;
 $$;
