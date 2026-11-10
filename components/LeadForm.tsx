@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { track } from "@/lib/analytics/tracker";
 import { FIELD_GUIDES, fieldGuidePdf } from "@/lib/field-guides";
 import type { Placement } from "@/lib/learning/free-module";
@@ -30,12 +30,27 @@ export type LeadFetch = (url: string, init: RequestInit) => Promise<Pick<Respons
 /** Posts the lead. Resolves to what happened and never throws, so no caller waits on or breaks over it. */
 export async function sendLead(fetchFn: LeadFetch, body: LeadRequestBody): Promise<LeadOutcome> {
   try {
-    const response = await fetchFn("/api/leads", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    const response = await fetchFn("/api/leads", { method: "POST", headers: { "content-type": "application/json" }, keepalive: true, body: JSON.stringify(body) });
     if (response.ok) return "sent";
     return response.status === 400 ? "invalid" : "failed";
   } catch {
     return "failed";
   }
+}
+
+/** How long after mount a changed honeypot still counts as a bot filling the page on load. */
+export const HONEYPOT_LOAD_WINDOW_MS = 2000;
+
+export type HoneypotChange = { atMs: number; afterEmailInteraction: boolean };
+
+/**
+ * The `company` value to send. A value is kept only if the field was never changed by an input
+ * event (present at mount), or was changed within 2 s of mount, or before the visitor touched the
+ * email field: a bot fills every field on load. A later change is browser autofill on a real person, sent empty.
+ */
+export function honeypotToSend(value: string, change: HoneypotChange | null): string {
+  if (!value || !change) return value;
+  return change.atMs <= HONEYPOT_LOAD_WINDOW_MS || !change.afterEmailInteraction ? value : "";
 }
 
 function download(source: LeadSource, guideId?: string): { href: string; label: string } {
@@ -62,6 +77,10 @@ const STATUS: Record<"sending" | LeadOutcome, (email: string, source: LeadSource
 export function LeadForm({ source, guideId, buttonLabel, onSubmitted }: { source: LeadSource; guideId?: string; buttonLabel: string; onSubmitted?(): void }) {
   const id = useId();
   const honeypot = useRef<HTMLInputElement>(null);
+  const mountedAt = useRef(0);
+  const emailTouched = useRef(false);
+  const honeypotChange = useRef<HoneypotChange | null>(null);
+  useEffect(() => { mountedAt.current = Date.now(); }, []);
   const [email, setEmail] = useState("");
   const [sentTo, setSentTo] = useState("");
   const [unlocked, setUnlocked] = useState(false);
@@ -75,7 +94,7 @@ export function LeadForm({ source, guideId, buttonLabel, onSubmitted }: { source
       source,
       guideId,
       placement: readFreeModuleChoice(browserStorage())?.placement ?? null,
-      company: honeypot.current?.value ?? "",
+      company: honeypotToSend(honeypot.current?.value ?? "", honeypotChange.current),
     });
     setUnlocked(true);
     setSentTo(body.email);
@@ -115,12 +134,26 @@ export function LeadForm({ source, guideId, buttonLabel, onSubmitted }: { source
             inputMode="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            onPointerDown={() => { emailTouched.current = true; }}
+            onKeyDown={() => { emailTouched.current = true; }}
             className="min-h-11 w-full rounded-xl border border-indigo-deep/20 bg-white px-4 text-base text-ink"
           />
-          {/* Honeypot: people never see or reach it and send it empty; a filled one marks a bot. */}
-          <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
-            <label htmlFor={`${id}-company`}>Company</label>
-            <input id={`${id}-company`} ref={honeypot} type="text" name="company" tabIndex={-1} autoComplete="off" defaultValue="" />
+          {/* Honeypot: people never see or reach it; a filled one marks a bot. The request field stays `company`,
+              but the DOM name is neutral and the wrapper is inert so autofill and password managers skip it. */}
+          <div aria-hidden="true" inert style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+            <input
+              id={`${id}-hp`}
+              ref={honeypot}
+              type="text"
+              name="hp-trap-field"
+              tabIndex={-1}
+              autoComplete="off"
+              data-1p-ignore
+              data-lpignore="true"
+              data-form-type="other"
+              defaultValue=""
+              onChange={() => { honeypotChange.current = { atMs: Date.now() - mountedAt.current, afterEmailInteraction: emailTouched.current }; }}
+            />
           </div>
           <button
             type="submit"

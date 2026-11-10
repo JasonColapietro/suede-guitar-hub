@@ -13,7 +13,7 @@ import { OFFER, TOOLS } from "../lib/site.ts";
 register("./component-render-hooks.mjs", import.meta.url);
 const { default: BreakthroughPage } = await import("../app/breakthrough/page.tsx");
 const { default: ChartPackPage, metadata: chartPackMetadata } = await import("../app/plan/chart-pack/page.tsx");
-const { LeadForm, leadRequestBody, sendLead } = await import("../components/LeadForm.tsx");
+const { LeadForm, honeypotToSend, leadRequestBody, sendLead } = await import("../components/LeadForm.tsx");
 const { FieldGuideShelf } = await import("../components/FieldGuides.tsx");
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,7 +33,7 @@ function text(markup: string): string {
 }
 
 /** The form's honeypot input: the one input a person never sees or reaches. */
-const HONEYPOT = /<input[^>]*name="company"[^>]*>/;
+const HONEYPOT = /<input[^>]*name="hp-trap-field"[^>]*>/;
 
 test("the plan follows the 30-day path through existing lessons", () => {
   const plan = createBreakthroughPlan({ goal: PROMISE_GOAL, experience: "advanced-beginner", daysPerWeek: 4, minutesPerSession: 20 });
@@ -63,13 +63,28 @@ test("a PDF guide asks for an email first and never withholds the file on our fa
 
 test("the chart pack exists and the route keeps its URL", () => { assert.ok(existsSync("public/plan/guitarhub-chord-and-pentatonic-chart-pack.pdf")); assert.ok(TOOLS.some(tool => tool.href === "/breakthrough")); });
 
-test("the lead form's honeypot is hidden, unreachable and never autofilled", () => {
+test("the lead form's honeypot is hidden, unreachable and not an autofill target", () => {
   const form = render(LeadForm, { source: "guide", guideId: "the-method", buttonLabel: "Email me the guide" });
   const honeypot = form.match(HONEYPOT)?.[0];
-  assert.ok(honeypot, "the form carries the company honeypot");
+  assert.ok(honeypot, "the form carries the honeypot input");
+  const name = honeypot.match(/name="([^"]*)"/)?.[1] ?? "";
+  const id = honeypot.match(/id="([^"]*)"/)?.[1] ?? "";
+  for (const value of [name, id]) assert.doesNotMatch(value, /compan|organi[sz]ation|address|email|name|phone|website|url|street|city|zip/i, `${value} is not an autofill word`);
   assert.match(honeypot, /tabindex="-1"/);
   assert.match(honeypot, /autoComplete="off"/i);
-  assert.match(form, /aria-hidden="true"[^>]*>(?:(?!<\/div>)[\s\S])*name="company"/, "the honeypot sits inside an aria-hidden wrapper");
+  assert.match(honeypot, /data-1p-ignore/); assert.match(honeypot, /data-lpignore="true"/); assert.match(honeypot, /data-form-type="other"/);
+  assert.match(form, /<div[^>]*(?:aria-hidden="true"[^>]*inert|inert[^>]*aria-hidden="true")[^>]*><input[^>]*name="hp-trap-field"/, "the wrapper is inert and aria-hidden");
+  assert.doesNotMatch(form.match(/<div[^>]*inert[^>]*>/)?.[0] ?? "", /display:\s*none/);
+  assert.doesNotMatch(form, /name="company"/, "the DOM name is not the request field name");
+  assert.match(read("components/LeadForm.tsx"), /company: honeypotToSend\(/, "the body field is still company");
+});
+
+test("a honeypot value changed after the visitor used the email field is sent empty", () => {
+  assert.equal(honeypotToSend("Acme", { atMs: 5000, afterEmailInteraction: true }), "");
+  assert.equal(honeypotToSend("Acme", { atMs: 500, afterEmailInteraction: true }), "Acme", "within 2 s of mount it is a bot filling on load");
+  assert.equal(honeypotToSend("Acme", { atMs: 5000, afterEmailInteraction: false }), "Acme", "before any email interaction");
+  assert.equal(honeypotToSend("Acme", null), "Acme", "a value present at mount is sent as-is");
+  assert.equal(honeypotToSend("", { atMs: 5000, afterEmailInteraction: true }), "");
 });
 
 test("the lead body is the shared contract plus an empty honeypot", () => {
@@ -91,6 +106,7 @@ test("a lead post reports its outcome and never throws", async () => {
   await sendLead(async (url, init) => { calls.push({ url, init }); return { ok: true, status: 204 }; }, body);
   assert.equal(calls[0].url, "/api/leads");
   assert.equal(calls[0].init.method, "POST");
+  assert.equal(calls[0].init.keepalive, true, "the post survives a navigation right after submit");
   assert.deepEqual(JSON.parse(String(calls[0].init.body)), body);
 });
 
