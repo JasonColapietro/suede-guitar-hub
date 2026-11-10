@@ -170,9 +170,13 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
     deleteAccount: route(async (request) => {
       const { accountId, verifiedEmail } = await signedInAccount(request, true);
       await deps.deleteAccountData(accountId, verifiedEmail);
+      // Without a verified email the kept Apple rows may have no owner_email; deleting the identity
+      // would then orphan them (account_id set null) with nothing to re-claim them by.
       let inUse = true;
-      try { inUse = await deps.identityInUse(accountId); }
-      catch { console.error("[account] identity use check failed; shared sign-in kept"); }
+      if (verifiedEmail !== null) {
+        try { inUse = await deps.identityInUse(accountId); }
+        catch { console.error("[account] identity use check failed; shared sign-in kept"); }
+      }
       if (!inUse) await deps.deleteIdentity(accountId);
       return new Response(null, { status: 204, headers: { "Cache-Control": "private, no-store", Vary: "Cookie, Authorization" } });
     }),

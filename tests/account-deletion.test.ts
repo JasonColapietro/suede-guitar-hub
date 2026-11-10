@@ -59,6 +59,11 @@ test("deletion needs sign-in and a same-origin or bearer request, and keeps the 
   assert.equal((await unverified.handlers.deleteAccount(request(undefined, { method: "DELETE" }))).status, 204);
   assert.deepEqual(unverified.writes, ["data"]);
 
+  // An unverified email keeps the identity even when no other product uses it, so no Apple purchase is orphaned.
+  const unverifiedFree = harness({ resolveAccount: async () => ({ accountId: id, verifiedEmail: null }), identityInUse: async () => false });
+  assert.equal((await unverifiedFree.handlers.deleteAccount(request(undefined, { method: "DELETE" }))).status, 204);
+  assert.deepEqual(unverifiedFree.writes, ["data"]);
+
   const logged: unknown[][] = [];
   const original = console.error;
   console.error = (...args: unknown[]) => { logged.push(args); };
