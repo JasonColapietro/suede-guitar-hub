@@ -114,11 +114,12 @@ export const ROUTE_KEYWORDS = {
     "guitarhub",
   ],
   "/breakthrough": [
+    "30 day guitar plan",
     "30 day guitar challenge",
-    "guitar practice schedule",
-    "guitar practice routine template",
-    "guitar goals for beginners",
     "guitar practice plan",
+    "first guitar solo",
+    "guitar chord chart pdf",
+    "pentatonic scale chart pdf",
     "guitarhub",
   ],
   "/diagnose": [

@@ -88,9 +88,9 @@ const TOOL_DETAILS: Readonly<Record<string, ToolDetail>> = {
   },
   "/breakthrough": {
     purpose:
-      "You choose one finish line, say where you are as a player, and say how many days a week and how many minutes a session you actually have. It returns four weeks, each with a focus, the actions that serve it, and the recording that ends the week.",
+      "Four weeks from D and A, through E, C and G and the first pentatonic box, to your first solo, each with a guided lesson. Say where you are as a player and how many days and minutes you have, and it returns an action for every practice day and the recording that ends each week.",
     audience:
-      "Players who practice regularly and still reach the end of a month unable to say what changed. Also anyone whose month keeps splitting across five goals at once.",
+      "Players who want real chords and a first improvised solo this month, with one clear action for every practice day.",
   },
   "/diagnose": {
     purpose:
@@ -146,7 +146,7 @@ const ROUTING: readonly { href: string; sentence: string; stage: string }[] = [
   },
   {
     href: "/breakthrough",
-    sentence: "I know what I want to fix and the month keeps dissolving.",
+    sentence: "I want real chords and my first solo this month.",
     stage: "The whole loop, laid out one stage per week.",
   },
   {

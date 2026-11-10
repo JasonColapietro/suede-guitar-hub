@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import {
   BREAKTHROUGH_GOALS,
+  PROMISE_GOAL,
   BREAKTHROUGH_STORAGE_KEY,
   createBreakthroughPlan,
   normalizeProgress,
@@ -14,6 +16,8 @@ import {
   type BreakthroughProfile,
 } from "../lib/breakthrough.ts";
 import { createStoredValue } from "../lib/shared-storage.ts";
+import { catalogLessons } from "../lib/learning/catalog.ts";
+import { getLesson } from "../lib/learning/curriculum.ts";
 
 const profile = {
   goal: "complete-song" as const,
@@ -199,4 +203,28 @@ test("checking an action writes to the latest stored plan, never onto a replaced
   const replaced = { profile: { ...profile, goal: "rhythm-time" as const }, completedActionIds: [] };
   assert.equal(setBreakthroughActionDone(replaced, profile, "complete-song-w1-a1", true), replaced);
   assert.equal(setBreakthroughActionDone(null, profile, "complete-song-w1-a1", true), null);
+});
+
+test("each week of the promise plan opens the first lesson of its module, named as the catalogue names it", () => {
+  const plan = createBreakthroughPlan({ ...profile, goal: PROMISE_GOAL });
+  const modules = ["g-l2-m1", "g-l3-m2", "g-l4-m1", "g-l5-m4"];
+  plan.weeks.forEach((week, index) => {
+    const first = catalogLessons("guitar").find(entry => entry.module.id === modules[index]);
+    assert.ok(first, `${modules[index]} is in the catalogue`);
+    assert.equal(week.resource.href, `/learn/guitar/${first.lesson.id}`);
+    assert.equal(week.resource.label, `Lesson: ${getLesson("guitar", first.lesson.id)?.lesson.title}`);
+  });
+  assert.equal(plan.weeks[0].actions[0].id, "chords-to-first-solo-w1-a1");
+});
+
+test("a plan stored as a JSON string restores like a parsed one", () => {
+  const stored = { profile: { ...profile, goal: PROMISE_GOAL }, completedActionIds: ["chords-to-first-solo-w1-a1", "made-up"] };
+  assert.deepEqual(restoreBreakthroughState(JSON.stringify(stored)), { ...stored, completedActionIds: ["chords-to-first-solo-w1-a1"] });
+  assert.equal(restoreBreakthroughState("{not json"), null);
+});
+
+test("the planner builds only the promise goal and offers no goal picker", () => {
+  const source = readFileSync(new URL("../components/BreakthroughPlanner.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(source, /BREAKTHROUGH_GOALS/);
+  assert.match(source, /goal: PROMISE_GOAL/);
 });

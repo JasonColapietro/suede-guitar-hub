@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BreakthroughPlanner from "@/components/BreakthroughPlanner";
+import { CHART_PACK_PDF, LeadForm } from "@/components/LeadForm";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
 import SiteFooter from "@/components/SiteFooter";
 import { keywordsFor } from "@/lib/keywords";
+import { PROMISE_GOAL, createBreakthroughPlan } from "@/lib/breakthrough";
+import { OFFER } from "@/lib/site";
 
 const CANONICAL = "https://guitarhub.org/breakthrough";
 
-const TITLE = "Free 30-Day Guitar Practice Planner | GuitarHub";
+const PLAN_NAME = "Your 30-Day Chords-to-First-Solo Plan";
+const TITLE = `${PLAN_NAME} | GuitarHub`;
 const DESCRIPTION =
-  "Choose one guitar breakthrough, get a four-week practice sequence, launch the right Strumly tools, and track evidence in your browser.";
+  "A free four-week practice sequence from D and A to your first solo, with a printable chord and pentatonic chart pack sent to your inbox.";
 
 /**
  * The `openGraph` block is not optional here. Next merges page metadata key by
@@ -26,8 +30,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   openGraph: {
     title: TITLE,
-    description:
-      "One finish line, four weeks of practice, and a recording at the end of every week. Free, no account, and it stays in your browser.",
+    description: `${OFFER.promise} Four weeks, four guided lessons and a printable chord and pentatonic chart pack.`,
     url: CANONICAL,
     siteName: "GuitarHub",
     type: "website",
@@ -50,7 +53,7 @@ const SITE_ID = "https://guitarhub.org/#website";
 /** Read by both the visible trail and the BreadcrumbList node below. */
 const CRUMBS = [
   ...crumbTrail("Tools", "/tools"),
-  { name: "30-day breakthrough planner", href: "/breakthrough" },
+  { name: "30-day chords-to-first-solo plan", href: "/breakthrough" },
 ];
 
 const JSON_LD = {
@@ -59,17 +62,17 @@ const JSON_LD = {
     {
       "@type": "WebApplication",
       "@id": `${CANONICAL}#tool`,
-      name: "30-day breakthrough planner",
+      name: "30-day chords-to-first-solo plan",
       url: CANONICAL,
       description:
-        "Turns one 30-day guitar goal into a four-week sequence of weekly focuses, practice actions, and a piece of evidence to record at the end of each week.",
+        "Builds a four-week guitar plan from D and A chords to a first improvised solo, with a practice action for every practice day and a piece of evidence to record at the end of each week.",
       applicationCategory: "EducationalApplication",
       applicationSubCategory: "Music practice tool",
       operatingSystem: "Web",
-      browserRequirements: "Requires JavaScript. No account and no network connection.",
+      browserRequirements: "Requires JavaScript.",
       isAccessibleForFree: true,
-      // Genuinely free: there is no payment step, no account, and no gate
-      // anywhere in the planner.
+      // Free: the plan, the schedule builder and the chart pack have no
+      // payment step and no account.
       offers: {
         "@type": "Offer",
         price: "0",
@@ -77,9 +80,10 @@ const JSON_LD = {
         availability: "https://schema.org/InStock",
       },
       featureList: [
-        "One finish line chosen from a fixed list of 30-day goals",
-        "Four weeks of focuses and actions, sized to your days and minutes",
-        "A named piece of evidence to record at the end of every week",
+        "Four weeks from D and A, through E, C and G and the first pentatonic box, to a first solo",
+        "A guided lesson for every week",
+        "Practice actions sized to your days and minutes",
+        "A printable chord and pentatonic chart pack, sent by email",
         "Progress checkboxes stored in the browser, with no account",
       ],
       inLanguage: "en-US",
@@ -98,12 +102,15 @@ const JSON_LD = {
   ],
 };
 
-/** The /method loop, one stage per week of the plan. */
+/** The plan everyone starts from: the summary on this page and the plan the email sends. */
+const PATH = createBreakthroughPlan({ goal: PROMISE_GOAL, experience: "advanced-beginner", daysPerWeek: 4, minutesPerSession: 20 });
+
+/** The /method loop, run inside every week of the plan. */
 const LOOP = [
-  ["Week 1 · Baseline", "Record one real attempt at your finish line and name where it breaks. No placement quiz to game."],
-  ["Week 2 · Isolate", "Cut the failure down to the smallest piece that still breaks and repair that one piece."],
-  ["Week 3 · Reconnect", "Put the repair back into the full song, the click, or the backing track the week calls for."],
-  ["Week 4 · Prove", "Record the same take beside the baseline. Founding-room members also get one highest-leverage correction, and progress proof is shared only when you choose."],
+  ["Baseline", "Record one real attempt at the week's work and name the spot where it breaks."],
+  ["Isolate", "Cut that spot down to the smallest piece that still breaks and repair that one piece."],
+  ["Reconnect", "Put the repair back into the full change, the box or the phrase, with the click on."],
+  ["Prove", "Record the week's evidence and play it beside the first take."],
 ] as const;
 
 export default function BreakthroughPage() {
@@ -122,55 +129,97 @@ export default function BreakthroughPage() {
 
       <main id="main-content" tabIndex={-1}>
         <section className="px-3 pt-3">
-          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
-            <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
-              The Breakthrough Room
-            </span>
-            <h1 className="mx-auto mt-7 max-w-4xl text-5xl leading-tight md:text-6xl">
-              Your 30-day guitar practice plan. <em className="font-display italic text-peach">Prove one change.</em>
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              Turn one guitar goal into four weeks of practice, evidence, correction, and the next right move. The planner is free and stays in your browser.
-            </p>
-            <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-white/70">
-              Not sure which change to chase?{" "}
-              <Link
-                href="/diagnose"
-                className="font-semibold text-peach underline underline-offset-4 hover:brightness-110"
-              >
-                Run the practice plateau diagnostic
-              </Link>{" "}
-              first. It reads nine answers back and tells you what they point
-              at, including when they do not point at any one thing.
-            </p>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/70">
-              This is the planner rather than the guide: it turns one finish line
-              into four weeks of focuses and a piece of evidence to record each
-              week. Choosing a finish line narrow enough to prove, and judging
-              the day 30 recording once you have it, are written out in{" "}
-              <Link
-                href="/30-day-guitar-challenge"
-                className="font-semibold text-peach underline underline-offset-4 hover:brightness-110"
-              >
-                the 30-day guitar challenge
-              </Link>
-              . Read that one for the judgment. Use this one for the four weeks.
-            </p>
+          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-cream md:py-24">
+            <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+              <div className="text-center lg:text-left">
+                <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-pale">
+                  Free 30-day plan
+                </span>
+                <h1 className="mt-7 text-5xl leading-tight md:text-6xl">{PLAN_NAME}</h1>
+                <p className="mt-6 text-2xl leading-snug text-peach">{OFFER.promise}</p>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/75 lg:max-w-none">
+                  Four weeks, one guided lesson each: D and A, then E, C and G,
+                  then the first minor pentatonic box, then your first solo over
+                  an A blues. Get the full plan and a printable chord and
+                  pentatonic chart pack by email.
+                </p>
+              </div>
+              <div className="rounded-3xl bg-cream p-6 text-ink shadow-xl md:p-8">
+                <p className="font-display text-2xl text-indigo-deep">Get the full plan</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                  The four weeks, a daily practice shape and the chart pack for
+                  your music stand.
+                </p>
+                <div className="mt-5">
+                  <LeadForm source="plan" buttonLabel="Email me the full plan" />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
+        <section id="plan-summary" aria-labelledby="plan-summary-title" className="mx-auto max-w-6xl px-6 pt-20">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">Your plan at a glance</p>
+          <h2 id="plan-summary-title" className="mt-4 max-w-3xl text-4xl text-indigo-deep md:text-5xl">
+            Four weeks from first chords to your first solo
+          </h2>
+          <p className="mt-5 max-w-2xl leading-relaxed text-ink/70">
+            {PATH.finishLine} Practise 15 to 20 minutes a day, at least four
+            days a week, and finish each week&apos;s focus before you start the
+            next.
+          </p>
+          <ol className="mt-10 grid gap-5 md:grid-cols-2">
+            {PATH.weeks.map((week) => (
+              <li key={week.week} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-ink/5">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet">Week {week.week}</p>
+                <h3 className="mt-2 font-display text-2xl text-indigo-deep">{week.title}</h3>
+                <p className="mt-3 text-ink/75">{week.focus}</p>
+                <p className="mt-3 text-sm text-ink/70">
+                  <strong className="text-indigo-deep">Proof:</strong> {week.evidence}
+                </p>
+                <Link
+                  href={week.resource.href}
+                  className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-violet underline underline-offset-4 hover:text-indigo-deep"
+                >
+                  {week.resource.label} <span aria-hidden>→</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-8 text-sm text-ink/70">
+            The chart pack prints every open chord in weeks 1 and 2 and the box
+            one map for weeks 3 and 4:{" "}
+            <a href={CHART_PACK_PDF} download className="font-semibold text-violet underline underline-offset-4 hover:text-indigo-deep">
+              chord and pentatonic chart pack (PDF)
+            </a>
+            .
+          </p>
+        </section>
+
         <section className="mx-auto max-w-6xl px-6 py-20">
-          <BreakthroughPlanner />
+          <p className="max-w-2xl text-sm leading-relaxed text-ink/70">
+            This is the planner rather than the guide: it turns one finish line into four weeks of focuses and a piece of evidence to record each week. Choosing a finish line of your own and judging the day 30 recording are written out in{" "}
+            <Link
+              href="/30-day-guitar-challenge"
+              className="font-semibold text-violet underline underline-offset-4 hover:text-indigo-deep"
+            >
+              the 30-day guitar challenge
+            </Link>
+            .
+          </p>
+          <div className="mt-10">
+            <BreakthroughPlanner />
+          </div>
         </section>
 
         <section className="bg-cream-soft px-6 py-20">
           <div className="mx-auto max-w-6xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">The learning loop</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">Inside every week</p>
             <h2 className="mt-4 max-w-3xl text-4xl text-indigo-deep md:text-5xl">
-              Community becomes useful when every conversation changes the next practice.
+              Each week ends with a recording that proves the change.
             </h2>
             <p className="mt-5 max-w-2xl leading-relaxed text-ink/70">
-              The planner runs this loop for you. If you want to see what each
+              Every week of the plan runs the same four steps. To see what each
               stage asks and how you know you can move on, read{" "}
               <Link
                 href="/method"
@@ -180,7 +229,7 @@ export default function BreakthroughPage() {
               </Link>
               .
             </p>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-indigo-deep/10 md:grid-cols-3">
+            <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-indigo-deep/10 md:grid-cols-2 lg:grid-cols-4">
               {LOOP.map(([title, body]) => (
                 <article key={title} className="bg-cream p-7">
                   <h3 className="font-display text-2xl text-indigo-deep">{title}</h3>

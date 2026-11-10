@@ -55,6 +55,7 @@ const EYEBROWS: Readonly<Record<string, string>> = {
   "/compare": "Compare",
   "/learn/guitar": "Learning path",
   "/advanced": "Advanced Lab",
+  "/breakthrough": "Free 30-day plan",
 };
 
 /**

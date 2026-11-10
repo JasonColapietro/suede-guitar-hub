@@ -130,10 +130,10 @@ export const TOOLS: readonly SiteEntry[] = [
   },
   {
     href: "/breakthrough",
-    title: "30-day breakthrough planner",
+    title: "30-day chords-to-first-solo plan",
     blurb:
-      "Choose one finish line and turn it into a four-week practice sequence you can run this month.",
-    lastModified: "2026-10-24",
+      "Four weeks from D and A to your first solo, a guided lesson for each week, and a printable chord and pentatonic chart pack.",
+    lastModified: "2026-11-10",
   },
   {
     href: "/diagnose",

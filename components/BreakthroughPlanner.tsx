@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
-  BREAKTHROUGH_GOALS,
   BREAKTHROUGH_STORAGE_KEY,
+  PROMISE_GOAL,
   createBreakthroughPlan,
   normalizeProgress,
   progressPercent,
@@ -15,18 +15,21 @@ import {
   type BreakthroughPlan,
   type BreakthroughProfile,
   type ExperienceLevel,
-  type GoalId,
   type StoredBreakthroughState,
 } from "@/lib/breakthrough";
 import { clearConfirmedSnapshot, createStoredValue, subscribeToStoredKey } from "@/lib/shared-storage";
 import PracticeStorageNotice from "@/components/PracticeStorageNotice";
-import { STRUMLY } from "@/lib/site";
 
+/**
+ * Every plan built here is the chords-to-first-solo path; the player sets only
+ * the level, the days and the minutes. A plan saved under an older goal still
+ * opens, and rebuilding it moves it onto this path.
+ */
 const DEFAULT_PROFILE: BreakthroughProfile = {
-  goal: "complete-song",
+  goal: PROMISE_GOAL,
   experience: "advanced-beginner",
   daysPerWeek: 4,
-  minutesPerSession: 30,
+  minutesPerSession: 20,
 };
 
 const EXPERIENCE_OPTIONS: Array<{ value: ExperienceLevel; label: string }> = [
@@ -148,23 +151,24 @@ export default function BreakthroughPlanner() {
 
   function buildPlan(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const next: BreakthroughProfile = { ...profile, goal: PROMISE_GOAL };
     try {
-      createBreakthroughPlan(profile);
+      createBreakthroughPlan(next);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Check your practice choices.");
       return;
     }
     // Ask before an edit throws away actions the player already checked.
-    // Changing minutes or experience keeps every action; fewer days or a new
-    // goal is what can drop some.
+    // Changing minutes or experience keeps every action; fewer days, or moving
+    // a plan saved under an older goal onto this path, is what can drop some.
     const latest = breakthroughStore.read();
     const base = latest.available ? latest.value : shown.current;
-    const { dropped } = rebuildBreakthroughState(base, profile);
+    const { dropped } = rebuildBreakthroughState(base, next);
     if (dropped.length > 0) {
-      setPendingRebuild({ profile, dropped: dropped.length });
+      setPendingRebuild({ profile: next, dropped: dropped.length });
       return;
     }
-    commitProfile(profile);
+    commitProfile(next);
   }
 
   function setActionDone(actionId: string, done: boolean) {
@@ -223,38 +227,18 @@ export default function BreakthroughPlanner() {
         <PracticeStorageNotice unavailable={storageUnavailable} />
         <fieldset>
           <legend className="font-display text-3xl text-indigo-deep">
-            {editing ? "Adjust your plan" : "Define one finish line"}
+            {editing ? "Adjust your plan" : "Fit the plan to your week"}
           </legend>
           <p className="mt-3 max-w-2xl text-ink/70">
             {editing
-              ? "Change the days, minutes or level and your checked actions carry over. A new goal starts a new plan."
-              : "One goal, four weeks, one action for every practice day, sized to the minutes you have. Your plan stays in this browser."}
+              ? "Change the days, minutes or level and your checked actions carry over."
+              : "Four weeks from D and A to your first solo, with one action for every practice day, sized to the minutes you have. Tick off each action as you go; your plan stays in this browser."}
           </p>
           {notice && !editing ? (
             <p role="status" className="mt-3 text-sm text-ink/60">{notice}</p>
           ) : null}
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <label className="breakthrough-field md:col-span-2">
-              <span>What do you want to prove in 30 days?</span>
-              <select
-                value={profile.goal}
-                onChange={(event) => {
-                  setPendingRebuild(null);
-                  setProfile((current) => ({
-                    ...current,
-                    goal: event.target.value as GoalId,
-                  }));
-                }}
-              >
-                {BREAKTHROUGH_GOALS.map((goal) => (
-                  <option key={goal.id} value={goal.id}>
-                    {goal.title}
-                  </option>
-                ))}
-              </select>
-            </label>
-
             <label className="breakthrough-field">
               <span>Where are you now?</span>
               <select
@@ -323,7 +307,7 @@ export default function BreakthroughPlanner() {
           <div role="alert" className="mt-6 rounded-2xl border border-violet/25 bg-violet-soft/10 p-5">
             <p className="font-medium text-indigo-deep">
               {pendingRebuild.profile.goal !== planProfile?.goal
-                ? "A new goal starts a new plan"
+                ? "Your saved plan has a different goal, and this rebuilds it as the chords-to-first-solo plan"
                 : "Fewer practice days removes extra-day actions"}
               , so{" "}
               {pendingRebuild.dropped === 1
@@ -347,8 +331,9 @@ export default function BreakthroughPlanner() {
         ) : null}
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <button type="submit" className="breakthrough-primary">
-            {editing ? "Update my plan" : "Build my 30-day plan"} <span aria-hidden>→</span>
+          {/* Secondary on purpose: the email form above is the page's one primary action. */}
+          <button type="submit" className="breakthrough-reset">
+            {editing ? "Update my plan" : "Build my weekly schedule"} <span aria-hidden>→</span>
           </button>
           {editing ? (
             <button type="button" onClick={cancelEditing} className="breakthrough-reset">
@@ -366,7 +351,7 @@ export default function BreakthroughPlanner() {
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet">
-            Your 30-day room
+            Your 30-day plan
           </span>
           <h2 id="your-plan" tabIndex={-1} className="mt-3 font-display text-4xl text-indigo-deep md:text-5xl">
             {plan.title}
@@ -396,7 +381,7 @@ export default function BreakthroughPlanner() {
           ) : (
             <>
               <button type="button" onClick={startEditing} className="breakthrough-reset">
-                Change days, minutes or goal
+                Change days, minutes or level
               </button>
               <button
                 type="button"
@@ -417,7 +402,7 @@ export default function BreakthroughPlanner() {
             ? "one checked action"
             : `${completedActionIds.length} checked actions`}
           . There is no other copy and no undo. To change days, minutes or
-          level instead, keep it and use &ldquo;Change days, minutes or goal&rdquo;.
+          level instead, keep it and use &ldquo;Change days, minutes or level&rdquo;.
         </p>
       ) : null}
 
@@ -479,9 +464,15 @@ export default function BreakthroughPlanner() {
                     {week.tempoTarget}
                   </p>
                 </div>
-                <a className="breakthrough-resource" href={week.resource.href} target="_blank" rel="noopener">
-                  {week.resource.label} <span aria-hidden>↗</span>
-                </a>
+                {week.resource.href.startsWith("/") ? (
+                  <Link className="breakthrough-resource" href={week.resource.href}>
+                    {week.resource.label} <span aria-hidden>→</span>
+                  </Link>
+                ) : (
+                  <a className="breakthrough-resource" href={week.resource.href} target="_blank" rel="noopener">
+                    {week.resource.label} <span aria-hidden>↗</span>
+                  </a>
+                )}
               </div>
 
               <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
@@ -512,7 +503,7 @@ export default function BreakthroughPlanner() {
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-white/85">{week.evidence}</p>
                   <p className="mt-4 border-t border-white/15 pt-4 text-sm leading-relaxed text-white/65">
-                    <strong className="text-white/90">Crew prompt:</strong> {week.crewPrompt}
+                    <strong className="text-white/90">{plan.goal === PROMISE_GOAL ? "Ask yourself:" : "Crew prompt:"}</strong> {week.crewPrompt}
                   </p>
                 </div>
               </div>
@@ -523,20 +514,13 @@ export default function BreakthroughPlanner() {
 
       <div className="mt-12 rounded-3xl bg-indigo-deep px-6 py-8 text-cream md:flex md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-display text-2xl">Want the human layer?</p>
+          <p className="font-display text-2xl">Start week one today</p>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/70">
-            Apply for the founding room: a small crew, one weekly studio, a midpoint review, and a final showcase. Applications are reviewed for fit before any commitment.
+            Answer five questions and GuitarHub opens the free module that fits where you are now, with guided lessons for each step.
           </p>
         </div>
         <div className="mt-6 flex flex-wrap gap-3 md:mt-0 md:pl-8">
-          <Link href="/#apply" className="breakthrough-primary">Apply to the room</Link>
-          {/* STRUMLY.social, not a hand-written suede.social: the registry in
-              lib/site.ts holds the one URL this site uses for Suede AI Social, and
-              a second spelling of the same destination is a second thing to
-              keep true. */}
-          <a href={STRUMLY.social} target="_blank" rel="noopener" className="breakthrough-community">
-            Visit Suede AI Social ↗
-          </a>
+          <Link href="/start" className="breakthrough-primary">Start your free module</Link>
         </div>
       </div>
     </section>

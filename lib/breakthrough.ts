@@ -1,4 +1,7 @@
+import { lessonHref } from "./learning/track.ts";
+
 export type GoalId =
+  | "chords-to-first-solo"
   | "complete-song"
   | "rhythm-time"
   | "fretboard-map"
@@ -77,7 +80,73 @@ type GoalTemplate = {
   weeks: readonly WeekTemplate[];
 };
 
+/** The goal the planner builds: the 30-day path from first chords to a first solo. */
+export const PROMISE_GOAL: GoalId = "chords-to-first-solo";
+
+/**
+ * Each week of the promise plan opens the first lesson of its module:
+ * g-l2-m1 (D and A), g-l3-m2 (E, C and G), g-l4-m1 (Box One) and g-l5-m4
+ * (First Solo). Written out rather than read from the catalogue so the
+ * planner's browser bundle stays free of it; tests/breakthrough.test.ts checks
+ * every id against the catalogue.
+ */
+const PROMISE_LESSONS = {
+  dAndA: { id: "g-l2-m1-01", title: "D, Then A" },
+  eCAndG: { id: "g-l3-m2-01", title: "The Stretch Chords" },
+  boxOne: { id: "g-l4-m1-01", title: "Five Notes That Always Work" },
+  firstSolo: { id: "g-l5-m4-01", title: "Four Bars Is a Sentence" },
+} as const;
+
+function lessonResource(lesson: { id: string; title: string }) {
+  return { label: `Lesson: ${lesson.title}`, href: lessonHref("guitar", lesson.id) };
+}
+
+/**
+ * Every goal a saved plan can name. The planner builds only `PROMISE_GOAL`;
+ * the older goals stay so a plan saved before it still opens.
+ */
 export const BREAKTHROUGH_GOALS: readonly GoalTemplate[] = [
+  {
+    id: "chords-to-first-solo",
+    title: "Chords to your first solo",
+    shortLabel: "Chords to first solo",
+    finishLine:
+      "Change cleanly between D, A, E, C and G, then improvise four bars over an A blues without stopping.",
+    weeks: [
+      {
+        title: "D and A",
+        focus: "Fret clean D and A chords, then switch between them on the beat with a slow strum.",
+        resource: lessonResource(PROMISE_LESSONS.dAndA),
+        evidence: "One minute of D to A changes on the beat, every string ringing.",
+        crewPrompt: "Which string goes quiet first when you change, and which finger is touching it?",
+        actions: ["Build D and A, string by string", "Change D to A on the beat", "Record one minute of changes"],
+      },
+      {
+        title: "E, C and G",
+        focus: "Add E, C and G and play a four-chord progression through without stopping.",
+        resource: lessonResource(PROMISE_LESSONS.eCAndG),
+        evidence: "One pass of a four-chord progression with no stop between chords.",
+        crewPrompt: "Which change makes you pause, and how slow does the strum need to be to keep it?",
+        actions: ["Build E, C and G, string by string", "Change between each pair on the beat", "Record the progression"],
+      },
+      {
+        title: "Box One",
+        focus: "Learn the first A minor pentatonic box at frets 5 to 8 and play it up and down in time.",
+        resource: lessonResource(PROMISE_LESSONS.boxOne),
+        evidence: "Box one up and down at 60 BPM with alternate picking and no stop.",
+        crewPrompt: "Can you name the three A roots in the box without looking at the chart?",
+        actions: ["Map box one and its A roots", "Play it up and down at 60 BPM", "Record one clean pass"],
+      },
+      {
+        title: "First Solo",
+        focus: "Improvise four-bar phrases over an A blues and land each phrase on the root.",
+        resource: lessonResource(PROMISE_LESSONS.firstSolo),
+        evidence: "Four bars improvised in key over the blues without stopping.",
+        crewPrompt: "Which phrase ended on A, and which one would you answer differently next time?",
+        actions: ["Play a phrase, then answer it", "Land each phrase on A", "Record four bars without stopping"],
+      },
+    ],
+  },
   {
     id: "complete-song",
     title: "Finish one song cleanly",
@@ -463,9 +532,17 @@ export function progressPercent(
   return Math.round((normalizeProgress(plan, completedActionIds).length / total) * 100);
 }
 
+/** A stored plan, as parsed JSON or as the raw stored string. */
 export function restoreBreakthroughState(
   candidate: unknown,
 ): StoredBreakthroughState | null {
+  if (typeof candidate === "string") {
+    try {
+      candidate = JSON.parse(candidate);
+    } catch {
+      return null;
+    }
+  }
   if (!candidate || typeof candidate !== "object") return null;
   const record = candidate as Record<string, unknown>;
   if (!record.profile || typeof record.profile !== "object") return null;

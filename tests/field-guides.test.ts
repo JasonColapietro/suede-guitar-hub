@@ -1,9 +1,15 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import test from "node:test";
+import { register } from "node:module";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 
 import { FIELD_GUIDES, fieldGuideCover, fieldGuidePdf } from "../lib/field-guides.ts";
 import { GUIDES, RESOURCES } from "../lib/site.ts";
+
+register("./component-render-hooks.mjs", import.meta.url);
+const { FieldGuideDownload, FieldGuideShelf } = await import("../components/FieldGuides.tsx");
 
 const publicFile = (path: string) => new URL(`../public${path}`, import.meta.url);
 
@@ -37,4 +43,25 @@ test("every guide page offers its own PDF", () => {
     const source = readFileSync(new URL(`../app${guide.href}/page.tsx`, import.meta.url), "utf8");
     assert.ok(source.includes(`guideHref="${guide.href}"`), `${guide.href} must pass guideHref="${guide.href}" to Article`);
   }
+});
+
+test("the guide-page download card asks for an email before the PDF", () => {
+  for (const guide of FIELD_GUIDES) {
+    const markup = renderToStaticMarkup(createElement(FieldGuideDownload, { href: guide.href }));
+    assert.ok(markup.includes("data-field-guide-download"), `${guide.href} renders its download card`);
+    assert.doesNotMatch(markup, /\.pdf"/, `${guide.href} links its PDF only after the email`);
+  }
+});
+
+test("every shelf cover opens the email form for its own guide", () => {
+  const markup = renderToStaticMarkup(createElement(FieldGuideShelf, {}));
+  assert.equal((markup.match(/data-guide-gate=/g) ?? []).length, FIELD_GUIDES.length);
+  for (const guide of FIELD_GUIDES) assert.ok(markup.includes(`data-guide-gate="${guide.slug}"`), `${guide.slug} has its own gate`);
+});
+
+test("the chart pack email 1 links is a real PDF under 3 MB", () => {
+  const pdf = publicFile("/plan/guitarhub-chord-and-pentatonic-chart-pack.pdf");
+  assert.ok(existsSync(pdf), "missing chart pack; run scripts/field-guide-art/build-chart-pack.mjs");
+  assert.equal(readFileSync(pdf).subarray(0, 5).toString(), "%PDF-");
+  assert.ok(statSync(pdf).size < 3_000_000);
 });

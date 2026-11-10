@@ -520,7 +520,7 @@ export default function GuidesPage() {
           </ul>
         </section>
 
-        <FieldGuideShelf intro="The guides on this shelf are also PDFs you can keep on your phone or print for the music stand. Tap a cover to download it. No account, no email." />
+        <FieldGuideShelf intro="The guides on this shelf are also PDFs you can keep on your phone or print for the music stand. Tap a cover, enter your email, and the download opens right here." />
 
         {GROUPS.map((group) => (
           <section
