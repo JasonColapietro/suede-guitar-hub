@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Readiness from "@/components/Readiness";
+import { PaidToolGate } from "@/components/paywall/PaidToolGate";
+import { checkoutAvailable } from "@/lib/checkout/config";
+import { READINESS_CRITERIA, scoreReadiness, type ReadinessCriterionId } from "@/lib/readiness";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
-import { GUIDES, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
+import { GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, isInternalHref, lifetimeOfferAt } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/readiness`;
@@ -96,20 +99,22 @@ const JSON_LD = {
       applicationSubCategory: "Guitar practice tool",
       operatingSystem: "Web",
       browserRequirements:
-        "Runs entirely in the browser. Requires JavaScript. No account, and nothing is uploaded.",
+        "Runs entirely in the browser. Requires JavaScript and GuitarHub lifetime access. Nothing you enter is uploaded.",
       description: DESCRIPTION,
       inLanguage: "en-US",
-      isAccessibleForFree: true,
+      // Included with lifetime access, priced when the page is built.
+      isAccessibleForFree: false,
       offers: {
         "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
+        name: `GuitarHub ${LIFETIME.name}`,
+        price: LIFETIME.schemaPrice,
+        priceCurrency: LIFETIME.currency,
       },
       featureList: [
         "Ten weighted performance-readiness checks",
         "Weighted 0-100 score with four named readiness bands",
         "The single highest-leverage unchecked item, with an instruction",
-        "Multiple songs tracked in the browser, with no account",
+        "Multiple songs tracked in this browser",
       ],
       author: { "@id": JASON_PERSON_ID },
       publisher: { "@id": SUEDE_ORG_ID },
@@ -146,6 +151,42 @@ const JSON_LD = {
   ],
 };
 
+/** The checks ticked in the example below; the score and next action are the tool's own. */
+const PREVIEW_CHECKED: readonly ReadinessCriterionId[] = ["full-tempo", "form-from-memory", "twice-in-a-row", "standing"];
+const PREVIEW_ASSESSMENT = scoreReadiness(PREVIEW_CHECKED);
+
+function ReadinessPreview() {
+  return (
+    <figure className="rounded-3xl bg-white p-7 ring-1 ring-ink/5">
+      <figcaption className="text-sm font-semibold uppercase tracking-[0.2em] text-violet">
+        Example: one song with {PREVIEW_CHECKED.length} of {READINESS_CRITERIA.length} checks true
+      </figcaption>
+      <div data-locked-preview inert className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <ul className="grid gap-2 text-sm text-ink/75">
+          {READINESS_CRITERIA.map((criterion) => (
+            <li key={criterion.id} className="flex gap-3">
+              <span aria-hidden className="font-semibold text-violet">
+                {PREVIEW_ASSESSMENT.checkedIds.includes(criterion.id) ? "✓" : "○"}
+              </span>
+              <span>{criterion.label}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="rounded-2xl bg-cream p-6">
+          <p className="font-display text-5xl text-indigo-deep">{PREVIEW_ASSESSMENT.score}</p>
+          <p className="mt-2 font-semibold text-indigo-deep">{PREVIEW_ASSESSMENT.band.label}</p>
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">{PREVIEW_ASSESSMENT.band.summary}</p>
+          {PREVIEW_ASSESSMENT.nextAction && (
+            <p className="mt-4 text-sm leading-relaxed text-ink/75">
+              <strong className="text-indigo-deep">Fix next:</strong> {PREVIEW_ASSESSMENT.nextAction.instruction}
+            </p>
+          )}
+        </div>
+      </div>
+    </figure>
+  );
+}
+
 export default function ReadinessPage() {
   return (
     <>
@@ -169,8 +210,8 @@ export default function ReadinessPage() {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
               Score one song against the ten conditions that decide whether it
-              holds up away from your practice chair. No account, nothing
-              uploaded, and it stays in your browser.
+              holds up away from your practice chair. Nothing is uploaded,
+              and your songs stay in your browser.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
@@ -223,7 +264,14 @@ export default function ReadinessPage() {
         </section>
 
         <section id="score" className="mx-auto max-w-6xl px-6 pb-20">
-          <Readiness />
+          <PaidToolGate
+            checkoutAvailable={checkoutAvailable()}
+            returnTo="/readiness"
+            offer={lifetimeOfferAt(new Date())}
+            preview={<ReadinessPreview />}
+          >
+            <Readiness />
+          </PaidToolGate>
         </section>
 
         <section

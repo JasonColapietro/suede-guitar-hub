@@ -123,7 +123,7 @@ test("pages declare the site's language as en-US", () => {
 
 test("the /tools list references each tool's node instead of redefining it", () => {
   const source = read("app/tools/page.tsx");
-  const graph = source.slice(source.indexOf("const JSON_LD"));
+  const graph = source.slice(source.indexOf("const jsonLd"));
   assert.doesNotMatch(graph, /"@type": "SoftwareApplication"/);
   assert.match(graph, /item: \{ "@id": `\$\{SITE_URL\}\$\{tool\.href\}#tool` \}/);
 

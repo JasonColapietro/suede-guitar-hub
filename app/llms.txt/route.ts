@@ -5,10 +5,12 @@ import { COMPETITORS, GUITARHUB_MODEL, PRICING_VARIES, VERIFIED_LABEL } from "@/
 import {
   APP_STORE,
   COMPARISONS,
+  FREE_TOOLS,
   GUIDES,
   HUBS,
   LEARN,
   LIFETIME,
+  PAID_TOOLS,
   RESOURCES,
   SITE_URL,
   STRUMLY,
@@ -104,7 +106,8 @@ ${listEntries(START_POINTS)}
 
 ## Free tools
 
-There are ${spellOut(TOOLS.length)} tools, all free and reachable without an account. Each one runs
+There are ${spellOut(TOOLS.length)} tools. ${spellOut(FREE_TOOLS.length)} are free and reachable without an account: ${FREE_TOOLS.map((tool) => tool.title.toLowerCase()).join(", ")}.
+The other ${spellOut(PAID_TOOLS.length)} (${PAID_TOOLS.map((tool) => tool.title.toLowerCase()).join(", ")}) come with lifetime access. Each one runs
 entirely in the browser: nothing you type is uploaded or emailed. What you
 type is kept in that browser's own storage and can be cleared from the page
 itself. Microphone features (the tuner and the Advanced Lab drills) analyze

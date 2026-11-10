@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SessionBuilder from "@/components/SessionBuilder";
+import { PaidToolGate } from "@/components/paywall/PaidToolGate";
+import { checkoutAvailable } from "@/lib/checkout/config";
+import { buildSessionPlan } from "@/lib/session";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
-import { GUIDES, SITE_URL, STRUMLY, TOOLS } from "@/lib/site";
+import { GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, lifetimeOfferAt } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/session`;
@@ -86,14 +89,16 @@ const JSON_LD = {
       applicationSubCategory: "Guitar practice tool",
       operatingSystem: "Web",
       browserRequirements:
-        "Runs entirely in the browser. Requires JavaScript. No account, and nothing is uploaded.",
+        "Runs entirely in the browser. Requires JavaScript and GuitarHub lifetime access. Nothing you enter is uploaded.",
       description: DESCRIPTION,
       inLanguage: "en-US",
-      isAccessibleForFree: true,
+      // Included with lifetime access, priced when the page is built.
+      isAccessibleForFree: false,
       offers: {
         "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
+        name: `GuitarHub ${LIFETIME.name}`,
+        price: LIFETIME.schemaPrice,
+        priceCurrency: LIFETIME.currency,
       },
       featureList: [
         "Splits a chosen length into whole minutes that total exactly that length",
@@ -101,7 +106,7 @@ const JSON_LD = {
         "Gives the block matching that focus the largest share of the session",
         "Drops blocks that fall under their minimum useful size and redistributes the minutes",
         "Names every block that was left out, and why",
-        "Tracks finished blocks in the browser, with no account",
+        "Tracks finished blocks in this browser",
       ],
       author: { "@id": JASON_PERSON_ID },
       publisher: { "@id": SUEDE_ORG_ID },
@@ -166,7 +171,7 @@ const RULES = [
   },
   {
     title: "Nothing leaves this browser",
-    body: "There is no account and no upload. The length, the focus, and the blocks you tick off are stored in this browser only, and the clear button removes them.",
+    body: "Nothing you enter is uploaded. The length, the focus, and the blocks you tick off are stored in this browser only, and the clear button removes them.",
   },
 ];
 
@@ -194,6 +199,50 @@ const RELATED_HREFS = [
 const RELATED = RELATED_HREFS.flatMap((href) =>
   [...TOOLS, ...GUIDES].filter((entry) => entry.href === href),
 );
+
+/** The builder's real output for one input, shown in place of the tool until lifetime access is verified. */
+const PREVIEW_PLAN = (() => {
+  const result = buildSessionPlan({ minutes: 30, focus: "tempo-ceiling" });
+  if (!result.ok) throw new Error(result.error.message);
+  return result.value;
+})();
+
+function SessionPreview() {
+  return (
+    <figure className="rounded-3xl bg-white p-7 ring-1 ring-ink/5">
+      <figcaption className="text-sm font-semibold uppercase tracking-[0.2em] text-violet">
+        Example: {PREVIEW_PLAN.minutes} minutes, {PREVIEW_PLAN.focusLabel.toLowerCase()}
+      </figcaption>
+      <div data-locked-preview inert className="mt-6">
+        <ol className="grid gap-3">
+          {PREVIEW_PLAN.blocks.map((block) => (
+            <li
+              key={block.id}
+              className="grid grid-cols-[4rem_minmax(0,1fr)] gap-4 rounded-2xl bg-cream p-5"
+            >
+              <span className="font-display text-2xl text-indigo-deep">
+                {block.minutes} min
+              </span>
+              <span className="min-w-0">
+                <span className="block font-semibold text-indigo-deep">
+                  {block.position}. {block.name}
+                </span>
+                <span className="mt-1 block text-sm leading-relaxed text-ink/70">
+                  {block.doThis}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ol>
+        {PREVIEW_PLAN.dropped.map((block) => (
+          <p key={block.kind} className="mt-4 text-sm text-ink/60">
+            Left out: {block.name}. {block.reason}
+          </p>
+        ))}
+      </div>
+    </figure>
+  );
+}
 
 export default function SessionPage() {
   return (
@@ -276,7 +325,14 @@ export default function SessionPage() {
         </section>
 
         <section id="build" className="mx-auto max-w-6xl px-6 pb-20">
-          <SessionBuilder />
+          <PaidToolGate
+            checkoutAvailable={checkoutAvailable()}
+            returnTo="/session"
+            offer={lifetimeOfferAt(new Date())}
+            preview={<SessionPreview />}
+          >
+            <SessionBuilder />
+          </PaidToolGate>
         </section>
 
         <section id="how-it-works" className="bg-cream-soft px-6 py-20">
@@ -440,7 +496,7 @@ export default function SessionPage() {
           <ul className="mt-5 flex flex-wrap gap-3">
             <li>
               <Link href="/tools" className={LINK_PILL}>
-                All the free tools <span aria-hidden>→</span>
+                Every GuitarHub tool <span aria-hidden>→</span>
               </Link>
             </li>
             <li>

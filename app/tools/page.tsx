@@ -6,14 +6,28 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
 import {
+  FREE_TOOLS,
   GUIDES,
+  OFFER,
+  PAID_TOOLS,
   SITE_URL,
   STRUMLY,
   TOOLS,
+  lifetimeOfferAt,
+  type LifetimeOffer,
   type SiteEntry,
 } from "@/lib/site";
 
 const CANONICAL = `${SITE_URL}/tools`;
+
+/** "the guitar tuner and metronome, ... and the tempo ladder builder", read from the registry like every other list here. */
+function toolNames(tools: readonly SiteEntry[]): string {
+  const names = tools.map((tool) => `the ${tool.title.charAt(0).toLowerCase()}${tool.title.slice(1)}`);
+  return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join("");
+}
+const FREE_NAMES = toolNames(FREE_TOOLS);
+const PAID_NAMES = toolNames(PAID_TOOLS);
+const capitalized = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
 
 /** Read by both the visible trail and the BreadcrumbList JSON-LD below. */
 const CRUMBS = crumbTrail("Tools", CANONICAL);
@@ -164,12 +178,12 @@ const ROUTING_ROWS = ROUTING.flatMap((row) => {
 
 const COMMON = [
   {
-    title: "Free, with nothing behind it",
-    body: "These practice tools are free. They have no payment step, trial, or locked second half.",
+    title: "Free to start, lifetime to go further",
+    body: `${capitalized(FREE_NAMES)} are free. Lifetime access adds ${PAID_NAMES}, along with every guided guitar lesson and the Advanced Lab.`,
   },
   {
-    title: "No account",
-    body: "Open any tool and use it without signing in or entering an email address.",
+    title: "Free tools open without an account",
+    body: "Open a free tool and use it without signing in or entering an email address. The lifetime tools open as soon as you sign in with the account that holds your purchase.",
   },
   {
     title: "Runs in your browser",
@@ -184,7 +198,7 @@ const COMMON = [
 const LIMITS = [
   "The tuner listens only after you start it and allow microphone access. It detects one note at a time; it does not verify complete chords or award a lesson score.",
   "The metronome and synthesized reference tones do not need microphone permission. Starting another audio tool stops the current one, and hiding or leaving the page stops playback and listening.",
-  "State does not follow you between devices or browsers. No account carries it. A plan built on your laptop is not on your phone.",
+  "Tool data stays in the browser you entered it in, so a plan built on your laptop is not on your phone.",
   "Clearing your browser data deletes what you entered, and it cannot be restored from here.",
   "They need JavaScript. The results are computed on the page rather than fetched, so the tools produce no results without it.",
   "Planning tools depend on your own answers. The tuner reports pitch; it cannot assess your posture, complete chord fingering, or overall playing technique.",
@@ -197,14 +211,14 @@ const LIMITS = [
  * to keep that true after an edit. Keep these plain strings: no links, no
  * markup.
  */
-const FAQS = [
+const faqs = (offer: LifetimeOffer) => [
   {
     q: "Are the tools actually free?",
-    a: "Yes. The standalone practice tools are free to use, with no trial, card, or paid upgrade required.",
+    a: `${capitalized(FREE_NAMES)} are free, with no account. ${capitalized(PAID_NAMES)} come with lifetime access, ${offer.oneTime}, which also opens every guided guitar lesson and the Advanced Lab. ${OFFER.guarantee}`,
   },
   {
     q: "Do I need an account?",
-    a: "No. These tools work without signing in. Learning accounts, where available, are separate and are not required for the tuner, metronome, or planning tools.",
+    a: "Not for the free tools: the tuner, metronome and planning tools work without signing in. The lifetime tools open once you sign in with the account that holds your purchase.",
   },
   {
     q: "Where does what I type go?",
@@ -218,7 +232,7 @@ const FAQS = [
     q: "Can I use them without JavaScript?",
     a: "No. The plans, diagnoses, ladders, scores, and summaries are computed by code running in your browser rather than fetched from a server. That is the same design decision that keeps your answers off a server, and the cost of it is that the tools produce no results with JavaScript switched off.",
   },
-] as const;
+];
 
 // The canonical estate @ids, copied from app/layout.tsx. Referenced rather than
 // redefined: the Organization, Person, and WebSite nodes are declared once in
@@ -241,7 +255,7 @@ const ITEMLIST_ID = `${CANONICAL}#tools`;
  * The tool page is the single source for its node; the list carries position,
  * the page URL and the reference.
  */
-const JSON_LD = {
+const jsonLd = (faqItems: readonly { q: string; a: string }[]) => ({
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -263,9 +277,8 @@ const JSON_LD = {
     {
       "@type": "ItemList",
       "@id": ITEMLIST_ID,
-      name: "Free guitar practice tools",
-      description:
-        "The practice tools published on GuitarHub. Each one is free, runs in the browser, and requires no account.",
+      name: "Guitar practice tools",
+      description: `The practice tools published on GuitarHub. Each one runs in the browser. ${capitalized(FREE_NAMES)} are free with no account; ${PAID_NAMES} come with lifetime access.`,
       numberOfItems: TOOLS.length,
       itemListOrder: "https://schema.org/ItemListUnordered",
       itemListElement: TOOLS.map((tool, index) => ({
@@ -280,7 +293,7 @@ const JSON_LD = {
       "@id": `${CANONICAL}#faq`,
       inLanguage: "en-US",
       isPartOf: { "@id": WEBSITE_ID },
-      mainEntity: FAQS.map((item) => ({
+      mainEntity: faqItems.map((item) => ({
         "@type": "Question",
         name: item.q,
         acceptedAnswer: { "@type": "Answer", text: item.a },
@@ -288,7 +301,7 @@ const JSON_LD = {
     },
     breadcrumbList(CANONICAL, CRUMBS),
   ],
-};
+});
 
 const CARD =
   "flex h-full flex-col rounded-3xl bg-white p-7 ring-1 ring-ink/5 " +
@@ -313,6 +326,12 @@ function ToolCard({ tool }: { tool: SiteEntry }) {
           {tool.title} <span aria-hidden>→</span>
         </Link>
       </h3>
+
+      {tool.access === "paid" ? (
+        <p className="mt-2 w-fit rounded-full bg-indigo-deep px-3 py-1 text-xs font-semibold uppercase tracking-widest text-cream">
+          Included with lifetime access
+        </p>
+      ) : null}
 
       <p className="mt-2 text-base leading-relaxed text-ink/70">{tool.blurb}</p>
 
@@ -341,11 +360,13 @@ function ToolCard({ tool }: { tool: SiteEntry }) {
 }
 
 export default function ToolsPage() {
+  // Static page: priced when it is built.
+  const faqItems = faqs(lifetimeOfferAt(new Date()));
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(faqItems)) }}
       />
       <SiteNav />
 
@@ -366,8 +387,8 @@ export default function ToolsPage() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
               The tools GuitarHub publishes, in one place: what each one is for,
               who it helps, and which part of the practice loop it belongs to.
-              None of them ask for an account, and what you type into them stays
-              in your browser.
+              {" "}{capitalized(FREE_NAMES)} are free with no account. Lifetime
+              access adds {PAID_NAMES}. What you type stays in your browser.
             </p>
           </div>
         </section>
@@ -382,9 +403,8 @@ export default function ToolsPage() {
               <em className="font-display italic">on each one of them.</em>
             </h2>
             <p className="mt-6 max-w-2xl text-lg text-ink/70">
-              These are not a funnel with the good part behind a form. They are
-              small, finished tools, and the conditions below are the same for
-              each of them.
+              Each one is a small, finished tool that does one job well, and the
+              conditions below hold for every one of them.
             </p>
 
             <div className="mt-12 grid gap-px overflow-hidden rounded-3xl bg-indigo-deep/10 md:grid-cols-2">
@@ -487,9 +507,9 @@ export default function ToolsPage() {
             How the tools work.
           </h2>
           <p className="mt-6 text-lg text-ink/70">
-            Each tool does one job, on your device. That is what keeps them free
-            without taking anything from you in exchange, and these are the
-            operating details worth knowing before you start.
+            Each tool does one job, on your device, so what you type stays
+            yours. These are the operating details worth knowing before you
+            start.
           </p>
           <ul className="mt-8 space-y-4">
             {LIMITS.map((limit) => (
@@ -581,7 +601,7 @@ export default function ToolsPage() {
                 questions against five in the markup. `/faq` and `/method`
                 already render their questions as <h3>; this matches them. */}
             <div className="mt-10 grid gap-8">
-              {FAQS.map((item) => (
+              {faqItems.map((item) => (
                 <article
                   key={item.q}
                   className="rounded-3xl bg-cream p-7 ring-1 ring-ink/5"

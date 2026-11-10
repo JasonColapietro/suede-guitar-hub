@@ -12,7 +12,7 @@ import { pageJsonLd } from "@/lib/page-schema";
 
 const url = `${SITE_URL}/advanced`;
 const title = "Advanced Guitar Drills with Live Feedback | GuitarHub";
-const description = `${DRILLS.length} free scored drills for experienced guitarists: legato, sweeps, bends, modes, guide tones, rhythm, ear training, fretboard, improvisation, etudes, tone.`;
+const description = `${DRILLS.length} scored drills for experienced guitarists: legato, sweeps, bends, modes, guide tones, rhythm, ear training, fretboard, improvisation, etudes, tone.`;
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/advanced"),
@@ -54,7 +54,7 @@ export default function AdvancedLab() {
     <BreadcrumbJsonLd crumbs={CRUMBS} />
     <nav className={learning.breadcrumbs} aria-label="Breadcrumb"><Link href="/">GuitarHub</Link><span aria-hidden="true">/</span><span aria-current="page">Advanced Lab</span></nav>
     <header className={learning.hero}>
-      <p className={styles.eyebrow}>Advanced Lab · free</p>
+      <p className={styles.eyebrow}>Advanced Lab · lifetime access</p>
       <h1>Advanced guitar drills with live feedback</h1>
       <p>{DRILLS.length} drills across the {SKILL_AREAS.length} skill areas a complete player needs. Practice mode waits for every note. Play mode scores the whole pass at tempo, and the coach tells you when to push faster.</p>
       <div className={learning.actions}>

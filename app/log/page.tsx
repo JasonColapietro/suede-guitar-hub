@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PracticeLog from "@/components/PracticeLog";
+import { PaidToolGate } from "@/components/paywall/PaidToolGate";
+import { checkoutAvailable } from "@/lib/checkout/config";
+import { trendForValues } from "@/lib/log";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
-import { GUIDES, SITE_URL, STRUMLY, TOOLS, isInternalHref } from "@/lib/site";
+import { GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, isInternalHref, lifetimeOfferAt } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/log`;
@@ -14,7 +17,7 @@ const PUBLISHED = "2026-08-29";
 
 const TITLE = "Guitar Practice Log That Tracks Progress | GuitarHub";
 const DESCRIPTION =
-  "Log one line per guitar session: the date, the focus, and the tempo or pass rate you hit. See what moved, free in your browser with no account.";
+  "Log one line per guitar session: the date, the focus, and the tempo or pass rate you hit. See what moved, with every session kept in your browser.";
 
 export const metadata: Metadata = {
   keywords: keywordsFor("/log"),
@@ -84,7 +87,7 @@ const REFUSALS = [
   },
   {
     title: "Nothing leaves this browser",
-    body: "There is no account, no upload, and no network call. Sessions are stored in this browser only. Export writes a plain JSON file you keep, importing it adds those sessions back, and the clear button removes the lot.",
+    body: "Your sessions are never uploaded. They are stored in this browser only. Export writes a plain JSON file you keep, importing it adds those sessions back, and the clear button removes the lot.",
   },
 ];
 
@@ -135,19 +138,19 @@ const JSON_LD = {
       applicationSubCategory: "Guitar practice tool",
       operatingSystem: "Web",
       browserRequirements:
-        "Runs entirely in the browser. Requires JavaScript. No account, and nothing is uploaded.",
+        "Runs entirely in the browser. Requires JavaScript and GuitarHub lifetime access. Nothing you enter is uploaded.",
       description: DESCRIPTION,
       inLanguage: "en-US",
-      isAccessibleForFree: true,
-      // Genuinely free, so the price is a fact rather than a marketing claim.
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      // Included with lifetime access, priced when the page is built.
+      isAccessibleForFree: false,
+      offers: { "@type": "Offer", name: `GuitarHub ${LIFETIME.name}`, price: LIFETIME.schemaPrice, priceCurrency: LIFETIME.currency },
       featureList: [
         "One-line session entries with a date, a focus, a measure, and a note",
         "Sessions logged and distinct focuses over the last 7 and 30 days",
         "Best and latest value per focus, with the measures kept separate",
         "A per-focus direction that is withheld below three sessions",
         "No streak counter and no gamification, by design",
-        "Export and import the whole log as plain JSON, with no account",
+        "Export and import the whole log as plain JSON",
       ],
       author: { "@id": JASON_PERSON_ID },
       publisher: { "@id": SUEDE_ORG_ID },
@@ -197,6 +200,45 @@ const LINK_PILL =
 const INLINE_LINK =
   "text-indigo-deep underline underline-offset-4 hover:text-violet";
 
+/** Four sessions on one focus; the verdict beside them is the log's own. */
+const PREVIEW_FOCUS = "Verse riff, bars 9 to 12";
+const PREVIEW_TEMPOS = [84, 86, 88, 90] as const;
+const PREVIEW_TREND = trendForValues(PREVIEW_TEMPOS, "tempo");
+
+function LogPreview() {
+  return (
+    <figure className="rounded-3xl bg-white p-7 ring-1 ring-ink/5">
+      <figcaption className="text-sm font-semibold uppercase tracking-[0.2em] text-violet">
+        Example: {PREVIEW_TEMPOS.length} sessions on one focus
+      </figcaption>
+      <div data-locked-preview inert className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <table className="w-full text-left text-sm text-ink/75">
+          <thead>
+            <tr className="text-xs uppercase tracking-widest text-violet">
+              <th className="pb-2 font-semibold">Session</th>
+              <th className="pb-2 font-semibold">Focus</th>
+              <th className="pb-2 font-semibold">Tempo reached</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PREVIEW_TEMPOS.map((tempo, index) => (
+              <tr key={index} className="border-t border-ink/10">
+                <td className="py-2">{index + 1}</td>
+                <td className="py-2">{PREVIEW_FOCUS}</td>
+                <td className="py-2">{tempo} BPM</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="rounded-2xl bg-cream p-6">
+          <p className="font-display text-2xl text-indigo-deep">{PREVIEW_TREND.label}</p>
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">{PREVIEW_TREND.detail}</p>
+        </div>
+      </div>
+    </figure>
+  );
+}
+
 export default function LogPage() {
   return (
     <>
@@ -237,7 +279,7 @@ export default function LogPage() {
                 href="/tools"
                 className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
               >
-                All the free tools <span aria-hidden>→</span>
+                Every GuitarHub tool <span aria-hidden>→</span>
               </Link>
             </div>
           </div>
@@ -278,7 +320,14 @@ export default function LogPage() {
         </section>
 
         <section id="log" className="mx-auto max-w-6xl px-6 pb-20">
-          <PracticeLog />
+          <PaidToolGate
+            checkoutAvailable={checkoutAvailable()}
+            returnTo="/log"
+            offer={lifetimeOfferAt(new Date())}
+            preview={<LogPreview />}
+          >
+            <PracticeLog />
+          </PaidToolGate>
         </section>
 
         <section id="how-it-works" className="bg-cream-soft px-6 py-20">
@@ -391,7 +440,7 @@ export default function LogPage() {
             </li>
             <li>
               <Link href="/tools" className={LINK_PILL}>
-                All the free tools <span aria-hidden>→</span>
+                Every GuitarHub tool <span aria-hidden>→</span>
               </Link>
             </li>
             <li>

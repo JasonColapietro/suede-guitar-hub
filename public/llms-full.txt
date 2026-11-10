@@ -34,7 +34,7 @@ Repair the piece that breaks, then put it back into the full song, the click or 
 
 Play the same take again and listen beside day 1. The difference is your proof, and it sets the next goal.
 
-### Seven free tools to run it. No account.
+### Four free tools to run it. No account.
 
 Each one runs in your browser. Nothing is uploaded and nothing is emailed. What you type stays on the device you typed it on.
 
@@ -50,21 +50,9 @@ Choose one finish line and turn it into a four-week practice sequence you can ru
 
 Answer a short set of questions and name the part of your practice that stopped producing change.
 
-#### Practice session builder
-
-Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.
-
 #### Tempo ladder builder
 
 Turn one difficult passage into a tempo ladder with a starting speed, a target, and steps between them.
-
-#### Song readiness score
-
-Check a song against the parts that break under pressure before you call it finished.
-
-#### Practice evidence log
-
-Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.
 
 ### Free field guides for the music stand
 
@@ -209,7 +197,7 @@ The lesson paths and the practice tools serve different needs. A new player can 
 
 **The Advanced Lab**, 23 free scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone. [Open the Advanced Lab](https://guitarhub.org/advanced).
 
-**Seven free tools**, each running in your browser:
+**Seven practice tools**, each running in your browser. Four are free, and the other three come with lifetime access:
 
 - [The guitar tuner and metronome](https://guitarhub.org/practice) checks each open string with pitch feedback and reference tones, then keeps a steady four-beat click at your tempo.
 - [The 30-day breakthrough planner](https://guitarhub.org/breakthrough) turns one finish line into a four-week sequence you can start today.
@@ -757,40 +745,19 @@ Source: https://guitarhub.org/learn/guitar/routine
 
 A little practice, often
 
-Practice changing between A and D guitar chords: check each chord, try light anchor movement, count changes, and play song sections. Seven blocks, 21 minutes. Adjust the time to fit today.
+Practice changing between A and D guitar chords: check each chord, try light anchor movement, count changes, and play song sections. Seven blocks, 21 minutes, each one timed, with your history saved as you go.
 
-A free practice companion. Your history stays in this browser as guest history. Counts and reflections come from you and are saved separately from lesson checks and microphone results.
+Included with lifetime access
 
-### Before the routine
+### Open this tool with lifetime access.
 
-Review the GuitarHub instruction first. Saved lesson evidence can satisfy preparation, or confirm that you already understand the exercise. These confirmations describe your preparation, not a skill test.
+Lifetime access is $79 one time. It opens the practice session builder, song readiness score and practice evidence log, the Advanced Lab drills, the A-to-D chord routine and every guided guitar lesson, for good.
 
-- **Tune and recheck all six strings** [GuitarHub curriculum preview (new tab)](https://guitarhub.org/learn/guitar/g-l1-m1-02) I understand this exercise and am ready to practice it.
-- **Form D and check each sounding string** [GuitarHub curriculum preview (new tab)](https://guitarhub.org/learn/guitar/g-l2-m1-01) I understand this exercise and am ready to practice it.
-- **Form A and check each sounding string** [GuitarHub curriculum preview (new tab)](https://guitarhub.org/learn/guitar/g-l2-m1-01) I understand this exercise and am ready to practice it.
-- **Move between D and A with a light anchor** [GuitarHub curriculum preview (new tab)](https://guitarhub.org/learn/guitar/g-l2-m3-01) I understand this exercise and am ready to practice it.
-- **Understand how to count alternating changes** [GuitarHub curriculum preview (new tab)](https://guitarhub.org/learn/guitar/g-l2-m3-02) I understand this exercise and am ready to practice it.
-- **Count four beats and attempt suitable A/D songs** [GuitarHub curriculum preview (new tab)](https://guitarhub.org/learn/guitar/g-l2-m2-01) I understand this exercise and am ready to practice it.
+Launch price $79. Goes to $99 on December 1, 2026.
 
-### Today’s plan
+If after 90 days you are not playing chords and improvising, you get a full refund.
 
-Adjust any block in seconds while the timer is paused. A little practice each day helps the movements become familiar.
-
-- 1 **Tune** Tune planned seconds sec
-- 2 **D chord accuracy** D chord accuracy planned seconds sec
-- 3 **A chord accuracy** A chord accuracy planned seconds sec
-- 4 **Silent A/D anchor movement** Silent A/D anchor movement planned seconds sec
-- 5 **Changes, starting on A** Changes, starting on A planned seconds sec
-- 6 **Changes, starting on D** Changes, starting on D planned seconds sec
-- 7 **Two-chord songs** Two-chord songs planned seconds sec
-
-Complete preparation above to use the timer. The plan remains available to review.
-
-### Your practice history
-
-Saved in this browser as guest history. Routine history is not cloud-synced. Returning restores paused time; closed-tab or background time is never added. Counts and reflections are kept as separate attempts.
-
-No routines yet.
+Already have lifetime access? [Sign in](https://guitarhub.org/account?next=%2Flearn%2Fguitar%2Froutine)
 
 ## Find your guitar level in five questions.
 
@@ -838,7 +805,7 @@ The guided lessons in every stage unlock with lifetime access, $79 one time in G
 
 Source: https://guitarhub.org/advanced
 
-Advanced Lab · free
+Advanced Lab · lifetime access
 
 23 drills across the 8 skill areas a complete player needs. Practice mode waits for every note. Play mode scores the whole pass at tempo, and the coach tells you when to push faster.
 
@@ -3781,6 +3748,18 @@ An unplanned practice hour has a predictable shape. Ten minutes of playing what 
 
 Making the decision once, before you start, is the whole trick — and it is why the answer has to be specific about minutes. A block with no length is a suggestion. Fifteen minutes on the bar that breaks first, followed by nine on tempo, is a session. If the problem is bigger than one session and your playing has stalled generally, [why guitar practice plateaus](https://guitarhub.org/guitar-practice-plateau) is the better place to start.
 
+Included with lifetime access
+
+### Open this tool with lifetime access.
+
+Lifetime access is $79 one time. It opens the practice session builder, song readiness score and practice evidence log, the Advanced Lab drills, the A-to-D chord routine and every guided guitar lesson, for good.
+
+Launch price $79. Goes to $99 on December 1, 2026.
+
+If after 90 days you are not playing chords and improvising, you get a full refund.
+
+Already have lifetime access? [Sign in](https://guitarhub.org/account?next=%2Fsession)
+
 How this works
 
 ### Five steps, and no leftover minutes.
@@ -3835,7 +3814,7 @@ Wherever there is room for it, the last block puts the guitar down for two minut
 
 #### Nothing leaves this browser
 
-There is no account and no upload. The length, the focus, and the blocks you tick off are stored in this browser only, and the clear button removes them.
+Nothing you enter is uploaded. The length, the focus, and the blocks you tick off are stored in this browser only, and the clear button removes them.
 
 ### How to use it well.
 
@@ -3846,7 +3825,7 @@ There is no account and no upload. The length, the focus, and the blocks you tic
 
 What to put inside the blocks, and what to do when one of them stops producing change:
 
-- [All the free tools →](https://guitarhub.org/tools)
+- [Every GuitarHub tool →](https://guitarhub.org/tools)
 - [How to practice effectively →](https://guitarhub.org/how-to-practice-guitar-effectively)
 - [How long to practice each day →](https://guitarhub.org/how-long-to-practice-guitar-each-day)
 - [How to memorize a song →](https://guitarhub.org/how-to-memorize-songs-on-guitar)
@@ -3988,7 +3967,7 @@ Applying starts a fit conversation. It does not charge you or create a commitmen
 
 Source: https://guitarhub.org/readiness
 
-Score one song against the ten conditions that decide whether it holds up away from your practice chair. No account, nothing uploaded, and it stays in your browser.
+Score one song against the ten conditions that decide whether it holds up away from your practice chair. Nothing is uploaded, and your songs stay in your browser.
 
 The problem this measures
 
@@ -3998,11 +3977,17 @@ Most songs reach a point where you would say they are done. You can play it, it 
 
 The notes were not the problem. The problem was a condition you never practiced in: cold hands, a listener, full tempo set by something other than you, or a mistake in bar four with nothing rehearsed for what comes next. This tool asks about those conditions one at a time, weights them by how much damage each one does, and hands back the single thing worth fixing before you play it for anybody. If your whole practice has stalled rather than one song, start with [why guitar practice plateaus](https://guitarhub.org/guitar-practice-plateau) instead.
 
-### Score one song against ten checks that break under pressure.
+Included with lifetime access
 
-Answer each check honestly. Two of the ten carry more weight than any other check, because two of them end a performance rather than dent it. Your songs stay in this browser.
+### Open this tool with lifetime access.
 
-Name a song above to start. Pick one you would call finished. The checks are most useful on a song you already believe you can play.
+Lifetime access is $79 one time. It opens the practice session builder, song readiness score and practice evidence log, the Advanced Lab drills, the A-to-D chord routine and every guided guitar lesson, for good.
+
+Launch price $79. Goes to $99 on December 1, 2026.
+
+If after 90 days you are not playing chords and improvising, you get a full refund.
+
+Already have lifetime access? [Sign in](https://guitarhub.org/account?next=%2Freadiness)
 
 How this works
 
@@ -4066,17 +4051,17 @@ Most practice records answer the easy question. They count days, minutes, and se
 
 The hard question is whether anything moved, and it needs two things a streak never asks for: a specific focus, and a number attached to it. Log those, and after three sessions on the same focus the comparison starts to mean something. Log them for a month and you can tell which of the things you changed was the thing that worked. That is the same loop the [GuitarHub method](https://guitarhub.org/method) runs on, and the reason [deliberate practice](https://guitarhub.org/deliberate-practice-guitar) asks for a measurement rather than a duration.
 
-What the log can support
+Included with lifetime access
 
-### Evidence, not a streak.
+### Open this tool with lifetime access.
 
-There is no consecutive-day counter here, and there is not going to be. A streak goes up on a session that changed nothing and resets on a week off that changed a lot. These numbers only move when the playing does.
+Lifetime access is $79 one time. It opens the practice session builder, song readiness score and practice evidence log, the Advanced Lab drills, the A-to-D chord routine and every guided guitar lesson, for good.
 
-Nothing logged yet. Log 3 sessions on the same focus and this turns into a direction — before that it stays a list, because 2 points would only draw a line through a good day and a bad one.
+Launch price $79. Goes to $99 on December 1, 2026.
 
-### The data is yours
+If after 90 days you are not playing chords and improvising, you get a full refund.
 
-No account and no upload. Export writes a plain JSON file you can read in any text editor, keep as a backup, or open on another machine. Importing adds those sessions to this browser — anything identical is skipped rather than duplicated.
+Already have lifetime access? [Sign in](https://guitarhub.org/account?next=%2Flog)
 
 How this works
 
@@ -4114,7 +4099,7 @@ If a focus switched from beats per minute to clean passes, only the sessions usi
 
 ##### Nothing leaves this browser
 
-There is no account, no upload, and no network call. Sessions are stored in this browser only. Export writes a plain JSON file you keep, importing it adds those sessions back, and the clear button removes the lot.
+Your sessions are never uploaded. They are stored in this browser only. Export writes a plain JSON file you keep, importing it adds those sessions back, and the clear button removes the lot.
 
 #### Where the number comes from
 
@@ -4130,7 +4115,7 @@ Pick whichever measure suits the thing you are working on. A passage with a spee
 What to run when the log says a focus has stopped moving:
 
 - [Why practice plateaus →](https://guitarhub.org/guitar-practice-plateau)
-- [All the free tools →](https://guitarhub.org/tools)
+- [Every GuitarHub tool →](https://guitarhub.org/tools)
 - [Designing a practice routine ↗](https://strumly.suedeai.ai/guides/designing-a-practice-routine)
 - [A staged learning path ↗](https://strumly.suedeai.ai/path)
 
@@ -4176,21 +4161,21 @@ That part still takes another set of ears. The founding room is being assembled 
 
 Source: https://guitarhub.org/tools
 
-The tools GuitarHub publishes, in one place: what each one is for, who it helps, and which part of the practice loop it belongs to. None of them ask for an account, and what you type into them stays in your browser.
+The tools GuitarHub publishes, in one place: what each one is for, who it helps, and which part of the practice loop it belongs to. The guitar tuner and metronome, the 30-day breakthrough planner, the practice plateau diagnostic and the tempo ladder builder are free with no account. Lifetime access adds the practice session builder, the song readiness score and the practice evidence log. What you type stays in your browser.
 
 The common thread
 
 ### The same conditions, on each one of them.
 
-These are not a funnel with the good part behind a form. They are small, finished tools, and the conditions below are the same for each of them.
+Each one is a small, finished tool that does one job well, and the conditions below hold for every one of them.
 
-#### Free, with nothing behind it
+#### Free to start, lifetime to go further
 
-These practice tools are free. They have no payment step, trial, or locked second half.
+The guitar tuner and metronome, the 30-day breakthrough planner, the practice plateau diagnostic and the tempo ladder builder are free. Lifetime access adds the practice session builder, the song readiness score and the practice evidence log, along with every guided guitar lesson and the Advanced Lab.
 
-#### No account
+#### Free tools open without an account
 
-Open any tool and use it without signing in or entering an email address.
+Open a free tool and use it without signing in or entering an email address. The lifetime tools open as soon as you sign in with the account that holds your purchase.
 
 #### Runs in your browser
 
@@ -4246,6 +4231,8 @@ Players who are putting in the hours, know something has stopped working, and ca
 
 #### [Practice session builder →](https://guitarhub.org/session)
 
+Included with lifetime access
+
 Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.
 
 **What it is for**
@@ -4270,6 +4257,8 @@ Anyone whose speed work is pushing the metronome up until the passage falls apar
 
 #### [Song readiness score →](https://guitarhub.org/readiness)
 
+Included with lifetime access
+
 Check a song against the parts that break under pressure before you call it finished.
 
 **What it is for**
@@ -4281,6 +4270,8 @@ Ten yes-or-no checks about things that have either happened with a song or have 
 Players deciding whether a song is finished, and anyone about to play one standing up, in front of a person, or into a camera.
 
 #### [Practice evidence log →](https://guitarhub.org/log)
+
+Included with lifetime access
 
 Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.
 
@@ -4328,11 +4319,11 @@ Prove. It carries the evidence into the next baseline.
 
 ### How the tools work.
 
-Each tool does one job, on your device. That is what keeps them free without taking anything from you in exchange, and these are the operating details worth knowing before you start.
+Each tool does one job, on your device, so what you type stays yours. These are the operating details worth knowing before you start.
 
 - The tuner listens only after you start it and allow microphone access. It detects one note at a time; it does not verify complete chords or award a lesson score.
 - The metronome and synthesized reference tones do not need microphone permission. Starting another audio tool stops the current one, and hiding or leaving the page stops playback and listening.
-- State does not follow you between devices or browsers. No account carries it. A plan built on your laptop is not on your phone.
+- Tool data stays in the browser you entered it in, so a plan built on your laptop is not on your phone.
 - Clearing your browser data deletes what you entered, and it cannot be restored from here.
 - They need JavaScript. The results are computed on the page rather than fetched, so the tools produce no results without it.
 - Planning tools depend on your own answers. The tuner reports pitch; it cannot assess your posture, complete chord fingering, or overall playing technique.
@@ -4435,11 +4426,11 @@ Use GuitarHub’s lessons, tuner, and metronome alongside your practice plan. Th
 
 #### Are the tools actually free?
 
-Yes. The standalone practice tools are free to use, with no trial, card, or paid upgrade required.
+The guitar tuner and metronome, the 30-day breakthrough planner, the practice plateau diagnostic and the tempo ladder builder are free, with no account. The practice session builder, the song readiness score and the practice evidence log come with lifetime access, $79 one time, which also opens every guided guitar lesson and the Advanced Lab. If after 90 days you are not playing chords and improvising, you get a full refund.
 
 #### Do I need an account?
 
-No. These tools work without signing in. Learning accounts, where available, are separate and are not required for the tuner, metronome, or planning tools.
+Not for the free tools: the tuner, metronome and planning tools work without signing in. The lifetime tools open once you sign in with the account that holds your purchase.
 
 #### Where does what I type go?
 
@@ -4924,7 +4915,7 @@ Explore the lessons, practice method, and browser tools, then choose where to be
 
 #### What is GuitarHub?
 
-GuitarHub is the Suede AI guitar lessons site: a step-by-step guitar curriculum, a practice method, the free Advanced Lab, and seven free browser tools that run the method. The method is one loop against one goal at a time, in four stages: baseline, isolate, reconnect, prove. Record where you actually are, isolate the single thing that breaks the result, reconnect that repair to a full performance under pressure, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. GuitarHub is built for that gap. Voice lessons live on Suede Sing.
+GuitarHub is the Suede AI guitar lessons site: a step-by-step guitar curriculum, a practice method, the free Advanced Lab, and four free browser tools that run the method. The method is one loop against one goal at a time, in four stages: baseline, isolate, reconnect, prove. Record where you actually are, isolate the single thing that breaks the result, reconnect that repair to a full performance under pressure, then record the same thing again and compare the two takes. Guitar education supplies plenty of lessons and little that tells you whether a lesson worked. GuitarHub is built for that gap. Voice lessons live on Suede Sing.
 
 #### How can I use GuitarHub?
 
@@ -5102,7 +5093,7 @@ Price, lessons, feedback and practice tools side by side, with every competitor 
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub is the guitar course you buy once. 135 guided lessons cost $79 one time for lifetime access, and the 7 practice tools, the 23-drill Advanced Lab and the written guides are free in any browser. Fender Play, Guitar Tricks and JustinGuitar teach through video lessons, Yousician through play-along scoring, and Ultimate Guitar is a tab catalog. GuitarHub is the one built to prove each month's progress with a recording.
+**The short answer:** GuitarHub is the guitar course you buy once. 135 guided lessons cost $79 one time for lifetime access, and the 4 practice tools, the 23-drill Advanced Lab and the written guides are free in any browser. Fender Play, Guitar Tricks and JustinGuitar teach through video lessons, Yousician through play-along scoring, and Ultimate Guitar is a tab catalog. GuitarHub is the one built to prove each month's progress with a recording.
 
 ### How does GuitarHub compare with other guitar lesson apps?
 
@@ -5166,7 +5157,7 @@ GuitarHub. Lifetime lesson access is $79 one time on the US App Store in GuitarH
 
 #### What can I use on GuitarHub for free?
 
-The 7 browser practice tools, the 23-drill Advanced Lab, the A-to-D chord routine and 21 written guides are free on guitarhub.org with no account, and the first lesson module is free in the iPhone app.
+The 4 browser practice tools, the 23-drill Advanced Lab, the A-to-D chord routine and 21 written guides are free on guitarhub.org with no account, and the first lesson module is free in the iPhone app.
 
 #### How were these comparisons checked?
 
@@ -5193,7 +5184,7 @@ Every Fender Play fact on this page was checked on November 3, 2026 against the 
 | Feature | GuitarHub | Fender Play |
 | --- | --- | --- |
 | Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://www.fender.com/products/fender-play-subscription) |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://www.fender.com/products/fender-play-subscription) |
+| Free to start | The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://www.fender.com/products/fender-play-subscription) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | 3,000+ short video lessons with instructors |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | MatchMySound listening feedback in guided lessons |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | 1,000+ song library with tab, chord charts and backing tracks |
@@ -5217,7 +5208,7 @@ Fender Play teaches through short instructor videos arranged into a path you set
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Why do guitarists choose GuitarHub over Fender Play?
 
@@ -5231,7 +5222,7 @@ GuitarHub's method starts the month with a baseline recording and ends it with t
 
 #### Free tools that open in a browser
 
-The tuner and metronome, the tempo ladder, the session builder and the rest of the 7 GuitarHub tools run in any browser with no account, and keep what you enter on your own device.
+The tuner and metronome, the tempo ladder, the session builder and the rest of the 7 GuitarHub tools run in any browser and keep what you enter on your own device. Four of them are free with no account.
 
 #### Advanced drills included at no cost
 
@@ -5258,7 +5249,7 @@ GuitarHub lessons are written, step-by-step lessons with chord diagrams, referen
 
 #### Can I try GuitarHub before I pay?
 
-Yes. The first module is free in GuitarHub: Guitar Lessons, and the 7 practice tools, the 23-drill Advanced Lab, the A-to-D chord routine and the written guides are free on guitarhub.org with no account.
+Yes. The first module is free in GuitarHub: Guitar Lessons, and the 4 practice tools, the 23-drill Advanced Lab, the A-to-D chord routine and the written guides are free on guitarhub.org with no account.
 
 #### Is GuitarHub good for beginners coming from Fender Play?
 
@@ -5294,14 +5285,14 @@ Fender Play is Fender's lesson service for guitar, bass and ukulele, with more t
 GuitarHub, the guitar lessons site from Suede AI. Here is what it puts in your hands:
 
 - **Price:** $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals.
-- **Free to start:** The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
+- **Free to start:** The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
 - **Lessons:** 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson.
 - **Feedback:** Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded.
 - **Method:** A 30-day method: record a baseline, isolate one problem, reconnect it to the song, then record again and compare.
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Which Fender Play alternatives are worth comparing?
 
@@ -5327,7 +5318,7 @@ GuitarHub's method starts the month with a baseline recording and ends it with t
 
 #### Free tools that open in a browser
 
-The tuner and metronome, the tempo ladder, the session builder and the rest of the 7 GuitarHub tools run in any browser with no account, and keep what you enter on your own device.
+The tuner and metronome, the tempo ladder, the session builder and the rest of the 7 GuitarHub tools run in any browser and keep what you enter on your own device. Four of them are free with no account.
 
 #### Advanced drills included at no cost
 
@@ -5354,7 +5345,7 @@ Yes. GuitarHub sells lifetime lesson access as one in-app purchase, $79 one time
 
 #### What can I use for free instead of Fender Play?
 
-GuitarHub's tuner and metronome, 6 other practice tools, the Advanced Lab drills, the A-to-D chord routine and 21 written guides are free on guitarhub.org, and the first lesson module is free in the iPhone app.
+GuitarHub's tuner and metronome, 3 other practice tools, the Advanced Lab drills, the A-to-D chord routine and 21 written guides are free on guitarhub.org, and the first lesson module is free in the iPhone app.
 
 ### Sources
 
@@ -5398,7 +5389,7 @@ Every Yousician fact on this page was checked on November 3, 2026 against the so
 | Feature | GuitarHub | Yousician |
 | --- | --- | --- |
 | Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) |
+| Free to start | The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/yousician-learn-play-guitar/id959883039) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Interactive play-along lessons, exercises and songs (10,000+) |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Real-time microphone feedback while you play |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | Thousands of play-along songs with interactive tabs, new songs weekly |
@@ -5422,7 +5413,7 @@ Yousician teaches through play-along lessons and exercises: the app listens thro
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Why do guitarists choose GuitarHub over Yousician?
 
@@ -5497,14 +5488,14 @@ Yousician is an interactive music learning app for guitar, bass and singing that
 GuitarHub, the guitar lessons site from Suede AI. Here is what it puts in your hands:
 
 - **Price:** $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals.
-- **Free to start:** The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
+- **Free to start:** The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
 - **Lessons:** 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson.
 - **Feedback:** Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded.
 - **Method:** A 30-day method: record a baseline, isolate one problem, reconnect it to the song, then record again and compare.
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Which Yousician alternatives are worth comparing?
 
@@ -5592,7 +5583,7 @@ JustinGuitar's graded video course and paid app next to GuitarHub's step-by-step
 
 Updated November 3, 2026
 
-**The short answer:** GuitarHub gives you a guided guitar course, measured practice and a 30-day method for $79 one time, with lifetime access and no renewals. JustinGuitar teaches through Justin Sandercoe's graded video lessons. GuitarHub adds microphone-scored exercises, 7 free browser tools and a free 23-drill Advanced Lab.
+**The short answer:** GuitarHub gives you a guided guitar course, measured practice and a 30-day method for $79 one time, with lifetime access and no renewals. JustinGuitar teaches through Justin Sandercoe's graded video lessons. GuitarHub adds microphone-scored exercises, 4 free browser tools and a free 23-drill Advanced Lab.
 
 Every JustinGuitar fact on this page was checked on November 3, 2026 against the sources listed at the end.
 
@@ -5601,7 +5592,7 @@ Every JustinGuitar fact on this page was checked on November 3, 2026 against the
 | Feature | GuitarHub | JustinGuitar |
 | --- | --- | --- |
 | Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) |
+| Free to start | The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Video lessons (210 in the app, 36+ hours) |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Interactive exercises, One-Minute Chord Changes and progress tracking |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | 1,500+ songs in the app song player |
@@ -5625,7 +5616,7 @@ JustinGuitar teaches through Justin Sandercoe's video lessons, organized into gr
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Why do guitarists choose GuitarHub over JustinGuitar?
 
@@ -5662,7 +5653,7 @@ GuitarHub is built around measured practice and proof: microphone-scored exercis
 
 #### How much does GuitarHub cost?
 
-GuitarHub lifetime lesson access is $79 one time in the US App Store, and it never renews. The first module in the app, the 7 practice tools, the 23-drill Advanced Lab and the written guides are free.
+GuitarHub lifetime lesson access is $79 one time in the US App Store, and it never renews. The first module in the app, the 4 practice tools, the 23-drill Advanced Lab and the written guides are free.
 
 #### Does GuitarHub help with chord changes?
 
@@ -5701,14 +5692,14 @@ JustinGuitar is Justin Sandercoe's guitar teaching site and app. Its graded begi
 GuitarHub, the guitar lessons site from Suede AI. Here is what it puts in your hands:
 
 - **Price:** $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals.
-- **Free to start:** The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
+- **Free to start:** The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
 - **Lessons:** 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson.
 - **Feedback:** Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded.
 - **Method:** A 30-day method: record a baseline, isolate one problem, reconnect it to the song, then record again and compare.
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Which JustinGuitar alternatives are worth comparing?
 
@@ -5753,7 +5744,7 @@ The row-by-row breakdown is on [GuitarHub vs JustinGuitar](https://guitarhub.org
 
 #### What is a good alternative to JustinGuitar?
 
-GuitarHub: 135 guided lessons for $79 one time, microphone-scored exercises, 7 free browser practice tools and a free 23-drill Advanced Lab, all organized around a 30-day method you can prove with recordings.
+GuitarHub: 135 guided lessons for $79 one time, microphone-scored exercises, 4 free browser practice tools and a free 23-drill Advanced Lab, all organized around a 30-day method you can prove with recordings.
 
 #### Where should I go after JustinGuitar's beginner course?
 
@@ -5805,7 +5796,7 @@ Every Guitar Tricks fact on this page was checked on November 3, 2026 against th
 | Feature | GuitarHub | Guitar Tricks |
 | --- | --- | --- |
 | Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) |
+| Free to start | The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Video lessons (11,000+) |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Progress system, fretboard trainer and reference tuner |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | Hundreds of song tutorials with downloadable tab and notation |
@@ -5829,7 +5820,7 @@ Guitar Tricks teaches through short, incremental instructor videos. Its Core Lea
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Why do guitarists choose GuitarHub over Guitar Tricks?
 
@@ -5847,7 +5838,7 @@ Microphone exercises score pitch and timing on your device, and the method close
 
 #### Free tools for the hard passage
 
-The tempo ladder, the session builder and the song readiness score are among 7 free browser tools that turn one difficult passage into a plan you can run this week.
+The tempo ladder turns one difficult passage into a plan you can run this week. It is one of 4 free browser tools, alongside the tuner and metronome, the practice plateau diagnostic and the 30-day planner.
 
 ### How do you start with GuitarHub?
 
@@ -5862,7 +5853,7 @@ Weighing other options as well? See every [Guitar Tricks alternative](https://gu
 
 #### What does one GuitarHub purchase open?
 
-All 135 guided lessons in seven stages plus 24 popular-song companions, for $79 one time on the US App Store with no renewals. The 7 practice tools, the Advanced Lab and the written guides are free alongside it.
+All 135 guided lessons in seven stages plus 24 popular-song companions, for $79 one time on the US App Store with no renewals. The 4 practice tools, the Advanced Lab and the written guides are free alongside it.
 
 #### How is GuitarHub structured compared with Guitar Tricks?
 
@@ -5870,7 +5861,7 @@ GuitarHub is one guided path in seven stages, from the first clean note to barre
 
 #### What practice tools does GuitarHub include?
 
-7 free browser tools: the guitar tuner and metronome, 30-day breakthrough planner, practice plateau diagnostic, practice session builder, tempo ladder builder, song readiness score and practice evidence log. None needs an account.
+4 free browser tools: the guitar tuner and metronome, 30-day breakthrough planner, practice plateau diagnostic and tempo ladder builder. None needs an account.
 
 ### Sources
 
@@ -5899,14 +5890,14 @@ Guitar Tricks is a video lesson service that has taught guitar online since 1998
 GuitarHub, the guitar lessons site from Suede AI. Here is what it puts in your hands:
 
 - **Price:** $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals.
-- **Free to start:** The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
+- **Free to start:** The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
 - **Lessons:** 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson.
 - **Feedback:** Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded.
 - **Method:** A 30-day method: record a baseline, isolate one problem, reconnect it to the song, then record again and compare.
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Which Guitar Tricks alternatives are worth comparing?
 
@@ -5936,7 +5927,7 @@ Microphone exercises score pitch and timing on your device, and the method close
 
 #### Free tools for the hard passage
 
-The tempo ladder, the session builder and the song readiness score are among 7 free browser tools that turn one difficult passage into a plan you can run this week.
+The tempo ladder turns one difficult passage into a plan you can run this week. It is one of 4 free browser tools, alongside the tuner and metronome, the practice plateau diagnostic and the 30-day planner.
 
 The row-by-row breakdown is on [GuitarHub vs Guitar Tricks](https://guitarhub.org/compare/guitarhub-vs-guitar-tricks).
 
@@ -6003,7 +5994,7 @@ Every Ultimate Guitar fact on this page was checked on November 3, 2026 against 
 | Feature | GuitarHub | Ultimate Guitar |
 | --- | --- | --- |
 | Price | $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals | [Pricing varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) |
-| Free to start | The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) |
+| Free to start | The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account | [Varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853) |
 | Lesson format | 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson | Tabs and chords; UG Courses with 2,500+ lessons across instruments |
 | Feedback while you play | Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded | Interactive tabs that play note by note (Pro) |
 | Songs | 24 popular-song practice companions with original drills and links to full-song tutorials | 1M+ songs; 29,000+ Pro tabs with backing tracks |
@@ -6027,7 +6018,7 @@ Ultimate Guitar centers on its song catalog: chords, tabs and lyrics for guitar,
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Why do guitarists choose GuitarHub over Ultimate Guitar?
 
@@ -6089,7 +6080,7 @@ For players who want structured learning beyond a tab catalog: GuitarHub first, 
 
 Updated November 3, 2026
 
-**The short answer:** For a player who wants to learn guitar rather than collect tabs, the best Ultimate Guitar alternative is GuitarHub: a guided 135-lesson course for $79 one time, 7 free practice tools and a free 23-drill Advanced Lab.
+**The short answer:** For a player who wants to learn guitar rather than collect tabs, the best Ultimate Guitar alternative is GuitarHub: a guided 135-lesson course for $79 one time, 4 free practice tools and a free 23-drill Advanced Lab.
 
 Ultimate Guitar is a chords and tabs catalog of more than a million songs, which it describes as the world's largest, with Pro features and UG Courses for lessons. Ultimate Guitar: [Pricing varies](https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853).
 
@@ -6098,14 +6089,14 @@ Ultimate Guitar is a chords and tabs catalog of more than a million songs, which
 GuitarHub, the guitar lessons site from Suede AI. Here is what it puts in your hands:
 
 - **Price:** $79 one time for lifetime lesson access in GuitarHub: Guitar Lessons (US App Store); no renewals.
-- **Free to start:** The first module in the app, 7 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
+- **Free to start:** The first module in the app, 4 browser practice tools, the 23-drill Advanced Lab and 21 written guides, with no account.
 - **Lessons:** 135 written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson.
 - **Feedback:** Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded.
 - **Method:** A 30-day method: record a baseline, isolate one problem, reconnect it to the song, then record again and compare.
 
 GuitarHub teaches guitar in order. The [guitar curriculum](https://guitarhub.org/learn/guitar) holds 135 guided lessons, including 24 popular-song practice companions, and every lesson pairs written, step-by-step instruction with a practice task. Microphone exercises score pitch and attack timing on your device, and lifetime access is $79 one time in [GuitarHub: Guitar Lessons](https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875), with the first module free.
 
-Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [7 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
+Around the lessons sits [the GuitarHub method](https://guitarhub.org/method): pick one change you can prove in 30 days, record a baseline, isolate the one thing that breaks the result, reconnect the repair to the full song, then record again and compare the two takes. The [4 free practice tools](https://guitarhub.org/tools) run that loop in any browser with no account, and the [Advanced Lab](https://guitarhub.org/advanced) gives experienced players 23 free drills scored live through the microphone.
 
 ### Which Ultimate Guitar alternatives are worth comparing?
 
@@ -6150,7 +6141,7 @@ The row-by-row breakdown is on [GuitarHub vs Ultimate Guitar](https://guitarhub.
 
 #### What is the best Ultimate Guitar alternative for learning guitar?
 
-GuitarHub: 135 guided lessons in seven stages for $79 one time, microphone-scored exercises, 7 free practice tools and a free 23-drill Advanced Lab.
+GuitarHub: 135 guided lessons in seven stages for $79 one time, microphone-scored exercises, 4 free practice tools and a free 23-drill Advanced Lab.
 
 #### Which site has free tools to practice the songs I find on Ultimate Guitar?
 

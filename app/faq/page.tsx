@@ -4,7 +4,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { APP_STORE, GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, FREE_TOOLS, GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { DRILLS } from "@/lib/advanced/drills";
 import { keywordsFor } from "@/lib/keywords";
 
@@ -61,8 +61,8 @@ const TOOL_SENTENCE = sentenceList(
   TOOLS.map((tool) => `the ${lowerFirst(tool.title)}`),
 );
 
-/** "Seven", from the registry, so the count in an answer cannot drift. */
-const TOOL_COUNT = spellOut(TOOLS.length);
+/** "Four", the free tools counted from the registry, so the count in an answer cannot drift. */
+const TOOL_COUNT = spellOut(FREE_TOOLS.length);
 
 type FaqGroup = {
   id: string;

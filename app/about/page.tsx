@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { APP_STORE, GUIDES, LEARN, LIFETIME, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, FREE_TOOLS, GUIDES, LEARN, LIFETIME, PAID_TOOLS, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { DRILLS } from "@/lib/advanced/drills";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
@@ -214,7 +214,8 @@ export default function AboutPage() {
         </p>
 
         <p>
-          <strong>{spellOut(TOOLS.length).replace(/^./, (c) => c.toUpperCase())} free tools</strong>, each running in your browser:
+          <strong>{spellOut(TOOLS.length).replace(/^./, (c) => c.toUpperCase())} practice tools</strong>, each running in your browser.{" "}
+          {spellOut(FREE_TOOLS.length).replace(/^./, (c) => c.toUpperCase())} are free, and the other {spellOut(PAID_TOOLS.length)} come with lifetime access:
         </p>
 
         <ul>

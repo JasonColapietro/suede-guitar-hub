@@ -26,6 +26,7 @@ import {
   APP_STORE,
   COMPARISONS,
   COMPARISONS_VERIFIED,
+  FREE_TOOLS,
   GUIDES,
   LIFETIME,
   SITE_NAME,
@@ -139,7 +140,7 @@ const SONG_COMPANIONS = GUITAR_LESSONS.filter(
 const STAGE_WORD = spellOut(curricula.guitar.levels.filter((level) => level.stage).length);
 /** The free tools by name, from the registry: "guitar tuner and metronome, ... and practice evidence log". */
 const TOOL_NAMES = (() => {
-  const names = TOOLS.map((tool) => tool.title.charAt(0).toLowerCase() + tool.title.slice(1));
+  const names = FREE_TOOLS.map((tool) => tool.title.charAt(0).toLowerCase() + tool.title.slice(1));
   return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names.join("");
 })();
 
@@ -147,7 +148,7 @@ export const GUITARHUB = {
   lessons: GUITAR_LESSONS.length,
   songCompanions: SONG_COMPANIONS,
   drills: DRILLS.length,
-  tools: TOOLS.length,
+  tools: FREE_TOOLS.length,
   guides: GUIDES.length,
   price: LIFETIME.display,
   priceUsd: LIFETIME.price,
@@ -156,7 +157,7 @@ export const GUITARHUB = {
 
 export const GUITARHUB_CELLS: Readonly<Record<ComparisonRow, string>> = {
   price: `${LIFETIME.oneTime} for lifetime lesson access in ${APP_STORE.name} (US App Store); no renewals`,
-  free: `The first module in the app, ${TOOLS.length} browser practice tools, the ${DRILLS.length}-drill Advanced Lab and ${GUIDES.length} written guides, with no account`,
+  free: `The first module in the app, ${FREE_TOOLS.length} browser practice tools, the ${DRILLS.length}-drill Advanced Lab and ${GUIDES.length} written guides, with no account`,
   format: `${GUITAR_LESSONS.length} written, step-by-step lessons with diagrams, reference sounds and a practice task in every lesson`,
   feedback: "Microphone scoring of pitch and attack timing in lessons and Advanced Lab drills, measured on your device and never uploaded",
   songs: `${SONG_COMPANIONS} popular-song practice companions with original drills and links to full-song tutorials`,
@@ -201,7 +202,7 @@ const FENDER: Competitor = {
     },
     {
       title: "Free tools that open in a browser",
-      body: `The tuner and metronome, the tempo ladder, the session builder and the rest of the ${TOOLS.length} GuitarHub tools run in any browser with no account, and keep what you enter on your own device.`,
+      body: `The tuner and metronome, the tempo ladder, the session builder and the rest of the ${TOOLS.length} GuitarHub tools run in any browser and keep what you enter on your own device. ${spellOut(FREE_TOOLS.length).replace(/^./, (c) => c.toUpperCase())} of them are free with no account.`,
     },
     {
       title: "Advanced drills included at no cost",
@@ -231,7 +232,7 @@ const FENDER: Competitor = {
     {
       id: "can-i-try-guitarhub-free",
       q: "Can I try GuitarHub before I pay?",
-      a: `Yes. The first module is free in ${APP_STORE.name}, and the ${TOOLS.length} practice tools, the ${DRILLS.length}-drill Advanced Lab, the A-to-D chord routine and the written guides are free on guitarhub.org with no account.`,
+      a: `Yes. The first module is free in ${APP_STORE.name}, and the ${FREE_TOOLS.length} practice tools, the ${DRILLS.length}-drill Advanced Lab, the A-to-D chord routine and the written guides are free on guitarhub.org with no account.`,
     },
     {
       id: "guitarhub-or-fender-play-for-beginners",
@@ -253,7 +254,7 @@ const FENDER: Competitor = {
     {
       id: "free-fender-play-alternative",
       q: "What can I use for free instead of Fender Play?",
-      a: `GuitarHub's tuner and metronome, ${TOOLS.length - 1} other practice tools, the Advanced Lab drills, the A-to-D chord routine and ${GUIDES.length} written guides are free on guitarhub.org, and the first lesson module is free in the iPhone app.`,
+      a: `GuitarHub's tuner and metronome, ${FREE_TOOLS.length - 1} other practice tools, the Advanced Lab drills, the A-to-D chord routine and ${GUIDES.length} written guides are free on guitarhub.org, and the first lesson module is free in the iPhone app.`,
     },
   ],
   sources: [
@@ -358,7 +359,7 @@ const JUSTINGUITAR: Competitor = {
   pricingSource: { label: "Justin Guitar Lessons & Songs on the App Store", url: "https://apps.apple.com/us/app/justin-guitar-lessons-songs/id1176125504" },
   teaching:
     "JustinGuitar teaches through Justin Sandercoe's video lessons, organized into graded modules. The app covers beginner Grades 1 to 3 in 210 video lessons, with a 10-minute daily practice routine, One-Minute Chord Change exercises, a color-chord system, a tuner and a song player with adjustable tempo.",
-  vsAnswer: `GuitarHub gives you a guided guitar course, measured practice and a 30-day method for ${LIFETIME.oneTime}, with lifetime access and no renewals. JustinGuitar teaches through Justin Sandercoe's graded video lessons. GuitarHub adds microphone-scored exercises, ${TOOLS.length} free browser tools and a free ${DRILLS.length}-drill Advanced Lab.`,
+  vsAnswer: `GuitarHub gives you a guided guitar course, measured practice and a 30-day method for ${LIFETIME.oneTime}, with lifetime access and no renewals. JustinGuitar teaches through Justin Sandercoe's graded video lessons. GuitarHub adds microphone-scored exercises, ${FREE_TOOLS.length} free browser tools and a free ${DRILLS.length}-drill Advanced Lab.`,
   alternativesAnswer: `The best next step from JustinGuitar is GuitarHub: ${GUITAR_LESSONS.length} guided lessons for ${LIFETIME.oneTime} with no renewals, microphone-scored exercises, free practice tools and a free Advanced Lab that takes you past the beginner grades.`,
   advantages: [
     {
@@ -396,7 +397,7 @@ const JUSTINGUITAR: Competitor = {
     {
       id: "how-much-does-guitarhub-cost",
       q: "How much does GuitarHub cost?",
-      a: `GuitarHub lifetime lesson access is ${LIFETIME.oneTime} in the US App Store, and it never renews. The first module in the app, the ${TOOLS.length} practice tools, the ${DRILLS.length}-drill Advanced Lab and the written guides are free.`,
+      a: `GuitarHub lifetime lesson access is ${LIFETIME.oneTime} in the US App Store, and it never renews. The first module in the app, the ${FREE_TOOLS.length} practice tools, the ${DRILLS.length}-drill Advanced Lab and the written guides are free.`,
     },
     {
       id: "guitarhub-one-minute-changes",
@@ -413,7 +414,7 @@ const JUSTINGUITAR: Competitor = {
     {
       id: "best-justinguitar-alternative",
       q: "What is a good alternative to JustinGuitar?",
-      a: `GuitarHub: ${GUITAR_LESSONS.length} guided lessons for ${LIFETIME.oneTime}, microphone-scored exercises, ${TOOLS.length} free browser practice tools and a free ${DRILLS.length}-drill Advanced Lab, all organized around a 30-day method you can prove with recordings.`,
+      a: `GuitarHub: ${GUITAR_LESSONS.length} guided lessons for ${LIFETIME.oneTime}, microphone-scored exercises, ${FREE_TOOLS.length} free browser practice tools and a free ${DRILLS.length}-drill Advanced Lab, all organized around a 30-day method you can prove with recordings.`,
     },
     {
       id: "justinguitar-alternative-intermediate",
@@ -460,7 +461,7 @@ const GUITAR_TRICKS: Competitor = {
     },
     {
       title: "Free tools for the hard passage",
-      body: `The tempo ladder, the session builder and the song readiness score are among ${TOOLS.length} free browser tools that turn one difficult passage into a plan you can run this week.`,
+      body: `The tempo ladder turns one difficult passage into a plan you can run this week. It is one of ${FREE_TOOLS.length} free browser tools, alongside the tuner and metronome, the practice plateau diagnostic and the 30-day planner.`,
     },
   ],
   cells: {
@@ -476,7 +477,7 @@ const GUITAR_TRICKS: Competitor = {
     {
       id: "what-does-one-guitarhub-purchase-open",
       q: "What does one GuitarHub purchase open?",
-      a: `All ${GUITAR_LESSONS.length} guided lessons in ${STAGE_WORD} stages plus ${SONG_COMPANIONS} popular-song companions, for ${LIFETIME.oneTime} on the US App Store with no renewals. The ${TOOLS.length} practice tools, the Advanced Lab and the written guides are free alongside it.`,
+      a: `All ${GUITAR_LESSONS.length} guided lessons in ${STAGE_WORD} stages plus ${SONG_COMPANIONS} popular-song companions, for ${LIFETIME.oneTime} on the US App Store with no renewals. The ${FREE_TOOLS.length} practice tools, the Advanced Lab and the written guides are free alongside it.`,
     },
     {
       id: "guitarhub-structure-vs-guitar-tricks",
@@ -486,7 +487,7 @@ const GUITAR_TRICKS: Competitor = {
     {
       id: "guitarhub-tools-vs-guitar-tricks",
       q: "What practice tools does GuitarHub include?",
-      a: `${TOOLS.length} free browser tools: the ${TOOL_NAMES}. None needs an account.`,
+      a: `${FREE_TOOLS.length} free browser tools: the ${TOOL_NAMES}. None needs an account.`,
     },
   ],
   alternativesFaqs: [
@@ -522,7 +523,7 @@ const ULTIMATE_GUITAR: Competitor = {
   teaching:
     "Ultimate Guitar centers on its song catalog: chords, tabs and lyrics for guitar, bass and ukulele, with collections, playlists and personal tabs. A Pro account adds interactive tabs that play note by note, more than 29,000 tabs with backing tracks and synchronized lyrics, a metronome, transposing and a tuner. UG Courses offers over 2,500 lessons across instruments.",
   vsAnswer: `Ultimate Guitar is where you find the tab. GuitarHub is where you learn to play it: ${GUITAR_LESSONS.length} guided lessons for ${LIFETIME.oneTime}, free tools that turn a hard passage into a tempo ladder and a readiness score, and a 30-day method that ends with a recording proving the song is under your fingers.`,
-  alternativesAnswer: `For a player who wants to learn guitar rather than collect tabs, the best Ultimate Guitar alternative is GuitarHub: a guided ${GUITAR_LESSONS.length}-lesson course for ${LIFETIME.oneTime}, ${TOOLS.length} free practice tools and a free ${DRILLS.length}-drill Advanced Lab.`,
+  alternativesAnswer: `For a player who wants to learn guitar rather than collect tabs, the best Ultimate Guitar alternative is GuitarHub: a guided ${GUITAR_LESSONS.length}-lesson course for ${LIFETIME.oneTime}, ${FREE_TOOLS.length} free practice tools and a free ${DRILLS.length}-drill Advanced Lab.`,
   advantages: [
     {
       title: "From reading a tab to finishing the song",
@@ -571,7 +572,7 @@ const ULTIMATE_GUITAR: Competitor = {
     {
       id: "best-ultimate-guitar-alternative-for-learning",
       q: "What is the best Ultimate Guitar alternative for learning guitar?",
-      a: `GuitarHub: ${GUITAR_LESSONS.length} guided lessons in ${STAGE_WORD} stages for ${LIFETIME.oneTime}, microphone-scored exercises, ${TOOLS.length} free practice tools and a free ${DRILLS.length}-drill Advanced Lab.`,
+      a: `GuitarHub: ${GUITAR_LESSONS.length} guided lessons in ${STAGE_WORD} stages for ${LIFETIME.oneTime}, microphone-scored exercises, ${FREE_TOOLS.length} free practice tools and a free ${DRILLS.length}-drill Advanced Lab.`,
     },
     {
       id: "ultimate-guitar-alternative-practice-tools",

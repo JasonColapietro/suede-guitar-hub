@@ -9,7 +9,7 @@ import LevelPicker from "@/components/LevelPicker";
 import PracticeWorkspace from "@/components/PracticeWorkspace";
 import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
-import { APP_STORE, LIFETIME, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, FREE_TOOLS, LIFETIME, STRUMLY, spellOut } from "@/lib/site";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
  * claim this site cannot afford to get wrong on its own front page.
  */
 const TOOL_COUNT = (() => {
-  const word = spellOut(TOOLS.length);
+  const word = spellOut(FREE_TOOLS.length);
   return word.charAt(0).toUpperCase() + word.slice(1);
 })();
 
@@ -257,7 +257,7 @@ export default function Home() {
             </p>
           </Reveal>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {TOOLS.map((tool, i) => (
+            {FREE_TOOLS.map((tool, i) => (
               <Reveal key={tool.href} delay={(i % 3) as 0 | 1 | 2}>
                 <Link
                   href={tool.href}

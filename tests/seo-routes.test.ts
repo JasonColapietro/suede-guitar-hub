@@ -275,7 +275,7 @@ test("discovers public lessons and drills without advertising gated or private r
   const urls = new Set(sitemap().map((entry) => entry.url));
 
   assert.ok(urls.has(`${SITE_URL}/learn/guitar/routine`),
-    "the public routine remains discoverable even though its URL is beneath /learn/guitar/");
+    "the routine page, public with its preview, remains discoverable even though its URL is beneath /learn/guitar/");
 
   for (const { lesson, module } of allLessons("guitar")) {
     const publicLesson = isLessonReady("guitar", lesson.id)
@@ -284,7 +284,7 @@ test("discovers public lessons and drills without advertising gated or private r
       `${lesson.id} must be listed exactly when a guest can read the complete lesson`);
   }
   for (const drill of DRILLS) {
-    assert.ok(urls.has(`${SITE_URL}${drillHref(drill.id)}`), `${drill.id} is a public drill`);
+    assert.ok(urls.has(`${SITE_URL}${drillHref(drill.id)}`), `${drill.id} keeps a public page with its instructions and preview`);
   }
   for (const path of ["/account", "/learn/voice", "/learn/voice/materials", "/learn/voice/recordings"]) {
     assert.equal(urls.has(`${SITE_URL}${path}`), false, `${path} must stay out of the sitemap`);

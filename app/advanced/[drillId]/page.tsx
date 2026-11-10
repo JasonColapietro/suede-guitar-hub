@@ -3,10 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DrillSession } from "@/components/advanced/DrillSession";
 import { DrillTeaching } from "@/components/advanced/DrillTeaching";
+import { PaidToolGate } from "@/components/paywall/PaidToolGate";
+import { checkoutAvailable } from "@/lib/checkout/config";
 import { BreadcrumbJsonLd } from "@/components/Breadcrumbs";
-import { DRILLS, drillHref, getDrill, skillArea } from "@/lib/advanced/drills";
+import { DRILLS, drillHref, getDrill, skillArea, type Drill } from "@/lib/advanced/drills";
 import { drillTeaching } from "@/lib/advanced/teaching";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, lifetimeOfferAt } from "@/lib/site";
+import { drillGoalBpm, drillTempoPresets } from "@/lib/advanced/tempo-presets";
 import { drillKeywords } from "@/lib/keywords";
 import { pageJsonLd } from "@/lib/page-schema";
 import learning from "@/components/learning/Learning.module.css";
@@ -31,6 +34,20 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     openGraph: { title, description, url, siteName: "GuitarHub", type: "article" },
     twitter: { card: "summary_large_image", title, description },
   };
+}
+
+/** The drill's goal and tempo rungs, shown in place of the scored session until lifetime access is verified. */
+function DrillPreview({ drill }: { drill: Drill }) {
+  return <figure className={styles.session}>
+    <figcaption className={styles.label}>What the scored session sets you</figcaption>
+    <div data-locked-preview inert>
+      <div className={styles.goal}>
+        <div><span className={styles.label}>Goal</span><strong>{drillGoalBpm(drill)} BPM · {drill.spec.passScore}% accuracy</strong></div>
+        <div><span className={styles.label}>Session</span><strong>{drill.minutes} min · {drill.tier}</strong></div>
+      </div>
+      <ol className={styles.presetNote}>{drillTempoPresets(drill).map(preset => <li key={preset.id}>{preset.label}: {preset.bpm} BPM ({preset.percent}%)</li>)}</ol>
+    </div>
+  </figure>;
 }
 
 export default async function DrillPage({ params }: { params: Promise<Params> }) {
@@ -66,7 +83,9 @@ export default async function DrillPage({ params }: { params: Promise<Params> })
       <ol>{drill.steps.map(step => <li key={step}>{step}</li>)}</ol>
       <p>What the coach checks: {drill.measures}</p>
     </details>
-    <DrillSession drill={drill} />
+    <PaidToolGate checkoutAvailable={checkoutAvailable()} returnTo={drillHref(drill.id)} offer={lifetimeOfferAt(new Date())} preview={<DrillPreview drill={drill} />}>
+      <DrillSession drill={drill} />
+    </PaidToolGate>
     <section className={styles.why}><h2>Why this drill</h2><p>{drill.why}</p></section>
     {teaching && <DrillTeaching drill={drill} teaching={teaching} />}
     <nav className={styles.pager} aria-label="More drills">

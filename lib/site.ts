@@ -75,6 +75,11 @@ export type SiteEntry = {
   blurb: string;
   /** ISO date, `YYYY-MM-DD`. Feeds `lastModified` in the sitemap. */
   lastModified: string;
+  /**
+   * `"paid"` when the working tool opens with lifetime access. The page stays
+   * public and indexed: its introduction and a preview render for everyone.
+   */
+  access?: "paid";
 };
 
 export const HOME: SiteEntry = {
@@ -139,6 +144,7 @@ export const TOOLS: readonly SiteEntry[] = [
   },
   {
     href: "/session",
+    access: "paid",
     title: "Practice session builder",
     blurb:
       "Turn the minutes you actually have into timed blocks, weighted toward the one thing you are fixing.",
@@ -153,6 +159,7 @@ export const TOOLS: readonly SiteEntry[] = [
   },
   {
     href: "/readiness",
+    access: "paid",
     title: "Song readiness score",
     blurb:
       "Check a song against the parts that break under pressure before you call it finished.",
@@ -160,12 +167,18 @@ export const TOOLS: readonly SiteEntry[] = [
   },
   {
     href: "/log",
+    access: "paid",
     title: "Practice evidence log",
     blurb:
       "Log one line per session and read what actually moved, with no streak counter and no direction under three sessions.",
     lastModified: "2026-10-24",
   },
 ];
+
+/** The tools anyone can use on guitarhub.org, in `TOOLS` order. */
+export const FREE_TOOLS: readonly SiteEntry[] = TOOLS.filter((tool) => tool.access !== "paid");
+/** The tools lifetime access opens, in `TOOLS` order. Their pages stay public with a preview. */
+export const PAID_TOOLS: readonly SiteEntry[] = TOOLS.filter((tool) => tool.access === "paid");
 
 export const GUIDES: readonly SiteEntry[] = [
   {
@@ -525,8 +538,9 @@ export const LEARN: readonly SiteEntry[] = [
   },
   {
     href: "/learn/guitar/routine",
+    access: "paid",
     title: "A-to-D chord practice routine",
-    blurb: "A free beginner routine for A and D chord changes, with seven timed blocks, editable durations, and local practice history.",
+    blurb: "A beginner routine for A and D chord changes, with seven timed blocks, editable durations, and local practice history, included with lifetime access.",
     lastModified: "2026-10-10",
   },
   {
@@ -538,9 +552,10 @@ export const LEARN: readonly SiteEntry[] = [
   },
   {
     href: "/advanced",
+    access: "paid",
     title: "Advanced Lab",
     blurb:
-      "Free scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone.",
+      "Scored drills for experienced players across technique, theory, rhythm, ear training, fretboard, improvisation, repertoire and tone, included with lifetime access.",
     lastModified: ADVANCED_LAB_LAST_MODIFIED,
   },
 ];
