@@ -4,8 +4,8 @@ import { register } from "node:module";
 import { renderToStaticMarkup } from "react-dom/server";
 import { checkoutAvailable, checkoutConfiguration } from "../lib/checkout/config.ts";
 import { createCheckoutHandlers } from "../lib/checkout/handlers.ts";
-import { CHECKOUT_AMOUNT_CENTS, checkoutSessionParams, purchaseFromCheckoutSession } from "../lib/checkout/stripe.ts";
-import { LIFETIME } from "../lib/site.ts";
+import { checkoutAmountCents, checkoutSessionParams, purchaseFromCheckoutSession } from "../lib/checkout/stripe.ts";
+import { LIFETIME, LIFETIME_LAUNCH_ENDS, lifetimeOfferAt } from "../lib/site.ts";
 import type { StripePurchase } from "../lib/learning-account/stripe.ts";
 
 register("./component-render-hooks.mjs", import.meta.url);
@@ -90,13 +90,19 @@ test("checkout is unavailable unless accounts, the secret key and the webhook se
   }
 });
 
-test("the price sent to Stripe comes from LIFETIME", () => {
-  assert.equal(CHECKOUT_AMOUNT_CENTS, 7900);
-  assert.equal(CHECKOUT_AMOUNT_CENTS, LIFETIME.price * 100);
+const BEFORE_LAUNCH_ENDS = new Date(LIFETIME_LAUNCH_ENDS.getTime() - 1_000);
+
+test("Stripe charges the price the site shows at the moment the session is created", () => {
+  assert.equal(checkoutAmountCents(BEFORE_LAUNCH_ENDS), 7900);
+  assert.equal(checkoutAmountCents(LIFETIME_LAUNCH_ENDS), 9900);
+  for (const now of [BEFORE_LAUNCH_ENDS, LIFETIME_LAUNCH_ENDS, new Date()]) assert.equal(checkoutAmountCents(now), lifetimeOfferAt(now).price * 100);
+  assert.equal(checkoutSessionParams({ email: null, origin: "https://guitarhub.org" }, BEFORE_LAUNCH_ENDS).line_items?.[0].price_data?.unit_amount, 7900);
+  assert.equal(checkoutSessionParams({ email: null, origin: "https://guitarhub.org" }, LIFETIME_LAUNCH_ENDS).line_items?.[0].price_data?.unit_amount, 9900);
+  assert.equal(checkoutSessionParams({ email: null, origin: "https://guitarhub.org" }).line_items?.[0].price_data?.unit_amount, lifetimeOfferAt(new Date()).price * 100);
 });
 
-test("the Checkout session is a one-time $79 payment with tax added on top", () => {
-  const params = checkoutSessionParams({ email: "buyer@example.com", origin: "https://guitarhub.org" });
+test("the Checkout session is a one-time payment with tax added on top", () => {
+  const params = checkoutSessionParams({ email: "buyer@example.com", origin: "https://guitarhub.org" }, BEFORE_LAUNCH_ENDS);
   assert.deepEqual(params, {
     mode: "payment",
     line_items: [{ quantity: 1, price_data: { currency: "usd", unit_amount: 7900, tax_behavior: "exclusive", product_data: { name: LIFETIME.name } } }],

@@ -1,0 +1,18 @@
+.dialog { width: min(32rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: 0; border: 0; border-radius: 1.5rem; background: var(--color-cream); color: var(--color-ink); box-shadow: 0 24px 64px rgba(37, 17, 82, .28); overflow: auto; }
+.dialog::backdrop { background: rgba(28, 18, 51, .6); }
+.body { position: relative; padding: clamp(1.5rem, 4vw, 2.25rem); line-height: 1.65; }
+.body > p { margin: 0 0 1rem; }
+.close { position: absolute; top: .75rem; right: .75rem; display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: transparent; color: var(--color-indigo-deep); font-size: 1.75rem; line-height: 1; cursor: pointer; }
+.close:hover { background: var(--color-cream-soft); }
+.kicker { font-size: .75rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; color: var(--color-violet); }
+.title { font: 550 clamp(1.5rem, 4vw, 1.9rem)/1.25 var(--font-display); color: var(--color-indigo-deep); margin: 0 2.5rem 1rem 0; }
+.price { font-size: 1.15rem; }
+.price strong { font: 600 2.25rem/1.1 var(--font-display); color: var(--color-indigo-deep); }
+.regular { color: var(--muted, #6b5f7d); margin-right: .25rem; }
+.note { font-weight: 600; color: var(--color-violet); }
+.guarantee { padding: .85rem 1rem; border-radius: .75rem; background: var(--color-cream-soft); }
+.buy { display: flex; width: 100%; min-height: 52px; align-items: center; justify-content: center; padding: .85rem 1.4rem; border: 0; border-radius: 999px; background: var(--color-violet); color: white; font-weight: 650; text-align: center; cursor: pointer; margin-bottom: 1rem; }
+.buy:hover { filter: brightness(1.09); }
+.buy:disabled { opacity: .7; cursor: progress; }
+.signIn { font-size: .9rem; text-align: center; }
+.signIn a { text-decoration: underline; text-underline-offset: 3px; }

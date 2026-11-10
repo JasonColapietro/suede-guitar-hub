@@ -1,23 +1,26 @@
 import Stripe from "stripe";
 import { normalizeEmail, type StripePurchase } from "../learning-account/stripe.ts";
-import { LIFETIME } from "../site.ts";
+import { LIFETIME, lifetimeOfferAt } from "../site.ts";
 import { checkoutConfiguration } from "./config.ts";
 
-/** The pre-tax price Stripe charges, in cents, from the one price the whole site shows. */
-export const CHECKOUT_AMOUNT_CENTS = LIFETIME.price * 100;
+/** The pre-tax price Stripe charges at `now`, in cents, from the offer the site shows at that instant. */
+export function checkoutAmountCents(now: Date): number {
+  return lifetimeOfferAt(now).price * 100;
+}
 
 /** Marks sessions this site created, so a paid session for anything else on the account never unlocks lessons. */
 const CHECKOUT_PRODUCT = "guitarhub_lifetime";
 
 export type CheckoutSessionInput = { email: string | null; origin: string };
 
-export function checkoutSessionParams(input: CheckoutSessionInput): Stripe.Checkout.SessionCreateParams {
+/** `now` defaults to the moment the session is created, so the charge follows the launch end to the second. */
+export function checkoutSessionParams(input: CheckoutSessionInput, now = new Date()): Stripe.Checkout.SessionCreateParams {
   return {
     mode: "payment",
     line_items: [{
       quantity: 1,
-      // `exclusive`: Stripe Tax adds sales tax on top, so the buyer sees the $79 the site advertises.
-      price_data: { currency: "usd", unit_amount: CHECKOUT_AMOUNT_CENTS, tax_behavior: "exclusive", product_data: { name: LIFETIME.name } },
+      // `exclusive`: Stripe Tax adds sales tax on top, so the buyer sees the price the site advertises.
+      price_data: { currency: "usd", unit_amount: checkoutAmountCents(now), tax_behavior: "exclusive", product_data: { name: LIFETIME.name } },
     }],
     automatic_tax: { enabled: true },
     ...(input.email ? { customer_email: input.email } : {}),

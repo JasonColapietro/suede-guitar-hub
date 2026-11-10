@@ -59,8 +59,8 @@ test("the guitar Course is built from the curriculum the page renders", () => {
   });
 
   // The offer points at the App Store listing: the first module is free there,
-  // and the rest is one lifetime purchase of 79.00 USD on the US storefront.
-  assert.deepEqual(course.offers, [{ "@type": "Offer", category: "Partially Free", price: "79.00", priceCurrency: "USD", url: APP_STORE.ios, availability: "https://schema.org/InStock" }]);
+  // and the rest is one lifetime purchase at the price in force (LIFETIME) on the US storefront.
+  assert.deepEqual(course.offers, [{ "@type": "Offer", category: "Partially Free", price: LIFETIME.schemaPrice, priceCurrency: "USD", url: APP_STORE.ios, availability: "https://schema.org/InStock" }]);
   assert.equal(course.offers[0].price, LIFETIME.schemaPrice);
   const text = JSON.stringify(course);
   for (const invented of ["aggregateRating", "review", "totalHistoricalEnrollment", "instructor", "educationalCredentialAwarded"]) {

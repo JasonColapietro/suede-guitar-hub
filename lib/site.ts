@@ -573,32 +573,102 @@ export const APP_STORE = {
 /**
  * The lifetime lesson price: the single source for every price on the site.
  *
- * Lifetime access is the App Store in-app purchase "Complete Lifetime"
- * (`GUITARHUB_LIFETIME_PRODUCT_ID` in `lib/learning-account/contracts.ts`),
- * bought in GuitarHub for iPhone. It costs $79.00 USD, one time, on the US
- * storefront (verified on the live App Store listing 2026-10-10); each other
+ * Lifetime access is "Complete Lifetime": the App Store in-app purchase
+ * (`GUITARHUB_LIFETIME_PRODUCT_ID` in `lib/learning-account/contracts.ts`)
+ * bought in GuitarHub for iPhone, and the Stripe Checkout sale on guitarhub.org.
+ * Prices are USD, one time, on the US storefront; each other App Store
  * storefront charges its own local price. The first module is free in the app,
- * and lifetime access opens the full guitar and voice curriculum there.
+ * and lifetime access opens the full guitar and voice curriculum.
  *
- * Web checkout is not live, so every price on the site sends the buyer to
- * `APP_STORE.ios`. Change the price here and the homepage, /learn,
- * /learn/guitar, the lesson gate, /start, /faq, /about, llms.txt and the
- * Course offer all follow.
+ * The regular price is $99. The launch price is $79 through 30 November 2026,
+ * end of day in New York; from `LIFETIME_LAUNCH_ENDS` the price is $99. The
+ * owner moves the App Store price on the same date in App Store Connect.
+ *
+ * `lifetimeOfferAt(now)` answers the offer in force at any instant. The paywall,
+ * the buy button, the lesson gate and the amount Stripe charges ask it at render
+ * or request time, so the site never shows one price and charges another. No
+ * other file types a price.
  */
-const LIFETIME_PRICE = 79;
+export const LIFETIME_REGULAR_PRICE = 99;
+export const LIFETIME_LAUNCH_PRICE = 79;
+/** 1 December 2026 00:00 in America/New_York (EST, UTC−5): the first instant of the regular price. */
+export const LIFETIME_LAUNCH_ENDS = new Date("2026-12-01T05:00:00.000Z");
 
+export type LifetimeOffer = {
+  readonly price: number;
+  readonly regularPrice: number;
+  /** True while the launch price is in force. */
+  readonly launch: boolean;
+  /** `"$79"`, for prose. */
+  readonly display: string;
+  /** `"$99"`, shown struck through beside the launch price. */
+  readonly regularDisplay: string;
+  /** `"79.00"`, the schema.org `Offer.price` form. */
+  readonly schemaPrice: string;
+  /** `"$79 one time"`. */
+  readonly oneTime: string;
+  /** The label on every App Store purchase link. */
+  readonly cta: string;
+  /** The label on the web checkout button. */
+  readonly webCta: string;
+  /** `"Launch price $79. Goes to $99 on December 1, 2026."` during the launch; null after it. */
+  readonly launchNote: string | null;
+};
+
+/** "December 1, 2026": the day the regular price starts, read in New York. */
+const REGULAR_PRICE_DATE = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", month: "long", day: "numeric", year: "numeric" }).format(LIFETIME_LAUNCH_ENDS);
+
+function lifetimeOffer(price: number): LifetimeOffer {
+  const display = `$${price}`;
+  const regularDisplay = `$${LIFETIME_REGULAR_PRICE}`;
+  const launch = price !== LIFETIME_REGULAR_PRICE;
+  return Object.freeze({
+    price,
+    regularPrice: LIFETIME_REGULAR_PRICE,
+    launch,
+    display,
+    regularDisplay,
+    schemaPrice: price.toFixed(2),
+    oneTime: `${display} one time`,
+    cta: `Get lifetime access on iPhone — ${display} one time`,
+    webCta: `Get lifetime access — ${display} one time`,
+    launchNote: launch ? `Launch price ${display}. Goes to ${regularDisplay} on ${REGULAR_PRICE_DATE}.` : null,
+  });
+}
+
+const LAUNCH_OFFER = lifetimeOffer(LIFETIME_LAUNCH_PRICE);
+const REGULAR_OFFER = lifetimeOffer(LIFETIME_REGULAR_PRICE);
+
+/** The offer in force at `now`: one of two fixed objects, so results compare by identity. */
+export function lifetimeOfferAt(now: Date): LifetimeOffer {
+  return now.getTime() < LIFETIME_LAUNCH_ENDS.getTime() ? LAUNCH_OFFER : REGULAR_OFFER;
+}
+
+/**
+ * The lifetime product, with each price field read from the offer in force when
+ * the field is read. A page built ahead of time keeps the price of its build, so
+ * static pages are rebuilt when the launch ends.
+ */
 export const LIFETIME = {
   name: "Complete Lifetime",
-  price: LIFETIME_PRICE,
   currency: "USD",
+  get price() { return lifetimeOfferAt(new Date()).price; },
   /** `"$79"`, for prose. */
-  display: `$${LIFETIME_PRICE}`,
+  get display() { return lifetimeOfferAt(new Date()).display; },
   /** `"79.00"`, the schema.org `Offer.price` form. */
-  schemaPrice: LIFETIME_PRICE.toFixed(2),
+  get schemaPrice() { return lifetimeOfferAt(new Date()).schemaPrice; },
   /** `"$79 one time"`. */
-  oneTime: `$${LIFETIME_PRICE} one time`,
-  /** The label on every lifetime purchase button. */
-  cta: `Get lifetime access on iPhone — $${LIFETIME_PRICE} one time`,
+  get oneTime() { return lifetimeOfferAt(new Date()).oneTime; },
+  /** The label on every App Store purchase link. */
+  get cta() { return lifetimeOfferAt(new Date()).cta; },
+  /** The label on the web checkout button: `"Get lifetime access — $79 one time"`. */
+  get webCta() { return lifetimeOfferAt(new Date()).webCta; },
+} as const;
+
+/** What lifetime access sets out to deliver, and the refund that backs it. */
+export const OFFER = {
+  promise: "Play real chords and improvise your first solo in 30 days.",
+  guarantee: "If after 90 days you are not playing chords and improvising, you get a full refund.",
 } as const;
 
 /**
