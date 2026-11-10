@@ -7,14 +7,34 @@ import { accountConfiguration } from "./config";
 import { normalizeEmail, type StripePurchase } from "@/lib/learning-account/stripe";
 import { AccountHTTPError } from "./http";
 
+function serviceClient(url: string, serviceKey: string) {
+  return createClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    global: { fetch: (url, init) => fetch(url, { ...init, cache: "no-store" }) },
+  });
+}
+
 export function accountBackend() {
   const configuration = accountConfiguration();
   const serviceKey = process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY;
   if (!configuration || !serviceKey) throw new AccountHTTPError(503, "account_service_unavailable");
-  return createClient(configuration.url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
-    global: { fetch: (url, init) => fetch(url, { ...init, cache: "no-store" }) },
-  });
+  return serviceClient(configuration.url, serviceKey);
+}
+
+/**
+ * The service-role client for server work that does not depend on accounts being
+ * switched on (email leads): needs the Supabase URL and service key, not
+ * `GUITARHUB_ACCOUNTS_ENABLED`. Same project pin as `accountConfiguration`.
+ */
+export function serviceBackend() {
+  const serviceKey = process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY?.trim();
+  let origin: string | null = null;
+  try {
+    const parsed = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "");
+    if (parsed.origin === "https://drzuelosizfllruocmly.supabase.co" && !parsed.username && !parsed.password && parsed.pathname === "/" && !parsed.search && !parsed.hash) origin = parsed.origin;
+  } catch { /* An unset or malformed URL is unavailable below. */ }
+  if (!origin || !serviceKey) throw new AccountHTTPError(503, "account_service_unavailable");
+  return serviceClient(origin, serviceKey);
 }
 
 export function purchaseEnvironment(): StoreEnvironment {

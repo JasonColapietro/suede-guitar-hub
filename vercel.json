@@ -1,4 +1,10 @@
 {
+  "crons": [
+    {
+      "path": "/api/leads/dispatch",
+      "schedule": "0 15 * * *"
+    }
+  ],
   "github": {
     "silent": true
   },
