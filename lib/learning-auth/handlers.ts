@@ -60,11 +60,19 @@ export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependen
   }
   const appleGranted = tracks.size > 0;
   // Stripe purchases are keyed by email, so only a provider-confirmed address may match them.
-  const email = verifiedEmail === null ? "" : normalizeEmail(verifiedEmail);
+  // Apple access already decides the answer, so a Stripe lookup failure must not reach an Apple buyer.
+  const email = appleGranted || verifiedEmail === null ? "" : normalizeEmail(verifiedEmail);
   const stripeGranted = email ? stripeTracks(await deps.listStripePurchases(email), deps.stripeLiveRequired()) : [];
   stripeGranted.forEach((track) => tracks.add(track));
   const purchaseSource = appleGranted ? "apple" as const : stripeGranted.length ? "stripe" as const : null;
-  return { accountId, tracks: [...tracks], environment, freeModuleId: await deps.getFreeModule(accountId), purchaseSource };
+  let freeModuleId: string | null = null;
+  try { freeModuleId = await deps.getFreeModule(accountId); }
+  catch (error) {
+    // A buyer keeps paid access when the free-module read fails; without a purchase the failure stays visible.
+    if (!tracks.size) throw error;
+    console.error("[access] free module unavailable; paid access unaffected");
+  }
+  return { accountId, tracks: [...tracks], environment, freeModuleId, purchaseSource };
 }
 
 /** These are the production route implementations; dependencies isolate provider I/O for tests. */

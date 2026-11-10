@@ -58,3 +58,21 @@ test("only a provider-confirmed email is used, normalised like the database", ()
   assert.equal(verifiedUserEmail({ email: "  Buyer@Example.COM ", email_confirmed_at: "2026-11-10T00:00:00Z" }), "buyer@example.com");
   for (const user of [{ email: "buyer@example.com" }, { email: "buyer@example.com", email_confirmed_at: null }, { email: "buyer@example.com", email_confirmed_at: "" }, { email_confirmed_at: "2026-11-10T00:00:00Z" }, { email: "  ", email_confirmed_at: "2026-11-10T00:00:00Z" }]) assert.equal(verifiedUserEmail(user), null);
 });
+test("an Apple buyer keeps access when the Stripe and free-module lookups fail", async () => {
+  const h = harness({
+    listStripePurchases: async () => { throw new Error("stripe table unavailable"); },
+    getFreeModule: async () => { throw new Error("free module table missing"); },
+  });
+  const logged: unknown[][] = [];
+  const original = console.error;
+  console.error = (...args: unknown[]) => { logged.push(args); };
+  let response: Response;
+  try { response = await h.handlers.access(request()); } finally { console.error = original; }
+  assert.equal(response.status, 200);
+  assert.equal(logged.length, 1);
+  assert.deepEqual(await response.json(), { accountId: id, tracks: ["guitar", "voice"], environment: "Production", freeModuleId: null, purchaseSource: "apple" });
+});
+test("a free-module failure still fails closed for an account with no purchase", async () => {
+  const h = harness({ listPurchases: async () => [], getFreeModule: async () => { throw new Error("free module table missing"); } });
+  assert.equal((await h.handlers.access(request())).status >= 500, true);
+});
