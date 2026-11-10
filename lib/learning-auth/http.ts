@@ -47,8 +47,8 @@ export async function boundedAccountBody(request: Request, maximumBytes = 524_28
 export function accountErrorResponse(error: unknown): Response {
   if (error instanceof AccountHTTPError) return accountJSON({ error: error.code }, error.status);
   const code = typeof error === "object" && error !== null && "code" in error ? String(error.code) : "";
-  const conflicts = ["purchase_owner_conflict", "purchase_event_conflict", "attempt_identity_conflict", "sync_epoch_changed", "ownership_recovery_required", "account_changed"];
-  const invalid = ["invalid_uuid", "invalid_attempt", "invalid_attempt_details", "invalid_evidence", "invalid_purchase", "invalid_signed_purchase", "invalid_notification", "purchase_not_supported", "purchase_identity_mismatch", "apple_verification_failed"];
+  const conflicts = ["purchase_owner_conflict", "purchase_event_conflict", "attempt_identity_conflict", "sync_epoch_changed", "ownership_recovery_required", "account_changed", "purchase_already_linked"];
+  const invalid = ["invalid_uuid", "invalid_attempt", "invalid_attempt_details", "invalid_evidence", "invalid_purchase", "invalid_signed_purchase", "invalid_notification", "purchase_not_supported", "purchase_identity_mismatch", "apple_verification_failed", "purchase_revoked"];
   if (conflicts.includes(code)) return accountJSON({ error: code }, 409);
   if (invalid.includes(code)) return accountJSON({ error: code }, 400);
   return accountJSON({ error: "account_service_unavailable" }, 503);

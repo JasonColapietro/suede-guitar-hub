@@ -9,6 +9,7 @@ assert.equal(certificate.fingerprint256.replaceAll(":", "").toLowerCase(),
   "63343abfb89a6a03ebb57e9b3f5fa7be7c4f5c756f3017b3a8c488c3653e9179");
 
 for (const entry of ["api/learning/access/route", "api/learning/purchases/apple/route",
+  "api/learning/purchases/apple/claim/route",
   "api/learning/notifications/apple/route", "account/page", "learn/[track]/page", "learn/[track]/[lessonId]/page"]) {
   const tracePath = path.resolve(`.next/server/app/${entry}.js.nft.json`);
   const trace = JSON.parse(await readFile(tracePath, "utf8"));

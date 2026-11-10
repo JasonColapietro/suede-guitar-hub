@@ -17,13 +17,18 @@ export type AppleLearningConfiguration = {
 const transactionID = (value: unknown): value is string => typeof value === "string" && /^\d{1,40}$/.test(value);
 const timestamp = (value: unknown): value is number => typeof value === "number" && Number.isSafeInteger(value) && value > 0 && value <= 8_640_000_000_000_000;
 
-/** Business validation only. Call exclusively on the official verifier's returned payload. */
-export function validateVerifiedLifetimePayload(payload: JWSTransactionDecodedPayload, environment: StoreEnvironment): VerifiedLifetimePurchase {
+/**
+ * Business validation only. Call exclusively on the official verifier's returned payload.
+ * `claimedToken` is the binding token of the account that claimed the purchase. It replaces any token
+ * in the transaction: a purchase made before sign-in carries none, or one from another device or account.
+ * Who may claim a purchase is decided by the database, never by token equality here.
+ */
+export function validateVerifiedLifetimePayload(payload: JWSTransactionDecodedPayload, environment: StoreEnvironment, claimedToken?: string): VerifiedLifetimePurchase {
   if (payload.bundleId !== GUITARHUB_BUNDLE_ID || payload.productId !== GUITARHUB_LIFETIME_PRODUCT_ID || payload.type !== "Non-Consumable" || payload.environment !== environment || payload.quantity !== 1) throw new LearningAccountError("purchase_not_supported");
   if (!transactionID(payload.originalTransactionId) || !transactionID(payload.transactionId) || !timestamp(payload.purchaseDate) || !timestamp(payload.signedDate) || payload.purchaseDate > payload.signedDate) throw new LearningAccountError("invalid_purchase");
   if (payload.inAppOwnershipType !== "PURCHASED") throw new LearningAccountError("ownership_recovery_required");
-  if (!payload.appAccountToken) throw new LearningAccountError("ownership_recovery_required");
-  const appAccountToken = accountUUID(payload.appAccountToken);
+  if (claimedToken === undefined && !payload.appAccountToken) throw new LearningAccountError("ownership_recovery_required");
+  const appAccountToken = accountUUID(claimedToken ?? payload.appAccountToken);
   if (payload.revocationDate !== undefined && !timestamp(payload.revocationDate)) throw new LearningAccountError("invalid_purchase");
   if (payload.revocationReason !== undefined && payload.revocationDate === undefined) throw new LearningAccountError("invalid_purchase");
   return {
@@ -52,24 +57,25 @@ export function createAppleLearningVerifier(configuration: AppleLearningConfigur
   const verifier = new SignedDataVerifier(configuration.appleRootCertificates, true, environment, GUITARHUB_BUNDLE_ID, configuration.appAppleId);
   const api = new AppStoreServerAPIClient(configuration.signingKey, configuration.keyId, configuration.issuerId, GUITARHUB_BUNDLE_ID, environment);
 
-  async function verify(signedTransaction: string): Promise<VerifiedLifetimePurchase> {
+  async function verify(signedTransaction: string, claimedToken?: string): Promise<VerifiedLifetimePurchase> {
     boundedJWS(signedTransaction);
     try {
       const payload = await verifier.verifyAndDecodeTransaction(signedTransaction);
-      return validateVerifiedLifetimePayload(payload, configuration.environment);
+      return validateVerifiedLifetimePayload(payload, configuration.environment, claimedToken);
     } catch (error) {
       if (error instanceof LearningAccountError) throw error;
       throw new LearningAccountError("apple_verification_failed");
     }
   }
 
-  async function reconcileTransaction(transactionId: string): Promise<VerifiedLifetimePurchase> {
+  /** Pass `claimedToken` (the stored row's token) only for a claimed purchase. */
+  async function reconcileTransaction(transactionId: string, claimedToken?: string): Promise<VerifiedLifetimePurchase> {
     if (!transactionID(transactionId)) throw new LearningAccountError("invalid_purchase");
     let signed: string | undefined;
     try { signed = (await api.getTransactionInfo(transactionId)).signedTransactionInfo; }
     catch { throw new LearningAccountError("apple_verification_unavailable"); }
     if (!signed) throw new LearningAccountError("apple_verification_failed");
-    const current = await verify(signed);
+    const current = await verify(signed, claimedToken);
     if (current.transactionId !== transactionId && current.originalTransactionId !== transactionId) throw new LearningAccountError("purchase_identity_mismatch");
     return current;
   }
@@ -84,6 +90,19 @@ export function createAppleLearningVerifier(configuration: AppleLearningConfigur
       // Certificate OCSP status and purchase refund status are distinct checks.
       const current = await reconcileTransaction(submitted.transactionId);
       if (current.originalTransactionId !== submitted.originalTransactionId || current.transactionId !== submitted.transactionId || current.appAccountToken !== expectedToken) throw new LearningAccountError("purchase_owner_conflict");
+      return { ...current, accountId };
+    },
+    /**
+     * For a purchase made before sign-in. The result carries the claimant's binding token whatever token the
+     * transaction holds; the database refuses a purchase already linked to another account.
+     */
+    async verifyClaim(signedTransaction: string, binding: { accountId: string; appAccountToken: string }): Promise<VerifiedLifetimePurchase & { accountId: string }> {
+      const accountId = accountUUID(binding.accountId);
+      const claimedToken = accountUUID(binding.appAccountToken);
+      const submitted = await verify(signedTransaction, claimedToken);
+      const current = await reconcileTransaction(submitted.transactionId, claimedToken);
+      if (current.originalTransactionId !== submitted.originalTransactionId || current.transactionId !== submitted.transactionId) throw new LearningAccountError("purchase_identity_mismatch");
+      if (current.revokedAt !== null) throw new LearningAccountError("purchase_revoked");
       return { ...current, accountId };
     },
     async verifyNotification(signedPayload: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null> {

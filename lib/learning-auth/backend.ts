@@ -37,7 +37,7 @@ export async function appleLearningVerifier() {
 
 function checkDatabaseError(error: { message?: string } | null) {
   if (!error) return;
-  for (const code of ["purchase_owner_conflict", "purchase_event_conflict", "attempt_identity_conflict", "sync_epoch_changed"]) {
+  for (const code of ["purchase_owner_conflict", "purchase_already_linked", "purchase_event_conflict", "attempt_identity_conflict", "sync_epoch_changed"]) {
     if (error.message?.includes(code)) throw new LearningAccountError(code);
   }
   throw new AccountHTTPError(503, "account_service_unavailable");
@@ -62,6 +62,20 @@ export async function recordVerifiedPurchase(accountId: string, purchase: Verifi
     p_account_id: accountUUID(accountId), p_purchase: purchase,
   });
   checkDatabaseError(result.error);
+  return storedPurchase(db, accountId, purchase);
+}
+
+/** The database decides ownership: a purchase linked to another account raises `purchase_already_linked`. */
+export async function claimVerifiedPurchase(accountId: string, purchase: VerifiedLifetimePurchase, verifiedEmail: string | null) {
+  const db = accountBackend();
+  const result = await db.rpc("guitarhub_claim_apple_purchase", {
+    p_account_id: accountUUID(accountId), p_purchase: purchase, p_email: verifiedEmail,
+  });
+  checkDatabaseError(result.error);
+  return storedPurchase(db, accountId, purchase);
+}
+
+async function storedPurchase(db: ReturnType<typeof accountBackend>, accountId: string, purchase: VerifiedLifetimePurchase) {
   // The ledger may already contain a newer refund than this Apple response.
   // Return the resulting row, never grant from the older incoming event.
   const current = await db.from("guitarhub_apple_purchases")
@@ -97,11 +111,11 @@ export async function listAccountAttempts(accountId: string, cursor: string) {
 }
 
 export async function listAccountPurchases(accountId: string, environment: StoreEnvironment) {
-  const result = await accountBackend().from("guitarhub_apple_purchases").select("transaction_id,original_transaction_id,app_account_token")
+  const result = await accountBackend().from("guitarhub_apple_purchases").select("transaction_id,original_transaction_id,app_account_token,claimed")
     .eq("account_id", accountUUID(accountId)).eq("environment", environment).limit(21);
   checkDatabaseError(result.error);
   if (!result.data || result.data.length > 20) throw new AccountHTTPError(503, "account_service_unavailable");
-  return result.data.map((row) => ({ transactionId: row.transaction_id as string, originalTransactionId: row.original_transaction_id as string, appAccountToken: accountUUID(row.app_account_token) }));
+  return result.data.map((row) => ({ transactionId: row.transaction_id as string, originalTransactionId: row.original_transaction_id as string, appAccountToken: accountUUID(row.app_account_token), claimed: row.claimed === true }));
 }
 
 export async function findPurchaseOwner(purchase: VerifiedLifetimePurchase) {

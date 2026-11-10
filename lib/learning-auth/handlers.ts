@@ -4,7 +4,8 @@ import { normalizeEmail, stripeTracks, type StripePurchase } from "../learning-a
 import { accountJSON, accountErrorResponse, attemptCursor, boundedAccountBody, requireAccountMutationOrigin, AccountHTTPError } from "./http.ts";
 
 export type AccountBinding = { appAccountToken: string; syncEpoch: string };
-export type StoredPurchase = { transactionId: string; originalTransactionId: string; appAccountToken: string };
+/** `claimed` rows were linked through the claim endpoint and hold the claimant's binding token. */
+export type StoredPurchase = { transactionId: string; originalTransactionId: string; appAccountToken: string; claimed: boolean };
 export type AttemptPageRow = { sequence: string; body: unknown };
 export type LearningHandlerDependencies = {
   enabled(): boolean;
@@ -17,9 +18,12 @@ export type LearningHandlerDependencies = {
   appendAttempts(accountId: string, syncEpoch: string, attempts: unknown[]): Promise<unknown>;
   clearHistory(accountId: string, syncEpoch: string): Promise<string>;
   recordPurchase(accountId: string, purchase: VerifiedLifetimePurchase): Promise<VerifiedLifetimePurchase>;
+  /** Links an Apple purchase to the account; throws `purchase_already_linked` when another account holds it. */
+  claimPurchase(accountId: string, purchase: VerifiedLifetimePurchase, verifiedEmail: string | null): Promise<VerifiedLifetimePurchase>;
   verifier(): Promise<{
     verifyPurchase(signed: string, binding: { accountId: string; appAccountToken: string }): Promise<VerifiedLifetimePurchase & { accountId: string }>;
-    reconcileTransaction(id: string): Promise<VerifiedLifetimePurchase>;
+    verifyClaim(signed: string, binding: { accountId: string; appAccountToken: string }): Promise<VerifiedLifetimePurchase & { accountId: string }>;
+    reconcileTransaction(id: string, claimedToken?: string): Promise<VerifiedLifetimePurchase>;
     verifyNotification(signed: string): Promise<{ notificationId: string; purchase: VerifiedLifetimePurchase } | null>;
   }>;
   /** Intake capture runs after an authoritative ledger write; never alters entitlement decisions. */
@@ -51,7 +55,7 @@ export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependen
   if (rows.length) {
     const verifier = await deps.verifier();
     for (const row of rows) {
-      const purchase = await verifier.reconcileTransaction(row.transactionId);
+      const purchase = await verifier.reconcileTransaction(row.transactionId, row.claimed ? row.appAccountToken : undefined);
       if (purchase.environment !== environment || purchase.originalTransactionId !== row.originalTransactionId || purchase.appAccountToken !== row.appAccountToken) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountId, purchase);
       await captureRecorded(deps, recorded);
@@ -165,6 +169,20 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const purchase = await (await deps.verifier()).verifyPurchase(body.signedTransaction, { accountId, appAccountToken: binding.appAccountToken });
       if (purchase.accountId !== accountId || purchase.appAccountToken !== binding.appAccountToken || purchase.environment !== environment) throw new LearningAccountError("purchase_owner_conflict");
       const recorded = await deps.recordPurchase(accountId, purchase);
+      await captureRecorded(deps, recorded);
+      return accountJSON({ accountId, tracks: lifetimeTracks(recorded, environment), environment });
+    }),
+    claim: route(async (request) => {
+      const { accountId, verifiedEmail } = await signedInAccount(request, true);
+      const body = await boundedAccountBody(request, 70_000);
+      if (typeof body.signedTransaction !== "string") throw new AccountHTTPError(400, "invalid_signed_purchase");
+      const environment = deps.environment();
+      const verifier = await deps.verifier();
+      // A buyer who paid before signing in may not have a binding yet; creation is get-or-create.
+      const binding = await bindingFor(accountId, true);
+      const purchase = await verifier.verifyClaim(body.signedTransaction, { accountId, appAccountToken: binding.appAccountToken });
+      if (purchase.accountId !== accountId || purchase.appAccountToken !== binding.appAccountToken || purchase.environment !== environment) throw new LearningAccountError("purchase_owner_conflict");
+      const recorded = await deps.claimPurchase(accountId, purchase, verifiedEmail);
       await captureRecorded(deps, recorded);
       return accountJSON({ accountId, tracks: lifetimeTracks(recorded, environment), environment });
     }),

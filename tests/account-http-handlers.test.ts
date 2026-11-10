@@ -16,12 +16,13 @@ function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
   const deps: LearningHandlerDependencies = {
     enabled: () => true, resolveAccount: async () => ({ accountId: id, verifiedEmail: "buyer@example.com" }),
     getBinding: async (_account, create) => { if (create) writes.push("binding"); return { appAccountToken: id, syncEpoch: epoch }; },
-    listAttempts: async () => [], listPurchases: async () => [{ transactionId: "123", originalTransactionId: "123", appAccountToken: id }],
+    listAttempts: async () => [], listPurchases: async () => [{ transactionId: "123", originalTransactionId: "123", appAccountToken: id, claimed: false }],
     findPurchaseOwner: async () => ({ accountId: id, appAccountToken: id }),
     appendAttempts: async (account, scope, attempts) => { assert.equal(account,id); assert.equal(scope,epoch); assert.equal(attempts.length,1); writes.push("attempt"); return [{ attempt_id: other, sequence: "1" }]; },
     clearHistory: async (account, scope) => { assert.equal(account,id); assert.equal(scope,epoch); writes.push("clear"); return other; },
     recordPurchase: async (_account, value) => { writes.push("purchase"); return value; },
-    verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId: id }), reconcileTransaction: async () => purchase, verifyNotification: async () => ({ notificationId: other, purchase }) }),
+    claimPurchase: async (_account, value) => { writes.push("claim"); return value; },
+    verifier: async () => ({ verifyClaim: async () => { throw new Error("claim not under test"); }, verifyPurchase: async () => ({ ...purchase, accountId: id }), reconcileTransaction: async () => purchase, verifyNotification: async () => ({ notificationId: other, purchase }) }),
     listStripePurchases: async () => [], stripeLiveRequired: () => true,
     getFreeModule: async () => null, setFreeModule: async (_account, moduleId) => moduleId,
     environment: () => "Production", allowedLessons: new Map([["g-l1-m1-02", "guitar"]]), ...overrides,
@@ -52,7 +53,7 @@ test("body account conflicts and malformed batches cannot change another account
   assert.deepEqual(h.writes, ["attempt"]);
 });
 test("malformed or rejected Apple messages create no binding or purchase writes", async () => {
-  const h = harness({ verifier: async () => ({ verifyPurchase: async () => { throw new LearningAccountError("apple_verification_failed"); }, reconcileTransaction: async () => purchase, verifyNotification: async () => { throw new LearningAccountError("apple_verification_failed"); } }) });
+  const h = harness({ verifier: async () => ({ verifyClaim: async () => { throw new Error("claim not under test"); }, verifyPurchase: async () => { throw new LearningAccountError("apple_verification_failed"); }, reconcileTransaction: async () => purchase, verifyNotification: async () => { throw new LearningAccountError("apple_verification_failed"); } }) });
   for (const response of [await h.handlers.purchase(request({ accountId: id, signedTransaction: 3 })), await h.handlers.purchase(request({ accountId: id, signedTransaction: "unsigned" })), await h.handlers.notification(request({ signedPayload: "unsigned" })), await h.handlers.notification(request({ unexpected: true }))]) assert.equal(response.status, 400);
   assert.deepEqual(h.writes, []);
 });
@@ -61,13 +62,13 @@ test("only accepted exact-owner, exact-environment Apple state reaches purchase 
   assert.equal((await good.handlers.purchase(request({ accountId: id, signedTransaction: "verified fixture" }))).status, 200);
   assert.deepEqual(good.writes, ["purchase"]);
   for (const changes of [{ accountId: other }, { appAccountToken: other }, { environment: "Sandbox" as const }]) {
-    const h = harness({ verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId: id, ...changes }), reconcileTransaction: async () => purchase, verifyNotification: async () => null }) });
+    const h = harness({ verifier: async () => ({ verifyClaim: async () => { throw new Error("claim not under test"); }, verifyPurchase: async () => ({ ...purchase, accountId: id, ...changes }), reconcileTransaction: async () => purchase, verifyNotification: async () => null }) });
     assert.equal((await h.handlers.purchase(request({ accountId: id, signedTransaction: "fixture" }))).status, 409);
     assert.deepEqual(h.writes, []);
   }
 });
 test("access reconciles refunds and refuses stale access when Apple fails", async () => {
-  const refunded = harness({ verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId:id }), reconcileTransaction: async () => ({ ...purchase, revokedAt: purchase.signedAt }), verifyNotification: async () => null }) });
+  const refunded = harness({ verifier: async () => ({ verifyClaim: async () => { throw new Error("claim not under test"); }, verifyPurchase: async () => ({ ...purchase, accountId:id }), reconcileTransaction: async () => ({ ...purchase, revokedAt: purchase.signedAt }), verifyNotification: async () => null }) });
   assert.deepEqual((await (await refunded.handlers.access(request())).json()).tracks, []);
   assert.deepEqual(refunded.writes, ["purchase"]);
   const unavailable = harness({ verifier: async () => { throw new Error("private provider failure"); } });
