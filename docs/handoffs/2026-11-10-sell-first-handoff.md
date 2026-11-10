@@ -9,11 +9,12 @@ live yet: neither branch is merged, and no owner step has been done.
 - Recommended path: launch the site alone first (it is tested and can
   take payment), using the owner steps under "Site" below; one live
   purchase and refund by the owner is the acceptance test.
-- The owner also wants "the mac app too". Unclear which is meant; ask
-  before building: (a) the iPhone app update shipped as well, which needs
-  GitHub billing fixed and a green verify run first, or (b) a version of
-  the app that runs on a Mac, which is new work needing its own design
-  (the app is iPhone-only today: iOS 17, portrait).
+- The owner wants the iPhone app update (1.1) shipped too, not the site
+  alone. Order: launch the site first, and in parallel get the app out:
+  the owner fixes GitHub billing, then ONE verify run on `sell-first-ios`
+  (ask first), fix what fails, merge to `main`, set the
+  `SUPABASE_PUBLISHABLE_KEY` variable, real-device test, dispatch
+  `release.yml`, submit for review.
 - Before the site-only launch, change any site copy that says a web
   purchase unlocks the iPhone app today: that is only true once app
   version 1.1 ships. Say iPhone access arrives with the next app update.
