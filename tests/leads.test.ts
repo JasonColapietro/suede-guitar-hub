@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parseLead, type Lead, type StoredLead } from "../lib/leads/contract.ts";
-import { createLeadHandlers, type EmailMessage } from "../lib/leads/handlers.ts";
+import { PermanentSendError, createLeadHandlers, sendFailureForStatus, type EmailMessage } from "../lib/leads/handlers.ts";
 import { SEQUENCE_DAYS, dueEmailIndex, sequenceEmail } from "../lib/leads/sequence.ts";
 import { unsubscribeToken, verifyUnsubscribeToken } from "../lib/leads/token.ts";
 import { FIELD_GUIDES, fieldGuidePdf } from "../lib/field-guides.ts";
@@ -10,7 +10,7 @@ import { LIFETIME_LAUNCH_ENDS, OFFER } from "../lib/site.ts";
 // No Resend key or Supabase credentials exist here: storage and sending are doubles.
 const LAUNCH = new Date("2026-11-10T15:00:00Z");
 
-function leads({ failSend = 0, now = LAUNCH }: { failSend?: number; now?: Date } = {}) {
+function leads({ failSend = 0, now = LAUNCH, rejected = [] }: { failSend?: number; now?: Date; rejected?: string[] } = {}) {
   const stored = new Map<string, StoredLead>();
   const sent: { to: string; message: EmailMessage; unsubscribeUrl: string }[] = [];
   let failures = failSend;
@@ -28,6 +28,7 @@ function leads({ failSend = 0, now = LAUNCH }: { failSend?: number; now?: Date }
     },
     async unsubscribe(email) { const lead = stored.get(email); if (lead) lead.unsubscribedAt ??= clock.toISOString(); },
     async send(to, message, unsubscribeUrl) {
+      if (rejected.includes(to)) throw new PermanentSendError("resend_422");
       if (failures > 0) { failures -= 1; throw new Error("resend_unavailable"); }
       sent.push({ to, message, unsubscribeUrl });
     },
@@ -68,7 +69,32 @@ test("bad input is refused and a cross-site browser post is blocked", async () =
   for (const body of [{ email: "x", source: "plan" }, { email: "a@b.co", source: "other" }, { email: "a@b.co", source: "guide" }, { email: "a@b.co", source: "guide", guideId: "nope" }, { email: "a@b.co", source: "plan", placement: "expert" }])
     assert.equal((await h.submit(post(body))).status, 400);
   assert.equal((await h.submit(post({ email: "a@b.co", source: "plan" }, { origin: "https://evil.example" }))).status, 403);
-  assert.equal((await h.submit(post({ email: "a@b.co", source: "plan" }, { origin: null }))).status, 204);   // a native client sends no Origin
+});
+
+test("a post with no Origin is refused and stores and sends nothing", async () => {
+  const h = leads();
+  assert.equal((await h.submit(post({ email: "a@b.co", source: "plan" }, { origin: null }))).status, 403);
+  assert.equal(h.stored.size, 0);
+  assert.equal(h.sent.length, 0);
+});
+
+test("a filled honeypot answers 204 like a success but stores and sends nothing", async () => {
+  const h = leads();
+  const res = await h.submit(post({ email: "bot@example.com", source: "plan", company: "Acme" }));
+  assert.equal(res.status, 204);
+  assert.equal(h.stored.size, 0);
+  assert.equal(h.sent.length, 0);
+  assert.equal((await h.submit(post({ email: "real@example.com", source: "plan", company: "" }))).status, 204);   // empty is a person
+  assert.deepEqual(h.sent.map((m) => m.to), ["real@example.com"]);
+});
+
+test("addresses the email provider would reject are refused up front", async () => {
+  const h = leads();
+  for (const email of ["a@b..com", "x<y@z.co", "a,b@c.co", "a..b@c.co", ".a@c.co", "a.@c.co", "a@b", "a@-b.co", "a@b.c", "a@b.c0m", `${"a".repeat(65)}@b.co`, `a@${"b".repeat(250)}.co`, "a b@c.co", "a@b@c.co"])
+    assert.equal((await h.submit(post({ email, source: "plan" }))).status, 400, email);
+  assert.equal(h.stored.size, 0);
+  for (const email of ["first.last+tag@sub.example.co.uk", "a_b-c@xn--bcher-kva.example"])
+    assert.equal(parseLead({ email, source: "plan" }).email, email.toLowerCase());
 });
 
 test("the body is capped at 1 KB and must be JSON", async () => {
@@ -207,5 +233,31 @@ test("a run stops after three failed sends in a row and leaves the rest for tomo
   const h = leads({ failSend: 10 });
   await quietly(async () => { for (const n of [1, 2, 3, 4, 5]) await h.submit(post({ email: `p${n}@b.co`, source: "plan" })); });
   const run = await quietly(() => h.dispatch(cron()));
-  assert.deepEqual(await run.json(), { sent: 0, failed: 3 });
+  assert.deepEqual(await run.json(), { sent: 0, failed: 3, rejected: 0 });
+});
+
+test("three 5xx failures in a row still trip the breaker and nothing is retired", async () => {
+  const h = leads({ failSend: 10 });
+  await quietly(async () => { for (const n of [1, 2, 3, 4]) await h.submit(post({ email: `p${n}@b.co`, source: "plan" })); });
+  const run = await quietly(() => h.dispatch(cron()));
+  assert.deepEqual(await run.json(), { sent: 0, failed: 3, rejected: 0 });
+  assert.ok([...h.stored.values()].every((lead) => lead.unsubscribedAt === null));
+});
+
+test("addresses the provider rejects are retired and never block the real lead behind them", async () => {
+  const h = leads({ rejected: ["bad1@b.co", "bad2@b.co", "bad3@b.co"] });
+  // Stored earlier (as if email 1 failed at submit), so they sort ahead of the real lead.
+  for (const [i, email] of ["bad1@b.co", "bad2@b.co", "bad3@b.co", "real@b.co"].entries())
+    h.stored.set(email, { email, source: "plan", createdAt: new Date(LAUNCH.getTime() - (10 - i) * 86_400_000).toISOString(), emailsSent: 0, unsubscribedAt: null });
+  const run = await quietly(() => h.dispatch(cron()));
+  assert.deepEqual(await run.json(), { sent: 1, failed: 0, rejected: 3 });
+  assert.equal(h.stored.get("real@b.co")!.emailsSent, 1);
+  for (const email of ["bad1@b.co", "bad2@b.co", "bad3@b.co"]) assert.ok(h.stored.get(email)!.unsubscribedAt);
+  const next = await quietly(() => h.dispatch(cron()));   // retired leads are not retried
+  assert.deepEqual(await next.json(), { sent: 1, failed: 0, rejected: 0 });   // only the real lead's next email; the retired three are skipped
+});
+
+test("provider statuses: 400 and 422 are permanent; auth, timeout, conflict, 429 and 5xx retry", () => {
+  for (const status of [400, 404, 422]) assert.ok(sendFailureForStatus(status) instanceof PermanentSendError, String(status));
+  for (const status of [401, 403, 408, 409, 429, 500, 503]) assert.ok(!(sendFailureForStatus(status) instanceof PermanentSendError), String(status));
 });

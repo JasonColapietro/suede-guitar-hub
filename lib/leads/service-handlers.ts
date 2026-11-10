@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { serviceBackend } from "../learning-auth/backend";
 import type { Lead, Placement, StoredLead } from "./contract";
-import { createLeadHandlers, type EmailMessage } from "./handlers";
+import { createLeadHandlers, sendFailureForStatus, type EmailMessage } from "./handlers";
 import { SEQUENCE_DAYS, sequenceCutoff } from "./sequence";
 
 /** Inserts the lead; an existing row (including an unsubscribed one) is left untouched. */
@@ -73,7 +73,7 @@ async function send(to: string, message: EmailMessage, unsubscribeUrl: string): 
     // A hung provider must not hold the form or the daily run open.
     signal: AbortSignal.timeout(10_000),
   });
-  if (!response.ok) throw new Error(`resend_${response.status}`);
+  if (!response.ok) throw sendFailureForStatus(response.status);
 }
 
 export const leadHandlers = createLeadHandlers({

@@ -24,6 +24,15 @@ export type LeadDependencies = {
   now(): Date;
 };
 
+/** A send the provider refused for this address (a 4xx that retrying cannot fix). The lead is retired, not retried. */
+export class PermanentSendError extends Error {}
+
+/** The provider's answer to a send: 4xx other than auth (401, 403), timeout (408), conflict (409) and rate limit (429) is permanent; the rest retry. */
+export function sendFailureForStatus(status: number): Error {
+  const permanent = status >= 400 && status < 500 && ![401, 403, 408, 409, 429].includes(status);
+  return permanent ? new PermanentSendError(`resend_${status}`) : new Error(`resend_${status}`);
+}
+
 /** Leads one daily run handles. */
 export const DISPATCH_LIMIT = 200;
 /** A run stops after this many failed sends in a row: the provider is down, and tomorrow's run retries. */
@@ -52,19 +61,25 @@ export function unsubscribeUrl(email: string, secret: string): string {
 
 export function createLeadHandlers(deps: LeadDependencies) {
   /** Sends email `index` and records it only after the provider accepts it. Never throws: a failure waits for the daily run. */
-  async function deliver(lead: Lead, index: number, now: Date): Promise<boolean> {
+  async function deliver(lead: Lead, index: number, now: Date): Promise<"sent" | "failed" | "rejected"> {
     const secret = deps.secret();
-    if (!secret) { console.error("leads: unsubscribe secret is unset; email waits for the daily run"); return false; }
+    if (!secret) { console.error("leads: unsubscribe secret is unset; email waits for the daily run"); return "failed"; }
     const url = unsubscribeUrl(lead.email, secret);
     try {
       await deps.send(lead.email, sequenceEmail(index, lead, url, now), url);
     } catch (error) {
       console.error("leads: send failed", index, error instanceof Error ? error.message : "unknown");
-      return false;
+      if (error instanceof PermanentSendError) {
+        // The provider will never take this address. Retire it with the existing
+        // unsubscribed_at marker so it is not retried and does not hold up other leads.
+        try { await deps.unsubscribe(lead.email); } catch { console.error("leads: could not retire a rejected address"); }
+        return "rejected";
+      }
+      return "failed";
     }
     try { await deps.markSent(lead.email, index); }
     catch { console.error("leads: email sent but not recorded", index); }
-    return true;
+    return "sent";
   }
 
   async function unsubscribeFromRequest(request: Request): Promise<"done" | "invalid" | "unavailable"> {
@@ -77,11 +92,16 @@ export function createLeadHandlers(deps: LeadDependencies) {
   }
 
   return {
-    /** `POST /api/leads`. Same-origin browsers and native clients (no Origin) only. */
+    /** `POST /api/leads`. Same-origin browser posts only: a missing or foreign Origin is refused. */
     async submit(request: Request): Promise<Response> {
       try {
-        if (request.headers.get("origin") !== null && !isSameOriginMutation(request)) throw new AccountHTTPError(403, "invalid_origin");
-        const lead = parseLead(await boundedAccountBody(request, 1_024));
+        if (!isSameOriginMutation(request)) throw new AccountHTTPError(403, "invalid_origin");
+        const body = await boundedAccountBody(request, 1_024);
+        // Honeypot: the form's hidden `company` field stays empty for people. A filled one is a bot:
+        // answer exactly as for success, store and send nothing.
+        const company = body && typeof body === "object" ? (body as Record<string, unknown>).company : undefined;
+        if (typeof company === "string" && company.trim() !== "") return new Response(null, { status: 204, headers: NO_STORE });
+        const lead = parseLead(body);
         let stored: "created" | "existing";
         try { stored = await deps.storeLead(lead); }
         catch { console.error("leads: store failed"); return accountJSON({ error: "lead_service_unavailable" }, 503); }
@@ -118,16 +138,19 @@ export function createLeadHandlers(deps: LeadDependencies) {
       let leads: StoredLead[];
       try { leads = await deps.dueLeads(now, DISPATCH_LIMIT); }
       catch { console.error("leads: due leads query failed"); return accountJSON({ error: "lead_service_unavailable" }, 503); }
-      let sent = 0, failed = 0, failedInARow = 0;
+      let sent = 0, failed = 0, rejected = 0, failedInARow = 0;
       for (const stored of leads.slice(0, DISPATCH_LIMIT)) {
         const index = dueEmailIndex(stored, now);
         if (index === null) continue;
         const { email, source, placement, guideId } = stored;
         const lead: Lead = { email, source, ...(placement ? { placement } : {}), ...(guideId ? { guideId } : {}) };
-        if (await deliver(lead, index, now)) { sent += 1; failedInARow = 0; }
+        // Only provider trouble (5xx, 429, timeout) counts toward the breaker; a rejected address does not.
+        const result = await deliver(lead, index, now);
+        if (result === "sent") { sent += 1; failedInARow = 0; }
+        else if (result === "rejected") rejected += 1;
         else { failed += 1; failedInARow += 1; if (failedInARow >= CONSECUTIVE_FAILURE_LIMIT) break; }
       }
-      return accountJSON({ sent, failed });
+      return accountJSON({ sent, failed, rejected });
     },
   };
 }
