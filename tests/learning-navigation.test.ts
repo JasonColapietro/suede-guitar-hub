@@ -7,6 +7,7 @@ import ts from "typescript";
 import * as placement from "../lib/placement.ts";
 import * as freeModule from "../lib/learning/free-module.ts";
 import * as freeModuleStore from "../lib/learning/free-module-store.ts";
+import * as freeModuleAccess from "../lib/learning/access.ts";
 
 type Element = { type: string; props: Record<string, unknown> & { children?: unknown } };
 
@@ -42,6 +43,10 @@ function componentHarness(file: string, dependencies: Record<string, unknown>, g
       },
       useRef: (initial: unknown) => refs[refCursor++] ?? (refs[refCursor - 1] = { current: initial }),
       useEffect: (effect: () => unknown) => { effects.push(effect); },
+      useMemo: (factory: () => unknown) => factory(),
+      useSyncExternalStore: (_subscribe: unknown, getSnapshot: () => unknown) => getSnapshot(),
+      createContext: (initial: unknown) => ({ Provider: "context-provider", initial }),
+      useContext: (context: { initial: unknown }) => context.initial,
     } : name === "next/link" ? { default: "a" } : name.endsWith(".module.css") ? { default: {} } : dependencies[name] ?? require(name),
   });
   return {
@@ -59,7 +64,7 @@ test("answering placement again clears every answer and returns focus to the fir
     "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
     "@/lib/analytics/tracker": { track() {} },
     "@/lib/learning/free-module": { FREE_MODULES: { beginner: "g-l2-m1", intermediate: "g-l4-m1", advanced: "g-l5-m4" } },
-    "@/lib/learning/free-module-store": { browserStorage: () => null, chooseFreeModule: () => ({ moduleId: "g-l2-m1", placement: "beginner" }) },
+    "@/lib/learning/free-module-store": { browserStorage: () => null, chooseFreeModule: () => ({ moduleId: "g-l2-m1", placement: "beginner" }), adoptServerFreeModule() {}, putAccountFreeModule: async () => null },
   });
   const props = { moduleNames: {} };
   let focused = 0;
@@ -82,7 +87,7 @@ test("answering placement again clears every answer and returns focus to the fir
 
 test("a placement result fixes the free module and its primary button opens that module's first lesson", () => {
   const sent: unknown[] = [];
-  const store = { browserStorage: () => null, chooseFreeModule: freeModuleStore.chooseFreeModule };
+  const store = { browserStorage: () => null, chooseFreeModule: freeModuleStore.chooseFreeModule, adoptServerFreeModule: freeModuleStore.adoptServerFreeModule, putAccountFreeModule: async () => null };
   const h = componentHarness("../components/LevelCheck.tsx", {
     "@/lib/placement": placement,
     "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
@@ -169,4 +174,78 @@ test("stage jump reopens the current hash and focuses its summary without interc
   assert.equal(location.hash, "#stage-3");
   assert.equal(target.open, true);
   assert.equal(focused, previousFocus + 2);
+});
+
+test("a signed-in account's free module replaces the one this placement would pick, and the result says so", async () => {
+  const storage = new Map<string, string>();
+  const local = { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => { storage.set(key, value); } };
+  const puts: unknown[] = [];
+  const fetchStub = async (_url: string, init: { body: string }) => { puts.push(JSON.parse(init.body)); return { ok: true, json: async () => ({ freeModuleId: "g-l4-m1" }) }; };
+  const h = componentHarness("../components/LevelCheck.tsx", {
+    "@/lib/placement": placement,
+    "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
+    "@/lib/analytics/tracker": { track() {} },
+    "@/lib/learning/free-module": freeModule,
+    "@/lib/learning/free-module-store": { ...freeModuleStore, browserStorage: () => local },
+  }, { fetch: fetchStub });
+  const props = { moduleNames: { "g-l2-m1": "Open Chords", "g-l4-m1": "Box One" } };
+  let tree = h.render("default", props);
+  // Beginner answers: the placement would pick g-l2-m1.
+  for (const [id, score] of [["chords", 0], ["changes", 0], ["barre", 0], ["lead", 0], ["song", 0]] as const) {
+    (tree.find(node => node.type === "input" && node.props.name === `test-${id}` && node.props.value === score)!.props.onChange as () => void)();
+    tree = h.render("default", props);
+  }
+  for (const effect of h.effects.splice(0)) effect();
+  assert.equal(storage.size, 1, "the placement's module is stored first, as on a new device");
+  await new Promise(resolve => setTimeout(resolve, 0));
+  tree = h.render("default", props);
+  assert.deepEqual(puts, [{ moduleId: "g-l2-m1" }]);
+  assert.ok(tree.some(node => node.type === "a" && node.props.href === placement.freeModuleStartHref("g-l4-m1")), "the button opens the account's module");
+  assert.ok(!tree.some(node => node.type === "a" && node.props.href === placement.freeModuleStartHref("g-l2-m1")));
+  assert.ok(tree.some(node => node.type === "p" && Array.isArray(node.props.children) && node.props.children.join("") === "Your account already has its free module, Box One. Start there."));
+  assert.equal(freeModuleStore.readFreeModuleChoice(local)?.moduleId, "g-l4-m1", "the account's choice is now the local one");
+});
+
+const providerDependencies = (storage: unknown, router: { refresh(): void }) => ({
+  "next/navigation": { useRouter: () => router },
+  "@/lib/learning/access": freeModuleAccess,
+  "@/lib/learning/free-module": freeModule,
+  "@/lib/learning/free-module-store": { ...freeModuleStore, browserStorage: () => storage },
+  "@/lib/learning-sync/client": { AccountSyncClient: class {}, accountSyncEligible: () => false },
+  "@/lib/learning-sync/evidence": { syncLessonMap: {} },
+});
+
+test("the provider's free module is the account's, else this visit's, even when storage is blocked", () => {
+  freeModuleStore.forgetFreeModuleVisit();
+  const blocked = { getItem(): string | null { throw new Error("SecurityError"); }, setItem() { throw new Error("SecurityError"); } };
+  const h = componentHarness("../components/learning/LearningAccessProvider.tsx", providerDependencies(blocked, { refresh() {} }), { window: { addEventListener() {}, removeEventListener() {} } });
+  const valueFor = (freeModuleId: string | null) => (h.render("LearningAccessProvider", { access: { ...freeModuleAccess.guestLearningAccess, freeModuleId }, children: null }).find(node => node.type === "context-provider" && "tracks" in (node.props.value as object))!.props.value as { freeModuleId: string | null });
+  assert.equal(valueFor(null).freeModuleId, null, "nothing chosen yet");
+  freeModuleStore.chooseFreeModule(blocked, "intermediate");
+  assert.equal(valueFor(null).freeModuleId, "g-l4-m1", "the in-memory choice opens the module for this visit");
+  assert.equal(valueFor("g-l5-m4").freeModuleId, "g-l5-m4", "the account's choice wins over the local one");
+  freeModuleStore.forgetFreeModuleVisit();
+});
+
+test("FreeModuleAccountSync wires the server's choice, the PUT and the page refresh", async () => {
+  freeModuleStore.forgetFreeModuleVisit();
+  const run = async (serverModuleId: string | null, localModuleId: string | null, response: { ok: boolean; body?: unknown } | "throws") => {
+    const bytes = new Map<string, string>();
+    const storage = { getItem: (key: string) => bytes.get(key) ?? null, setItem: (key: string, value: string) => { bytes.set(key, value); } };
+    if (localModuleId) freeModuleStore.chooseFreeModule(storage, (Object.keys(freeModule.FREE_MODULES) as freeModule.Placement[]).find(key => freeModule.FREE_MODULES[key] === localModuleId)!);
+    const calls: string[] = [];
+    const fetchStub = async (url: string, init: { method: string; body: string }) => { calls.push(`${init.method} ${url} ${init.body}`); if (response === "throws") throw new Error("offline"); return { ok: response.ok, json: async () => response.body }; };
+    const h = componentHarness("../components/learning/LearningAccessProvider.tsx", providerDependencies(storage, { refresh: () => { calls.push("refresh"); } }), { fetch: fetchStub });
+    h.render("FreeModuleAccountSync", { serverModuleId });
+    for (const effect of h.effects.splice(0)) effect();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    return { calls, local: freeModuleStore.readFreeModuleChoice(storage)?.moduleId ?? null };
+  };
+  assert.deepEqual(await run("g-l4-m1", "g-l2-m1", { ok: true }), { calls: [], local: "g-l4-m1" }, "the server's choice replaces the local one without a request");
+  assert.deepEqual(await run(null, "g-l2-m1", { ok: true, body: { freeModuleId: "g-l2-m1" } }), { calls: ['PUT /api/learning/free-module {"moduleId":"g-l2-m1"}', "refresh"], local: "g-l2-m1" });
+  assert.deepEqual(await run(null, "g-l2-m1", { ok: true, body: { freeModuleId: "g-l4-m1" } }), { calls: ['PUT /api/learning/free-module {"moduleId":"g-l2-m1"}', "refresh"], local: "g-l4-m1" }, "the stored module the server returns is adopted");
+  assert.deepEqual(await run(null, null, { ok: true }), { calls: [], local: null }, "no local choice, nothing to store");
+  assert.deepEqual(await run(null, "g-l2-m1", { ok: false }), { calls: ['PUT /api/learning/free-module {"moduleId":"g-l2-m1"}'], local: "g-l2-m1" }, "a non-ok response changes nothing and keeps the module open");
+  assert.deepEqual(await run(null, "g-l2-m1", "throws"), { calls: ['PUT /api/learning/free-module {"moduleId":"g-l2-m1"}'], local: "g-l2-m1" });
+  freeModuleStore.forgetFreeModuleVisit();
 });

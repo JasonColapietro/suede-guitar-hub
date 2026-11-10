@@ -8,6 +8,7 @@
  * /api/learning/free-module); `adoptServerFreeModule` makes that choice the
  * local one too.
  */
+import { hasVerifiedTrackAccess, type LearningAccess } from "./access.ts";
 import { FREE_MODULES, FREE_MODULE_STORAGE_KEY, parseFreeModuleChoice, type FreeModuleChoice, type Placement } from "./free-module.ts";
 
 type ReadableStorage = Pick<Storage, "getItem">;
@@ -87,4 +88,58 @@ export function subscribeFreeModuleChoice(listener: () => void): () => void {
 /** `window.localStorage`, or null where reading it throws (blocked site data, some private modes). */
 export function browserStorage(): Storage | null {
   try { return typeof window === "undefined" ? null : window.localStorage; } catch { return null; }
+}
+
+/** Test-only: forgets the choice and milestones held in memory for this page session. */
+export function forgetFreeModuleVisit(): void {
+  visitChoice = null;
+  visitMilestones.clear();
+}
+
+/** The module a visitor sees as theirs: the account's when it has one, otherwise this browser's. */
+export function resolveFreeModuleId(serverModuleId: string | null, localModuleId: string | null): string | null {
+  return serverModuleId ?? localModuleId;
+}
+
+/** Signed-in, verified accounts without a guitar purchase are kept on one free module. Purchasers have every module and are left alone. */
+export function freeModuleSyncApplies(access: LearningAccess): boolean {
+  return access.enabled && access.status === "verified" && access.accountId !== null && !hasVerifiedTrackAccess("guitar", access);
+}
+
+export type FreeModuleFetch = (url: string, init: RequestInit) => Promise<Pick<Response, "ok" | "json">>;
+
+/**
+ * Asks the account to keep `moduleId` as its free module. Resolves to the
+ * module the account holds, which is its earlier one when it already had a
+ * choice; null when signed out, refused or unreachable.
+ */
+export async function putAccountFreeModule(fetchFn: FreeModuleFetch, moduleId: string): Promise<string | null> {
+  try {
+    const response = await fetchFn("/api/learning/free-module", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ moduleId }) });
+    const body: unknown = response.ok ? await response.json() : null;
+    return typeof body === "object" && body !== null && "freeModuleId" in body && typeof body.freeModuleId === "string" ? body.freeModuleId : null;
+  } catch { return null; }
+}
+
+/**
+ * Brings a signed-in account and this browser to one free module. The
+ * server's choice replaces the local one; a local choice the account lacks is
+ * stored on the account, adopted as the server returns it, and `refresh` runs.
+ */
+export async function syncFreeModuleWithAccount(options: {
+  storage: WritableStorage | null;
+  serverModuleId: string | null;
+  fetchFn: FreeModuleFetch;
+  refresh: () => void;
+  cancelled: () => boolean;
+}): Promise<"adopted" | "stored" | "unchanged"> {
+  const { storage, serverModuleId, fetchFn, refresh, cancelled } = options;
+  if (serverModuleId) { adoptServerFreeModule(storage, serverModuleId); return "adopted"; }
+  const local = currentFreeModuleChoice(storage);
+  if (!local) return "unchanged";
+  const stored = await putAccountFreeModule(fetchFn, local.moduleId);
+  if (cancelled() || stored === null) return "unchanged";
+  adoptServerFreeModule(storage, stored);
+  refresh();
+  return "stored";
 }

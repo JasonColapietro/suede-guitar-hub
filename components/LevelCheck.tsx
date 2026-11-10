@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { track } from "@/lib/analytics/tracker";
 import { FREE_MODULES } from "@/lib/learning/free-module";
-import { browserStorage, chooseFreeModule } from "@/lib/learning/free-module-store";
+import { adoptServerFreeModule, browserStorage, chooseFreeModule, putAccountFreeModule } from "@/lib/learning/free-module-store";
 import {
   PLACEMENT_QUESTIONS,
   PLACEMENT_RESULTS,
@@ -32,6 +32,8 @@ function complete(answers: Draft): answers is PlacementAnswers {
 export default function LevelCheck({ moduleNames }: { moduleNames: Readonly<Record<string, string>> }) {
   const [answers, setAnswers] = useState<Draft>({});
   const [freeModuleId, setFreeModuleId] = useState<string | null>(null);
+  // Set when a signed-in account already holds a free module other than the one this placement would pick.
+  const [accountModuleId, setAccountModuleId] = useState<string | null>(null);
   const firstAnswer = useRef<HTMLInputElement>(null);
   const baseId = useId();
   const answered = PLACEMENT_QUESTIONS.filter((question) => answers[question.id] !== undefined).length;
@@ -43,8 +45,20 @@ export default function LevelCheck({ moduleNames }: { moduleNames: Readonly<Reco
 
   useEffect(() => {
     if (!result) return;
-    setFreeModuleId(chooseFreeModule(browserStorage(), result).moduleId);
+    const storage = browserStorage();
+    const chosen = chooseFreeModule(storage, result).moduleId;
+    setFreeModuleId(chosen);
+    setAccountModuleId(null);
     try { track({ name: "placement_completed", placement: result }); } catch { /* Measurement never blocks the result. */ }
+    // A signed-in account holds one free module for good; when it differs, the result leads to that one.
+    let cancelled = false;
+    void putAccountFreeModule((url, init) => fetch(url, init), chosen).then(held => {
+      if (cancelled || held === null || held === chosen) return;
+      adoptServerFreeModule(storage, held);
+      setFreeModuleId(held);
+      setAccountModuleId(held);
+    });
+    return () => { cancelled = true; };
   }, [result]);
 
   return (
@@ -103,6 +117,11 @@ export default function LevelCheck({ moduleNames }: { moduleNames: Readonly<Reco
                 <a href={APP_STORE.ios} className="font-semibold text-peach underline underline-offset-4">
                   {LIFETIME.cta}
                 </a>
+              </p>
+            )}
+            {accountModuleId && (
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75">
+                Your account already has its free module, {moduleNames[accountModuleId]}. Start there.
               </p>
             )}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

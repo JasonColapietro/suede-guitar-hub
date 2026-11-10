@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
-import { guestLearningAccess, hasVerifiedTrackAccess, type LearningAccess } from "@/lib/learning/access";
+import { guestLearningAccess, type LearningAccess } from "@/lib/learning/access";
 import { FREE_MODULE_STORAGE_KEY } from "@/lib/learning/free-module";
-import { adoptServerFreeModule, browserStorage, currentFreeModuleChoice, subscribeFreeModuleChoice } from "@/lib/learning/free-module-store";
+import { browserStorage, currentFreeModuleChoice, freeModuleSyncApplies, resolveFreeModuleId, subscribeFreeModuleChoice, syncFreeModuleWithAccount } from "@/lib/learning/free-module-store";
 import { AccountSyncClient, accountSyncEligible, type SyncSnapshot } from "@/lib/learning-sync/client";
 import { syncLessonMap } from "@/lib/learning-sync/evidence";
 
@@ -31,24 +31,11 @@ const noFreeModule = () => null;
  * the account, adopted as the server returns it, and the page re-rendered.
  * Rendered only in the browser, after hydration.
  */
-function FreeModuleAccountSync({ serverModuleId }: { serverModuleId: string | null }) {
+export function FreeModuleAccountSync({ serverModuleId }: { serverModuleId: string | null }) {
   const router = useRouter();
   useEffect(() => {
-    const storage = browserStorage();
-    if (serverModuleId) { adoptServerFreeModule(storage, serverModuleId); return; }
-    const local = currentFreeModuleChoice(storage);
-    if (!local) return;
     let cancelled = false;
-    (async () => {
-      try {
-        const response = await fetch("/api/learning/free-module", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ moduleId: local.moduleId }) });
-        const body: unknown = response.ok ? await response.json() : null;
-        const stored = typeof body === "object" && body !== null && "freeModuleId" in body ? body.freeModuleId : null;
-        if (cancelled || typeof stored !== "string") return;
-        adoptServerFreeModule(storage, stored);
-        router.refresh();
-      } catch { /* The local choice keeps the module open; the next visit tries again. */ }
-    })();
+    void syncFreeModuleWithAccount({ storage: browserStorage(), serverModuleId, fetchFn: (url, init) => fetch(url, init), refresh: () => router.refresh(), cancelled: () => cancelled });
     return () => { cancelled = true; };
   }, [serverModuleId, router]);
   return null;
@@ -87,11 +74,11 @@ export function LearningAccessProvider({ access, children }: { access: LearningA
   // The account's stored module wins; a guest's comes from this browser. The
   // server render has no storage, so it starts from the account's alone.
   const localModuleId = useSyncExternalStore(subscribeToFreeModule, localFreeModuleId, noFreeModule);
-  const freeModuleId = access.freeModuleId ?? localModuleId;
+  const freeModuleId = resolveFreeModuleId(access.freeModuleId, localModuleId);
   const value = useMemo(() => ({ ...access, freeModuleId }), [access, freeModuleId]);
   const inBrowser = useSyncExternalStore(noopSubscribe, hydrated, notHydrated);
   // Purchasers have every module; their free-module choice is left alone.
-  const syncFreeModule = inBrowser && access.enabled && access.status === "verified" && access.accountId !== null && !hasVerifiedTrackAccess("guitar", access);
+  const syncFreeModule = inBrowser && freeModuleSyncApplies(access);
   return <LearningAccessContext.Provider value={value}><AccountSyncContext.Provider value={{ client: scopedClient, storageUnavailable }}>
     {syncFreeModule && <FreeModuleAccountSync serverModuleId={access.freeModuleId} />}
     {children}

@@ -4,7 +4,7 @@ import { register } from "node:module";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { FREE_MODULES, FREE_MODULE_STORAGE_KEY, freeModuleLessonIds } from "../lib/learning/free-module.ts";
-import { adoptServerFreeModule, chooseFreeModule, claimFreeModuleMilestone, currentFreeModuleChoice, readFreeModuleChoice } from "../lib/learning/free-module-store.ts";
+import { adoptServerFreeModule, chooseFreeModule, claimFreeModuleMilestone, currentFreeModuleChoice, forgetFreeModuleVisit, freeModuleSyncApplies, putAccountFreeModule, readFreeModuleChoice, resolveFreeModuleId, syncFreeModuleWithAccount } from "../lib/learning/free-module-store.ts";
 import { guestLearningAccess, type LearningAccess } from "../lib/learning/access.ts";
 import { PLACEMENT_RESULTS } from "../lib/placement.ts";
 import { lessonHref } from "../lib/learning/track.ts";
@@ -14,6 +14,8 @@ const FreeModuleLesson = (await import("../components/learning/FreeModuleLesson.
 const { FreeModuleEnd } = await import("../components/learning/FreeModuleEnd.tsx");
 const { LearningAccessProvider } = await import("../components/learning/LearningAccessProvider.tsx");
 const Provider = LearningAccessProvider as (props: { access: LearningAccess; children?: React.ReactNode }) => React.ReactNode;
+
+test.beforeEach(() => forgetFreeModuleVisit());
 
 function memoryStorage() {
   const bytes = new Map<string, string>();
@@ -85,4 +87,57 @@ test("the free-module lesson shows the lesson only to the visitor whose module i
 test("the module end shows nothing before the module is complete", () => {
   const end = createElement(FreeModuleEnd, { moduleId: "g-l2-m1", checkoutAvailable: true });
   assert.equal(renderToStaticMarkup(createElement(Provider, { access: { ...guestLearningAccess, freeModuleId: "g-l2-m1" } }, end)), "");
+});
+
+test("the account's free module wins over a local one; with neither there is none", () => {
+  assert.equal(resolveFreeModuleId("g-l4-m1", "g-l2-m1"), "g-l4-m1");
+  assert.equal(resolveFreeModuleId(null, "g-l2-m1"), "g-l2-m1");
+  assert.equal(resolveFreeModuleId(null, null), null);
+});
+
+test("only signed-in, verified accounts without a guitar purchase are synced", () => {
+  const verified: LearningAccess = { ...guestLearningAccess, enabled: true, status: "verified", accountId: "acct-1", tracks: [] };
+  assert.equal(freeModuleSyncApplies(verified), true);
+  assert.equal(freeModuleSyncApplies(guestLearningAccess), false, "guest");
+  assert.equal(freeModuleSyncApplies({ ...verified, accountId: null }), false, "signed out");
+  assert.equal(freeModuleSyncApplies({ ...verified, status: "unavailable" }), false);
+  assert.equal(freeModuleSyncApplies({ ...verified, enabled: false }), false);
+  assert.equal(freeModuleSyncApplies({ ...verified, tracks: ["guitar"] }), false, "purchaser");
+});
+
+test("putAccountFreeModule returns the module the account holds, or null", async () => {
+  const reply = (ok: boolean, body: unknown) => async () => ({ ok, json: async () => body });
+  assert.equal(await putAccountFreeModule(reply(true, { freeModuleId: "g-l4-m1" }), "g-l2-m1"), "g-l4-m1");
+  assert.equal(await putAccountFreeModule(reply(false, { freeModuleId: "g-l4-m1" }), "g-l2-m1"), null, "non-ok");
+  assert.equal(await putAccountFreeModule(reply(true, { other: 1 }), "g-l2-m1"), null);
+  assert.equal(await putAccountFreeModule(reply(true, null), "g-l2-m1"), null);
+  assert.equal(await putAccountFreeModule(async () => { throw new Error("offline"); }, "g-l2-m1"), null);
+  const sent: unknown[] = [];
+  await putAccountFreeModule(async (url, init) => { sent.push([url, init.method, init.body]); return { ok: true, json: async () => ({}) }; }, "g-l2-m1");
+  assert.deepEqual(sent, [["/api/learning/free-module", "PUT", '{"moduleId":"g-l2-m1"}']]);
+});
+
+test("account sync: adopt, store and refresh, or leave alone", async () => {
+  let refreshes = 0, requests = 0;
+  const base = (storage: ReturnType<typeof memoryStorage> | null, serverModuleId: string | null, body: unknown, cancelled = () => false) => ({
+    storage, serverModuleId, refresh: () => { refreshes++; }, cancelled,
+    fetchFn: async () => { requests++; return { ok: body !== undefined, json: async () => body }; },
+  });
+  const storage = memoryStorage(); chooseFreeModule(storage, "beginner");
+  assert.equal(await syncFreeModuleWithAccount(base(storage, "g-l4-m1", undefined)), "adopted");
+  assert.deepEqual([readFreeModuleChoice(storage)?.moduleId, requests, refreshes], ["g-l4-m1", 0, 0]);
+  const fresh = memoryStorage(); chooseFreeModule(fresh, "advanced");
+  assert.equal(await syncFreeModuleWithAccount(base(fresh, null, { freeModuleId: "g-l4-m1" })), "stored");
+  assert.deepEqual([readFreeModuleChoice(fresh)?.moduleId, requests, refreshes], ["g-l4-m1", 1, 1]);
+  assert.equal(await syncFreeModuleWithAccount(base(memoryStorage(), null, { freeModuleId: "g-l4-m1" })), "unchanged", "no local choice");
+  assert.equal(requests, 1);
+  const refused = memoryStorage(); chooseFreeModule(refused, "beginner");
+  assert.equal(await syncFreeModuleWithAccount(base(refused, null, undefined)), "unchanged", "non-ok response");
+  assert.deepEqual([readFreeModuleChoice(refused)?.moduleId, refreshes], ["g-l2-m1", 1]);
+  const gone = memoryStorage(); chooseFreeModule(gone, "beginner");
+  assert.equal(await syncFreeModuleWithAccount(base(gone, null, { freeModuleId: "g-l4-m1" }, () => true)), "unchanged", "unmounted before the reply");
+  assert.deepEqual([readFreeModuleChoice(gone)?.moduleId, refreshes], ["g-l2-m1", 1]);
+  // Blocked storage: the visit's choice is still stored on the account.
+  chooseFreeModule(null, "intermediate");
+  assert.equal(await syncFreeModuleWithAccount(base(null, null, { freeModuleId: "g-l4-m1" })), "stored");
 });
