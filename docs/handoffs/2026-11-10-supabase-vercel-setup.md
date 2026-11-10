@@ -5,6 +5,40 @@ site and the iPhone 1.1 update ship together.
 
 Variable names below were read from the code on `sell-first-web`.
 
+## Status (checked live, end of session)
+
+Done by Claude through the connectors:
+- Supabase: `20261110000000_guitarhub_sell_first` applied to project
+  `drzuelosizfllruocmly`. The four new GuitarHub tables exist (empty).
+  The earlier `guitarhub_account_learning_ledger` migration was already
+  applied. The `hosted-outbox-proposal.sql` script and the sign-up /
+  email-confirmation settings were NOT checked or changed.
+- Vercel project `suede-guitar-hub` (serves guitarhub.org), production:
+  `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` set.
+
+Already present in Vercel, not used by this code (safe to ignore):
+`GUITARHUB_STRIPE_MODE`, `GUITARHUB_STRIPE_ACCOUNT_ID`,
+`GUITARHUB_STRIPE_LIFETIME_PRODUCT_ID`, `GUITARHUB_STRIPE_LIFETIME_PRICE_ID`,
+`GUITARHUB_CHECKOUT_ORIGIN`. The code reads `STRIPE_SECRET_KEY` and
+`STRIPE_WEBHOOK_SECRET`, which are not set yet.
+
+**Problem found: `RESEND_API_KEY` exists in Vercel but its value is EMPTY.**
+Set the real key, or the plan and lead emails will fail.
+
+Still needed from the owner (secrets; Claude does not handle them):
+- `RESEND_API_KEY` (value)
+- `STRIPE_SECRET_KEY`, live key of the Florida account
+- `GUITARHUB_SUPABASE_SERVICE_ROLE_KEY`
+- `GUITARHUB_APPLE_ENVIRONMENT` = `Production`, `GUITARHUB_APPLE_ISSUER_ID`,
+  `GUITARHUB_APPLE_KEY_ID`, `GUITARHUB_APPLE_SIGNING_KEY`
+- `GUITARHUB_LEADS_UNSUBSCRIBE_SECRET` and `CRON_SECRET`: run
+  `openssl rand -hex 32` twice and paste each output
+- `GUITARHUB_ACCOUNTS_ENABLED` = `true`, last, after the deploy
+- Supabase dashboard: allow sign-ups; require email confirmation; email
+  template shows the numeric code (`{{ .Token }}`)
+- Firewall rate limit (Vercel), Resend check (`plan@guitarhub.org`,
+  open/click tracking off)
+
 ## 1. Supabase (project `drzuelosizfllruocmly`)
 
 1. **Run the migrations**, in order, in the SQL editor:
