@@ -49,18 +49,13 @@ Tasks 1–4, 7–12, account configuration, and the launch-price wording.
 Tasks 5 and 6 (measurement) were skipped. Version is 1.1.
 **None of it has been compiled or run.** See "Blocked" below.
 
-**Site (`sell-first-web`): tasks 1–11 done, tests passing (1,584).**
-Done: free-module rules, database migration, access response, account
-creation, Stripe Checkout, webhook and refunds, Apple purchase claim,
-account deletion, the no-op measurement stub, paywall and buy button with
-launch pricing, free module for guests.
-In progress when this was written: task 12 (lock the Advanced Lab,
-routine, `/session`, `/readiness`, `/log`) and task 13 (email capture,
-unsubscribe, five-email sequence). If the branch has no commit for one of
-these, it was not finished: redo it from the plan.
-Not started: task 14 (magnet page and PDF guides behind an email),
-task 15 (one promise and one primary button on every free page),
-task 16 (privacy policy, terms, launch docs).
+**Site (`sell-first-web`): tasks 1-14 done and reviewed, tests passing
+(1,636), production build passing.** Tasks 15 (one-promise copy sweep)
+and 16 (privacy, terms, docs) were being built as one job when the
+session ran low on budget. If the branch has no commits titled for them
+after `a89931f`, redo them from the plan. Any uncommitted files in the
+working tree of a dead session are lost; only pushed commits count.
+**Not done: the whole-branch review of either branch.**
 
 ## Blocked
 
@@ -89,7 +84,7 @@ Site (Vercel and Supabase):
 - Set in Vercel: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, the
   Supabase URL, publishable key and service key, the Apple server
   credentials (`GUITARHUB_APPLE_ENVIRONMENT=Production`, issuer id, key
-  id, signing key), `GUITARHUB_LEADS_SECRET`, `CRON_SECRET`,
+  id, signing key), `GUITARHUB_LEADS_UNSUBSCRIBE_SECRET`, `CRON_SECRET`,
   `RESEND_API_KEY`, and last of all `GUITARHUB_ACCOUNTS_ENABLED=true`.
 - Apply `supabase/migrations/20261110000000_guitarhub_sell_first.sql`
   before the branch goes live, or Apple buyers' access checks fail. Also
@@ -98,8 +93,9 @@ Site (Vercel and Supabase):
 - In the shared Suede Supabase project: allow sign-ups, require email
   confirmation on every sign-up path (a web purchase unlocks by confirmed
   email), make the email template send the numeric code, set rate limits.
-- Add a Vercel Firewall per-IP rate limit on `/api/checkout` and
+- Add a Vercel Firewall per-IP rate limit on `POST /api/leads`, `/api/checkout` and
   `/checkout/success`.
+- In Resend: confirm `plan@guitarhub.org` can send, and that open and click tracking is off for the domain.
 - Merge `sell-first-web` to `main` (this deploys production). Then create
   the Stripe webhook for `https://guitarhub.org/api/stripe/webhook`
   (events `checkout.session.completed`,
