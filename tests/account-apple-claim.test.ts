@@ -31,6 +31,7 @@ function harness(overrides: Partial<LearningHandlerDependencies> = {}, bound = f
     verifier: async () => verifier(),
     listStripePurchases: async () => [], stripeLiveRequired: () => true,
     getFreeModule: async () => null, setFreeModule: async (_account, moduleId) => moduleId,
+    deleteAccountData: async () => {}, identityInUse: async () => true, deleteIdentity: async () => {},
     environment: () => "Production", allowedLessons: new Map(), ...overrides,
   };
   return { handlers: createLearningHandlers(deps), writes };

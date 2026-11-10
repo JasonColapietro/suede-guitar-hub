@@ -12,7 +12,7 @@ import { AccountSyncControls, ScopedAccountSignOut } from "@/components/learning
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Your account | GuitarHub", robots: { index: false, follow: false } };
 
-export default async function AccountPage({ searchParams }: { searchParams: Promise<{ error?: string; next?: string | string[] }> }) {
+export default async function AccountPage({ searchParams }: { searchParams: Promise<{ error?: string; deleted?: string; next?: string | string[] }> }) {
   const configuration = accountConfiguration();
   let unavailable = false;
   const account = configuration ? await resolveAccount().catch(() => { unavailable = true; return null; }) : null;
@@ -26,6 +26,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         <p>Signing in does not upload earlier practice records or change an App Store purchase. Your local history stays on this device.</p>
         {access && <LearningAccessProvider access={access}><AccountSyncControls /><ScopedAccountSignOut /></LearningAccessProvider>}
       </> : <>
+        {params.deleted === "1" && <p role="status">Your GuitarHub account is deleted. If you bought lifetime access, your purchase stays tied to your email: sign in again with the same email to use it.</p>}
         <p>Enter your email and we send you a sign-in code. If you bought lifetime access on guitarhub.org, use the email from your receipt.</p>
         {params.error && <p role="alert">Sign-in did not finish. Please try again.</p>}
         <AccountSignIn returnTo={returnTo} />

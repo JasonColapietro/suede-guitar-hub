@@ -22,6 +22,7 @@ function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
     verifier: async () => ({ verifyClaim: async () => { throw new Error("claim not under test"); }, verifyPurchase: async () => ({ ...purchase, accountId: id }), reconcileTransaction: async () => purchase, verifyNotification: async () => ({ notificationId: other, purchase }) }),
     listStripePurchases: async () => [], stripeLiveRequired: () => true,
     getFreeModule: async () => null, setFreeModule: async (_account, moduleId) => moduleId,
+    deleteAccountData: async () => {}, identityInUse: async () => true, deleteIdentity: async () => {},
     environment: () => "Production", allowedLessons: new Map([["g-l1-m1-02", "guitar"]]), ...overrides,
   };
   return { handlers: createLearningHandlers(deps), writes, deps };

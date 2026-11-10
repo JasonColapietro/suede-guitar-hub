@@ -169,3 +169,22 @@ export async function setFreeModule(accountId: string, moduleId: string): Promis
   if (typeof result.data !== "string") throw new AccountHTTPError(503, "account_service_unavailable");
   return result.data;
 }
+
+/** Deletes attempts, free module, binding and email sign-ups; purchase rows stay, tagged with the email. */
+export async function deleteAccountData(accountId: string, verifiedEmail: string | null): Promise<void> {
+  const result = await accountBackend().rpc("guitarhub_delete_account", { p_account_id: accountUUID(accountId), p_email: verifiedEmail });
+  checkDatabaseError(result.error);
+}
+
+export async function identityInUse(accountId: string): Promise<boolean> {
+  const result = await accountBackend().rpc("guitarhub_identity_in_use", { p_account_id: accountUUID(accountId) });
+  checkDatabaseError(result.error);
+  if (typeof result.data !== "boolean") throw new AccountHTTPError(503, "account_service_unavailable");
+  return result.data;
+}
+
+/** Hard-deletes the Supabase Auth user. An already-deleted user counts as done, so a retry succeeds. */
+export async function deleteIdentity(accountId: string): Promise<void> {
+  const result = await accountBackend().auth.admin.deleteUser(accountUUID(accountId));
+  if (result.error && result.error.status !== 404) throw new AccountHTTPError(503, "account_service_unavailable");
+}

@@ -4,7 +4,7 @@ import type { LearningTrack } from "../learning-account/contracts";
 import { accountConfiguration } from "./config";
 import { resolveAccount } from "./server";
 import { createLearningHandlers } from "./handlers";
-import { getAccountBinding, listAccountAttempts, listAccountPurchases, findPurchaseOwner, appendAccountAttempts, clearAccountHistory, recordVerifiedPurchase, claimVerifiedPurchase, appleLearningVerifier, purchaseEnvironment, listStripePurchases, stripeLiveRequired, getFreeModule, setFreeModule } from "./backend";
+import { getAccountBinding, listAccountAttempts, listAccountPurchases, findPurchaseOwner, appendAccountAttempts, clearAccountHistory, recordVerifiedPurchase, claimVerifiedPurchase, appleLearningVerifier, purchaseEnvironment, listStripePurchases, stripeLiveRequired, getFreeModule, setFreeModule, deleteAccountData, identityInUse, deleteIdentity } from "./backend";
 
 const allowedLessons = new Map<string, LearningTrack>([...allLessons("guitar").map((entry) => [entry.lesson.id, "guitar"] as const),
   ...allLessons("voice").map((entry) => [entry.lesson.id, "voice"] as const)]);
@@ -18,6 +18,6 @@ export const learningHandlers = createLearningHandlers({
   getBinding: getAccountBinding, listAttempts: listAccountAttempts, listPurchases: listAccountPurchases, findPurchaseOwner,
   appendAttempts: appendAccountAttempts, clearHistory: clearAccountHistory, recordPurchase: recordVerifiedPurchase,
   claimPurchase: claimVerifiedPurchase, capturePurchase: captureRecordedPurchase,
-  listStripePurchases, stripeLiveRequired, getFreeModule, setFreeModule,
+  listStripePurchases, stripeLiveRequired, getFreeModule, setFreeModule, deleteAccountData, identityInUse, deleteIdentity,
   verifier: appleLearningVerifier, environment: purchaseEnvironment, allowedLessons,
 });

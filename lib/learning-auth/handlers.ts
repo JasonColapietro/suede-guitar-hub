@@ -35,6 +35,12 @@ export type LearningHandlerDependencies = {
   getFreeModule(accountId: string): Promise<string | null>;
   /** Stores the first choice only; returns the module stored for the account. */
   setFreeModule(accountId: string, moduleId: string): Promise<string>;
+  /** Removes all GuitarHub data for the account; purchases stay recorded against `verifiedEmail`. Idempotent. */
+  deleteAccountData(accountId: string, verifiedEmail: string | null): Promise<void>;
+  /** True when another Suede product still holds data for the shared sign-in identity. */
+  identityInUse(accountId: string): Promise<boolean>;
+  /** Deletes the shared sign-in identity itself. */
+  deleteIdentity(accountId: string): Promise<void>;
   environment(): StoreEnvironment;
   allowedLessons: ReadonlyMap<string, LearningTrack>;
 };
@@ -159,6 +165,16 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       const body = await boundedAccountBody(request, 1_024);
       if (typeof body.moduleId !== "string" || !isFreeModuleCandidate(body.moduleId)) throw new AccountHTTPError(400, "invalid_free_module");
       return accountJSON({ freeModuleId: await deps.setFreeModule(accountId, body.moduleId) });
+    }),
+    /** Acts only on the session's account; a request body is never read. */
+    deleteAccount: route(async (request) => {
+      const { accountId, verifiedEmail } = await signedInAccount(request, true);
+      await deps.deleteAccountData(accountId, verifiedEmail);
+      let inUse = true;
+      try { inUse = await deps.identityInUse(accountId); }
+      catch { console.error("[account] identity use check failed; shared sign-in kept"); }
+      if (!inUse) await deps.deleteIdentity(accountId);
+      return new Response(null, { status: 204, headers: { "Cache-Control": "private, no-store", Vary: "Cookie, Authorization" } });
     }),
     purchase: route(async (request) => {
       const accountId = await signedIn(request, true);
