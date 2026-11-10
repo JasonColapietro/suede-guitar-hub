@@ -1,7 +1,73 @@
-# Handoff: GuitarHub sell-first build (updated 2026-11-10)
+# Handoff: what is left (updated end of session)
 
-Phase 1 of the approved design is being built in two repos. Nothing is
-live yet: neither branch is merged, and no owner step has been done.
+Read this section first. The older sections below are background.
+
+## Done
+
+- **iPhone app (1.1):** the full verify run on `sell-first-ios` passed
+  (run 42750762899: preflight and verify both green). Everything compiles
+  and the tests pass on macOS.
+- **Site (guitarhub.org):** all build tasks are finished and pushed on
+  `sell-first-web`. The site test suite passes and the production build
+  produces 208 pages.
+- **Supabase:** sell-first migration applied to project
+  `drzuelosizfllruocmly`. Four GuitarHub tables exist and are empty.
+- **Vercel (project `suede-guitar-hub`, serves guitarhub.org):**
+  `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
+  `GUITARHUB_LEADS_UNSUBSCRIBE_SECRET` and `CRON_SECRET` are set.
+
+## Blocked: secrets only the owner can supply
+
+- `RESEND_API_KEY`: present in Vercel but EMPTY. Plan and lead emails fail
+  until it holds the real key.
+- `STRIPE_SECRET_KEY`: live key of the Florida Stripe account. Checkout
+  answers unavailable without it.
+- `GUITARHUB_SUPABASE_SERVICE_ROLE_KEY`: not available through the
+  connector.
+- Apple server credentials: `GUITARHUB_APPLE_ENVIRONMENT=Production`,
+  `GUITARHUB_APPLE_ISSUER_ID`, `GUITARHUB_APPLE_KEY_ID`,
+  `GUITARHUB_APPLE_SIGNING_KEY`. Without the environment value even Stripe
+  buyers stay locked.
+- Supabase dashboard: allow sign-ups; require email confirmation on every
+  sign-up path; the email template shows the numeric code (`{{ .Token }}`).
+- Vercel firewall: per-IP rate limit on `POST /api/leads`, `/api/checkout`
+  and `/checkout/success`.
+- Resend: confirm `plan@guitarhub.org` can send; open and click tracking off.
+
+## Next, once the secrets above are in
+
+1. Merge `sell-first-web` into `main`. This deploys the site. Do not merge
+   before the Stripe key and the Resend key are set.
+2. Create the Stripe webhook for `https://guitarhub.org/api/stripe/webhook`
+   with events `checkout.session.completed`,
+   `checkout.session.async_payment_succeeded`, `charge.refunded`.
+   Put its signing secret in Vercel as `STRIPE_WEBHOOK_SECRET` and redeploy.
+3. Set `GUITARHUB_ACCOUNTS_ENABLED=true` in Vercel last.
+4. Make one real purchase, sign in with the receipt email, check lessons
+   open, refund it in full, check lessons lock.
+5. iPhone 1.1: set the `SUPABASE_PUBLISHABLE_KEY` repository variable in
+   `guitarhub-ios`; test on a real phone with a guitar; dispatch
+   `release.yml`; submit for review; in App Store Connect update the
+   privacy answers and schedule the $99 price for 1 December 2026.
+
+## Later
+
+- On or after 1 December 2026, redeploy the site so pre-built pages show
+  $99. Checkout already charges the right price.
+- Remove "Launch price through November 30." from the App Store promotional
+  text on 1 December.
+- Whole-branch reviews of both branches have not been run.
+- Chargebacks do not remove access; only refunds do.
+- Account deletion keeps the shared Suede sign-in until the list of other
+  products' tables is provided.
+
+## Cost guard
+
+Mac verify runs bill at about ten times the Linux rate. On pull requests they
+now run only with the `mac-ci`, `full-ci` or `release` label. Do not start a
+verify run without the owner's say-so.
+
+---
 
 ## Latest owner direction (2026-11-10, end of session)
 
