@@ -213,8 +213,9 @@ Nothing below is built in phase 1; no usage data is collected yet.
 - The end date is real. On that date the site charges $99 automatically
   and drops the launch wording. The iPhone price is changed by the owner
   in App Store Connect (it can be scheduled ahead), and the app drops the
-  launch wording on the same date. Default end date until the owner
-  names one: 2026-12-31. **(call)**
+  launch wording on the same date. End date: the launch price runs through 30 November 2026 (US Eastern);
+  $99 applies from 1 December 2026. **(owner; they said "Nov 31", which
+  does not exist, so the last day of November is used)**
 - This replaces "Changing the $79 price" under non-goals and narrows the
   "fake urgency" anti-goal to urgency that is not true.
 
