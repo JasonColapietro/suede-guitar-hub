@@ -202,6 +202,22 @@ Nothing below is built in phase 1; no usage data is collected yet.
 - The owner left every other open point to the designer and approved the
   design.
 
+## Launch pricing (owner, 2026-11-10)
+
+- The regular price is $99. The launch price is $79 for a limited time.
+  **(owner)**
+- Wording is "Launch price $79. Goes to $99 on <date>." with the $99
+  shown struck through beside $79. It is not "usually $99": the product
+  has never sold at $99, and a made-up former price is deceptive pricing
+  under US consumer law and grounds for App Store rejection. **(call)**
+- The end date is real. On that date the site charges $99 automatically
+  and drops the launch wording. The iPhone price is changed by the owner
+  in App Store Connect (it can be scheduled ahead), and the app drops the
+  launch wording on the same date. Default end date until the owner
+  names one: 2026-12-31. **(call)**
+- This replaces "Changing the $79 price" under non-goals and narrows the
+  "fake urgency" anti-goal to urgency that is not true.
+
 ## Constraints
 
 - iOS: SwiftUI, iOS 17, no third-party dependencies, XcodeGen. Releases go
