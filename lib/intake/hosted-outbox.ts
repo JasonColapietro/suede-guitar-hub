@@ -1,8 +1,9 @@
 import { isStrictInstant } from "./contract.ts";
 import { createHash } from "node:crypto";
 import { appleIntakeSnapshot } from "./apple-identity.ts";
-import { applicationEvent, purchaseEvent, sendIntakeEvent, type SenderConfig, type SenderEvent, type SendResult } from "./sender.ts";
+import { applicationEvent, purchaseEvent, sendIntakeEvent, stripePurchaseEvent, type SenderConfig, type SenderEvent, type SendResult } from "./sender.ts";
 import type { VerifiedLifetimePurchase } from "../learning-account/contracts.ts";
+import type { StripePurchase } from "../learning-account/stripe.ts";
 
 type Lane = "application" | "purchase" | "lifecycle" | "failure" | "spam" | "canary";
 export type IntakeRPC = (name: string, args: Readonly<Record<string, unknown>>, signal: AbortSignal) => PromiseLike<{ data: unknown; error: unknown }>;
@@ -36,6 +37,10 @@ export class HostedIntakeOutbox {
   }
   enqueueAcceptedPurchase(purchase: VerifiedLifetimePurchase): Promise<string> {
     const event = purchaseEvent(purchase);
+    return this.#put(event.id, event.canary ? "canary" : "purchase", event);
+  }
+  enqueueStripePurchase(purchase: StripePurchase): Promise<string> {
+    const event = stripePurchaseEvent(purchase);
     return this.#put(event.id, event.canary ? "canary" : "purchase", event);
   }
   retainApple(purchase: VerifiedLifetimePurchase): Promise<string> {

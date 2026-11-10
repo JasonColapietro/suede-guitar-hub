@@ -135,6 +135,14 @@ export async function recordStripePurchase(eventId: string, type: string, purcha
   return result.data;
 }
 
+/** Idempotent on `eventId`. `unknown_purchase` stores nothing, so Stripe's retry can land after the purchase is recorded. */
+export async function refundStripePurchase(eventId: string, paymentIntentId: string, refundedAt: string): Promise<"refunded" | "duplicate" | "unknown_purchase"> {
+  const result = await accountBackend().rpc("guitarhub_refund_stripe_purchase", { p_event_id: eventId, p_payment_intent_id: paymentIntentId, p_refunded_at: refundedAt });
+  checkDatabaseError(result.error);
+  if (result.data !== "refunded" && result.data !== "duplicate" && result.data !== "unknown_purchase") throw new AccountHTTPError(503, "account_service_unavailable");
+  return result.data;
+}
+
 export async function getFreeModule(accountId: string): Promise<string | null> {
   const result = await accountBackend().from("guitarhub_free_modules").select("module_id").eq("account_id", accountUUID(accountId)).maybeSingle();
   checkDatabaseError(result.error);

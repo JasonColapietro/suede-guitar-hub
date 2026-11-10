@@ -1,10 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { HostedIntakeOutbox, type HostedJob } from "../lib/intake/hosted-outbox.ts";
-import { capturePurchaseWithStore, recoverPurchaseCaptures, captureRecordedPurchase, captureSubmittedApplication } from "../lib/intake/capture.ts";
+import { capturePurchaseWithStore, recoverPurchaseCaptures, captureRecordedPurchase, captureStripePurchase, captureSubmittedApplication } from "../lib/intake/capture.ts";
+import type { StripePurchase } from "../lib/learning-account/stripe.ts";
 import type { VerifiedLifetimePurchase } from "../lib/learning-account/contracts.ts";
 
 const purchase: VerifiedLifetimePurchase = { environment: "Production", originalTransactionId: "123", transactionId: "456", bundleId: "org.guitarhub.app", productId: "org.guitarhub.app.complete.lifetime", appAccountToken: "sensitive-token", purchasedAt: "2026-10-25T12:00:00Z", signedAt: "2026-10-25T12:00:00Z", revokedAt: null };
+
+const stripe: StripePurchase = { checkoutSessionId: "cs_live_1", paymentIntentId: "pi_1", email: "buyer@example.com", livemode: true, amountTotal: 8453, currency: "usd", purchasedAt: "2026-11-10T12:00:00.000Z", refundedAt: null };
 
 test("hosted adapter enqueues immutable purchase plus unsupported lifecycle snapshot without leaking tokens", async () => {
   const calls: { name: string; args: Readonly<Record<string, unknown>> }[] = [];
@@ -29,8 +32,39 @@ test("persistence failure and malformed database acknowledgements cannot report 
 test("disabled hosted dispatch never touches persistence or network", async () => {
   const store = new HostedIntakeOutbox(async () => { throw new Error("unexpected database I/O"); });
   assert.equal(await store.dispatchOne(), false);
-  await captureRecordedPurchase(purchase);
-  await captureSubmittedApplication({ name: "Synthetic", email: "synthetic@example.test", goal: "Practice", experience: "Beginner" });
+});
+
+test("route capture is on: without account storage it rejects before any network I/O, for callers to log", async () => {
+  // Under Next an unconfigured backend throws account_service_unavailable; under plain node the
+  // storage module itself does not load. Either way the capture rejects and nothing is sent.
+  const savedKey = process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY;
+  delete process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY;
+  const originalFetch = globalThis.fetch;
+  let fetched = 0;
+  globalThis.fetch = async () => { fetched += 1; throw new Error("unexpected network I/O"); };
+  try {
+    await assert.rejects(() => captureRecordedPurchase(purchase));
+    await assert.rejects(() => captureStripePurchase(stripe));
+    await assert.rejects(() => captureSubmittedApplication({ name: "Synthetic", email: "synthetic@example.test", goal: "Practice", experience: "Beginner" }));
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (savedKey !== undefined) process.env.GUITARHUB_SUPABASE_SERVICE_ROLE_KEY = savedKey;
+  }
+  assert.equal(fetched, 0);
+});
+
+test("hosted adapter enqueues a Stripe purchase once per Checkout Session, test mode in the canary lane", async () => {
+  const calls: Readonly<Record<string, unknown>>[] = [];
+  const store = new HostedIntakeOutbox(async (_name, args) => { calls.push(args); return { data: args.p_id, error: null }; });
+  const id = await store.enqueueStripePurchase(stripe);
+  assert.match(id, /^guitarhub:stripe:[a-f0-9]{64}$/);
+  assert.equal(await store.enqueueStripePurchase({ ...stripe, refundedAt: "2026-11-11T12:00:00.000Z" }), id);
+  assert.deepEqual(calls[0], calls[1]);
+  assert.equal(calls[0].p_lane, "purchase");
+  assert.equal(calls[0].p_blocked_reason, null);
+  await store.enqueueStripePurchase({ ...stripe, livemode: false });
+  assert.equal(calls[2].p_lane, "canary");
+  assert.doesNotMatch(JSON.stringify(calls), /buyer@example\.com|cs_live_1|pi_1/);
 });
 
 test("hosted completion fences by claimed token and sends retry delay without changing stored body", async () => {

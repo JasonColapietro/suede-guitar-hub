@@ -74,3 +74,35 @@ export async function createStripeCheckoutSession(input: CheckoutSessionInput): 
 export async function paidCheckoutSession(sessionId: string): Promise<StripePurchase | null> {
   return purchaseFromCheckoutSession(await stripeClient().checkout.sessions.retrieve(sessionId));
 }
+
+/** The Checkout events that can carry a paid session; a delayed payment method is paid only on the second. */
+export type StripePurchaseEventType = "checkout.session.completed" | "checkout.session.async_payment_succeeded";
+
+export type StripeWebhookEvent =
+  | { id: string; type: StripePurchaseEventType; purchase: StripePurchase | null }
+  | { id: string; type: "charge.refunded"; paymentIntentId: string; fullyRefunded: boolean; refundedAt: string }
+  | { id: string; type: "ignored" };
+
+/**
+ * Verifies the `Stripe-Signature` header against the exact raw body, then reduces the event
+ * to what the ledger needs. Throws on a missing or bad signature. `purchase` is null unless
+ * `purchaseFromCheckoutSession` accepts the session (paid, this site's product, with an email).
+ */
+export function parseStripeEvent(rawBody: string, signature: string | null, webhookSecret: string): StripeWebhookEvent {
+  if (!signature) throw new Error("stripe_signature_missing");
+  const event = Stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
+  switch (event.type) {
+    case "checkout.session.completed":
+    case "checkout.session.async_payment_succeeded":
+      return { id: event.id, type: event.type, purchase: purchaseFromCheckoutSession(event.data.object) };
+    case "charge.refunded": {
+      const charge = event.data.object;
+      const paymentIntentId = typeof charge.payment_intent === "string" ? charge.payment_intent : charge.payment_intent?.id;
+      if (!paymentIntentId) return { id: event.id, type: "ignored" };
+      // `refunded` is true only once the whole charge is refunded; a partial refund keeps access.
+      return { id: event.id, type: "charge.refunded", paymentIntentId, fullyRefunded: charge.refunded === true, refundedAt: new Date(event.created * 1000).toISOString() };
+    }
+    default:
+      return { id: event.id, type: "ignored" };
+  }
+}

@@ -3,7 +3,9 @@ import assert from "node:assert/strict";
 import { readFileSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { applicationEvent, purchaseEvent, HUB_CONTRACT_SHA, sendIntakeEvent } from "../lib/intake/sender.ts";
+import { createHash } from "node:crypto";
+import { applicationEvent, purchaseEvent, stripePurchaseEvent, HUB_CONTRACT_SHA, sendIntakeEvent } from "../lib/intake/sender.ts";
+import type { StripePurchase } from "../lib/learning-account/stripe.ts";
 import { signBody, validAcknowledgement, isDraftHubEvent, DETAIL_FIELDS, ATTRIBUTION_FIELDS } from "../lib/intake/contract.ts";
 import { LocalIntakeOutbox } from "../lib/intake/local-outbox.ts";
 
@@ -174,4 +176,29 @@ test("intake omits freeform goal and experience and strips credentials from ever
   const value = applicationEvent({ ...input, name: "postgres://db-user:db-pass@example.test/profile?private=value#fragment", goal: "postgres://goal-user:goal-pass@example.test/db", experience: "redis://cache-user:cache-pass@example.test/0" }, receipt, at);
   assert.deepEqual(value.details, { application_id: receipt, interest: "founding-room-application" });
   assert.doesNotMatch(JSON.stringify(value), /db-user|db-pass|goal-user|goal-pass|cache-user|cache-pass|private|fragment/);
+});
+
+test("a Stripe purchase becomes a wire event that passes the sender's own validation", async () => {
+  const live: StripePurchase = { checkoutSessionId: "cs_live_1", paymentIntentId: "pi_1", email: "buyer@example.com", livemode: true, amountTotal: 8453, currency: "usd", purchasedAt: "2026-11-10T12:00:00.000Z", refundedAt: null };
+  const value = stripePurchaseEvent(live);
+  assert.match(value.id, /^guitarhub:stripe:[a-f0-9]{64}$/);
+  assert.equal(value.id, `guitarhub:stripe:${createHash("sha256").update("cs_live_1").digest("hex")}`);
+  assert.equal(value.details.provider, "stripe");
+  assert.equal(value.summary, "GuitarHub web purchase accepted");
+  assert.equal(value.occurredAt, live.purchasedAt);
+  assert.equal(value.canary, undefined);
+  assert.equal(stripePurchaseEvent({ ...live, livemode: false }).canary, true);
+  // Acceptance is immutable: a later refund on the same session keeps the same event.
+  assert.deepEqual(stripePurchaseEvent({ ...live, refundedAt: "2026-11-11T12:00:00.000Z" }), value);
+  assert.equal(isDraftHubEvent(value), true);
+  assert.doesNotMatch(JSON.stringify(value), /buyer@example\.com|cs_live_1|pi_1/);
+  const sent: unknown[] = [];
+  assert.deepEqual(await sendIntakeEvent(value, config, async (_url, options) => { sent.push(JSON.parse(options?.body as string)); return response(202); }), { state: "delivered" });
+  assert.deepEqual(sent, [value]);
+  const apple = purchaseEvent({ environment: "Production", originalTransactionId: "123", transactionId: "456", bundleId: "org.guitarhub.app", productId: "org.guitarhub.app.complete.lifetime", appAccountToken: "sensitive-token", purchasedAt: at, signedAt: at, revokedAt: null });
+  assert.deepEqual(await sendIntakeEvent(apple, config, async () => response(202)), { state: "delivered" });
+  // A Stripe id with the Apple summary, or the reverse, never leaves the sender.
+  const noIO: typeof fetch = async () => { throw new Error("unexpected I/O"); };
+  assert.deepEqual(await sendIntakeEvent({ ...value, summary: "GuitarHub App Store purchase accepted" } as unknown as typeof value, config, noIO), { state: "blocked", reason: "payload" });
+  assert.deepEqual(await sendIntakeEvent({ ...apple, details: { ...apple.details, provider: "stripe" } } as unknown as typeof apple, config, noIO), { state: "blocked", reason: "payload" });
 });

@@ -1,6 +1,8 @@
+import { createHash } from "node:crypto";
 import { isDraftHubEvent, isStrictInstant, signBody, validAcknowledgement } from "./contract.ts";
 import { appleIntakeSnapshot } from "./apple-identity.ts";
 import type { VerifiedLifetimePurchase } from "../learning-account/contracts.ts";
+import type { StripePurchase } from "../learning-account/stripe.ts";
 import { normalizeApplication } from "../application.ts";
 
 /** Draft hub code, pinned for local preparation; activation is separately held. */
@@ -11,20 +13,38 @@ export type ApplicationEvent = {
   details: { application_id: string; interest: "founding-room-application" };
 };
 
-export type PurchaseEvent = {
+export type ApplePurchaseEvent = {
   id: string; kind: "purchase"; property: "guitarhub.org"; occurredAt: string;
   summary: "GuitarHub App Store purchase accepted";
   details: { provider: "apple"; product_id: "org.guitarhub.app.complete.lifetime"; order_id: string };
   canary?: true;
 };
+export type StripePurchaseEvent = {
+  id: string; kind: "purchase"; property: "guitarhub.org"; occurredAt: string;
+  summary: "GuitarHub web purchase accepted";
+  details: { provider: "stripe"; order_id: string };
+  canary?: true;
+};
+export type PurchaseEvent = ApplePurchaseEvent | StripePurchaseEvent;
 export type SenderEvent = ApplicationEvent | PurchaseEvent;
 
 /** Immutable purchase acceptance; refunds/reinstatements are held as separate local snapshots. */
-export function purchaseEvent(purchase: VerifiedLifetimePurchase): PurchaseEvent {
+export function purchaseEvent(purchase: VerifiedLifetimePurchase): ApplePurchaseEvent {
   const snapshot = appleIntakeSnapshot(purchase);
   return { id: snapshot.purchaseKey, kind: "purchase", property: "guitarhub.org", occurredAt: snapshot.purchasedAt,
     summary: "GuitarHub App Store purchase accepted", details: { provider: "apple", product_id: snapshot.productId, order_id: snapshot.purchaseKey },
     ...(snapshot.environment === "Sandbox" ? { canary: true as const } : {}) };
+}
+
+/**
+ * Immutable web purchase acceptance, keyed by the Checkout Session so the success page and
+ * every webhook delivery name the same sale. Carries no email or Stripe id; test mode is a canary.
+ */
+export function stripePurchaseEvent(purchase: StripePurchase): StripePurchaseEvent {
+  const id = `guitarhub:stripe:${createHash("sha256").update(purchase.checkoutSessionId).digest("hex")}`;
+  return { id, kind: "purchase", property: "guitarhub.org", occurredAt: purchase.purchasedAt,
+    summary: "GuitarHub web purchase accepted", details: { provider: "stripe", order_id: id },
+    ...(purchase.livemode ? {} : { canary: true as const }) };
 }
 
 function prepareWireEvent(event: SenderEvent): SenderEvent {
@@ -33,7 +53,14 @@ function prepareWireEvent(event: SenderEvent): SenderEvent {
     if (event.id !== prepared.id || event.property !== "guitarhub.org") throw new Error("invalid_wire_payload");
     return prepared;
   }
-  if (event.kind !== "purchase" || event.property !== "guitarhub.org" || !/^guitarhub:apple:[a-f0-9]{64}$/.test(event.id)
+  if (event.kind !== "purchase" || event.property !== "guitarhub.org" || (event.canary !== undefined && event.canary !== true)) throw new Error("invalid_wire_payload");
+  if (event.details.provider === "stripe") {
+    if (!/^guitarhub:stripe:[a-f0-9]{64}$/.test(event.id) || event.details.order_id !== event.id || event.summary !== "GuitarHub web purchase accepted") throw new Error("invalid_wire_payload");
+    return { id: event.id, kind: "purchase", property: "guitarhub.org", occurredAt: event.occurredAt,
+      summary: "GuitarHub web purchase accepted", details: { provider: "stripe", order_id: event.id },
+      ...(event.canary ? { canary: true } : {}) };
+  }
+  if (!/^guitarhub:apple:[a-f0-9]{64}$/.test(event.id)
     || event.details.provider !== "apple" || event.details.product_id !== "org.guitarhub.app.complete.lifetime"
     || event.details.order_id !== event.id || event.summary !== "GuitarHub App Store purchase accepted" || (event.canary !== undefined && event.canary !== true)) throw new Error("invalid_wire_payload");
   return { id: event.id, kind: "purchase", property: "guitarhub.org", occurredAt: event.occurredAt,

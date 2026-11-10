@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { CohortApplication } from "../application.ts";
 import type { VerifiedLifetimePurchase } from "../learning-account/contracts.ts";
+import type { StripePurchase } from "../learning-account/stripe.ts";
 import { HostedIntakeOutbox } from "./hosted-outbox.ts";
 
 export type PurchaseCaptureStore = {
@@ -15,8 +16,9 @@ export async function capturePurchaseWithStore(purchase: VerifiedLifetimePurchas
 }
 
 // Independent of environment credentials: operator readback/approval must precede
-// changing this gate in reviewed code. No production storage or network runs today.
-const ROUTE_CAPTURE_ENABLED = false;
+// changing this gate in reviewed code. Switched on by the sell-first plan (Task 6); until
+// the hosted outbox functions are deployed (Task 17) each capture fails and callers log it.
+const ROUTE_CAPTURE_ENABLED = true;
 
 async function hostedStore(): Promise<HostedIntakeOutbox> {
   const { accountBackend } = await import("../learning-auth/backend.ts");
@@ -28,6 +30,12 @@ async function hostedStore(): Promise<HostedIntakeOutbox> {
 export async function captureRecordedPurchase(purchase: VerifiedLifetimePurchase): Promise<void> {
   if (!ROUTE_CAPTURE_ENABLED) return;
   await capturePurchaseWithStore(purchase, await hostedStore());
+}
+
+/** Web purchase acceptance; the outbox id is per Checkout Session, so a repeat is a no-op. */
+export async function captureStripePurchase(purchase: StripePurchase): Promise<void> {
+  if (!ROUTE_CAPTURE_ENABLED) return;
+  await (await hostedStore()).enqueueStripePurchase(purchase);
 }
 
 /** Email remains the existing acceptance path while capture is disabled. */
