@@ -1,18 +1,15 @@
 # GuitarHub press kit
 
-**Last updated:** 2026-08-29
+**Last updated:** 2026-11-10
 **Site:** https://guitarhub.org
+**iPhone app:** GuitarHub: Guitar Lessons, https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875
 **Contact:** info@suedeai.ai
 
 ## How to use this pack
 
-Everything below is checkable against the live site. If a claim is not in this
-document, GuitarHub has not established it. Two sections exist specifically to
-stop gaps being filled with guesses: **What GuitarHub is not**, and **Facts we
-have not established**. Please read them before writing.
-
-If you need a number, an outcome, or a quote that is not here, ask rather than
-estimate. We would rather answer a question than issue a correction.
+Every fact below is checkable against the live site and the App Store listing.
+Quote the numbers on this page as written. For a number, quote or interview
+that is not here, email info@suedeai.ai and you get a direct answer.
 
 ---
 
@@ -21,14 +18,16 @@ estimate. We would rather answer a question than issue a correction.
 | | |
 |---|---|
 | Name | GuitarHub (one word, capital G and H) |
-| What it is | A guitar practice method plus four free browser tools |
+| The promise | Play real chords and improvise your first solo in 30 days. |
+| Who it is for | Beginner and intermediate guitarists |
+| What it is | A step-by-step guitar course on guitarhub.org and in the iPhone app, with free practice tools |
 | Made by | Suede AI |
 | Founder | Jason Colapietro, also published as Johnny Suede |
-| Launched | Site live at guitarhub.org |
-| Price | Nothing on the site is paid. No payment is taken anywhere. |
-| Account required | None. There is no login, and no accounts exist. |
-| Sibling products | Strumly (AI guitar coach), Suede AI Social (guitar community) |
-| Current status | Free tools and guides are live. The founding room is an open application under review. |
+| Free to start | One full lesson module, picked by a five-question placement; the tuner and metronome; the 30-day plan; the practice plateau diagnostic; the tempo ladder builder; the written guides |
+| Price | Lifetime access, $79 one time. Launch price $79. Goes to $99 on December 1, 2026. |
+| Guarantee | If after 90 days you are not playing chords and improvising, you get a full refund. (Web purchases; Apple handles refunds for purchases made in the iPhone app.) |
+| One purchase, both places | Bought on guitarhub.org or in the iPhone app, lifetime access opens every lesson on both when the player signs in with the same email |
+| Sibling products | Strumly (AI guitar coach), Suede Sing (voice lessons), Suede AI Social (guitar community) |
 | Contact | info@suedeai.ai |
 
 ---
@@ -39,43 +38,41 @@ Use whichever length fits. Do not blend them.
 
 ### 25 words
 
-> GuitarHub is a free, browser-based guitar practice method from Suede AI.
-> Pick one breakthrough, work the thing blocking it, and end each week with
-> evidence.
+> GuitarHub, from Suede AI, gets beginner and intermediate guitarists playing
+> real chords and improvising their first solo in 30 days. The first module is free.
 
 ### 60 words
 
-> GuitarHub is a guitar practice method and a set of free browser tools from
-> Suede AI, the studio behind Strumly. The whole site runs one loop against
-> one goal: record a baseline, isolate the part that actually breaks, put it
-> back under pressure, then record again and compare. Nothing needs an account.
-> A small founding room is reviewing applications now.
+> GuitarHub is a guitar course from Suede AI, the studio behind Strumly. Its
+> promise: play real chords and improvise your first solo in 30 days. The path
+> runs D and A, then E, C and G, then the minor pentatonic box, then a first
+> solo over a twelve-bar blues. A placement picks one free module; lifetime
+> access is $79 one time.
 
 ### 150 words
 
-> GuitarHub is a guitar practice method from Suede AI, the studio behind the
-> AI guitar coach Strumly. It is built for players who are past the beginner
-> stage and stalled: people with years of tabs, videos, and half-learned songs
-> who can almost play a hundred things and fully play none.
+> GuitarHub is a guitar course from Suede AI, the studio behind the AI guitar
+> coach Strumly. It is built for beginner and intermediate players, around one
+> promise: play real chords and improvise your first solo in 30 days.
 >
-> The method is one loop run against one goal at a time. Record a baseline
-> before you polish it. Isolate the single transition, timing drift, or phrase
-> that breaks the result. Reconnect that repaired piece to a full performance.
-> Then record the same thing again and let the two takes settle whether
-> anything changed.
+> The 30-day path runs four modules of the 135-lesson curriculum, one a week:
+> D and A, then E, C and G, then Box One, the minor pentatonic scale, then
+> First Solo, four improvised bars over a twelve-bar blues. Each lesson pairs
+> written instruction with an exercise, and microphone exercises score
+> single-note pitch and timing on the player's device.
 >
-> Four free tools on the site run that loop in a browser: a four-week planner,
-> a plateau diagnostic, a tempo ladder builder, and a song readiness check.
-> None needs an account, and none uploads audio. A small founding room is
-> reviewing applications; no payment is taken.
+> A five-question placement opens one module free. The free 30-day plan maps
+> the month and emails a printable chord and pentatonic chart pack. Lifetime
+> access, $79 one time on guitarhub.org or in the iPhone app, opens every
+> lesson on both, backed by a 90-day money-back guarantee on web purchases.
 
 ---
 
 ## Founder bio
 
 Both versions are built only from what the site and its structured data
-establish. Please do not add credentials, years of experience, prior companies,
-or a hometown, because we have not published any.
+establish. Add nothing else: credentials, years of experience, prior companies
+and a hometown are not published.
 
 ### Short (byline, 31 words)
 
@@ -83,18 +80,17 @@ or a hometown, because we have not published any.
 > GuitarHub, the AI guitar coach Strumly, and the guitar community Suede
 > Social. He also publishes as Johnny Suede.
 
-### Long (108 words)
+### Long (104 words)
 
 > Jason Colapietro is the founder and CEO of Suede AI, the studio behind
 > GuitarHub, the AI guitar coach Strumly, and the guitar community Suede
 > Social. He also publishes as Johnny Suede.
 >
 > GuitarHub is his answer to a problem he argues the guitar-education market
-> makes worse rather than better: an endless supply of lessons, and almost no
-> structure for proving that any of them worked. The site he built refuses to
-> treat a watched video or a kept streak as progress. It asks for a recording
-> instead, compares it against a baseline four weeks earlier, and stores
-> nothing on a server. Applications to the founding room are read personally.
+> makes worse: an endless supply of lessons and no clear finish. GuitarHub gives
+> the first month one: real chords and an improvised solo by day 30, in a fixed
+> order, with a recording at each end of the month so the player hears what
+> changed. He backs it with a 90-day money-back guarantee.
 
 **Name and pronunciation notes.** "Colapietro" is the surname. "Johnny Suede"
 is a publishing name for the same person, not a separate contributor and not a
@@ -105,104 +101,75 @@ ones included. "Suede" alone refers to the same organization.
 
 ## What GuitarHub is, in detail
 
-**The method.** One loop, run against one goal at a time, in four stages:
+**The promise.** Play real chords and improvise your first solo in 30 days.
 
-1. **Baseline.** Choose one change you can prove in 30 days, and record a take
-   before polishing, hiding, or restarting.
-2. **Isolate.** Find the single transition, timing drift, fretboard-map gap, or
-   phrase that breaks the result.
-3. **Reconnect.** Put the repaired skill back into a full song, a steady click,
-   a backing track, or a cold prompt.
-4. **Prove.** Record the final attempt beside the baseline, and name only the
-   change the evidence actually supports.
+**The 30-day path.** Four existing modules of the curriculum, one a week:
 
-The site presents these as a four-week cadence, one stage per week. The cadence
-is a default rather than a rule; each stage has an exit test, and the test
-governs the handoff.
+1. **D and A** (stage 2): fret two chords cleanly and switch on the beat.
+2. **E, C and G** (stage 3): fill out the open chords and play a full study.
+3. **Box One** (stage 4): the minor pentatonic box, up and down.
+4. **First Solo** (stage 5): four bars in key over the blues form, without
+   stopping.
 
-**The free tools.** Four, all in the browser, none requiring an account:
+**The curriculum.** 135 guitar lessons: 105 guided lessons in seven stages,
+from the first clean note to barre chords, the whole neck and a signature
+piece, plus 30 popular-song companions. Lifetime access also opens the
+Advanced Lab (23 scored drills for experienced players), the A-to-D chord
+routine, the practice session builder, the song readiness score and the
+practice evidence log. In the iPhone app it also opens the voice curriculum.
 
-- **30-day breakthrough planner** (`/breakthrough`) turns one finish line into a
-  four-week practice sequence.
-- **Practice plateau diagnostic** (`/diagnose`) ends with a named blocker rather
-  than a score.
-- **Tempo ladder builder** (`/tempo`) turns one difficult passage into a
-  starting speed, a target, and the steps between.
-- **Song readiness score** (`/readiness`) checks a song against the parts that
-  break under pressure.
+**How playing is checked.** Lessons pair written instruction with a practice
+task. Where a lesson has a microphone exercise, it scores single-note pitch
+and timing live on the device; audio is never uploaded. Other lessons use a
+reading check or the player's own assessment, and each result is labeled for
+what it measured.
 
-**The written guides.** Six, covering the method itself, how to practice
-effectively, why practice plateaus, deliberate practice at the instrument, how
-to run a 30-day challenge, and an intermediate weekly routine.
+**Free to start:**
 
-**The founding room.** A small reviewed group, described on the site as 8 to 12
-players, assembled around one rule: every check-in must change the next
-practice. Applying sends a name, an email address, a line about playing
-experience, and one sentence naming the breakthrough the applicant wants to
-prove. It reaches info@suedeai.ai and is read personally. It takes no payment
-and creates no commitment on either side.
+- **One free module**, chosen by the five-question placement at `/start`: D and
+  A for new players, Box One for players who already change between open
+  chords, First Solo for players with barre chords and the pentatonic box.
+- **Guitar tuner and metronome** (`/practice`).
+- **30-day chords-to-first-solo plan** (`/breakthrough`): four weeks from D and
+  A to a first solo, with a printable chord and pentatonic chart pack by email.
+- **Practice plateau diagnostic** (`/diagnose`): names the blocker in a
+  player's practice.
+- **Tempo ladder builder** (`/tempo`): a starting speed, a target and the steps
+  between for one hard passage.
+- **The written guides** and their PDF field guides, and the glossary.
 
-**Privacy posture.** The tools keep their state in the browser's own local
-storage and nowhere else. None of them makes a network request, so nothing
-typed into them reaches a server. There are no accounts, so there is nothing to
-sign in to and nothing to delete. There is no analytics script and no
-third-party tracker on the site, which is verifiable from the page source.
-Nothing uploads, stores, or listens to audio, and no model is trained on
-anyone's playing. GuitarHub prescribes practice; it does not ingest
-performances.
+**Price and guarantee.** Lifetime access is $79 one time. Launch price $79.
+Goes to $99 on December 1, 2026. It does not renew. Buy it on guitarhub.org
+(Stripe Checkout, sales tax added where it applies) or in the iPhone app (App
+Store). If after 90 days you are not playing chords and improvising, you get a
+full refund. The guarantee covers web purchases; Apple handles refunds for
+purchases made in the iPhone app.
 
-The one exception is the application form, the only part of the site that
-transmits anything. It sends the four fields the applicant filled in, by email,
-to info@suedeai.ai.
+**Voice.** Voice lessons on the web live on Suede Sing (https://sing.suedeai.ai).
 
----
-
-## What GuitarHub is not
-
-This section exists to be quoted back at a first draft. Each line is a claim we
-have seen made about products in this category and cannot make about this one.
-
-- **Not a video course, and not a lesson library.** There are no lesson videos
-  on the site.
-- **Not an app.** There is nothing to download. No iOS app, no Android app, no
-  desktop client.
-- **Not a streak tracker or a watch-time tracker.** The site explicitly argues
-  against both as measures of progress.
-- **Not an AI model trained on players' recordings.** No audio is uploaded,
-  stored, or used for training. The tools do not listen.
-- **Not a running cohort.** The founding room is an open application under
-  review. No schedule, no review capacity, and no price has been set.
-- **Not a teacher marketplace.** There are no mentors on call, no live chat, no
-  booking, and no directory of instructors.
-- **Not a free trial of a paid product.** No payment is taken anywhere on the
-  site, and no card is collected.
-- **Not a replacement for a teacher.** The site's own position is that the loop
-  makes lessons more useful, because you arrive with a recording and a specific
-  question.
-- **Not a community platform.** GuitarHub has no forum of its own. Suede AI Social
-  carries the wider conversation.
+**Privacy.** No analytics and no tracking cookies. Practice history stays in
+the browser unless the player signs in and turns on sync. Microphone audio is
+analyzed on the device and never uploaded, and no model is trained on anyone's
+playing. The plan and guide forms store the email and send the plan and
+practice tips, with an unsubscribe link in every email. Full policy:
+https://guitarhub.org/privacy
 
 ---
 
-## Facts we have not established
+## Numbers to quote
 
-If a draft needs one of these, it needs a different sentence.
+| Fact | Value (2026-11-10) |
+|---|---|
+| Guitar lessons | 135 (105 in seven stages, plus 30 song companions) |
+| Advanced Lab drills | 23 |
+| Free browser tools | 4 (tuner and metronome, 30-day plan, plateau diagnostic, tempo ladder) |
+| Lifetime-access tools | 3 (session builder, song readiness score, practice evidence log) |
+| Written guides | 21 |
+| Lifetime price | $79 one time; Launch price $79. Goes to $99 on December 1, 2026. |
+| Guarantee | 90 days, web purchases |
 
-- **No user, member, or waitlist numbers.** None have been published. "8 to 12"
-  describes the intended size of the founding room, not people enrolled.
-- **No outcome statistics.** No completion rates, no improvement percentages, no
-  before-and-after measurements have been collected or published.
-- **No study citations.** The method is presented as a method. It is not backed
-  by a research finding we are claiming.
-- **No testimonials or named students.** There are none to quote, and none
-  should be invented for illustration.
-- **No pricing.** The founding room's price has not been set. Please do not
-  print a figure, a range, or "expected to cost".
-- **No launch date for the cohort**, and no announced roadmap dates.
-- **No funding, valuation, revenue, or headcount figures.**
-- **No awards and no prior press coverage** to cite.
-- **No brand partnerships, sponsorships, or school affiliations** have been
-  announced.
+User numbers, outcome statistics and testimonials are not published yet; for
+anything beyond this table, email info@suedeai.ai.
 
 ---
 
@@ -215,14 +182,13 @@ All served from the live site unless noted.
 | Suede mark | `/suede-mark.png` | 400 × 400 PNG | The logo asset shipped with the site. |
 | Suede AI logo | `https://suedeai.ai/suede-ai-logo-transparent.png` | Transparent PNG | The canonical organization logo declared in the site's structured data. |
 | Hero photograph | `/hero-studio.jpg` | 2400 × 1920 | Site hero background. |
-| Amp glow | `/amp-glow.jpg` | 1600 × 1055 | Used behind the application section. |
+| Amp glow | `/amp-glow.jpg` | 1600 × 1055 | Editorial background image. |
 | Guide card art | `/insight-1.jpg`, `/insight-2.jpg` | 1200 × 803, 1200 × 800 | Editorial card images. |
+| Chart pack | `/plan/guitarhub-chord-and-pentatonic-chart-pack.pdf` | PDF | The printable chord and pentatonic chart pack from the 30-day plan. |
 
-**Share card.** A 1200 x 630 PNG served at `https://guitarhub.org/opengraph-image`.
-It is the card link previews use, and the one to reach for if you need artwork,
-rather than a crop of the hero photograph. It ships with the pending deploy: as
-of 2026-08-29 the live build still predates it, so a link pasted before that
-deploy unfurls without a card.
+**Share card.** A 1200 × 630 PNG served at `https://guitarhub.org/opengraph-image`,
+reading "Real chords and your first solo in 30 days". Use it for artwork rather
+than a crop of the hero photograph.
 
 ### Colors
 
@@ -246,11 +212,13 @@ Fraunces for display and italic accents. Inter for body text.
 ## Related Suede surfaces
 
 - **Strumly**, the AI guitar coach, guides index: https://strumly.suedeai.ai/guides
+- **Suede Sing**, voice lessons on the web: https://sing.suedeai.ai
 - **Suede AI Social**, the guitar community: https://social.suedeai.ai
-- **Suede AI**, the studio behind all three: https://suedeai.ai
+- **Suede AI**, the studio behind all of them: https://suedeai.ai
 
-The relationship in one line: GuitarHub orchestrates the practice, Strumly
-powers the tools, and Suede AI Social carries the wider conversation.
+The relationship in one line: GuitarHub teaches guitar and runs the practice,
+Strumly coaches, Suede Sing teaches voice, and Suede AI Social carries the
+wider conversation.
 
 ---
 
@@ -265,8 +233,7 @@ rather than search for it.
 - https://x.com/johnnysuede (checked 2026-08-29, 200)
 - https://github.com/JasonColapietro (checked 2026-08-29, 200)
 - https://www.wikidata.org/wiki/Q140235755 (checked 2026-08-29, 200)
-- https://www.linkedin.com/in/jasoncolapietro (declared; LinkedIn returned an
-  anti-bot response to an automated check, so confirm in a browser)
+- https://www.linkedin.com/in/jasoncolapietro (declared; confirm in a browser)
 
 **Suede AI**
 
@@ -278,11 +245,7 @@ rather than search for it.
 
 ---
 
-## Contact and corrections
+## Contact
 
-**Press, interviews, review copies of anything not listed here:**
-info@suedeai.ai
-
-We will answer a factual question faster than we can answer a correction
-request, so please ask first. If something we published is wrong, tell us at the
-same address and we will fix the page rather than argue about it.
+**Press, interviews and review access:** info@suedeai.ai. Ask a factual
+question and you get a direct answer the same way.

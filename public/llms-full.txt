@@ -2228,7 +2228,7 @@ Each takes a few minutes and returns a yes or a no. A drill with no pass conditi
 - **The one-question listen.** Record thirty seconds against a sparse click, then listen back for one thing: ahead or behind, and where. Pass: you can name a bar.
 - **The handover.** Play the passage with the click, then immediately without it, then a third time with it back on. Pass: the click comes back roughly where your playing left it. A large jump means the click was carrying you.
 
-Run them on GuitarHub's free [tuner and metronome](https://guitarhub.org/practice), which keeps a steady four-beat click at any tempo you set. When you want a verdict on every attack, four free Advanced Lab drills time each hit against the grid through your microphone: [syncopated sixteenths](https://guitarhub.org/advanced/funk-sixteenths), [quarter-note triplets](https://guitarhub.org/advanced/quarter-note-triplets), [the shift from triplets to sixteenths](https://guitarhub.org/advanced/triplet-sixteenth-shift), and [dotted-eighth displacement](https://guitarhub.org/advanced/dotted-eighth-displacement).
+Run them on GuitarHub's free [tuner and metronome](https://guitarhub.org/practice), which keeps a steady four-beat click at any tempo you set. When you want a verdict on every attack, four Advanced Lab drills, included with lifetime access, time each hit against the grid through your microphone: [syncopated sixteenths](https://guitarhub.org/advanced/funk-sixteenths), [quarter-note triplets](https://guitarhub.org/advanced/quarter-note-triplets), [the shift from triplets to sixteenths](https://guitarhub.org/advanced/triplet-sixteenth-shift), and [dotted-eighth displacement](https://guitarhub.org/advanced/dotted-eighth-displacement).
 
 ### When not to use a metronome
 
@@ -6171,7 +6171,7 @@ Source: https://guitarhub.org/privacy
 
 Your playing stays on your device. Here is what the app and website use, save, and send.
 
-Updated October 10, 2026
+Updated November 10, 2026
 
 This policy covers the GuitarHub iOS app and guitarhub.org, operated by Suede AI. For privacy questions or requests, contact [info@suedeai.ai](mailto:info@suedeai.ai).
 
@@ -6187,7 +6187,7 @@ You can stop a listening session and revoke microphone access in your browser or
 
 ### Progress, accounts, and preferences
 
-The website saves practice plans, lesson progress, quiz answers, counts, reflections, and preferences in your browser’s local storage. The iOS app keeps its profile, settings, and practice history in app storage on your device. Account features are available only when GuitarHub has deliberately enabled its account service. When that service is unavailable, no account or sync data is sent. Signing in alone does not start practice sync.
+The website saves practice plans, lesson progress, quiz answers, counts, reflections, and preferences in your browser’s local storage. The iOS app keeps its profile, settings, and practice history in app storage on your device. Account features are available only when GuitarHub has deliberately enabled its account service. When that service is unavailable, no account or sync data is sent. Accounts are optional: signing in with a code sent to your email creates one, and it stores your email address and the practice history you choose to sync. When you are signed in, the free module your placement picked is saved to your account so it stays the same on every device. Signing in alone does not start practice sync.
 
 If you sign in and explicitly enable practice sync, GuitarHub sends your account identifier, sync binding, and only new lesson-attempt evidence created after you enabled sync to its server and Supabase. That evidence may include track and lesson identifiers, the attempt time, practice duration, evidence type, assessment, exercise revision, score or tempo when applicable, and reflection, quiz, or study details needed to reconstruct the attempt. Earlier guest or local records stay on your device and are not uploaded automatically. Raw microphone audio and optional lesson recordings are never included in practice sync.
 
@@ -6197,27 +6197,37 @@ Local records remain until you clear the relevant website data or remove the app
 
 ### Purchases
 
-Apple handles purchases made through the iOS App Store. The app uses Apple’s transaction and entitlement information to provide purchased access and restore eligible purchases. When account services are available, GuitarHub may use Apple-signed transaction data and an account-binding token to verify, bind, and later reconcile lifetime access with Apple. GuitarHub stores the verified transaction identifiers, app and product identifiers, store environment, purchase, signing, and revocation dates, and account-binding token needed to restore access, recognize refunds, and prevent a purchase from being transferred to another account.
+Stripe processes purchases made on guitarhub.org. You enter your email and payment details on Stripe’s checkout page, and GuitarHub does not receive your card details. GuitarHub stores the checkout session identifier, payment identifier, email, amount, currency, purchase date, and, if the purchase is refunded, the refund date, and uses them to open lifetime access for an account signed in with that email and to end it after a refund. Stripe keeps its own payment records under [Stripe’s privacy policy](https://stripe.com/privacy).
 
-GuitarHub does not receive your payment-card details. Apple maintains its own purchase records under [Apple’s privacy policy](https://www.apple.com/legal/privacy/). Removing local practice data or deleting cloud practice history does not delete an Apple purchase or GuitarHub’s verified purchase record.
+Apple handles purchases made through the iOS App Store. The app uses Apple’s transaction and entitlement information to provide purchased access and restore eligible purchases. When account services are available, GuitarHub may use Apple-signed transaction data and an account-binding token to verify, bind, and later reconcile lifetime access with Apple. GuitarHub stores the verified transaction identifiers, app and product identifiers, store environment, purchase, signing, and revocation dates, and account-binding token needed to restore access, recognize refunds, and prevent a purchase from being transferred to another account. When you sign in on iPhone, an Apple purchase made in the app can be linked to your account, together with your email, so the same purchase opens lessons on guitarhub.org; one Apple purchase links to one account.
 
-### Applications and support messages
+GuitarHub does not receive your payment-card details. Apple maintains its own purchase records under [Apple’s privacy policy](https://www.apple.com/legal/privacy/). Removing local practice data, deleting cloud practice history, or deleting your account does not delete a Stripe or Apple purchase or GuitarHub’s verified purchase record.
 
-If you submit the website’s founding-room application, its name, email, experience, and goal fields are sent through Resend to our support inbox. We use that information to review your application and respond. If you use an email link instead, your email provider sends the message and any attachments you choose to include. Please avoid sending sensitive information that is not needed for your request.
+### The 30-day plan, guides, and email
 
-Application and support correspondence is kept to handle your request and related follow-up. You can ask us to correct or delete it at [info@suedeai.ai](mailto:info@suedeai.ai). Some records may need to be retained to meet legal obligations or resolve a dispute. See [Resend’s privacy policy](https://resend.com/legal/privacy-policy) for information about its service.
+When you ask for the 30-day plan or a field guide, GuitarHub stores your email address, which form you used, your placement or the guide you asked for, and when each email was sent. It sends the plan or guide you asked for, then practice tips, through Resend: five emails over ten days. There is an unsubscribe link in every email; unsubscribing stops further emails and records the date you unsubscribed. See [Resend’s privacy policy](https://resend.com/legal/privacy-policy) for information about its service.
+
+### Support messages
+
+If you email us, your email provider sends the message and any attachments you choose to include. Please avoid sending sensitive information that is not needed for your request.
+
+Support correspondence is kept to handle your request and related follow-up. You can ask us to correct or delete it at [info@suedeai.ai](mailto:info@suedeai.ai). Some records may need to be retained to meet legal obligations or resolve a dispute.
 
 ### Website hosting and external services
 
-Vercel hosts this website and processes ordinary connection information, such as an IP address, requested URL, browser information, and error or security logs, to deliver and protect it. See [Vercel’s privacy notice](https://vercel.com/legal/privacy-notice). The GuitarHub website and app do not include advertising trackers or an analytics service that uploads your practice activity.
+Vercel hosts this website and processes ordinary connection information, such as an IP address, requested URL, browser information, and error or security logs, to deliver and protect it. See [Vercel’s privacy notice](https://vercel.com/legal/privacy-notice). GuitarHub runs no analytics and sets no advertising or tracking cookies. The only cookies it sets are the sign-in session cookies an account needs. The website and app do not include advertising trackers or an analytics service that uploads your practice activity.
 
-When GuitarHub enables optional account services, Supabase provides account authentication and database services. It processes the email, account and session identifiers, synced lesson-attempt evidence, and verified purchase and account-binding records described above to provide those features. See [Supabase’s privacy policy](https://supabase.com/privacy).
+When GuitarHub enables optional account services, Supabase provides account authentication and database services. It processes the email, account and session identifiers, synced lesson-attempt evidence, free-module choice, plan and guide email records, and the verified Stripe, purchase, and account-binding records described above to provide those features. See [Supabase’s privacy policy](https://supabase.com/privacy).
 
 Links to Strumly, teachers, videos, songs, social platforms, or other websites open services with their own privacy practices. Information you provide there is governed by those services. GuitarHub does not send your local practice history with those links.
 
+### Deleting your account
+
+You can delete your account on the account page. Deletion removes your GuitarHub data, including synced practice history, your free-module choice, and your plan and guide email record, and signs you out. A purchase stays tied to your email: sign in again with the same email to use lifetime access. The shared Suede sign-in that other Suede AI products use is kept for those products. Local records on your device stay until you clear them.
+
 ### Your choices and updates
 
-You can decline microphone access, leave sync off or pause it, delete cloud practice history, clear local data, and choose whether to submit a message. Contact us to ask what account, purchase, or correspondence records we hold or to request access, correction, or deletion. We will handle requests according to the rights that apply where you live. If GuitarHub’s data practices change, we will update this page and its date, and request any permissions needed for new features.
+You can decline microphone access, leave sync off or pause it, delete cloud practice history, clear local data, unsubscribe from plan and tip emails, delete your account, and choose whether to send us a message. Contact us to ask what account, purchase, or correspondence records we hold or to request access, correction, or deletion. We will handle requests according to the rights that apply where you live. If GuitarHub’s data practices change, we will update this page and its date, and request any permissions needed for new features.
 
 See also the [Terms of Use](https://guitarhub.org/terms).
 
@@ -6227,7 +6237,7 @@ Source: https://guitarhub.org/terms
 
 Using the lessons, practice tools, and purchased access.
 
-Updated September 4, 2026
+Updated November 10, 2026
 
 These terms cover guitarhub.org and the GuitarHub app, provided by Suede AI. You may use the learning content and tools for your own practice. For help, contact [info@suedeai.ai](mailto:info@suedeai.ai).
 
@@ -6243,18 +6253,22 @@ GuitarHub’s original lessons, diagrams, studies, software, and design remain t
 
 External lessons, songs, and tools belong to their respective providers. A link does not include a license to their media, a paid subscription, or a guarantee that the external material will remain available. GuitarHub is an independent product and is not affiliated with Yousician, JustinGuitar, or Sonora Guitar Intensive.
 
-### App Store purchases and access
+### Lifetime access
 
-The App Store purchase screen shows the product, price, and payment terms before you confirm. A product identified there as a one-time purchase does not renew automatically. Any legacy subscription remains governed by the terms accepted when it was purchased and can be managed in your Apple account settings.
+Lifetime access is a one-time purchase of $79 one time, and it does not renew. Launch price $79. Goes to $99 on December 1, 2026. Buy it on guitarhub.org through Stripe Checkout, with sales tax added at checkout where it applies, or in the GuitarHub iPhone app through the App Store, which shows the product, price, and payment terms before you confirm. Any legacy subscription remains governed by the terms accepted when it was purchased and can be managed in your Apple account settings.
 
-Use Restore Purchases in the iOS app to restore eligible access with the Apple account that bought it. A refund, revocation, or expired subscription can change access. Apple handles App Store billing and refund requests. An iOS purchase does not currently unlock the website or transfer practice history between devices.
+One purchase covers guitarhub.org and the GuitarHub iPhone app when you sign in to both with the same email. A web purchase opens lessons for an account signed in with the email used at checkout. An App Store purchase links to your account when you sign in on iPhone, and one Apple purchase links to one account. Use Restore Purchases in the iOS app to restore eligible access with the Apple account that bought it.
+
+### The 90-day guarantee
+
+If after 90 days you are not playing chords and improvising, you get a full refund. The guarantee covers lifetime access bought on guitarhub.org. To ask for the refund, email [info@suedeai.ai](mailto:info@suedeai.ai) from the address on your receipt, and the refund goes back to your original payment method. A refund ends lifetime access on guitarhub.org and in the iPhone app.
+
+Apple handles billing and refund requests for purchases made in the iPhone app, and an Apple refund or revocation ends access the same way.
 
 The iOS app is also subject to the license terms shown with its App Store listing, including [Apple’s standard Licensed Application End User License Agreement](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/) where applicable. These website terms do not remove rights provided by applicable consumer law or your purchase terms.
 
-### Applications, local records, and availability
+### Local records and availability
 
-Submitting a founding-room application requests a conversation. It takes no payment and does not reserve a place or create a purchase commitment. Any offer will explain its scope, schedule, and price before you accept.
+Practice records are stored on your device unless you sign in and turn on practice sync. Clearing browser data, deleting app data, or changing devices can remove them. Use an export feature where one is available if you want a separate copy. Features and external links may change as the service is maintained; the currently available lesson content and access are described in the app or on the relevant page.
 
-Practice records are currently stored locally. Clearing browser data, deleting app data, or changing devices can remove them. Use an export feature where one is available if you want a separate copy. Features and external links may change as the service is maintained; the currently available lesson content and access are described in the app or on the relevant page.
-
-Our [Privacy Policy](https://guitarhub.org/privacy) explains microphone processing, local records, purchases, hosting, and messages. Contact [info@suedeai.ai](mailto:info@suedeai.ai) for support or questions about these terms.
+Our [Privacy Policy](https://guitarhub.org/privacy) explains microphone processing, local records, accounts, purchases, email, hosting, and messages. Contact [info@suedeai.ai](mailto:info@suedeai.ai) for support or questions about these terms.

@@ -1,6 +1,6 @@
 # Browser account attempt sync
 
-Account configuration remains OFF by default. The account page mounts explicit Enable sync, Pause, Sync now, a checkbox-confirmed cloud reset, and scoped sign-out. Signing in does not import earlier guest or account-local history. Actual provider configuration, test-account acceptance, and browser/device checks are separate release gates.
+Accounts are on once the owner sets `GUITARHUB_ACCOUNTS_ENABLED=true` and the account configuration (see [the account README](README.md), owner steps); without them the account features stay off. The account page mounts explicit Enable sync, Pause, Sync now, a checkbox-confirmed cloud reset, and scoped sign-out. Signing in does not import earlier guest or account-local history. Actual provider configuration, test-account acceptance, and browser/device checks are separate release gates.
 
 The client uses the shared transport adapters in `lib/learning-auth/sync.ts`. Every upload and response is bound to the verified account and current server reset epoch. Outbox/inbox storage uses one immutable key per event; no tab replaces a shared array. Uploads contain at most 100 records and 500000 encoded UTF-8 JSON bytes including the envelope. Upload acknowledgements validate the exact sent snapshot and re-read its saved event before deletion. Cursor checkpoints are immutable and written only after all page records are durable. Old epochs remain on the device for local history and are never automatically assigned to a new epoch.
 
@@ -11,6 +11,12 @@ Routine history and preparation confirmations use the existing guest key when si
 Downloaded evidence is kept separate from browser-local history. The existing decoders derive current progress: reading uses authored questions and answers; measured imports require actual target count, bounded matched targets and score, observed full Play duration, current revision, and required BPM. Missing historical elapsed time is not inferred. Raw manual/study evidence cannot satisfy a measured or reading checkpoint. Progress never changes purchase access.
 
 Pausing, sign-out, account changes, reset, and unmount invalidate outstanding operations. Sign-out suspends and broadcasts synchronously before the POST form submits. Both account and epoch are checked after network awaits. The client retries on online/focus and every 30 seconds while mounted, with bounded batch/page work and visible pending/error state. Corrupt data is retained and stops processing; it is never silently replaced with an empty queue. No microphone audio is sent.
+
+## Free module and account deletion
+
+The placement's free module is stored in the browser for guests (`guitarhub.free-module.v1`). When a visitor is signed in, `components/LevelCheck.tsx` sends the choice to `PUT /api/learning/free-module`; the account keeps its first free module for good, and the browser adopts the module the server holds. Practice sync never changes which module is free.
+
+Deleting the account (`DELETE /api/learning/account`, from the account page) pauses and suspends the sync client before the session ends, so no queued attempt uploads after deletion. Local device history stays on the device.
 
 ## Verification
 

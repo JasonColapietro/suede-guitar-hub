@@ -117,8 +117,8 @@ export const AI_INSTRUCTIONS: SiteEntry = {
 };
 
 export const LEGAL: readonly SiteEntry[] = [
-  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, purchases, and messages.", lastModified: "2026-10-10" },
-  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, purchase access, and support.", lastModified: "2026-10-10" },
+  { href: "/privacy", title: "Privacy Policy", blurb: "How GuitarHub handles microphone input, local progress, accounts, web and App Store purchases, plan emails, and messages.", lastModified: "2026-11-10" },
+  { href: "/terms", title: "Terms of Use", blurb: "Using GuitarHub, lifetime access on the web and iPhone, the 90-day guarantee, and support.", lastModified: "2026-11-10" },
 ];
 
 export const TOOLS: readonly SiteEntry[] = [

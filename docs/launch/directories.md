@@ -3,9 +3,8 @@
 Two parts: where to submit, then the copy to paste. The copy block at the bottom is written
 once and reused across every form in the table.
 
-**Read `README.md` Step 0 first.** Ten of GuitarHub's twelve routes are 404 in production
-as of 2026-08-29, `/about` among them. Directories scrape and cache. Submitting now means
-caching a broken site.
+**Read `README.md` Step 0 and Step 1 first.** Directories scrape and cache the first card
+and copy they see, so submit only after the owner steps are done and the share cards render.
 
 ---
 
@@ -61,7 +60,7 @@ time, which is why the copy block below is written to be pasted without editing.
 | TinyLaunch | tinylaunch.com | Generic indie launch feed |
 | Tiny Startups | tinystartups.com | Newsletter-driven, small |
 | LaunchIgniter | launchigniter.com/submit | Aggregator, also publishes its own list of ~931 directories if you want more |
-| BetaList | betalist.com/submit | Submit page loads, form is behind a login. Historically aimed at **pre-launch and early-stage** products — GuitarHub is live and free, so check eligibility before spending time. |
+| BetaList | betalist.com/submit | Submit page loads, form is behind a login. Historically aimed at **pre-launch and early-stage** products — GuitarHub is live and selling, so check eligibility before spending time. |
 
 **On the "931 directories" lists you will find:** they exist, and submitting to all of them
 is roughly 60 hours of form-filling for links most of which no human reads. Batching five to
@@ -76,10 +75,10 @@ Being in a directory you do not belong in is a small dishonesty that costs more 
 listing is worth. These are the ones to skip on purpose.
 
 **AI tool directories — Futurepedia, There's An AI For That, Toolify, dang.ai.**
-GuitarHub's four tools are deterministic. The diagnostic scores fixed weights, the tempo
-ladder is arithmetic, the readiness score is a checklist, the planner is a lookup. There is
-no model, no inference, no API call. Listing them as AI tools would be a false claim on a
-site whose entire positioning is that it does not make false claims. **These directories are
+GuitarHub's lessons and tools are deterministic. The diagnostic scores fixed weights, the
+tempo ladder is arithmetic, the 30-day plan is a fixed path, and microphone exercises use
+fixed signal processing. There is no model, no inference, no API call, so an AI listing would
+describe a different product. **These directories are
 a genuine fit for Strumly, which is an AI coach.** That is a separate submission run under a
 separate product name, and worth doing — just not here.
 
@@ -89,8 +88,8 @@ people search them to book lessons. GuitarHub is not a teacher and is not taking
 A listing would waste the searcher's time and misrepresent what the site does.
 
 **G2, Capterra, SourceForge, Trustpilot.** B2B software review platforms. They expect a
-vendor profile, a commercial product, a pricing model, and customer reviews. GuitarHub has
-no accounts, no pricing, and no customers. Nothing to review.
+vendor profile, a commercial product, a pricing model, and customer reviews. GuitarHub is a
+consumer guitar course, not business software, so it does not fit their categories.
 
 **Crunchbase.** Entity-level, not product-level. A Crunchbase profile would be for Suede
 Labs, not GuitarHub. Worth doing eventually as a company task; it is not part of this launch.
@@ -108,62 +107,55 @@ there says it is for sale.
 
 # The submission copy
 
-Paste these. Do not rewrite them per form — the point of one block is that the positioning
-stays identical across forty listings, which is what makes the site legible to both people
-and answer engines.
+Paste these. Do not rewrite them per form: one block keeps the positioning identical across
+forty listings, which is what makes the site legible to both people and answer engines.
 
-Character counts below were counted by hand. **Trust the form's own counter over mine** and
-trim from the end if a field is stricter than expected.
+Character counts below were counted by script. **Trust the form's own counter** and trim from
+the end if a field is stricter than expected.
+
+**Price lines.** Until 30 November 2026: "$79 one time" and "Launch price $79. Goes to $99 on
+December 1, 2026." From 1 December 2026: "$99 one time", no launch line. Never "usually",
+"was $99", "save" or a countdown.
 
 ---
 
 ### Tagline — 60 characters or fewer
 
-Primary (57 chars):
+Primary (49 chars):
 
 ```
-Free guitar practice tools. No account. Nothing uploaded.
+Real guitar chords and your first solo in 30 days
 ```
 
-Alternate, when the field wants a description rather than a claim (56 chars):
+Alternate, when the field wants a description (59 chars):
 
 ```
-Four free guitar practice tools that run in your browser
-```
-
-Alternate, when the field is the headline of a card and needs the problem (52 chars):
-
-```
-Find the reason your guitar practice stopped working
+A guitar course from first chords to first solo, free start
 ```
 
 **Launching Next wants a 5–8 word headline specifically.** Use:
 
 ```
-Free guitar practice tools, no account needed
+Play real chords and improvise in 30 days
 ```
 
 ---
 
 ### Short description — 160 characters or fewer
 
-154 chars:
-
 ```
-Four free guitar practice tools: a plateau diagnostic, a tempo ladder, a song readiness score, and a 30-day plan. No account. Nothing leaves your browser.
+Play real chords and improvise your first solo in 30 days. Free first module and practice tools; every lesson $79 one time, with a 90-day guarantee.
 ```
 
 ---
 
 ### Long description — around 400 characters
 
-385 chars:
-
 ```
-GuitarHub is a free practice site for guitarists whose playing has stopped changing. Four browser tools turn a vague plan into one target you can pass or fail: a nine-question plateau diagnostic, a tempo ladder builder, a ten-check song readiness score, and a 30-day planner. Six guides cover the method behind them. No account, no sign-up, no upload. Everything stays in your browser.
+GuitarHub gets beginner and intermediate guitarists playing real chords and improvising their first solo in 30 days: D and A, then E, C and G, then the minor pentatonic box, then four bars over a blues. A placement picks one free module, and the tuner, metronome and 30-day plan are free. Lifetime access is $79 one time on the web or iPhone, with a 90-day money-back guarantee.
 ```
 
-Append this sentence when the field allows more (adds 21 chars, total 406):
+Append this sentence when the field allows more:
 
 ```
  Built by Suede AI.
@@ -173,24 +165,22 @@ Append this sentence when the field allows more (adds 21 chars, total 406):
 
 ### Long-form description — for the 500 to 2,500 character fields
 
-Product Hunt allows 500. Launching Next allows 2,500. Use the 385-char block above for
-Product Hunt, and this for anything larger:
+Product Hunt allows 500: use the block above. Use this for anything larger:
 
 ```
-GuitarHub is a free practice site for guitarists whose playing has stopped changing.
+GuitarHub is a guitar course from Suede AI built around one promise: play real chords and improvise your first solo in 30 days.
 
-A plateau is a repetition problem, not a volume problem. Practice changes your playing at the edge where you can just barely hold it together, so a session with nothing failing in it leaves you at exactly the level you walked in with. More hours do not fix that on their own. What the hours contain does.
+The 30-day path runs four modules in order, one a week:
+- D and A: two chords, checked string by string, switched on the beat.
+- E, C and G: the open chords behind most songs, played through a full study.
+- Box One: the minor pentatonic box, the five notes that always work over a blues.
+- First Solo: four bars of your own over a twelve-bar blues, without stopping.
 
-Four tools, all free, all running entirely in the browser:
+Every lesson pairs written instruction with something you play. Microphone exercises score single-note pitch and timing on your device, and nothing is uploaded.
 
-- Practice plateau diagnostic. Nine questions about how you actually practice, scored against five blockers: no measurable target, never at tempo, no feedback loop, practicing the comfortable part, and material churn. It returns one thing to change in your next session.
-- Tempo ladder builder. Give it the tempo you play a passage cleanly and the tempo you need. It returns an ordered set of sessions with capped steps, hold rungs, and a back-off session, each with a condition to pass before moving up.
-- Song readiness score. Ten checks that decide whether a song survives outside practice conditions, including playing it cold, standing, from memory, twice in a row, and ending it on purpose. It names the single highest-leverage thing to fix.
-- 30-day breakthrough planner. One finish line turned into a four-week sequence you can run this month.
+Start free. Five questions pick your first module, and it opens in your browser with no account. The tuner and metronome, a practice plateau diagnostic, a tempo ladder builder and the full 30-day plan, with a printable chord and pentatonic chart pack by email, are free too.
 
-Six written guides cover the method behind the tools.
-
-There is no account, no sign-up, and no upload. Answers are stored in your browser's local storage and nowhere else. There is nothing to buy.
+Lifetime access opens all 135 lessons, the Advanced Lab of scored drills and the daily practice routine: $79 one time, on guitarhub.org or in the iPhone app, and one purchase covers both. Launch price $79. Goes to $99 on December 1, 2026. If after 90 days you are not playing chords and improvising, you get a full refund.
 
 Built by Suede AI, who also build Strumly, an AI guitar coach.
 ```
@@ -203,15 +193,15 @@ Built by Suede AI, who also build Strumly, an AI guitar coach.
 |---|---|
 | Product name | GuitarHub |
 | URL | https://guitarhub.org |
-| Pricing / license | **Free.** Not freemium, not free trial, not free tier. There is nothing to buy and no account to make. If the form only offers Freemium/Paid/Free Trial, pick Free; if it forces a price, leave the listing rather than entering a number. |
-| Platform | Web / browser. No app, no download, no extension. |
-| Category | Education → Music, or Productivity if music is absent. Not AI. Not SaaS. |
-| Tags (5–10) | `guitar`, `guitar practice`, `music education`, `practice tools`, `learn guitar`, `metronome`, `tempo training`, `free tools`, `no signup`, `browser tools` |
-| Startup type (Launching Next) | Side project |
+| Pricing / license | **Freemium**: a free first module and free tools, then lifetime access at $79 one time (no subscription). If the form forces one price, enter 79 USD, one-time. |
+| Platform | Web (any browser) and iPhone (App Store: GuitarHub: Guitar Lessons). |
+| Category | Education → Music. Not AI. |
+| Tags (5–10) | `guitar`, `learn guitar`, `guitar lessons`, `guitar chords`, `guitar improvisation`, `music education`, `metronome`, `guitar tuner`, `pentatonic scale` |
+| Startup type (Launching Next) | Bootstrapped product |
 | 90-day marketing budget (Launching Next) | Whatever is true. It is a filter field, not a public one. |
 | Maker / founder | Jason Colapietro, Suede AI |
 | Contact | info@suedeai.ai |
-| Screenshot | A tool mid-use, showing a real result. Not the hero section. A directory card showing a headline tells a browsing visitor nothing; a card showing a tempo ladder or a scored diagnostic tells them exactly what they get. |
+| Screenshot | The free module mid-lesson, or the 30-day plan's four weeks. Not the hero section: a card showing the product in use tells a browsing visitor what they get. |
 
 ---
 
@@ -220,27 +210,25 @@ Built by Suede AI, who also build Strumly, an AI guitar coach.
 Title — HN strips marketing language, so state the thing:
 
 ```
-Show HN: Free guitar practice tools that run entirely in the browser
+Show HN: GuitarHub – real guitar chords and a first solo in 30 days
 ```
 
-Link `https://guitarhub.org`, not a tool page.
+Link `https://guitarhub.org`, not a sub-page.
 
 First comment, posted by you immediately after submitting:
 
 ```
-I build guitar software, and the same thing kept coming up: people who have practiced for years and stopped getting better. Not beginners. Players with a decade in who can almost play a hundred things and fully play none.
+I build guitar software. Most guitar courses sell a library, and a library has no finish line, so players stall somewhere in the middle. GuitarHub gives the first month one finish: real chords and an improvised solo by day 30.
 
-The pattern I kept landing on is that a plateau is a repetition problem rather than a volume problem. Practice changes your playing at the edge where you can just barely hold it together, so an hour containing nothing difficult maintains you at the level you walked in with.
+The path is four existing modules in order: D and A, then E, C and G, then the minor pentatonic box, then four bars of your own over a twelve-bar blues. Microphone exercises score single-note pitch and timing client-side; no audio leaves the device.
 
-So I built four tools around that. A nine-question diagnostic that scores how you practice against five blockers and names one thing to change. A tempo ladder builder that turns "play it faster" into an ordered set of sessions with capped steps, hold rungs, and a back-off session. A ten-check song readiness score for the parts that break outside the practice room, like starting cold, playing standing, and ending on purpose. And a four-week planner.
+You can try it without an account: a five-question placement opens one module free, and the tuner, metronome, practice diagnostic and tempo ladder are free in the browser. The full course is $79 one time, with a 90-day money-back guarantee.
 
-Everything runs client-side. No account, no server, no upload. Answers go into localStorage and nowhere else, so private-mode users just lose persistence rather than hitting a wall.
-
-The scoring logic is opinionated and I would rather argue about it than defend it. If a rule is wrong I would like to know which one.
+The placement is the part I'd most like argued with. If it puts you in the wrong module, tell me which answer misled it.
 ```
 
-That last line is real. It is an invitation to critique, which is what HN rewards, and it is
-not an ask for votes, which HN penalises.
+That last line is an invitation to critique, which is what HN rewards, and it is not an ask
+for votes, which HN penalises.
 
 ---
 
@@ -249,14 +237,12 @@ not an ask for votes, which HN penalises.
 ```
 Hi everyone. I'm Jason, I build guitar software at Suede AI.
 
-GuitarHub is for players whose practice stopped producing change. Not beginners — people a few years in, with a shelf of half-learned songs, who are putting the hours in and hearing the same recording every month.
+GuitarHub is built around one promise: play real chords and improvise your first solo in 30 days. Week 1 is D and A, week 2 is E, C and G, week 3 is the minor pentatonic box, and week 4 is four bars of your own over a blues.
 
-The idea behind it is that a plateau is a repetition problem rather than a volume problem. Your playing changes at the edge where you can just barely hold it together, so an hour with nothing difficult in it maintains you exactly where you were.
+You start free: five questions pick your first module, and the tuner, metronome and full 30-day plan are free too. Every lesson after that is $79 one time on the web or iPhone, one purchase for both. Launch price $79. Goes to $99 on December 1, 2026. If after 90 days you are not playing chords and improvising, you get a full refund.
 
-There are four tools: a diagnostic that scores how you practice and names one thing to change, a tempo ladder builder with capped steps and hold rungs, a ten-check song readiness score, and a four-week planner. All free, no account, nothing uploaded — it all runs in your browser and stores answers locally.
-
-What I would most like feedback on: the diagnostic's scoring. It weights nine questions across five blockers, and those weights are my judgement rather than anything measured. If it names the wrong blocker for your playing, please tell me which question misled it.
+What I'd most like feedback on: the placement. If it starts you in the wrong module, tell me which question misled it.
 ```
 
-Note the framing: it asks for feedback on a specific thing, which is what Product Hunt's own
-guidance recommends, and it does not ask for votes.
+It asks for feedback on a specific thing, which is what Product Hunt's own guidance
+recommends, and it does not ask for votes.

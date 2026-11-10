@@ -1,6 +1,19 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { register } from "node:module";
 import test from "node:test";
+import { createElement, type FunctionComponent } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+
+import { OFFER, lifetimeOfferAt } from "../lib/site.ts";
+
+register("./component-render-hooks.mjs", import.meta.url);
+const { default: PrivacyPage } = await import("../app/privacy/page.tsx");
+const { default: TermsPage } = await import("../app/terms/page.tsx");
+
+/** Visible text, tags stripped and entities decoded. */
+const text = (Page: FunctionComponent) =>
+  renderToStaticMarkup(createElement(Page)).replace(/<[^>]*>/g, " ").replace(/&#x27;|&apos;/g, "'").replace(/&amp;/g, "&").replace(/\s+/g, " ");
 
 const policy = readFileSync(
   new URL("../app/privacy/page.tsx", import.meta.url),
@@ -64,4 +77,35 @@ test("privacy policy keeps optional account processing conditional and bounded",
     policy,
     /These learning records are not sent to a GuitarHub account or synchronized between devices in the current version/,
   );
+});
+
+test("the privacy policy states analytics, web payments, marketing email and account deletion as built", () => {
+  const page = text(PrivacyPage);
+
+  assert.match(page, /no analytics/i);
+  assert.match(page, /no (advertising or )?tracking cookies/i);
+  assert.doesNotMatch(page, /PostHog|usage data is collected/i);
+  assert.match(page, /Stripe/);
+  assert.match(page, /checkout (session )?identifier[^.]*email[^.]*amount[^.]*refund date/i);
+  assert.match(page, /Apple[^.]*linked to (your|an) account/i);
+  assert.match(page, /Resend/);
+  assert.match(page, /unsubscribe link in every email/i);
+  assert.match(page, /delete your account/i);
+  assert.match(page, /signs you out/i);
+  assert.match(page, /purchase stays tied to (your|the) email/i);
+  assert.doesNotMatch(page, /founding-room application/i);
+  assert.doesNotMatch(readFileSync(new URL("../app/layout.tsx", import.meta.url), "utf8"), /CookieBanner|consent/i);
+});
+
+test("the terms state the one-time web purchase, the guarantee and one purchase for both platforms", () => {
+  const page = text(TermsPage);
+
+  assert.ok(page.includes(OFFER.guarantee));
+  // Built ahead of time: the terms state the offer in force at build.
+  assert.ok(page.includes(lifetimeOfferAt(new Date()).oneTime));
+  assert.match(page, /one-time purchase/i);
+  assert.match(page, /Apple handles[^.]*refund/i);
+  assert.match(page, /same email/i);
+  assert.match(page, /info@suedeai\.ai/);
+  assert.doesNotMatch(page, /founding-room|does not currently unlock the website/i);
 });

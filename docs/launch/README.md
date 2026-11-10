@@ -10,272 +10,189 @@ or sent anywhere. Every file is copy you paste yourself.
 | `social.md` | X thread, standalone X posts, LinkedIn post, two short-video scripts. |
 | `communities.md` | Where guitarists actually are, the rules, and contribution-first drafts. |
 | `outreach-emails.md` | Five cold-email templates: creator, newsletter, journalist, teacher, podcast. |
-| `press-kit.md` | Boilerplate, founder bio, fact sheet, asset list, what may not be claimed. |
+| `press-kit.md` | Boilerplate, founder bio, fact sheet, numbers to quote, asset list. |
 
 ---
 
-## Ground truth, verified 2026-08-29
+## The story every file tells (2026-11-10)
 
-Two different things, kept apart on purpose: **what production serves today** (checked with
-live HTTP requests) and **what this branch already contains** (checked in the source). Every
-gap below closes when the branch deploys — which is why Step 0 is a deploy and not a fix.
+- **Promise:** Play real chords and improvise your first solo in 30 days.
+- **Who for:** beginner and intermediate guitarists.
+- **The 30-day path:** D and A, then E, C and G, then Box One (the minor pentatonic box),
+  then First Solo (four improvised bars over a twelve-bar blues).
+- **Free:** one full module picked by the five-question placement at `/start`; the tuner and
+  metronome (`/practice`); the 30-day plan (`/breakthrough`, the full plan and a chord and
+  pentatonic chart pack by email); the practice plateau diagnostic (`/diagnose`); the tempo
+  ladder builder (`/tempo`); the written guides and their PDF field guides.
+- **Lifetime access:** $79 one time on guitarhub.org or in the iPhone app. Launch price $79.
+  Goes to $99 on December 1, 2026. One purchase opens every lesson on both when the player
+  signs in with the same email. It also opens the Advanced Lab, the A-to-D chord routine,
+  `/session`, `/readiness` and `/log`.
+- **Guarantee:** If after 90 days you are not playing chords and improvising, you get a full
+  refund. It covers web purchases; Apple handles refunds for purchases made in the app.
+- **Voice:** voice lessons on the web live on Suede Sing (https://sing.suedeai.ai).
+- **Primary link:** `https://guitarhub.org/breakthrough` (the free 30-day plan). Second:
+  `https://guitarhub.org/start` (the free module).
 
-**Production today**
+Every draft in this folder uses these facts and no others. The press kit has the numbers to
+quote.
 
-- `https://guitarhub.org` returns 200, served by Vercel.
-- `https://guitarhub.org/breakthrough` returns 200.
-- `https://guitarhub.org/llms.txt` returns 200.
-- `https://guitarhub.org/robots.txt` returns 200 and explicitly allows the AI and search
-  crawlers plus the three social unfurlers.
-- `https://guitarhub.org/sitemap.xml` returns 200 but lists **2 URLs**, because production is
-  running a build from before the sitemap was rewritten.
-- The live home page emits **no `og:image`**, so a link pasted today unfurls as a bare text
-  card. Same cause: the deployed build predates the card.
-- Every Strumly, Suede AI Social, and Suede AI URL used in these drafts returns 200.
+---
 
-**Live as of 2026-08-30 00:22 UTC — the deploy blocker is cleared**
+## Step 0: owner steps before any traffic
 
-The buildout is deployed. Every route below was checked with a real HTTP request against
-production after the deploy went READY, not against the source:
+The sell-first build sells only once these are done. Each is an owner step; the code is
+ready and waits on them. Full detail: `docs/account/README.md`, "Owner steps".
 
-```
-200  /            200  /method       200  /tools        200  /guides
-200  /faq         200  /about        200  /diagnose     200  /tempo
-200  /readiness   200  /breakthrough
-200  /how-to-practice-guitar-effectively    200  /guitar-practice-plateau
-200  /deliberate-practice-guitar            200  /30-day-guitar-challenge
-200  /guitar-practice-routine-intermediate  200  /how-long-to-practice-guitar-each-day
-200  /guitar-practice-schedule              200  /why-cant-i-play-guitar-fast
-200  /how-to-memorize-songs-on-guitar       200  /practicing-guitar-with-a-metronome
-200  /sitemap.xml 200  /robots.txt   200  /llms.txt     200  /opengraph-image
-```
+1. Apply the database migration `supabase/migrations/20261110000000_guitarhub_sell_first.sql`.
+2. Set the Vercel environment: Supabase URL, publishable and service keys; Apple server
+   credentials; `STRIPE_SECRET_KEY`; the Stripe webhook secret `STRIPE_WEBHOOK_SECRET`; the
+   email keys `RESEND_API_KEY` and `GUITARHUB_LEADS_UNSUBSCRIBE_SECRET`; `CRON_SECRET`; and
+   last `GUITARHUB_ACCOUNTS_ENABLED=true`.
+3. Supabase Auth: allow sign-ups, require email confirmation, send the numeric code, set
+   rate limits.
+4. Resend: confirm `plan@guitarhub.org` sends, with open and click tracking off.
+5. Merge `sell-first-web` to `main`, then create the Stripe webhook for
+   `https://guitarhub.org/api/stripe/webhook` (`checkout.session.completed`,
+   `checkout.session.async_payment_succeeded`, `charge.refunded`).
+6. One live purchase, sign in with the receipt email, lessons open; refund it, lessons lock.
+7. Ask for the plan on `/breakthrough` with your own address and confirm the first email
+   arrives with a working unsubscribe link.
+8. Redeploy on or after 1 December 2026 so pre-built pages show $99.
 
-24 of 24 return 200. `sitemap.xml` now lists **20 URLs**, up from 2. The home page emits
-`og:image` pointing at a real 1200x630 PNG (38 KB, `image/png`), and `twitter:card` is
-`summary_large_image` rather than the small text card. `/method`, `/tools` and `/faq` were
-spot-checked and each carries its own `og:image`.
-
-**Every link in this pack is safe to post.**
-
-**Two routes referenced nowhere here, on purpose**
-
-`/session` and `/log` were scoped and never built. They are absent from the route registry,
-so nothing on the site or in this pack points at them. Do not add them to submission copy.
-
-**One thing still broken, and it is the funnel**
-
-`RESEND_API_KEY` is not set on the `suede-guitar-hub` Vercel project — confirmed with
-`vercel env ls production`, which reports zero environment variables. Until it is set, every
-application submitted at `/#apply` returns a 503 and the applicant is shown the
-`info@suedeai.ai` email fallback instead of being delivered.
-
-The sending domain is fine: `resend._domainkey.guitarhub.org` publishes a valid DKIM record,
-so `applications@guitarhub.org` is a verified sender. The key is the only missing piece.
-
-```bash
-cd ~/code/suede-guitar-hub && vercel env add RESEND_API_KEY production
-```
-
-Then redeploy so the new value is picked up. **Driving traffic before this is set means
-applications arrive only from people willing to copy an address into their mail client.**
-
-**Already in this branch, so do not go build them again**
-
-- **The sitemap.** `app/sitemap.ts` reads `HOME`, `TOOLS` and `GUIDES` from `lib/site.ts`
-  and emits **12** URLs. Do not "point it at `SITEMAP_ENTRIES`" — that constant is
-  `HOME + TOOLS + GUIDES` and excludes `/about` deliberately, so switching to it would drop
-  a page rather than add nine.
-- **The Open Graph card.** `app/opengraph-image.tsx` generates a 1200x630 PNG served at
-  `/opengraph-image`, and `app/twitter-image.tsx` re-exports the same artwork. Every page
-  now emits it, but that took a second fix worth knowing about: Next attaches a
-  file-convention image to the segment that owns the file, and a page-level `openGraph`
-  block **replaces** the layout's resolved object, card included. Eleven of the thirteen
-  pages were shipping no `og:image` because of it. Each one now passes
-  `images: [OG_IMAGE]` from `lib/site.ts`. If you add a page with its own `openGraph`
-  block, it needs that line too, or it unfurls bare.
+**Must be true before Step 1:** a live purchase unlocked lessons, a refund locked them, and
+the plan email arrived.
 
 ---
 
 ## Order of operations, and why this order
 
-The sequence is not arbitrary. Each phase either removes a way the next one can fail, or
-buys standing the next one needs.
+Each phase either removes a way the next one can fail, or buys standing the next one needs.
 
-### Step 0 — Ship the site. Nothing else starts until this is done.
+### Step 1: plumbing. Do this before anyone sees a link.
 
-Deploy the branch. Then re-run the route check and confirm all twelve return 200.
+1. **Confirm the share cards render.** The home card reads "Real chords and your first solo
+   in 30 days". Check `https://guitarhub.org`, `/breakthrough`, `/start` and one guide page
+   in a link-preview checker and in a Discord or Slack message. Directories and social
+   networks cache the first card they scrape.
+2. **Search Console and Bing Webmaster Tools.** Verify `guitarhub.org` and submit
+   `https://guitarhub.org/sitemap.xml` before the directory batch, so the crawler knows the
+   pages the first links point at.
+3. **Route check.** Every URL in this pack returns 200:
 
 ```
-for p in / /breakthrough /diagnose /tempo /readiness /method /about \
-         /guitar-practice-plateau /how-to-practice-guitar-effectively \
-         /deliberate-practice-guitar /30-day-guitar-challenge \
-         /guitar-practice-routine-intermediate; do
+for p in / /breakthrough /start /practice /diagnose /tempo /learn /learn/guitar /faq \
+         /compare /method /about /privacy /terms; do
   printf '%s  %s\n' "$(curl -s -o /dev/null -L -w '%{http_code}' "https://guitarhub.org$p")" "$p"
 done
 ```
 
-**Must be true before Step 1:** already satisfied — 24 of 24 routes returned 200 on 2026-08-30. The list above is the sitemap —
-check it against `curl -s https://guitarhub.org/sitemap.xml | grep -c '<loc>'`, which should
-also return 12, so a route added later cannot quietly drop out of this check.
+**Must be true before Step 2:** cards render, sitemap accepted, every route 200.
 
-### Step 1 — Fix the plumbing. Do this before anyone sees a link.
+### Step 2: earn community standing. Post nothing. Start today.
 
-Two things, in this order:
+Guitar communities remove links from accounts with no history. Pick two or three venues from
+`communities.md`, read the rules, and answer practice questions for a few weeks with no
+links. The 30-day path gives you a clear point of view to answer from: chords first, then
+the pentatonic box, then four bars of your own.
 
-1. **Confirm the OG card renders — on more than the home page.** The card ships (see Ground
-   truth above), but it is generated at request time by `next/og` and it is per-page, so
-   what matters is that a real unfurler gets one for each URL you intend to paste. Check
-   `https://guitarhub.org`, one tool page, and one guide page in a link-preview checker and
-   in a Discord or Slack message. Directories scrape the card, X and LinkedIn render it, and
-   most of them cache whatever they get on the first try and never re-scrape — which is why
-   this happens before anything is submitted anywhere.
-2. **Search Console and Bing Webmaster Tools.** Add `guitarhub.org` as a property, verify
-   it, submit the sitemap. Do this *before* the directory batch, not after: the directory
-   links are the first external signals the site will get, and you want the crawler already
-   aware of the pages those links point at.
+**Must be true before Step 7:** real, non-promotional history in the venue, and that venue's
+current rules read by you.
 
-**Must be true before Step 2:** the OG card renders in a link-preview checker; sitemap lists
-12 URLs; Search Console shows the property verified and the sitemap accepted.
+### Step 3: your own channels. The anchor post.
 
-### Step 2 — Start earning community standing. Post nothing. Start today.
+X thread and LinkedIn post from `social.md`, on different days. These are the surfaces you
+control, so this is where you learn whether the copy lands and whether checkout, sign-in and
+the plan email hold up under real traffic.
 
-This runs in the background for the whole launch, and it is why it appears this early.
+**Must be true before Step 4:** the plan email arrived for real visitors, checkout worked on
+other people's phones, nothing 404'd.
 
-Guitar communities are the highest-quality audience in this pack and the one you cannot
-buy your way into. Most of them will remove a link from an account with no history, and
-some will ban it. The only way through is to already be a participant when you eventually
-post — which means the clock starts weeks before the post does.
+### Step 4: directory batch one. The tier-1 list.
 
-So: pick two or three venues from `communities.md`, join, read the rules channel or sidebar,
-and answer questions about practice for a few weeks. No links. No mention of the site. Just
-be useful about the thing the site is about.
+`directories.md`, tier 1 only, in one sitting with the copy block open. Product Hunt gets its
+own day.
 
-**Must be true before Step 7:** you have real, unpaid, non-promotional history in the venue,
-and you have read that venue's current rules yourself.
+### Step 5: Show HN.
 
-### Step 3 — Your own channels. The anchor post.
+Show HN is for something people can try. GuitarHub's tuner, metronome, diagnostic, tempo
+ladder and free module open in the browser with no account, so a reader can try it in the
+first minute. Link `https://guitarhub.org`, title as drafted in `directories.md`, and post
+your maker comment immediately. **Never ask anyone to upvote.** Keep a free hour to answer
+comments.
 
-X thread and LinkedIn post from `social.md`. These come before directories and before Show
-HN for one reason: they are the only surfaces you fully control, so they are where you find
-out whether the copy lands and whether anything on the site breaks under a small amount of
-real traffic. Fix what surfaces here before a bigger audience hits it.
+### Step 6: Product Hunt.
 
-Post the X thread and the LinkedIn post on different days. Same-day cross-posting reads as
-a broadcast; a day apart reads as a person.
+Its own day. Assets: a 240×240 thumbnail, at least two 1270×760 gallery images showing the
+free module and the 30-day plan in use, the 60-character tagline, and a maker's first
+comment. Ask for feedback, not upvotes.
 
-**Must be true before Step 4:** the site survived the traffic, the tools worked on other
-people's phones, nothing 404'd.
+### Step 7: community posts. Only now.
 
-### Step 4 — Directory batch one. Two hours, the tier-1 list.
+Only in venues where Step 2 gave you standing, only under that venue's current rules, with
+the contribution-first drafts in `communities.md`. One venue at a time, days apart.
 
-`directories.md`, tier 1 only. Product Hunt is *not* in this batch — it gets its own day.
+### Step 8: directory batch two, and the long tail.
 
-Do these in one sitting with the copy block open in another window. Each one is a form and
-a paste. The value is mostly durable long-tail discovery and a handful of real backlinks,
-not a traffic spike, so treat it as chores, not as a launch.
-
-**Must be true before Step 5:** OG card confirmed rendering in Step 1, because directories
-that scrape a card will cache a bad one and most will not re-scrape.
-
-### Step 5 — Show HN.
-
-GuitarHub qualifies. HN's own Show HN guidelines say it is for something you made that
-others can play with, and rule out things that cannot be tried — blog posts, sign-up pages,
-newsletters. Four tools that run with no account and no signup are exactly the shape that
-fits, and "no barriers such as signups or emails" is stated there as a positive.
-
-Link `https://guitarhub.org` (not a tool page — let people choose), title as drafted in
-`directories.md`, and post your explanatory comment yourself, immediately, as the maker.
-
-**Never ask anyone to upvote.** HN's guidelines say so explicitly and the site detects it.
-This is the one step where a shortcut gets the submission killed and the domain penalised.
-
-**Must be true:** you have a free hour after posting to answer comments. A Show HN where the
-maker vanishes does worse than one that was never posted.
-
-### Step 6 — Product Hunt.
-
-Its own day, because it needs assets nothing else needs: a 240x240 thumbnail, at least two
-gallery images at 1270x760, the 60-character tagline, and a maker's first comment. Anyone
-can submit their own product.
-
-Ask for **feedback, not upvotes** — Product Hunt's own preparation guide words it that way,
-and asking for votes is against the rules on both platforms in this pack.
-
-**Must be true:** thumbnail and at least two gallery images exist and show the tools
-actually doing something. Screenshots of a hero section are worth nothing here.
-
-### Step 7 — Community posts. Only now.
-
-Only in venues where Step 2 gave you standing, only following that venue's current rules,
-and only with the contribution-first drafts in `communities.md`. Read the rules again on the
-day — they change, and a rule you read in Step 2 is not evidence about today.
-
-One venue at a time, several days apart. Posting the same thing in five guitar communities
-in one afternoon is the pattern every moderator is looking for.
-
-### Step 8 — Directory batch two, and the long tail.
-
-The tier-2 list. Low value each, non-zero in aggregate, and none of it is urgent. Spread it
-over a few weeks rather than burning a day on it.
+The tier-2 list, spread over a few weeks.
 
 ---
 
-## What you cannot say, in any form or post
+## Claims to use
 
-You will be adapting this copy live in text boxes. These constraints travel with it.
+You will adapt this copy live in text boxes. Keep it inside these lines:
 
-- **No numbers you cannot show.** No user counts, no "X% of players", no study citations, no
-  outcome percentages. You can describe an idea like deliberate practice in plain language.
-  You cannot attach a number or a named study to it.
-- **No testimonials, no names, no quotes.** Nobody has said anything about GuitarHub yet.
-- **No claimed outcomes.** The tools have not made anyone better at guitar yet, and saying
-  they have is the one lie that would actually matter.
-- **No features that do not exist.** No accounts, no uploads, no video library, no chat, no
-  mentors, no payments. The founding room is an application under review, not a running
-  product, and every mention of it must say so.
-- **No price, ever.** Not for the room, not "starting at", not "free for now". The tools are
-  free — that is a fact about the tools and it is fine to state. The room has no announced
-  price and must not imply one.
-- **Say who you are.** Every post in this pack is posted by Jason, openly, as the person who
-  built the thing. No alternate accounts, no friends posting it as a discovery, no
-  undisclosed affiliation. Beyond being the rule on every platform here, it is the thing
-  that makes the honest positioning worth anything.
+- **Use the promise as written:** "Play real chords and improvise your first solo in 30
+  days." Present it as what the path teaches toward, with the guarantee behind it.
+- **Price, from the offer:** "$79 one time" and, until 30 November 2026, "Launch price $79.
+  Goes to $99 on December 1, 2026." Never "usually $99", "was $99", "save" or a countdown.
+  From 1 December 2026 the price is "$99 one time" with no launch line.
+- **The guarantee, verbatim:** "If after 90 days you are not playing chords and
+  improvising, you get a full refund." It covers web purchases.
+- **Feedback, precisely:** microphone exercises score single-note pitch and timing on the
+  device. Describe chords as something the lessons teach and check, never as something the
+  app hears or scores.
+- **Free, precisely:** the free module, the tuner and metronome, the 30-day plan, the
+  diagnostic, the tempo ladder and the guides. Everything else is lifetime access.
+- **Voice:** link Suede Sing as the home for voice on the web; do not call it free.
+- **Numbers:** only those in the press kit. No user counts, outcome percentages,
+  testimonials or study citations until they exist.
+- **Say who you are.** Every post is Jason's, openly, as the person who built it. No
+  alternate accounts and no undisclosed affiliation.
 
 ---
 
 ## Checklist
 
-**Step 0 — ship**
+**Step 0: owner steps**
 
-- [ ] Branch deployed to production
-- [ ] All 12 routes return 200, `/about` included
-- [ ] Tools tested on a real phone, not just a resized desktop window
-- [ ] Tools tested with localStorage blocked (private window) and nothing crashes
+- [ ] Migration applied
+- [ ] Vercel environment set, accounts enabled last
+- [ ] Supabase Auth and Resend configured
+- [ ] Merged to `main`; Stripe webhook created
+- [ ] Live purchase unlocks; refund locks
+- [ ] Plan email arrives with a working unsubscribe link
 
-**Step 1 — plumbing**
+**Step 1: plumbing**
 
-- [ ] OG card renders for the home page, a tool page, and a guide page — checker plus a real
-      Discord or Slack paste
-- [ ] sitemap.xml lists 12 URLs
-- [ ] Google Search Console property verified, sitemap submitted
-- [ ] Bing Webmaster Tools property verified, sitemap submitted
-- [ ] `llms.txt` re-read once the tools are live, so it describes what actually ships
+- [ ] Share cards render for home, `/breakthrough`, `/start` and a guide
+- [ ] Google Search Console and Bing Webmaster Tools verified, sitemap submitted
+- [ ] Route check all 200
+- [ ] `llms.txt` re-read once live
 
-**Step 2 — standing (starts now, finishes later)**
+**Step 2: standing (starts now, finishes later)**
 
 - [ ] Joined 2–3 communities from `communities.md`
 - [ ] Read each venue's current rules myself
-- [ ] Contributing without links for at least a few weeks
+- [ ] Contributing without links for a few weeks
 
-**Step 3 — own channels**
+**Step 3: own channels**
 
 - [ ] X thread posted from @johnnysuede
 - [ ] Reposted or quoted from @AISUEDE
 - [ ] LinkedIn post published, on a different day
-- [ ] Nothing broke under the traffic
 
-**Step 4 — directories, tier 1**
+**Step 4: directories, tier 1**
 
 - [ ] Uneed
 - [ ] Startup Fame
@@ -285,43 +202,37 @@ You will be adapting this copy live in text boxes. These constraints travel with
 - [ ] Peerlist
 - [ ] MicroLaunch
 - [ ] Music Tools Index
-- [ ] Fazier (only if the footer backlink is acceptable — see `directories.md`)
+- [ ] Fazier (only if the footer backlink is acceptable; see `directories.md`)
 
-**Step 5 — Show HN**
+**Step 5: Show HN**
 
 - [ ] Posted with a maker comment, on a day I can sit with it
 - [ ] Did not ask anyone to upvote
 
-**Step 6 — Product Hunt**
+**Step 6: Product Hunt**
 
-- [ ] 240x240 thumbnail ready
-- [ ] Two or more 1270x760 gallery images showing the tools in use
+- [ ] 240×240 thumbnail ready
+- [ ] Two or more 1270×760 gallery images showing the product in use
 - [ ] Maker's first comment written in advance
 - [ ] Asked for feedback, not upvotes
 
-**Step 7 — communities**
+**Step 7: communities**
 
 - [ ] Re-read the venue rules on the day
 - [ ] One venue at a time, days apart
 - [ ] Posted openly as the builder in every one
 
-**Step 8 — long tail**
+**Step 8: long tail**
 
 - [ ] Tier-2 directories, spread out
-- [ ] Standalone X posts scheduled weeks apart, not batched
+- [ ] Standalone X posts scheduled weeks apart
 
 ---
 
-## What to measure, and what it will not tell you
+## What to watch
 
-Worth watching: Search Console impressions per page (which of the six guides earns
-anything), referrer traffic per directory (most will send nothing — that is normal and not a
-failure), and how many people who land on a tool page reach a result rather than bouncing
-off the form.
-
-Worth ignoring: upvote counts, follower change on launch day, and directory listing counts.
-None of them are the thing.
-
-What none of it can tell you: whether the method works. That needs the founding room, real
-recordings, and honest denominators, and it is a claim you do not get to make until you
-have them. The site is already careful about this. Keep the distribution equally careful.
+The site collects no usage analytics yet; measurement is deferred until there is a paying
+user. Watch what you can see without it: plan sign-ups in `guitarhub_leads`, purchases and
+refunds in Stripe, Search Console impressions per page, and referrers each directory sends
+(most send little, which is normal). Upvote counts and launch-day follower changes are not
+the measure.

@@ -51,9 +51,9 @@ Four steps, in order, and the third is the one everyone skips.
    If they're deleted or locked, you have your answer without spending your one shot to
    find out.
 4. **Message the moderators first.** For any venue you actually care about, this costs one
-   message and removes all the risk. "I built a free guitar practice tool, no account and
-   nothing to buy. Is there a place in the sub where that's welcome, or would you rather I
-   didn't?" Moderators almost always answer, they usually point you at the right thread, and
+   message and removes all the risk. "I built a guitar course with a free first module and
+   free practice tools, no account needed to try them. Is there a place in the sub where
+   that's welcome, or would you rather I didn't?" Moderators almost always answer, they usually point you at the right thread, and
    the ones who say no have saved you a ban.
 
 ---
@@ -141,7 +141,7 @@ Three things that helped once I saw it:
 
 3. Record the thing at the start of the month and again at the end. Not for anyone else. Recording is the only way to hear what you actually sound like rather than what it feels like from behind the guitar, and it's brutal in a useful way.
 
-Full disclosure since it's relevant: I build guitar software and I ended up putting this into a free site with a few tools on it, including a diagnostic that scores how you practice. It's at guitarhub.org, no account and nothing to buy. Mods, happy to remove the link if it's not allowed here, the rest of the post stands on its own.
+Full disclosure since it's relevant: I build guitar software, and I turned this into a guitar course, GuitarHub, built around playing real chords and improvising a first solo in 30 days. The first module, a practice diagnostic and a tempo ladder are free at guitarhub.org with no account. Mods, happy to remove the link if it's not allowed here, the rest of the post stands on its own.
 ```
 
 **Why it's built this way:** the post is worth reading if you delete the last paragraph
@@ -238,13 +238,11 @@ without it reading as an ad. This is the venue where `README.md` Step 2 pays off
 Short, because Discord is a chat and a wall of text reads as a press release.
 
 ```
-Hey, I've been around here a few weeks. I build guitar software for a living and I put a free practice site together: guitarhub.org
+Hey, I've been around here a few weeks. I build guitar software for a living and I made GuitarHub: play real chords and improvise your first solo in 30 days. guitarhub.org
 
-Four tools, all running in your browser. A diagnostic that scores how you practice against five common blockers and names one thing to change. A tempo ladder builder for one stuck passage, with hold rungs and a back-off session rather than just climbing. A ten-check score for whether a song actually survives outside the practice room. And a four-week planner.
+The path is D and A, then E, C and G, then the minor pentatonic box, then four bars of your own over a blues. Five questions pick your first module and it opens free in your browser, no account. There's also a free tuner, metronome, practice diagnostic and tempo ladder.
 
-No account, nothing uploaded, nothing to buy. Answers sit in your browser's local storage and nowhere else.
-
-The scoring in the diagnostic is my judgement rather than anything measured, so if it names the wrong blocker for your playing I'd genuinely like to know which question misled it.
+The full course is $79 one time if you want the rest, with a 90-day money-back guarantee. Mostly I'd like to know whether the placement puts you in the right module.
 ```
 
 ### Draft — Discord, answering a question in `#general` (no link)
@@ -270,7 +268,7 @@ No link. That is the point.
 
 **Rules status: verified.** Covered in `directories.md` Step 5 with the Show HN copy. The
 short version: Show HN is for something people can try, blog posts and signup pages don't
-qualify, four tools with no account is a good fit, and **never ask anyone to upvote**, which
+qualify, a free module and free tools that open with no account are a good fit, and **never ask anyone to upvote**, which
 HN states explicitly.
 
 ### Indie Hackers
@@ -280,11 +278,10 @@ about your own product when the post has independent value, and group owners can
 guidelines that appear at the moment you write a post, so you'll see them. A post that is
 just a landing page repost does badly, which is a taste problem more than a rules problem.
 
-*Approach:* post the essay, not the product. The strongest angle is the same one as the
-LinkedIn post in `social.md`: what you had to leave out. A launch write-up where the
-interesting content is "I removed every claim I couldn't support, here's what that did to the
-copy" is genuinely useful to that audience, and the product is the example rather than the
-subject.
+*Approach:* post the essay, not the product. The strongest angle for that audience is the
+offer design: one specific promise (real chords and a first solo in 30 days), one free
+module chosen by placement, one price, and a guarantee worded to match the promise. The
+product is the example rather than the subject.
 
 ---
 
@@ -318,9 +315,9 @@ If there is only time for a few, do them in this order.
 2. **One guitar Discord**, most likely the r/GuitarLessons server — the venue where being a
    regular converts fastest into being allowed to share something
 3. **Hacker News Show HN** — verified fit, no groundwork required, one afternoon
-4. **Indie Hackers** — the honesty-constraint essay, low risk, adjacent audience
-5. **r/InternetIsBeautiful and r/SideProject** — one post each, correct shape for a free
-   no-signup tool
+4. **Indie Hackers** — the offer-design essay, low risk, adjacent audience
+5. **r/InternetIsBeautiful and r/SideProject** — one post each; lead with the free tuner,
+   metronome and tempo ladder, which open with no signup
 6. **r/Guitar** — bigger, worse fit, later
 7. **Acoustic Guitar Forum or TheFretBoard** — only if you're prepared to genuinely
    participate, which means months not weeks

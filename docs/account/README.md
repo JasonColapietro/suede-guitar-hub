@@ -1,92 +1,137 @@
-# GuitarHub shared account and access foundations
+# GuitarHub accounts, purchases and access
 
-These modules are server integration foundations. They do not enable production accounts, purchase sharing, or synchronization by themselves. The reviewed ledger is deployed as migration `20260908044358_guitarhub_account_learning_ledger`; see [deployment evidence](deployment-2026-09-08.md). Provider integration remains disabled. Anonymous sampler access and existing local progress remain independent.
+GuitarHub accounts are switched on for the sell-first launch. One lifetime purchase, made on guitarhub.org (Stripe) or in the iPhone app (Apple), opens every guitar lesson on the web and in the app for an account signed in with the same email. Accounts are optional: guests keep their free module and practice history in the browser.
 
-## Verified infrastructure and source
+The code is complete and tested. It runs in production once the owner steps below are done; until then `accountConfiguration()` and `checkoutConfiguration()` return null, the account page says account services are unavailable, and the buy button falls back to the App Store link.
 
-On September 7, 2026, the connected Supabase API reported `drzuelosizfllruocmly` (`Suede-AI's Project`) as `ACTIVE_HEALTHY`, Postgres 17. The initial metadata-only catalog query found no `guitarhub%` tables. On September 8, the scoped ledger migration added three GuitarHub tables and four service-only functions; empty counts, RLS, grants and unchanged security advisors were verified. No user rows or secret values were requested. The current canonical source is [Suede-AI/Suede-AI-App at 916cf7fd](https://github.com/Suede-AI/Suede-AI-App/tree/916cf7fded0e321db5a9d5a8ba5007eb68df4ad5).
+## Owner steps
 
-The existing Suede browser uses PKCE and the server verifies sessions through `supabase.auth.getUser()`. Its native Apple helper sends a hashed nonce to Apple and the original nonce to Supabase `signInWithIdToken`. The durable identity is verified `auth.users.id`, not email, a wallet JWT, or the possibly different `public.users.id`. Current source changes since the September 4 audit await `cookies()` before passing it to auth helpers and retain host-only cookies outside the configured Suede domain estate. GuitarHub is explicitly recognized as its own cookie root.
+These are owner steps. No code change does them, and the site sells on the web only after all of them are done.
 
-The production GuitarHub environment inventory, checked by the parent integration task, contains only `RESEND_API_KEY`. GuitarHub Apple capability/grouping, native audience, Services ID, callback allowlist, deployed account configuration, and App Store Server API credentials still need verification. None is inferred from source configuration comments.
+1. **Database migration.** Apply `supabase/migrations/20261110000000_guitarhub_sell_first.sql` to the shared Suede Supabase project (`drzuelosizfllruocmly`) before the branch goes live. It extends `20260908044358_guitarhub_account_learning_ledger` (already deployed; see [deployment evidence](deployment-2026-09-08.md)). Without it, Apple buyers' access checks fail. Also deploy `docs/intake/hosted-outbox-proposal.sql` so sales reach the internal log.
+2. **Supabase Auth.** In the shared project: allow sign-ups, require email confirmation on every sign-up path (a web purchase unlocks by confirmed email), make the email template send the numeric code, and set rate limits.
+3. **Vercel environment.** Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `GUITARHUB_SUPABASE_SERVICE_ROLE_KEY`, the Apple server credentials (`GUITARHUB_APPLE_ENVIRONMENT=Production`, `GUITARHUB_APPLE_ISSUER_ID`, `GUITARHUB_APPLE_KEY_ID`, `GUITARHUB_APPLE_SIGNING_KEY`), `STRIPE_SECRET_KEY` (a live `sk_live_` key in production), `STRIPE_WEBHOOK_SECRET`, the email keys `RESEND_API_KEY` and `GUITARHUB_LEADS_UNSUBSCRIBE_SECRET`, `CRON_SECRET`, and last of all `GUITARHUB_ACCOUNTS_ENABLED=true`.
+4. **Resend.** Confirm `plan@guitarhub.org` can send, and turn open and click tracking off for the domain.
+5. **Rate limits.** Add a Vercel Firewall per-IP rate limit on `POST /api/leads`, `/api/checkout` and `/checkout/success`.
+6. **Stripe webhook.** After the merge to `main` deploys production, create the webhook for `https://guitarhub.org/api/stripe/webhook` with the events `checkout.session.completed`, `checkout.session.async_payment_succeeded` and `charge.refunded`, and copy its signing secret into `STRIPE_WEBHOOK_SECRET`. Creating it before the deploy makes every delivery fail.
+7. **Live check.** Make one live purchase, sign in with the receipt email, confirm lessons open, refund it, and confirm they lock.
+8. **Price change.** Redeploy on or after 1 December 2026 so pages built ahead of time show the $99 regular price. Checkout and the lesson gate price each request and change on their own.
+
+## Sign-in and account creation
+
+Sign-in is a code sent by email. `/auth/email/send` calls Supabase `signInWithOtp` with `shouldCreateUser: true`, so signing in creates an account when the email has none. Send returns the same response whether or not the email exists and for provider errors, so it never discloses an account. `/auth/email/verify` checks the code and then a fresh, non-anonymous `getUser` result. The sign-in email comes from the Supabase template (owner step 2). `/auth/sign-out` ends the session.
+
+The durable identity is the verified `auth.users.id`, never an email in a request body, a wallet JWT, or `public.users.id`. Lifetime access from Stripe is matched by the account's **verified** email (`account.verifiedEmail`); an unconfirmed email unlocks nothing.
 
 ## Identity and request boundaries
 
 - Resolve browser cookies or native Supabase bearer tokens on the server with fresh provider verification. Reject anonymous Supabase identities for account linking. Never accept an account ID from the body as authorization.
 - Issue or load the server-owned `guitarhub_account_tokens.app_account_token` UUID for that verified account. Native new purchases pass this UUID through StoreKit `.appAccountToken`.
-- Guard cookie-authenticated mutations against cross-site requests, limit request sizes, use private/no-store account responses, and return generic error codes without provider exceptions or signed transaction bodies.
-- Queued attempts have an explicit owner. `assertAccountScope` rejects signed-out uploads, silent anonymous adoption, and uploads after account changes. Anonymous imports require a deliberate user action and retain their existing local copy until acknowledged.
-- Queues also carry the server's `sync_epoch`. `assertSyncScope` and the append RPC reject a stale epoch after history reset. A client must discard or quarantine the old queue, not retry it with the newly fetched epoch.
+- Guard cookie-authenticated mutations against cross-site requests (`isSameOriginMutation`), limit request sizes, use private/no-store account responses, and return generic error codes without provider exceptions or signed transaction bodies.
+- Queued attempts have an explicit owner. `assertAccountScope` rejects signed-out uploads, silent anonymous adoption, and uploads after account changes.
+- Queues also carry the server's `sync_epoch`. `assertSyncScope` and the append RPC reject a stale epoch after history reset.
 
-An initial integration can use Supabase email OTP with `shouldCreateUser: false` for existing shared Suede accounts while Apple audience configuration is pending. This is a supported provider flow, not a replacement identity service. It still needs verified redirect settings, email delivery and rate-limit behavior, and a complete existing-account sign-out/deletion experience before activation. The UI must not imply that this flow creates new GuitarHub accounts, and must not reveal whether an email belongs to a user. The source-only shell remains disabled until these checks pass. See [Supabase passwordless email sign-in](https://supabase.com/docs/guides/auth/auth-email-passwordless).
+## The purchase ledger: two sources
 
-## Apple verification and ownership
+`getVerifiedLearningAccess()` in `lib/learning-auth/access.ts` answers `{enabled, accountId, tracks, status}` for server-rendered lessons. It combines both sources on every request and never caches a grant or reads a purchase flag from browser storage. Any provider outage returns `unavailable` and no grants.
 
-`createAppleLearningVerifier` uses pinned `@apple/app-store-server-library@3.1.0`. Apple G3 is vendored as a public certificate in `lib/learning-account/AppleRootCA-G3.pem`; its SHA-256 fingerprint is pinned in code. A caller cannot add arbitrary trust roots. `SignedDataVerifier` always uses online certificate checks, the exact bundle, the configured Apple app ID, and one explicit Production or Sandbox environment. Xcode and local StoreKit testing are not trusted production environments.
+### Stripe (web)
 
-`verifyPurchase(signedTransaction, {accountId, appAccountToken})` verifies the submitted JWS, checks the signed binding, retrieves current transaction information through Apple's server API, verifies that JWS too, and checks that identity/binding remain identical. Certificate revocation and purchase refunds are separate checks. All failures stop fulfillment. There is no decoded-JWT fallback.
+`POST /api/checkout` creates a Stripe Checkout session for lifetime access, priced by `lifetimeOfferAt(now)` in `lib/site.ts` ($79 through 30 November 2026, $99 from 1 December 2026), with Stripe Tax on. Checkout runs only when `checkoutConfiguration()` finds accounts on, a Stripe secret key and a webhook secret; production accepts live keys only.
 
-The supported cross-device product is exactly `org.guitarhub.app.complete.lifetime`, type `Non-Consumable`, quantity one, bundle `org.guitarhub.app`, purchased ownership, and a signed account token. Legacy subscriptions remain native restore behavior outside this adapter. Unbound or family-shared purchases return `ownership_recovery_required`; they retain whatever valid native StoreKit access exists. No first-claim assignment or reassignment is implemented.
+`POST /api/stripe/webhook` verifies the Stripe signature, records each event once in `guitarhub_stripe_events`, and:
 
-The database permanently binds each `(environment, original_transaction_id)` to its original owner/token. Identical retries succeed; conflicting identities fail atomically. Newer signed events update revocation state; older events cannot resurrect access. `verifyNotification` verifies the notification and contained transaction, then reconciles its latest status. Store notification receipt alone does not trust a client-provided account. Resolve its signed token through the server-owned binding table. Unknown tokens do not create account ownership.
+- on `checkout.session.completed` or `checkout.session.async_payment_succeeded` for a paid GuitarHub sale, records the purchase through `guitarhub_record_stripe_purchase` in `guitarhub_stripe_purchases` (checkout session id, payment intent id, email, livemode, amount, currency, purchase date);
+- on a full `charge.refunded` of a GuitarHub charge, sets `refunded_at` through `guitarhub_refund_stripe_purchase`. A refund ends access on the web and on iPhone. Refunds of other charges are ignored.
 
-Before returning shared access, the integration must reconcile existing purchases through Apple and fail closed if current ownership cannot be checked. `lifetimeTracks` is only a normalized row helper, not a substitute for that reconciliation. Sandbox rows never grant production access. There is no web checkout, credit ledger, or Stripe fulfillment in this slice.
+The success page (`/checkout/success`) can record the purchase first if it loads before the webhook arrives; the webhook then acknowledges it as a duplicate. The buyer signs in with the receipt email and the purchase opens every lesson. Web purchases carry the 90-day guarantee; refunds are issued in Stripe by the owner.
 
-## SQL and progress
+### Apple (iPhone)
 
-`ledger-proposal.sql` is one transaction with explicit grants, owner-only SELECT policies and RLS on all three tables. Mutating functions are `SECURITY INVOKER` and executable only by `service_role`. Client roles cannot mint access, change ownership, insert arbitrary account progress, or update attempts. The trusted server verifies inputs and chooses the account before using the RPCs:
+`createAppleLearningVerifier` uses pinned `@apple/app-store-server-library@3.1.0`. Apple G3 is vendored as a public certificate in `lib/learning-account/AppleRootCA-G3.pem`; its SHA-256 fingerprint is pinned in code. `SignedDataVerifier` always uses online certificate checks, the exact bundle, the configured Apple app ID, and one explicit Production or Sandbox environment.
 
-| RPC | Result |
+`verifyPurchase(signedTransaction, {accountId, appAccountToken})` verifies the submitted JWS, checks the signed binding, retrieves current transaction information through Apple's server API, verifies that JWS too, and checks that identity and binding remain identical. All failures stop fulfillment. There is no decoded-JWT fallback.
+
+The supported cross-device product is exactly `org.guitarhub.app.complete.lifetime`, type `Non-Consumable`. Legacy subscriptions remain native restore behavior outside this adapter.
+
+Two ways an Apple purchase reaches an account:
+
+- **Bound purchase** (`POST /api/learning/purchases/apple`): a purchase made while signed in carries the account's `appAccountToken`.
+- **Claim** (`POST /api/learning/purchases/apple/claim`): an existing Apple buyer signs in on iPhone and the app sends its signed purchase. The server verifies it and links it to the account through `guitarhub_claim_apple_purchase`, storing the verified email as `owner_email` and marking the row `claimed`. One Apple purchase links to one account. A refunded purchase answers 400 `purchase_revoked`.
+
+The database permanently binds each `(environment, original_transaction_id)` to its owner. Newer signed events update revocation state; older events cannot resurrect access. `POST /api/learning/notifications/apple` verifies App Store notifications and reconciles refunds for bound and claimed purchases. Sandbox rows never grant production access.
+
+## The free module
+
+Each player gets one free guitar module, chosen by the placement at `/start`: `g-l2-m1` (D and A), `g-l4-m1` (Box One) or `g-l5-m4` (First Solo), from the shared `freeModules` contract key. Guests keep the choice in browser storage. A signed-in account holds one free module for good: `PUT /api/learning/free-module` with `{moduleId}` calls `guitarhub_set_free_module`, which keeps the first choice and returns the module the account holds. The access answer carries `freeModuleId`.
+
+## Plan and guide emails
+
+`POST /api/leads` (same-origin only, honeypot, strict email check) stores an email from the 30-day plan or a PDF guide form in `guitarhub_leads` with its source, placement or guide id. A daily Vercel cron calls `GET /api/leads/dispatch` (authorized by `CRON_SECRET`) and sends the five-email sequence over ten days from `plan@guitarhub.org` through Resend. Every email carries a signed unsubscribe link (`/api/leads/unsubscribe`, keyed by `GUITARHUB_LEADS_UNSUBSCRIBE_SECRET`) and a one-click `List-Unsubscribe` header; unsubscribing sets `unsubscribed_at`. Addresses the provider rejects are retired.
+
+## Tables and functions
+
+Migration `20260908044358_guitarhub_account_learning_ledger` (deployed):
+
+| Object | Purpose |
 | --- | --- |
-| `guitarhub_get_account_token(p_account_id uuid)` | Stable server-generated binding UUID |
-| `guitarhub_record_apple_purchase(p_account_id uuid, p_purchase jsonb)` | Current purchase row after ownership and event-order checks |
-| `guitarhub_append_attempts(p_account_id uuid, p_sync_epoch uuid, p_attempts jsonb)` | Acknowledged `{attempt_id, sequence}` rows, maximum 100 per atomic batch |
-| `guitarhub_clear_history(p_account_id uuid, p_sync_epoch uuid)` | New sync epoch after deleting GuitarHub attempts; rejects stale/replayed reset and preserves purchase/shared identity |
+| `guitarhub_account_tokens` | Server-owned `app_account_token` and `sync_epoch` per account |
+| `guitarhub_apple_purchases` | Verified Apple purchases and revocation state |
+| `guitarhub_attempts` | Immutable synced lesson attempts |
+| `guitarhub_get_account_token`, `guitarhub_record_apple_purchase`, `guitarhub_append_attempts`, `guitarhub_clear_history` | Service-only RPCs |
 
-`parseLearningAttempt(input, allowedLessons)` validates stable UUIDs, lesson/track correspondence, revision, duration, score and tempo bounds, distinct evidence types, and bounded JSON details. Self-reports and legacy imports cannot become measured scores. Unknown duration remains null. Client timestamps and measured results remain client evidence; they are not proof of purchase or server-certified performance. Derive lesson completion separately against the current exercise revision and actual assessment rules. History reads must use an account-filtered server sequence cursor, not client wall clocks.
+Migration `20261110000000_guitarhub_sell_first` (owner step 1):
 
-Attempts are immutable. Identical retries acknowledge the original row. Reusing an ID with changed evidence fails the entire batch, preventing partial acknowledgement and silent overwrites. Keep local data until the server confirms the matching IDs.
+| Object | Purpose |
+| --- | --- |
+| `guitarhub_stripe_purchases` | Web purchases keyed by checkout session id, matched by email |
+| `guitarhub_stripe_events` | Processed Stripe event ids, so each event applies once |
+| `guitarhub_free_modules` | One free module per account |
+| `guitarhub_leads` | Plan and guide emails, sequence position and unsubscribe date |
+| `guitarhub_apple_purchases.claimed`, `.owner_email` | Claimed Apple purchases and the email that can re-claim them |
+| `guitarhub_record_stripe_purchase`, `guitarhub_refund_stripe_purchase` | Webhook writes |
+| `guitarhub_set_free_module`, `guitarhub_claim_apple_purchase` | Account writes |
+| `guitarhub_delete_account`, `guitarhub_identity_in_use` | Account deletion |
 
-## Disabled HTTP integration
+Every table has RLS on. Mutating functions are `SECURITY INVOKER` and executable only by `service_role`; client roles cannot mint access, change ownership or write progress.
 
-The shell now uses existing-account email codes with `shouldCreateUser: false`. It makes no OAuth callback exchange and does not create accounts. `/auth/email/send` and `/auth/email/verify` accept bounded JSON and always require an exact browser Origin; a Bearer header cannot waive this. Send returns the same response for existing/missing accounts and provider errors, so it does not disclose account existence or assert delivery. Verify checks the provider response and then a fresh, non-anonymous `getUser` result. These routes have only been exercised with provider test doubles; no real emails were sent.
-
-`accountConfiguration` requires the explicit enable flag, exact shared project URL, publishable key and server service-role key. This is a minimum configuration guard, not proof that the schema/provider/deletion setup is ready. `GUITARHUB_ACCOUNTS_ENABLED` remains off until all activation gates below are verified. The account page is not advertised from the learning site.
-
-`getVerifiedLearningAccess()` in `lib/learning-auth/access.ts` provides `{enabled, accountId, tracks, status}` to server-rendered lessons. Status is `disabled`, `signedOut`, `verified`, or `unavailable`. It uses request-scoped React memoization and the same current Apple reconciliation as the access API. Any provider outage returns unavailable and no shared grants. It never caches a grant across requests or reads a purchase flag from browser storage.
+## Endpoints
 
 | Endpoint | Request | Response |
 | --- | --- | --- |
+| `POST /api/checkout` | Same-origin; optional `{email}` | `{url}` of the Stripe Checkout session |
+| `POST /api/stripe/webhook` | Stripe-signed event | `{received:true}` |
 | `POST /api/learning/binding` | Verified account; no body required | `{accountId, appAccountToken, syncEpoch}` |
-| `GET /api/learning/access` | Verified account | `{accountId, tracks, environment}` after Apple reconciliation |
-| `POST /api/learning/purchases/apple` | `{accountId, signedTransaction}` and existing server binding | `{accountId, tracks, environment}`; no mutation before signature acceptance |
+| `GET /api/learning/access` | Verified account | `{accountId, tracks, environment, freeModuleId, purchaseSource}` after Apple and Stripe reconciliation |
+| `PUT /api/learning/free-module` | `{moduleId}` | `{freeModuleId}`, the module the account holds |
+| `POST /api/learning/purchases/apple` | `{accountId, signedTransaction}` and existing server binding | `{accountId, tracks, environment}` |
+| `POST /api/learning/purchases/apple/claim` | `{signedTransaction}` | `{accountId, tracks, environment}`; 400 `purchase_revoked` for a refunded purchase |
+| `POST /api/learning/notifications/apple` | `{signedPayload}` | `{received:true}` only after verification |
 | `POST /api/learning/attempts` | `{accountId, syncEpoch, attempts}` | `{accountId, syncEpoch, acknowledged:[{attempt_id, sequence}]}` |
 | `GET /api/learning/attempts?after=0&syncEpoch=...` | Expected epoch required when cursor is nonzero | `{accountId, syncEpoch, attempts, cursor, nextCursor}` |
 | `DELETE /api/learning/attempts` | `{accountId, syncEpoch, confirmation:"DELETE_GUITARHUB_CLOUD_HISTORY"}` | `{accountId, syncEpoch}` with new epoch |
-| `POST /api/learning/notifications/apple` | `{signedPayload}` | `{received:true}` only after verification; unclaimed transactions never assign ownership |
+| `DELETE /api/learning/account` | Session only; no body is read | 204 after the account data is deleted; the account page then posts `/auth/sign-out` |
+| `POST /api/leads` | `{email, source, placement?, guideId?}` | Stored; the first email goes out on the next run |
+| `GET /api/leads/dispatch` | `Authorization: Bearer $CRON_SECRET` | Sends the emails due today |
+| `GET`/`POST /api/leads/unsubscribe?token=...` | Signed token | Unsubscribed |
 
-All cursors and sequence acknowledgements are decimal strings, preserving PostgreSQL bigint precision. Reads fetch at most 100 attempts plus one pagination sentinel and check the epoch before and after the query. Error responses contain only `{error:code}` and use private/no-store cache headers. Native bearer requests require fresh Supabase verification; browser writes also require Origin. Invalid/missing sessions are 401, origin errors 403, malformed content 400/413/415, account/epoch/identity conflicts 409 and provider failures 503.
-
-`lib/learning-auth/sync.ts` contains pure web adapters for future lesson records, scoped queues, uploads, acknowledgements and received pages. They do not read storage or perform network I/O. Every queued attempt has an account and sync epoch. Re-read the live current account/epoch **after** an awaited request before accepting its response; a captured request scope is insufficient. Quarantine stale queue data rather than retagging it. Non-UUID historical IDs require explicit persisted import mapping and never enter automatic upload. Routine/tool histories remain in their existing local stores until their own typed migration and sync contract is implemented.
+Cursors and sequence acknowledgements are decimal strings, preserving PostgreSQL bigint precision. Error responses contain only `{error:code}` and use private/no-store cache headers. Invalid or missing sessions are 401, origin errors 403, malformed content 400/413/415, account, epoch or identity conflicts 409, and provider failures 503.
 
 ## Deletion boundary
 
-The existing Suede `/api/account/delete` removes shared profile and generated-media records; `/api/social/account/delete` deletes the shared Supabase identity and profile. Neither is a safe GuitarHub-only deletion endpoint. Do not wire these into GuitarHub without a separate, explicit shared-account deletion scope.
+`DELETE /api/learning/account` acts only on the session's account. `guitarhub_delete_account` removes the account's synced attempts, its free-module choice and its lead row (matched by verified email); the account page then signs the session out (`/auth/sign-out`) and reloads. Purchases are kept and stay tied to the email:
 
-Deleting `auth.users` externally cascades GuitarHub attempts and binding rows; purchase rows retain a tombstone with null account ownership so another account cannot claim the same original transaction. `guitarhub_clear_history` is a product-scoped history reset that preserves the shared identity/purchase and changes the sync epoch under the same row lock as appends. A pre-reset batch either finishes before reset and is deleted, or fails its epoch check afterward. Retention and recovery for purchase tombstones must be reflected in the product's final privacy policy. Full account deletion is still a separate integration gate; this history RPC must not be labeled “Delete account.”
+- Stripe purchase rows are untouched; signing in again with the same email opens them.
+- Apple purchase rows keep `owner_email`, so a later sign-in with that email can claim them again; the binding token stays while any Apple purchase references it, with a fresh `sync_epoch` so a device holding the old epoch cannot write.
+
+The shared Suede sign-in is kept for the other Suede products: `guitarhub_identity_in_use` reports the identity as in use until the other products' schema is checked, so GuitarHub deletion never deletes the shared `auth.users` row. The existing Suede `/api/account/delete` and `/api/social/account/delete` endpoints are not GuitarHub deletion endpoints and are not wired in.
+
+`guitarhub_clear_history` is a separate, product-scoped history reset that keeps the account and purchases and changes the sync epoch under the same row lock as appends.
+
+## SQL and progress
+
+`parseLearningAttempt(input, allowedLessons)` validates stable UUIDs, lesson and track correspondence, revision, duration, score and tempo bounds, distinct evidence types, and bounded JSON details. Self-reports and legacy imports cannot become measured scores. Client timestamps and measured results remain client evidence, not proof of purchase. Attempts are immutable: identical retries acknowledge the original row, and reusing an ID with changed evidence fails the whole batch. Keep local data until the server confirms the matching IDs.
 
 ## Validation
 
-- The disabled HTTP/auth/sync integration passed 32 account tests, scoped ESLint with no warnings and a full TypeScript check. Handler tests use the production handler functions with isolated provider dependencies; no real emails, accounts or purchases are generated. They cover fresh non-anonymous identity, body/account conflicts, rejected signatures without writes, old refund precedence, epoch-safe reads/reset, exact bigint cursors and scoped queue acknowledgements.
-- Eleven Node tests exercise contract validation, account switching/reset, evidence separation, environment access, unsupported/legacy purchases, and actual official-library rejection of unsigned JWS and untrusted roots.
-- `bash tests/account-ledger.sh` starts a disposable local PostgreSQL database on a Unix socket, disables TCP, applies the SQL proposal, and exercises real RLS/permissions, atomic batches, duplicate and conflicting purchases/attempts, out-of-order refunds, environment separation, and account deletion. It does not use a production connection.
-- The first run passed on PostgreSQL 16.14. The hosted Supabase 17 migration and metadata checks passed. Authenticated hosted API journeys and an Apple-signed positive purchase/notification flow remain required before activation. Test fixtures are synthetic and do not prove a real production purchase.
-
-## Official references
-
-- [Supabase Apple login and nonce/PKCE configuration](https://supabase.com/docs/guides/auth/social-login/auth-apple)
-- [Supabase explicit Data API grant change](https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically)
-- [Apple App Store Server Library](https://github.com/apple/app-store-server-library-node)
-- [Apple SignedDataVerifier](https://apple.github.io/app-store-server-library-node/classes/SignedDataVerifier.html)
-- [Apple getTransactionInfo](https://apple.github.io/app-store-server-library-node/classes/AppStoreServerAPIClient.html#getTransactionInfo)
-- [Apple public root certificates](https://www.apple.com/certificateauthority/)
+The account, checkout, webhook, claim, deletion and lead handlers are covered by `npm test` with isolated provider doubles (no real emails, accounts or purchases): `tests/account-*.test.ts`, `tests/checkout.test.ts`, `tests/stripe-webhook.test.ts`, `tests/free-module*.test.ts`, `tests/leads.test.ts` and `tests/account-ledger.sql`. The live purchase and refund in owner step 7 is the production check.

@@ -1,6 +1,6 @@
 # GuitarHub cold outreach templates
 
-**Last updated:** 2026-08-29
+**Last updated:** 2026-11-10
 **Send from:** a real, monitored address. Replies to these go to a person.
 
 Five templates, five different angles, five different asks. Each is under 150
@@ -16,27 +16,26 @@ words on purpose: a cold email that needs scrolling gets archived.
 2. **No invented connection.** Do not say "a friend recommended you", "we met
    at", or "I saw you're connected to". If there is a real mutual, name them and
    check with them first.
-3. **No invented urgency.** There is no closing date, no limited number of
-   spots being offered to them, and no launch deadline. Do not manufacture one.
-4. **Do not overstate the product.** The founding room is an application under
-   review, not a running cohort. There are no student results to cite, because
-   none have been measured. The tools are free and account-free, which is the
-   only thing worth leading with.
+3. **Only real urgency.** The one date is the price change: "Launch price $79.
+   Goes to $99 on December 1, 2026." State it once, as written, and only before
+   that date. No limited spots, no countdowns, no "usually $99".
+4. **Lead with the promise and the free start.** "Play real chords and improvise
+   your first solo in 30 days." A placement opens one module free; the tuner,
+   metronome, diagnostic and tempo ladder are free with no account. Lifetime
+   access is $79 one time, with a 90-day money-back guarantee on web purchases.
+   Microphone exercises score single-note pitch and timing. Quote no student
+   results until they exist.
 5. **One follow-up, maximum.** Seven days later, three sentences, and then stop.
 6. **A no ends it.** Do not re-pitch a different angle to someone who declined.
 
-**Do not send any of these until `README.md` Step 0 passes.** `/diagnose`,
-`/tempo`, `/readiness` and `/method` were all 404 in production as of
-2026-08-29, and templates 1 and 4 below paste `/diagnose` and `/tempo` directly.
-Cold outreach is one-shot: a creator, teacher, editor or podcaster who opens a
-404 does not open the second email.
+**Send these only after `README.md` Step 0 and Step 1 pass.** Cold outreach is
+one-shot: a creator, teacher, editor or podcaster who hits a broken page or a
+missing plan email does not open the second email.
 
-Links used in these templates:
-
-- **Live now:** `https://guitarhub.org`, `/breakthrough`,
-  `https://strumly.suedeai.ai/guides`, `https://social.suedeai.ai`,
-  `https://suedeai.ai`
-- **Not live until Step 0:** `/diagnose`, `/tempo`, `/readiness`, `/method`
+Links used in these templates: `https://guitarhub.org`, `/breakthrough` (the
+free 30-day plan), `/start` (the free module), `/diagnose`, `/tempo`,
+`https://strumly.suedeai.ai/guides`, `https://social.suedeai.ai`,
+`https://suedeai.ai`.
 
 ---
 
@@ -72,27 +71,27 @@ without sending their audience into a funnel.
 
 ## 2. Guitar newsletter
 
-**Angle:** newsletters need link items that do not annoy readers. Free, no
-signup, no paywall is exactly that.
+**Angle:** newsletters need link items readers thank them for. A free 30-day
+plan with a chart pack is exactly that.
 **Ask:** yes or no on a links-section item, and an offer to write the blurb.
 
-> **Subject:** Free, no-signup practice tool for the links section
+> **Subject:** A free 30-day guitar plan for the links section
 >
 > Hi [FIRST NAME],
 >
 > I read [NEWSLETTER NAME]. [SPECIFIC: an issue and the item in it you actually
 > read.]
 >
-> GuitarHub has four free browser tools for practice: a four-week planner, a
-> plateau diagnostic, a tempo ladder builder, and a song readiness check. No
-> account, no email required, no paywall, nothing to install. Start here:
-> https://guitarhub.org/breakthrough
+> GuitarHub is built around one promise: play real chords and improvise your
+> first solo in 30 days. The free 30-day plan lays out the four weeks, D and A
+> to a first solo over a blues, and emails a printable chord and pentatonic
+> chart pack: https://guitarhub.org/breakthrough
 >
-> Would one of them fit your links section? If yes, tell me which, and I will
+> Would it fit your links section? If yes, tell me which, and I will
 > send a two-line description in your format that you can paste or ignore. If
 > no, that is a complete answer and I will not follow up twice.
 >
-> I am not asking for a review and there is nothing to pay for.
+> I am not asking for a review, and the plan is free for your readers.
 >
 > [YOUR NAME]
 > guitarhub.org
@@ -122,8 +121,8 @@ sends it. Anyone else has to rewrite that sentence.
 > I will write it on spec. You publish it or you do not, and there is no
 > invoice either way.
 >
-> Background: I built the practice tools at https://guitarhub.org and write the
-> guides there, so you can judge the writing before you answer.
+> Background: I built https://guitarhub.org and write the guides there, so you
+> can judge the writing before you answer.
 >
 > [YOUR NAME]
 
@@ -150,7 +149,7 @@ This does it in thirty seconds and costs nothing.
 > steps were wrong, where a student ignored it, where it assumed something your
 > students do not have.
 >
-> I am not selling anything and there is no teacher program to join. I want the
+> The tempo ladder is free, and there is no teacher program to join. I want the
 > tool to survive contact with a real lesson.
 >
 > [YOUR NAME]
@@ -171,16 +170,17 @@ This does it in thirty seconds and costs nothing.
 > [SPECIFIC: the episode you listened to, the guest, and the exchange that
 > prompted this.]
 >
-> I am [YOUR NAME]. I built GuitarHub, a free set of guitar practice tools,
-> and Strumly, an AI guitar coach, at Suede AI.
+> I am [YOUR NAME]. I built GuitarHub, a guitar course built around playing
+> real chords and improvising a first solo in 30 days, and Strumly, an AI
+> guitar coach, at Suede AI.
 >
 > The position I would argue on [SHOW]: guitar education sells lessons and
-> almost never sells a way to check whether a lesson worked, which is why
-> players stall with a hundred half-learned songs. The fix is unglamorous. You
-> record a baseline, you fix one thing, and you record it again.
+> almost never sells a finish line, which is why players stall with a hundred
+> half-learned songs. The fix is a fixed order and a 30-day finish: chords,
+> then one scale, then four bars of your own, with a recording at each end.
 >
 > Would a [LENGTH] episode on that work for you? I can send three questions I
-> would want asked, including the one about where this argument is weakest.
+> would want asked, including the hardest one you could put to it.
 >
 > [YOUR NAME]
 > guitarhub.org
@@ -192,6 +192,6 @@ This does it in thirty seconds and costs nothing.
 Send once, seven days later, on the same thread. Then stop.
 
 > Hi [FIRST NAME], following up once on the note below in case it arrived at a
-> bad moment. If it is not a fit, no reply needed and I will not write again.
+> bad moment. If now is the wrong time, no reply needed and I will not write again.
 >
 > [YOUR NAME]

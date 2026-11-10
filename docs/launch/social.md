@@ -12,59 +12,32 @@ openly, as the person who built the site.
 - Instagram: instagram.com/suedeai
 - YouTube: youtube.com/@aisuede
 
-**Before posting anything:** ten of twelve routes are 404 in production as of 2026-08-29,
-`/about` among them, and the live build emits no `og:image`, so a link pasted today unfurls
-as a bare text card. Both are the same cause — production is running an old build — and both
-clear when the branch deploys. See `README.md` Step 0, then confirm the card actually
-unfurls (Step 1) before pasting a link anywhere that caches the first one it sees.
+**Before posting anything:** finish Step 0 and Step 1 in `README.md`. The plan email,
+checkout and the share card must work before a link goes anywhere that caches the first card
+it sees.
 
-**Character counts** were checked with a script. Every X post below fits 280 **after**
-allowing for X counting each link as 23 characters regardless of its real length, so they
-all work without a Premium account. Longest is 278.
+**Price lines.** Until 30 November 2026, use "$79 one time" and "Launch price $79. Goes to
+$99 on December 1, 2026." From 1 December 2026, use "$99 one time" and drop the launch line.
+Never "usually", "was $99", "save" or a countdown.
 
-**First-person stories about your own playing are placeholders.** Three lines in the video
-scripts put an anecdote in your mouth that I invented. Replace each with something that
-actually happened to you, or cut it. They're the lines a viewer will trust most, which is
-exactly why they have to be real:
+**Character counts.** Every X post below is written to fit 280 with X counting each link as
+23 characters. Re-check any post you edit.
 
-- Script 1, Beat 1 — "This is the part **I** can already play. It sounds the best, so **I**
-  play it the most."
-- Script 2, Beat 1 — "You can hear the difference and **I've** been playing this one for
-  weeks."
-- Script 2, Beat 3 — "Most of the songs **I** thought I'd finished failed several of these."
-
-The Discord reply in `communities.md` has the same problem in the same way, and the first two
-paragraphs of the Reddit draft in that file are flagged there.
-
-Two smaller checks: the LinkedIn post opens with "I spent this month", so adjust if the
-timeline is different by the time you post, and both scripts assume you'll film yourself
-playing badly on purpose without editing it out. That is the part that makes them work.
-
-Everything else in this file is drawn from the site's own copy and from `lib/` — the five
-blockers, the ten readiness checks, the ladder's hold and back-off rungs are all real
-features you can point at.
+**First-person stories about your own playing are placeholders.** Lines marked **[yours]**
+put an anecdote in your mouth. Replace each with something that happened to you, or cut it.
 
 ---
 
 ## X thread
 
-Nine posts. Each one reads on its own, because that is how they will actually be
-encountered. No thread emoji, no "here's what I learned", no promise of a payoff further
-down. If someone only sees post 6, post 6 should still be worth having read.
-
-Post one line at a time as replies to your own post. Do not schedule the whole thing to
-fire in one second.
-
----
+Seven posts. Each one reads on its own. Post them one at a time as replies to your own post.
 
 **1/**
 
 ```
-Most guitarists don't quit. They plateau.
+Play real chords and improvise your first solo in 30 days.
 
-Years of tabs and videos produce players who can almost play a hundred things and fully play none.
-
-So I built a free site about why that happens, with four tools. No account, nothing uploaded.
+That's the whole promise of GuitarHub, the guitar course I built. Here's the path, week by week.
 
 guitarhub.org
 ```
@@ -72,110 +45,83 @@ guitarhub.org
 **2/**
 
 ```
-A plateau is a repetition problem, not a volume problem.
+Week 1: D and A.
 
-Your playing changes at the edge where you can just barely hold it together. An hour with nothing difficult in it leaves you at exactly the level you walked in with. The hour wasn't wasted. It went on the finished part.
+Two chords, fretted cleanly, checked string by string, then switched on the beat. Most people skip the checking and pay for it for years.
 ```
 
 **3/**
 
 ```
-Six things cause it:
+Week 2: E, C and G.
 
-Practicing what already sounds good.
-Never playing at real tempo.
-Never hearing yourself from outside your own head.
-No target you could pass or fail.
-New material before the last piece is done.
-Routing around a technique problem instead of fixing it.
+Add the shapes behind most songs and play a full study without stopping for the change. Now you have the open chords that cover most of what you want to play.
 ```
 
 **4/**
 
 ```
-The hardest one to catch is the first.
+Week 3: Box One.
 
-Practicing what already sounds good feels like practice. It's the part that sounds best, so you play it most, and the recording you make in week four sounds like the one from week one.
+The minor pentatonic box, the five notes that always work over a blues. Up and down, clean, in time.
 ```
 
 **5/**
 
 ```
-So I built a diagnostic. Nine questions about how you practice, scored against five blockers: no measurable target, never at tempo, no feedback loop, practicing the comfortable part, material churn.
+Week 4: First Solo.
 
-It names one thing to change in your next session.
-
-guitarhub.org/diagnose
+Four bars of your own over a twelve-bar blues, in key, without stopping. Four bars is a sentence. Once you can say one, you can say the next.
 ```
 
 **6/**
 
 ```
-Second tool. You give it the tempo you play a passage cleanly and the tempo you need.
+Start free.
 
-It returns an ordered set of sessions: capped steps, hold rungs that repeat a tempo instead of adding to it, and a back-off session. Each one has a condition to pass.
+Five questions place you, and your first module opens free: D and A, Box One or First Solo. The full 30-day plan and a printable chord and pentatonic chart pack come by email.
 
-guitarhub.org/tempo
+guitarhub.org/breakthrough
 ```
 
 **7/**
 
 ```
-Third tool. Ten checks a song has to survive outside the practice room.
+Every lesson is $79 one time, on the web or iPhone. Launch price $79. Goes to $99 on December 1, 2026.
 
-Can you start it cold. Standing. Twice in a row without the second take being worse. Without the tab. Ending it the same way, on purpose.
+If after 90 days you are not playing chords and improvising, you get a full refund.
 
-guitarhub.org/readiness
-```
-
-**8/**
-
-```
-All four tools are free and need no account. Nothing is uploaded.
-
-Your answers go into your browser's local storage and nowhere else, which also means they disappear when you clear it. There is no signup wall and nothing to buy.
-```
-
-**9/**
-
-```
-I'm Jason. I build Suede AI. GuitarHub is the practice method, Strumly is our AI guitar coach.
-
-There's also a founding practice room, but it's an application we're reviewing, not a running product, and I'd rather say that than imply otherwise.
-
-The tools are just free.
+I'm Jason. I build Suede AI.
 ```
 
 **Notes on the thread**
 
-- Post 9 is doing real work. Ending on the honest limitation rather than a pitch is the
-  whole positioning in one post, and it is the one most likely to be quoted.
-- If a post gets a genuine question, answer it in the replies rather than pointing at a page.
-- Do not quote-tweet your own thread to boost it later that day. Let it sit.
+- Post 7 carries the price and the guarantee together, so the offer and the risk reversal
+  land in the same breath.
+- Answer genuine questions in the replies rather than pointing at a page.
 
 ---
 
 ## Standalone X posts
 
-Three separate posts, for three separate weeks. Not a thread, not the same day, not
-scheduled in a batch. Each one has to justify itself with no link doing the work.
+Three separate posts, for three separate weeks.
 
 **A — the idea, no link**
 
 ```
-What improves is what is currently failing.
+Chords first, then one scale, then four bars of your own.
 
-Practice changes your playing at the edge where you can just barely hold it together, and nowhere else. This is why adding hours to a session that contains nothing difficult produces more of the same playing.
+That order is the fastest way I know from "I strum a few songs" to "I can improvise." Most players learn scales they never use because the chords under them weren't solid yet.
 ```
 
-**B — the uncomfortable one**
+**B — the free module**
 
 ```
-A song is not finished because you can play it in your practice room.
+Five questions, one free guitar module.
 
-Can you start it cold, with no warm-up? Standing, with the strap where you'd wear it? Twice in a row without the second take being worse? Can you end it the same way, on purpose?
+New to guitar? D and A. Already change open chords? Box One. Barre chords under your fingers? First Solo.
 
-guitarhub.org/readiness
+guitarhub.org/start
 ```
 
 **C — the practical one**
@@ -183,140 +129,105 @@ guitarhub.org/readiness
 ```
 "Play it faster" is not a plan.
 
-A tempo you reach once is not a tempo you own. What makes it stick is holding a speed for a session instead of climbing, and dropping below it afterwards to climb back through ground you already covered.
+Give the tempo ladder the speed you play a passage cleanly and the speed you need. It returns capped steps, hold rungs and a back-off session, each with a condition to pass. Free:
 
-Free builder: guitarhub.org/tempo
+guitarhub.org/tempo
 ```
 
 ---
 
 ## LinkedIn
 
-One post, on a different day from the X thread. LinkedIn rewards a real first line and
-punishes a link in the first two lines, so the URL sits at the end.
+One post, on a different day from the X thread. The URL sits at the end.
 
 ```
-I spent this month building something free, and the interesting part was what I had to leave out.
+I rebuilt GuitarHub around one promise: play real chords and improvise your first solo in 30 days.
 
-GuitarHub is a practice site for guitarists whose playing has stopped changing. Not beginners. People a few years in, with a shelf of half-learned songs, putting the hours in and hearing the same recording every month.
+Most guitar courses sell a library. A library has no finish line, so most players stall somewhere in the middle of it. GuitarHub gives the first month one finish, and a fixed order to reach it.
 
-The idea it's built on is that a plateau is a repetition problem rather than a volume problem. Your playing changes at the edge where you can just barely hold it together. A session with nothing failing in it leaves you at exactly the level you walked in with. The hour isn't wasted. It goes on the part that was already finished.
+Week 1, D and A, checked string by string and switched on the beat. Week 2, E, C and G. Week 3, the minor pentatonic box. Week 4, four bars of your own over a twelve-bar blues.
 
-There are four tools. A diagnostic that scores how you practice against five blockers and names one thing to change. A tempo ladder builder that turns "play it faster" into sessions with capped steps and hold rungs. A ten-check score for whether a song survives outside the practice room. A four-week planner. All free, no account, nothing uploaded. Answers live in your browser and nowhere else.
+Every lesson pairs written instruction with something you play, and the microphone exercises score single-note pitch and timing on your own device. Nothing is uploaded.
 
-Now the part I had to leave out.
+You start free: five questions pick your first module, and the full 30-day plan comes by email with a printable chord and scale chart pack. Every lesson after that is $79 one time, on the web or on iPhone, and one purchase covers both. Launch price $79. Goes to $99 on December 1, 2026.
 
-Every instinct in launch copy says to put proof on the page. Numbers of players. A testimonial. A percentage. I have none of those, because the site is new and nobody has used it yet, and inventing them would have been trivially easy and completely invisible to a visitor.
+And because the promise is specific, so is the guarantee: if after 90 days you are not playing chords and improvising, you get a full refund.
 
-So the page says what it can support and nothing more. No student counts. No outcome claims. The founding practice room is described as what it currently is, which is an application under review, not a running product. Where I wanted a statistic I wrote the idea in plain language instead.
-
-That constraint made the copy better, not worse. Removing every claim I couldn't back left only the ones I could argue for, and an argument you can actually defend reads differently to a reader than a number they can't check.
-
-The tools are free and there is nothing to buy: guitarhub.org
+Get the free plan: guitarhub.org/breakthrough
 
 Built at Suede AI, where we also build Strumly, an AI guitar coach.
 ```
 
 **Notes**
 
-- The angle is the honesty constraint, not the product. That is the post a founder audience
-  on LinkedIn will engage with, and it happens to be true.
 - No hashtags. No "thoughts?" at the end.
-- If you post from the company page too, wait a few days and cut it to the first three
-  paragraphs plus the link.
+- From the company page, wait a few days and cut it to the first three paragraphs plus the
+  link.
 
 ---
 
 ## Short-video scripts
 
-Two scripts, both about the plateau idea. Vertical, 9:16, phone-shot with a guitar in
-frame. Both are built so the first sentence works with the sound off and on-screen text
-carries the argument.
-
-Respect the obvious: no fake numbers on screen, no "1,000 players", no before/after that
-isn't a real before/after. If you show a recording, it has to be your own recording.
+Vertical, 9:16, phone-shot with a guitar in frame. The first sentence works with the sound
+off; on-screen text carries the argument. If you show a recording, it is your own.
 
 ---
 
-### Script 1 — "The reason your practice stopped working" (about 40 seconds)
+### Script 1 — "Your first solo is four bars" (about 40 seconds)
 
-**Hook (0:00–0:03)** — say it straight to camera, guitar already in hand.
+**Hook (0:00–0:03)** — straight to camera, guitar in hand.
 
-> You didn't get worse at guitar. Your practice stopped containing anything difficult.
+> Your first solo is four bars long. That's it.
 
-*On-screen text: PRACTICE THAT CHANGES NOTHING*
+*On-screen text: YOUR FIRST SOLO = 4 BARS*
 
-**Beat 1 (0:03–0:12)** — play four bars of something clean and easy. Talk over it.
+**Beat 1 (0:03–0:14)** — play the A minor pentatonic box slowly.
 
-> This is the part I can already play. It sounds the best, so I play it the most. And it is
-> the exact part that cannot make me better, because nothing in it is failing.
+> These are the five notes that always work over a blues. Box One. You learn it up and down
+> until it's clean.
 
-**Beat 2 (0:12–0:22)** — stop. Play the hard bar. Let it be bad. Do not edit the mistake out.
+**Beat 2 (0:14–0:26)** — play a twelve-bar backing loop and improvise four bars over it.
+Leave a wobble in. **[yours]** if you narrate what went wrong.
 
-> This is the bar that actually breaks. It sounds worse, so it gets less time. That is
-> backwards. Your playing changes at the edge where you can just barely hold it together,
-> and nowhere else.
+> Now four bars of your own, in key, without stopping. Four bars is a sentence. Say one, and
+> you can say the next.
 
-*On-screen text: WHAT IMPROVES IS WHAT IS CURRENTLY FAILING*
+*On-screen text: CHORDS → BOX ONE → FIRST SOLO*
 
-**Beat 3 (0:22–0:33)** — back to camera.
+**Beat 3 (0:26–0:34)** — back to camera.
 
-> So an hour with nothing difficult in it leaves you at exactly the level you walked in with.
-> The hour wasn't wasted. It went on the part that was already finished. That is why more
-> practice doesn't fix a plateau on its own.
+> Before this, two weeks of chords: D and A, then E, C and G. That's the 30-day path.
 
-**CTA (0:33–0:40)**
+**CTA (0:34–0:40)**
 
-> I built a free thing that asks nine questions about how you actually practice and names the
-> one habit doing this to you. No account, nothing uploaded. It's at guitarhub.org.
+> The plan is free at guitarhub.org, with a chord and scale chart pack.
 
-*On-screen text: guitarhub.org/diagnose — free, no account*
-
-**Notes:** the whole video lives or dies on Beat 2. Leaving the bad bar in, unedited, is the
-proof. Cutting it makes this identical to every other practice video.
+*On-screen text: guitarhub.org/breakthrough — free 30-day plan*
 
 ---
 
-### Script 2 — "Ten questions that decide if your song is finished" (about 45 seconds)
+### Script 2 — "Check every string" (about 35 seconds)
 
-**Hook (0:00–0:04)** — straight to camera.
+**Hook (0:00–0:03)** — straight to camera.
 
-> You can play the song. In your practice room. Sitting down. After a warm-up. With the tab
-> open. That is four conditions, and the song only works inside all of them.
+> Your D chord probably has a dead string. Here's how to find it.
 
-*On-screen text: IS IT ACTUALLY FINISHED?*
+*On-screen text: ONE DEAD STRING*
 
-**Beat 1 (0:04–0:16)** — demonstrate. Stand up, no warm-up, start cold, and film it going
-slightly wrong. Do not retake.
+**Beat 1 (0:03–0:15)** — fret D, pick each string one at a time; let a muted one show.
+**[yours]** if you say how long it went unnoticed.
 
-> Cold start, standing, strap where I'd actually wear it. That's the first take. You can hear
-> the difference and I've been playing this one for weeks.
+> Pick each string on its own. The one that thuds is the finger touching where it shouldn't.
 
-**Beat 2 (0:16–0:30)** — list over B-roll of hands, each item hitting as on-screen text.
+**Beat 2 (0:15–0:27)** — fix it, then switch D to A on the beat.
 
-> The checks that catch it: can you start it cold. Can you keep playing through a mistake
-> instead of stopping. Can you play it at the real tempo, not your practice tempo. Do you know
-> the form without the tab. Can you play it twice in a row without the second take being worse.
-> Have you recorded it and actually listened back. Can you start from any section, not just the
-> top. Can you end it the same way, on purpose, twice.
+> Fix that, then switch to A on the beat. Week one of the 30-day path is exactly this.
 
-*On-screen text, one per item as spoken: COLD START / PLAY THROUGH MISTAKES / REAL TEMPO /
-FORM FROM MEMORY / TWICE IN A ROW / RECORDED AND HEARD / ANY SECTION / CLEAN ENDING*
+**CTA (0:27–0:35)**
 
-**Beat 3 (0:30–0:38)**
+> Five questions at guitarhub.org/start pick your first module, free.
 
-> Most of the songs I thought I'd finished failed several of these. Not because I couldn't
-> play them. Because I'd only ever played them under the conditions where they worked.
-
-**CTA (0:38–0:45)**
-
-> There's a free scorer for this at guitarhub.org. Ten checks, no account, nothing uploaded.
-> It tells you the one thing to fix first.
-
-*On-screen text: guitarhub.org/readiness — free, no account*
-
-**Notes:** Beat 3 is a statement about your own playing, which is yours to make. Do not
-generalise it into a claim about other players, and do not put a percentage on screen.
+*On-screen text: guitarhub.org/start — your free module*
 
 ---
 
@@ -324,9 +235,9 @@ generalise it into a claim about other players, and do not put a percentage on s
 
 For replies, bios, Discord intros, and any box too small for the drafts above.
 
-- A plateau is a repetition problem, not a volume problem.
-- What improves is what is currently failing.
+- Play real chords and improvise your first solo in 30 days.
+- Chords first, then one scale, then four bars of your own.
+- Your first solo is four bars long.
 - A tempo you reach once is not a tempo you own.
-- A song isn't finished because it works in your practice room.
-- The hour wasn't wasted. It went on the part that was already finished.
-- Free, no account, nothing uploaded: guitarhub.org
+- Five questions, one free module: guitarhub.org/start
+- The free 30-day plan: guitarhub.org/breakthrough
