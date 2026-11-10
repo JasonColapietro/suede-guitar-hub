@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { accountConfiguration } from "./config";
-import { parseAccountBearer, verifiedProviderUser } from "./identity";
+import { parseAccountBearer, verifiedProviderUser, verifiedUserEmail } from "./identity";
 
 export async function accountServerClient(options: { readOnly?: boolean } = {}) {
   const config = accountConfiguration();
@@ -33,5 +33,5 @@ export async function resolveAccount(request?: Request) {
   }) : await accountServerClient({ readOnly: request === undefined });
   if (!client) return null;
   const user = await verifiedProviderUser(() => bearer ? client.auth.getUser(bearer) : client.auth.getUser());
-  return user ? { client, user } : null;
+  return user ? { client, user, verifiedEmail: verifiedUserEmail(user) } : null;
 }

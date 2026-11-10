@@ -14,7 +14,7 @@ const request = (body?: unknown, init: RequestInit = {}, query = "") => new Requ
 function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
   const writes: string[] = [];
   const deps: LearningHandlerDependencies = {
-    enabled: () => true, resolveAccount: async () => ({ accountId: id }),
+    enabled: () => true, resolveAccount: async () => ({ accountId: id, verifiedEmail: "buyer@example.com" }),
     getBinding: async (_account, create) => { if (create) writes.push("binding"); return { appAccountToken: id, syncEpoch: epoch }; },
     listAttempts: async () => [], listPurchases: async () => [{ transactionId: "123", originalTransactionId: "123", appAccountToken: id }],
     findPurchaseOwner: async () => ({ accountId: id, appAccountToken: id }),
@@ -22,6 +22,8 @@ function harness(overrides: Partial<LearningHandlerDependencies> = {}) {
     clearHistory: async (account, scope) => { assert.equal(account,id); assert.equal(scope,epoch); writes.push("clear"); return other; },
     recordPurchase: async (_account, value) => { writes.push("purchase"); return value; },
     verifier: async () => ({ verifyPurchase: async () => ({ ...purchase, accountId: id }), reconcileTransaction: async () => purchase, verifyNotification: async () => ({ notificationId: other, purchase }) }),
+    listStripePurchases: async () => [], stripeLiveRequired: () => true,
+    getFreeModule: async () => null, setFreeModule: async (_account, moduleId) => moduleId,
     environment: () => "Production", allowedLessons: new Map([["g-l1-m1-02", "guitar"]]), ...overrides,
   };
   return { handlers: createLearningHandlers(deps), writes, deps };

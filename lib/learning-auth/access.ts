@@ -3,7 +3,7 @@ import type { LearningTrack } from "../learning-account/contracts";
 import { accountConfiguration } from "./config";
 import { resolveAccount } from "./server";
 import { reconcileLearningAccess } from "./handlers";
-import { listAccountPurchases, appleLearningVerifier, purchaseEnvironment, recordVerifiedPurchase } from "./backend";
+import { listAccountPurchases, appleLearningVerifier, purchaseEnvironment, recordVerifiedPurchase, listStripePurchases, stripeLiveRequired, getFreeModule } from "./backend";
 
 export type VerifiedLearningAccess = {
   enabled: boolean;
@@ -22,7 +22,8 @@ export const getVerifiedLearningAccess = cache(async (): Promise<VerifiedLearnin
     const account = await resolveAccount();
     if (!account) return { enabled: true, accountId: null, tracks: [], status: "signedOut", freeModuleId: null, purchaseSource: null };
     accountId = account.user.id;
-    const access = await reconcileLearningAccess({ listPurchases: listAccountPurchases, verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase }, accountId);
-    return { enabled: true, accountId, tracks: access.tracks, status: "verified", freeModuleId: null, purchaseSource: null };
+    const access = await reconcileLearningAccess({ listPurchases: listAccountPurchases, verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase,
+      listStripePurchases, stripeLiveRequired, getFreeModule }, accountId, account.verifiedEmail);
+    return { enabled: true, accountId, tracks: access.tracks, status: "verified", freeModuleId: access.freeModuleId, purchaseSource: access.purchaseSource };
   } catch { return { enabled: true, accountId, tracks: [], status: "unavailable", freeModuleId: null, purchaseSource: null }; }
 });

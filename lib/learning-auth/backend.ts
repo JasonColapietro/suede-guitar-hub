@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createAppleLearningVerifier } from "@/lib/learning-account/apple";
 import { accountUUID, GUITARHUB_BUNDLE_ID, GUITARHUB_LIFETIME_PRODUCT_ID, LearningAccountError, type StoreEnvironment, type VerifiedLifetimePurchase } from "@/lib/learning-account/contracts";
 import { accountConfiguration } from "./config";
+import { normalizeEmail, type StripePurchase } from "@/lib/learning-account/stripe";
 import { AccountHTTPError } from "./http";
 
 export function accountBackend() {
@@ -108,4 +109,33 @@ export async function findPurchaseOwner(purchase: VerifiedLifetimePurchase) {
     .eq("environment", purchase.environment).eq("original_transaction_id", purchase.originalTransactionId).maybeSingle();
   checkDatabaseError(result.error);
   return result.data?.account_id ? { accountId: accountUUID(result.data.account_id), appAccountToken: accountUUID(result.data.app_account_token) } : null;
+}
+
+/** Production must count only live-mode Stripe purchases; previews and local runs accept test mode. */
+export function stripeLiveRequired(): boolean {
+  return process.env.VERCEL_ENV === "production";
+}
+
+export async function listStripePurchases(email: string): Promise<StripePurchase[]> {
+  const result = await accountBackend().from("guitarhub_stripe_purchases")
+    .select("checkout_session_id,payment_intent_id,email,livemode,amount_total,currency,purchased_at,refunded_at")
+    .eq("email", normalizeEmail(email)).limit(21);
+  checkDatabaseError(result.error);
+  if (!result.data || result.data.length > 20) throw new AccountHTTPError(503, "account_service_unavailable");
+  return result.data.map((row) => ({ checkoutSessionId: row.checkout_session_id as string, paymentIntentId: row.payment_intent_id as string,
+    email: row.email as string, livemode: row.livemode === true, amountTotal: row.amount_total as number, currency: row.currency as string,
+    purchasedAt: row.purchased_at as string, refundedAt: (row.refunded_at as string | null) ?? null }));
+}
+
+export async function getFreeModule(accountId: string): Promise<string | null> {
+  const result = await accountBackend().from("guitarhub_free_modules").select("module_id").eq("account_id", accountUUID(accountId)).maybeSingle();
+  checkDatabaseError(result.error);
+  return (result.data?.module_id as string | undefined) ?? null;
+}
+
+export async function setFreeModule(accountId: string, moduleId: string): Promise<string> {
+  const result = await accountBackend().rpc("guitarhub_set_free_module", { p_account_id: accountUUID(accountId), p_module_id: moduleId });
+  checkDatabaseError(result.error);
+  if (typeof result.data !== "string") throw new AccountHTTPError(503, "account_service_unavailable");
+  return result.data;
 }

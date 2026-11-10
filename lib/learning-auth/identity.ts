@@ -1,4 +1,5 @@
 import { accountUUID } from "../learning-account/contracts.ts";
+import { normalizeEmail } from "../learning-account/stripe.ts";
 import { AccountHTTPError } from "./http.ts";
 
 export function parseAccountBearer(authorization: string | null | undefined): string | null {
@@ -16,4 +17,10 @@ export async function verifiedProviderUser<T extends { id: string; is_anonymous?
   if (result.error || !result.data.user || result.data.user.is_anonymous) return null;
   try { accountUUID(result.data.user.id); } catch { return null; }
   return result.data.user;
+}
+
+/** The user's email, normalised, only when the provider reports it confirmed; otherwise null. */
+export function verifiedUserEmail(user: { email?: string | null; email_confirmed_at?: string | null }): string | null {
+  if (typeof user.email !== "string" || typeof user.email_confirmed_at !== "string" || !user.email_confirmed_at) return null;
+  return normalizeEmail(user.email) || null;
 }

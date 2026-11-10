@@ -1,4 +1,6 @@
 import { accountUUID, parseLearningAttempt, lifetimeTracks, LearningAccountError, type LearningTrack, type VerifiedLifetimePurchase, type StoreEnvironment } from "../learning-account/contracts.ts";
+import { isFreeModuleCandidate } from "../learning/free-module.ts";
+import { normalizeEmail, stripeTracks, type StripePurchase } from "../learning-account/stripe.ts";
 import { accountJSON, accountErrorResponse, attemptCursor, boundedAccountBody, requireAccountMutationOrigin, AccountHTTPError } from "./http.ts";
 
 export type AccountBinding = { appAccountToken: string; syncEpoch: string };
@@ -6,7 +8,8 @@ export type StoredPurchase = { transactionId: string; originalTransactionId: str
 export type AttemptPageRow = { sequence: string; body: unknown };
 export type LearningHandlerDependencies = {
   enabled(): boolean;
-  resolveAccount(request: Request): Promise<{ accountId: string } | null>;
+  /** `verifiedEmail` is null unless the provider reports the address confirmed. */
+  resolveAccount(request: Request): Promise<{ accountId: string; verifiedEmail: string | null } | null>;
   getBinding(accountId: string, create: boolean): Promise<AccountBinding | null>;
   listAttempts(accountId: string, cursor: string): Promise<AttemptPageRow[]>;
   listPurchases(accountId: string, environment: StoreEnvironment): Promise<StoredPurchase[]>;
@@ -21,6 +24,12 @@ export type LearningHandlerDependencies = {
   }>;
   /** Intake capture runs after an authoritative ledger write; never alters entitlement decisions. */
   capturePurchase?(purchase: VerifiedLifetimePurchase): Promise<void>;
+  listStripePurchases(email: string): Promise<StripePurchase[]>;
+  /** True on the production website, where a test-mode Stripe purchase must never grant access. */
+  stripeLiveRequired(): boolean;
+  getFreeModule(accountId: string): Promise<string | null>;
+  /** Stores the first choice only; returns the module stored for the account. */
+  setFreeModule(accountId: string, moduleId: string): Promise<string>;
   environment(): StoreEnvironment;
   allowedLessons: ReadonlyMap<string, LearningTrack>;
 };
@@ -35,7 +44,7 @@ async function captureRecorded(deps: Pick<LearningHandlerDependencies, "captureP
 }
 
 /** Shared by the API and server-rendered access decision; never caches provider state. */
-export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependencies, "environment" | "listPurchases" | "verifier" | "recordPurchase" | "capturePurchase">, accountId: string) {
+export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependencies, "environment" | "listPurchases" | "verifier" | "recordPurchase" | "capturePurchase" | "listStripePurchases" | "stripeLiveRequired" | "getFreeModule">, accountId: string, verifiedEmail: string | null) {
   const environment = deps.environment();
   const rows = await deps.listPurchases(accountId, environment);
   const tracks = new Set<LearningTrack>();
@@ -49,7 +58,13 @@ export async function reconcileLearningAccess(deps: Pick<LearningHandlerDependen
       lifetimeTracks(recorded, environment).forEach((track) => tracks.add(track));
     }
   }
-  return { accountId, tracks: [...tracks], environment };
+  const appleGranted = tracks.size > 0;
+  // Stripe purchases are keyed by email, so only a provider-confirmed address may match them.
+  const email = verifiedEmail === null ? "" : normalizeEmail(verifiedEmail);
+  const stripeGranted = email ? stripeTracks(await deps.listStripePurchases(email), deps.stripeLiveRequired()) : [];
+  stripeGranted.forEach((track) => tracks.add(track));
+  const purchaseSource = appleGranted ? "apple" as const : stripeGranted.length ? "stripe" as const : null;
+  return { accountId, tracks: [...tracks], environment, freeModuleId: await deps.getFreeModule(accountId), purchaseSource };
 }
 
 /** These are the production route implementations; dependencies isolate provider I/O for tests. */
@@ -60,12 +75,13 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       return await fn(request);
     } catch (error) { return accountErrorResponse(error); }
   };
-  const signedIn = async (request: Request, mutation = false): Promise<string> => {
+  const signedInAccount = async (request: Request, mutation = false) => {
     if (mutation) requireAccountMutationOrigin(request);
     const account = await deps.resolveAccount(request);
     if (!account) throw new AccountHTTPError(401, "sign_in_required");
-    return accountUUID(account.accountId);
+    return { accountId: accountUUID(account.accountId), verifiedEmail: account.verifiedEmail };
   };
+  const signedIn = async (request: Request, mutation = false): Promise<string> => (await signedInAccount(request, mutation)).accountId;
   const bindingFor = async (accountId: string, create = false): Promise<AccountBinding> => {
     const binding = await deps.getBinding(accountId, create);
     if (!binding) throw new AccountHTTPError(409, "account_binding_required");
@@ -122,8 +138,14 @@ export function createLearningHandlers(deps: LearningHandlerDependencies) {
       return accountJSON({ accountId, syncEpoch: await deps.clearHistory(accountId, accountUUID(body.syncEpoch)) });
     }),
     access: route(async (request) => {
-      const accountId = await signedIn(request);
-      return accountJSON(await reconcileLearningAccess(deps, accountId));
+      const { accountId, verifiedEmail } = await signedInAccount(request);
+      return accountJSON(await reconcileLearningAccess(deps, accountId, verifiedEmail));
+    }),
+    freeModule: route(async (request) => {
+      const accountId = await signedIn(request, true);
+      const body = await boundedAccountBody(request, 1_024);
+      if (typeof body.moduleId !== "string" || !isFreeModuleCandidate(body.moduleId)) throw new AccountHTTPError(400, "invalid_free_module");
+      return accountJSON({ freeModuleId: await deps.setFreeModule(accountId, body.moduleId) });
     }),
     purchase: route(async (request) => {
       const accountId = await signedIn(request, true);
