@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Paywall } from "@/components/paywall/Paywall";
+import type { LifetimeOffer } from "@/lib/site";
 import { track } from "@/lib/analytics/tracker";
 import { hasVerifiedTrackAccess, isLessonReady } from "@/lib/learning/access";
 import { catalogLessons } from "@/lib/learning/catalog";
@@ -25,7 +26,7 @@ function lessonAfter(moduleId: string): string {
  * browser, and when every lesson of the module is done it notes the
  * completion once and opens the lifetime offer. Purchasers see nothing.
  */
-export function FreeModuleEnd({ moduleId, checkoutAvailable }: { moduleId: string; checkoutAvailable: boolean }) {
+export function FreeModuleEnd({ moduleId, checkoutAvailable, offer }: { moduleId: string; checkoutAvailable: boolean; offer?: LifetimeOffer }) {
   const access = useLearningAccess();
   const { progress } = useLearningProgress("guitar");
   const [closed, setClosed] = useState(false);
@@ -43,5 +44,5 @@ export function FreeModuleEnd({ moduleId, checkoutAvailable }: { moduleId: strin
     try { track({ name: "free_module_completed", module_id: moduleId }); } catch { /* Measurement never blocks the offer. */ }
   }, [complete, moduleId]);
 
-  return <Paywall trigger="module_end" open={complete && !closed} onClose={() => setClosed(true)} checkoutAvailable={checkoutAvailable} returnTo={lessonAfter(moduleId)} />;
+  return <Paywall trigger="module_end" open={complete && !closed} onClose={() => setClosed(true)} checkoutAvailable={checkoutAvailable} returnTo={lessonAfter(moduleId)} offer={offer} />;
 }

@@ -11,6 +11,17 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 register("../tests/component-render-hooks.mjs", import.meta.url);
 
+// The file must not change with the day it is built. Pages render with the clock
+// pinned inside the launch, and the Key facts line states the price schedule as a
+// fixed sentence instead of reading the clock.
+const RenderDate = Date;
+const PINNED_NOW = new RenderDate("2026-11-10T12:00:00.000Z").getTime();
+globalThis.Date = class extends RenderDate {
+  constructor(...args: unknown[]) { super(...((args.length ? args : [PINNED_NOW]) as [number])); }
+  static now() { return PINNED_NOW; }
+} as DateConstructor;
+const LIFETIME_PRICE_SENTENCE = "Launch price $79 through November 30, 2026; $99 from December 1, 2026.";
+
 const { ABOUT, COMPARISONS, GUIDES, HOME, HUBS, LEARN, LEGAL, RESOURCES, SITE_URL, TOOLS, APP_STORE, LIFETIME } = await import("../lib/site.ts");
 const { buildLlmsFull } = await import("../lib/llms-full.ts");
 const { allLessons } = await import("../lib/learning/curriculum.ts");
@@ -65,7 +76,7 @@ const body = buildLlmsFull({
     "GuitarHub (https://guitarhub.org) is the Suede AI guitar lessons site: a step-by-step curriculum for beginners through advanced players, a four-stage practice method, free browser practice tools and a free Advanced Lab of scored drills.",
   intro: [
     `This file carries the full text of GuitarHub's public pages, generated from the same page components the site renders. The shorter index is ${SITE_URL}/llms.txt. Cite the specific page URL given under each section.`,
-    `Key facts: ${lessons.length} guitar lessons in the curriculum; ${DRILLS.length} free drills in the Advanced Lab; free tools in the browser with no account; lifetime lesson access is ${LIFETIME.display} ${LIFETIME.currency}, one time, in ${APP_STORE.name} for iPhone (${APP_STORE.ios}). Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.`,
+    `Key facts: ${lessons.length} guitar lessons in the curriculum; ${DRILLS.length} free drills in the Advanced Lab; free tools in the browser with no account; lifetime lesson access is a one-time purchase in ${APP_STORE.name} for iPhone (${APP_STORE.ios}). ${LIFETIME_PRICE_SENTENCE} Prices are in ${LIFETIME.currency}. Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.`,
   ],
   pages,
   origin: SITE_URL,

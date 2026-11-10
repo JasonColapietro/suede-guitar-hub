@@ -19,7 +19,7 @@ import { LessonSession } from "@/components/learning/LessonSession";
 import { vocalMaterialForModule } from "@/lib/learning/vocal-material";
 import styles from "@/components/learning/Learning.module.css";
 import { lessonKeywords } from "@/lib/keywords";
-import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { OG_IMAGE, SITE_NAME, SITE_URL, lifetimeOfferAt } from "@/lib/site";
 import { cardFor } from "@/lib/og-cards";
 type Params = { track: string; lessonId: string };
 // Never cache a purchaser's lesson response for another visitor.
@@ -93,7 +93,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
     <LessonGlossary terms={lessonGlossary(track, lesson.id)} />
     <LessonEditorialPanel editorial={editorial} />
     <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, viewer) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
-    {freeModule && <FreeModuleEnd moduleId={module.id} checkoutAvailable={checkoutAvailable()} />}
+    {freeModule && <FreeModuleEnd moduleId={module.id} checkoutAvailable={checkoutAvailable()} offer={lifetimeOfferAt(new Date())} />}
   </>;
   return browserChoice ? <FreeModuleLesson moduleId={module.id} locked={gate}>{page}</FreeModuleLesson> : page;
 }

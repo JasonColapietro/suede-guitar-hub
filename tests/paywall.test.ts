@@ -6,7 +6,7 @@ import { createElement, type FunctionComponent } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import { guestLearningAccess, type LearningAccess } from "../lib/learning/access.ts";
-import { APP_STORE, LIFETIME, LIFETIME_LAUNCH_ENDS, OFFER } from "../lib/site.ts";
+import { APP_STORE, LIFETIME_LAUNCH_ENDS, OFFER, lifetimeOfferAt } from "../lib/site.ts";
 
 register("./component-render-hooks.mjs", import.meta.url);
 const { Paywall } = await import("../components/paywall/Paywall.tsx");
@@ -33,12 +33,12 @@ const AFTER_LAUNCH = LIFETIME_LAUNCH_ENDS.getTime();
 const at = (now: number) => { mock.timers.reset(); mock.timers.enable({ apis: ["Date"], now }); };
 afterEach(() => mock.timers.reset());
 
+const offerAt = (now: number) => lifetimeOfferAt(new Date(now));
 const paywall = { trigger: "locked_item", onClose() {}, checkoutAvailable: true, returnTo: "/session" } as const;
 const PRESSURE = /only \d+ left|ends (today|tonight)|hears? your chords|scores? your chords|usually \$|was \$99|save \$\d+|countdown/i;
 
 test("the paywall shows the price, the guarantee, one buy button and a one-tap close", () => {
-  at(DURING_LAUNCH);
-  const markup = render(Paywall, { ...paywall, open: true });
+  const markup = render(Paywall, { ...paywall, open: true, offer: offerAt(DURING_LAUNCH) });
   assert.match(text(markup), /\$79/); assert.ok(text(markup).includes(OFFER.guarantee));
   assert.equal((markup.match(/data-buy-button/g) ?? []).length, 1);
   assert.match(markup, /<button[^>]*aria-label="Close"/);
@@ -48,16 +48,15 @@ test("the paywall shows the price, the guarantee, one buy button and a one-tap c
 });
 
 test("during the launch the paywall strikes through $99 beside $79 and states the end date", () => {
-  at(DURING_LAUNCH);
-  const markup = render(Paywall, { ...paywall, open: true });
-  assert.match(markup, /<s[^>]*>(<span[^>]*>[^<]*<\/span>)?\$99<\/s>\s*<strong>\$79<\/strong>/);
+  const markup = render(Paywall, { ...paywall, open: true, offer: offerAt(DURING_LAUNCH) });
+  assert.match(markup, /<s [^>]*aria-hidden="true"[^>]*>\$99<\/s>\s*<strong>\$79<\/strong>/);
+  assert.doesNotMatch(markup, /sr-only|Regular price/);
   assert.ok(text(markup).includes("Launch price $79. Goes to $99 on December 1, 2026."));
   assert.ok(text(markup).includes("Get lifetime access — $79 one time"));
 });
 
 test("from the end instant the paywall shows $99 one time with no launch wording", () => {
-  at(AFTER_LAUNCH);
-  const markup = render(Paywall, { ...paywall, open: true });
+  const markup = render(Paywall, { ...paywall, open: true, offer: offerAt(AFTER_LAUNCH) });
   assert.ok(text(markup).includes("$99 one time"));
   assert.ok(text(markup).includes("Get lifetime access — $99 one time"));
   assert.doesNotMatch(text(markup), /\$79|launch/i);
@@ -67,17 +66,41 @@ test("from the end instant the paywall shows $99 one time with no launch wording
 
 test("with web checkout unavailable the buy button is the App Store link", () => {
   const markup = render(BuyButton, { checkoutAvailable: false });
-  assert.match(markup, new RegExp(`href="${APP_STORE.ios}"`)); assert.ok(text(markup).includes(LIFETIME.cta));
+  assert.match(markup, new RegExp(`href="${APP_STORE.ios}"`)); assert.equal(text(markup), "Get lifetime access on iPhone");
   assert.equal((markup.match(/data-buy-button/g) ?? []).length, 1);
 });
 
-test("with web checkout available the buy button is a button priced at render time", () => {
-  at(DURING_LAUNCH);
-  const launch = render(BuyButton, { checkoutAvailable: true, className: "primary" });
+test("with web checkout available the buy button shows the price the server passes it", () => {
+  const launch = render(BuyButton, { checkoutAvailable: true, className: "primary", offer: offerAt(DURING_LAUNCH) });
   assert.match(launch, /<button[^>]*type="button"[^>]*data-buy-button/);
   assert.equal(text(launch), "Get lifetime access — $79 one time");
-  at(AFTER_LAUNCH);
-  assert.equal(text(render(BuyButton, { checkoutAvailable: true })), "Get lifetime access — $99 one time");
+  assert.equal(text(render(BuyButton, { checkoutAvailable: true, offer: offerAt(AFTER_LAUNCH) })), "Get lifetime access — $99 one time");
+});
+
+test("without an offer, as on a static page, the buy button and paywall show no amount", () => {
+  at(DURING_LAUNCH);
+  assert.equal(text(render(BuyButton, { checkoutAvailable: true })), "Get lifetime access");
+  assert.equal(text(render(BuyButton, { checkoutAvailable: false })), "Get lifetime access on iPhone");
+  assert.doesNotMatch(text(render(Paywall, { ...paywall, open: true })), /\$\d/);
+});
+
+test("the button and the gate paragraph show the same price for a given server date", () => {
+  for (const now of [DURING_LAUNCH, AFTER_LAUNCH]) {
+    at(now);
+    const gate = withCheckout(() => renderToStaticMarkup(createElement(PaidLessonGate, {
+      track: "guitar", lesson: { id: "g-l2-m1-01", title: "Locked lesson", summary: "Summary." }, access: guestLearningAccess, ready: true,
+    })));
+    const price = offerAt(now).display;
+    assert.ok(text(gate).includes(`Lifetime access is ${price} one time`));
+    assert.ok(text(gate).includes(`Get lifetime access — ${price} one time`));
+    assert.equal([...text(gate).matchAll(/\$\d+/g)].filter(([m]) => m !== price && m !== "$99").length, 0);
+  }
+});
+
+test("BuyButton and Paywall never read the clock to choose a price", () => {
+  for (const file of ["components/paywall/BuyButton.tsx", "components/paywall/Paywall.tsx"]) {
+    assert.doesNotMatch(read(file), /new Date\(|Date\.now\(|lifetimeOfferAt/, `${file} must take the offer from the server`);
+  }
 });
 
 test("the paywall source closes on Escape and on the close button, and survives a throwing tracker", () => {
@@ -93,7 +116,7 @@ test("the paywall source closes on Escape and on the close button, and survives 
   assert.ok(buySource.includes("Checkout is unavailable right now. Try again."));
 });
 
-test("with web checkout available a locked lesson sells on the page at the price in force", () => {
+function withCheckout<T>(run: () => T): T {
   const names = ["GUITARHUB_ACCOUNTS_ENABLED", "NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY", "GUITARHUB_SUPABASE_SERVICE_ROLE_KEY", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "VERCEL_ENV"];
   const saved = Object.fromEntries(names.map((name) => [name, process.env[name]]));
   for (const name of names) delete process.env[name];
@@ -101,10 +124,16 @@ test("with web checkout available a locked lesson sells on the page at the price
     GUITARHUB_ACCOUNTS_ENABLED: "true", NEXT_PUBLIC_SUPABASE_URL: "https://drzuelosizfllruocmly.supabase.co", NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_x",
     GUITARHUB_SUPABASE_SERVICE_ROLE_KEY: "service", STRIPE_SECRET_KEY: "sk_test_1", STRIPE_WEBHOOK_SECRET: "whsec_1",
   });
+  try { return run(); } finally {
+    for (const name of names) { if (saved[name] === undefined) delete process.env[name]; else process.env[name] = saved[name]; }
+  }
+}
+
+test("with web checkout available a locked lesson sells on the page at the price in force", () => {
   const gate = (access: LearningAccess) => renderToStaticMarkup(createElement(PaidLessonGate, {
     track: "guitar", lesson: { id: "g-l2-m1-01", title: "Locked lesson", summary: "Summary." }, access, ready: true,
   }));
-  try {
+  withCheckout(() => {
     at(DURING_LAUNCH);
     const launch = gate(guestLearningAccess);
     assert.match(launch, /<button[^>]*data-buy-button[^>]*>Get lifetime access — \$79 one time<\/button>/);
@@ -120,7 +149,5 @@ test("with web checkout available a locked lesson sells on the page at the price
     assert.ok(text(signedOut).includes("Get lifetime access — $99 one time"));
     assert.doesNotMatch(text(signedOut), /\$79|Launch price/);
     assert.match(signedOut, /href="\/account\?next=%2Flearn%2Fguitar%2Fg-l2-m1-01"/);
-  } finally {
-    for (const name of names) { if (saved[name] === undefined) delete process.env[name]; else process.env[name] = saved[name]; }
-  }
+  });
 });

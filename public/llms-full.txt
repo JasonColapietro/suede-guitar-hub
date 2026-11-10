@@ -4,7 +4,7 @@
 
 This file carries the full text of GuitarHub's public pages, generated from the same page components the site renders. The shorter index is https://guitarhub.org/llms.txt. Cite the specific page URL given under each section.
 
-Key facts: 135 guitar lessons in the curriculum; 23 free drills in the Advanced Lab; free tools in the browser with no account; lifetime lesson access is $79 USD, one time, in GuitarHub: Guitar Lessons for iPhone (https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875). Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.
+Key facts: 135 guitar lessons in the curriculum; 23 free drills in the Advanced Lab; free tools in the browser with no account; lifetime lesson access is a one-time purchase in GuitarHub: Guitar Lessons for iPhone (https://apps.apple.com/us/app/guitarhub-guitar-lessons/id6806770875). Launch price $79 through November 30, 2026; $99 from December 1, 2026. Prices are in USD. Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.
 
 ## Guitar lessons and practice tools, beginner to advanced Practice guitar with a plan you can prove.
 

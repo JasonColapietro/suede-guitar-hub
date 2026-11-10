@@ -1,36 +1,18 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import { track } from "@/lib/analytics/tracker";
-import { APP_STORE, LIFETIME_LAUNCH_ENDS, lifetimeOfferAt, type LifetimeOffer } from "@/lib/site";
-
-/** setTimeout's longest delay; a launch end further away than this is picked up on the next render. */
-const LONGEST_TIMEOUT_MS = 2_147_483_647;
-
-function subscribeToLaunchEnd(onChange: () => void): () => void {
-  const wait = LIFETIME_LAUNCH_ENDS.getTime() - Date.now();
-  if (wait <= 0 || wait > LONGEST_TIMEOUT_MS) return () => {};
-  const timer = setTimeout(onChange, wait);
-  return () => clearTimeout(timer);
-}
-
-const offerNow = () => lifetimeOfferAt(new Date());
+import { APP_STORE, type LifetimeOffer } from "@/lib/site";
 
 /**
- * The offer in force, read when the component renders, and re-read at the launch
- * end instant while the page stays open. A page built during the launch and
- * opened after it shows the regular price once it hydrates.
+ * Web checkout when it is available; otherwise the App Store, where lifetime access is also sold.
+ * `offer` is the offer the server priced for this request. Without it (a page with no
+ * per-request render) the label carries no amount and the price appears on the Stripe page.
  */
-export function useLifetimeOffer(): LifetimeOffer {
-  return useSyncExternalStore(subscribeToLaunchEnd, offerNow, offerNow);
-}
-
-/** Web checkout when it is available; otherwise the App Store, where lifetime access is also sold. */
-export function BuyButton({ checkoutAvailable, email, className }: { checkoutAvailable: boolean; email?: string; className?: string }) {
-  const offer = useLifetimeOffer();
+export function BuyButton({ checkoutAvailable, email, className, offer }: { checkoutAvailable: boolean; email?: string; className?: string; offer?: LifetimeOffer }) {
   const [state, setState] = useState<"ready" | "starting" | "failed">("ready");
 
-  if (!checkoutAvailable) return <a data-buy-button className={className} href={APP_STORE.ios}>{offer.cta}</a>;
+  if (!checkoutAvailable) return <a data-buy-button className={className} href={APP_STORE.ios}>{offer?.cta ?? "Get lifetime access on iPhone"}</a>;
 
   async function startCheckout() {
     setState("starting");
@@ -51,7 +33,7 @@ export function BuyButton({ checkoutAvailable, email, className }: { checkoutAva
   }
 
   return <>
-    <button type="button" data-buy-button className={className} onClick={startCheckout} disabled={state === "starting"} aria-busy={state === "starting"}>{offer.webCta}</button>
+    <button type="button" data-buy-button className={className} onClick={startCheckout} disabled={state === "starting"} aria-busy={state === "starting"}>{offer?.webCta ?? "Get lifetime access"}</button>
     {state === "failed" && <p role="alert">Checkout is unavailable right now. Try again.</p>}
   </>;
 }

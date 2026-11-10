@@ -38,7 +38,7 @@ export function PaidLessonGate({ track, lesson, access, ready }: {
       <p className={styles.small}>{TRACK_SAFETY_NOTE[track]}</p>
       {moduleSafety && <p className={styles.small}>{moduleSafety}</p>}
       <div className={styles.actions}>
-        <BuyButton checkoutAvailable={webCheckout} className={styles.primary} />
+        <BuyButton checkoutAvailable={webCheckout} className={styles.primary} offer={offer} />
         {access.enabled && <Link className={styles.secondary} href={`/account?next=${encodeURIComponent(lessonHref(track, lesson.id))}`}>{access.accountId ? "Check purchase access" : "Sign in to unlock"}</Link>}
         <Link className={styles.secondary} href="/practice">Use the free practice tools</Link>
       </div>
