@@ -10,17 +10,19 @@ export type VerifiedLearningAccess = {
   accountId: string | null;
   tracks: LearningTrack[];
   status: "disabled" | "signedOut" | "verified" | "unavailable";
+  freeModuleId: string | null;
+  purchaseSource: "apple" | "stripe" | null;
 };
 
 /** React memoization is scoped to a server render/request, never a cross-request grant cache. */
 export const getVerifiedLearningAccess = cache(async (): Promise<VerifiedLearningAccess> => {
-  if (!accountConfiguration()) return { enabled: false, accountId: null, tracks: [], status: "disabled" };
+  if (!accountConfiguration()) return { enabled: false, accountId: null, tracks: [], status: "disabled", freeModuleId: null, purchaseSource: null };
   let accountId: string | null = null;
   try {
     const account = await resolveAccount();
-    if (!account) return { enabled: true, accountId: null, tracks: [], status: "signedOut" };
+    if (!account) return { enabled: true, accountId: null, tracks: [], status: "signedOut", freeModuleId: null, purchaseSource: null };
     accountId = account.user.id;
     const access = await reconcileLearningAccess({ listPurchases: listAccountPurchases, verifier: appleLearningVerifier, environment: purchaseEnvironment, recordPurchase: recordVerifiedPurchase }, accountId);
-    return { enabled: true, accountId, tracks: access.tracks, status: "verified" };
-  } catch { return { enabled: true, accountId, tracks: [], status: "unavailable" }; }
+    return { enabled: true, accountId, tracks: access.tracks, status: "verified", freeModuleId: null, purchaseSource: null };
+  } catch { return { enabled: true, accountId, tracks: [], status: "unavailable", freeModuleId: null, purchaseSource: null }; }
 });

@@ -2,9 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { accessibleLessonIds, accountHistoryKey, canOpenModule, guestLearningAccess, hasVerifiedTrackAccess, isLessonReady, type LearningAccess } from "../lib/learning/access.ts";
 import { allLessons, availableLessons } from "../lib/learning/curriculum.ts";
+import { freeModuleLessonIds } from "../lib/learning/free-module.ts";
 
 const accountId = "b52d7c76-cacb-4af7-891c-d056ba8f48aa";
-const owned: LearningAccess = { enabled: true, accountId, tracks: ["guitar"], status: "verified" };
+const owned: LearningAccess = { enabled: true, accountId, tracks: ["guitar"], status: "verified", freeModuleId: null, purchaseSource: null };
 
 test("every lesson, including legacy free levels and samplers, requires a verified purchase", () => {
   for (const track of ["guitar", "voice"] as const) {
@@ -51,4 +52,14 @@ test("history remains isolated on sign-in, sign-out and account switch without r
   assert.equal(stored.get(accountHistoryKey(originalKey, otherAccount)), undefined);
   assert.equal(stored.get(accountHistoryKey(originalKey, accountId.toUpperCase())), "first account progress");
   assert.throws(() => accountHistoryKey(originalKey, "../other-user"), /invalid_uuid/);
+});
+
+test("the chosen free module opens without a purchase and nothing else does", () => {
+  const guest = { ...guestLearningAccess, freeModuleId: "g-l2-m1" };
+  assert.equal(canOpenModule("guitar", "g-l2-m1", guest), true);
+  assert.equal(canOpenModule("guitar", "g-l4-m1", guest), false);
+  assert.equal(canOpenModule("guitar", "g-l2-m3", guest), false);
+  assert.equal(canOpenModule("guitar", "g-l1-m1", { ...guestLearningAccess, freeModuleId: "g-l1-m1" }), false); // not a candidate
+  assert.deepEqual(accessibleLessonIds("guitar", guest), freeModuleLessonIds("g-l2-m1"));
+  assert.equal(accessibleLessonIds("voice", guest).length, 0); // there is no free voice module
 });

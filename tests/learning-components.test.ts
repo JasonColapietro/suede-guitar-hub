@@ -92,7 +92,7 @@ test('account controls stay dark without verified configuration and use explicit
   const { LearningAccessProvider } = await import('../components/learning/LearningAccessProvider.tsx');
   assert.equal(renderToStaticMarkup(createElement(AccountSyncControls)), '');
   const Provider = LearningAccessProvider as (props: { access: Parameters<typeof LearningAccessProvider>[0]['access']; children?: React.ReactNode }) => React.ReactNode;
-  const markup = renderToStaticMarkup(createElement(Provider, { access: { enabled: true, status: 'verified', accountId: 'a1111111-1111-4111-8111-111111111111', tracks: [] } }, createElement(AccountSyncControls)));
+  const markup = renderToStaticMarkup(createElement(Provider, { access: { enabled: true, status: 'verified', accountId: 'a1111111-1111-4111-8111-111111111111', tracks: [], freeModuleId: null, purchaseSource: null } }, createElement(AccountSyncControls)));
   assert.match(markup, /Enable sync/);
   assert.match(markup, /Sync is off/);
   assert.match(markup, /not uploaded/);

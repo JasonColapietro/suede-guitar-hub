@@ -129,7 +129,7 @@ test("the real routine subtree has stable per-account React keys that replace tr
 function lessonLink(access: LearningAccess, id = "g-l2-m1-01") {
   return renderToStaticMarkup(createElement(Provider, { access }, createElement(RoutineLessonLink, { id, pause: () => {} })));
 }
-const paid: LearningAccess = { enabled: true, accountId: accountA, tracks: ["guitar"], status: "verified" };
+const paid: LearningAccess = { enabled: true, accountId: accountA, tracks: ["guitar"], status: "verified", freeModuleId: null, purchaseSource: null };
 test("real routine links recognize verified guitar access and preserve the lesson destination", () => {
   const markup = lessonLink(paid);
   assert.match(markup, /Review GuitarHub instruction/);

@@ -1,4 +1,9 @@
 {
+  "freeModules" : {
+    "advanced" : "g-l5-m4",
+    "beginner" : "g-l2-m1",
+    "intermediate" : "g-l4-m1"
+  },
   "instructions" : {
     "g-l1-m1-01" : {
       "assetIds" : [

@@ -103,7 +103,7 @@ test("the browser builds a sync client only for a verified account on an enabled
   // The server renders the access snapshot from the account configuration, so
   // a deployment without accounts reports `enabled: false` to the browser.
   const access = readFileSync(new URL("../lib/learning-auth/access.ts", import.meta.url), "utf8");
-  assert.match(access, /if \(!accountConfiguration\(\)\) return \{ enabled: false, accountId: null, tracks: \[\], status: "disabled" \}/);
+  assert.match(access, /if \(!accountConfiguration\(\)\) return \{ enabled: false, accountId: null, tracks: \[\], status: "disabled", freeModuleId: null, purchaseSource: null \}/);
 });
 
 test("a disabled account service still answers truthfully and touches nothing", async () => {

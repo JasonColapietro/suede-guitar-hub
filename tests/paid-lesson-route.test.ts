@@ -8,7 +8,7 @@ register('./component-render-hooks.mjs', import.meta.url);
 register('./lesson-gate-hooks.mjs', import.meta.url);
 const { default: LessonPage, dynamic } = await import('../app/learn/[track]/[lessonId]/page.tsx');
 const globals = globalThis as typeof globalThis & { __lessonGateAccess: LearningAccess };
-const owner: LearningAccess = { enabled: true, accountId: 'b52d7c76-cacb-4af7-891c-d056ba8f48aa', tracks: ['guitar'], status: 'verified' };
+const owner: LearningAccess = { enabled: true, accountId: 'b52d7c76-cacb-4af7-891c-d056ba8f48aa', tracks: ['guitar'], status: 'verified', freeModuleId: null, purchaseSource: null };
 
 test('server lesson route denies every unverified state before serializing session props', async () => {
   assert.equal(dynamic, 'force-dynamic');
