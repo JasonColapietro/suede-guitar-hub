@@ -5,6 +5,8 @@ import { createRequire } from "node:module";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
 import * as placement from "../lib/placement.ts";
+import * as freeModule from "../lib/learning/free-module.ts";
+import * as freeModuleStore from "../lib/learning/free-module-store.ts";
 
 type Element = { type: string; props: Record<string, unknown> & { children?: unknown } };
 
@@ -55,23 +57,53 @@ test("answering placement again clears every answer and returns focus to the fir
   const h = componentHarness("../components/LevelCheck.tsx", {
     "@/lib/placement": placement,
     "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
+    "@/lib/analytics/tracker": { track() {} },
+    "@/lib/learning/free-module": { FREE_MODULES: { beginner: "g-l2-m1", intermediate: "g-l4-m1", advanced: "g-l5-m4" } },
+    "@/lib/learning/free-module-store": { browserStorage: () => null, chooseFreeModule: () => ({ moduleId: "g-l2-m1", placement: "beginner" }) },
   });
+  const props = { moduleNames: {} };
   let focused = 0;
-  let tree = h.render();
+  let tree = h.render("default", props);
   const first = tree.find(node => node.type === "input")!;
   if (first.props.ref) (first.props.ref as { current: unknown }).current = { focus: () => { focused++; } };
   for (const question of placement.PLACEMENT_QUESTIONS) {
     const input = tree.find(node => node.type === "input" && node.props.name === `test-${question.id}` && node.props.value === 0)!;
     (input.props.onChange as () => void)();
-    tree = h.render();
+    tree = h.render("default", props);
   }
   assert.ok(tree.some(node => node.type === "h2"), "all five answers show a result");
   const reset = tree.find(node => node.type === "button" && node.props.children === "Answer again")!;
   (reset.props.onClick as () => void)();
-  tree = h.render();
+  tree = h.render("default", props);
   assert.equal(tree.filter(node => node.type === "input" && node.props.checked).length, 0);
   assert.ok(!tree.some(node => node.type === "h2"), "reset removes the previous result");
   assert.equal(focused, 1, "focus must leave the removed result button and return to question 1");
+});
+
+test("a placement result fixes the free module and its primary button opens that module's first lesson", () => {
+  const sent: unknown[] = [];
+  const store = { browserStorage: () => null, chooseFreeModule: freeModuleStore.chooseFreeModule };
+  const h = componentHarness("../components/LevelCheck.tsx", {
+    "@/lib/placement": placement,
+    "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
+    "@/lib/analytics/tracker": { track: (event: unknown) => { sent.push(event); } },
+    "@/lib/learning/free-module": freeModule,
+    "@/lib/learning/free-module-store": store,
+  });
+  const props = { moduleNames: { "g-l4-m1": "Box One" } };
+  let tree = h.render("default", props);
+  // Intermediate: reliable chords and changes that keep time.
+  for (const [id, score] of [["chords", 2], ["changes", 2], ["barre", 0], ["lead", 0], ["song", 1]] as const) {
+    (tree.find(node => node.type === "input" && node.props.name === `test-${id}` && node.props.value === score)!.props.onChange as () => void)();
+    tree = h.render("default", props);
+  }
+  // Storage is blocked here: the result still names the module for this visit.
+  for (const effect of h.effects.splice(0)) effect();
+  tree = h.render("default", props);
+  const start = tree.find(node => node.type === "a" && node.props.href === placement.freeModuleStartHref("g-l4-m1"));
+  assert.ok(start, "the primary button opens the free module's first lesson");
+  assert.match(JSON.stringify(start.props.children), /Start your free module.*Box One/);
+  assert.equal(JSON.stringify(sent), JSON.stringify([{ name: "placement_completed", placement: "intermediate" }]));
 });
 
 test("stage jump reopens the current hash and focuses its summary without intercepting modified clicks", () => {

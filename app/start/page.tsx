@@ -7,6 +7,7 @@ import { DRILLS, SKILL_AREAS } from "@/lib/advanced/drills";
 import { curricula } from "@/lib/learning/curriculum";
 import { PLAYER_LEVELS } from "@/lib/levels";
 import { PLACEMENT_QUESTIONS } from "@/lib/placement";
+import { FREE_MODULES } from "@/lib/learning/free-module";
 import { LIFETIME, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -34,6 +35,14 @@ const stagesFor = (from: number, to: number) =>
 
 const QUESTION_WORD = spellOut(PLACEMENT_QUESTIONS.length);
 
+/** Each free module's name, read off the curriculum for the placement's start button. */
+const FREE_MODULE_NAMES: Record<string, string> = Object.fromEntries(
+  curricula.guitar.levels
+    .flatMap((level) => level.modules)
+    .filter((module) => Object.values(FREE_MODULES).includes(module.id))
+    .map((module) => [module.id, module.name]),
+);
+
 const CRUMBS = crumbTrail("Find your level", "/start");
 const PAGE_JSON_LD = {
   "@context": "https://schema.org",
@@ -60,11 +69,12 @@ export default function StartPage() {
           Answer for what your hands can do on an ordinary practice day. Your
           answers point to one starting point, stage 1 of the lesson path,
           stage 3, or the free Advanced Lab, and the first thing to work on
-          when you get there. Nothing you choose here is saved or sent.
+          when you get there. Your result is saved in this browser so your
+          free module stays yours.
         </p>
 
         <div className="mt-10">
-          <LevelCheck />
+          <LevelCheck moduleNames={FREE_MODULE_NAMES} />
         </div>
 
         <section aria-labelledby="destinations-title" className="mt-20">

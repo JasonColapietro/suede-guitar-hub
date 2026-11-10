@@ -4,7 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { allLessons, getLesson, isTrackId, lessonHref, trackNames } from "@/lib/learning/curriculum";
 import { getLessonInstructions } from "@/lib/learning/instructions";
-import { canOpenModule, isLessonReady } from "@/lib/learning/access";
+import { canOpenModule, hasVerifiedTrackAccess, isLessonReady } from "@/lib/learning/access";
+import { isFreeModuleCandidate } from "@/lib/learning/free-module";
+import { checkoutAvailable } from "@/lib/checkout/config";
+import { FreeModuleLesson } from "@/components/learning/FreeModuleLesson";
+import { FreeModuleEnd } from "@/components/learning/FreeModuleEnd";
 import { singCompanionForLesson } from "@/lib/learning/voice-proof";
 import { voiceEditorialForLesson } from "@/lib/learning/voice-editorial";
 import { LessonEditorialPanel } from "@/components/learning/LessonEditorial";
@@ -55,7 +59,15 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   const access = await getVerifiedLearningAccess();
   const ready = isLessonReady(track, lesson.id);
   const available = ready && canOpenModule(track, module.id, access);
-  if (!available) return <PaidLessonGate track={track} lesson={lesson} access={access} ready={ready} />;
+  const gate = <PaidLessonGate track={track} lesson={lesson} access={access} ready={ready} />;
+  // A visitor the server has not placed may have chosen this module in the
+  // browser. The lesson goes in the response and the client decides; every
+  // other module stays locked here.
+  const browserChoice = !available && track === "guitar" && ready && isFreeModuleCandidate(module.id) && access.freeModuleId === null;
+  if (!available && !browserChoice) return gate;
+  // The lesson as seen by the visitor whose free module this is.
+  const viewer = browserChoice ? { ...access, freeModuleId: module.id } : access;
+  const freeModule = track === "guitar" && viewer.freeModuleId === module.id && !hasVerifiedTrackAccess(track, viewer);
   const lessons = allLessons(track);
   const index = lessons.findIndex(item => item.lesson.id === lessonId);
   const previous = lessons[index - 1];
@@ -68,7 +80,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   const editorial = track === "voice" ? voiceEditorialForLesson(lesson.id) : undefined;
   const vocalMaterial = track === "voice" ? vocalMaterialForModule(module.id) : undefined;
   const next = lessons[index + 1];
-  return <>
+  const page = <>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb"><Link href="/learn">Learning paths</Link><span aria-hidden="true">/</span><Link href={`/learn/${track}`}>{trackNames[track]}</Link><span aria-hidden="true">/</span><span>{module.name}</span></nav>
     <div className={styles.hero}><p className={styles.small}>{level.stage ? `Stage ${level.stage} · ` : ""}{module.name}{ready ? ` · ${lesson.minutes} min` : ""}</p><h1>{lesson.title}</h1><p>{lesson.summary}</p></div>
     <LessonSession key={`${access.accountId}:${lesson.id}`} track={track} lesson={lesson} module={{ id: module.id, name: module.name, promise: module.promise, skill: module.skill }} instructions={getLessonInstructions(lesson.id)} vocalMaterial={vocalMaterial} />
@@ -80,6 +92,8 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
     </>}
     <LessonGlossary terms={lessonGlossary(track, lesson.id)} />
     <LessonEditorialPanel editorial={editorial} />
-    <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, access) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
+    <nav className={styles.lessonNavigation} aria-label="Lesson navigation">{previous ? <Link href={lessonHref(track, previous.lesson.id)}>Previous: {previous.lesson.title}</Link> : <Link href={`/learn/${track}`}>View the path</Link>}{next && <Link href={lessonHref(track, next.lesson.id)}>{isLessonReady(track, next.lesson.id) && canOpenModule(track, next.module.id, viewer) ? "Next" : "Preview next"}: {next.lesson.title}</Link>}</nav>
+    {freeModule && <FreeModuleEnd moduleId={module.id} checkoutAvailable={checkoutAvailable()} />}
   </>;
+  return browserChoice ? <FreeModuleLesson moduleId={module.id} locked={gate}>{page}</FreeModuleLesson> : page;
 }

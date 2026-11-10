@@ -9,6 +9,8 @@
  * level cards do not also go.
  */
 import { PLAYER_LEVELS, type PlayerLevel, type PlayerLevelId } from "./levels.ts";
+import { FREE_MODULES, freeModuleLessonIds } from "./learning/free-module.ts";
+import { lessonHref } from "./learning/track.ts";
 
 /** 0 is "not yet", 1 is "partly", 2 is "yes, reliably". */
 export type PlacementScore = 0 | 1 | 2;
@@ -70,7 +72,14 @@ export function levelById(id: PlayerLevelId): PlayerLevel {
   return level;
 }
 
-/** The result card's copy for each destination: what to work on first, and a free step to take today. */
+/** The first lesson of a free module: where "Start your free module" goes. */
+export function freeModuleStartHref(moduleId: string): string {
+  return lessonHref("guitar", freeModuleLessonIds(moduleId)[0]);
+}
+
+const freeStep = (level: PlayerLevelId) => ({ label: "Start your free module", href: freeModuleStartHref(FREE_MODULES[level]) });
+
+/** The result card's copy for each destination: what to work on first, and the free module to start today. */
 export const PLACEMENT_RESULTS: Record<
   PlayerLevelId,
   { heading: string; firstFocus: string; freeStep: { label: string; href: string } }
@@ -79,18 +88,18 @@ export const PLACEMENT_RESULTS: Record<
     heading: "Start at stage 1.",
     firstFocus:
       "Your first job is a clean sound: a tuned guitar, a relaxed fretting hand and one note that rings every time. Stage 2 then adds A and D and your first timed chord changes.",
-    freeStep: { label: "Run the free A-to-D chord routine today", href: "/learn/guitar/routine" },
+    freeStep: freeStep("beginner"),
   },
   intermediate: {
     heading: "Jump to stage 3.",
     firstFocus:
       "Your changes keep time, so start where the open chords fill out: all eight open shapes, a capo and any three-chord song. Stage 4 brings single notes and the first scale, and stage 5 is the barre chord and the blues.",
-    freeStep: { label: "Build a free 30-day plan around one song", href: "/breakthrough" },
+    freeStep: freeStep("intermediate"),
   },
   advanced: {
     heading: "Go straight to the Advanced Lab.",
     firstFocus:
       "Your fundamentals are in place. Pick one drill just below your ceiling, get it clean in Practice mode, then let Play mode tell you when to push the tempo.",
-    freeStep: { label: "Find the habit capping your speed in 2 minutes", href: "/diagnose" },
+    freeStep: freeStep("advanced"),
   },
 };

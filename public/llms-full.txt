@@ -798,7 +798,7 @@ Source: https://guitarhub.org/start
 
 Find your level
 
-Answer for what your hands can do on an ordinary practice day. Your answers point to one starting point, stage 1 of the lesson path, stage 3, or the free Advanced Lab, and the first thing to work on when you get there. Nothing you choose here is saved or sent.
+Answer for what your hands can do on an ordinary practice day. Your answers point to one starting point, stage 1 of the lesson path, stage 3, or the free Advanced Lab, and the first thing to work on when you get there. Your result is saved in this browser so your free module stays yours.
 
 - 1. Can you play G, C, D and E minor with every string ringing clearly? Not yetMost of them, with a buzz or twoYes, without looking
 - 2. Can you switch between two open chords and keep a steady strum going? Not yetWith a pause before each changeYes, at song tempo

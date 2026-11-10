@@ -13,6 +13,7 @@ import {
   type PlacementAnswers,
 } from "../lib/placement.ts";
 import { LEARN } from "../lib/site.ts";
+import { FREE_MODULES } from "../lib/learning/free-module.ts";
 
 register("./component-render-hooks.mjs", import.meta.url);
 const { default: Home } = await import("../app/page.tsx");
@@ -102,6 +103,8 @@ test("/start is a placement, not a copy of the homepage level cards", () => {
   }
   for (const question of PLACEMENT_QUESTIONS) assert.ok(startText.includes(question.prompt), question.id);
   assert.equal((start.match(/type="radio"/g) ?? []).length, PLACEMENT_QUESTIONS.length * 3);
+  assert.ok(startText.includes("Your result is saved in this browser so your free module stays yours."));
+  assert.doesNotMatch(startText, /Nothing you choose here is saved or sent/);
 
   // A measure of the original problem: 62% of /start was the homepage. Count
   // the share of /start's distinct words that also appear in the homepage's
@@ -127,6 +130,10 @@ test("the placement routes to stage 1, stage 3 or the Advanced Lab", () => {
 
   for (const level of PLAYER_LEVELS) {
     assert.ok(PLACEMENT_RESULTS[level.id], `${level.id} needs result copy`);
+    // Each result's free step is its free module's first lesson, not a free tool.
+    const { href, label } = PLACEMENT_RESULTS[level.id].freeStep;
+    assert.equal(href, `/learn/guitar/${FREE_MODULES[level.id]}-01`);
+    assert.equal(label, "Start your free module");
   }
   for (const question of PLACEMENT_QUESTIONS) assert.equal(question.options.length, 3);
 });
