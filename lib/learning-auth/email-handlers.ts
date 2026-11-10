@@ -3,7 +3,7 @@ import { isSameOriginMutation } from "./config.ts";
 import { AccountHTTPError, accountErrorResponse, accountJSON, boundedAccountBody } from "./http.ts";
 
 export type EmailAuthClient = { auth: {
-  signInWithOtp(options: { email: string; options: { shouldCreateUser: false } }): Promise<{ error: unknown }>;
+  signInWithOtp(options: { email: string; options: { shouldCreateUser: true } }): Promise<{ error: unknown }>;
   verifyOtp(options: { email: string; token: string; type: "email" }): Promise<{ error: unknown }>;
   getUser(): Promise<{ data: { user: { id: string; is_anonymous?: boolean } | null }; error: unknown }>;
   signOut(options: { scope: "local" }): Promise<{ error: unknown }>;
@@ -28,9 +28,10 @@ export function createEmailAuthHandlers(deps: { enabled(): boolean; client(): Pr
     send: route(async (request, client) => {
       const body = await boundedAccountBody(request, 1_024);
       const email = emailAddress(body.email);
-      // Missing accounts, delivery errors and provider rate limits have one response.
+      // First sign-in creates the account; the emailed code is the proof of ownership.
+      // Existing accounts, new accounts, delivery errors and provider rate limits have one response.
       // Completing this request does not prove that an email was sent.
-      try { await client.auth.signInWithOtp({ email, options: { shouldCreateUser: false } }); } catch { /* No account-existence disclosure. */ }
+      try { await client.auth.signInWithOtp({ email, options: { shouldCreateUser: true } }); } catch { /* No account-existence disclosure. */ }
       return accountJSON({ accepted: true });
     }),
     verify: route(async (request, client) => {

@@ -4,9 +4,9 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { safeAccountDestination } from "@/lib/learning-auth/config";
 
-export default function AccountSignIn({ returnTo = "/account" }: { returnTo?: string }) {
+export default function AccountSignIn({ returnTo = "/account", initialEmail = "" }: { returnTo?: string; initialEmail?: string }) {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(initialEmail);
   const [code, setCode] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -23,13 +23,13 @@ export default function AccountSignIn({ returnTo = "/account" }: { returnTo?: st
       if (!response.ok) throw new Error("sign_in_failed");
       if (sent) { router.replace(safeAccountDestination(returnTo)); router.refresh(); return; }
       setSent(true);
-      setMessage("If this email matches an existing Suede account, check your inbox for a sign-in code.");
+      setMessage("Check your inbox for a sign-in code.");
     } catch { setMessage(sent ? "The code could not be verified. Check the email and code, then try again." : "Sign-in is unavailable right now. Your local lessons and practice are still available."); }
     finally { setBusy(false); }
   }
 
   return <form onSubmit={submit} aria-busy={busy}>
-    <p><label htmlFor="account-email">Email for your existing Suede account</label><br />
+    <p><label htmlFor="account-email">Email</label><br />
       <input id="account-email" name="email" type="email" autoComplete="email" maxLength={254} required value={email} readOnly={sent} onChange={(event) => setEmail(event.target.value)} /></p>
     {sent && <p><label htmlFor="account-code">Sign-in code</label><br />
       <input id="account-code" name="code" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6,10}" minLength={6} maxLength={10} required value={code} onChange={(event) => setCode(event.target.value)} /></p>}

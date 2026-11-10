@@ -10,7 +10,7 @@ type Element = { type: string; props: Record<string, unknown> & { children?: Ele
 
 // Execute the real form's event handlers with isolated hooks, navigation and
 // fetch. No email is sent and this does not stand in for browser layout QA.
-function signInHarness(returnTo: string, verificationSucceeds = true) {
+function signInHarness(returnTo: string, verificationSucceeds = true, initialEmail?: string) {
   const state: unknown[] = [];
   let cursor = 0;
   const destinations: string[] = [];
@@ -19,7 +19,7 @@ function signInHarness(returnTo: string, verificationSucceeds = true) {
   const source = ts.transpileModule(readFileSync(new URL("../app/account/sign-in.tsx", import.meta.url), "utf8"), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022 },
   }).outputText;
-  const exports: { default?: (props: { returnTo: string }) => Element } = {};
+  const exports: { default?: (props: { returnTo: string; initialEmail?: string }) => Element } = {};
   const require = createRequire(import.meta.url);
   runInNewContext(source, {
     exports,
@@ -37,12 +37,12 @@ function signInHarness(returnTo: string, verificationSucceeds = true) {
       return { ok: !url.endsWith("verify") || verificationSucceeds };
     },
   });
-  function render() { cursor = 0; return exports.default!({ returnTo }); }
+  function render() { cursor = 0; return exports.default!({ returnTo, initialEmail }); }
   async function submit() {
     const form = render();
     await (form.props.onSubmit as (event: { preventDefault: () => void }) => Promise<void>)({ preventDefault() {} });
   }
-  return { submit, destinations, requests, refreshes: () => refreshes };
+  return { render, submit, destinations, requests, refreshes: () => refreshes };
 }
 
 test("successful email-code verification returns to the requested lesson", async () => {
@@ -99,4 +99,37 @@ test("account page carries a safe lesson destination into sign-in and the return
   const unsafe = elements(await exports.default!({ searchParams: Promise.resolve({ next: [lesson, "https://evil.example"] }) }));
   assert.equal(unsafe.find(node => node.type === "SignIn")?.props.returnTo, "/account");
   assert.ok(!unsafe.some(node => node.props.href === "https://evil.example"));
+});
+
+function find(value: unknown, test: (node: Element) => boolean): Element | undefined {
+  if (Array.isArray(value)) { for (const item of value) { const hit = find(item, test); if (hit) return hit; } return undefined; }
+  if (!value || typeof value !== "object" || !("props" in value)) return undefined;
+  const node = value as Element;
+  return test(node) ? node : find(node.props.children, test);
+}
+
+test("sign-in form starts from the supplied email", () => {
+  const input = find(signInHarness("/account", true, "a@b.co").render(), node => node.type === "input" && node.props.id === "account-email");
+  assert.equal(input?.props.value, "a@b.co");
+});
+
+test("signed-out account page offers sign-in without existing-account wording", async () => {
+  const source = ts.transpileModule(readFileSync(new URL("../app/account/page.tsx", import.meta.url), "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  const exports: { default?: (props: { searchParams: Promise<Record<string, never>> }) => Promise<Element> } = {};
+  const require = createRequire(import.meta.url);
+  const dependencies: Record<string, unknown> = {
+    "next/link": { default: "a" }, "@/components/Article": { default: "article" }, "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
+    "@/lib/learning-auth/config": { accountConfiguration: () => ({}), safeAccountDestination },
+    "@/lib/learning-auth/server": { resolveAccount: async () => null }, "./sign-in": { default: "SignIn" },
+    "@/lib/learning-auth/access": { getVerifiedLearningAccess: async () => null },
+    "@/components/learning/LearningAccessProvider": { LearningAccessProvider: "Provider" },
+    "@/components/learning/AccountSyncControls": { AccountSyncControls: "Sync", ScopedAccountSignOut: "SignOut" },
+  };
+  runInNewContext(source, { exports, require: (name: string) => dependencies[name] ?? require(name) });
+  const text = JSON.stringify(await exports.default!({ searchParams: Promise.resolve({}) }));
+  assert.ok(!text.includes("does not create an account"));
+  assert.ok(!text.includes("existing Suede account"));
+  assert.ok(text.includes("use the email from your receipt"));
 });

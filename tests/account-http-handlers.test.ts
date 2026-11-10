@@ -128,12 +128,12 @@ function emailHarness(error: unknown = null, anonymous = false) {
   }};
   return {calls,handlers:createEmailAuthHandlers({enabled:()=>true,client:async()=>client})};
 }
-test("email send never creates users, exposes account existence, or accepts foreign origins", async () => {
+test("email send creates the account on first sign-in and never discloses whether one existed", async () => {
   for (const error of [null,{message:"User not found"},{message:"Email rate limit"}]) {
     const h=emailHarness(error);
     const response=await h.handlers.send(request({email:"Existing@Example.org"}));
     assert.equal(response.status,200);assert.deepEqual(await response.json(),{accepted:true});
-    assert.deepEqual(h.calls,[{email:"existing@example.org",options:{shouldCreateUser:false}}]);
+    assert.deepEqual(h.calls,[{email:"existing@example.org",options:{shouldCreateUser:true}}]);
   }
   const h=emailHarness();
   assert.equal((await h.handlers.send(request({email:"existing@example.org"},{headers:{origin:"https://evil.example",authorization:"Bearer fake"}}))).status,403);

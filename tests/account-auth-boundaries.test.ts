@@ -51,3 +51,8 @@ test("accounts stay disabled until configured deliberately", () => {
     }
   }
 });
+
+test("sign-in destinations cover the purchase and tool surfaces only", () => {
+  for (const value of ["/advanced/legato", "/session", "/readiness", "/log", "/checkout/success"]) assert.equal(safeAccountDestination(value), value);
+  for (const value of ["//evil.example", "/api/checkout", "/advancedx", "/checkoutx", "/session/../apply"]) assert.equal(safeAccountDestination(value), "/account", value);
+});

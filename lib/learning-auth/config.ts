@@ -12,12 +12,12 @@ export function accountConfiguration(): PublicAccountConfiguration | null {
   } catch { return null; }
 }
 
-/** Callback destinations stay inside the account and learning surfaces. */
+/** Callback destinations stay inside the account, learning, tool and checkout surfaces. */
 export function safeAccountDestination(value: unknown): string {
-  if (typeof value !== "string" || !/^\/(?:account|learn)(?:[/?]|$)/.test(value) || /[\\\r\n]/.test(value)) return "/account";
+  if (typeof value !== "string" || !/^\/(?:account|learn|advanced|session|readiness|log|checkout)(?:[/?]|$)/.test(value) || /[\\\r\n]/.test(value)) return "/account";
   try {
     const parsed = new URL(value, "https://guitarhub.org");
-    if (parsed.origin !== "https://guitarhub.org" || !/^\/(?:account|learn)(?:\/|$)/.test(parsed.pathname)) return "/account";
+    if (parsed.origin !== "https://guitarhub.org" || !/^\/(?:account|learn|advanced|session|readiness|log|checkout)(?:\/|$)/.test(parsed.pathname)) return "/account";
     return parsed.pathname + parsed.search;
   } catch { return "/account"; }
 }

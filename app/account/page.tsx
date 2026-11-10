@@ -26,7 +26,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         <p>Signing in does not upload earlier practice records or change an App Store purchase. Your local history stays on this device.</p>
         {access && <LearningAccessProvider access={access}><AccountSyncControls /><ScopedAccountSignOut /></LearningAccessProvider>}
       </> : <>
-        <p>Sign in to an existing Suede account using an email code. This page does not create an account. Lessons require verified lifetime access. The standalone practice tools do not require an account.</p>
+        <p>Enter your email and we send you a sign-in code. If you bought lifetime access on guitarhub.org, use the email from your receipt.</p>
         {params.error && <p role="alert">Sign-in did not finish. Please try again.</p>}
         <AccountSignIn returnTo={returnTo} />
       </>}
