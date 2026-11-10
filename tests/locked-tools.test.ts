@@ -17,8 +17,10 @@ const { default: LogPage } = await import("../app/log/page.tsx");
 const { default: ToolsPage } = await import("../app/tools/page.tsx");
 const { default: DrillPage } = await import("../app/advanced/[drillId]/page.tsx");
 const { default: RoutinePage } = await import("../app/learn/guitar/routine/page.tsx");
-const { PaidToolGate } = await import("../components/paywall/PaidToolGate.tsx");
+const { PaidToolGate, PaidToolGateView } = await import("../components/paywall/PaidToolGate.tsx");
 
+/** createElement with children as the third argument, for components whose props type requires `children`. */
+const h = createElement as unknown as (type: unknown, props: object, ...children: ReactElement[]) => ReactElement;
 const render = (component: FunctionComponent) => renderToStaticMarkup(createElement(component));
 const read = (relative: string) => readFileSync(new URL(`../${relative}`, import.meta.url), "utf8");
 
@@ -74,8 +76,7 @@ test("locked pages keep their introduction and a preview in the server HTML, wit
     for (const [Page, route] of [[SessionPage, "/session"], [ReadinessPage, "/readiness"], [LogPage, "/log"]] as const) {
       const markup = render(Page);
       assert.match(markup, /<h1/, route); assert.match(markup, /data-locked-preview/, route);
-      assert.ok(text(markup).includes(`${lifetimeOfferAt(new Date(now)).display} one time`), `${route} states the price in force`);
-      assert.ok(text(markup).includes(OFFER.guarantee), route);
+      assert.doesNotMatch(text(markup), /Unlock lifetime access/, `${route}: the offer panel waits for the first access answer`);
       const gate = gated(markup);
       assert.match(gate, /data-locked-preview="true"[^>]*inert=""|inert=""[^>]*data-locked-preview="true"/, `${route}: the preview is inert`);
       assert.doesNotMatch(gate, /<(input|select|textarea)\b/, `${route}: the working tool is not rendered for a locked visitor`);
@@ -97,8 +98,7 @@ test("a drill page keeps its instructions and teaching outside the gate", async 
   assert.ok(text(outside).includes("Why this drill"));
   assert.ok(text(outside).includes(drill.why));
   assert.match(gate, /data-locked-preview/);
-  assert.ok(text(gate).includes(OFFER.guarantee));
-  assert.ok(text(gate).includes(lifetimeOfferAt(new Date(DURING_LAUNCH)).oneTime));
+  assert.doesNotMatch(text(gate), /Unlock lifetime access/, "the offer panel waits for the first access answer");
   assert.doesNotMatch(gate, /<(input|select|textarea)\b/);
   assert.doesNotMatch(read("app/advanced/[drillId]/page.tsx"), /index:\s*false/);
 });
@@ -134,13 +134,56 @@ test("the gate renders the tool for a verified purchaser and the preview for eve
     assert.match(locked, /href="\/account\?next=%2Fsession"/);
     assert.match(locked, /<[a-z]+ data-paid-tool-gate-end[^>]*><\/[a-z]+><\/div>$/, "the gate ends with its empty end marker");
   }
-  // Without an access prop the server render is the locked state, until the browser fetch says otherwise.
+  // Without an access prop the first render has no offer and no tool, until the browser fetch answers.
   const remote = renderToStaticMarkup(createElement(PaidToolGate, { ...props(verified), access: undefined }));
   assert.doesNotMatch(remote, /data-working-tool/);
 
   const source = read("components/paywall/PaidToolGate.tsx");
   assert.match(source, /trigger="locked_item"/);
   assert.match(source, /fetchPaidAccess\(/);
+});
+
+test("before the first access answer the gate shows the preview and a placeholder, never the offer panel", () => {
+  const view = (state: "checking" | "open" | "locked") => renderToStaticMarkup(h(PaidToolGateView, {
+    state, checkoutAvailable: false, returnTo: "/session",
+    preview: createElement("div", { "data-locked-preview": true, inert: true }, "Example output"),
+  }, createElement("input", { "data-working-tool": true })));
+  const checking = view("checking");
+  assert.match(checking, /Example output/); assert.match(checking, /data-paid-tool-gate-checking/);
+  assert.doesNotMatch(checking, /Unlock lifetime access|<button|<h2|data-working-tool|<input/);
+  assert.match(checking, /min-h-\[/, "the placeholder reserves the panel's space");
+  assert.doesNotMatch(checking, /animate-spin|role="progressbar"/, "no spinner");
+  const open = view("open");
+  assert.match(open, /data-working-tool/); assert.doesNotMatch(open, /Unlock lifetime access|data-paid-tool-gate|Example output/);
+  const locked = view("locked");
+  assert.match(locked, /Unlock lifetime access/); assert.match(locked, /Example output/);
+  assert.doesNotMatch(locked, /data-working-tool|data-paid-tool-gate-checking/);
+  // The server render of a gate that asks the endpoint is the checking state.
+  const server = renderToStaticMarkup(h(PaidToolGate, { checkoutAvailable: false, returnTo: "/log", preview: createElement("div", null, "Example output") }, createElement("input")));
+  assert.match(server, /Example output/); assert.doesNotMatch(server, /Unlock lifetime access|<input/);
+});
+
+test("the locked panel states the price in force and the guarantee", () => {
+  for (const now of [DURING_LAUNCH, AFTER_LAUNCH]) {
+    const offer = lifetimeOfferAt(new Date(now));
+    const locked = text(renderToStaticMarkup(h(PaidToolGateView, { state: "locked", checkoutAvailable: false, returnTo: "/session", offer, preview: createElement("div") }, createElement("input"))));
+    assert.ok(locked.includes(`${offer.display} one time`)); assert.ok(locked.includes(OFFER.guarantee));
+  }
+});
+
+test("a request that never answers locks after 8 seconds", async () => {
+  mock.timers.enable({ apis: ["setTimeout"] });
+  let signal: AbortSignal | undefined;
+  const hung = ((_url: string, init?: RequestInit) => { signal = init?.signal ?? undefined; return new Promise<Response>(() => {}); }) as unknown as typeof fetch;
+  let result: string | undefined;
+  const pending = fetchPaidAccess(hung).then(value => { result = value; });
+  mock.timers.tick(7_999); await Promise.resolve();
+  assert.equal(result, undefined, "still waiting just before the timeout");
+  mock.timers.tick(1); await pending;
+  assert.equal(result, "locked"); assert.equal(signal?.aborted, true);
+  // A prompt answer is not overridden by the timer.
+  const quick = (async () => new Response(JSON.stringify({ tracks: ["guitar"] }), { status: 200 })) as typeof fetch;
+  assert.equal(await fetchPaidAccess(quick), "open");
 });
 
 test("locked pages stay in the sitemap", async () => {

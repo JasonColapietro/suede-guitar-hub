@@ -38,9 +38,9 @@ type PaidToolGateProps = {
  * it keeps its introduction either way, so it stays indexable.
  */
 export function PaidToolGate({ checkoutAvailable, returnTo, preview, offer, access, children }: PaidToolGateProps) {
-  const [remote, setRemote] = useState<"open" | "locked">("locked");
+  // The server render and first client render show no offer: it waits for the first answer.
+  const [remote, setRemote] = useState<"checking" | "open" | "locked">("checking");
   const [paywallOpen, setPaywallOpen] = useState(false);
-  const titleId = useId();
   const asksServer = access === undefined;
 
   useEffect(() => {
@@ -50,8 +50,28 @@ export function PaidToolGate({ checkoutAvailable, returnTo, preview, offer, acce
     return () => { cancelled = true; };
   }, [asksServer]);
 
-  const open = access ? hasVerifiedTrackAccess("guitar", access) : remote === "open";
-  if (open) return <>{children}</>;
+  const state = access ? (hasVerifiedTrackAccess("guitar", access) ? "open" : "locked") : remote;
+  return <PaidToolGateView state={state} checkoutAvailable={checkoutAvailable} returnTo={returnTo} preview={preview} offer={offer} paywallOpen={paywallOpen} onPaywallOpenChange={setPaywallOpen}>{children}</PaidToolGateView>;
+}
+
+type PaidToolGateViewProps = Omit<PaidToolGateProps, "access" | "children"> & {
+  children?: ReactNode;
+  /** "checking" until the first access answer arrives: the preview and a placeholder, no offer. */
+  state: "checking" | "open" | "locked";
+  paywallOpen?: boolean;
+  onPaywallOpenChange?: (open: boolean) => void;
+};
+
+/** What the gate shows for a given access state. Exported so each state can be rendered directly. */
+export function PaidToolGateView({ state, checkoutAvailable, returnTo, preview, offer, paywallOpen = false, onPaywallOpenChange = () => {}, children }: PaidToolGateViewProps) {
+  const titleId = useId();
+  if (state === "open") return <>{children}</>;
+  if (state === "checking") return <div data-paid-tool-gate className="grid gap-6">
+    {preview}
+    {/* Reserves the offer panel's space so the layout holds still; never a spinner, the offer follows within seconds. */}
+    <div data-paid-tool-gate-checking aria-hidden="true" className="min-h-[22rem] rounded-3xl bg-indigo-deep/10 md:min-h-[20rem]"></div>
+    <span data-paid-tool-gate-end hidden></span>
+  </div>;
 
   return <div data-paid-tool-gate className="grid gap-6">
     {preview}
@@ -64,13 +84,13 @@ export function PaidToolGate({ checkoutAvailable, returnTo, preview, offer, acce
       {offer?.launchNote && <p className="mt-3 text-sm text-white/70">{offer.launchNote}</p>}
       <p className="mt-3 max-w-2xl font-semibold text-peach">{OFFER.guarantee}</p>
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <button type="button" onClick={() => setPaywallOpen(true)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep motion-safe:transition hover:brightness-105">
+        <button type="button" onClick={() => onPaywallOpenChange(true)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep motion-safe:transition hover:brightness-105">
           Unlock lifetime access
         </button>
         <p className="text-sm text-white/75">Already have lifetime access? <Link className="underline underline-offset-4" href={`/account?next=${encodeURIComponent(returnTo)}`}>Sign in</Link></p>
       </div>
     </section>
-    <Paywall trigger="locked_item" open={paywallOpen} onClose={() => setPaywallOpen(false)} checkoutAvailable={checkoutAvailable} returnTo={returnTo} offer={offer} />
+    <Paywall trigger="locked_item" open={paywallOpen} onClose={() => onPaywallOpenChange(false)} checkoutAvailable={checkoutAvailable} returnTo={returnTo} offer={offer} />
     <span data-paid-tool-gate-end hidden></span>
   </div>;
 }
