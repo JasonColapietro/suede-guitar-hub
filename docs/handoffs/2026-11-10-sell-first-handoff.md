@@ -3,6 +3,25 @@
 Phase 1 of the approved design is being built in two repos. Nothing is
 live yet: neither branch is merged, and no owner step has been done.
 
+## Latest owner direction (2026-11-10, end of session)
+
+- Goal: get it out and see if anyone pays. No one has yet.
+- Recommended path: launch the site alone first (it is tested and can
+  take payment), using the owner steps under "Site" below; one live
+  purchase and refund by the owner is the acceptance test.
+- The owner also wants "the mac app too". Unclear which is meant; ask
+  before building: (a) the iPhone app update shipped as well, which needs
+  GitHub billing fixed and a green verify run first, or (b) a version of
+  the app that runs on a Mac, which is new work needing its own design
+  (the app is iPhone-only today: iOS 17, portrait).
+- Before the site-only launch, change any site copy that says a web
+  purchase unlocks the iPhone app today: that is only true once app
+  version 1.1 ships. Say iPhone access arrives with the next app update.
+- GitHub Actions cost: the Mac verify job now runs on pull requests only
+  when labelled `mac-ci`, `full-ci` or `release` (takes effect when
+  `sell-first-ios` is merged). Do not start a verify run without the
+  owner's say-so. The owner should set an Actions spending limit.
+
 ## Where everything is
 
 | What | Where |
