@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
-  title: "Guitar Lessons & Practice Tools | GuitarHub by Suede AI",
+  title: "Guitar Lessons: Chords to First Solo in 30 Days | GuitarHub",
   description:
-    "Explore guitar lessons with lifetime access, plus free practice routines and advanced drills. GuitarHub by Suede AI keeps web progress in your browser.",
+    "Play real chords and improvise your first solo in 30 days. Get the free 30-day plan, start your free module, and unlock every lesson with lifetime access.",
   openGraph: {
-    title: "Guitar Lessons & Practice Tools | GuitarHub by Suede AI",
+    title: "Guitar Lessons: Chords to First Solo in 30 Days | GuitarHub",
     description:
-      "Explore guitar lessons with lifetime access, plus free practice routines and advanced drills. GuitarHub by Suede AI keeps web progress in your browser.",
+      "Play real chords and improvise your first solo in 30 days. Get the free 30-day plan, start your free module, and unlock every lesson with lifetime access.",
     url: "https://guitarhub.org",
     siteName: "GuitarHub",
     type: "website",
@@ -93,7 +93,7 @@ const JSON_LD = {
       url: "https://guitarhub.org",
       name: "GuitarHub",
       description:
-        "Guitar lessons, practice routines, and advanced drills from Suede AI.",
+        "Guitar lessons from Suede AI that take you from real chords to your first improvised solo in 30 days.",
       inLanguage: "en-US",
       publisher: { "@id": SUEDE_ORG_ID },
       author: { "@id": JASON_PERSON_ID },

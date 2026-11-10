@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
-import { safeAccountDestination } from "../lib/learning-auth/config.ts";
+import { accountReturnLabel, safeAccountDestination } from "../lib/learning-auth/config.ts";
 
 type Element = { type: string; props: Record<string, unknown> & { children?: Element | Element[] } };
 
@@ -78,7 +78,7 @@ test("account page carries a safe lesson destination into sign-in and the return
     "next/link": { default: "a" },
     "@/components/Article": { default: "article" },
     "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
-    "@/lib/learning-auth/config": { accountConfiguration: () => ({}), safeAccountDestination },
+    "@/lib/learning-auth/config": { accountConfiguration: () => ({}), accountReturnLabel, safeAccountDestination },
     "@/lib/learning-auth/server": { resolveAccount: async () => null },
     "./sign-in": { default: "SignIn" },
     "@/lib/learning-auth/access": { getVerifiedLearningAccess: async () => null },
@@ -95,7 +95,9 @@ test("account page carries a safe lesson destination into sign-in and the return
   const lesson = "/learn/guitar/g-l1-m1-02";
   const tree = elements(await exports.default!({ searchParams: Promise.resolve({ next: lesson }) }));
   assert.equal(tree.find(node => node.type === "SignIn")?.props.returnTo, lesson);
-  assert.ok(tree.some(node => node.type === "a" && node.props.href === lesson));
+  assert.ok(tree.some(node => node.type === "a" && node.props.href === lesson && (node.props.children as unknown) === "Return to your lesson"));
+  const routine = elements(await exports.default!({ searchParams: Promise.resolve({ next: "/learn/guitar/routine" }) }));
+  assert.ok(routine.some(node => node.type === "a" && node.props.href === "/learn/guitar/routine" && (node.props.children as unknown) === "Return to the practice routine"));
   const unsafe = elements(await exports.default!({ searchParams: Promise.resolve({ next: [lesson, "https://evil.example"] }) }));
   assert.equal(unsafe.find(node => node.type === "SignIn")?.props.returnTo, "/account");
   assert.ok(!unsafe.some(node => node.props.href === "https://evil.example"));
@@ -121,7 +123,7 @@ test("signed-out account page offers sign-in without existing-account wording", 
   const require = createRequire(import.meta.url);
   const dependencies: Record<string, unknown> = {
     "next/link": { default: "a" }, "@/components/Article": { default: "article" }, "@/lib/site": { APP_STORE: {}, LIFETIME: {} },
-    "@/lib/learning-auth/config": { accountConfiguration: () => ({}), safeAccountDestination },
+    "@/lib/learning-auth/config": { accountConfiguration: () => ({}), accountReturnLabel, safeAccountDestination },
     "@/lib/learning-auth/server": { resolveAccount: async () => null }, "./sign-in": { default: "SignIn" },
     "@/lib/learning-auth/access": { getVerifiedLearningAccess: async () => null },
     "@/components/learning/LearningAccessProvider": { LearningAccessProvider: "Provider" },
@@ -132,4 +134,15 @@ test("signed-out account page offers sign-in without existing-account wording", 
   assert.ok(!text.includes("does not create an account"));
   assert.ok(!text.includes("existing Suede account"));
   assert.ok(text.includes("use the email from your receipt"));
+});
+
+test("the account page names its return link for the destination", () => {
+  assert.equal(accountReturnLabel("/learn/guitar/g-l2-m1-01"), "Return to your lesson");
+  assert.equal(accountReturnLabel("/learn/guitar/routine"), "Return to the practice routine");
+  assert.equal(accountReturnLabel("/learn/guitar"), "Return to the lessons");
+  assert.equal(accountReturnLabel("/advanced/legato-3nps"), "Return to the Advanced Lab");
+  assert.equal(accountReturnLabel("/session"), "Return to the session builder");
+  assert.equal(accountReturnLabel("/readiness?song=1"), "Return to the song readiness score");
+  assert.equal(accountReturnLabel("/log"), "Return to the practice log");
+  assert.equal(accountReturnLabel("/checkout/success?session_id=cs_1"), "Return to your purchase");
 });

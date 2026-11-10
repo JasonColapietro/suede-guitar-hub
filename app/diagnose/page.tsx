@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import Diagnostic from "@/components/Diagnostic";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
@@ -299,23 +300,24 @@ export default function DiagnosePage() {
               <em className="font-display italic text-peach">four weeks.</em>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-white/75">
-              Knowing the blocker changes nothing on its own. Turn it into a
-              plan you can run this month, or apply to the founding room and
-              have a crew read your evidence. Applying starts a fit
-              conversation. It takes no payment.
+              Knowing the blocker changes nothing on its own. Put it to work on
+              a month with a finish you can hear: real chords and your first
+              improvised solo in 30 days, with a practice action for each day
+              and a chord and pentatonic chart pack sent to your inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/breakthrough"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
                 className="inline-flex items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
               >
-                Build my 30-day plan <span aria-hidden>&rarr;</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>&rarr;</span>
               </Link>
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.freeModule.href}
                 className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
               >
-                Apply to the room <span aria-hidden>&rarr;</span>
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>&rarr;</span>
               </Link>
             </div>
           </div>

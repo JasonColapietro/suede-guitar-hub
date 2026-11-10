@@ -455,10 +455,10 @@ export default function MethodPage() {
         <h2>Where to start</h2>
 
         <p>
-          If you already know your finish line, build the four weeks. The{" "}
-          <Link href="/breakthrough">30-day breakthrough planner</Link> turns one
-          goal into a week-by-week sequence and names the evidence each week has
-          to produce. It needs no account.
+          To run the loop on a month with a finish you can hear, get the{" "}
+          <Link href="/breakthrough">free 30-day plan</Link>: four weeks from D
+          and A to your first improvised solo, one stage of the loop on each
+          week&apos;s skill, and the evidence each week has to produce.
         </p>
 
         <p>

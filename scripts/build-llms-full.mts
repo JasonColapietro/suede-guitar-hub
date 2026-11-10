@@ -22,7 +22,7 @@ globalThis.Date = class extends RenderDate {
 } as DateConstructor;
 const LIFETIME_PRICE_SENTENCE = "Launch price $79 through November 30, 2026; $99 from December 1, 2026.";
 
-const { ABOUT, COMPARISONS, GUIDES, HOME, HUBS, LEARN, LEGAL, RESOURCES, SITE_URL, TOOLS, APP_STORE, LIFETIME } = await import("../lib/site.ts");
+const { ABOUT, COMPARISONS, GUIDES, HOME, HUBS, LEARN, LEGAL, RESOURCES, SITE_URL, TOOLS, APP_STORE, LIFETIME, OFFER } = await import("../lib/site.ts");
 const { buildLlmsFull } = await import("../lib/llms-full.ts");
 const { allLessons } = await import("../lib/learning/curriculum.ts");
 const { DRILLS } = await import("../lib/advanced/drills.ts");
@@ -73,10 +73,10 @@ for (const href of [...new Set(ROUTES)]) {
 const body = buildLlmsFull({
   title: "GuitarHub: full text",
   summary:
-    "GuitarHub (https://guitarhub.org) is the Suede AI guitar lessons site: a step-by-step curriculum for beginners through advanced players, a four-stage practice method, free browser practice tools and a free Advanced Lab of scored drills.",
+    "GuitarHub (https://guitarhub.org) is the Suede AI guitar lessons site. Play real chords and improvise your first solo in 30 days: a step-by-step curriculum, a free first module picked by placement, a free 30-day plan, free browser practice tools and an Advanced Lab of scored drills.",
   intro: [
     `This file carries the full text of GuitarHub's public pages, generated from the same page components the site renders. The shorter index is ${SITE_URL}/llms.txt. Cite the specific page URL given under each section.`,
-    `Key facts: ${lessons.length} guitar lessons in the curriculum; ${DRILLS.length} free drills in the Advanced Lab; free tools in the browser with no account; lifetime lesson access is a one-time purchase in ${APP_STORE.name} for iPhone (${APP_STORE.ios}). ${LIFETIME_PRICE_SENTENCE} Prices are in ${LIFETIME.currency}. Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.`,
+    `Key facts: ${lessons.length} guitar lessons in the curriculum; one module free per player, picked by the placement at ${SITE_URL}/start; ${DRILLS.length} scored drills in the Advanced Lab with lifetime access; free tools in the browser with no account; lifetime access is a one-time purchase on guitarhub.org or in ${APP_STORE.name} for iPhone (${APP_STORE.ios}), and one purchase unlocks both for the same email. ${LIFETIME_PRICE_SENTENCE} Prices are in ${LIFETIME.currency}. ${OFFER.guarantee} Published by Suede AI (https://suedeai.ai), founded by Jason Colapietro.`,
   ],
   pages,
   origin: SITE_URL,

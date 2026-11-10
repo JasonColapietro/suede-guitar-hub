@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { keywordsFor } from "@/lib/keywords";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import {
   FREE_TOOLS,
   GUIDES,
@@ -621,37 +622,32 @@ export default function ToolsPage() {
         <section className="px-3 py-3">
           <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
             <h2 className="mx-auto max-w-3xl text-4xl leading-tight md:text-5xl">
-              The tools are the practice.{" "}
+              The tools keep the practice moving.{" "}
               <em className="font-display italic text-peach">
-                The room is the correction.
+                The plan points it at your first solo.
               </em>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              A form can hand you the next tempo and the next week. It cannot
-              listen to your recording and tell you which of the four things
-              going wrong is causing the other three. The founding room is being
-              assembled for that part: a small crew, a weekly recording, and one
-              correction that changes the next session.
+              {OFFER.promise} The free 30-day plan lays out the four weeks from
+              D and A to four improvised bars over a blues, with a practice
+              action for each day and a printable chord and pentatonic chart
+              pack sent to your inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
                 className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep motion-safe:transition hover:brightness-105"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
               </Link>
               <Link
-                href="/breakthrough"
+                href={FUNNEL_PRIMARY.freeModule.href}
                 className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream motion-safe:transition hover:bg-white/5"
               >
-                Build the 30-day plan <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
-            <p className="mx-auto mt-6 max-w-xl text-sm text-white/60">
-              Applying is an application, and it is reviewed. It takes no
-              payment, asks for no card, and creates no commitment on either
-              side.
-            </p>
           </div>
         </section>
       </main>

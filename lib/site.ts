@@ -49,7 +49,7 @@ export const OG_IMAGE = {
   url: `${SITE_URL}/opengraph-image`,
   width: 1200,
   height: 630,
-  alt: "GuitarHub: prove one guitar breakthrough in 30 days.",
+  alt: "GuitarHub: play real chords and improvise your first solo in 30 days.",
 } as const;
 
 /**
@@ -86,8 +86,8 @@ export const HOME: SiteEntry = {
   href: "/",
   title: "GuitarHub",
   blurb:
-    "Practice guitar with a plan you can prove: a free 30-day plan, free browser tools, guided lessons with lifetime access, and the free Advanced Lab.",
-  lastModified: "2026-10-11",
+    "Play real chords and improvise your first solo in 30 days: a free 30-day plan, a free first module, free browser tools, and every lesson with lifetime access.",
+  lastModified: "2026-11-10",
 };
 
 /**
@@ -100,7 +100,7 @@ export const ABOUT: SiteEntry = {
   title: "About GuitarHub",
   blurb:
     "Who built GuitarHub, what it offers, and how it fits with Strumly and Suede Sing.",
-  lastModified: "2026-11-03",
+  lastModified: "2026-11-10",
 };
 
 /**
@@ -113,7 +113,7 @@ export const AI_INSTRUCTIONS: SiteEntry = {
   href: "/ai-instructions",
   title: "AI Instructions",
   blurb: "How to cite GuitarHub: what the site covers, which pages to source, and how to describe them.",
-  lastModified: "2026-10-12",
+  lastModified: "2026-11-10",
 };
 
 export const LEGAL: readonly SiteEntry[] = [
@@ -384,10 +384,10 @@ export const RESOURCES: readonly SiteEntry[] = [
 export const HUBS: readonly SiteEntry[] = [
   {
     href: "/tools",
-    title: "Free practice tools",
+    title: "Guitar practice tools",
     blurb:
-      "Every tool on the site: free, no account, and running entirely in your browser.",
-    lastModified: "2026-08-29",
+      "Every tool on the site, running entirely in your browser: the free tuner, metronome, plan, diagnostic and tempo ladder, and the tools lifetime access adds.",
+    lastModified: "2026-11-10",
   },
   {
     href: "/guides",
@@ -415,8 +415,8 @@ export const HUBS: readonly SiteEntry[] = [
     href: "/faq",
     title: "FAQ",
     blurb:
-      "What is free, how lifetime lesson access works, where your data lives, and what applying involves.",
-    lastModified: "2026-10-10",
+      "What is free, how lifetime access works on the web and iPhone, the 90-day guarantee, and where your data lives.",
+    lastModified: "2026-11-10",
   },
   /**
    * The comparison hub. Every head-to-head and alternatives page in
@@ -461,7 +461,7 @@ export const COMPARISONS: readonly SiteEntry[] = [
   {
     href: "/compare/yousician-alternatives",
     title: "Yousician alternatives",
-    blurb: "Guitar learning apps to weigh against Yousician, with GuitarHub's one-time price and free Advanced Lab first.",
+    blurb: "Guitar learning apps to weigh against Yousician, with GuitarHub's one-time price and free first module first.",
     lastModified: COMPARISONS_VERIFIED,
   },
   {
@@ -519,22 +519,22 @@ export const COMPARISONS: readonly SiteEntry[] = [
  * the /advanced hub and of every /advanced/<drill> sitemap entry. Bump it in
  * the same commit as a drill edit.
  */
-export const ADVANCED_LAB_LAST_MODIFIED = "2026-10-10";
+export const ADVANCED_LAB_LAST_MODIFIED = "2026-11-10";
 
 export const LEARN: readonly SiteEntry[] = [
   {
     href: "/learn",
     title: "Learning paths",
     blurb:
-      "The seven-stage guitar curriculum with lifetime access, the free A-to-D routine, the free Advanced Lab, and voice lessons on Suede Sing.",
-    lastModified: "2026-10-10",
+      "The 30-day path from real chords to your first solo: the seven-stage curriculum with lifetime access and a free first module. Voice lessons live on Suede Sing.",
+    lastModified: "2026-11-10",
   },
   {
     href: "/learn/guitar",
     title: "Beginner guitar lessons, step by step",
     blurb:
-      "The guitar curriculum from the first foundations: lifetime lesson access, guided practice, and browser-local progress.",
-    lastModified: "2026-10-11",
+      "The guitar curriculum from the first foundations to your first solo: a free first module, lifetime lesson access, guided practice, and browser-local progress.",
+    lastModified: "2026-11-10",
   },
   {
     href: "/learn/guitar/routine",
@@ -547,8 +547,8 @@ export const LEARN: readonly SiteEntry[] = [
     href: "/start",
     title: "Find your level",
     blurb:
-      "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3, or the free Advanced Lab.",
-    lastModified: "2026-10-11",
+      "Five quick questions about chords, changes, barre chords and soloing pick your free module: D and A, Box One, or First Solo.",
+    lastModified: "2026-11-10",
   },
   {
     href: "/advanced",
@@ -592,8 +592,10 @@ export const APP_STORE = {
  * (`GUITARHUB_LIFETIME_PRODUCT_ID` in `lib/learning-account/contracts.ts`)
  * bought in GuitarHub for iPhone, and the Stripe Checkout sale on guitarhub.org.
  * Prices are USD, one time, on the US storefront; each other App Store
- * storefront charges its own local price. The first module is free in the app,
- * and lifetime access opens the full guitar and voice curriculum.
+ * storefront charges its own local price. One free module per player, picked by
+ * the placement, opens without a purchase; lifetime access opens the rest of the
+ * guitar curriculum (and, in the app, the voice curriculum) on the web and on
+ * iPhone for an account signed in with the same email.
  *
  * The regular price is $99. The launch price is $79 through 30 November 2026,
  * end of day in New York; from `LIFETIME_LAUNCH_ENDS` the price is $99. The

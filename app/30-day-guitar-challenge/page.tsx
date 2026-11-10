@@ -139,12 +139,11 @@ export default function ThirtyDayGuitarChallengePage() {
 
         <p>
           This is the written guide: how to choose a finish line narrow enough to
-          prove, and how to judge the day 30 recording. It does not build the
-          four weeks for you, because the sequencing is arithmetic and the
-          judgment is not. The{" "}
-          <Link href="/breakthrough">30-day breakthrough planner</Link> does the
-          arithmetic, sized to the days and minutes you actually have. Read this
-          page to decide what you are proving, then hand the month to the planner.
+          prove, and how to judge the day 30 recording. If you want the month
+          already built, the{" "}
+          <Link href="/breakthrough">free 30-day plan</Link> takes you from D
+          and A to your first improvised solo, sized to the days and minutes
+          you actually have.
         </p>
 
         <h2>Why most 30-day challenges fail</h2>
@@ -219,10 +218,10 @@ export default function ThirtyDayGuitarChallengePage() {
 
         <p>
           The{" "}
-          <Link href="/breakthrough">30-day breakthrough planner</Link> holds you
-          to one finish line and turns it into a week-by-week sequence with the
-          evidence each week has to produce. It runs in your browser and needs
-          no account.
+          <Link href="/breakthrough">free 30-day plan</Link> is this rule
+          applied to one finish line, real chords and a first improvised solo,
+          as a week-by-week sequence with the evidence each week has to
+          produce.
         </p>
 
         <h2>Record the baseline before you practice</h2>
@@ -438,10 +437,10 @@ export default function ThirtyDayGuitarChallengePage() {
 
         <p>
           The{" "}
-          <Link href="/breakthrough">30-day breakthrough planner</Link> takes a
-          finish line, the days you have, and your session length, and lays out
-          the four weeks with the evidence each one has to produce. Record day 1
-          before you build the plan. The baseline is the part people skip, and
+          <Link href="/breakthrough">free 30-day plan</Link> takes the days you
+          have and your session length and lays out four weeks from D and A to
+          your first improvised solo, with the evidence each one has to
+          produce. Record day 1 before you build the plan. The baseline is the part people skip, and
           it is the part the whole month gets measured against.
         </p>
       </Article>

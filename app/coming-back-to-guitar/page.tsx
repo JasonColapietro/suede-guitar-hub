@@ -236,7 +236,8 @@ export default function ComingBackToGuitarPage() {
           Then choose one finish line for days 8 to 30. One song, played start
           to finish without stopping, at a tempo you choose, recorded on day 30.
           One finish line beats a plan to get everything back at once, because
-          it gives every session the same target. The <Link href="/breakthrough">30-day breakthrough planner</Link> turns that finish line into four weeks of practice focuses, and if you cannot tell what is holding the song back, the <Link href="/diagnose">practice plateau diagnostic</Link> names the most likely cause.
+          it gives every session the same target. If your chords and lead
+          playing both went rusty, the <Link href="/breakthrough">free 30-day plan</Link> rebuilds them in order, from D and A to your first improvised solo, and if you cannot tell what is holding the song back, the <Link href="/diagnose">practice plateau diagnostic</Link> names the most likely cause.
         </p>
 
         <h2>Days 8 to 30: run the loop</h2>

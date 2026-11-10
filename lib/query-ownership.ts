@@ -202,7 +202,7 @@ export const QUERY_OWNERSHIP: readonly QueryCluster[] = [
         href: "/breakthrough",
         question: "Will something build the four weeks for me?",
         scopeLine:
-          "This is the planner rather than the guide: it turns one finish line into four weeks of focuses and a piece of evidence to record each week.",
+          "This is the plan rather than the guide: four weeks of focuses from D and A to your first solo, and a piece of evidence to record each week.",
         descriptionMark: "four-week practice sequence",
       },
     ],

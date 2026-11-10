@@ -42,37 +42,38 @@ const homeText = text(home);
 const start = render(StartPage);
 const startText = text(start);
 
-test("the hero states the differentiator and leads with one primary action", () => {
+test("the hero states the promise and leads with one primary action", () => {
   const hero = home.slice(home.indexOf("<h1"), home.indexOf('id="how-it-works"'));
-  assert.match(text(hero), /Practice guitar with a plan you can prove\./);
-  assert.match(text(hero), /day 1 and day 30/);
-  assert.match(text(hero), /no account/i);
+  assert.match(text(hero), /Play real chords and improvise your first solo in 30 days\./);
+  assert.match(text(hero), /D and A, then E, C and G, then the minor pentatonic box/);
 
   const links = [...hero.matchAll(/<a [^>]*href="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(
     links,
-    ["/breakthrough", "/diagnose", "#levels"],
-    "the hero carries the free plan, the practice check and the beginner text link, in that order",
+    ["/breakthrough", "/start", "#levels"],
+    "the hero carries the free plan, the free module and the lifetime-access link, in that order",
   );
+  assert.equal((hero.match(/data-funnel-primary/g) ?? []).length, 1, "the plan is the one primary button");
   assert.doesNotMatch(hero, /Apply to the room|apps\.apple\.com|strumly|sing\.suedeai/i);
 });
 
 test("the homepage runs its sections in the decided order", () => {
-  const order = ["how-it-works", "tools", "field-guides", "levels", "advanced", "room", "more"];
+  const order = ["how-it-works", "tools", "field-guides", "levels", "more"];
   const positions = order.map((id) => home.indexOf(`id="${id}"`));
   positions.forEach((position, index) => assert.ok(position > 0, `#${order[index]} must render`));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions, `sections must run ${order.join(" → ")}`);
 });
 
-test("the founding room is pitched once and keeps its application form on #apply", () => {
-  assert.equal((homeText.match(/Apply to the room/g) ?? []).length, 0, "the anchor buttons collapsed into the form");
-  assert.equal((home.match(/href="#apply"/g) ?? []).length, 0);
-  assert.equal((home.match(/id="apply"/g) ?? []).length, 1);
-  const room = home.slice(home.indexOf('id="room"'), home.indexOf('id="more"'));
-  assert.ok(room.includes('id="apply"'), "the form sits inside the founding-room section");
-  assert.match(text(room), /group of 8–12 players/);
-  assert.match(text(room), /see the schedule and price before you commit/);
-  assert.match(room, /type="submit"/);
+test("the 30-day path names chords, then the pentatonic scale, then a first solo", () => {
+  const path = text(home.slice(home.indexOf('id="how-it-works"'), home.indexOf('id="tools"')));
+  const modules = ["D and A", "E, C and G", "Box One", "First Solo"].map((name) => path.indexOf(name));
+  modules.forEach((position) => assert.ok(position > 0));
+  assert.deepEqual([...modules].sort((a, b) => a - b), modules);
+});
+
+test("the founding room and its application are retired from the home page", () => {
+  assert.doesNotMatch(home, /id="room"|id="apply"|href="#apply"|type="submit"/);
+  assert.doesNotMatch(homeText, /founding room|Apply to the|8–12 players/i);
 });
 
 test("sister products share one compact row", () => {
@@ -109,7 +110,7 @@ test("/start is a placement, not a copy of the homepage level cards", () => {
   // A measure of the original problem: 62% of /start was the homepage. Count
   // the share of /start's distinct words that also appear in the homepage's
   // level section, the part it used to copy.
-  const levels = home.slice(home.indexOf('id="levels"'), home.indexOf('id="advanced"'));
+  const levels = home.slice(home.indexOf('id="levels"'), home.indexOf('id="more"'));
   const levelWords = new Set(words(text(levels)));
   const main = startText.slice(startText.indexOf("Find your level"));
   const distinct = [...new Set(words(main))];

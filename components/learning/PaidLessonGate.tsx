@@ -23,7 +23,7 @@ export function PaidLessonGate({ track, lesson, access, ready }: {
       <p>GuitarHub lessons require verified lifetime access for this learning track.</p>
       {webCheckout
         ? <p>Lifetime access is {offer.oneTime}, and one purchase opens every guided lesson.</p>
-        : <p>Lifetime access is {offer.oneTime} in {APP_STORE.name} for iPhone. Start the first module free in the app, then one purchase opens the full guitar and voice curriculum.</p>}
+        : <p>Lifetime access is {offer.oneTime} in {APP_STORE.name} for iPhone, and one purchase opens every guided lesson on the web and in the app when you sign in with the same email.</p>}
       {offer.launchNote && <p>{offer.launchNote}</p>}
       <p>{OFFER.guarantee}</p>
       <p className={styles.notice}>{!ready

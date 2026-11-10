@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import type { ReactNode } from "react";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
@@ -642,23 +643,24 @@ export default function GuidesPage() {
               <em className="font-display italic text-peach">build the month.</em>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-white/75">
-              The planner turns one finish line into a four-week sequence and
-              names the evidence each week has to produce. It needs no account.
-              Applying to the founding room starts a fit conversation, is
-              reviewed, and takes no payment.
+              The free 30-day plan turns the guides into four weeks from D and
+              A to your first improvised solo, with a practice action for each
+              day and a printable chord and pentatonic chart pack sent to your
+              inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/breakthrough"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
                 className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
               >
-                Build my 30-day plan <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
               </Link>
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.freeModule.href}
                 className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
           </div>

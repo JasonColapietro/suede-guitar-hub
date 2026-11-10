@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { OG_COLORS, OG_CONTENT_TYPE, OG_SIZE, OgFrame, OgMasthead } from "@/lib/og";
 
-export const alt = "GuitarHub: prove one guitar breakthrough in 30 days.";
+export const alt = "GuitarHub: play real chords and improvise your first solo in 30 days.";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
@@ -29,12 +29,12 @@ export default async function Image() {
             style={{
               display: "flex",
               flexDirection: "column",
-              fontSize: 92,
+              fontSize: 80,
               lineHeight: 1.1,
             }}
           >
-            <div style={{ display: "flex" }}>Prove one</div>
-            <div style={{ display: "flex" }}>guitar breakthrough</div>
+            <div style={{ display: "flex" }}>Real chords and</div>
+            <div style={{ display: "flex" }}>your first solo</div>
             <div style={{ display: "flex", alignItems: "center", marginTop: 12 }}>
               <div style={{ display: "flex" }}>in</div>
               <div

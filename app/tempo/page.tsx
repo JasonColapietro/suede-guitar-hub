@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
 import TempoLadder from "@/components/TempoLadder";
-import { GUIDES, STRUMLY, TOOLS } from "@/lib/site";
+import { OFFER, GUIDES, STRUMLY, TOOLS } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 import { BPM_MAX, BPM_MIN } from "@/lib/tempo";
 
@@ -313,36 +314,34 @@ export default function TempoPage() {
         </section>
 
         <section className="px-3 pb-3">
-          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream">
+          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
             <h2 className="mx-auto max-w-3xl text-4xl leading-tight md:text-5xl">
-              A ladder is the practice.{" "}
+              A ladder gets one passage to tempo.{" "}
               <em className="font-display italic text-peach">
-                The room is the correction.
+                The plan gets you to your first solo.
               </em>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              The builder gives you the next tempo. Apply to the founding room
-              for a small practice crew built around a weekly recording and
-              focused feedback that guides your next session.
+              {OFFER.promise} The free 30-day plan lays out four weeks from D
+              and A to four improvised bars over a blues, with a practice
+              action for each day and a printable chord and pentatonic chart
+              pack sent to your inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
                 className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep motion-safe:transition hover:brightness-105"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
               </Link>
               <Link
-                href="/breakthrough"
-                className="inline-flex min-h-11 w-fit items-center rounded-full border border-peach/40 px-5 py-2 font-semibold underline underline-offset-4 hover:bg-white/5"
+                href={FUNNEL_PRIMARY.freeModule.href}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream motion-safe:transition hover:bg-white/5"
               >
-                Build the 30-day plan
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
-            <p className="mx-auto mt-6 max-w-xl text-sm text-white/60">
-              Applying starts a fit conversation. It does not charge you or
-              create a commitment.
-            </p>
           </div>
         </section>
       </main>

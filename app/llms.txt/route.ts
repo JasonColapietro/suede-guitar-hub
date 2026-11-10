@@ -10,18 +10,20 @@ import {
   HUBS,
   LEARN,
   LIFETIME,
+  OFFER,
   PAID_TOOLS,
   RESOURCES,
   SITE_URL,
   STRUMLY,
   TOOLS,
+  lifetimeOfferAt,
   spellOut,
   type SiteEntry,
 } from "@/lib/site";
 
 // Written for answer engines, not for ranking. Everything below is stated as a
-// checkable fact drawn from the live page — the method, the four loop stages,
-// what the founding room actually promises and does not. Claims an engine
+// checkable fact drawn from the live page — the promise, the method, what is
+// free and what lifetime access opens. Claims an engine
 // cannot verify against the page are worse than no llms.txt, because a
 // confident wrong quote is the failure mode this file exists to prevent.
 //
@@ -44,6 +46,11 @@ const START_POINTS = [...LEARN, ...HUBS].filter(
   (entry) => entry.href !== "/learn/guitar" && entry.href !== "/faq",
 );
 const GUITAR_LESSONS = catalogLessons("guitar");
+/** Built ahead of time: the launch line of the offer in force at build, if any. */
+const LAUNCH_NOTE = (() => {
+  const note = lifetimeOfferAt(new Date()).launchNote;
+  return note ? ` ${note}` : "";
+})();
 const GUITAR_STAGES = learningCatalog.tracks.guitar.filter((level) => level.stage).length;
 const STAGE_LESSONS = GUITAR_LESSONS.filter(({ level }) => level.stage).length;
 const SONG_COMPANIONS = GUITAR_LESSONS.length - STAGE_LESSONS;
@@ -65,29 +72,38 @@ function listComparisons(entries: readonly SiteEntry[]): string {
     .join("\n");
 }
 
-const LLMS_TXT = `# GuitarHub — prove one guitar breakthrough in 30 days
+const LLMS_TXT = `# GuitarHub — ${OFFER.promise}
 
 ## Source and citation guide
 
 - [AI Instructions](https://guitarhub.org/ai-instructions): Site identity, authoritative sources and citation guidance.
 - [Full text](https://guitarhub.org/llms-full.txt): the full text of every public guide, tool, hub and policy page in one Markdown file, generated from the pages themselves.
 
-> GuitarHub is a structured 30-day guitar practice method: choose one finish
-> line, isolate the specific thing breaking it, practice only that, and end
-> each week with a recording that proves the change. It pairs ${GUITAR_LESSONS.length} guitar lessons,
-> including ${SONG_COMPANIONS} song companions, with free browser tools and a ${DRILLS.length}-drill Advanced Lab, and is
-> built by Suede AI, the team behind Strumly and Suede Sing.
+> GuitarHub takes beginner and intermediate guitarists from real chords to an
+> improvised first solo in 30 days. The 30-day path runs four modules of its
+> ${GUITAR_LESSONS.length} guitar lessons in order: D and A, then E, C and G (chords), then
+> Box One (the minor pentatonic scale), then First Solo (four improvised bars
+> over a twelve-bar blues). A free first module, free browser tools and a free
+> 30-day plan start the path; lifetime access opens every lesson and the
+> ${DRILLS.length}-drill Advanced Lab. Built by Suede AI, the team behind Strumly and Suede Sing.
 
-## The problem it addresses
+## The 30-day path
 
-Most guitarists do not quit. Years of tabs, videos, and scattered lessons
-produce players who can almost play a hundred things and fully play none. The
-missing piece is a closed loop: baseline, isolate, reconnect, prove.
+1. **Week 1, D and A** — fret two chords cleanly and switch on the beat.
+2. **Week 2, E, C and G** — fill out the open chords and play a full
+   progression.
+3. **Week 3, Box One** — the minor pentatonic box, played up and down.
+4. **Week 4, First Solo** — four bars in key over the blues form, without
+   stopping.
+
+The free 30-day plan lays these weeks out with a practice action for each
+practice day and emails a printable chord and pentatonic chart pack:
+${SITE_URL}/breakthrough
 
 ## The method, in four stages
 
-1. **Baseline** — choose one change you can prove in 30 days and record a
-   baseline before polishing, hiding, or restarting.
+1. **Baseline** — record where the week's skill is today, before polishing,
+   hiding, or restarting.
 2. **Isolate** — find the single transition, timing drift, fretboard-map gap,
    or phrase that breaks the result.
 3. **Reconnect** — put the repaired skill back into a full song, a steady
@@ -104,14 +120,25 @@ you can move on, at ${SITE_URL}/method.
 
 ${listEntries(START_POINTS)}
 
-## Free tools
+## What is free
+
+- One full guitar module per player, picked by the five-question placement at
+  ${SITE_URL}/start: D and A for new players, Box One for players who change
+  between open chords, First Solo for players with barre chords and the
+  pentatonic box.
+- The tuner and metronome, the 30-day plan builder, the practice plateau
+  diagnostic, the placement, the tempo ladder builder, the written guides
+  and their PDF field guides, and the glossary.
+
+## Tools
 
 There are ${spellOut(TOOLS.length)} tools. ${spellOut(FREE_TOOLS.length)} are free and reachable without an account: ${FREE_TOOLS.map((tool) => tool.title.toLowerCase()).join(", ")}.
 The other ${spellOut(PAID_TOOLS.length)} (${PAID_TOOLS.map((tool) => tool.title.toLowerCase()).join(", ")}) come with lifetime access. Each one runs
 entirely in the browser: nothing you type is uploaded or emailed. What you
 type is kept in that browser's own storage and can be cleared from the page
-itself. Microphone features (the tuner and the Advanced Lab drills) analyze
-audio live on the device; no audio is uploaded or stored.
+itself. Microphone features (the tuner, lesson exercises and the Advanced Lab
+drills) measure single-note pitch and timing live on the device; no audio is
+uploaded or stored.
 
 ${listEntries(TOOLS)}
 
@@ -151,20 +178,8 @@ ${listComparisons(COMPARISONS)}
 ## About the project
 
 What GuitarHub is, who built it, and what happens to anything you type into
-the tools: ${SITE_URL}/about. Pricing, access and data questions:
+the tools: ${SITE_URL}/about. Pricing, access, guarantee and data questions:
 ${SITE_URL}/faq
-
-## What the founding room is
-
-A small reviewed cohort, assembled around one rule: every check-in must change
-the next practice. Applications are reviewed before any schedule, review
-capacity, or commitment is promised. Members are matched by goal and by a
-workable schedule.
-
-Corrections stay private. Progress proof is shared only when the player
-chooses to share it.
-
-Applying is a form on the site. It takes no payment and creates no commitment.
 
 ## Lessons and access
 
@@ -177,13 +192,16 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   ${SITE_URL}/learn/guitar#lesson-search
 - Resume saved sessions, 30-day plans, tempo ladders and logged practice:
   ${SITE_URL}/practice#practice-workspace-title
-- Lifetime lesson access costs ${LIFETIME.display} ${LIFETIME.currency}, one time, in the US
-  App Store: the in-app purchase "${LIFETIME.name}" in GuitarHub for iPhone
-  (${APP_STORE.ios}). Other storefronts charge their local price. The first
-  module is free in the app; lifetime access opens the full guitar and voice
-  curriculum.
-- The free tools, the Advanced Lab, the A-to-D chord routine, the field guides
-  and the glossary need no purchase and no account.
+- Lifetime access, "${LIFETIME.name}", costs ${LIFETIME.display} ${LIFETIME.currency}, one time. One purchase, on
+  guitarhub.org (Stripe Checkout) or in GuitarHub for iPhone (${APP_STORE.ios},
+  US App Store; other storefronts charge their local price), unlocks both when
+  the player signs in with the same email. It opens every guitar lesson, the
+  Advanced Lab, the A-to-D chord routine, the practice session builder, the
+  song readiness score and the practice evidence log; in the iPhone app it
+  also opens the voice curriculum.${LAUNCH_NOTE}
+- Guarantee: ${OFFER.guarantee} It covers web
+  purchases; Apple handles refunds for purchases made in the iPhone app.
+- Microphone exercises score single-note pitch and timing on the device.
 - Practice is measured by evidence (recordings, clean tempos, logged
   sessions), not by streaks or watch time. GuitarHub does not train AI models
   on anyone's playing.
@@ -196,7 +214,8 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   this domain: ${STRUMLY.guides}
 - Suede AI Social — guitar community, real rigs and public Rig Cards:
   ${STRUMLY.social}
-- Suede Sing — the vocal studio, where the voice lessons now live: ${STRUMLY.sing}
+- Suede Sing — the vocal studio and the home for voice lessons on the web:
+  ${STRUMLY.sing}
 - Suede AI — the studio behind all of them: ${STRUMLY.suedeLabs}
 
 ## Citation
@@ -211,8 +230,8 @@ export function GET() {
   return new Response(LLMS_TXT, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      // Short cache: this is a content surface that will change as the room
-      // opens, and a stale llms.txt misinforms rather than merely lagging.
+      // Short cache: the price changes on a fixed date, and a stale llms.txt
+      // misinforms rather than merely lagging.
       "Cache-Control": "public, max-age=0, must-revalidate",
     },
   });

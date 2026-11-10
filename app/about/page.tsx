@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
-import { APP_STORE, FREE_TOOLS, GUIDES, LEARN, LIFETIME, PAID_TOOLS, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
+import { APP_STORE, FREE_TOOLS, GUIDES, LEARN, LIFETIME, OFFER, PAID_TOOLS, SITE_URL, STRUMLY, TOOLS, spellOut } from "@/lib/site";
 import { DRILLS } from "@/lib/advanced/drills";
 import { allLessons, curricula } from "@/lib/learning/curriculum";
 import { SING_VOICE_COURSE } from "@/lib/voice-redirects";
@@ -10,7 +10,7 @@ import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/about`;
 const PUBLISHED = "2026-09-04";
-const UPDATED = "2026-11-03";
+const UPDATED = "2026-11-10";
 
 /**
  * Counted from the curriculum, never typed: the stage lessons and the
@@ -118,15 +118,17 @@ export default function AboutPage() {
         relatedTitle="Start with one of these"
       >
         <p>
-          GuitarHub is where Suede AI teaches guitar. The{" "}
+          GuitarHub is where Suede AI teaches guitar, built around one
+          promise: {OFFER.promise.charAt(0).toLowerCase()}{OFFER.promise.slice(1)} The{" "}
           <Link href="/learn/guitar">guitar path</Link> starts at the first
           foundations, how to hold the instrument, tune it, and get one clean
-          note, and works up through chords, reading, rhythm and the whole
-          neck. The guided lessons open with lifetime access,{" "}
-          {LIFETIME.oneTime} in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for iPhone,
-          and your place on the web is kept in this browser. The voice lessons
-          moved to <a href={SING_VOICE_COURSE}>Suede Sing</a>, where all of
-          them are free. Pricing, access and data questions are answered in{" "}
+          note, and works up through chords, the pentatonic scale, the blues
+          and the whole neck. Your first module is free, and the rest of the
+          guided lessons open with lifetime access, {LIFETIME.oneTime} on
+          guitarhub.org or in <a href={APP_STORE.ios}>{APP_STORE.name}</a> for
+          iPhone. The voice lessons moved to{" "}
+          <a href={SING_VOICE_COURSE}>Suede Sing</a>, the home for voice on
+          the web. Pricing, access and data questions are answered in{" "}
           <Link href="/faq">the GuitarHub FAQ</Link>, and{" "}
           <Link href="/compare">the GuitarHub comparisons</Link> set the site
           side by side with Fender Play, Yousician, JustinGuitar, Guitar Tricks
@@ -173,8 +175,9 @@ export default function AboutPage() {
         <p>
           The lesson paths and the practice tools serve different needs. A new
           player can follow the opening instruction and let the site keep the
-          order. A returning player can skip the lessons and use the planner or
-          the practice log alongside material they already follow.
+          order. A returning player can take the placement, start at the
+          module that fits, and use the free tools alongside material they
+          already follow.
         </p>
 
         <h2>What GuitarHub is</h2>
@@ -207,9 +210,10 @@ export default function AboutPage() {
         </p>
 
         <p>
-          <strong>The Advanced Lab</strong>, {DRILLS.length} free scored drills
+          <strong>The Advanced Lab</strong>, {DRILLS.length} scored drills
           for experienced players across technique, theory, rhythm, ear
-          training, fretboard, improvisation, repertoire and tone.{" "}
+          training, fretboard, improvisation, repertoire and tone, included
+          with lifetime access.{" "}
           <Link href="/advanced">Open the Advanced Lab</Link>.
         </p>
 
@@ -225,8 +229,9 @@ export default function AboutPage() {
             keeps a steady four-beat click at your tempo.
           </li>
           <li>
-            <Link href="/breakthrough">The 30-day breakthrough planner</Link>{" "}
-            turns one finish line into a four-week sequence you can start today.
+            <Link href="/breakthrough">The 30-day chords-to-first-solo plan</Link>{" "}
+            maps four weeks from D and A to your first solo and sends a
+            printable chord and pentatonic chart pack to your inbox.
           </li>
           <li>
             <Link href="/diagnose">The practice plateau diagnostic</Link> ends
@@ -234,9 +239,9 @@ export default function AboutPage() {
             rather than by giving you a score.
           </li>
           <li>
-            <Link href="/session">The practice session builder</Link> turns the
-            minutes you have into timed blocks, weighted toward the one thing
-            you are fixing.
+            <Link href="/session">The practice session builder</Link>, with
+            lifetime access, turns the minutes you have into timed blocks,
+            weighted toward the one thing you are fixing.
           </li>
           <li>
             <Link href="/tempo">The tempo ladder builder</Link> turns one
@@ -244,13 +249,13 @@ export default function AboutPage() {
             between them.
           </li>
           <li>
-            <Link href="/readiness">The song readiness score</Link> checks a
-            song against the parts that break under pressure, before you decide
+            <Link href="/readiness">The song readiness score</Link>, with
+            lifetime access, checks a song against the parts that break under pressure, before you decide
             it is finished.
           </li>
           <li>
-            <Link href="/log">The practice evidence log</Link> takes one line
-            per session and reports what moved, with no streak counter and no
+            <Link href="/log">The practice evidence log</Link>, with lifetime
+            access, takes one line per session and reports what moved, with no streak counter and no
             direction drawn through fewer than three sessions.
           </li>
         </ul>
@@ -266,16 +271,21 @@ export default function AboutPage() {
         </p>
 
         <p>
-          <strong>An application to a founding room</strong>, described below.
+          <strong>A free first module</strong>, picked by a{" "}
+          <Link href="/start">five-question placement</Link>: D and A for new
+          players, Box One for players who change between open chords, First
+          Solo for players with barre chords and the pentatonic box under
+          their fingers.
         </p>
 
         <h2>Make each practice count</h2>
         <p>
-          Start with the opening module of a path and the free browser tools.
-          Use the practice loop to choose one goal, capture a baseline on your
-          phone, and bring a recording and a specific question to your next
-          lesson. Apply for the founding room for a personal response about
-          your playing goals.
+          Start with your free module, the{" "}
+          <Link href="/breakthrough">free 30-day plan</Link> and the free
+          browser tools. Use the practice loop to capture a baseline on your
+          phone, work the one thing that breaks it, and record again at the
+          end of the week. Lifetime access opens every lesson when you are
+          ready for the rest of the path.
         </p>
 
         <h2>How this fits with Strumly and Suede AI Social</h2>
@@ -305,36 +315,6 @@ export default function AboutPage() {
           and talk to each other.
         </p>
 
-        <h2>Apply for the founding room</h2>
-
-        <p>
-          Applications for the founding room are open and reviewed personally.
-          Tell us what you want to improve and what your practice week looks like.
-        </p>
-
-        <p>
-          The intent is a small room, 8 to 12 players, assembled around one
-          rule: a check-in has to change the next practice. Members would be
-          matched by goal and by a schedule that works in a real week,
-          corrections would stay private, and progress proof would be shared
-          only when a player chooses to share it. The founding-room design puts focused practice and personal feedback
-          at the center.
-        </p>
-
-        <p>
-          Applying sends four things: your name, your email address, a line
-          about your playing experience, and one sentence naming the change you
-          want to prove in thirty days. It arrives as an email at
-          info@suedeai.ai and it is read personally. It takes no payment, asks
-          for no card, and creates no commitment on either side. You will receive a personal response about your goal and the next step.
-        </p>
-
-        <p>
-          You see the schedule, review capacity, and price before you are asked
-          to commit to anything.{" "}
-          <Link href="/#apply">The application form is on the home page.</Link>
-        </p>
-
         <h2>What happens to what you type</h2>
 
         <p>
@@ -356,11 +336,14 @@ export default function AboutPage() {
         </p>
 
         <p>
-          The application form sends the four fields you fill in through Resend
-          to info@suedeai.ai. The website host also processes ordinary connection
-          information to deliver and protect the site. The{" "}
-          <Link href="/privacy">Privacy Policy</Link> explains microphone use,
-          local records, purchases, hosting, and messages in more detail.
+          The 30-day plan and field guide forms store the email you enter and
+          send the plan and practice tips through Resend, with an unsubscribe
+          link in every email. An optional account stores your email and
+          practice history. Stripe processes web payments. The website host
+          also processes ordinary connection information to deliver and
+          protect the site. The <Link href="/privacy">Privacy Policy</Link>{" "}
+          explains microphone use, local records, accounts, purchases, email,
+          and hosting in more detail.
         </p>
 
         <h2>Corrections and contact</h2>

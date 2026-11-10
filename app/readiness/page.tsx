@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import Readiness from "@/components/Readiness";
 import { PaidToolGate } from "@/components/paywall/PaidToolGate";
 import { checkoutAvailable } from "@/lib/checkout/config";
@@ -9,7 +10,7 @@ import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
-import { GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, isInternalHref, lifetimeOfferAt } from "@/lib/site";
+import { OFFER, GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, isInternalHref, lifetimeOfferAt } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/readiness`;
@@ -221,10 +222,10 @@ export default function ReadinessPage() {
                 Score a song <span aria-hidden>→</span>
               </a>
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.freeModule.href}
                 className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
           </div>
@@ -355,7 +356,7 @@ export default function ReadinessPage() {
                 href="/breakthrough"
                 className="text-indigo-deep underline underline-offset-4 hover:text-violet"
               >
-                breakthrough planner
+                30-day plan
               </Link>{" "}
               run it week by week.
             </p>
@@ -417,29 +418,32 @@ export default function ReadinessPage() {
         </section>
 
         <section className="px-3 pb-3">
-          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center md:py-24">
-            <h2 className="mx-auto max-w-2xl text-4xl text-cream md:text-5xl">
+          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
+            <h2 className="mx-auto max-w-3xl text-4xl leading-tight md:text-5xl">
               One song, tested properly,{" "}
-              <em className="font-display italic text-peach">beats five nearly done.</em>
+              <em className="font-display italic text-peach">
+                beats five nearly done.
+              </em>
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-white/75">
-              Score the song, do the one action, and score it again. If you want
-              a human layer around that work, the founding room is being
-              assembled as a small crew with a weekly studio. Applying starts a
-              fit conversation and takes no payment.
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
+              {OFFER.promise} The free 30-day plan lays out four weeks from D
+              and A to four improvised bars over a blues, with a practice
+              action for each day and a printable chord and pentatonic chart
+              pack sent to your inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/breakthrough"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep motion-safe:transition hover:brightness-105"
               >
-                Build my 30-day plan <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
               </Link>
               <Link
-                href="/#apply"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
+                href={FUNNEL_PRIMARY.freeModule.href}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream motion-safe:transition hover:bg-white/5"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
           </div>

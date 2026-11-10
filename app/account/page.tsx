@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
 import { APP_STORE, LIFETIME } from "@/lib/site";
-import { accountConfiguration, safeAccountDestination } from "@/lib/learning-auth/config";
+import { accountConfiguration, accountReturnLabel, safeAccountDestination } from "@/lib/learning-auth/config";
 import { resolveAccount } from "@/lib/learning-auth/server";
 import AccountSignIn from "./sign-in";
 import { getVerifiedLearningAccess } from "@/lib/learning-auth/access";
@@ -31,7 +31,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         {params.error && <p role="alert">Sign-in did not finish. Please try again.</p>}
         <AccountSignIn returnTo={returnTo} />
       </>}
-    {returnTo !== "/account" && <p><Link href={returnTo}>Return to your lesson</Link></p>}
+    {returnTo !== "/account" && <p><Link href={returnTo}>{accountReturnLabel(returnTo)}</Link></p>}
     <p><Link href="/learn/guitar">Return to guitar lessons</Link> · <Link href="/privacy">Privacy</Link></p>
   </Article>;
 }

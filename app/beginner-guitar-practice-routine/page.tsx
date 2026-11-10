@@ -366,7 +366,7 @@ export default function BeginnerGuitarPracticeRoutinePage() {
         </ul>
 
         <p>
-          For a second view of the beginner path, Strumly&apos;s <a href={STRUMLY.beginnerPath}>beginner guitar learning path</a> lays out the same early skills in order. When you are ready to set one finish line for a month, the <Link href="/breakthrough">30-day breakthrough planner</Link> turns it into four weeks of focused practice.
+          For a second view of the beginner path, Strumly&apos;s <a href={STRUMLY.beginnerPath}>beginner guitar learning path</a> lays out the same early skills in order. When you are ready for a month with a finish line, the <Link href="/breakthrough">free 30-day plan</Link> takes you from D and A to your first improvised solo in four weeks of focused practice.
         </p>
 
         <h2>Questions that come up</h2>

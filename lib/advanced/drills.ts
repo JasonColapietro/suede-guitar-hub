@@ -19,7 +19,7 @@ import type { PracticeSpec, PracticeTarget } from "../audio/practice.ts";
 
 export type SkillAreaId = "technique" | "theory" | "rhythm" | "ear" | "fretboard" | "improvisation" | "repertoire" | "tone";
 /**
- * Difficulty, not price: every Advanced Lab drill is free. "Core" drills are the
+ * Difficulty, not price: every Advanced Lab drill opens with lifetime access. "Core" drills are the
  * fretboard map every other drill assumes, "Advanced" is the main body of the
  * lab, and "Expert" marks the drills that ask the most of the hands or the ear.
  */
@@ -130,7 +130,7 @@ export const DRILLS: readonly Drill[] = [
     id: "three-note-legato-g-major", area: "technique", tier: "Advanced", minutes: 8,
     title: "Three Notes a String, G Major",
     summary: "Pick once per string and hammer the next two, up four strings and back.",
-    seo: { title: "Three-Note-Per-String Legato Drill in G Major", description: "Free three-notes-per-string guitar legato drill in G major: pick once, hammer twice, pull off on the way down, with live pitch scoring through your mic." },
+    seo: { title: "Three-Note-Per-String Legato Drill in G Major", description: "A three-notes-per-string guitar legato drill in G major: pick once, hammer twice, pull off on the way down, with live pitch scoring through your mic." },
     why: "Three notes per string covers the neck in fast, even runs without stretching the fretting hand or picking every note. The spot to watch is the third note on each string: it is the second hammer-on or pull-off in a row, so it is where the volume tends to drop.",
     steps: [
       "Fret 3, 5 and 7 on string 6 with fingers 1, 2 and 4. Pick the first note, hammer the other two.",
@@ -149,7 +149,7 @@ export const DRILLS: readonly Drill[] = [
     id: "a-minor-sweep", area: "technique", tier: "Expert", minutes: 8,
     title: "A Minor Sweep, Five Strings",
     summary: "One continuous pick stroke across five strings, each note separate and clean.",
-    seo: { title: "A Minor Sweep Picking Drill, Five Strings", description: "Free five-string A minor sweep picking drill for guitar: one pick stroke each way, every note separated, scored live note by note through your microphone." },
+    seo: { title: "A Minor Sweep Picking Drill, Five Strings", description: "A five-string A minor sweep picking drill for guitar: one pick stroke each way, every note separated, scored live note by note through your microphone." },
     why: "A sweep is one pick stroke that falls through the strings, and it sounds like a clean arpeggio when each note stops as the next one speaks. Played slowly, it builds the rolling fretting-hand mute that keeps the notes apart.",
     steps: [
       "Fret the shape at the 12th position: string 5 fret 12, string 4 fret 10, string 3 fret 9, string 2 fret 10, string 1 fret 8 then 12.",
@@ -166,7 +166,7 @@ export const DRILLS: readonly Drill[] = [
     id: "octave-string-skipping", area: "technique", tier: "Advanced", minutes: 6,
     title: "String Skipping in Octaves",
     summary: "Jump over a string on every move: root, octave, third, octave through C, Am, F and G.",
-    seo: { title: "Guitar String Skipping Drill in Octaves", description: "Free guitar string skipping drill: root, octave, third and octave through C, Am, F and G with strict alternate picking, scored live through your mic." },
+    seo: { title: "Guitar String Skipping Drill in Octaves", description: "A guitar string skipping drill: root, octave, third and octave through C, Am, F and G with strict alternate picking, scored live through your mic." },
     why: "Skipping strings puts picking accuracy under real pressure, because the pick has to clear a string it is not playing. Octave shapes make the jumps predictable so the right hand can learn them.",
     steps: [
       "For each chord play the root, jump one string to its octave, then the third and its octave. Over F the third is A: open string 5, then string 3 fret 2.",
@@ -186,7 +186,7 @@ export const DRILLS: readonly Drill[] = [
     id: "bends-in-tune", area: "technique", tier: "Advanced", minutes: 6,
     title: "Bends That Land in Tune",
     summary: "Play the target note fretted, then bend from a lower fret up to the exact same pitch, a whole step or a half step.",
-    seo: { title: "Guitar String Bending Drill: Bends in Tune", description: "Free guitar string bending drill: hear the fretted target, then bend a whole or half step up to match it. Your microphone checks each bend within 25 cents." },
+    seo: { title: "Guitar String Bending Drill: Bends in Tune", description: "A guitar string bending drill: hear the fretted target, then bend a whole or half step up to match it. Your microphone checks each bend within 25 cents." },
     why: "An out-of-tune bend is one of the quickest ways for a solo to sound unfinished, and bend pitch is something the microphone measures to within 25 cents. Hearing the fretted target first gives your ear the pitch to aim for.",
     steps: [
       "Play the fretted target (the first note of each pair) and listen to it.",
@@ -207,7 +207,7 @@ export const DRILLS: readonly Drill[] = [
     id: "ii-v-i-arpeggios", area: "theory", tier: "Advanced", minutes: 7,
     title: "ii–V–I Arpeggios in C",
     summary: "Spell Dm7, G7 and Cmaj7 note by note in one position.",
-    seo: { title: "ii–V–I Arpeggios in C: Guitar Theory Drill", description: "Free ii–V–I guitar arpeggio drill in C: spell Dm7, G7 and Cmaj7 note by note in one position, with live pitch scoring that checks every chord tone." },
+    seo: { title: "ii–V–I Arpeggios in C: Guitar Theory Drill", description: "A ii–V–I guitar arpeggio drill in C: spell Dm7, G7 and Cmaj7 note by note in one position, with live pitch scoring that checks every chord tone." },
     why: "The ii–V–I is the central cadence of jazz standards and turns up across soul, bossa nova and pop. Playing each chord as its four notes connects the theory name to the sound and to a place on the neck.",
     steps: [
       "Dm7 is D, F, A, C. G7 is G, B, D, F. Cmaj7 is C, E, G, B.",
@@ -225,7 +225,7 @@ export const DRILLS: readonly Drill[] = [
     id: "guide-tones", area: "theory", tier: "Expert", minutes: 6,
     title: "Guide Tones Through a ii–V–I",
     summary: "Play only the third and seventh of each chord and hear the progression move by half steps.",
-    seo: { title: "Guide Tones Guitar Drill: ii–V–I 3rds and 7ths", description: "Free guide tone guitar drill: play only the 3rd and 7th of Dm7, G7 and Cmaj7 and hear the line move by half steps, with live pitch scoring on every note." },
+    seo: { title: "Guide Tones Guitar Drill: ii–V–I 3rds and 7ths", description: "A guide tone guitar drill: play only the 3rd and 7th of Dm7, G7 and Cmaj7 and hear the line move by half steps, with live pitch scoring on every note." },
     why: "Thirds and sevenths define a chord's quality. Moving between them by the smallest step is how players outline changes with two notes, and it gives a solo over chord changes a clear melodic spine.",
     steps: [
       "Dm7: F and C. G7: F and B. Cmaj7: E and B.",
@@ -242,7 +242,7 @@ export const DRILLS: readonly Drill[] = [
     id: "aeolian-vs-dorian", area: "theory", tier: "Advanced", minutes: 6,
     title: "One Root, Two Modes",
     summary: "Play A Aeolian, then A Dorian, and hear what one changed note does.",
-    seo: { title: "Aeolian vs Dorian Mode Guitar Drill in A", description: "Free guitar modes drill: play A Aeolian, then A Dorian, and hear the one note that changes, the sixth. Live pitch scoring checks each scale degree." },
+    seo: { title: "Aeolian vs Dorian Mode Guitar Drill in A", description: "A guitar modes drill: play A Aeolian, then A Dorian, and hear the one note that changes, the sixth. Live pitch scoring checks each scale degree." },
     why: "Modes are easiest to hear against a fixed root. Aeolian and Dorian differ by a single note, the sixth, and that one note turns a dark minor sound into a brighter, warmer one.",
     steps: [
       "A Aeolian: A B C D E F G A, starting at string 6 fret 5.",
@@ -261,7 +261,7 @@ export const DRILLS: readonly Drill[] = [
     id: "funk-sixteenths", area: "rhythm", tier: "Advanced", minutes: 6,
     title: "Syncopated Sixteenths",
     summary: "Keep your hand moving in sixteenths and let only the written hits sound.",
-    seo: { title: "Syncopated Sixteenth Funk Guitar Rhythm Drill", description: "Free funk guitar rhythm drill: keep the strumming hand moving in sixteenths and sound only the syncopated hits. Your mic times every attack live." },
+    seo: { title: "Syncopated Sixteenth Funk Guitar Rhythm Drill", description: "A funk guitar rhythm drill: keep the strumming hand moving in sixteenths and sound only the syncopated hits. Your mic times every attack live." },
     why: "Funk rhythm guitar rides on a constant sixteenth-note motion in which many strokes deliberately miss the strings. The groove lives in which strokes connect, and attack timing is exactly what the microphone checks.",
     steps: [
       "Move your strumming hand down and up on every sixteenth, all the time, even when you are not hitting.",
@@ -275,7 +275,7 @@ export const DRILLS: readonly Drill[] = [
     id: "quarter-note-triplets", area: "rhythm", tier: "Expert", minutes: 6,
     title: "Three Over Two",
     summary: "Play quarter-note triplets, three even hits across every two beats.",
-    seo: { title: "Quarter-Note Triplets Guitar Drill (3 Over 2)", description: "Free quarter-note triplet guitar drill: three even hits across every two beats, the three-over-two feel of blues and soul, timed live by your mic." },
+    seo: { title: "Quarter-Note Triplets Guitar Drill (3 Over 2)", description: "A quarter-note triplet guitar drill: three even hits across every two beats, the three-over-two feel of blues and soul, timed live by your mic." },
     why: "Quarter-note triplets float across the bar line and are a staple of blues and soul phrasing. They are easy to square off into straight quarters and eighths, and the timing grid shows the moment that happens.",
     steps: [
       "Count eighth-note triplets under your breath: 1-trip-let 2-trip-let.",
@@ -289,7 +289,7 @@ export const DRILLS: readonly Drill[] = [
     id: "triplet-sixteenth-shift", area: "rhythm", tier: "Advanced", minutes: 6,
     title: "Gear Shift: Triplets to Sixteenths",
     summary: "One bar of eighth-note triplets, one bar of sixteenths, back and forth.",
-    seo: { title: "Triplets to Sixteenths Guitar Rhythm Drill", description: "Free guitar subdivision drill: one bar of eighth-note triplets, one bar of sixteenths, the beat dead still. Your mic times every attack to the grid." },
+    seo: { title: "Triplets to Sixteenths Guitar Rhythm Drill", description: "A guitar subdivision drill: one bar of eighth-note triplets, one bar of sixteenths, the beat dead still. Your mic times every attack to the grid." },
     why: "Switching subdivisions while the beat stays put is a core test of solid time. The shift into sixteenths is the usual place for the tempo to creep forward.",
     steps: [
       "Bar 1: three even notes per beat. Bar 2: four even notes per beat.",
@@ -306,7 +306,7 @@ export const DRILLS: readonly Drill[] = [
     id: "dotted-eighth-displacement", area: "rhythm", tier: "Expert", minutes: 5,
     title: "Dotted-Eighth Displacement",
     summary: "Hits every three sixteenths, so the accent walks across the beat for three bars.",
-    seo: { title: "Dotted-Eighth Rhythm Displacement Guitar Drill", description: "Free dotted-eighth guitar rhythm drill: a hit every three sixteenths walks the accent across the beat for three bars, every attack timed by your mic." },
+    seo: { title: "Dotted-Eighth Rhythm Displacement Guitar Drill", description: "A dotted-eighth guitar rhythm drill: a hit every three sixteenths walks the accent across the beat for three bars, every attack timed by your mic." },
     why: "A figure of three against a pulse of four drives many delay-based guitar parts and a lot of modern riffing. It only works if you keep the four underneath.",
     steps: [
       "Count sixteenths: 1-e-and-a. Hit on every third one.",
@@ -322,7 +322,7 @@ export const DRILLS: readonly Drill[] = [
     id: "intervals-from-a", area: "ear", tier: "Advanced", minutes: 7,
     title: "Hear It, Find It: Intervals from A",
     summary: "Press Hear target, then find the note by ear before you look at the diagram.",
-    seo: { title: "Guitar Interval Ear Training Drill from A", description: "Free guitar ear training drill: hear a major 3rd, perfect 4th, perfect 5th, major 6th, minor 7th and octave above A, then find each one on the neck by ear." },
+    seo: { title: "Guitar Interval Ear Training Drill from A", description: "A guitar ear training drill: hear a major 3rd, perfect 4th, perfect 5th, major 6th, minor 7th and octave above A, then find each one on the neck by ear." },
     why: "Knowing what an interval sounds like on your own guitar is a big part of playing what you hear. Each pair starts on the same root, so the only new information is the distance.",
     steps: [
       "Press Hear target for each note. Try to find it on the neck without reading the fret number.",
@@ -339,7 +339,7 @@ export const DRILLS: readonly Drill[] = [
     id: "phrase-by-ear", area: "ear", tier: "Advanced", minutes: 6,
     title: "An Eight-Note Phrase by Ear",
     summary: "An original E minor phrase, learned one note at a time from the reference tone.",
-    seo: { title: "Guitar Transcription Drill: Phrase by Ear", description: "Free guitar transcription drill: learn an original eight-note E minor phrase by ear, one reference tone at a time, then play it from memory at tempo." },
+    seo: { title: "Guitar Transcription Drill: Phrase by Ear", description: "A guitar transcription drill: learn an original eight-note E minor phrase by ear, one reference tone at a time, then play it from memory at tempo." },
     why: "Transcribing builds vocabulary straight from sound. This short original phrase sits in one position, so the only job is hearing the next note.",
     steps: [
       "Hear the first note and find it. Then hear each following note and find it before moving on.",
@@ -355,7 +355,7 @@ export const DRILLS: readonly Drill[] = [
     id: "musical-alphabet-low-e", area: "fretboard", tier: "Core", minutes: 5,
     title: "The Musical Alphabet on One String",
     summary: "Every natural note on string 6, up to the 12th fret and back down.",
-    seo: { title: "Low E String Notes: Guitar Fretboard Drill", description: "Free guitar fretboard drill: play every natural note on the low E string up to the 12th fret and back, naming each one, with live pitch scoring." },
+    seo: { title: "Low E String Notes: Guitar Fretboard Drill", description: "A guitar fretboard drill: play every natural note on the low E string up to the 12th fret and back, naming each one, with live pitch scoring." },
     why: "Power chords and the main barre chord shapes take their root from string 6 or 5. Knowing the natural notes on the low E string instantly is the map the rest of the fretboard work builds on.",
     steps: [
       "The notes go E F G A B C D E. There is no sharp between E and F or between B and C, so those are one fret apart.",
@@ -372,7 +372,7 @@ export const DRILLS: readonly Drill[] = [
     id: "movable-shape-roots", area: "fretboard", tier: "Core", minutes: 5,
     title: "Your First Movable Shape",
     summary: "Find the root on string 6 or 5 for eight chords, the way you would place a power or barre chord.",
-    seo: { title: "Guitar Chord Roots on Strings 6 and 5 Drill", description: "Free guitar fretboard drill: place the roots of eight chords on string 6 or 5, the way you set up a power or barre chord, with live pitch scoring." },
+    seo: { title: "Guitar Chord Roots on Strings 6 and 5 Drill", description: "A guitar fretboard drill: place the roots of eight chords on string 6 or 5, the way you set up a power or barre chord, with live pitch scoring." },
     why: "A movable shape is only useful if you can put its root on the right fret without hunting. This drill is that placement, one root at a time.",
     steps: [
       "Each cue names a chord. Find its root on string 6 or 5 as shown.",
@@ -386,7 +386,7 @@ export const DRILLS: readonly Drill[] = [
     id: "every-c", area: "fretboard", tier: "Advanced", minutes: 6,
     title: "Find Every C",
     summary: "The same note in seven places across three octaves.",
-    seo: { title: "Find Every C on the Guitar Fretboard Drill", description: "Free guitar fretboard drill: find the note C in seven places across three octaves with octave shapes. Live pitch scoring checks the note and octave." },
+    seo: { title: "Find Every C on the Guitar Fretboard Drill", description: "A guitar fretboard drill: find the note C in seven places across three octaves with octave shapes. Live pitch scoring checks the note and octave." },
     why: "Players who know the neck see one note in all its places at once. Once you can find every C, every chord and scale built on C has more than one home.",
     steps: [
       "Find each C where the cue says, switching octave on almost every note.",
@@ -402,7 +402,7 @@ export const DRILLS: readonly Drill[] = [
     id: "blues-landing-notes", area: "improvisation", tier: "Advanced", minutes: 7,
     title: "Land on the Chord Tone",
     summary: "Short blues phrases that resolve to the third of A7, D7 and E7.",
-    seo: { title: "Blues Guitar Chord Tone Drill: A7, D7, E7", description: "Free blues guitar improvisation drill: short phrases that resolve to the major third of A7, D7 and E7, with live pitch scoring on every note you land on." },
+    seo: { title: "Blues Guitar Chord Tone Drill: A7, D7, E7", description: "A blues guitar improvisation drill: short phrases that resolve to the major third of A7, D7 and E7, with live pitch scoring on every note you land on." },
     why: "The minor pentatonic works over a blues, but phrases sound deliberate when they land on the chord of the moment. The major third of each chord is a strong landing because it names the chord's quality.",
     steps: [
       "Over A7, slide from C to C sharp, the third of A.",
@@ -420,7 +420,7 @@ export const DRILLS: readonly Drill[] = [
     id: "enclosures", area: "improvisation", tier: "Expert", minutes: 6,
     title: "Enclosures",
     summary: "Approach each target from the note above and a half step below, then land on it.",
-    seo: { title: "Guitar Enclosures Drill: Bebop Target Notes", description: "Free guitar enclosure drill: approach C♯, F♯, A and E from above and below, then land on the target. The bebop move, with live pitch scoring." },
+    seo: { title: "Guitar Enclosures Drill: Bebop Target Notes", description: "A scored guitar enclosure drill: approach C♯, F♯, A and E from above and below, then land on the target. The bebop move, with live pitch scoring." },
     why: "An enclosure surrounds a target note before playing it. It is the bebop move that makes lines sound like they know where they are going, and it carries straight over into blues, rock and fusion lines.",
     steps: [
       "Each group of three ends on a target: C sharp, F sharp, A and E.",
@@ -437,7 +437,7 @@ export const DRILLS: readonly Drill[] = [
     id: "dorian-color", area: "improvisation", tier: "Advanced", minutes: 5,
     title: "Add the Dorian Sixth",
     summary: "A minor pentatonic phrase with one added note, F sharp, that changes its color.",
-    seo: { title: "Dorian Sixth Guitar Improvisation Drill in A", description: "Free guitar improvisation drill: add the Dorian major sixth, F♯, to A minor pentatonic and hear the color change, with live pitch scoring on each note." },
+    seo: { title: "Dorian Sixth Guitar Improvisation Drill in A", description: "A guitar improvisation drill: add the Dorian major sixth, F♯, to A minor pentatonic and hear the color change, with live pitch scoring on each note." },
     why: "Adding one note to a scale you already own is a quick route to a new sound. The major sixth over a minor chord is the sound of a lot of soul, funk and jazz-rock soloing.",
     steps: [
       "Play the phrase and listen for the F sharp on string 2 fret 7.",
@@ -453,7 +453,7 @@ export const DRILLS: readonly Drill[] = [
     id: "night-drive-etude", area: "repertoire", tier: "Advanced", minutes: 8,
     title: "Night Drive, an E Minor Etude",
     summary: "An original sixteen-note melody with long and short notes, played in time.",
-    seo: { title: "E Minor Guitar Etude: Night Drive Melody", description: "Free E minor guitar etude: an original sixteen-note melody mixing held and quick notes. Learn it note by note, then play it in time with live scoring." },
+    seo: { title: "E Minor Guitar Etude: Night Drive Melody", description: "An E minor guitar etude: an original sixteen-note melody mixing held and quick notes. Learn it note by note, then play it in time with live scoring." },
     why: "Drills build parts; pieces build playing. This short original melody mixes held notes with quick ones, so it tests phrasing and time together.",
     steps: [
       "Learn it in Practice mode, one note at a time.",
@@ -470,7 +470,7 @@ export const DRILLS: readonly Drill[] = [
     id: "alternating-bass-etude", area: "repertoire", tier: "Advanced", minutes: 8,
     title: "Alternating Bass Etude",
     summary: "Thumb on the bass, fingers on the melody, over C and G.",
-    seo: { title: "Alternating Bass Fingerstyle Guitar Etude", description: "Free fingerstyle guitar etude: your thumb alternates the bass while your fingers play the melody over C and G, with live scoring on each note." },
+    seo: { title: "Alternating Bass Fingerstyle Guitar Etude", description: "A scored fingerstyle guitar etude: your thumb alternates the bass while your fingers play the melody over C and G, with live scoring on each note." },
     why: "Alternating bass fingerstyle is a two-part texture played by one hand. Keeping the thumb perfectly steady while the fingers play a melody is a core independence skill in fingerstyle guitar.",
     steps: [
       "Your thumb plays every beat, alternating between two bass strings. Your fingers play the notes in between.",
@@ -489,7 +489,7 @@ export const DRILLS: readonly Drill[] = [
     id: "controlled-vibrato", area: "tone", tier: "Advanced", minutes: 5,
     title: "Controlled Vibrato",
     summary: "Four long notes with vibrato that stays recognizably on pitch.",
-    seo: { title: "Guitar Vibrato Drill: Controlled Pitch", description: "Free guitar vibrato drill: four held notes with even bend vibrato that returns to pitch. Your mic checks that each note stays within 40 cents." },
+    seo: { title: "Guitar Vibrato Drill: Controlled Pitch", description: "A scored guitar vibrato drill: four held notes with even bend vibrato that returns to pitch. Your mic checks that each note stays within 40 cents." },
     why: "Vibrato is one of the most personal parts of tone. Wide and slow or narrow and fast are both good choices; drifting sharp and staying there is not.",
     steps: [
       "Hold each note for four beats and add vibrato after the first beat.",
@@ -503,7 +503,7 @@ export const DRILLS: readonly Drill[] = [
     id: "pick-dynamics", area: "tone", tier: "Advanced", minutes: 5,
     title: "Dynamics Without Rushing",
     summary: "Alternate soft and loud bars while the timing stays exactly the same.",
-    seo: { title: "Guitar Picking Dynamics Drill: Soft and Loud", description: "Free guitar picking dynamics drill: alternate soft and loud bars of quarter notes while your timing stays locked. Your mic times every attack live." },
+    seo: { title: "Guitar Picking Dynamics Drill: Soft and Loud", description: "A guitar picking dynamics drill: alternate soft and loud bars of quarter notes while your timing stays locked. Your mic times every attack live." },
     why: "Playing loud tends to pull the tempo forward and playing soft tends to drag it. Dynamics are a tone control you already own, as long as they do not move the time.",
     steps: [
       "Play one bar of quarter notes very softly, then one bar hard, and repeat.",

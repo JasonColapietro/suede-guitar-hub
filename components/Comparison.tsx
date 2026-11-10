@@ -32,9 +32,12 @@ import {
   HUBS,
   LEARN,
   LIFETIME,
+  OFFER,
   SITE_URL,
   TOOLS,
+  lifetimeOfferAt,
 } from "@/lib/site";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 
 /**
  * The two comparison page types under /compare, rendered from the verified
@@ -195,14 +198,15 @@ function GuitarHubTeaching() {
   return (
     <>
       <p>
-        GuitarHub teaches guitar in order. The{" "}
+        GuitarHub is built around one promise: {OFFER.promise} The{" "}
         <Link href="/learn/guitar">guitar curriculum</Link> holds{" "}
         {GUITARHUB.lessons} guided lessons, including {GUITARHUB.songCompanions}{" "}
         popular-song practice companions, and every lesson pairs written,
         step-by-step instruction with a practice task. Microphone exercises
-        score pitch and attack timing on your device, and lifetime access is{" "}
-        {LIFETIME.oneTime} in <a href={APP_STORE.ios}>{APP_STORE.name}</a>, with
-        the first module free.
+        score single-note pitch and attack timing on your device. A
+        five-question placement opens your first module free, and lifetime
+        access is {LIFETIME.oneTime} on guitarhub.org or in{" "}
+        <a href={APP_STORE.ios}>{APP_STORE.name}</a>.
       </p>
       <p>
         Around the lessons sits <Link href="/method">the GuitarHub method</Link>:
@@ -210,9 +214,9 @@ function GuitarHubTeaching() {
         one thing that breaks the result, reconnect the repair to the full song,
         then record again and compare the two takes. The{" "}
         <Link href="/tools">{GUITARHUB.tools} free practice tools</Link> run that
-        loop in any browser with no account, and the{" "}
-        <Link href="/advanced">Advanced Lab</Link> gives experienced players{" "}
-        {GUITARHUB.drills} free drills scored live through the microphone.
+        loop in any browser with no account, and lifetime access adds the{" "}
+        <Link href="/advanced">Advanced Lab</Link>: {GUITARHUB.drills} drills
+        scored live through the microphone for experienced players.
       </p>
     </>
   );
@@ -222,12 +226,13 @@ function StartSteps({ rival }: { rival: Competitor }) {
   return (
     <ol>
       <li>
-        Take the five-question <Link href="/start">level check</Link>. It
-        places you at stage 1, stage 3 or the free Advanced Lab.
+        Take the five-question <Link href="/start">placement</Link>. It
+        opens your free module: D and A, Box One or First Solo.
       </li>
       <li>
-        Name one finish line in the{" "}
-        <Link href="/breakthrough">30-day breakthrough planner</Link> and{" "}
+        Get the{" "}
+        <Link href="/breakthrough">free 30-day plan</Link>, four weeks from D
+        and A to your first solo, and{" "}
         <Link href="/record-guitar-practice-on-phone">
           record a baseline on your phone
         </Link>
@@ -239,15 +244,18 @@ function StartSteps({ rival }: { rival: Competitor }) {
         check it with the <Link href="/readiness">song readiness score</Link>.
       </li>
       <li>
-        Download <a href={APP_STORE.ios}>{APP_STORE.name}</a>, start the free
-        first module, and buy lifetime access for {LIFETIME.oneTime} to open
-        all {GUITARHUB.lessons} lessons.
+        Buy lifetime access for {LIFETIME.oneTime} on guitarhub.org or in{" "}
+        <a href={APP_STORE.ios}>{APP_STORE.name}</a> to open all{" "}
+        {GUITARHUB.lessons} lessons, the {GUITARHUB.drills}-drill Advanced Lab
+        and the practice routine.
       </li>
     </ol>
   );
 }
 
 function CallToAction() {
+  // Built ahead of time: priced from the offer in force at build.
+  const offer = lifetimeOfferAt(new Date());
   return (
     <section data-print="hide" className="px-3 pb-3">
       <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center md:py-24">
@@ -256,30 +264,25 @@ function CallToAction() {
           <em className="font-display italic text-peach">today.</em>
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-white/75">
-          Try the free tools in this browser right now, find your stage in five
-          questions, or open the full course on iPhone for{" "}
-          {LIFETIME.oneTime}.
+          {OFFER.promise} Five questions open your free module now, and
+          lifetime access opens every lesson for {offer.oneTime}.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href={APP_STORE.ios}
+          <Link
+            href={FUNNEL_PRIMARY.freeModule.href}
+            data-funnel-primary
             className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
           >
-            Get lifetime access, {LIFETIME.oneTime} <span aria-hidden>↗</span>
-          </a>
-          <Link
-            href="/start"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
-          >
-            Find your level <span aria-hidden>→</span>
+            {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
           </Link>
           <Link
-            href="/tools"
+            href="/learn/guitar"
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
           >
-            Try the free tools <span aria-hidden>→</span>
+            See every lesson <span aria-hidden>→</span>
           </Link>
         </div>
+        <p className="mx-auto mt-6 max-w-xl text-sm text-white/70">{OFFER.guarantee}</p>
       </div>
     </section>
   );
@@ -394,11 +397,12 @@ export function VsPage({ href }: { href: string }) {
 
       <h2>What does GuitarHub cost?</h2>
       <p>
-        GuitarHub lifetime lesson access is <strong>{LIFETIME.oneTime}</strong>{" "}
-        on the US App Store, bought once in {APP_STORE.name}; other
-        storefronts charge their local price. The first module, the practice
-        tools, the Advanced Lab and the written guides are free, and one
-        purchase keeps every guided lesson open for good.
+        GuitarHub lifetime lesson access is <strong>{LIFETIME.oneTime}</strong>,
+        bought once on guitarhub.org or in {APP_STORE.name} on the US App
+        Store; other storefronts charge their local price. One purchase keeps
+        every guided lesson, the Advanced Lab and the practice routine open for
+        good on the web and on iPhone. Your first module, the free practice
+        tools and the written guides cost nothing.
       </p>
       <p>
         {rival.name}: <PricingVaries rival={rival} />.

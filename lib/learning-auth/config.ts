@@ -22,6 +22,20 @@ export function safeAccountDestination(value: unknown): string {
   } catch { return "/account"; }
 }
 
+/** The account page's link back to a safe destination, named for what is there. */
+export function accountReturnLabel(destination: string): string {
+  const path = destination.split("?")[0];
+  if (path === "/learn/guitar/routine") return "Return to the practice routine";
+  if (/^\/learn\/(guitar|voice)\/[a-z]-l\d+-m\d+-\d+$/.test(path)) return "Return to your lesson";
+  if (/^\/learn(\/|$)/.test(path)) return "Return to the lessons";
+  if (/^\/advanced(\/|$)/.test(path)) return "Return to the Advanced Lab";
+  if (path === "/session") return "Return to the session builder";
+  if (path === "/readiness") return "Return to the song readiness score";
+  if (path === "/log") return "Return to the practice log";
+  if (/^\/checkout(\/|$)/.test(path)) return "Return to your purchase";
+  return "Continue where you left off";
+}
+
 export function isSameOriginMutation(request: Request): boolean {
   const origin = request.headers.get("origin");
   return origin !== null && origin === new URL(request.url).origin;

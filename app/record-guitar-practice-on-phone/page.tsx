@@ -284,7 +284,7 @@ export default function RecordGuitarPracticeOnPhonePage() {
         </ol>
 
         <p>
-          The <Link href="/log">practice evidence log</Link> is a good place for those two sentences and the tempo. If you are running a month toward one finish line, the <Link href="/30-day-guitar-challenge">30-day guitar challenge guide</Link> covers how to judge the day 30 take, and the <Link href="/breakthrough">30-day breakthrough planner</Link> sets the four weeks in between.
+          The <Link href="/log">practice evidence log</Link> is a good place for those two sentences and the tempo. If you are running a month toward one finish line, the <Link href="/30-day-guitar-challenge">30-day guitar challenge guide</Link> covers how to judge the day 30 take, and the <Link href="/breakthrough">free 30-day plan</Link> sets four weeks in between, from D and A to your first improvised solo.
         </p>
 
         <h2>What to listen for: five checks</h2>

@@ -8,6 +8,8 @@ import {
   LEARN,
   RESOURCES,
   SITE_NAME,
+  FREE_TOOLS,
+  PAID_TOOLS,
   TOOLS,
   type SiteEntry,
 } from "./site.ts";
@@ -37,7 +39,8 @@ export type OgCard = {
 
 /** Eyebrow for every entry of a registry group, unless overridden below. */
 const GROUPS: readonly { eyebrow: string; entries: readonly SiteEntry[] }[] = [
-  { eyebrow: "Free practice tool", entries: TOOLS },
+  { eyebrow: "Free practice tool", entries: FREE_TOOLS },
+  { eyebrow: "Practice tool", entries: PAID_TOOLS },
   { eyebrow: "Practice guide", entries: GUIDES },
   { eyebrow: "Resource", entries: RESOURCES },
   { eyebrow: "Reference", entries: HUBS },
@@ -48,7 +51,7 @@ const GROUPS: readonly { eyebrow: string; entries: readonly SiteEntry[] }[] = [
 
 const EYEBROWS: Readonly<Record<string, string>> = {
   "/method": "The method",
-  "/tools": "Free practice tools",
+  "/tools": "Practice tools",
   "/guides": "Practice guides",
   "/glossary": "Glossary",
   "/faq": "Questions and answers",

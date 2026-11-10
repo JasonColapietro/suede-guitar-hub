@@ -198,7 +198,7 @@ export default function BreakthroughPage() {
 
         <section className="mx-auto max-w-6xl px-6 py-20">
           <p className="max-w-2xl text-sm leading-relaxed text-ink/70">
-            This is the planner rather than the guide: it turns one finish line into four weeks of focuses and a piece of evidence to record each week. Choosing a finish line of your own and judging the day 30 recording are written out in{" "}
+            This is the plan rather than the guide: four weeks of focuses from D and A to your first solo, and a piece of evidence to record each week. How to judge the day 30 recording is written out in{" "}
             <Link
               href="/30-day-guitar-challenge"
               className="font-semibold text-violet underline underline-offset-4 hover:text-indigo-deep"

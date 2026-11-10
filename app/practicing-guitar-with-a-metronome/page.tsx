@@ -368,8 +368,8 @@ export default function MetronomePage() {
           Run them on GuitarHub&apos;s free{" "}
           <Link href="/practice">tuner and metronome</Link>, which keeps a
           steady four-beat click at any tempo you set. When you want a verdict
-          on every attack, four free Advanced Lab drills time each hit against
-          the grid through your microphone:{" "}
+          on every attack, four Advanced Lab drills, included with lifetime
+          access, time each hit against the grid through your microphone:{" "}
           <Link href="/advanced/funk-sixteenths">syncopated sixteenths</Link>,{" "}
           <Link href="/advanced/quarter-note-triplets">quarter-note triplets</Link>
           ,{" "}

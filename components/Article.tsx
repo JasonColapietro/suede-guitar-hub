@@ -5,7 +5,8 @@ import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { FieldGuideDownload } from "@/components/FieldGuides";
 import type { Crumb } from "@/lib/breadcrumbs";
-import { isInternalHref } from "@/lib/site";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
+import { OFFER, isInternalHref } from "@/lib/site";
 
 /**
  * The shared long-form shell for every guide page. Server Component.
@@ -188,24 +189,28 @@ export default function Article({
               <em className="font-display italic text-peach">this week.</em>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-white/75">
-              Build the four-week plan in your browser, or apply to the founding
-              room. The planner needs no account. Applying starts a fit
-              conversation and takes no payment.
+              {OFFER.promise} Get the four-week plan from D and A to your first solo, with a
+              printable chord and pentatonic chart pack sent to your inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/breakthrough"
-                className="inline-flex items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep transition hover:brightness-105"
               >
-                Build my 30-day plan <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
               </Link>
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.freeModule.href}
                 className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream transition hover:bg-white/5"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
+            <p className="mx-auto mt-6 max-w-xl text-sm text-white/70">
+              The plan arrives by email with practice tips, and every email has
+              an unsubscribe link.
+            </p>
           </div>
         </section> : null)}
       </main>

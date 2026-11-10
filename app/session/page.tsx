@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import SessionBuilder from "@/components/SessionBuilder";
 import { PaidToolGate } from "@/components/paywall/PaidToolGate";
 import { checkoutAvailable } from "@/lib/checkout/config";
@@ -9,7 +10,7 @@ import SiteNav from "@/components/SiteNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
 import { webPageNode } from "@/lib/page-schema";
-import { GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, lifetimeOfferAt } from "@/lib/site";
+import { OFFER, GUIDES, LIFETIME, SITE_URL, STRUMLY, TOOLS, lifetimeOfferAt } from "@/lib/site";
 import { keywordsFor } from "@/lib/keywords";
 
 const CANONICAL = `${SITE_URL}/session`;
@@ -565,38 +566,34 @@ export default function SessionPage() {
         </section>
 
         <section className="px-3 pb-3">
-          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream">
+          <div className="hero-backdrop rounded-[2rem] px-6 py-20 text-center text-cream md:py-24">
             <h2 className="mx-auto max-w-3xl text-4xl leading-tight md:text-5xl">
-              The plan is the easy half.{" "}
+              The builder fills the minutes.{" "}
               <em className="font-display italic text-peach">
-                Someone hearing it is the other one.
+                The 30-day path gives them a target.
               </em>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75">
-              A session builder can tell you to spend fifteen minutes on the bar
-              that breaks first. It cannot tell you that the bar breaks because
-              your picking hand is anticipating the change. The founding room is
-              being assembled for that part: a small crew, a weekly recording,
-              and one correction that changes the next session.
+              {OFFER.promise} The free 30-day plan lays out four weeks from D
+              and A to four improvised bars over a blues, with a practice
+              action for each day and a printable chord and pentatonic chart
+              pack sent to your inbox.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                href="/#apply"
+                href={FUNNEL_PRIMARY.magnet.href}
+                data-funnel-primary
                 className="inline-flex min-h-11 items-center gap-2 rounded-full bg-peach px-7 py-3.5 font-semibold text-indigo-deep motion-safe:transition hover:brightness-105"
               >
-                Apply to the room <span aria-hidden>→</span>
+                {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
               </Link>
               <Link
-                href="/breakthrough"
-                className="inline-flex min-h-11 w-fit items-center rounded-full border border-peach/40 px-5 py-2 font-semibold underline underline-offset-4 hover:bg-white/5"
+                href={FUNNEL_PRIMARY.freeModule.href}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-peach/40 px-7 py-3.5 font-semibold text-cream motion-safe:transition hover:bg-white/5"
               >
-                Build the 30-day plan
+                {FUNNEL_PRIMARY.freeModule.label} <span aria-hidden>→</span>
               </Link>
             </div>
-            <p className="mx-auto mt-6 max-w-xl text-sm text-white/60">
-              Applying starts a fit conversation. It does not charge you or
-              create a commitment.
-            </p>
           </div>
         </section>
       </main>

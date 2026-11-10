@@ -85,28 +85,31 @@ test("the offer promise and guarantee are fixed", () => {
   });
 });
 
-test("the homepage prices lifetime access in the hero link and at the lesson-path CTA", () => {
+test("the homepage prices lifetime access in the hero link and beside the buy button", () => {
   const home = render(Home);
   const hero = home.slice(home.indexOf("<h1"), home.indexOf('id="how-it-works"'));
-  assert.match(text(hero), priced("unlocked with {price} lifetime access in GuitarHub for iPhone"));
+  assert.match(text(hero), priced("Lifetime access is {price} one time , on the web or in GuitarHub for iPhone\\."));
 
-  const levels = home.slice(home.indexOf('id="levels"'), home.indexOf('id="advanced"'));
-  assert.match(text(levels), priced("Guided lessons · {price} lifetime access"));
-  assert.match(text(levels), /first module free/);
-  assert.match(text(levels), priced("lifetime access: {price} one time"));
-  assert.deepEqual(appStoreLinks(levels), [`${LIFETIME.cta} ↗`]);
+  const levels = home.slice(home.indexOf('id="levels"'), home.indexOf('id="more"'));
+  assert.match(text(levels), priced("Lifetime access · {price} one time"));
+  assert.match(text(levels), /Your first module is free\./);
+  assert.match(text(levels), priced("Lifetime access opens the rest for {price} one time"));
+  assert.ok(text(levels).includes(OFFER.guarantee));
+  // Without Stripe configured (as in tests) the buy button is the App Store link.
+  assert.deepEqual(appStoreLinks(levels), [LIFETIME.cta]);
   assert.doesNotMatch(text(home), RETIRED);
 });
 
 test("/learn and /learn/guitar put the price beside the purchase button", async () => {
   const learn = render(LearnPage);
-  assert.match(text(learn), priced("Guitar curriculum · {price} lifetime access"));
-  assert.match(text(learn), priced("unlock every lesson with lifetime access for {price} one time"));
+  assert.match(text(learn), priced("Guitar curriculum · lifetime access {price} one time"));
+  assert.match(text(learn), priced("lifetime access opens every lesson for {price} one time"));
   assert.ok(appStoreLinks(learn).includes(LIFETIME.cta));
   assert.doesNotMatch(text(learn), RETIRED);
 
   const track = renderToStaticMarkup(await TrackPage({ params: Promise.resolve({ track: "guitar" }) }));
-  assert.match(text(track), priced("Every guided lesson opens with lifetime access: {price} one time in GuitarHub: Guitar Lessons for iPhone, with the first module free in the app\\."));
+  assert.match(text(track), priced("Every guided lesson opens with lifetime access: {price} one time, bought on guitarhub\\.org or in GuitarHub: Guitar Lessons for iPhone\\."));
+  assert.ok(text(track).includes(OFFER.guarantee));
   assert.ok(appStoreLinks(track).includes(LIFETIME.cta));
   assert.doesNotMatch(text(track), RETIRED);
 });
@@ -125,7 +128,7 @@ test("a locked lesson states the price and the guarantee and offers one way to b
 });
 
 test("/start prices the paid stages on the page and in the placement result", () => {
-  assert.match(text(render(StartPage)), priced("unlock with lifetime access, {price} one time in GuitarHub for iPhone"));
+  assert.match(text(render(StartPage)), priced("unlock with lifetime access, {price} one time on guitarhub\\.org or in GuitarHub for iPhone"));
   const levelCheck = read("components/LevelCheck.tsx");
   assert.match(levelCheck, /The guided lessons unlock with lifetime access, \{LIFETIME\.oneTime\} in GuitarHub for iPhone\./);
   assert.match(levelCheck, /href=\{APP_STORE\.ios\}[\s\S]*?\{LIFETIME\.cta\}/);
@@ -133,14 +136,17 @@ test("/start prices the paid stages on the page and in the placement result", ()
 
 test("/faq and /about answer the price directly", () => {
   const faq = text(render(FaqPage));
-  assert.match(faq, priced("lifetime access, {price} one time in the US App Store"));
-  assert.match(faq, priced("choose lifetime access in the app: {price} one time in the US App Store"));
+  assert.match(faq, priced("open with lifetime access: {price} one time\\."));
+  assert.match(faq, priced("buy lifetime access in the app: {price} one time in the US App Store"));
+  assert.match(faq, priced("Lifetime access is {price} one time on guitarhub\\.org through Stripe Checkout"));
+  assert.ok(faq.includes(OFFER.guarantee));
   assert.doesNotMatch(faq, RETIRED);
-  assert.match(text(render(AboutPage)), priced("lifetime access, {price} one time in GuitarHub: Guitar Lessons for iPhone"));
+  assert.match(text(render(AboutPage)), priced("lifetime access, {price} one time on guitarhub\\.org or in GuitarHub: Guitar Lessons for iPhone"));
 });
 
-test("llms.txt states the price, the currency and the product", async () => {
+test("llms.txt states the price, the currency, the product and the guarantee", async () => {
   const body = await (await llmsTxt()).text();
-  assert.match(body, priced("Lifetime lesson access costs {price} USD, one time, in the US\\s+App Store: the in-app purchase \"Complete Lifetime\""));
+  assert.match(body, priced("Lifetime access, \"Complete Lifetime\", costs {price} USD, one time\\. One purchase, on\\s+guitarhub\\.org \\(Stripe Checkout\\) or in GuitarHub for iPhone"));
+  assert.ok(body.includes(OFFER.guarantee));
   assert.doesNotMatch(body, RETIRED);
 });

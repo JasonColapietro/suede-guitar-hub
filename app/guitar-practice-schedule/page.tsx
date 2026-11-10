@@ -443,9 +443,10 @@ export default function GuitarPracticeSchedulePage() {
         </p>
 
         <p>
-          The <Link href="/breakthrough">30-day breakthrough planner</Link>{" "}
-          turns one goal into four weeks and names the evidence each week has to
-          produce — the material this schedule carries. It needs no account. If
+          The <Link href="/breakthrough">free 30-day plan</Link>{" "}
+          fills the schedule with four weeks from D and A to your first
+          improvised solo and names the evidence each week has to produce, the
+          material this schedule carries. If
           the harder question is what to work on rather than when,
           Strumly&apos;s guide to{" "}
           <a href={STRUMLY.aiCoach}>practicing guitar with an AI coach</a>{" "}

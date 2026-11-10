@@ -8,7 +8,8 @@ import { curricula } from "@/lib/learning/curriculum";
 import { PLAYER_LEVELS } from "@/lib/levels";
 import { PLACEMENT_QUESTIONS } from "@/lib/placement";
 import { FREE_MODULES } from "@/lib/learning/free-module";
-import { LIFETIME, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
+import { LIFETIME, OFFER, OG_IMAGE, SITE_URL, spellOut } from "@/lib/site";
+import { FUNNEL_PRIMARY } from "@/lib/funnel";
 import { keywordsFor } from "@/lib/keywords";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
@@ -17,7 +18,7 @@ import { webPageNode } from "@/lib/page-schema";
 const url = `${SITE_URL}/start`;
 const title = "Find Your Guitar Level in Five Questions | GuitarHub";
 const description =
-  "Five quick questions about chords, changes, barre chords and soloing place you at stage 1, stage 3 or the free Advanced Lab, with your first practice step.";
+  "Five quick questions about chords, changes, barre chords and soloing pick your free guitar module, D and A, Box One or First Solo, and your first step.";
 export const metadata: Metadata = {
   keywords: keywordsFor("/start"),
   title, description, alternates: { canonical: url },
@@ -65,11 +66,14 @@ export default function StartPage() {
         <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-indigo-deep sm:text-5xl">
           Find your guitar level in {QUESTION_WORD} questions.
         </h1>
+        <p className="mt-4 max-w-2xl text-lg font-semibold leading-relaxed text-indigo-deep">
+          {OFFER.promise}
+        </p>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink/70">
           Answer for what your hands can do on an ordinary practice day. Your
-          answers point to one starting point, stage 1 of the lesson path,
-          stage 3, or the free Advanced Lab, and the first thing to work on
-          when you get there. Your result is saved in this browser so your
+          answers pick the free module that starts you on the 30-day path, D
+          and A, Box One or First Solo, and the first thing to work on when
+          you get there. Your result is saved in this browser so your
           free module stays yours.
         </p>
 
@@ -87,6 +91,9 @@ export default function StartPage() {
                 <h3 className="font-display text-xl text-indigo-deep">
                   Stages {level.stages[0]}–{level.stages[1]}
                 </h3>
+                <p className="mt-1 text-sm font-semibold text-violet">
+                  Free module: {FREE_MODULE_NAMES[FREE_MODULES[level.id]]}
+                </p>
                 <ul className="mt-3 space-y-3 text-sm leading-relaxed text-ink/70">
                   {stages.map((stage) => (
                     <li key={stage.id}>
@@ -101,9 +108,13 @@ export default function StartPage() {
               </div>
             ))}
             <div className="rounded-3xl bg-white p-6 ring-1 ring-ink/10">
-              <h3 className="font-display text-xl text-indigo-deep">Advanced Lab · free</h3>
+              <h3 className="font-display text-xl text-indigo-deep">Advanced players</h3>
+              <p className="mt-1 text-sm font-semibold text-violet">
+                Free module: {FREE_MODULE_NAMES[FREE_MODULES[advanced.id]]}
+              </p>
               <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                {DRILLS.length} scored drills across {spellOut(SKILL_AREAS.length)} skill
+                Lifetime access adds the Advanced Lab: {DRILLS.length} scored
+                drills across {spellOut(SKILL_AREAS.length)} skill
                 areas: {SKILL_AREAS.map((area) => area.name.toLowerCase()).join(", ")}.
                 Each drill listens through your microphone, waits for every
                 note in Practice mode and scores the whole pass in Play mode.
@@ -114,13 +125,24 @@ export default function StartPage() {
             </div>
           </div>
           <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink/70">
-            The guided lessons in every stage unlock with lifetime access,{" "}
-            {LIFETIME.oneTime} in GuitarHub for iPhone, and the first module is
-            free in the app. The Advanced Lab, the{" "}
+            The placement picks one module, and it opens in your browser with
+            no purchase. Every
+            other lesson, the Advanced Lab and the{" "}
             <Link href="/learn/guitar/routine" className="font-semibold text-violet underline underline-offset-4">A-to-D chord routine</Link>{" "}
-            and the <Link href="/tools" className="font-semibold text-violet underline underline-offset-4">practice tools</Link>{" "}
-            are free.
+            unlock with lifetime access, {LIFETIME.oneTime} on guitarhub.org
+            or in GuitarHub for iPhone. The tuner, metronome and the other{" "}
+            <Link href="/tools" className="font-semibold text-violet underline underline-offset-4">free practice tools</Link>{" "}
+            are yours to use any day.
           </p>
+          <div className="mt-8">
+            <Link
+              href={FUNNEL_PRIMARY.magnet.href}
+              data-funnel-primary
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-indigo-deep px-7 py-3.5 font-semibold text-cream transition hover:bg-indigo-mid"
+            >
+              {FUNNEL_PRIMARY.magnet.label} <span aria-hidden>→</span>
+            </Link>
+          </div>
         </section>
 
         <section aria-labelledby="answering-title" className="mt-16 max-w-2xl">
@@ -143,8 +165,9 @@ export default function StartPage() {
               gap for weeks.
             </li>
             <li>
-              Already know the one thing you want to fix? Skip placement and{" "}
-              <Link href="/breakthrough" className="font-semibold text-violet underline underline-offset-4">build a 30-day plan around it</Link>.
+              Want the whole month mapped first?{" "}
+              <Link href="/breakthrough" className="font-semibold text-violet underline underline-offset-4">The free 30-day plan</Link>{" "}
+              lays out four weeks from D and A to your first solo.
             </li>
           </ul>
         </section>

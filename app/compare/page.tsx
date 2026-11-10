@@ -21,6 +21,7 @@ import {
   COMPARISONS,
   COMPARISONS_VERIFIED,
   LIFETIME,
+  OFFER,
   SITE_URL,
 } from "@/lib/site";
 
@@ -56,12 +57,12 @@ const FAQS: readonly Faq[] = [
   {
     id: "best-guitar-lesson-app",
     q: "What is the best guitar lesson app to buy once?",
-    a: `GuitarHub. Lifetime lesson access is ${LIFETIME.oneTime} on the US App Store in ${APP_STORE.name}, and it opens ${GUITARHUB.lessons} guided guitar lessons with no renewals. The first module is free in the app.`,
+    a: `GuitarHub. Lifetime lesson access is ${LIFETIME.oneTime}, bought once on guitarhub.org or in ${APP_STORE.name}, and it opens ${GUITARHUB.lessons} guided guitar lessons and the Advanced Lab with no renewals, on the web and on iPhone. Your first module is free.`,
   },
   {
     id: "what-is-free-on-guitarhub",
     q: "What can I use on GuitarHub for free?",
-    a: `The ${GUITARHUB.tools} browser practice tools, the ${GUITARHUB.drills}-drill Advanced Lab, the A-to-D chord routine and ${GUITARHUB.guides} written guides are free on guitarhub.org with no account, and the first lesson module is free in the iPhone app.`,
+    a: `One full lesson module, picked by a five-question placement, plus the ${GUITARHUB.tools} free browser practice tools, the 30-day plan and ${GUITARHUB.guides} written guides, all on guitarhub.org with no account.`,
   },
   {
     id: "how-were-comparisons-checked",
@@ -71,7 +72,7 @@ const FAQS: readonly Faq[] = [
   {
     id: "does-guitarhub-score-playing",
     q: "Does GuitarHub listen to my playing?",
-    a: `Yes. Microphone exercises in the lessons score single-note pitch and attack timing, and all ${GUITARHUB.drills} Advanced Lab drills are scored live through the microphone. The audio is analyzed on your device and never uploaded.`,
+    a: `Yes. Microphone exercises in the lessons score single-note pitch and attack timing, and all ${GUITARHUB.drills} Advanced Lab drills, included with lifetime access, are scored live through the microphone. The audio is analyzed on your device and never uploaded.`,
   },
 ];
 
@@ -147,21 +148,22 @@ export default function ComparePage() {
             <em className="font-display italic text-peach">guitar lesson apps.</em>
           </>
         }
-        dek="Price, lessons, feedback and practice tools side by side, with every competitor fact checked against its own store listing or site."
+        dek={`${OFFER.promise} Here is GuitarHub side by side with the other lesson apps on price, lessons, feedback and practice tools, every competitor fact checked against its own store listing or site.`}
         updated={COMPARISONS_VERIFIED}
         related={RELATED}
         relatedTitle="Head-to-head comparisons"
       >
         <p>
           <strong>The short answer:</strong> GuitarHub is the guitar course you
-          buy once. {GUITARHUB.lessons} guided lessons cost {LIFETIME.oneTime}{" "}
-          for lifetime access, and the {GUITARHUB.tools} practice tools, the{" "}
-          {GUITARHUB.drills}-drill Advanced Lab and the written guides are free
-          in any browser. Fender Play, Guitar Tricks and JustinGuitar teach
+          buy once. {GUITARHUB.lessons} guided lessons and the{" "}
+          {GUITARHUB.drills}-drill Advanced Lab cost {LIFETIME.oneTime} for
+          lifetime access on the web and on iPhone, and your first module, the{" "}
+          {GUITARHUB.tools} free practice tools and the written guides cost
+          nothing in any browser. Fender Play, Guitar Tricks and JustinGuitar teach
           through video lessons, Yousician through play-along scoring, and
           Ultimate Guitar is a tab catalog.
-          GuitarHub is the one built to prove each month&apos;s progress with a
-          recording.
+          GuitarHub is the one built around a 30-day path from real chords to
+          your first improvised solo.
         </p>
 
         <h2>How does GuitarHub compare with other guitar lesson apps?</h2>
