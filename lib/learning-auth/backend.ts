@@ -127,6 +127,14 @@ export async function listStripePurchases(email: string): Promise<StripePurchase
     purchasedAt: row.purchased_at as string, refundedAt: (row.refunded_at as string | null) ?? null }));
 }
 
+/** Idempotent on `eventId`, and on the Checkout Session: the success page and the webhook may both record one sale. */
+export async function recordStripePurchase(eventId: string, type: string, purchase: StripePurchase): Promise<"recorded" | "duplicate"> {
+  const result = await accountBackend().rpc("guitarhub_record_stripe_purchase", { p_event_id: eventId, p_type: type, p_purchase: purchase });
+  checkDatabaseError(result.error);
+  if (result.data !== "recorded" && result.data !== "duplicate") throw new AccountHTTPError(503, "account_service_unavailable");
+  return result.data;
+}
+
 export async function getFreeModule(accountId: string): Promise<string | null> {
   const result = await accountBackend().from("guitarhub_free_modules").select("module_id").eq("account_id", accountUUID(accountId)).maybeSingle();
   checkDatabaseError(result.error);
