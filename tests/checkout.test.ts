@@ -105,6 +105,8 @@ test("the Checkout session is a one-time $79 payment with tax added on top", () 
     success_url: "https://guitarhub.org/checkout/success?session_id={CHECKOUT_SESSION_ID}",
     cancel_url: "https://guitarhub.org/learn/guitar",
     metadata: { product: "guitarhub_lifetime" },
+    // Stripe copies the PaymentIntent's metadata onto its Charge, so a refund event can say whose sale it was.
+    payment_intent_data: { metadata: { product: "guitarhub_lifetime" } },
   });
   assert.equal("customer_email" in checkoutSessionParams({ email: null, origin: "https://preview.guitarhub.org" }), false);
   assert.equal(checkoutSessionParams({ email: null, origin: "https://preview.guitarhub.org" }).cancel_url, "https://preview.guitarhub.org/learn/guitar");

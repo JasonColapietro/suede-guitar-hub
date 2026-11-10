@@ -24,6 +24,8 @@ export function checkoutSessionParams(input: CheckoutSessionInput): Stripe.Check
     success_url: `${input.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${input.origin}/learn/guitar`,
     metadata: { product: CHECKOUT_PRODUCT },
+    // Stripe copies a PaymentIntent's metadata onto the Charge it creates, so `charge.refunded` carries the marker too.
+    payment_intent_data: { metadata: { product: CHECKOUT_PRODUCT } },
   };
 }
 
@@ -97,6 +99,8 @@ export function parseStripeEvent(rawBody: string, signature: string | null, webh
       return { id: event.id, type: event.type, purchase: purchaseFromCheckoutSession(event.data.object) };
     case "charge.refunded": {
       const charge = event.data.object;
+      // A charge without the marker belongs to something else on the account; acknowledging it stops Stripe's retries.
+      if (charge.metadata?.product !== CHECKOUT_PRODUCT) return { id: event.id, type: "ignored" };
       const paymentIntentId = typeof charge.payment_intent === "string" ? charge.payment_intent : charge.payment_intent?.id;
       if (!paymentIntentId) return { id: event.id, type: "ignored" };
       // `refunded` is true only once the whole charge is refunded; a partial refund keeps access.

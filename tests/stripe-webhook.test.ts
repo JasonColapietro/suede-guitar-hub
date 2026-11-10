@@ -34,7 +34,7 @@ function hook(overrides: Partial<Deps> = {}) {
     capturePurchase: async (purchase) => { captured.push(purchase); },
     ...overrides,
   };
-  return { handle: createStripeWebhookHandler(deps), writes, captured };
+  return { handle: createStripeWebhookHandler(deps), recordPurchase: deps.recordPurchase, writes, captured };
 }
 
 function deliver(event: unknown, signature: string | null = "t=1,v1=valid") {
@@ -49,7 +49,18 @@ test("a completed checkout records the purchase once, however often Stripe deliv
   assert.equal((await h.handle(deliver(event))).status, 200);
   assert.equal((await h.handle(deliver(event))).status, 200);
   assert.deepEqual(h.writes, ["record:evt_1"]);              // the double returns "duplicate" the second time
-  assert.equal(h.captured.length, 1);
+  // A duplicate is captured again: the outbox keys the entry by checkout session, so it still holds one sale.
+  assert.deepEqual(h.captured, [live, live]);
+  assert.equal(new Set(h.captured.map((purchase) => purchase.checkoutSessionId)).size, 1);
+});
+
+test("a sale the success page recorded first is captured when the webhook arrives", async () => {
+  const h = hook();
+  // The success page writes `session:<id>` without capturing; the webhook's own event is then a duplicate.
+  assert.equal(await h.recordPurchase("session:cs_live_1", "checkout.success_page", live), "recorded");
+  assert.equal((await h.handle(deliver({ id: "evt_8", type: "checkout.session.completed", purchase: live }))).status, 200);
+  assert.deepEqual(h.writes, ["record:session:cs_live_1"]);
+  assert.deepEqual(h.captured, [live]);
 });
 
 test("a delayed payment that succeeds later records the purchase", async () => {
@@ -154,9 +165,30 @@ test("parseStripeEvent records only paid sessions this site created, on completi
 
 test("parseStripeEvent reads a refunded charge's payment intent and whether it is fully refunded", () => {
   const read = (event: Record<string, unknown>) => { const { payload, signature } = signed(event); return parseStripeEvent(payload, signature, secret); };
-  const charge = { id: "ch_1", object: "charge", amount: 8453, amount_refunded: 8453, refunded: true, payment_intent: "pi_test_1" };
+  const charge = { id: "ch_1", object: "charge", amount: 8453, amount_refunded: 8453, refunded: true, payment_intent: "pi_test_1", metadata: { product: "guitarhub_lifetime" } };
   assert.deepEqual(read({ id: "evt_r1", type: "charge.refunded", created: 1_762_862_400, data: { object: charge } }),
     { id: "evt_r1", type: "charge.refunded", paymentIntentId: "pi_test_1", fullyRefunded: true, refundedAt: "2025-11-11T12:00:00.000Z" });
   assert.equal((read({ id: "evt_r2", type: "charge.refunded", data: { object: { ...charge, amount_refunded: 1000, refunded: false } } }) as { fullyRefunded: boolean }).fullyRefunded, false);
   assert.deepEqual(read({ id: "evt_r3", type: "charge.refunded", data: { object: { ...charge, payment_intent: null } } }), { id: "evt_r3", type: "ignored" });
+});
+
+test("parseStripeEvent ignores a refund of a charge GuitarHub did not create, so Stripe stops sending it", () => {
+  const read = (event: Record<string, unknown>) => { const { payload, signature } = signed(event); return parseStripeEvent(payload, signature, secret); };
+  const foreign = { id: "ch_2", object: "charge", amount: 2500, amount_refunded: 2500, refunded: true, payment_intent: "pi_other" };
+  // Another product on the account, a Dashboard charge, or a charge made before the marker existed.
+  assert.deepEqual(read({ id: "evt_r4", type: "charge.refunded", data: { object: { ...foreign, metadata: {} } } }), { id: "evt_r4", type: "ignored" });
+  assert.deepEqual(read({ id: "evt_r5", type: "charge.refunded", data: { object: { ...foreign, metadata: { product: "other" } } } }), { id: "evt_r5", type: "ignored" });
+});
+
+test("a foreign refund is acknowledged without a write, while a GuitarHub refund not yet recorded still retries", async () => {
+  let refundCalls = 0;
+  const h = hook({ refundPurchase: async () => { refundCalls += 1; return "unknown_purchase"; } });
+  const { payload, signature } = signed({ id: "evt_r6", type: "charge.refunded", data: { object: { id: "ch_3", object: "charge", refunded: true, payment_intent: "pi_other", metadata: {} } } });
+  const real = createStripeWebhookHandler({ available: () => true, parse: (body, header) => parseStripeEvent(body, header, secret),
+    recordPurchase: async () => "recorded", refundPurchase: async () => { refundCalls += 1; return "unknown_purchase"; } });
+  const request = new Request("https://guitarhub.org/api/stripe/webhook", { method: "POST", body: payload, headers: { "Stripe-Signature": signature } });
+  assert.equal((await real(request)).status, 200);
+  assert.equal(refundCalls, 0);
+  assert.equal((await h.handle(deliver({ id: "evt_r7", type: "charge.refunded", paymentIntentId: "pi_9", fullyRefunded: true, refundedAt: at }))).status, 503);
+  assert.equal(refundCalls, 1);
 });

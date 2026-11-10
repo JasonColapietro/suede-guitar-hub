@@ -11,7 +11,7 @@ export type StripeWebhookDependencies = {
 };
 
 /** A capture failure never reverses a recorded sale; ledger reconciliation can retry it. */
-async function captureRecorded(deps: Pick<StripeWebhookDependencies, "capturePurchase">, purchase: StripePurchase): Promise<void> {
+async function capturePurchase(deps: Pick<StripeWebhookDependencies, "capturePurchase">, purchase: StripePurchase): Promise<void> {
   try { await deps.capturePurchase?.(purchase); }
   catch { console.error("[intake] stripe purchase capture pending ledger reconciliation"); }
 }
@@ -30,7 +30,12 @@ export function createStripeWebhookHandler(deps: StripeWebhookDependencies): (re
     try {
       if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
         // An unpaid session (a bank debit still clearing) records nothing; its async_payment_succeeded event does.
-        if (event.purchase && await deps.recordPurchase(event.id, event.type, event.purchase) === "recorded") await captureRecorded(deps, event.purchase);
+        // A duplicate is captured too: the success page usually records the sale first and does not capture it,
+        // and the outbox holds one entry per checkout session however often it is enqueued.
+        if (event.purchase) {
+          await deps.recordPurchase(event.id, event.type, event.purchase);
+          await capturePurchase(deps, event.purchase);
+        }
       } else if (event.type === "charge.refunded" && event.fullyRefunded) {
         if (await deps.refundPurchase(event.id, event.paymentIntentId, event.refundedAt) === "unknown_purchase") {
           return accountJSON({ error: "unknown_purchase" }, 503);
