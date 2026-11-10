@@ -39,7 +39,7 @@ A refunded or revoked purchase gives `[]`.
 | Method and path | Auth | Purpose |
 |---|---|---|
 | `POST /api/checkout` | none | Body `{ "email"?: string }`. Creates a Stripe Checkout session for $79 one time with tax on. Returns `{ "url": string }`. |
-| `POST /api/stripe/webhook` | Stripe signature | `checkout.session.completed` records the purchase against the buyer's email. `charge.refunded` marks it refunded. Idempotent on the Stripe event id. |
+| `POST /api/stripe/webhook` | Stripe signature | `checkout.session.completed` and `checkout.session.async_payment_succeeded` record the purchase against the buyer's email, only when the session is paid. `charge.refunded` marks it refunded. Idempotent on the Stripe event id. |
 | `PUT /api/learning/free-module` | signed in | Body `{ "moduleId": string }`. Stores the choice only if none is stored. Returns `{ "freeModuleId": string }` (the stored id). |
 | `POST /api/learning/purchases/apple/claim` | signed in | Body `{ "signedTransaction": string }` (StoreKit 2 JWS). Verifies it and links the purchase to the account. One Apple purchase links to one account; a second account gets `409 purchase_already_linked`. |
 | `DELETE /api/learning/account` | signed in | Deletes all GuitarHub data and the GuitarHub sign-in. Deletes the shared Suede identity only when no other Suede product holds data for it. Purchases stay recorded against the email so a refund or re-sign-in still resolves. Returns `204`. |
