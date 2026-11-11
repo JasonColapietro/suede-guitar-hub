@@ -10,14 +10,14 @@
     "publishing": "One site publishes each term. Entries with publisher sing are rendered with DefinedTerm markup at /glossary in JasonColapietro/sing; entries with publisher guitarHub are rendered by the guitar hub with no structured data, so the two sites do not compete as the definitional source for one word."
   },
   "counts": {
-    "total": 58,
+    "total": 100,
     "byDomain": {
-      "music": 20,
-      "voice": 22,
+      "music": 44,
+      "voice": 40,
       "guitar": 16
     },
     "byPublisher": {
-      "sing": 42,
+      "sing": 84,
       "guitarHub": 16
     }
   },
@@ -567,6 +567,509 @@
           "where": "Song practice counts four beats in before the first lyric, which is why a take rarely starts half a beat early.",
           "href": "/songs",
           "domain": "music",
+          "publisher": "sing"
+        }
+      ]
+    },
+    {
+      "heading": "Technique and practice",
+      "anchor": "technique-and-practice",
+      "blurb": "The words the warmup packs, the programs and the book use for how singing is practiced.",
+      "entries": [
+        {
+          "key": "music:major-scale",
+          "term": "Major scale",
+          "anchor": "major-scale",
+          "aka": [],
+          "definition": "The seven-note scale of whole and half steps, numbered 1 to 7 from its root, that most warmup patterns are written in.",
+          "where": "Every warmup that counts its notes, such as 1-2-3-4-5, is counting steps of this scale up from the rep's root.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:natural-minor-scale",
+          "term": "Natural minor scale",
+          "anchor": "natural-minor-scale",
+          "aka": [
+            "Minor scale"
+          ],
+          "definition": "The seven-note scale with a lowered third, sixth and seventh, which gives a pattern built on it a darker color than the major scale.",
+          "where": "The free Minor five-note scale uses its first five notes, and the Long phrases pack sings its whole octave slowly.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:pentatonic-scale",
+          "term": "Pentatonic scale",
+          "anchor": "pentatonic-scale",
+          "aka": [
+            "Major pentatonic"
+          ],
+          "definition": "A five-note scale that leaves the fourth and seventh out of the major scale, so it has no half steps.",
+          "where": "The free Pentatonic run and most of the Riffs and runs pack are built on it.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:minor-pentatonic-scale",
+          "term": "Minor pentatonic scale",
+          "anchor": "minor-pentatonic-scale",
+          "aka": [],
+          "definition": "The five-note scale of the root, flat third, fourth, fifth and flat seventh, the backbone of most blues, rock and R&B runs.",
+          "where": "The Riffs and runs pack's minor pentatonic fall comes down it from the octave.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:blues-scale",
+          "term": "Blues scale",
+          "anchor": "blues-scale",
+          "aka": [],
+          "definition": "The minor pentatonic scale with one passing note, the flat five, added between the fourth and the fifth.",
+          "where": "The Riffs and runs pack's blues cell sings five notes of it, two of them half steps apart.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:root",
+          "term": "Root",
+          "anchor": "root",
+          "aka": [
+            "Tonic"
+          ],
+          "definition": "The note a pattern is built on and counted from, called 1.",
+          "where": "Warmup patterns are written relative to the root, and the ladder moves the root a semitone between reps.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:triad",
+          "term": "Triad",
+          "anchor": "triad",
+          "aka": [],
+          "definition": "A three-note chord made of a root, the third above it and the fifth above that.",
+          "where": "Many warmups sing a triad one note at a time, as 1-3-5-3-1.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:arpeggio",
+          "term": "Arpeggio",
+          "anchor": "arpeggio",
+          "aka": [],
+          "definition": "The notes of a chord sung or played one after another instead of together.",
+          "where": "The lip-trill arpeggio, the octave arpeggio and the Long phrases pack's arpeggio chain are all arpeggios.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:fourth",
+          "term": "Fourth",
+          "anchor": "fourth",
+          "aka": [
+            "Perfect fourth"
+          ],
+          "definition": "The interval of five semitones, as from C up to F.",
+          "where": "Ear training plays it, and the Leaps and intervals pack opens on it.",
+          "href": "/ear-training",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:fifth",
+          "term": "Fifth",
+          "anchor": "fifth",
+          "aka": [
+            "Perfect fifth"
+          ],
+          "definition": "The interval of seven semitones, as from C up to G.",
+          "where": "Ear training plays it, and many sirens and leaps in the warmups span it.",
+          "href": "/ear-training",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:sixth",
+          "term": "Sixth",
+          "anchor": "sixth",
+          "aka": [
+            "Major sixth"
+          ],
+          "definition": "The interval of nine semitones for a major sixth, as from C up to A.",
+          "where": "The free Major sixth leaps warmup sings it up and back twice.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:tenth",
+          "term": "Tenth",
+          "anchor": "tenth",
+          "aka": [
+            "Major tenth"
+          ],
+          "definition": "The interval of an octave plus a major third, as from C up to the E above the next C.",
+          "where": "The High notes routine and the Leaps and intervals pack reach it, always inside your measured range.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:leap",
+          "term": "Leap",
+          "anchor": "leap",
+          "aka": [
+            "Skip"
+          ],
+          "definition": "A move between two notes that are more than one scale step apart.",
+          "where": "The Leaps and intervals pack drills leaps from a fourth to a tenth, up and down.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:scoop",
+          "term": "Scoop",
+          "anchor": "scoop",
+          "aka": [],
+          "definition": "Arriving at a note from below by sliding up into it instead of starting on its pitch.",
+          "where": "A warmup scores a note from the moment it starts, so the time a scoop spends sliding up counts as time off the note.",
+          "href": "/studio",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:melisma",
+          "term": "Melisma",
+          "anchor": "melisma",
+          "aka": [],
+          "definition": "Several notes sung on a single syllable.",
+          "where": "The Riffs and runs pack drills the short melismas pop and gospel runs are made of.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:run",
+          "term": "Run",
+          "anchor": "run",
+          "aka": [
+            "Vocal run"
+          ],
+          "definition": "A quick melisma that travels several notes up or down a scale.",
+          "where": "The free Agility run and Pentatonic run and the whole Riffs and runs pack are runs.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:turn",
+          "term": "Turn",
+          "anchor": "turn",
+          "aka": [],
+          "definition": "A small ornament that circles one note, touching the notes above and below it before coming back.",
+          "where": "The Riffs and runs pack's turn and fall circles the third before dropping to the root.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:triplet",
+          "term": "Triplet",
+          "anchor": "triplet",
+          "aka": [],
+          "definition": "Three equal notes in the time normally given to two of the same kind.",
+          "where": "The Riffs and runs pack's triplet cells fall in three groups of three.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:passing-note",
+          "term": "Passing note",
+          "anchor": "passing-note",
+          "aka": [],
+          "definition": "A note that connects two others by step without belonging to the chord under them.",
+          "where": "The flat five in the blues cell, in the Riffs and runs pack, is one.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:phrase",
+          "term": "Phrase",
+          "anchor": "phrase",
+          "aka": [],
+          "definition": "A musical sentence of several notes, usually sung on one breath.",
+          "where": "The Long phrases pack and the Longer phrases program are built around sung phrases seven to fourteen seconds long.",
+          "href": "/programs",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:breath-mark",
+          "term": "Breath mark",
+          "anchor": "breath-mark",
+          "aka": [],
+          "definition": "A small comma written above the music where a singer plans to breathe.",
+          "where": "The Longer phrases program asks you to pencil them on a lyric sheet before you sing the line.",
+          "href": "/songs",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:tempo",
+          "term": "Tempo",
+          "anchor": "tempo",
+          "aka": [
+            "BPM"
+          ],
+          "definition": "The speed of the music, counted in beats per minute.",
+          "where": "The warmups' Adjust control slows a pattern to 0.75× of its tempo, and every song plays at its own.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:sequence",
+          "term": "Sequence",
+          "anchor": "sequence",
+          "aka": [],
+          "definition": "A short pattern repeated several times, starting a step higher or lower each time.",
+          "where": "The Long phrases pack's thirds in sequence climb in overlapping pairs.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "music:patter",
+          "term": "Patter",
+          "anchor": "patter",
+          "aka": [],
+          "definition": "Quick syllables sung one to a note, often many on the same pitch.",
+          "where": "The Words on pitch pack's patter exercises score only the pitch; the words are yours to judge.",
+          "href": "/warmups",
+          "domain": "music",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:vocal-folds",
+          "term": "Vocal folds",
+          "anchor": "vocal-folds",
+          "aka": [
+            "Vocal cords"
+          ],
+          "definition": "The two bands of tissue in the larynx whose vibration makes the sound of the voice.",
+          "where": "Every pitch the app reads is the rate at which they vibrate, and the book's first chapter describes how they work.",
+          "href": "/book",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:larynx",
+          "term": "Larynx",
+          "anchor": "larynx",
+          "aka": [
+            "Voice box"
+          ],
+          "definition": "The cartilage structure in the throat that holds the vocal folds and moves when you swallow.",
+          "where": "The book's low notes chapter warns against pressing it down to make a low note sound deeper.",
+          "href": "/book",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:release",
+          "term": "Release",
+          "anchor": "release",
+          "aka": [
+            "Offset"
+          ],
+          "definition": "The way a sung note ends.",
+          "where": "The book's longer phrases chapter asks for a release that stops the sound rather than fading it into breath.",
+          "href": "/book",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:sustain",
+          "term": "Sustain",
+          "anchor": "sustain",
+          "aka": [
+            "Held note"
+          ],
+          "definition": "One note held at a steady pitch for a stretch of time.",
+          "where": "The breath room's sustain test times your longest steady hold.",
+          "href": "/breath",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:diction",
+          "term": "Diction",
+          "anchor": "diction",
+          "aka": [],
+          "definition": "How clearly the words of a song can be understood when sung.",
+          "where": "The Words on pitch pack practices it on moving pitch, scoring the pitch while the words stay yours to judge.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:consonant",
+          "term": "Consonant",
+          "anchor": "consonant",
+          "aka": [],
+          "definition": "A speech sound made by stopping or narrowing the air with the lips, teeth or tongue.",
+          "where": "The Words on pitch pack starts each note on one, such as the t in tee-tay-tah-toh-too.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:vowel-modification",
+          "term": "Vowel modification",
+          "anchor": "vowel-modification",
+          "aka": [],
+          "definition": "Nudging a vowel toward a neighboring vowel as the pitch rises, so its resonance still suits the note.",
+          "where": "The book's head voice and passaggio chapters ask for it, and the narrow-vowel warmups such as Goo octave scale lean on it.",
+          "href": "/book",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:swell-and-fade",
+          "term": "Swell and fade",
+          "anchor": "swell-and-fade",
+          "aka": [
+            "Messa di voce"
+          ],
+          "definition": "One held note that grows from soft to medium and fades back while its pitch stays still.",
+          "where": "The free warmup of the same name scores the pitch while the volume moves.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:call",
+          "term": "Call",
+          "anchor": "call",
+          "aka": [],
+          "definition": "A short, bright, speech-like shout of a word on pitch, as you would call to someone across a street.",
+          "where": "The Belt prep pack opens with calls at speaking pitch before any held notes.",
+          "href": "/programs",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:warmup",
+          "term": "Warmup",
+          "anchor": "warmup",
+          "aka": [],
+          "definition": "A short set of easy exercises that gets the voice ready before harder singing.",
+          "where": "The warmups room has free routines from a few minutes to a quarter of an hour.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:cool-down",
+          "term": "Cool-down",
+          "anchor": "cool-down",
+          "aka": [],
+          "definition": "A few minutes of quiet, descending exercises after singing that bring the voice back toward speaking pitch.",
+          "where": "Every Pro day of the skill programs ends on the free Cool-down routine.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:hum",
+          "term": "Hum",
+          "anchor": "hum",
+          "aka": [],
+          "definition": "A note sung with the lips closed, so the sound leaves through the nose.",
+          "where": "Many warmups open on hums, from the Morning reset's first hum to the cool-down's quiet descent.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:glide",
+          "term": "Glide",
+          "anchor": "glide",
+          "aka": [
+            "Slide"
+          ],
+          "definition": "A smooth change of pitch from one note to another that passes through every pitch between them.",
+          "where": "Sirens and slides in the warmups are glides, scored along the line between their two notes.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:rep",
+          "term": "Rep",
+          "anchor": "rep",
+          "aka": [
+            "Repetition"
+          ],
+          "definition": "One time through an exercise's pattern.",
+          "where": "Each warmup sings a set number of reps, starting each one on a new root.",
+          "href": "/warmups",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:rest-day",
+          "term": "Rest day",
+          "anchor": "rest-day",
+          "aka": [],
+          "definition": "A planned day with no practice in a program, which gives the voice time to recover.",
+          "where": "Every program of two weeks or more has at least one rest day each week.",
+          "href": "/programs",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:check-in",
+          "term": "Check-in",
+          "anchor": "check-in",
+          "aka": [],
+          "definition": "A program day that repeats an earlier day's range test after the same warmup, so the two readings can be compared.",
+          "where": "Every Pro skill program ends on one that matches its first day.",
+          "href": "/programs",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:usable-floor",
+          "term": "Usable floor",
+          "anchor": "usable-floor",
+          "aka": [],
+          "definition": "The lowest note you can start cleanly, hold steadily and sing a word on, usually a few semitones above the lowest note a range test reports.",
+          "where": "The Low notes program is built to make the notes near it easier to use.",
+          "href": "/range",
+          "domain": "voice",
+          "publisher": "sing"
+        },
+        {
+          "key": "voice:hoarseness",
+          "term": "Hoarseness",
+          "anchor": "hoarseness",
+          "aka": [],
+          "definition": "A voice that sounds rough, breathy or weak, in speech or in singing.",
+          "where": "The Belt and Low notes programs ask you to rest when it appears and, when it lasts, to see a doctor who can examine the vocal folds, such as an ENT or laryngologist.",
+          "href": "/programs",
+          "domain": "voice",
           "publisher": "sing"
         }
       ]

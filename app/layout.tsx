@@ -99,6 +99,10 @@ const JSON_LD = {
       author: { "@id": JASON_PERSON_ID },
     },
     {
+      "parentOrganization": {"@type":"Organization","@id":"https://jcinvestmentgroup.ventures/#organization","name":"JC Investment Group LLC","url":"https://jcinvestmentgroup.ventures/"},
+      "address": {"@type":"PostalAddress","streetAddress":"138 Victorian Lane","addressLocality":"Jupiter","addressRegion":"FL","postalCode":"33458","addressCountry":"US"},
+      "hasMerchantReturnPolicy": {"@type":"MerchantReturnPolicy","@id":"https://suedeai.ai/terms#money-back-policy","name":"90-day money-back policy","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":90,"returnFees":"https://schema.org/FreeReturn","refundType":"https://schema.org/FullRefund","merchantReturnLink":"https://suedeai.ai/terms#money-back-policy"},
+
       "@type": "Organization",
       "@id": SUEDE_ORG_ID,
       // Must be the canonical "Suede AI". The music-facing rule that used
@@ -108,7 +112,7 @@ const JSON_LD = {
       // conflicting label on one entity rather than a softer display name for
       // this surface. The short forms keep working as alternateName.
       name: "Suede AI",
-      alternateName: ["Suede Labs", "Suede"],
+      alternateName: ["Suede Labs AI","Suede Labs","Suede"],
       url: "https://suedeai.ai",
       logo: "https://suedeai.ai/suede-ai-logo-transparent.png",
       founder: { "@id": JASON_PERSON_ID },

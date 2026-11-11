@@ -47,7 +47,7 @@ const ATLAS = new Map(contract.editorial.atlas.chapters.map((c) => [c.slug, c]))
 
 test("the contract publishes the library this repository intends to cite", () => {
   assert.ok(contract.version >= 2, "the editorial section arrived in version 2");
-  assert.equal(contract.editorial.book.chapters.length, 23);
+  assert.equal(contract.editorial.book.chapters.length, 28);
   assert.equal(contract.editorial.atlas.chapters.length, 27);
   assert.equal(contract.editorial.repertoire.songs.length, 24);
   assert.equal(contract.editorial.singers.count, 636);
