@@ -42,7 +42,16 @@ test("the guitar Course is built from the curriculum the page renders", () => {
   assert.ok(course.description.startsWith(`${lessons.length} guided guitar lessons`));
 
   // Google's required Course info properties.
-  assert.deepEqual(course.provider, { "@type": "Organization", "@id": SUEDE_ORG_ID, name: "Suede AI", url: "https://suedeai.ai" });
+  assert.equal(course.provider["@type"], "Organization");
+  assert.equal(course.provider["@id"], SUEDE_ORG_ID);
+  assert.equal(course.provider.name, "Suede AI");
+  assert.equal(course.provider.url, "https://suedeai.ai");
+  assert.deepEqual(course.provider.alternateName, ["Suede Labs AI", "Suede Labs", "Suede"]);
+  assert.equal(course.provider.parentOrganization.name, "JC Investment Group LLC");
+  assert.equal(course.provider.address.streetAddress, "138 Victorian Lane");
+  assert.equal(course.provider.address.addressLocality, "Jupiter");
+  assert.equal(course.provider.address.postalCode, "33458");
+  assert.equal(course.provider.hasMerchantReturnPolicy.merchantReturnDays, 90);
   assert.equal(course.hasCourseInstance.length, 1);
   assert.equal(course.hasCourseInstance[0].courseMode, "Online");
   assert.equal(course.hasCourseInstance[0].courseWorkload, isoMinutes(minutes));
