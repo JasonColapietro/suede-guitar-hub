@@ -5,6 +5,7 @@ import {
   LEGAL,
   RESOURCES,
   STRUMLY,
+  SUEDE_NETWORK,
   TOOLS,
   isInternalHref,
   type SiteEntry,
@@ -46,6 +47,8 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   // The comparison hub sits in HUBS too; this line links it from every page,
   // and the hub links on to every head-to-head and alternatives page.
   { href: "/compare", label: "Compare GuitarHub" },
+  // /notes sits in HUBS as well; this is its site-wide internal link.
+  { href: "/notes", label: "Notes from Suede AI" },
   { href: APP_STORE.ios, label: "GuitarHub for iPhone" },
   ...LEGAL.map(({ href, title }) => ({ href, label: title })),
   { href: STRUMLY.guides, label: "Strumly guides" },
@@ -54,6 +57,26 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: STRUMLY.sing, label: "Suede Sing" },
   { href: STRUMLY.social, label: "Suede AI Social" },
   { href: STRUMLY.suedeLabs, label: "Suede AI" },
+];
+
+/**
+ * The "Built by Suede AI" row: who made the site and where, with one link to
+ * each main Suede AI page and a few sibling guitar sites. Plain anchors, all
+ * external, read from `SUEDE_NETWORK` in `lib/site.ts`.
+ */
+const BUILT_BY_LINKS: readonly { href: string; label: string }[] = [
+  { href: SUEDE_NETWORK.agency, label: "Suede AI web development and AI SEO in West Palm Beach" },
+  { href: SUEDE_NETWORK.home, label: "Suede AI" },
+  { href: SUEDE_NETWORK.founder, label: "Jason Colapietro, founder" },
+  { href: SUEDE_NETWORK.jason, label: "jasoncolapietro.com" },
+  { href: SUEDE_NETWORK.jupiterSocial, label: "Jupiter Social" },
+];
+
+const SIBLING_LINKS: readonly { href: string; label: string }[] = [
+  { href: SUEDE_NETWORK.siblings.chords, label: "Guitar chords, scales and tuner" },
+  { href: SUEDE_NETWORK.siblings.signalChain, label: "The Signal Chain reference" },
+  { href: SUEDE_NETWORK.siblings.dna, label: "Signal-chain archive" },
+  { href: SUEDE_NETWORK.siblings.signal, label: "Suede Signal" },
 ];
 
 /**
@@ -132,7 +155,40 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-ink/5 pt-8 text-sm text-ink/60 md:flex-row md:items-center md:justify-between">
+        <div className="mt-14 border-t border-ink/5 pt-8">
+          <p id="footer-built-by" className={COLUMN_HEADING}>
+            Built by Suede AI in West Palm Beach, Florida
+          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink/70">
+            GuitarHub is engineered by Jason Colapietro and Suede AI, the agentic
+            platform company he founded in West Palm Beach in 2024. The same
+            team builds websites, AI search visibility and agent platforms for
+            businesses in Jupiter, Palm Beach Gardens and across Palm Beach County.
+          </p>
+          <ul className="mt-2 flex flex-wrap gap-x-5" aria-labelledby="footer-built-by">
+            {BUILT_BY_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className={LINK_CLASSES}>
+                  {link.label} <span aria-hidden>↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p id="footer-more-suede" className="mt-4 text-sm text-ink/60">
+            More guitar sites from Suede AI:
+          </p>
+          <ul className="flex flex-wrap gap-x-5" aria-labelledby="footer-more-suede">
+            {SIBLING_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className={LINK_CLASSES}>
+                  {link.label} <span aria-hidden>↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-4 border-t border-ink/5 pt-8 text-sm text-ink/60 md:flex-row md:items-center md:justify-between">
           <Link
             href="/"
             className="inline-flex min-h-11 items-center font-display text-lg text-indigo-deep"

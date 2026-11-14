@@ -12,6 +12,7 @@ import {
   HUBS,
   LEARN,
   LEGAL,
+  NOTES,
   RESOURCES,
   SITE_URL,
   TOOLS,
@@ -55,6 +56,7 @@ const GROUPS: readonly Group[] = [
   { entries: RESOURCES, priority: 0.75, changeFrequency: "monthly" },
   { entries: OTHER_GUIDES, priority: 0.7, changeFrequency: "monthly" },
   { entries: COMPARISONS, priority: 0.7, changeFrequency: "monthly" },
+  { entries: NOTES, priority: 0.6, changeFrequency: "monthly" },
   { entries: [ABOUT], priority: 0.5, changeFrequency: "yearly" },
   { entries: LEGAL, priority: 0.3, changeFrequency: "yearly" },
 ];

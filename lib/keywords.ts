@@ -559,6 +559,39 @@ export const ROUTE_KEYWORDS = {
     "pentatonic scale guitar",
     "guitarhub",
   ],
+  "/notes": [
+    "suede ai notes",
+    "guitar app development",
+    "jason colapietro",
+    "west palm beach web development",
+    "palm beach county ai seo",
+    "guitarhub",
+  ],
+  "/notes/building-guitarhub-solo-engineer": [
+    "building a guitar app",
+    "solo developer guitar app",
+    "guitar community website",
+    "jason colapietro",
+    "ios app developer west palm beach",
+    "suede ai",
+    "guitarhub",
+  ],
+  "/notes/guitar-players-jupiter-palm-beach-gardens": [
+    "guitar lessons jupiter fl",
+    "guitar lessons palm beach gardens",
+    "guitar jam sessions palm beach county",
+    "west palm beach guitar players",
+    "online guitar practice",
+    "guitarhub",
+  ],
+  "/notes/how-suede-ai-builds-comparison-pages": [
+    "comparison page seo",
+    "guitar app comparison",
+    "ai search citations",
+    "generative engine optimization",
+    "suede ai seo west palm beach",
+    "guitarhub",
+  ],
 } as const satisfies Record<string, readonly string[]>;
 
 export type KeywordRoute = keyof typeof ROUTE_KEYWORDS;

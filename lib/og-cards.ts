@@ -6,6 +6,7 @@ import {
   GUIDES,
   HUBS,
   LEARN,
+  NOTES,
   RESOURCES,
   SITE_NAME,
   TOOLS,
@@ -44,6 +45,7 @@ const GROUPS: readonly { eyebrow: string; entries: readonly SiteEntry[] }[] = [
   { eyebrow: "Learn guitar", entries: LEARN },
   { eyebrow: "About", entries: [ABOUT] },
   { eyebrow: "Comparison", entries: COMPARISONS },
+  { eyebrow: "Notes from Suede AI", entries: NOTES },
 ];
 
 const EYEBROWS: Readonly<Record<string, string>> = {
@@ -53,6 +55,7 @@ const EYEBROWS: Readonly<Record<string, string>> = {
   "/glossary": "Glossary",
   "/faq": "Questions and answers",
   "/compare": "Compare",
+  "/notes": "Notes from Suede AI",
   "/learn/guitar": "Learning path",
   "/advanced": "Advanced Lab",
 };
@@ -81,6 +84,8 @@ export const OG_ROUTES: readonly string[] = [
   "/faq",
   "/compare",
   ...COMPARISONS.map((entry) => entry.href),
+  "/notes",
+  ...NOTES.map((entry) => entry.href),
   "/learn/guitar",
   "/advanced",
   ABOUT.href,

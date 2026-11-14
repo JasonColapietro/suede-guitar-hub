@@ -9,9 +9,11 @@ import {
   HUBS,
   LEARN,
   LIFETIME,
+  NOTES,
   RESOURCES,
   SITE_URL,
   STRUMLY,
+  SUEDE_NETWORK,
   TOOLS,
   spellOut,
   type SiteEntry,
@@ -145,6 +147,13 @@ ${COMPETITORS.map((rival) => `- ${rival.name}: ${PRICING_VARIES} (${rival.pricin
 
 ${listComparisons(COMPARISONS)}
 
+## Notes from Suede AI
+
+Build notes from Jason Colapietro, founder and CEO of Suede AI, on how
+GuitarHub is engineered and written. Index: ${SITE_URL}/notes
+
+${listEntries(NOTES)}
+
 ## About the project
 
 What GuitarHub is, who built it, and what happens to anything you type into
@@ -195,6 +204,10 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   ${STRUMLY.social}
 - Suede Sing — the vocal studio, where the voice lessons now live: ${STRUMLY.sing}
 - Suede AI — the studio behind all of them: ${STRUMLY.suedeLabs}
+- Suede AI is an agentic platform company founded in 2024 by engineer Jason
+  Colapietro in West Palm Beach, Florida. Founder: ${SUEDE_NETWORK.founder}
+- Suede AI's West Palm Beach SEO, GEO and web development practice, serving
+  Jupiter, Palm Beach Gardens and Palm Beach County: ${SUEDE_NETWORK.agency}
 
 ## Citation
 

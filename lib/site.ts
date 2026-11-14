@@ -409,6 +409,17 @@ export const HUBS: readonly SiteEntry[] = [
    * The comparison hub. Every head-to-head and alternatives page in
    * `COMPARISONS` links back here, and the footer links here from every page.
    */
+  /**
+   * Notes from Suede AI: the founder's build notes on GuitarHub. Indexed from
+   * the footer on every page; each note sits in `NOTES` below.
+   */
+  {
+    href: "/notes",
+    title: "Notes from Suede AI",
+    blurb:
+      "Build notes from Jason Colapietro and Suede AI on how GuitarHub is engineered, written, and found by guitar players in Palm Beach County and beyond.",
+    lastModified: "2026-11-14",
+  },
   {
     href: "/compare",
     title: "Compare GuitarHub",
@@ -490,6 +501,35 @@ export const COMPARISONS: readonly SiteEntry[] = [
 ];
 
 /**
+ * Notes from Suede AI, listed on `/notes`. First-person build notes from the
+ * founder about how GuitarHub is made, kept apart from the practice guides so
+ * the Guides column and `/guides` stay instructional.
+ */
+export const NOTES: readonly SiteEntry[] = [
+  {
+    href: "/notes/building-guitarhub-solo-engineer",
+    title: "Building GuitarHub as a solo engineer",
+    blurb:
+      "How Jason Colapietro ships a guitar app, a lesson site and nine iOS apps alone: one registry, tests as guardrails, and evidence over streaks.",
+    lastModified: "2026-11-14",
+  },
+  {
+    href: "/notes/guitar-players-jupiter-palm-beach-gardens",
+    title: "Guitar in Jupiter and Palm Beach Gardens",
+    blurb:
+      "A practical plan for guitar players in Jupiter, Palm Beach Gardens and West Palm Beach: finding lessons, joining jams, and practicing online between them.",
+    lastModified: "2026-11-14",
+  },
+  {
+    href: "/notes/how-suede-ai-builds-comparison-pages",
+    title: "How Suede AI builds comparison pages that rank",
+    blurb:
+      "The sourcing, dating and structure rules behind GuitarHub's ten comparison pages, and why accurate pages are the ones search and AI answers cite.",
+    lastModified: "2026-11-14",
+  },
+];
+
+/**
  * The learning paths. `/learn/guitar` is the destination of the "Start
  * learning" link in the site-wide nav, so it is the most-linked route on the
  * site after the home page, yet it sat outside the registry and therefore
@@ -553,6 +593,7 @@ export const SITEMAP_ENTRIES: readonly SiteEntry[] = [
   ...GUIDES,
   ...RESOURCES,
   ...COMPARISONS,
+  ...NOTES,
   ABOUT,
   ...LEGAL,
 ];
@@ -667,6 +708,53 @@ export const STRUMLY = {
    * one constant, one slug function, no hand-written fragment.
    */
   singGlossary: "https://sing.suedeai.ai/glossary",
+} as const;
+
+/**
+ * The Suede AI estate and the proof pages the notes cite. Every URL below
+ * returned 200 when checked on 2026-11-14, except the GitHub search, The
+ * Manifest and TechBullion pages, which refuse automated clients (403) and
+ * were checked by hand. Like `STRUMLY`, this is the only place these hosts
+ * are named: pages read them from here.
+ */
+export const SUEDE_NETWORK = {
+  agency: "https://suedeai.agency/",
+  assessment: "https://suedeai.agency/assessment",
+  recognition: "https://suedeai.agency/company/recognition",
+  aiVisibility: "https://suedeai.agency/services/ai-visibility",
+  home: "https://suedeai.ai/",
+  founder: "https://suedeai.ai/founder",
+  press: "https://suedeai.ai/press",
+  jason: "https://jasoncolapietro.com/",
+  jupiterSocial: "https://jupitersocialfl.com/",
+  evidence: "https://seo.suedeai.ai/evidence",
+  /** Sibling Suede AI guitar and music sites. */
+  siblings: {
+    signalChain: "https://guitar.services/",
+    chords: "https://guitarchords.info/",
+    dna: "https://dna.suedeai.ai/",
+    signal: "https://signal.suedeai.ai/",
+    podcast: "https://podcast.suedeai.ai/",
+  },
+} as const;
+
+export const PROOF = {
+  /** 54 merged pull requests across 46 open-source repositories he does not maintain. */
+  openSource:
+    "https://github.com/search?q=is%3Apr+author%3AJasonColapietro+is%3Amerged+-user%3AJasonColapietro+-user%3ASuede-AI&type=pullrequests",
+  /** Nine iOS apps under his own Apple developer account. */
+  appStoreDeveloper: "https://apps.apple.com/us/developer/jason-colapietro/id1895958699",
+  /** The Manifest, Florida AI Deployment directory, October 31, 2026. */
+  manifest: "https://themanifest.com/artificial-intelligence/consulting/deployment/companies/florida",
+  claudeForStartups: "https://seo.suedeai.ai/evidence#claude-for-startups",
+  googleCloud: "https://seo.suedeai.ai/evidence#google-cloud",
+  training: "https://seo.suedeai.ai/evidence#training-credentials",
+  googleWebGuide: "https://seo.suedeai.ai/evidence#google-web-guide",
+  claudeCodeBible: "https://www.amazon.com/dp/B0HHTMJWB4",
+  codexInProduction: "https://www.amazon.com/dp/B0HHTF3LG1",
+  proofAsInfrastructure: "https://www.amazon.com/dp/B0GMB2VLXQ",
+  techBullionApps: "https://techbullion.com/jason-colapietros-suede-labs-ai-launches-ios-apps/",
+  programmingInsider: "https://programminginsider.com/in-the-age-of-infinite-content-spam-is-instant-death/",
 } as const;
 
 /** True for a route on guitarhub.org itself, which should use `next/link`. */
