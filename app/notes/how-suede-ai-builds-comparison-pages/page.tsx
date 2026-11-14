@@ -156,10 +156,10 @@ export default function HowSuedeAiBuildsComparisonPagesPage() {
         <p>
           A &ldquo;last updated&rdquo; stamp on a page says nothing about when
           the facts inside it were checked. GuitarHub keeps one verification
-          date for the comparison facts, and the sitemap uses that date for all
+          date for the comparison facts, and the sitemap uses that date for all{" "}
           {spellOut(COMPARISONS.length)} pages. Re-checking the sources is the only way to move it.
-          Search engines get a truthful freshness signal, and the team gets a
-          clear reminder of when the next check is due.
+          Search engines get a truthful freshness signal, and Jason Colapietro
+          gets a clear reminder of when the next check is due.
         </p>
 
         <h2>Rule three: link to their pricing, lead with your benefit</h2>

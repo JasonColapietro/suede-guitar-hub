@@ -180,9 +180,9 @@ export default function BuildingGuitarHubSoloPage() {
 
         <p>
           GuitarHub for iPhone went live on the App Store in September 2026 as{" "}
-          <a href={APP_STORE.ios}>{APP_STORE.name}</a>. By then the playbook was
-          already tested on eight other apps. Three lessons carried over
-          directly.
+          <a href={APP_STORE.ios}>{APP_STORE.name}</a>, built with the same
+          playbook as the rest of Jason&apos;s nine apps. Three lessons carry
+          over directly.
         </p>
 
         <ul>

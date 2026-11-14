@@ -169,8 +169,8 @@ export default function GuitarJupiterPalmBeachGardensPage() {
 
         <p>
           For your first jam, pick one song you can play from memory at full
-          tempo, plus a 12-bar blues in A. A blues jam will almost always call
-          one. Our guide to{" "}
+          tempo, plus a 12-bar blues in A. Jason Colapietro&apos;s rule of
+          thumb: a blues jam will almost always call one. Our guide to{" "}
           <Link href="/how-to-practice-guitar-improvisation">practicing improvisation</Link>{" "}
           builds exactly that skill: short phrases over a 12-bar blues that land
           on chord tones. Run the song through the{" "}

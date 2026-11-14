@@ -406,10 +406,6 @@ export const HUBS: readonly SiteEntry[] = [
     lastModified: "2026-10-10",
   },
   /**
-   * The comparison hub. Every head-to-head and alternatives page in
-   * `COMPARISONS` links back here, and the footer links here from every page.
-   */
-  /**
    * Notes from Suede AI: the founder's build notes on GuitarHub. Indexed from
    * the footer on every page; each note sits in `NOTES` below.
    */
@@ -420,6 +416,10 @@ export const HUBS: readonly SiteEntry[] = [
       "Build notes from Jason Colapietro and Suede AI on how GuitarHub is engineered, written, and found by guitar players in Palm Beach County and beyond.",
     lastModified: "2026-11-14",
   },
+  /**
+   * The comparison hub. Every head-to-head and alternatives page in
+   * `COMPARISONS` links back here, and the footer links here from every page.
+   */
   {
     href: "/compare",
     title: "Compare GuitarHub",
