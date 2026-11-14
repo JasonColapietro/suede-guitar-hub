@@ -68,6 +68,7 @@ const BUILT_BY_LINKS: readonly { href: string; label: string }[] = [
   { href: SUEDE_NETWORK.agency, label: "Suede AI web development and AI SEO in West Palm Beach" },
   { href: SUEDE_NETWORK.home, label: "Suede AI" },
   { href: SUEDE_NETWORK.founder, label: "Jason Colapietro, founder" },
+  { href: SUEDE_NETWORK.books, label: "The founder's AI Operator Series" },
   { href: SUEDE_NETWORK.jason, label: "jasoncolapietro.com" },
   { href: SUEDE_NETWORK.jupiterSocial, label: "Jupiter Social" },
 ];

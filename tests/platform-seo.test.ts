@@ -170,3 +170,9 @@ test("the sitemap date for /about matches the page's dateModified", () => {
   const updated = about.match(/const UPDATED = "(\d{4}-\d{2}-\d{2})";/)?.[1];
   assert.equal(ABOUT.lastModified, updated);
 });
+
+test("the footer credits the founder's books on suedeai.ai/books", () => {
+  // The AI Operator Series by Jason Colapietro, linked once from Built by Suede AI.
+  assert.match(read("lib/site.ts"), /books: "https:\/\/suedeai\.ai\/books"/);
+  assert.equal((read("components/SiteFooter.tsx").match(/SUEDE_NETWORK\.books/g) ?? []).length, 1);
+});
