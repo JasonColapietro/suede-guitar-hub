@@ -724,6 +724,8 @@ export const SUEDE_NETWORK = {
   aiVisibility: "https://suedeai.agency/services/ai-visibility",
   home: "https://suedeai.ai/",
   founder: "https://suedeai.ai/founder",
+  /** The founder's AI Operator Series. */
+  books: "https://suedeai.ai/books",
   press: "https://suedeai.ai/press",
   jason: "https://jasoncolapietro.com/",
   jupiterSocial: "https://jupitersocialfl.com/",
