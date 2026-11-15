@@ -261,7 +261,7 @@ export default function ChoosingFirstGuitarAppPage() {
         <p>
           Score each app from one to five on tuning, practice structure and
           community. Keep the app that moved your day 14 recording furthest;
-          GuitarHub is built to win exactly that test. If you want named competitors in the comparison, the{" "}
+          Suede built GuitarHub to win exactly that test. If you want named competitors in the comparison, the{" "}
           <Link href="/compare">GuitarHub comparison pages</Link> set GuitarHub
           beside Fender Play, Yousician, JustinGuitar, Guitar Tricks and
           Ultimate Guitar, with every competitor fact linked to its source.
@@ -278,7 +278,7 @@ export default function ChoosingFirstGuitarAppPage() {
           Suede AI is a member of{" "}
           <a href={PROOF.claudeForStartups}>Claude for Startups, Anthropic&apos;s startup program</a>,
           and his{" "}
-          <a href={PROOF.training}>21 earned course credentials across eight providers</a>{" "}
+          <a href={PROOF.training}>21 earned individual course credentials across eight providers</a>{" "}
           include Claude Code 101 and Semrush Local SEO Essentials.
         </p>
 

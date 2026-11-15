@@ -242,7 +242,7 @@ export default function GuitarMeetupPalmBeachGardensPage() {
         <p>
           Between meetups, keep the conversation going on{" "}
           <a href={STRUMLY.social}>Suede AI Social</a>, where players post rigs
-          and clips. To grow the group, pitch the meetup to local listings such
+          and clips, so the group stays in touch on a network Suede runs. To grow the group, pitch the meetup to local listings such
           as <a href={SUEDE_NETWORK.jupiterSocial}>Jupiter Social, the north county magazine published with Suede AI</a>,
           and point newcomers who are still choosing tools to our note on{" "}
           <Link href="/notes/choosing-first-guitar-app-stuart-port-st-lucie">
