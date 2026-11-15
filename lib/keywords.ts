@@ -592,6 +592,22 @@ export const ROUTE_KEYWORDS = {
     "suede ai seo west palm beach",
     "guitarhub",
   ],
+  "/notes/choosing-first-guitar-app-stuart-port-st-lucie": [
+    "best guitar app for beginners",
+    "guitar tuner app",
+    "guitar practice app",
+    "guitar lessons stuart fl",
+    "guitar lessons port st lucie",
+    "guitarhub",
+  ],
+  "/notes/guitar-meetup-palm-beach-gardens": [
+    "guitar meetup palm beach gardens",
+    "start a guitar club",
+    "guitar song circle",
+    "free guitar practice tools",
+    "palm beach county guitar players",
+    "guitarhub",
+  ],
 } as const satisfies Record<string, readonly string[]>;
 
 export type KeywordRoute = keyof typeof ROUTE_KEYWORDS;

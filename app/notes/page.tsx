@@ -106,9 +106,10 @@ export default function NotesPage() {
           GuitarHub is a guitar practice site and iPhone app engineered by Jason
           Colapietro and Suede AI. These notes are the build log behind it: how
           one engineer runs a lesson platform, how guitar players in Palm Beach
-          County can use it alongside local lessons and jams, and how the
-          comparison pages are written so that search engines and AI answers
-          cite them. The practice guides live on the{" "}
+          County can use it alongside local lessons and jams, how a beginner on
+          the Treasure Coast can choose a first guitar app, how to run a guitar
+          meetup in Palm Beach Gardens on free tools, and how the comparison
+          pages are written so that search engines and AI answers cite them. The practice guides live on the{" "}
           <Link href="/guides">guides page</Link>; these notes are about the
           work of building the site itself.
         </p>

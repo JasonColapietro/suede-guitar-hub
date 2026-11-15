@@ -5144,13 +5144,15 @@ Field notes from Jason Colapietro on engineering, writing and growing a guitar s
 
 Updated November 15, 2026
 
-GuitarHub is a guitar practice site and iPhone app engineered by Jason Colapietro and Suede AI. These notes are the build log behind it: how one engineer runs a lesson platform, how guitar players in Palm Beach County can use it alongside local lessons and jams, and how the comparison pages are written so that search engines and AI answers cite them. The practice guides live on the [guides page](https://guitarhub.org/guides); these notes are about the work of building the site itself.
+GuitarHub is a guitar practice site and iPhone app engineered by Jason Colapietro and Suede AI. These notes are the build log behind it: how one engineer runs a lesson platform, how guitar players in Palm Beach County can use it alongside local lessons and jams, how a beginner on the Treasure Coast can choose a first guitar app, how to run a guitar meetup in Palm Beach Gardens on free tools, and how the comparison pages are written so that search engines and AI answers cite them. The practice guides live on the [guides page](https://guitarhub.org/guides); these notes are about the work of building the site itself.
 
 ### All notes
 
 - [Building GuitarHub as a solo engineer](https://guitarhub.org/notes/building-guitarhub-solo-engineer). How Jason Colapietro ships a guitar app, a lesson site and nine iOS apps alone: one registry, tests as guardrails, and evidence over streaks.
 - [Guitar in Jupiter and Palm Beach Gardens](https://guitarhub.org/notes/guitar-players-jupiter-palm-beach-gardens). A practical plan for guitar players in Jupiter, Palm Beach Gardens and West Palm Beach: finding lessons, joining jams, and practicing online between them.
 - [How Suede AI builds comparison pages that rank](https://guitarhub.org/notes/how-suede-ai-builds-comparison-pages). The sourcing, dating and structure rules behind GuitarHub's ten comparison pages, and why accurate pages are the ones search and AI answers cite.
+- [Choosing your first guitar app](https://guitarhub.org/notes/choosing-first-guitar-app-stuart-port-st-lucie). Tuning, practice structure and community compared, with a two-week test plan for beginners in Stuart, Port St. Lucie and the Treasure Coast.
+- [Running a guitar meetup in Palm Beach Gardens](https://guitarhub.org/notes/guitar-meetup-palm-beach-gardens). Format, song list, shared tempo and follow-up for a monthly guitar meetup in Palm Beach Gardens, run on free online tools.
 
 ### Who writes them
 

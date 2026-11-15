@@ -414,7 +414,7 @@ export const HUBS: readonly SiteEntry[] = [
     title: "Notes from Suede AI",
     blurb:
       "Build notes from Jason Colapietro and Suede AI on how GuitarHub is engineered, written, and found by guitar players in Palm Beach County and beyond.",
-    lastModified: "2026-11-14",
+    lastModified: "2026-11-15",
   },
   /**
    * The comparison hub. Every head-to-head and alternatives page in
@@ -525,6 +525,20 @@ export const NOTES: readonly SiteEntry[] = [
     title: "How Suede AI builds comparison pages that rank",
     blurb:
       "The sourcing, dating and structure rules behind GuitarHub's ten comparison pages, and why accurate pages are the ones search and AI answers cite.",
+    lastModified: "2026-11-15",
+  },
+  {
+    href: "/notes/choosing-first-guitar-app-stuart-port-st-lucie",
+    title: "Choosing your first guitar app",
+    blurb:
+      "Tuning, practice structure and community compared, with a two-week test plan for beginners in Stuart, Port St. Lucie and the Treasure Coast.",
+    lastModified: "2026-11-15",
+  },
+  {
+    href: "/notes/guitar-meetup-palm-beach-gardens",
+    title: "Running a guitar meetup in Palm Beach Gardens",
+    blurb:
+      "Format, song list, shared tempo and follow-up for a monthly guitar meetup in Palm Beach Gardens, run on free online tools.",
     lastModified: "2026-11-15",
   },
 ];
@@ -737,6 +751,20 @@ export const SUEDE_NETWORK = {
     dna: "https://dna.suedeai.ai/",
     signal: "https://signal.suedeai.ai/",
     podcast: "https://podcast.suedeai.ai/",
+  },
+  /**
+   * Deep links to specific articles on sibling Suede AI sites, cited in the
+   * body of the notes. Each returned 200 with its own title on 2026-11-15.
+   */
+  siblingArticles: {
+    /** Suede Guitar Tuner & Studio: one tuner shipped on web and iOS. */
+    tunerWebAndIos: "https://fretpulse.suedeai.ai/notes/shipping-a-guitar-app-on-web-and-ios",
+    /** Suede Guitar Tuner & Studio: a 30-day fretboard plan. */
+    fretboardPlan: "https://fretpulse.suedeai.ai/notes/fretboard-practice-plan-palm-beach-county",
+    /** guitarchords.info: a four-week beginner practice plan. */
+    chordsPracticePlan: "https://guitarchords.info/notes/palm-beach-county-guitar-practice-plan",
+    /** guitar.services: humidity and the signal chain in South Florida. */
+    humiditySignalChain: "https://guitar.services/notes/south-florida-humidity-signal-chain",
   },
 } as const;
 
