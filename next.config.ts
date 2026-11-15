@@ -10,7 +10,7 @@ const CONTENT_SECURITY_POLICY = [
   "font-src 'self' data:",
   "form-action 'self'",
   "frame-ancestors 'none'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://suedeai.ai/accomplishment-assets/google-cloud-partner-horizontal.png",
   "object-src 'none'",
   "script-src 'self' 'unsafe-inline' https://suedeai.ai",
   "style-src 'self' 'unsafe-inline'",
