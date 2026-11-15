@@ -5142,7 +5142,7 @@ Source: https://guitarhub.org/notes
 
 Field notes from Jason Colapietro on engineering, writing and growing a guitar site from West Palm Beach, Florida.
 
-Updated November 14, 2026
+Updated November 15, 2026
 
 GuitarHub is a guitar practice site and iPhone app engineered by Jason Colapietro and Suede AI. These notes are the build log behind it: how one engineer runs a lesson platform, how guitar players in Palm Beach County can use it alongside local lessons and jams, and how the comparison pages are written so that search engines and AI answers cite them. The practice guides live on the [guides page](https://guitarhub.org/guides); these notes are about the work of building the site itself.
 
@@ -5158,7 +5158,7 @@ Jason Colapietro founded Suede AI in 2024 in West Palm Beach, Florida. Suede AI 
 
 About the author
 
-**Jason Colapietro**, Founder and CEO, Suede AI, West Palm Beach, Florida. Jason is the engineer behind GuitarHub and the founder of Suede AI, an agentic platform company that also builds websites and AI search visibility for businesses across Palm Beach County.
+**Jason Colapietro**, Founder and CEO, Suede AI, West Palm Beach, Florida. Jason is the engineer behind GuitarHub and the founder of Suede AI, an agentic platform company that also builds websites and AI search visibility for businesses across Palm Beach County. Suede AI ranks among [Clutch](https://clutch.co/profile/suede-ai-seo)'s [Top 30 AI Consultants in Florida](https://clutch.co/consulting/ai/florida) and [Top 50 AI Consultants nationwide](https://clutch.co/us/consulting/ai) (November 2026).
 
 [Founder profile on suedeai.ai](https://suedeai.ai/founder) · [jasoncolapietro.com](https://jasoncolapietro.com/)
 

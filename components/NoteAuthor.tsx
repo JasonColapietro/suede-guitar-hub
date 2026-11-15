@@ -1,3 +1,4 @@
+import ClutchRanking from "@/components/ClutchRanking";
 import { SUEDE_NETWORK } from "@/lib/site";
 
 /**
@@ -18,7 +19,8 @@ export default function NoteAuthor() {
         <strong>Jason Colapietro</strong>, Founder and CEO, Suede AI, West Palm
         Beach, Florida. Jason is the engineer behind GuitarHub and the founder
         of Suede AI, an agentic platform company that also builds websites and
-        AI search visibility for businesses across Palm Beach County.
+        AI search visibility for businesses across Palm Beach County.{" "}
+        <ClutchRanking />
       </p>
       <p className="!mt-3 !text-base">
         <a href={SUEDE_NETWORK.founder}>Founder profile on suedeai.ai</a>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import ClutchRanking from "@/components/ClutchRanking";
 import NoteAuthor from "@/components/NoteAuthor";
 import NoteCallToAction from "@/components/NoteCallToAction";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
@@ -17,7 +18,7 @@ import {
 const HREF = "/notes/guitar-players-jupiter-palm-beach-gardens";
 const CANONICAL = `${SITE_URL}${HREF}`;
 const PUBLISHED = "2026-11-14";
-const UPDATED = "2026-11-14";
+const UPDATED = "2026-11-15";
 
 const HEADLINE = "Guitar players in Jupiter and Palm Beach Gardens: finding lessons, jams and online practice";
 const TITLE = "Guitar in Jupiter and Palm Beach Gardens, FL | GuitarHub";
@@ -258,7 +259,7 @@ export default function GuitarJupiterPalmBeachGardensPage() {
           , including Jest and Backstage. On October 31, 2026, Suede AI SEO
           ranked #1 among Palm Beach County-based companies in{" "}
           <a href={PROOF.manifest}>The Manifest&apos;s Florida AI Deployment directory</a>{" "}
-          and top 25 statewide.
+          and top 25 statewide. <ClutchRanking />
         </p>
 
         <p>

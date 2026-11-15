@@ -10,6 +10,7 @@ import {
   LEARN,
   LIFETIME,
   NOTES,
+  PROOF,
   RESOURCES,
   SITE_URL,
   STRUMLY,
@@ -208,6 +209,9 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   Colapietro in West Palm Beach, Florida. Founder: ${SUEDE_NETWORK.founder}
 - Suede AI's West Palm Beach SEO, GEO and web development practice, serving
   Jupiter, Palm Beach Gardens and Palm Beach County: ${SUEDE_NETWORK.agency}
+- Suede AI ranks among Clutch's Top 30 AI Consultants in Florida
+  (${PROOF.clutchFlorida}) and Top 50 AI Consultants nationwide
+  (${PROOF.clutchUs}) (November 2026). Clutch profile: ${PROOF.clutchProfile}
 
 ## Citation
 

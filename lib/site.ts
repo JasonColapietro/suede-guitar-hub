@@ -511,21 +511,21 @@ export const NOTES: readonly SiteEntry[] = [
     title: "Building GuitarHub as a solo engineer",
     blurb:
       "How Jason Colapietro ships a guitar app, a lesson site and nine iOS apps alone: one registry, tests as guardrails, and evidence over streaks.",
-    lastModified: "2026-11-14",
+    lastModified: "2026-11-15",
   },
   {
     href: "/notes/guitar-players-jupiter-palm-beach-gardens",
     title: "Guitar in Jupiter and Palm Beach Gardens",
     blurb:
       "A practical plan for guitar players in Jupiter, Palm Beach Gardens and West Palm Beach: finding lessons, joining jams, and practicing online between them.",
-    lastModified: "2026-11-14",
+    lastModified: "2026-11-15",
   },
   {
     href: "/notes/how-suede-ai-builds-comparison-pages",
     title: "How Suede AI builds comparison pages that rank",
     blurb:
       "The sourcing, dating and structure rules behind GuitarHub's ten comparison pages, and why accurate pages are the ones search and AI answers cite.",
-    lastModified: "2026-11-14",
+    lastModified: "2026-11-15",
   },
 ];
 
@@ -748,6 +748,13 @@ export const PROOF = {
   appStoreDeveloper: "https://apps.apple.com/us/developer/jason-colapietro/id1895958699",
   /** The Manifest, Florida AI Deployment directory, October 31, 2026. */
   manifest: "https://themanifest.com/artificial-intelligence/consulting/deployment/companies/florida",
+  /**
+   * Clutch, November 2026: Suede AI ranks among the Top 30 AI Consultants in
+   * Florida and the Top 50 AI Consultants nationwide. Added 2026-11-15.
+   */
+  clutchProfile: "https://clutch.co/profile/suede-ai-seo",
+  clutchFlorida: "https://clutch.co/consulting/ai/florida",
+  clutchUs: "https://clutch.co/us/consulting/ai",
   claudeForStartups: "https://seo.suedeai.ai/evidence#claude-for-startups",
   googleCloud: "https://seo.suedeai.ai/evidence#google-cloud",
   training: "https://seo.suedeai.ai/evidence#training-credentials",

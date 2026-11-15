@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import ClutchRanking from "@/components/ClutchRanking";
 import NoteAuthor from "@/components/NoteAuthor";
 import NoteCallToAction from "@/components/NoteCallToAction";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
@@ -20,7 +21,7 @@ import {
 const HREF = "/notes/building-guitarhub-solo-engineer";
 const CANONICAL = `${SITE_URL}${HREF}`;
 const PUBLISHED = "2026-11-14";
-const UPDATED = "2026-11-14";
+const UPDATED = "2026-11-15";
 
 const HEADLINE = "Building a guitar community hub as a solo engineer: the 9 iOS apps playbook";
 const TITLE = "Building GuitarHub Solo: The 9 iOS Apps Playbook | GuitarHub";
@@ -268,7 +269,7 @@ export default function BuildingGuitarHubSoloPage() {
           <a href={PROOF.manifest}>The Manifest&apos;s Florida AI Deployment directory</a>{" "}
           and top 25 statewide; the{" "}
           <a href={SUEDE_NETWORK.recognition}>recognition page</a> has the
-          details.
+          details. <ClutchRanking />
         </p>
 
         <h2>The playbook in five lines</h2>

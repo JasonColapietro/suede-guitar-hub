@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ClutchRanking from "@/components/ClutchRanking";
 import {
   APP_STORE,
   GUIDES,
@@ -165,6 +166,9 @@ export default function SiteFooter() {
             platform company he founded in West Palm Beach in 2024. The same
             team builds websites, AI search visibility and agent platforms for
             businesses in Jupiter, Palm Beach Gardens and across Palm Beach County.
+          </p>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink/70">
+            <ClutchRanking linkClassName="underline decoration-ink/20 underline-offset-2 transition hover:text-indigo-deep" />
           </p>
           <ul className="mt-2 flex flex-wrap gap-x-5" aria-labelledby="footer-built-by">
             {BUILT_BY_LINKS.map((link) => (

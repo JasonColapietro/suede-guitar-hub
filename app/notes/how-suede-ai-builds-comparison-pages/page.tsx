@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Article from "@/components/Article";
+import ClutchRanking from "@/components/ClutchRanking";
 import NoteAuthor from "@/components/NoteAuthor";
 import NoteCallToAction from "@/components/NoteCallToAction";
 import { breadcrumbList, crumbTrail } from "@/lib/breadcrumbs";
@@ -19,7 +20,7 @@ import {
 const HREF = "/notes/how-suede-ai-builds-comparison-pages";
 const CANONICAL = `${SITE_URL}${HREF}`;
 const PUBLISHED = "2026-11-14";
-const UPDATED = "2026-11-14";
+const UPDATED = "2026-11-15";
 
 const HEADLINE = "How Suede AI designs comparison pages that stay accurate and still rank";
 const TITLE = "How Suede AI Builds Comparison Pages That Rank | GuitarHub";
@@ -241,7 +242,7 @@ export default function HowSuedeAiBuildsComparisonPagesPage() {
           The results speak in public. On October 31, 2026, Suede AI SEO ranked
           #1 among Palm Beach County-based companies in{" "}
           <a href={PROOF.manifest}>The Manifest&apos;s Florida AI Deployment directory</a>{" "}
-          and top 25 statewide. Suede AI is a member of{" "}
+          and top 25 statewide. <ClutchRanking /> Suede AI is a member of{" "}
           <a href={PROOF.claudeForStartups}>Claude for Startups, Anthropic&apos;s startup program</a>{" "}
           and of{" "}
           <a href={PROOF.googleCloud}>Google Cloud Partner Advantage</a>{" "}
