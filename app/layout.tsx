@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { APP_STORE, THEME_COLOR } from "@/lib/site";
@@ -216,6 +217,8 @@ export default function RootLayout({
         <JsClassMarker />
         {children}
       <nav aria-label="Site reference" style={{ padding: "1rem", textAlign: "center", fontSize: "0.875rem" }}><a href="/ai-instructions" className="inline-flex min-h-11 items-center">AI Instructions</a></nav>
+        {/* Light · Dark · AI agent view switch shared by every Suede site (suedeai.ai/agent-view.js). */}
+        <Script src="https://suedeai.ai/agent-view.js" strategy="lazyOnload" />
       </body>
     </html>
   );
