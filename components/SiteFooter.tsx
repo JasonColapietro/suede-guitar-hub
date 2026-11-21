@@ -56,7 +56,7 @@ const SUEDE_LINKS: readonly { href: string; label: string }[] = [
   { href: STRUMLY.path, label: "Strumly learning path" },
   { href: STRUMLY.rig, label: "Strumly rig board" },
   { href: STRUMLY.sing, label: "Suede Sing" },
-  { href: STRUMLY.socialForum, label: "Suede Social guitar forum" },
+  { href: STRUMLY.social, label: "Suede Social" },
   { href: STRUMLY.suedeLabs, label: "Suede AI" },
 ];
 
@@ -152,7 +152,7 @@ export default function SiteFooter() {
                 ink/60 measures 4.54:1. Same for the bottom row below. */}
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink/60">
               GuitarHub brings lessons and practice together. Explore more guitar
-              tools with Strumly and the wider conversation on the Suede Social guitar forum.
+              tools with Strumly and the guitar forum on Suede Social.
             </p>
           </div>
         </div>

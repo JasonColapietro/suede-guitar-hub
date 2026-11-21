@@ -34,7 +34,7 @@ Cold outreach is one-shot: a creator, teacher, editor or podcaster who opens a
 Links used in these templates:
 
 - **Live now:** `https://guitarhub.org`, `/breakthrough`,
-  `https://strumly.suedeai.ai/guides`, `https://social.suedeai.ai`,
+  `https://strumly.suedeai.ai/guides`, `https://suede.social`,
   `https://suedeai.ai`
 - **Not live until Step 0:** `/diagnose`, `/tempo`, `/readiness`, `/method`
 

@@ -179,8 +179,8 @@ have seen made about products in this category and cannot make about this one.
 - **Not a replacement for a teacher.** The site's own position is that the loop
   makes lessons more useful, because you arrive with a recording and a specific
   question.
-- **Not a community platform.** GuitarHub has no forum of its own. Suede Social
-  carries the wider conversation.
+- **Community on Suede Social.** Players post rigs and trade tone, gear and
+  setup advice on the Suede Social guitar forum: https://suede.social/forum
 
 ---
 
@@ -246,7 +246,7 @@ Fraunces for display and italic accents. Inter for body text.
 ## Related Suede surfaces
 
 - **Strumly**, the AI guitar coach, guides index: https://strumly.suedeai.ai/guides
-- **Suede Social**, the guitar community: https://social.suedeai.ai
+- **Suede Social**, the guitar forum: https://suede.social
 - **Suede AI**, the studio behind all three: https://suedeai.ai
 
 The relationship in one line: GuitarHub orchestrates the practice, Strumly

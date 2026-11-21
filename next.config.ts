@@ -60,9 +60,10 @@ export const FIELD_GUIDE_PDF_HEADERS = FIELD_GUIDES.map((guide) => ({
 // guitarhub.org served the Suede Social app before it became the lessons site.
 // Google still holds those URLs (checked 2026-09-08: /discover, /articles and
 // /article/h9-vs-volante were indexed under this host and answered 404 here),
-// and the same pages are live on social.suedeai.ai, so send them home
+// and the same pages are live on suede.social (the canonical host that
+// social.suedeai.ai 308s to), so send them home
 // permanently instead of letting the stale index entries die as 404s.
-export const LEGACY_SOCIAL_ORIGIN = "https://social.suedeai.ai";
+export const LEGACY_SOCIAL_ORIGIN = "https://suede.social";
 export const LEGACY_SOCIAL_REDIRECTS = [
   { source: "/discover", destination: `${LEGACY_SOCIAL_ORIGIN}/discover`, permanent: true },
   { source: "/articles", destination: `${LEGACY_SOCIAL_ORIGIN}/articles`, permanent: true },

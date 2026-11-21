@@ -201,8 +201,10 @@ Applying is a form on the site. It takes no payment and creates no commitment.
   training. Its structured learning path: ${STRUMLY.path}
 - Strumly guides — the written rights and gear explainers that used to live on
   this domain: ${STRUMLY.guides}
-- Suede Social — the guitar forum for gear, pedalboards, tone, setup help and
-  public Rig Cards: ${STRUMLY.socialForum}
+- Suede Social — the guitar forum for gear, pedalboards, tone and setup help:
+  ${STRUMLY.socialForum}
+- Suede Social Rig Cards — real players' guitars, amps and pedalboards:
+  ${STRUMLY.socialRigs}
 - Suede Sing — the vocal studio, where the voice lessons now live: ${STRUMLY.sing}
 - Suede AI — the studio behind all of them: ${STRUMLY.suedeLabs}
 - Suede AI is an agentic platform company founded in 2024 by engineer Jason

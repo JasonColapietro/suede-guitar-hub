@@ -694,14 +694,17 @@ export const STRUMLY = {
     teenSpirit:
       "https://strumly.suedeai.ai/book/lessons/lesson-smells-like-teen-spirit",
   },
-  social: "https://social.suedeai.ai",
   /**
-   * The Suede Social guitar forum (Tone Talk, Setup & Maintenance, Rig
-   * Diaries, Guitar Help). Links that send a player to ask or answer a guitar
-   * question point here with "guitar forum" anchor text, so the forum's own
-   * landing page collects the topical signal instead of the network root.
+   * Suede Social, the guitar forum. suede.social is its canonical host:
+   * social.suedeai.ai answers every path with a 308 to it (checked
+   * 2026-11-21), so linking the old host spends a redirect hop on every click
+   * and points ranking signal at a non-canonical URL.
    */
-  socialForum: "https://social.suedeai.ai/forum",
+  social: "https://suede.social",
+  /** The forum rooms: Tone Talk, Setup & Maintenance, Rig Diaries, Guitar Help. */
+  socialForum: "https://suede.social/forum",
+  /** Public Rig Cards: real players' guitars, amps and pedalboards. */
+  socialRigs: "https://suede.social/discover",
   suedeLabs: "https://suedeai.ai",
   /**
    * Suede Sing, the vocal studio. Added 2026-09-12, and overdue: this site

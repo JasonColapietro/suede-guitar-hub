@@ -530,9 +530,9 @@ export default function BreakthroughPlanner() {
         </div>
         <div className="mt-6 flex flex-wrap gap-3 md:mt-0 md:pl-8">
           <Link href="/#apply" className="breakthrough-primary">Apply to the room</Link>
-          {/* STRUMLY.social, not a hand-written suede.social: the registry in
-              lib/site.ts holds the one URL this site uses for Suede Social, and
-              a second spelling of the same destination is a second thing to
+          {/* STRUMLY.social, not a hand-written URL: the registry in
+              lib/site.ts holds the Suede Social URLs this site uses, and a
+              second spelling of the same destination is a second thing to
               keep true. */}
           <a href={STRUMLY.social} target="_blank" rel="noopener" className="breakthrough-community">
             Visit Suede Social ↗

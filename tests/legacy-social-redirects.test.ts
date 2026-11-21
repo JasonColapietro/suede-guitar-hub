@@ -14,7 +14,7 @@ test("the stale Suede Social URLs Google indexed under guitarhub.org redirect pe
   assert.deepEqual(social, [...LEGACY_SOCIAL_REDIRECTS]);
   for (const redirect of social) {
     assert.equal(redirect.permanent, true, `${redirect.source} must be a 308, not a temporary redirect`);
-    assert.ok(redirect.destination.startsWith(`${LEGACY_SOCIAL_ORIGIN}/`), `${redirect.source} must land on social.suedeai.ai`);
+    assert.ok(redirect.destination.startsWith(`${LEGACY_SOCIAL_ORIGIN}/`), `${redirect.source} must land on suede.social`);
   }
   const sources = social.map((redirect) => redirect.source);
   assert.deepEqual(sources, [

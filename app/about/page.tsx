@@ -280,8 +280,8 @@ export default function AboutPage() {
         <h2>How this fits with Strumly and Suede Social</h2>
 
         <p>
-          GuitarHub teaches and runs your practice. Strumly coaches. The Suede Social
-          guitar forum carries the wider conversation. All three are Suede AI
+          GuitarHub teaches and runs your practice. Strumly coaches. Suede Social carries
+          the wider conversation. All three are Suede AI
           products.
         </p>
 
@@ -300,8 +300,8 @@ export default function AboutPage() {
 
         <p>
           The GuitarHub community meets on{" "}
-          <a href={STRUMLY.socialForum}>Suede Social guitar forum</a>, where
-          players post rigs and talk tone, gear and setup with each other.
+          <a href={STRUMLY.socialForum}>the Suede Social guitar forum</a>,
+          where players post rigs and talk tone, gear and setup.
         </p>
 
         <h2>Apply for the founding room</h2>
