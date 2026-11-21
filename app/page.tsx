@@ -126,7 +126,7 @@ const FAQS = [
   },
   {
     q: "Where does the GuitarHub community meet?",
-    a: "On Suede AI Social, where players post rigs and talk guitar. The founding room's practice crew is formed from the applications we review personally.",
+    a: "On the Suede Social guitar forum, where players post rigs and talk gear, tone and setup. The founding room's practice crew is formed from the applications we review personally.",
   },
   {
     q: "Does GuitarHub upload my playing?",

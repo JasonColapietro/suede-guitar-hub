@@ -175,7 +175,7 @@ Any guitarist with one thing they can't play yet. New players follow the guided 
 
 Yes. The 30-day planner is free, needs no account, and stores progress only in your browser.
 
-On Suede AI Social, where players post rigs and talk guitar. The founding room's practice crew is formed from the applications we review personally.
+On the Suede Social guitar forum, where players post rigs and talk gear, tone and setup. The founding room's practice crew is formed from the applications we review personally.
 
 Microphone exercises analyze audio on your device. Raw audio is not recorded or uploaded. Practice history stays in this browser; the application form sends the details you choose to submit by email.
 
@@ -193,7 +193,7 @@ Lessons on their own tell you what to do next. They do not tell you whether the 
 
 ### Who built this
 
-GuitarHub is made by [Suede AI](https://suedeai.ai), a studio founded by Jason Colapietro. Suede AI also builds [Strumly](https://strumly.suedeai.ai/guides), the AI guitar coach with its practice tools, its book and guides, and a music data API that AI agents pay for per call, and [Suede AI Social](https://social.suedeai.ai), where the guitar conversation happens. GuitarHub is the lessons site. It owns the curriculum, the practice method, and the job the other two leave open: deciding what to practice next, and proving it worked.
+GuitarHub is made by [Suede AI](https://suedeai.ai), a studio founded by Jason Colapietro. Suede AI also builds [Strumly](https://strumly.suedeai.ai/guides), the AI guitar coach with its practice tools, its book and guides, and a music data API that AI agents pay for per call, and [Suede Social](https://social.suedeai.ai), where the guitar conversation happens. GuitarHub is the lessons site. It owns the curriculum, the practice method, and the job the other two leave open: deciding what to practice next, and proving it worked.
 
 The position behind the site is his. A player with a shelf of finished courses and no finished songs has not failed at practice. They were handed material and no way to check their own work, which is a different problem with a different fix. The fix is unglamorous: fewer goals, a recording at each end of the month, and a straight comparison of the two.
 
@@ -227,13 +227,13 @@ The lesson paths and the practice tools serve different needs. A new player can 
 
 Start with the opening module of a path and the free browser tools. Use the practice loop to choose one goal, capture a baseline on your phone, and bring a recording and a specific question to your next lesson. Apply for the founding room for a personal response about your playing goals.
 
-### How this fits with Strumly and Suede AI Social
+### How this fits with Strumly and Suede Social
 
-GuitarHub teaches and runs your practice. Strumly coaches. Suede AI Social carries the wider conversation. All three are Suede AI products.
+GuitarHub teaches and runs your practice. Strumly coaches. The Suede Social guitar forum carries the wider conversation. All three are Suede AI products.
 
 In practice that means a lesson or a plan here decides what you work on this week, and GuitarHub's own tuner, metronome and Advanced Lab drills cover the daily work. Strumly adds the AI coach that listens to you play, along with chord references, scale maps and ear training. The [Strumly guides](https://strumly.suedeai.ai/guides) go deep on gear, tone, signal chain and the rights to your music. Strumly also sells its music data to AI agents one call at a time. That is Strumly's business, and it runs on the same chord, key and song knowledge the lessons here are built on.
 
-The GuitarHub community meets on [Suede AI Social](https://social.suedeai.ai), where players post rigs and talk to each other.
+The GuitarHub community meets on [Suede Social guitar forum](https://social.suedeai.ai/forum), where players post rigs and talk tone, gear and setup with each other.
 
 ### Apply for the founding room
 
@@ -5050,7 +5050,7 @@ Bring GuitarHub, Strumly, and your teacher into a focused weekly practice routin
 
 #### How does GuitarHub relate to Strumly and Suede AI?
 
-GuitarHub, Strumly, Suede Sing, and Suede AI Social are Suede AI products, founded by Jason Colapietro. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede AI Social carries the wider conversation.
+GuitarHub, Strumly, Suede Sing, and Suede Social are Suede AI products, founded by Jason Colapietro. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede Social carries the wider conversation.
 
 #### How can I use this alongside a teacher?
 
@@ -5129,7 +5129,7 @@ Why progress stalls once the beginner gains run out, and what to change when it 
 
 - [Strumly guides ↗](https://strumly.suedeai.ai/guides)
 - [AI feedback vs a human teacher ↗](https://strumly.suedeai.ai/guides/ai-feedback-vs-human-teacher)
-- [Suede AI Social ↗](https://social.suedeai.ai)
+- [Suede Social guitar forum ↗](https://social.suedeai.ai/forum)
 - [About GuitarHub →](https://guitarhub.org/about)
 
 ### Reading about it is not evidence.

@@ -227,7 +227,7 @@ export default function ChoosingFirstGuitarAppPage() {
 
         <p>
           The GuitarHub community meets on{" "}
-          <a href={STRUMLY.social}>Suede AI Social</a>, where players post rigs
+          <a href={STRUMLY.socialForum}>Suede Social guitar forum</a>, where players post rigs
           and talk guitar. Players who want personal feedback can{" "}
           <Link href="/#apply">apply to the founding room</Link>, a small group
           matched by goal and schedule, with applications reviewed personally.

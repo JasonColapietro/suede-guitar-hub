@@ -155,7 +155,7 @@ export default function AboutPage() {
           <a href={STRUMLY.guides}>Strumly</a>, the AI guitar coach with its
           practice tools, its book and guides, and a music data API that AI
           agents pay for per call, and{" "}
-          <a href={STRUMLY.social}>Suede AI Social</a>, where the guitar
+          <a href={STRUMLY.social}>Suede Social</a>, where the guitar
           conversation happens. GuitarHub is the lessons site. It owns the
           curriculum, the practice method, and the job the other two leave
           open: deciding what to practice next, and proving it worked.
@@ -277,11 +277,11 @@ export default function AboutPage() {
           your playing goals.
         </p>
 
-        <h2>How this fits with Strumly and Suede AI Social</h2>
+        <h2>How this fits with Strumly and Suede Social</h2>
 
         <p>
-          GuitarHub teaches and runs your practice. Strumly coaches. Suede AI
-          Social carries the wider conversation. All three are Suede AI
+          GuitarHub teaches and runs your practice. Strumly coaches. The Suede Social
+          guitar forum carries the wider conversation. All three are Suede AI
           products.
         </p>
 
@@ -300,8 +300,8 @@ export default function AboutPage() {
 
         <p>
           The GuitarHub community meets on{" "}
-          <a href={STRUMLY.social}>Suede AI Social</a>, where players post rigs
-          and talk to each other.
+          <a href={STRUMLY.socialForum}>Suede Social guitar forum</a>, where
+          players post rigs and talk tone, gear and setup with each other.
         </p>
 
         <h2>Apply for the founding room</h2>

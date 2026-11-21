@@ -242,7 +242,7 @@ const FAQS: readonly Faq[] = [
     id: "how-it-relates-to-strumly",
     group: "strumly-and-teachers",
     q: "How does GuitarHub relate to Strumly and Suede AI?",
-    a: "GuitarHub, Strumly, Suede Sing, and Suede AI Social are Suede AI products, founded by Jason Colapietro. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede AI Social carries the wider conversation.",
+    a: "GuitarHub, Strumly, Suede Sing, and Suede Social are Suede AI products, founded by Jason Colapietro. GuitarHub teaches guitar and structures your practice, Strumly is the AI guitar coach, Suede Sing teaches voice, and Suede Social carries the wider conversation.",
   },
   {
     id: "does-it-replace-a-teacher",
@@ -558,10 +558,10 @@ export default function FaqPage() {
               </li>
               <li>
                 <a
-                  href={STRUMLY.social}
+                  href={STRUMLY.socialForum}
                   className="inline-flex min-h-11 items-center gap-1 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-indigo-deep ring-1 ring-ink/5 motion-safe:transition hover:bg-cream"
                 >
-                  Suede AI Social <span aria-hidden>↗</span>
+                  Suede Social guitar forum <span aria-hidden>↗</span>
                 </a>
               </li>
               <li>

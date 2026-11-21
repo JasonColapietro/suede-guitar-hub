@@ -695,6 +695,13 @@ export const STRUMLY = {
       "https://strumly.suedeai.ai/book/lessons/lesson-smells-like-teen-spirit",
   },
   social: "https://social.suedeai.ai",
+  /**
+   * The Suede Social guitar forum (Tone Talk, Setup & Maintenance, Rig
+   * Diaries, Guitar Help). Links that send a player to ask or answer a guitar
+   * question point here with "guitar forum" anchor text, so the forum's own
+   * landing page collects the topical signal instead of the network root.
+   */
+  socialForum: "https://social.suedeai.ai/forum",
   suedeLabs: "https://suedeai.ai",
   /**
    * Suede Sing, the vocal studio. Added 2026-09-12, and overdue: this site
